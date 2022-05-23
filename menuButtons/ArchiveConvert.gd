@@ -6,7 +6,7 @@ var confirm:bool = false
 
 func _pressed():
 	
-	if dir.dir_exists("user://maps/ss_archive"): 
+	if dir.file_exists("user://maps/ss_archive_3r2_-_star_rider.sspm"): 
 		OS.shell_open(ProjectSettings.globalize_path("user://packs"))
 	elif confirm:
 		SSP.do_archive_convert = true
