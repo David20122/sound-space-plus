@@ -261,19 +261,17 @@ func convert_to_sspm():
 	else: file.store_8(0)
 	
 	# Audio
-	if stream() != Globals.error_sound:
-		var file2:File = File.new()
-		err = file2.open(musicFile,File.READ)
-		if err != OK:
-			file.store_8(0)
-			push_warning("Failed to open music file while converting map!")
-		else:
-			var mdata:PoolByteArray = file2.get_buffer(file2.get_len())
-			file.store_8(1)
-			file2.close()
-			file.store_64(mdata.size())
-			file.store_buffer(mdata)
-	else: file.store_8(0)
+	var file2:File = File.new()
+	err = file2.open(musicFile,File.READ)
+	if err != OK:
+		file.store_8(0)
+		push_warning("Failed to open music file while converting map!")
+	else:
+		var mdata:PoolByteArray = file2.get_buffer(file2.get_len())
+		file.store_8(1)
+		file2.close()
+		file.store_64(mdata.size())
+		file.store_buffer(mdata)
 	
 	# Note data
 	for n in notes:
@@ -333,6 +331,13 @@ func load_from_sspm(path:String):
 		warning = "[sspm] Invalid music storage type!"
 		is_broken = true
 		return
+	else:
+		file.get_64()
+		var buf:PoolByteArray = file.get_buffer(12)
+		if Globals.audioLoader.get_format(buf) == "unknown":
+			warning = "[sspm] Invalid music data!"
+			is_broken = true
+			return
 	
 	sspm_song_stored = true
 	
