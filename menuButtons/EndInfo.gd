@@ -79,6 +79,7 @@ func _ready():
 		elif is_best:
 			$Result.text = "You failed (new best!)"
 			$Result.set("custom_colors/font_color",Color("#ea4aca"))
+		else: $Result.text = "You failed!"
 		
 		$FullCombo.visible = SSP.song_end_misses == 0 && SSP.song_end_type == Globals.END_PASS
 		$Misses.visible = !SSP.song_end_misses == 0 || !SSP.song_end_type == Globals.END_PASS
