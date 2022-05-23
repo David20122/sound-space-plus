@@ -1,0 +1,930 @@
+[gd_scene load_steps=54 format=2]
+
+[ext_resource path="res://Camera.gd" type="Script" id=1]
+[ext_resource path="res://NoteManager.gd" type="Script" id=2]
+[ext_resource path="res://Game.gd" type="Script" id=3]
+[ext_resource path="res://classes/Note.gd" type="Script" id=4]
+[ext_resource path="res://FPS.gd" type="Script" id=5]
+[ext_resource path="res://configDisp.gd" type="Script" id=6]
+[ext_resource path="res://grid_inner.png" type="Texture" id=7]
+[ext_resource path="res://spawn_effect.png" type="Texture" id=8]
+[ext_resource path="res://grid_outer.png" type="Texture" id=9]
+[ext_resource path="res://content/cursors/square.png" type="Texture" id=10]
+[ext_resource path="res://MusicVolumeSetter.gd" type="Script" id=11]
+[ext_resource path="res://content/blocks/default.obj" type="ArrayMesh" id=12]
+[ext_resource path="res://CircularProgress.gd" type="Script" id=13]
+[ext_resource path="res://Cursor.gd" type="Script" id=14]
+[ext_resource path="res://font/Lato/Lato-Light.ttf" type="DynamicFontData" id=15]
+[ext_resource path="res://font/Roboto/Regular.ttf" type="DynamicFontData" id=16]
+[ext_resource path="res://font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=17]
+[ext_resource path="res://font/Lato/Lato-Bold.ttf" type="DynamicFontData" id=18]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.145098, 0.74902, 0, 1 )
+
+[sub_resource type="Environment" id=2]
+
+[sub_resource type="World" id=3]
+environment = SubResource( 2 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.560784, 0.560784, 0.560784, 0.686275 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 48
+use_filter = true
+font_data = ExtResource( 18 )
+
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 0.54902, 1, 0, 1 )
+
+[sub_resource type="DynamicFont" id=8]
+size = 36
+use_filter = true
+font_data = ExtResource( 17 )
+
+[sub_resource type="DynamicFont" id=9]
+size = 48
+font_data = ExtResource( 16 )
+
+[sub_resource type="DynamicFont" id=10]
+size = 96
+use_filter = true
+font_data = ExtResource( 15 )
+
+[sub_resource type="StyleBoxFlat" id=11]
+bg_color = Color( 1, 1, 1, 1 )
+corner_detail = 1
+anti_aliasing_size = 3
+
+[sub_resource type="DynamicFont" id=12]
+size = 52
+use_filter = true
+font_data = ExtResource( 17 )
+
+[sub_resource type="DynamicFont" id=13]
+size = 72
+outline_size = 2
+outline_color = Color( 0, 0, 0, 0.333333 )
+use_filter = true
+font_data = ExtResource( 15 )
+
+[sub_resource type="StyleBoxFlat" id=14]
+bg_color = Color( 0.227451, 0.647059, 0.0823529, 1 )
+
+[sub_resource type="StyleBoxFlat" id=15]
+bg_color = Color( 0.580392, 0.129412, 0.129412, 0.686275 )
+
+[sub_resource type="DynamicFont" id=16]
+size = 72
+outline_size = 2
+outline_color = Color( 0, 0, 0, 0.333333 )
+use_filter = true
+font_data = ExtResource( 17 )
+
+[sub_resource type="DynamicFont" id=17]
+size = 44
+use_filter = true
+font_data = ExtResource( 17 )
+
+[sub_resource type="DynamicFont" id=18]
+size = 28
+use_filter = true
+font_data = ExtResource( 17 )
+
+[sub_resource type="ViewportTexture" id=19]
+flags = 4
+viewport_path = NodePath("Game/Grid/TimerVP")
+
+[sub_resource type="ViewportTexture" id=20]
+flags = 4
+viewport_path = NodePath("Game/Grid/LeftVP")
+
+[sub_resource type="ViewportTexture" id=21]
+flags = 4
+viewport_path = NodePath("Game/Grid/GiveUpVP")
+
+[sub_resource type="ViewportTexture" id=22]
+flags = 4
+viewport_path = NodePath("Game/Grid/PauseVP")
+
+[sub_resource type="ViewportTexture" id=23]
+flags = 4
+viewport_path = NodePath("Game/Grid/RightVP")
+
+[sub_resource type="ViewportTexture" id=24]
+flags = 4
+viewport_path = NodePath("Game/Grid/EnergyVP")
+
+[sub_resource type="ViewportTexture" id=25]
+flags = 4
+viewport_path = NodePath("Game/Grid/ConfigVP")
+
+[sub_resource type="PlaneMesh" id=26]
+size = Vector2( 3.1, 3.1 )
+
+[sub_resource type="SpatialMaterial" id=27]
+resource_local_to_scene = true
+flags_transparent = true
+flags_unshaded = true
+albedo_color = Color( 1, 1, 1, 0.588235 )
+albedo_texture = ExtResource( 9 )
+
+[sub_resource type="PlaneMesh" id=28]
+size = Vector2( 3, 3 )
+
+[sub_resource type="SpatialMaterial" id=29]
+resource_local_to_scene = true
+flags_transparent = true
+flags_unshaded = true
+albedo_color = Color( 1, 1, 1, 0.352941 )
+albedo_texture = ExtResource( 7 )
+
+[sub_resource type="BoxShape" id=30]
+extents = Vector3( 40, 40, 1 )
+
+[sub_resource type="PlaneMesh" id=31]
+size = Vector2( 0.273, 0.273 )
+
+[sub_resource type="SpatialMaterial" id=32]
+resource_local_to_scene = true
+flags_transparent = true
+flags_unshaded = true
+albedo_color = Color( 1, 0, 0, 1 )
+albedo_texture = ExtResource( 10 )
+
+[sub_resource type="SpatialMaterial" id=33]
+flags_unshaded = true
+params_specular_mode = 4
+distance_fade_mode = 1
+distance_fade_min_distance = 100.0
+distance_fade_max_distance = 90.0
+
+[sub_resource type="PlaneMesh" id=34]
+size = Vector2( 0.8, 18 )
+
+[sub_resource type="SpatialMaterial" id=35]
+flags_transparent = true
+flags_unshaded = true
+params_specular_mode = 4
+params_cull_mode = 2
+albedo_texture = ExtResource( 8 )
+uv1_scale = Vector3( 1, 0.9, 1 )
+uv1_offset = Vector3( 0, 0.03, 0 )
+
+[node name="Spatial" type="Spatial"]
+
+[node name="SpinPos" type="Position3D" parent="."]
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.73472 )
+current = true
+far = 500.0
+script = ExtResource( 1 )
+
+[node name="RayCast" type="RayCast" parent="Camera"]
+cast_to = Vector3( 0, 0, -100 )
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="Game" type="Spatial" parent="."]
+pause_mode = 2
+script = ExtResource( 3 )
+timer_fg_done = SubResource( 1 )
+
+[node name="BlackFade" type="ColorRect" parent="Game"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+color = Color( 0, 0, 0, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Grid" type="Spatial" parent="Game"]
+pause_mode = 1
+
+[node name="TimerVP" type="Viewport" parent="Game/Grid"]
+size = Vector2( 900, 150 )
+own_world = true
+world = SubResource( 3 )
+transparent_bg = true
+msaa = 2
+usage = 0
+
+[node name="Control" type="Control" parent="Game/Grid/TimerVP"]
+margin_right = 900.0
+margin_bottom = 150.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Time" type="ProgressBar" parent="Game/Grid/TimerVP/Control"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -400.0
+margin_top = -50.0
+margin_right = 400.0
+margin_bottom = -25.0
+custom_styles/fg = SubResource( 4 )
+custom_styles/bg = SubResource( 5 )
+max_value = 1.0
+step = 0.0
+value = 0.5
+percent_visible = false
+
+[node name="Label" type="Label" parent="Game/Grid/TimerVP/Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = -60.0
+custom_fonts/font = SubResource( 6 )
+text = "CLICK TO START"
+align = 1
+valign = 2
+
+[node name="LeftVP" type="Viewport" parent="Game/Grid"]
+size = Vector2( 300, 900 )
+transparent_bg = true
+usage = 0
+gui_snap_controls_to_pixels = false
+
+[node name="Control" type="ColorRect" parent="Game/Grid/LeftVP"]
+margin_right = 300.0
+margin_bottom = 900.0
+color = Color( 0, 0, 0, 0.294118 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AccuracyBar" type="ProgressBar" parent="Game/Grid/LeftVP/Control"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -1.18921
+margin_top = -50.0
+margin_right = -1.18921
+margin_bottom = -25.0
+custom_styles/fg = SubResource( 7 )
+custom_styles/bg = SubResource( 5 )
+max_value = 1.0
+step = 0.0
+value = 1.0
+percent_visible = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AccuracyTitle" type="Label" parent="Game/Grid/LeftVP/Control"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -231.908
+margin_bottom = -156.908
+custom_fonts/font = SubResource( 8 )
+text = "ACCURACY"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Accuracy" type="Label" parent="Game/Grid/LeftVP/Control"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -166.622
+margin_bottom = -91.6223
+custom_fonts/font = SubResource( 9 )
+text = "-"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Combo" type="Control" parent="Game/Grid/LeftVP/Control"]
+anchor_right = 1.0
+margin_left = 25.0
+margin_top = 25.0
+margin_right = -25.0
+margin_bottom = 275.0
+script = ExtResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+fill_color = Color( 0.482353, 1, 0.976471, 1 )
+empty_color = Color( 0.117188, 0.117188, 0.117188, 1 )
+
+[node name="Label" type="Label" parent="Game/Grid/LeftVP/Control/Combo"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 10 )
+text = "1x"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Part" type="Control" parent="Game/Grid/LeftVP/Control/Combo"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="Panel" parent="Game/Grid/LeftVP/Control/Combo/Part"]
+margin_left = -5.0
+margin_top = -100.0
+margin_right = 5.0
+margin_bottom = -93.0
+custom_styles/panel = SubResource( 11 )
+
+[node name="Pauses" type="Label" parent="Game/Grid/LeftVP/Control"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -552.179
+margin_bottom = -477.179
+custom_fonts/font = SubResource( 12 )
+text = "0"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PausesTitle" type="Label" parent="Game/Grid/LeftVP/Control"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -616.776
+margin_bottom = -541.776
+custom_fonts/font = SubResource( 8 )
+text = "PAUSES"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GiveUpVP" type="Viewport" parent="Game/Grid"]
+size = Vector2( 600, 600 )
+transparent_bg = true
+msaa = 1
+fxaa = true
+usage = 0
+gui_snap_controls_to_pixels = false
+
+[node name="Control" type="Control" parent="Game/Grid/GiveUpVP"]
+margin_right = 600.0
+margin_bottom = 600.0
+script = ExtResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+fill_color = Color( 1, 0.490196, 0, 1 )
+empty_color = Color( 0.219608, 0.219608, 0.219608, 1 )
+
+[node name="Label" type="Label" parent="Game/Grid/GiveUpVP/Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -300.0
+margin_top = -300.0
+margin_right = 300.0
+margin_bottom = 300.0
+custom_fonts/font = SubResource( 13 )
+text = "Giving up..."
+align = 1
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Part" type="Control" parent="Game/Grid/GiveUpVP/Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="Panel" parent="Game/Grid/GiveUpVP/Control/Part"]
+margin_left = -15.0
+margin_top = -250.0
+margin_right = 15.0
+margin_bottom = -236.0
+custom_styles/panel = SubResource( 11 )
+
+[node name="RightVP" type="Viewport" parent="Game/Grid"]
+size = Vector2( 300, 900 )
+transparent_bg = true
+usage = 0
+gui_snap_controls_to_pixels = false
+
+[node name="Control" type="ColorRect" parent="Game/Grid/RightVP"]
+margin_right = 300.0
+margin_bottom = 900.0
+color = Color( 0, 0, 0, 0.294118 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Notes" type="Label" parent="Game/Grid/RightVP/Control"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -167.31
+margin_bottom = -92.3102
+custom_fonts/font = SubResource( 12 )
+text = "0/0"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NoteTitle" type="Label" parent="Game/Grid/RightVP/Control"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -231.908
+margin_bottom = -156.908
+custom_fonts/font = SubResource( 8 )
+text = "NOTES"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Misses" type="Label" parent="Game/Grid/RightVP/Control"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -552.179
+margin_bottom = -477.179
+custom_fonts/font = SubResource( 12 )
+text = "0"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MissesTitle" type="Label" parent="Game/Grid/RightVP/Control"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -616.776
+margin_bottom = -541.776
+custom_fonts/font = SubResource( 8 )
+text = "MISSES"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FPS" type="Label" parent="Game/Grid/RightVP/Control"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -785.513
+margin_bottom = -710.513
+custom_fonts/font = SubResource( 12 )
+text = "0"
+align = 1
+valign = 1
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FPSTitle" type="Label" parent="Game/Grid/RightVP/Control"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -850.11
+margin_bottom = -775.11
+custom_fonts/font = SubResource( 8 )
+text = "FPS"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EnergyVP" type="Viewport" parent="Game/Grid"]
+size = Vector2( 900, 150 )
+own_world = true
+world = SubResource( 3 )
+transparent_bg = true
+msaa = 2
+usage = 0
+
+[node name="Control" type="Control" parent="Game/Grid/EnergyVP"]
+margin_right = 900.0
+margin_bottom = 150.0
+
+[node name="Energy" type="ProgressBar" parent="Game/Grid/EnergyVP/Control"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -400.0
+margin_top = 15.0
+margin_right = 400.0
+margin_bottom = 30.0
+custom_styles/fg = SubResource( 14 )
+custom_styles/bg = SubResource( 15 )
+max_value = 1.0
+step = 0.0
+value = 1.0
+percent_visible = false
+
+[node name="PauseVP" type="Viewport" parent="Game/Grid"]
+size = Vector2( 600, 600 )
+transparent_bg = true
+msaa = 1
+fxaa = true
+usage = 0
+gui_snap_controls_to_pixels = false
+
+[node name="Control" type="Control" parent="Game/Grid/PauseVP"]
+margin_right = 600.0
+margin_bottom = 600.0
+script = ExtResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+fill_color = Color( 0.537255, 1, 0.0745098, 1 )
+empty_color = Color( 0.12549, 0.270588, 0.101961, 0 )
+
+[node name="Label" type="Label" parent="Game/Grid/PauseVP/Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -300.0
+margin_top = -300.0
+margin_right = 300.0
+margin_bottom = 300.0
+custom_fonts/font = SubResource( 16 )
+custom_colors/font_color = Color( 0.407843, 1, 0, 1 )
+text = "PAUSED"
+align = 1
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Part" type="Control" parent="Game/Grid/PauseVP/Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="Panel" parent="Game/Grid/PauseVP/Control/Part"]
+margin_left = -15.0
+margin_top = -250.0
+margin_right = 15.0
+margin_bottom = -236.0
+custom_styles/panel = SubResource( 11 )
+
+[node name="ConfigVP" type="Viewport" parent="Game/Grid"]
+size = Vector2( 600, 600 )
+transparent_bg = true
+msaa = 1
+fxaa = true
+usage = 0
+gui_snap_controls_to_pixels = false
+
+[node name="Control" type="ColorRect" parent="Game/Grid/ConfigVP"]
+margin_right = 600.0
+margin_bottom = 600.0
+color = Color( 0, 0, 0, 0.831373 )
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HitWindow" type="Label" parent="Game/Grid/ConfigVP/Control"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 30.0
+margin_top = -525.0
+margin_right = -315.0
+margin_bottom = -460.0
+custom_fonts/font = SubResource( 17 )
+text = "35 ms"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="Game/Grid/ConfigVP/Control/HitWindow"]
+anchor_right = 1.0
+margin_top = -40.0
+custom_fonts/font = SubResource( 18 )
+text = "HIT WINDOW"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Approach" type="Label" parent="Game/Grid/ConfigVP/Control"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 315.0
+margin_top = -525.0
+margin_right = -30.0
+margin_bottom = -460.0
+custom_fonts/font = SubResource( 17 )
+text = "50"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="Game/Grid/ConfigVP/Control/Approach"]
+anchor_right = 1.0
+margin_top = -40.0
+custom_fonts/font = SubResource( 18 )
+text = "APPROACH RATE"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Camera" type="Label" parent="Game/Grid/ConfigVP/Control"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 30.0
+margin_top = -400.0
+margin_right = -315.0
+margin_bottom = -335.0
+custom_fonts/font = SubResource( 17 )
+text = "LOCK"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="Game/Grid/ConfigVP/Control/Camera"]
+anchor_right = 1.0
+margin_top = -40.0
+custom_fonts/font = SubResource( 18 )
+text = "CAMERA TYPE"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Parallax" type="Label" parent="Game/Grid/ConfigVP/Control"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 315.0
+margin_top = -400.0
+margin_right = -30.0
+margin_bottom = -335.0
+custom_fonts/font = SubResource( 17 )
+text = "1.00"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="Game/Grid/ConfigVP/Control/Parallax"]
+anchor_right = 1.0
+margin_top = -40.0
+custom_fonts/font = SubResource( 18 )
+text = "PARALLAX"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EdgeBuffer" type="Label" parent="Game/Grid/ConfigVP/Control"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 30.0
+margin_top = -275.0
+margin_right = -315.0
+margin_bottom = -210.0
+custom_fonts/font = SubResource( 17 )
+text = "NO"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="Game/Grid/ConfigVP/Control/EdgeBuffer"]
+anchor_right = 1.0
+margin_top = -40.0
+custom_fonts/font = SubResource( 18 )
+text = "EDGE BUFFER"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Hitbox" type="Label" parent="Game/Grid/ConfigVP/Control"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 30.0
+margin_top = -150.0
+margin_right = -315.0
+margin_bottom = -85.0
+custom_fonts/font = SubResource( 17 )
+text = "1.27 (+0)"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="Game/Grid/ConfigVP/Control/Hitbox"]
+anchor_right = 1.0
+margin_top = -40.0
+custom_fonts/font = SubResource( 18 )
+text = "HITBOX SIZE"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sensitivity" type="Label" parent="Game/Grid/ConfigVP/Control"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 315.0
+margin_top = -275.0
+margin_right = -30.0
+margin_bottom = -210.0
+custom_fonts/font = SubResource( 17 )
+text = "1.00"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="Game/Grid/ConfigVP/Control/Sensitivity"]
+anchor_right = 1.0
+margin_top = -40.0
+custom_fonts/font = SubResource( 18 )
+text = "SENSITIVITY"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TimerHud" type="Sprite3D" parent="Game/Grid"]
+transform = Transform( 1, 1.37938e-07, -1.50892e-07, 8.58073e-08, 0.386727, 0.922195, 1.8556e-07, -0.922195, 0.386727, 0, 1.74844, 0.112263 )
+cast_shadow = 0
+pixel_size = 0.0033
+axis = 1
+texture = SubResource( 19 )
+
+[node name="LeftHud" type="Sprite3D" parent="Game/Grid"]
+transform = Transform( 0.996195, -0.0871558, -3.8097e-09, 0, -4.37114e-08, 1, -0.0871557, -0.996195, -4.35451e-08, -1.95702, 2.18557e-08, 0.280393 )
+cast_shadow = 0
+pixel_size = 0.0033
+axis = 1
+texture = SubResource( 20 )
+
+[node name="GiveUpHud" type="Sprite3D" parent="Game/Grid"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2.23827e-08, 0.512057 )
+visible = false
+cast_shadow = 0
+pixel_size = 0.0033
+axis = 1
+texture = SubResource( 21 )
+
+[node name="PauseHud" type="Sprite3D" parent="Game/Grid"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.89666e-08, 0.433905 )
+visible = false
+cast_shadow = 0
+pixel_size = 0.0044
+axis = 1
+texture = SubResource( 22 )
+
+[node name="RightHud" type="Sprite3D" parent="Game/Grid"]
+transform = Transform( 0.996195, 0.0871558, 3.8097e-09, 0, -4.37114e-08, 1, 0.0871557, -0.996195, -4.35451e-08, 1.957, 0, 0.28 )
+cast_shadow = 0
+pixel_size = 0.0033
+axis = 1
+texture = SubResource( 23 )
+
+[node name="EnergyHud" type="Sprite3D" parent="Game/Grid"]
+transform = Transform( 1, 0, 0, 0, -0.378633, 0.925547, 0, -0.925547, -0.378632, 0, -1.79008, 0.0537441 )
+cast_shadow = 0
+pixel_size = 0.0033
+axis = 1
+texture = SubResource( 24 )
+
+[node name="ConfigHud" type="Sprite3D" parent="Game/Grid"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2.35546e-08, 0.538867 )
+cast_shadow = 0
+pixel_size = 0.0033
+axis = 1
+texture = SubResource( 25 )
+
+[node name="Outer" type="MeshInstance" parent="Game/Grid"]
+transform = Transform( -4.37114e-08, -4.37114e-08, -1, -1, 1.91069e-15, 4.37114e-08, 0, 1, -4.37114e-08, 0, 0, 0 )
+mesh = SubResource( 26 )
+material/0 = SubResource( 27 )
+
+[node name="Inner" type="MeshInstance" parent="Game/Grid"]
+transform = Transform( -4.37114e-08, -4.37114e-08, -1, -1, 1.91069e-15, 4.37114e-08, 0, 1, -4.37114e-08, 0, 0, -0.005 )
+mesh = SubResource( 28 )
+material/0 = SubResource( 29 )
+
+[node name="Area" type="Area" parent="Game/Grid"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Game/Grid/Area"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000244856, 0.00723147, -0.998636 )
+shape = SubResource( 30 )
+
+[node name="Spawn" type="Spatial" parent="Game"]
+pause_mode = 1
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, 0 )
+script = ExtResource( 2 )
+
+[node name="Music" type="AudioStreamPlayer" parent="Game/Spawn"]
+bus = "Music"
+script = ExtResource( 11 )
+
+[node name="Miss" type="AudioStreamPlayer" parent="Game/Spawn"]
+pause_mode = 2
+volume_db = -8.0
+
+[node name="Hit" type="AudioStreamPlayer" parent="Game/Spawn"]
+pause_mode = 2
+volume_db = -22.0
+
+[node name="Cursor" type="Spatial" parent="Game/Spawn"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -1, 0 )
+script = ExtResource( 14 )
+
+[node name="Mesh" type="MeshInstance" parent="Game/Spawn/Cursor"]
+transform = Transform( 1, 0, 4.37114e-08, 4.37114e-08, 1.91069e-15, -1, 0, 1, 1.91069e-15, 0, 0, 0 )
+mesh = SubResource( 31 )
+material/0 = SubResource( 32 )
+
+[node name="Mesh2" type="MeshInstance" parent="Game/Spawn/Cursor"]
+transform = Transform( 0.5, 0, 2.18557e-08, 2.18557e-08, 9.55343e-16, -0.5, 0, 0.5, 9.55343e-16, 4.36088e-10, -4.36088e-10, 0.00997654 )
+visible = false
+mesh = SubResource( 31 )
+material/0 = SubResource( 32 )
+
+[node name="Note" type="Spatial" parent="Game/Spawn"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -1, 8 )
+visible = false
+script = ExtResource( 4 )
+
+[node name="Mesh" type="MeshInstance" parent="Game/Spawn/Note"]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.0182791, -0.058707, -0.0731821 )
+cast_shadow = 0
+mesh = ExtResource( 12 )
+material/0 = SubResource( 33 )
+
+[node name="Spawn" type="Spatial" parent="Game/Spawn/Note"]
+
+[node name="Mesh" type="MeshInstance" parent="Game/Spawn/Note/Spawn"]
+transform = Transform( 1, 0, 0, 0, -2.18557e-08, -0.5, 0, 0.5, -2.18557e-08, 0.013, 4.5, -0.005 )
+cast_shadow = 0
+mesh = SubResource( 34 )
+material/0 = SubResource( 35 )

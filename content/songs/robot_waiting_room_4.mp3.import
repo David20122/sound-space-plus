@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/robot_waiting_room_4.mp3-18180821211afe8e29e6dc62b3400754.mp3str"
+
+[deps]
+
+source_file="res://content/songs/robot_waiting_room_4.mp3"
+dest_files=[ "res://.import/robot_waiting_room_4.mp3-18180821211afe8e29e6dc62b3400754.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

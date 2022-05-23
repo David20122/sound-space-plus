@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/MeteoricImpact.mp3-285e07abdbf76329d4801d726381c34c.mp3str"
+
+[deps]
+
+source_file="res://content/songs/MeteoricImpact.mp3"
+dest_files=[ "res://.import/MeteoricImpact.mp3-285e07abdbf76329d4801d726381c34c.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

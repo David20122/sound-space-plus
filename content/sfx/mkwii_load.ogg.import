@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/mkwii_load.ogg-5738d9bd1a7393e4398a3fd315fe13a4.oggstr"
+
+[deps]
+
+source_file="res://content/sfx/mkwii_load.ogg"
+dest_files=[ "res://.import/mkwii_load.ogg-5738d9bd1a7393e4398a3fd315fe13a4.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0.0
