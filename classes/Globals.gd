@@ -26,8 +26,10 @@ enum {
 	SPEED_P = 4
 	SPEED_PP = 5
 	SPEED_PPP = 6
+	SPEED_CUSTOM = 7
 }
-const speed_multi:Array = [
+
+onready var speed_multi:Array = [
 	1,
 	1/1.35,
 	1/1.25,
@@ -35,6 +37,7 @@ const speed_multi:Array = [
 	1.15,
 	1.25,
 	1.35,
+	SSP.custom_speed,
 ]
 
 enum {

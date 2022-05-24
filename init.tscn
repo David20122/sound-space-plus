@@ -77,9 +77,6 @@ rect_pivot_offset = Vector2( -109, -204 )
 custom_fonts/font = SubResource( 2 )
 text = "Waiting for engine"
 align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="VersionNumber" type="Label" parent="."]
 anchor_top = 1.0
@@ -90,8 +87,8 @@ margin_right = 344.0
 margin_bottom = -15.0
 grow_vertical = 2
 theme = ExtResource( 4 )
-custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 1, 0.705882, 0.945098, 1 )
+custom_fonts/font = SubResource( 3 )
 text = "Sound Space+   vA-B-C-branch"
 valign = 1
 script = ExtResource( 2 )
@@ -121,9 +118,6 @@ margin_top = -100.0
 margin_right = -20.0
 margin_bottom = -20.0
 script = SubResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="0" type="Control" parent="Spinner"]
 margin_left = 5.0
@@ -409,9 +403,6 @@ margin_left = 10.0
 margin_right = 20.0
 margin_bottom = 10.0
 color = Color( 0.941176, 0.94902, 0.952941, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="BlackFade" type="ColorRect" parent="."]
 visible = false

@@ -105,6 +105,7 @@ var enable_drift_cursor:bool = true
 var cursor_spin:float = 0
 var note_hitbox_size:float = 1.27
 var spawn_distance:float = 100
+var custom_speed:float = 1
 var play_menu_music:bool = false setget _set_menu_music
 func _set_menu_music(v:bool):
 	play_menu_music = v; emit_signal("menu_music_state_changed")
@@ -397,6 +398,7 @@ func save_settings():
 	file.store_8(12) # integrity check
 	file.store_float(note_hitbox_size)
 	file.store_float(spawn_distance)
+	file.store_float(custom_speed)
 	file.close()
 
 func get_stream_with_default(path:String,default:AudioStream) -> AudioStream:
