@@ -19,7 +19,8 @@ func reposition(ms:float,approachSpeed:float):
 	) and state == Globals.NSTATE_ACTIVE: # state 2 = miss # and current_dist >= -0.5
 		if !was_visible:
 			was_visible = true
-			if !SSP.mod_nearsighted: spawn_effect_t = 1
+			if SSP.note_spawn_effect:
+				if !SSP.mod_nearsighted: spawn_effect_t = 1
 		if state == Globals.NSTATE_ACTIVE:
 			transform.origin.z = -current_dist
 			visible = true
