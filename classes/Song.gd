@@ -164,12 +164,19 @@ func setup_from_vulnus_json(jsonPath:String,songFile:String):
 		is_broken = true
 		return self
 
+func notesort(a,b):
+	if a[2] == b[2]:
+		if a[1] == b[1]: return a[0] < b[0]
+		return a[1] < b[1]
+	return a[2] < b[2]
+
 func read_notes() -> Array:
 	if notes.size() == 0:
 		if (songType == Globals.MAP_RAW or songType == Globals.MAP_TXT):
 			if songType == Globals.MAP_TXT:
 				loadFromFile(initFile)
 			loadRawData(rawData)
+			return notes
 		elif songType == Globals.MAP_VULNUS:
 			var file = File.new()
 			file.open(filePath,File.READ)
@@ -177,16 +184,19 @@ func read_notes() -> Array:
 			file.close()
 			var data:Dictionary = parse_json(json)
 			loadVulnusNoteArray(data.get("_notes",[]))
+			return notes
 		elif songType == Globals.MAP_SSPM:
 			var file:File = File.new()
 			var err = file.open(filePath,File.READ)
-			if err != OK: return []
+			if err != OK:
+				print("error opening file")
+				return []
 			
 			file.seek(8) # Skip over header data
 			file.get_line() # Skip over metadata
 			file.get_line()
 			file.get_line()
-			file.seek(file.get_position() + 6)
+			file.seek(file.get_position() + 4)
 			note_count = file.get_32()
 			file.seek(file.get_position() + 1)
 			
@@ -194,8 +204,10 @@ func read_notes() -> Array:
 				file.seek(file.get_position() + 6)
 				file.seek(file.get_position() + file.get_64())
 			
-			if file.get_8() != 1: return []
-			file.seek(file.get_position() + file.get_64()) # Skip over music
+			if file.get_8() != 1:
+				print("no music?")
+				return []
+			file.seek(file.get_position() + file.get_64() + 8) # Skip over music
 			
 			# Note data
 			for i in range(note_count):
@@ -210,7 +222,7 @@ func read_notes() -> Array:
 					n[0] = float(file.get_8())
 					n[1] = float(file.get_8())
 				notes.append(n)
-			
+	
 	return notes
 
 func discard_notes():
@@ -270,12 +282,16 @@ func convert_to_sspm():
 		var mdata:PoolByteArray = file2.get_buffer(file2.get_len())
 		file.store_8(1)
 		file2.close()
+		print(file.get_position())
+		print(mdata.size()) 
 		file.store_64(mdata.size())
 		file.store_buffer(mdata)
+		print(file.get_position()) # 1,912,171 vs reported 1,912,163, why?
 	
 	# Note data
 	for n in notes:
 		file.store_32(floor(n[2]))
+		print(n[2], " ", file.get_position())
 		if floor(n[0]) != n[0] or floor(n[1]) != n[1]:
 			file.store_8(1)
 			file.store_float(n[0])

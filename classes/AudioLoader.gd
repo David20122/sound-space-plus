@@ -52,7 +52,7 @@ func get_format(bytes:PoolByteArray) -> String:
 	# Figure out file format from signatures
 	# https://en.wikipedia.org/wiki/List_of_file_signatures
 	
-	print(bytes.subarray(0,3).hex_encode())
+#	print(bytes.subarray(0,3).hex_encode())
 	
 	# .ogg
 	if bytes.subarray(0,3) == PoolByteArray([0x4F,0x67,0x67,0x53]): return "ogg"
