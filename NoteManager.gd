@@ -69,8 +69,8 @@ func _ready():
 		m.distance_fade_max_distance = 10
 		m.distance_fade_min_distance = 0
 	else:
-		m.distance_fade_min_distance = SSP.spawn_distance + (SSP.approach_rate * 0.1)
-		m.distance_fade_max_distance = SSP.spawn_distance - (SSP.approach_rate * 0.1)
+		m.distance_fade_min_distance = SSP.spawn_distance + min(SSP.approach_rate * 0.1, SSP.spawn_distance * 0.6)
+		m.distance_fade_max_distance = SSP.spawn_distance - min(SSP.approach_rate * 0.1, SSP.spawn_distance * 0.6)
 
 var music_started:bool = false
 
