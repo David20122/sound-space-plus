@@ -305,7 +305,7 @@ func _process(delta):
 	if Input.is_action_just_pressed("fullscreen"):
 		OS.window_fullscreen = not OS.window_fullscreen
 
-const current_sf_version = 19
+const current_sf_version = 20
 
 func load_saved_settings():
 	var file:File = File.new()
@@ -361,8 +361,8 @@ func load_saved_settings():
 		if sv >= 17: if file.get_8() != 12:
 			print("integ 6"); return 8
 		if sv >= 18: note_hitbox_size = file.get_float()
-		if sv >= 19:
-			spawn_distance = file.get_float()
+		if sv >= 19: spawn_distance = file.get_float()
+		if sv >= 20:
 			custom_speed = file.get_float()
 			note_spawn_effect = bool(file.get_8())
 		file.close()
