@@ -107,6 +107,7 @@ var note_hitbox_size:float = 1.27
 var spawn_distance:float = 100
 var custom_speed:float = 1
 var note_spawn_effect:bool = true
+var display_true_combo:bool = true
 var play_menu_music:bool = false setget _set_menu_music
 func _set_menu_music(v:bool):
 	play_menu_music = v; emit_signal("menu_music_state_changed")
@@ -305,7 +306,7 @@ func _process(delta):
 	if Input.is_action_just_pressed("fullscreen"):
 		OS.window_fullscreen = not OS.window_fullscreen
 
-const current_sf_version = 20
+const current_sf_version = 21
 
 func load_saved_settings():
 	var file:File = File.new()
@@ -365,6 +366,8 @@ func load_saved_settings():
 		if sv >= 20:
 			custom_speed = file.get_float()
 			note_spawn_effect = bool(file.get_8())
+		if sv >= 21:
+			display_true_combo = bool(file.get_8())
 		file.close()
 	return 0
 
@@ -405,6 +408,7 @@ func save_settings():
 	file.store_float(spawn_distance)
 	file.store_float(custom_speed)
 	file.store_8(int(note_spawn_effect))
+	file.store_8(int(display_true_combo))
 	file.close()
 
 func get_stream_with_default(path:String,default:AudioStream) -> AudioStream:

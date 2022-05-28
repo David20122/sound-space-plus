@@ -48,6 +48,7 @@ onready var energybar:ProgressBar = get_node("Grid/EnergyVP/Control/Energy")
 
 onready var comboring:Control = get_node("Grid/LeftVP/Control/Combo")
 onready var combotxt:Label = get_node("Grid/LeftVP/Control/Combo/Label")
+onready var truecombo:Label = get_node("Grid/ComboVP/Value")
 
 var hits:float = 0
 var misses:float = 0
@@ -67,6 +68,9 @@ func update_hud():
 	energybar.value = energy
 	combotxt.text = String(combo_level) + "x"
 	comboring._set_percent(float(lvl_progress) / 8)
+	
+	truecombo.text = String(combo)
+	truecombo.rect_position.y = 100
 
 var ending:bool = false
 func end(end_type:int):
