@@ -1,4 +1,4 @@
-[gd_scene load_steps=147 format=2]
+[gd_scene load_steps=148 format=2]
 
 [ext_resource path="res://font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://uitheme.tres" type="Theme" id=2]
@@ -80,6 +80,7 @@
 [ext_resource path="res://CustomSpeed.gd" type="Script" id=78]
 [ext_resource path="res://NoteSpawnEffect.gd" type="Script" id=79]
 [ext_resource path="res://DisplayTrueCombo.gd" type="Script" id=80]
+[ext_resource path="res://CursorFaceVelocity.gd" type="Script" id=81]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.498039, 0.894118, 1, 1 )
@@ -1488,9 +1489,6 @@ toggle_mode = true
 action_mode = 0
 group = SubResource( 25 )
 text = "Select Map"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="ContentMgrBtn" type="Button" parent="PageMgr"]
 margin_left = 250.0
@@ -1515,7 +1513,6 @@ __meta__ = {
 }
 
 [node name="Settings" type="ScrollContainer" parent="PageMgr"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 10.0
@@ -2650,6 +2647,35 @@ align = 2
 valign = 1
 clip_text = true
 
+[node name="CursorFaceVelocity" type="CheckBox" parent="PageMgr/Settings/F"]
+margin_left = 173.0
+margin_top = 793.0
+margin_right = 546.0
+margin_bottom = 825.0
+theme = ExtResource( 2 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 2 )
+action_mode = 0
+text = "points the top of your cursor to the direction your mouse is moving"
+flat = true
+script = ExtResource( 81 )
+
+[node name="Label" type="Label" parent="PageMgr/Settings/F/CursorFaceVelocity"]
+margin_left = -165.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 2 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Cursor Face Velocity"
+align = 2
+valign = 1
+clip_text = true
+
 [node name="NoteSpawnEffect" type="CheckBox" parent="PageMgr/Settings/F"]
 margin_left = 173.0
 margin_top = 613.0
@@ -2681,6 +2707,7 @@ valign = 1
 clip_text = true
 
 [node name="MapRegistry" type="ReferenceRect" parent="PageMgr"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
