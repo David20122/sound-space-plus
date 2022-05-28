@@ -943,12 +943,12 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -1, 0 )
 script = ExtResource( 14 )
 
 [node name="Mesh" type="MeshInstance" parent="Game/Spawn/Cursor"]
-transform = Transform( 1, 0, 4.37114e-08, 4.37114e-08, 1.91069e-15, -1, 0, 1, 1.91069e-15, 0, 0, 0 )
+transform = Transform( 1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 0, 0, 0 )
 mesh = SubResource( 31 )
 material/0 = SubResource( 32 )
 
 [node name="Mesh2" type="MeshInstance" parent="Game/Spawn/Cursor"]
-transform = Transform( 0.5, 0, 2.18557e-08, 2.18557e-08, 9.55343e-16, -0.5, 0, 0.5, 9.55343e-16, 4.36088e-10, -4.36088e-10, 0.00997654 )
+transform = Transform( 9.55343e-16, 2.18557e-08, 0.5, 0.5, -2.18557e-08, 0, 2.18557e-08, 0.5, -2.18557e-08, 4.36088e-10, -4.36088e-10, 0.00997654 )
 visible = false
 mesh = SubResource( 31 )
 material/0 = SubResource( 32 )

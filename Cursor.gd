@@ -7,6 +7,7 @@ var rpos:Vector2 = Vector2(transform.origin.x,-transform.origin.y)
 var sh:Vector2 = Vector2(-0.5,-0.5)
 var edgec:float = 0
 var edger:float = -SSP.edge_drift
+var face:Vector2
 
 func move_cursor(mdel:Vector2):
 	var rx = rpos.x
@@ -44,12 +45,15 @@ func _input(event:InputEvent):
 		visible = true
 		if event is InputEventMouseMotion:
 			var ev:InputEventMouseMotion = event
+			face = ev.relative
 			move_cursor(ev.relative * 0.018 * SSP.sensitivity)
 
 func _process(delta):
-	if SSP.cursor_spin != 0:
+	if SSP.cursor_spin != 0 and !SSP.cursor_face_velocity:
 		$Mesh.rotate_z(deg2rad(-delta*SSP.cursor_spin))
 		$Mesh2.rotate_z(deg2rad(-delta*SSP.cursor_spin))
+	if SSP.cursor_face_velocity:
+		$Mesh.rotation_degrees.x += ((rad2deg(face.angle()) + 180) - $Mesh.rotation_degrees.x) * 0.025
 
 func load_png(file:String):
 	var imgtex = ImageTexture.new()
