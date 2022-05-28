@@ -121,12 +121,13 @@ func get_resource(path):
 
 func thread_process():
 	_wait("thread_process")
+	
 	_lock("process")
-
 	while queue.size() > 0:
 		var res = queue[0]
 		_unlock("process_poll")
-		var ret = res.poll()
+		var ret = OK
+		if !Input.is_key_pressed(KEY_P): ret = res.poll()
 		_lock("process_check_queue")
 
 		if ret == ERR_FILE_EOF || ret != OK:
