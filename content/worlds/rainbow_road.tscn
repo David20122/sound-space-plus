@@ -102,13 +102,3 @@ __meta__ = {
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.09279e-08, -1.69, 1.25 )
 mesh = SubResource( 7 )
 material/0 = null
-
-[node name="Camera" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.73472 )
-current = true
-far = 500.0
-
-[node name="RayCast" type="RayCast" parent="Camera"]
-cast_to = Vector3( 0, 0, -100 )
-collide_with_areas = true
-collide_with_bodies = false
