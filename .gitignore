@@ -1,1 +1,5 @@
 test_assets/*
+export_presets.cfg
+.import/
+*.translation
+.mono/
