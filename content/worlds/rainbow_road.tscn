@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://content/worlds/space/r_road01.png" type="Texture" id=1]
 [ext_resource path="res://content/worlds/space/road_normal.png" type="Texture" id=2]
@@ -39,6 +39,95 @@ glow_blend_mode = 0
 glow_hdr_scale = 1.72
 glow_bicubic_upscale = true
 
+[sub_resource type="Shader" id=15]
+code = "shader_type spatial;
+render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx;
+uniform vec4 albedo : hint_color;
+uniform sampler2D texture_albedo : hint_albedo;
+uniform float specular;
+uniform float metallic;
+uniform float roughness : hint_range(0,1);
+uniform float point_size : hint_range(0,128);
+uniform sampler2D texture_emission : hint_black_albedo;
+uniform vec4 emission : hint_color;
+uniform float emission_energy;
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+uniform vec3 uv2_scale;
+uniform vec3 uv2_offset;
+
+
+void vertex() {
+	if (!OUTPUT_IS_SRGB) {
+		COLOR.rgb = mix(pow((COLOR.rgb + vec3(0.055)) * (1.0 / (1.0 + 0.055)), vec3(2.4)), COLOR.rgb * (1.0 / 12.92), lessThan(COLOR.rgb, vec3(0.04045)));
+	}
+	UV=UV*uv1_scale.xy+uv1_offset.xy;
+}
+
+
+
+
+void fragment() {
+	vec2 base_uv = UV;
+	vec4 albedo_tex = texture(texture_albedo,base_uv);
+	ALBEDO = albedo.rgb * albedo_tex.rgb * COLOR.rgb;
+	METALLIC = metallic;
+	ROUGHNESS = roughness;
+	SPECULAR = specular;
+	EMISSION = ALBEDO * 0.75;
+}
+"
+
+[sub_resource type="ShaderMaterial" id=16]
+render_priority = -128
+shader = SubResource( 15 )
+shader_param/albedo = Color( 1, 1, 1, 1 )
+shader_param/specular = 0.5
+shader_param/metallic = 0.5
+shader_param/roughness = 1.0
+shader_param/point_size = 1.0
+shader_param/emission = Color( 0, 0, 0, 1 )
+shader_param/emission_energy = 1.0
+shader_param/uv1_scale = Vector3( 1, 1, 1 )
+shader_param/uv1_offset = Vector3( 0, 0, 0 )
+shader_param/uv2_scale = Vector3( 1, 1, 1 )
+shader_param/uv2_offset = Vector3( 0, 0, 0 )
+
+[sub_resource type="Gradient" id=8]
+offsets = PoolRealArray( 0, 0.239631, 0.496894, 0.73913, 1 )
+colors = PoolColorArray( 1, 0.551292, 0.195313, 1, 0.927998, 1, 0.410156, 1, 0.585938, 1, 0.68824, 1, 0.5, 1, 0.869629, 1, 0.484375, 0.868576, 1, 1 )
+
+[sub_resource type="GradientTexture" id=9]
+gradient = SubResource( 8 )
+
+[sub_resource type="Curve" id=10]
+max_value = 0.5
+_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.5, 0.5 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=11]
+curve = SubResource( 10 )
+
+[sub_resource type="ParticlesMaterial" id=12]
+render_priority = -10
+emission_shape = 2
+emission_box_extents = Vector3( 5, 1, 5 )
+flag_rotate_y = true
+direction = Vector3( 0, 0, 0 )
+spread = 180.0
+gravity = Vector3( 0, -1, 0 )
+initial_velocity = 0.5
+initial_velocity_random = 0.03
+angular_velocity = 10.0
+angular_velocity_random = 1.0
+linear_accel = 0.04
+angle = 239.9
+angle_random = 1.0
+scale = 0.01
+scale_curve = SubResource( 11 )
+color_ramp = SubResource( 9 )
+hue_variation = 1.0
+hue_variation_random = 1.0
+
 [sub_resource type="SpatialMaterial" id=3]
 render_priority = -2
 flags_transparent = true
@@ -72,39 +161,21 @@ albedo_texture = ExtResource( 6 )
 material = SubResource( 6 )
 size = Vector2( 8, 3 )
 
-[sub_resource type="Gradient" id=8]
-offsets = PoolRealArray( 0, 0.242236, 0.496894, 0.73913, 1 )
-colors = PoolColorArray( 1, 0.0078125, 0.0078125, 1, 0, 0.844727, 1, 1, 0.927734, 1, 0, 1, 0.631836, 0, 1, 1, 0, 1, 0.288086, 1 )
-
-[sub_resource type="GradientTexture" id=9]
-gradient = SubResource( 8 )
-
-[sub_resource type="Curve" id=10]
-max_value = 0.5
-_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.5, 0.5 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
-
-[sub_resource type="CurveTexture" id=11]
-curve = SubResource( 10 )
-
-[sub_resource type="ParticlesMaterial" id=12]
-emission_shape = 2
-emission_box_extents = Vector3( 5, 1, 5 )
-flag_rotate_y = true
-direction = Vector3( 0, 0, 0 )
-spread = 180.0
-gravity = Vector3( 0, -1, 0 )
-initial_velocity = 0.5
-angular_velocity = 500.0
-angular_velocity_random = 1.0
-scale = 0.01
-scale_curve = SubResource( 11 )
-color_ramp = SubResource( 9 )
-hue_variation = 1.0
-
 [node name="Space" type="Spatial"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 2 )
+
+[node name="StarBits" type="Particles" parent="."]
+transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0 )
+material_override = SubResource( 16 )
+amount = 25
+lifetime = 2.0
+visibility_aabb = AABB( -87.2446, -84.4673, -87.0557, 174.705, 167.814, 174.782 )
+local_coords = false
+draw_order = 2
+process_material = SubResource( 12 )
+draw_pass_1 = ExtResource( 7 )
 
 [node name="RainbowRoad" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, -1.06581e-14, 0, 1, 0, 1.06581e-14, 0, 1, 0, -1.7, 0 )
@@ -129,12 +200,3 @@ stretch_mode = 1
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.09279e-08, -1.69, 1.25 )
 mesh = SubResource( 7 )
 material/0 = null
-
-[node name="StarBits" type="Particles" parent="."]
-transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0 )
-amount = 25
-lifetime = 2.0
-visibility_aabb = AABB( -87.2446, -84.4673, -87.0557, 174.705, 167.814, 174.782 )
-local_coords = false
-process_material = SubResource( 12 )
-draw_pass_1 = ExtResource( 7 )
