@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://content/worlds/space/r_road01.png" type="Texture" id=1]
 [ext_resource path="res://content/worlds/space/road_normal.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://content/worlds/space/rainbow_road.gd" type="Script" id=4]
 [ext_resource path="res://content/worlds/space/starmap_4k.png" type="Texture" id=5]
 [ext_resource path="res://content/worlds/space/gradient.png" type="Texture" id=6]
+[ext_resource path="res://content/worlds/space/star_bit.obj" type="ArrayMesh" id=7]
 
 [sub_resource type="PanoramaSky" id=1]
 panorama = ExtResource( 5 )
@@ -71,6 +72,34 @@ albedo_texture = ExtResource( 6 )
 material = SubResource( 6 )
 size = Vector2( 8, 3 )
 
+[sub_resource type="Gradient" id=8]
+offsets = PoolRealArray( 0, 0.242236, 0.496894, 0.73913, 1 )
+colors = PoolColorArray( 1, 0.0078125, 0.0078125, 1, 0, 0.844727, 1, 1, 0.927734, 1, 0, 1, 0.631836, 0, 1, 1, 0, 1, 0.288086, 1 )
+
+[sub_resource type="GradientTexture" id=9]
+gradient = SubResource( 8 )
+
+[sub_resource type="Curve" id=10]
+max_value = 0.5
+_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.5, 0.5 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=11]
+curve = SubResource( 10 )
+
+[sub_resource type="ParticlesMaterial" id=12]
+emission_shape = 2
+emission_box_extents = Vector3( 5, 1, 5 )
+direction = Vector3( 0, 0, 0 )
+spread = 180.0
+gravity = Vector3( 0, -1, 0 )
+initial_velocity = 0.5
+angular_velocity = 500.0
+angular_velocity_random = 1.0
+scale = 0.01
+scale_curve = SubResource( 11 )
+color_ramp = SubResource( 9 )
+hue_variation = 1.0
+
 [node name="Space" type="Spatial"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -85,7 +114,7 @@ script = ExtResource( 4 )
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 1, 0, 0, 0, -0.937865, 0.347001, 0, -0.347001, -0.937865, 0, 0, -9.25 )
 light_color = Color( 0.917647, 0.792157, 1, 1 )
-light_energy = 0.09
+light_energy = 0.1
 
 [node name="Vignette" type="TextureRect" parent="."]
 material = SubResource( 5 )
@@ -94,11 +123,16 @@ anchor_bottom = 1.0
 texture = ExtResource( 3 )
 expand = true
 stretch_mode = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.09279e-08, -1.69, 1.25 )
 mesh = SubResource( 7 )
 material/0 = null
+
+[node name="StarBits" type="Particles" parent="."]
+transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0 )
+amount = 25
+lifetime = 2.0
+local_coords = false
+process_material = SubResource( 12 )
+draw_pass_1 = ExtResource( 7 )
