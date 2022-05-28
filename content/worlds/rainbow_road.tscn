@@ -89,6 +89,7 @@ curve = SubResource( 10 )
 [sub_resource type="ParticlesMaterial" id=12]
 emission_shape = 2
 emission_box_extents = Vector3( 5, 1, 5 )
+flag_rotate_y = true
 direction = Vector3( 0, 0, 0 )
 spread = 180.0
 gravity = Vector3( 0, -1, 0 )
@@ -133,6 +134,7 @@ material/0 = null
 transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0 )
 amount = 25
 lifetime = 2.0
+visibility_aabb = AABB( -87.2446, -84.4673, -87.0557, 174.705, 167.814, 174.782 )
 local_coords = false
 process_material = SubResource( 12 )
 draw_pass_1 = ExtResource( 7 )
