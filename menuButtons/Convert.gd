@@ -8,6 +8,6 @@ func _pressed():
 	text = SSP.selected_song.convert_to_sspm()
 	disabled = true
 	yield(get_tree().create_timer(0.75),"timeout")
-	disabled = SSP.selected_song.is_broken or SSP.selected_song.converted or SSP.selected_song.songType == Globals.MAP_SSPM
+	visible = !(SSP.selected_song.is_broken or SSP.selected_song.converted or SSP.selected_song.songType == Globals.MAP_SSPM)
 	text = "Convert map to .sspm"
 	debounce = false

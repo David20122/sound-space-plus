@@ -23,6 +23,8 @@ var unknown:Array = []
 
 var disp:Array = []
 
+var ready:bool = false
+
 func is_fav(s:Song): return favorite.has(s)
 func search_matches(s:Song):
 	return (
@@ -52,7 +54,9 @@ func load_pg():
 	get_parent().get_node("M").rect_size.y = ((spp/col)*132)+12
 	for n in btns: n.queue_free()
 	btns.clear()
-	if floor(float(disp.size())/spp) < page: page = floor(float(disp.size())/spp)
+	if floor(float(disp.size())/spp) < page:
+		print("page too far! max: %s, actual: %s" % [floor(float(disp.size())/spp), page])
+		page = floor(float(disp.size())/spp)
 	for i in range(page*spp,((page+1)*spp)):
 		if i < disp.size():
 			var map:Song = disp[i]
@@ -117,26 +121,27 @@ func build_list():
 
 func reload_to_current_page():
 	build_list()
+	if ready: SSP.last_page_num = page
 	load_pg()
 
 func update_search_text(txt:String):
 	search_text = txt
-	reload_to_current_page()
+	if ready: reload_to_current_page()
 	emit_signal("search_updated")
 
 func update_search_dfil(dfil:Array):
 	difficulty_filter = dfil
 	SSP.last_difficulty_filter = dfil
-	reload_to_current_page()
+	if ready: reload_to_current_page()
 	emit_signal("search_updated")
 
 func update_search_showbroken(show:bool):
 	show_broken_maps = show
-	reload_to_current_page()
+	if ready: reload_to_current_page()
 
 func update_search_flipped(flip:bool):
 	flip_display = flip
-	reload_to_current_page()
+	if ready: reload_to_current_page()
 
 func update_search_flip_name(flip:bool):
 	flip_name = flip
@@ -145,7 +150,7 @@ func update_search_flip_name(flip:bool):
 	hard.sort_custom(self,"sortsongsimple")
 	logic.sort_custom(self,"sortsongsimple")
 	amogus.sort_custom(self,"sortsongsimple")
-	reload_to_current_page()
+	if ready: reload_to_current_page()
 
 func sortab(a, b): return a < b
 
@@ -189,6 +194,7 @@ func prepare_songs():
 func pg(dir:int):
 	$Press.play()
 	page = clamp(page + dir, 0, floor(songs.size()))
+	SSP.last_page_num = page
 	load_pg()
 
 #var last_size = OS.window_size
@@ -213,10 +219,9 @@ func _ready():
 	get_parent().get_node("P").connect("pressed",self,"pg",[1])
 	get_parent().get_node("M").connect("pressed",self,"pg",[-1])
 	get_parent().get_node("Random").connect("pressed",self,"select_random")
+	page = SSP.last_page_num
 	prepare_songs()
 	reload_to_current_page()
+	ready = true
 	SSP.connect("favorite_songs_changed",self,"reload_to_current_page")
-	yield(get_tree().create_timer(0.5),"timeout")
-	page = SSP.last_page_num
-	load_pg()
 	SSP.emit_signal("map_list_ready")

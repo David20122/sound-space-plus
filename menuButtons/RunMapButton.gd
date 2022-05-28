@@ -7,4 +7,4 @@ func _pressed():
 	has_been_pressed = true
 	get_parent().get_parent().black_fade_target = true
 	yield(get_tree().create_timer(1),"timeout")
-	get_tree().change_scene("res://song.tscn")
+	get_tree().change_scene("res://songload.tscn")

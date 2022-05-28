@@ -26,7 +26,111 @@ var has_cover:bool = false
 var is_broken:bool = false
 var converted:bool = false
 
+var is_builtin:bool = false
+
 var sspm_song_stored:bool = false
+
+var pbs_loaded:bool = false
+var pb_data:Dictionary = {}
+
+
+#	pb.position = song_end_position
+#	pb.length = song_end_length
+#	pb.hit_notes = song_end_hits
+#	pb.total_notes = song_end_total_notes
+#	pb.pauses = song_end_pause_count
+#	pb.has_passed = song_end_type == Globals.END_PASS
+
+func load_pbs():
+	var file:File = File.new()
+	if file.file_exists("user://bests/%s" % id):
+		var err:int = file.open("user://bests/%s" % id,File.READ)
+		if err != OK:
+#			print("error reading pb file for %s: %s" % [id, String(err)])
+			return
+		
+		if file.get_buffer(5) != PoolByteArray([0x53,0x53,0x2B,0x70,0x42]):
+			print("invalid signature for pb file (%s)" % id)
+			file.close()
+			return
+		
+		var sv:int = file.get_16()
+		if sv > 1:
+			print("invalid file version for pb file (%s)" % id)
+			file.close()
+			return
+		
+		var amt:int = file.get_64() # number of bests stored
+		
+		for i in range(amt):
+			var pb:Dictionary = {}
+			var s:String = file.get_line()
+			pb.has_passed = bool(file.get_8())
+			pb.pauses = file.get_16()
+			pb.hit_notes = file.get_32()
+			pb.total_notes = file.get_32()
+			pb.position = file.get_32()
+			pb.length = file.get_32()
+			pb_data[s] = pb
+		file.close()
+
+func save_pbs():
+	var file:File = File.new()
+	var err:int = file.open("user://bests/%s" % id,File.WRITE)
+	if err != OK:
+		print("error writing pb file for %s: %s" % [id, String(err)])
+		return
+	file.store_buffer(PoolByteArray([0x53,0x53,0x2B,0x70,0x42]))
+	file.store_16(1) # version
+	file.store_64(pb_data.size()) # number of PBs
+	for k in pb_data.keys():
+		var pb:Dictionary = pb_data[k]
+		file.store_line(k)
+		file.store_8(int(pb.has_passed))
+		file.store_16(pb.pauses)
+		file.store_32(pb.hit_notes)
+		file.store_32(pb.total_notes)
+		file.store_32(floor(pb.position))
+		file.store_32(floor(pb.length))
+	file.close()
+
+func get_pb(pb_str:String):
+	if !pbs_loaded: load_pbs()
+	return pb_data.get(pb_str,{})
+
+func is_pb_better(ob:Dictionary,pb:Dictionary):
+	# ensure everything exists on ob
+	ob.has_passed = ob.get("has_passed",false)
+	ob.total_notes = ob.get("total_notes",4294967295)
+	ob.hit_notes = ob.get("hit_notes",0)
+	ob.pauses = ob.get("pauses",65535)
+	ob.position = ob.get("position",0)
+	ob.length = ob.get("length",1)
+	
+	if int(pb.has_passed) < int(ob.has_passed): return false # pass -> fail
+	elif int(pb.has_passed) > int(ob.has_passed): return true # fail -> pass
+	
+	if !pb.has_passed:
+		if pb.position > ob.position: return true # made more progress
+		elif pb.position < ob.position: return false # made less progress
+	var pbm = pb.total_notes - pb.hit_notes
+	var obm = ob.total_notes - ob.hit_notes
+	
+	if pbm < obm: return true # fewer misses
+	elif pbm > obm: return false # more misses
+	
+	if pb.pauses < ob.pauses: return true # fewer pauses
+	elif pb.pauses > ob.pauses: return false # more pauses
+
+func set_pb_if_better(pb_str:String,pb:Dictionary):
+	if !pbs_loaded: load_pbs()
+	var ob:Dictionary = get_pb(pb_str)
+	
+	if is_pb_better(ob,pb):
+		pb_data[pb_str] = pb
+		save_pbs()
+		return true
+	else: return false
 
 func stream() -> AudioStream:
 	if sspm_song_stored:
@@ -40,15 +144,23 @@ func stream() -> AudioStream:
 		file.get_line()
 		file.seek(file.get_position() + 9)
 		
-		if file.get_8() != 0: # Skip over cover
+		var ct = file.get_8()
+		if ct == 1: # Skip over cover
 			file.seek(file.get_position() + 6)
 			var clen = file.get_64()
 			file.seek(file.get_position() + clen)
-		if file.get_8() != 1: return Globals.error_sound
+		elif ct == 2:
+			var clen = file.get_64()
+			file.seek(file.get_position() + clen)
+		
+		if file.get_8() != 1:
+			file.close()
+			return Globals.error_sound
 		
 		var blen:int = file.get_64()
 		var buf:PoolByteArray = file.get_buffer(blen) # Actual song data
 		var s = Globals.audioLoader.load_buffer(buf)
+		file.close()
 		if s: return s
 		else: return Globals.error_sound
 	elif !musicFile.begins_with("res://"):
@@ -126,6 +238,8 @@ func setup_from_file(mapFile:String,songFile:String):
 	songType = Globals.MAP_TXT
 	initFile = mapFile
 	musicFile = songFile
+	if songFile.begins_with("res://") or mapFile.begins_with("res://"):
+		is_builtin = true
 	loadFromFile(mapFile)
 	if rawData: loadRawData(rawData)
 	return self
@@ -133,6 +247,8 @@ func setup_from_file(mapFile:String,songFile:String):
 func setup_from_data(mapData:String,songFile:String):
 	songType = Globals.MAP_RAW
 	musicFile = songFile
+	if songFile.begins_with("res://"):
+		is_builtin = true
 	loadRawData(mapData)
 	discard_notes()
 	return self
@@ -149,7 +265,6 @@ func setup_from_vulnus_json(jsonPath:String,songFile:String):
 	note_count = json.count('"_time"')
 	if note_count != 0:
 		var last = json.find_last('"_time":')
-		print(last)
 		var comma = json.find(",",last)
 		var time_str:String = json.substr(last+8,comma-last-8).trim_prefix(" ")
 		if !time_str.is_valid_float():
@@ -171,21 +286,30 @@ func notesort(a,b):
 	return a[2] < b[2]
 
 func read_notes() -> Array:
+#	print(notes.size())
 	if notes.size() == 0:
 		if (songType == Globals.MAP_RAW or songType == Globals.MAP_TXT):
+#			print("RAW/TXT")
 			if songType == Globals.MAP_TXT:
+#				print("TXT")
 				loadFromFile(initFile)
 			loadRawData(rawData)
 			return notes
 		elif songType == Globals.MAP_VULNUS:
+#			print("VULNUS")
 			var file = File.new()
 			file.open(filePath,File.READ)
+#			print(filePath)
 			var json = file.get_as_text()
 			file.close()
 			var data:Dictionary = parse_json(json)
-			loadVulnusNoteArray(data.get("_notes",[]))
+#			print(data.has("_notes"))
+			var n:Array = data.get("_notes",[])
+#			print(n.size())
+			loadVulnusNoteArray(n)
 			return notes
 		elif songType == Globals.MAP_SSPM:
+#			print("SSPM")
 			var file:File = File.new()
 			var err = file.open(filePath,File.READ)
 			if err != OK:
@@ -200,12 +324,18 @@ func read_notes() -> Array:
 			note_count = file.get_32()
 			file.seek(file.get_position() + 1)
 			
-			if file.get_8() != 0: # Skip over cover
+			var ct = file.get_8()
+			if ct == 1: # Skip over cover
 				file.seek(file.get_position() + 6)
-				file.seek(file.get_position() + file.get_64())
+				var clen = file.get_64()
+				file.seek(file.get_position() + clen)
+			elif ct == 2:
+				var clen = file.get_64()
+				file.seek(file.get_position() + clen)
 			
 			if file.get_8() != 1:
 				print("no music?")
+				file.close()
 				return []
 			file.seek(file.get_position() + file.get_64() + 8) # Skip over music
 			
@@ -222,6 +352,8 @@ func read_notes() -> Array:
 					n[0] = float(file.get_8())
 					n[1] = float(file.get_8())
 				notes.append(n)
+				
+			file.close()
 	
 	return notes
 
@@ -229,6 +361,39 @@ func discard_notes():
 	notes = []
 	if songType == Globals.MAP_TXT:
 		rawData = ""
+
+func change_difficulty(to:int):
+	if songType != Globals.MAP_SSPM: 
+		print("tried to change difficulty of a non .sspm map")
+		return ERR_UNAVAILABLE
+	else:
+		if Globals.difficulty_names.get(to,null) == null:
+			print("invalid difficulty")
+			return ERR_INVALID_PARAMETER
+		
+		var file:File = File.new()
+		var err = file.open(filePath,File.READ_WRITE)
+		if err != OK:
+			print("file open failed: ",err)
+			return err
+		
+		if file.get_buffer(4) != PoolByteArray([0x53,0x53,0x2b,0x6d]): # signature
+			print("invalid sspm file")
+			return ERR_INVALID_DATA
+		
+		if file.get_16() > 2 or file.get_16() != 0: # version, reserved header
+			print("invalid version or reserved header")
+			return ERR_INVALID_DECLARATION
+		
+		file.get_line() # id
+		file.get_line() # name
+		file.get_line() # creator
+		file.seek(file.get_position() + 8) # skip over map length and note count
+		
+		difficulty = to
+		file.store_8(difficulty + 1)
+		file.close()
+		return OK
 
 func convert_to_sspm():
 	var file:File = File.new()
@@ -259,21 +424,21 @@ func convert_to_sspm():
 	file.store_32(note_count) # Map note count
 	file.store_8(difficulty + 1)
 	
+	var file2:File = File.new()
 	# Cover
 	if cover and (cover.get_height() + cover.get_width()) >= 9:
-		file.store_8(1)
+		file.store_8(2)
 		var img:Image = cover.get_data()
-		file.store_16(img.get_height()) # Height
-		file.store_16(img.get_width()) # Width
-		file.store_8(int(img.has_mipmaps())) # Has mipmaps
-		file.store_8(img.get_format()) # Image format
-		var data:PoolByteArray = img.get_data()
+#		file.store_16(img.get_height()) # Height
+#		file.store_16(img.get_width()) # Width
+#		file.store_8(int(img.has_mipmaps())) # Has mipmaps
+#		file.store_8(img.get_format()) # Image format
+		var data:PoolByteArray = img.save_png_to_buffer()
 		file.store_64(data.size()) # Buffer length in bytes
 		file.store_buffer(data) # Actual cover data
 	else: file.store_8(0)
 	
 	# Audio
-	var file2:File = File.new()
 	err = file2.open(musicFile,File.READ)
 	if err != OK:
 		file.store_8(0)
@@ -282,16 +447,12 @@ func convert_to_sspm():
 		var mdata:PoolByteArray = file2.get_buffer(file2.get_len())
 		file.store_8(1)
 		file2.close()
-		print(file.get_position())
-		print(mdata.size()) 
 		file.store_64(mdata.size())
 		file.store_buffer(mdata)
-		print(file.get_position()) # 1,912,171 vs reported 1,912,163, why?
 	
 	# Note data
 	for n in notes:
 		file.store_32(floor(n[2]))
-		print(n[2], " ", file.get_position())
 		if floor(n[0]) != n[0] or floor(n[1]) != n[1]:
 			file.store_8(1)
 			file.store_float(n[0])
@@ -309,6 +470,8 @@ func load_from_sspm(path:String):
 	songType = Globals.MAP_SSPM
 	filePath = path
 	musicFile = path
+	if path.begins_with("res://"):
+		is_builtin = true
 	var file:File = File.new()
 	# Open the file for reading
 	var err = file.open(path,File.READ)
@@ -329,15 +492,22 @@ func load_from_sspm(path:String):
 	difficulty = file.get_8() - 1
 	
 	# Cover
-	if file.get_8() == 1:
-		var h:int = file.get_16()
-		var w:int = file.get_16()
-		var mip:bool = bool(file.get_8())
-		var format:int = file.get_8()
-		var clen:int = file.get_64()
-		var cbuf:PoolByteArray = file.get_buffer(clen)
+	var ct = file.get_8()
+	if ct == 1 or ct == 2:
 		var img:Image = Image.new()
-		img.create_from_data(w,h,mip,format,cbuf)
+		if ct == 1:
+			var h:int = file.get_16()
+			var w:int = file.get_16()
+			var mip:bool = bool(file.get_8())
+			var format:int = file.get_8()
+			var clen:int = file.get_64()
+			var cbuf:PoolByteArray = file.get_buffer(clen)
+			img.create_from_data(w,h,mip,format,cbuf)
+		elif ct == 2:
+			var clen:int = file.get_64()
+			var cbuf:PoolByteArray = file.get_buffer(clen)
+			img.load_png_from_buffer(cbuf)
+		
 		var imgtex:ImageTexture = ImageTexture.new()
 		imgtex.create_from_image(img)
 		cover = imgtex
@@ -346,6 +516,7 @@ func load_from_sspm(path:String):
 	if file.get_8() != 1:
 		warning = "[sspm] Invalid music storage type!"
 		is_broken = true
+		file.close()
 		return
 	else:
 		file.get_64()
@@ -353,6 +524,7 @@ func load_from_sspm(path:String):
 		if Globals.audioLoader.get_format(buf) == "unknown":
 			warning = "[sspm] Invalid music data!"
 			is_broken = true
+			file.close()
 			return
 	
 	sspm_song_stored = true

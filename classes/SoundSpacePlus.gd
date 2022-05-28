@@ -82,6 +82,7 @@ var user_pack_dir:String = "user://packs"
 var user_mod_dir:String = "user://mods"
 var user_vmap_dir:String = "user://vmaps"
 var user_map_dir:String = "user://maps"
+var user_best_dir:String = "user://bests"
 var installed_dlc:Array = ["ssp_basegame"]
 var installed_mods:Array = []
 var installed_packs:Array = []
@@ -222,6 +223,38 @@ func load_pbs():
 				x = file.get_16() # READ 2
 		file.close()
 
+func generate_pb_str():
+	var pts:Array = []
+	match mod_speed_level:
+		Globals.SPEED_MMM: pts.append("s:---")
+		Globals.SPEED_MM: pts.append("s:--")
+		Globals.SPEED_M: pts.append("s:-")
+		Globals.SPEED_NORMAL: pts.append("s:=")
+		Globals.SPEED_P: pts.append("s:+")
+		Globals.SPEED_PP: pts.append("s:++")
+		Globals.SPEED_PPP: pts.append("s:+++")
+		Globals.SPEED_CUSTOM: pts.append("s:c%.02f" % custom_speed)
+	pts.append("hitw:%s" % String(floor(hitwindow_ms)))
+	pts.append("hbox:%.02f" % note_hitbox_size)
+	pts.append("ar:%d" % sign(approach_rate))
+	if music_volume_db <= -50: pts.append("silent")
+	
+	if mod_extra_energy: pts.append("m_morehp")
+	if mod_no_regen: pts.append("m_noregen")
+	if mod_mirror_x: pts.append("m_mirror_x")
+	if mod_mirror_y: pts.append("m_mirror_y")
+	if mod_nearsighted: pts.append("m_nsight")
+	if mod_ghost: pts.append("m_ghost")
+	
+	pts.sort()
+	
+	var s:String = ""
+	for i in range(pts.size()):
+		if i != 0: s += ";"
+		s += pts[i]
+	
+	return s
+
 func set_pb(songid:String,pbtype:int):
 	var pb = personal_bests[songid][pbtype]
 	pb.position = song_end_position
@@ -231,6 +264,21 @@ func set_pb(songid:String,pbtype:int):
 	pb.pauses = song_end_pause_count
 	pb.has_passed = song_end_type == Globals.END_PASS
 	save_pbs()
+
+func convert_song_pbs(song:Song):
+	for pb in personal_bests.get(song.id,[]):
+		mod_extra_energy = pb.mod_extra_energy
+		mod_no_regen = pb.mod_no_regen
+		mod_speed_level = pb.mod_speed_level
+		var npb = {
+			"position": pb.position,
+			"length": pb.length,
+			"hit_notes": pb.hit_notes,
+			"total_notes": pb.total_notes,
+			"pauses": pb.pauses,
+			"has_passed": pb.has_passed
+		}
+		song.set_pb_if_better(generate_pb_str(),npb)
 
 func prepare_new_pb(songid:String):
 	var data = {
@@ -244,45 +292,20 @@ func prepare_new_pb(songid:String):
 	set_pb(songid,i)
 
 func do_pb_check_and_set() -> bool:
-	if mod_nofail or mod_mirror_x or mod_mirror_y: return false
-	if hitwindow_ms >= 80 or hitwindow_ms <= 0: return false
+	if mod_nofail: return false
+#	if hitwindow_ms >= 80 or hitwindow_ms <= 0: return false
 	var has_passed:bool = song_end_type == Globals.END_PASS
-	if personal_bests.has(selected_song.id):
-		var pbs:Array = personal_bests[selected_song.id]
-		for i in range(pbs.size()):
-			var b = pbs[i]
-			if (
-				b.mod_extra_energy == mod_extra_energy and
-				b.mod_no_regen == mod_no_regen and
-				b.mod_speed_level == mod_speed_level
-			):
-				if has_passed:
-					if not b.has_passed:
-						set_pb(selected_song.id,i)
-						return true
-					elif song_end_hits > b.hit_notes:
-						set_pb(selected_song.id,i)
-						return true
-					else: return false
-				elif song_end_position > b.position and not b.has_passed:
-					set_pb(selected_song.id,i)
-					return true
-				else: return false
-		prepare_new_pb(selected_song.id)
-		return true
-	prepare_new_pb(selected_song.id)
-	return true
+	var pb:Dictionary = {}
+	pb.position = song_end_position
+	pb.length = song_end_length
+	pb.hit_notes = song_end_hits
+	pb.total_notes = song_end_total_notes
+	pb.pauses = song_end_pause_count
+	pb.has_passed = song_end_type == Globals.END_PASS
+	return selected_song.set_pb_if_better(generate_pb_str(),pb)
 
 func get_best():
-	if personal_bests.has(selected_song.id):
-		var pbs:Array = personal_bests[selected_song.id]
-		for b in pbs:
-			if (
-				b.mod_extra_energy == mod_extra_energy and
-				b.mod_no_regen == mod_no_regen and
-				b.mod_speed_level == mod_speed_level
-			):
-				return b
+	return selected_song.get_pb(generate_pb_str())
 
 func select_colorset(set:ColorSet):
 	if set:
@@ -451,7 +474,9 @@ func do_init(_ud=null):
 	dir.open("user://")
 #	var pause_len:float = 0.05
 	
-	# Setup mod directories if they don't already exist
+	# Setup directories if they don't already exist
+	var convert_pb_format:bool = false
+	
 	if !first_init_done:
 		emit_signal("init_stage_reached","Init filesystem")
 		if lp: yield(get_tree(),"idle_frame")
@@ -459,6 +484,9 @@ func do_init(_ud=null):
 		if !dir.dir_exists(user_pack_dir): dir.make_dir(user_pack_dir)
 		if !dir.dir_exists(user_vmap_dir): dir.make_dir(user_vmap_dir)
 		if !dir.dir_exists(user_map_dir): dir.make_dir(user_map_dir)
+		if !dir.dir_exists(user_best_dir):
+			convert_pb_format = true
+			dir.make_dir(user_best_dir)
 	
 	# set up registries
 	emit_signal("init_stage_reached","Init registries")
@@ -773,10 +801,28 @@ func do_init(_ud=null):
 	Globals.error_sound = miss_snd
 	
 	# Read PB data
-	if !first_init_done:
-		emit_signal("init_stage_reached","Read personal bests")
+	if convert_pb_format:
+		hitwindow_ms = 55
+		note_hitbox_size = 1.27
+		
+		emit_signal("init_stage_reached","Upgrading personal best data\nReading legacy data")
 		yield(get_tree(),"idle_frame")
 		load_pbs()
+		
+		emit_signal("init_stage_reached","Upgrading personal best data\nPreparing")
+		yield(get_tree(),"idle_frame")
+		var allmaps:Array = registry_song.get_items()
+		
+		emit_signal("init_stage_reached","Upgrading personal best data\nConverting data\n0%")
+		yield(get_tree(),"idle_frame")
+		for i in range(allmaps.size()):
+			emit_signal("init_stage_reached","Upgrading personal best data\nConverting data\n%.0f%%" % (
+				100*(float(i)/float(allmaps.size()))
+			))
+			if fmod(i,max(min(floor(float(allmaps.size())/200),40),5)) == 0: yield(get_tree(),"idle_frame")
+			convert_song_pbs(allmaps[i])
+	
+	if !first_init_done:
 		emit_signal("init_stage_reached","Read favorite songs")
 		yield(get_tree(),"idle_frame")
 		if file.file_exists("user://favorites.txt"):

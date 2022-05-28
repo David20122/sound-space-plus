@@ -89,7 +89,7 @@ func end(end_type:int):
 	SSP.song_end_type = end_type
 	black_fade_target = true
 	yield(get_tree().create_timer(1),"timeout")
-	get_tree().change_scene("res://menu.tscn")
+	get_tree().change_scene("res://menuload.tscn")
 
 func update_timer(ms:float):
 	var s = clamp(floor(ms/1000),0,last_ms/1000)

@@ -1,18 +1,8 @@
 extends Node
 
-
-var thread:Thread = Thread.new()
-var target:String = "res://menu.tscn"
 var leaving:bool = false
 
-func stage(text:String,done:bool=false):
-	$Label2.text = text
-	if done:
-#		black_fade_target = true
-		$Label2.text = "Loading menu"
-		var res = RQueue.queue_resource(target)
-		if res != OK: get_tree().change_scene("res://menuloaderror.tscn")
-#		leaving = true
+var target:String = "res://song.tscn"
 
 var black_fade_target:bool = false
 var black_fade:float = 0
@@ -23,24 +13,19 @@ func _ready():
 	black_fade = 1
 	$BlackFade.color = Color(0,0,0,black_fade)
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	SSP.connect("init_stage_reached",self,"stage")
 	var s = Globals.error_sound
-	var st = SSP.get_stream_with_default("user://loadingmusic",s)
-	if st != s:
-		$Music.stream = st
-		$Music.play()
-	yield(get_tree().create_timer(0.5),"timeout")
-	OS.window_maximized = true
-	yield(get_tree().create_timer(0.5),"timeout")
+#	var st = SSP.get_stream_with_default("user://loadingmusic",s)
+#	if st != s:
+#		$Music.stream = st
+#		$Music.play()
+	
 	$AudioStreamPlayer.play()
 	
-	thread.start(SSP,"do_init")
-#	SSP.do_init()
-
-func _exit_tree():
-	thread.wait_to_finish()
+	var res = RQueue.queue_resource(target)
+	if res != OK: get_tree().change_scene("res://songloaderror.tscn")
 
 var result
+var left:bool = false
 
 func _process(delta):
 	$AudioStreamPlayer.volume_db = -3 - (40*black_fade)
@@ -57,8 +42,7 @@ func _process(delta):
 			result = RQueue.get_resource(target)
 			leaving = true
 			black_fade_target = true
-			if !(result is Object): get_tree().change_scene("res://menuloaderror.tscn")
+			if !(result is Object): get_tree().change_scene("res://songloaderror.tscn")
 	
 	if leaving and result and black_fade == 1:
 		get_tree().change_scene_to(result)
-	
