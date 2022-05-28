@@ -9,6 +9,7 @@ var black_fade:float = 0
 
 func _ready():
 	get_tree().paused = false
+	SSP.loaded_world = null
 	$BlackFade.visible = true
 	black_fade = 1
 	$BlackFade.color = Color(0,0,0,black_fade)

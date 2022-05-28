@@ -136,48 +136,48 @@ func _process(delta:float):
 	else: do_half_lock()
 	if !notes_loaded: return
 	
-	if ms > 1000 and ms < get_parent().last_ms:
-		if Input.is_action_just_released("pause"):
-			if pause_state > 0:
-				pause_state = -1
-				get_parent().get_node("Grid/PauseHud").modulate = Color(1,1,1,1)
-				get_parent().get_node("Grid/PauseVP/Control").percent = 0
-				ms = pause_ms - 750
-				emit_signal("ms_change",ms)
-				$Music.stop()
-		elif Input.is_action_just_pressed("pause"):
+	
+	if Input.is_action_just_released("pause"):
+		if pause_state > 0:
+			pause_state = -1
+			get_parent().get_node("Grid/PauseHud").modulate = Color(1,1,1,1)
+			get_parent().get_node("Grid/PauseVP/Control").percent = 0
+			ms = pause_ms - 750
+			emit_signal("ms_change",ms)
+			$Music.stop()
+	elif Input.is_action_just_pressed("pause"):
 #			print("pause press: state = ",pause_state)
-			if pause_state == 0:
+		if pause_state == 0 and (ms > 1100 and ms < get_parent().last_ms):
 #				print("state 0")
-				SSP.song_end_pause_count += 1
-				pause_state = -1
-				ms -= 750
-				emit_signal("ms_change",ms)
-				pause_ms = ms + 750
-				$Music.stop()
-				get_parent().get_node("Grid/LeftVP/Control/Pauses").text = comma_sep(SSP.song_end_pause_count)
-				get_parent().get_node("Grid/PauseHud").visible = true
-				get_parent().get_node("Grid/PauseHud").modulate = Color(1,1,1,1)
-				get_parent().get_node("Grid/PauseVP/Control").percent = 0
-			else:
+			SSP.song_end_pause_count += 1
+			pause_state = -1
+			ms -= 750
+			emit_signal("ms_change",ms)
+			pause_ms = ms + 750
+			$Music.stop()
+			get_parent().get_node("Grid/LeftVP/Control/Pauses").text = comma_sep(SSP.song_end_pause_count)
+			get_parent().get_node("Grid/PauseHud").visible = true
+			get_parent().get_node("Grid/PauseHud").modulate = Color(1,1,1,1)
+			get_parent().get_node("Grid/PauseVP/Control").percent = 0
+		else:
 #				print("YEAH baby that's what i've been waiting for")
 #				print(pause_ms)
-				pause_state = 0.75
-				get_parent().get_node("Grid/PauseHud").modulate = Color(1,1,1,pause_state)
-				ms = pause_ms - (pause_state * 1000)
-				emit_signal("ms_change",ms)
-				$Music.volume_db = SSP.music_volume_db - 30
-				$Music.play(ms/1000)
-		if Input.is_action_pressed("pause") and pause_state >= 0:
-			pause_state = max(pause_state - delta, 0)
-			$Music.volume_db = min($Music.volume_db + (delta * 30), SSP.music_volume_db)
-			get_parent().get_node("Grid/PauseVP/Control").percent = (1 - (pause_state / 0.75))
+			pause_state = 1
 			get_parent().get_node("Grid/PauseHud").modulate = Color(1,1,1,pause_state)
-			if pause_state == 0:
+			ms = pause_ms - (pause_state * 750)
+			emit_signal("ms_change",ms)
+			$Music.volume_db = SSP.music_volume_db - 30
+			$Music.play(ms/1000)
+	if Input.is_action_pressed("pause") and pause_state >= 0:
+		pause_state = max(pause_state - (delta/0.75), 0)
+		$Music.volume_db = min($Music.volume_db + (delta * 30), SSP.music_volume_db)
+		get_parent().get_node("Grid/PauseVP/Control").percent = (1 - (pause_state / 0.75))
+		get_parent().get_node("Grid/PauseHud").modulate = Color(1,1,1,pause_state)
+		if pause_state == 0:
 #				print("YEAH baby that's what i've been waiting for")
-				get_parent().get_node("Grid/PauseHud").visible = false
-				$Music.volume_db = 0
-				pause_state = 0
+			get_parent().get_node("Grid/PauseHud").visible = false
+			$Music.volume_db = 0
+			pause_state = 0
 	
 	if pause_state == 0 or (pause_state > 0 and Input.is_action_pressed("pause")):
 		ms += delta * 1000 * speed_multi

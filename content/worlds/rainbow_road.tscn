@@ -1,0 +1,114 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://content/worlds/space/r_road01.png" type="Texture" id=1]
+[ext_resource path="res://content/worlds/space/road_normal.png" type="Texture" id=2]
+[ext_resource path="res://content/worlds/space/vignette.svg" type="Texture" id=3]
+[ext_resource path="res://content/worlds/space/rainbow_road.gd" type="Script" id=4]
+[ext_resource path="res://content/worlds/space/starmap_4k.png" type="Texture" id=5]
+[ext_resource path="res://content/worlds/space/gradient.png" type="Texture" id=6]
+
+[sub_resource type="PanoramaSky" id=1]
+panorama = ExtResource( 5 )
+
+[sub_resource type="Environment" id=2]
+background_mode = 2
+background_sky = SubResource( 1 )
+background_sky_orientation = Basis( -0.132906, -0.287562, -0.948496, -0.081867, 0.9569, -0.278639, 0.987742, 0.0406178, -0.150719 )
+background_color = Color( 0.0392157, 0.0392157, 0.0392157, 1 )
+background_canvas_max_layer = -128
+ambient_light_color = Color( 0.666667, 0.596078, 0.709804, 1 )
+ambient_light_sky_contribution = 0.0
+fog_color = Color( 0, 0, 0, 1 )
+fog_sun_color = Color( 0.0573333, 0.0256, 0.08, 1 )
+fog_sun_amount = 1.0
+fog_depth_begin = 20.0
+fog_depth_end = 58.3
+fog_depth_curve = 0.353553
+fog_height_enabled = true
+fog_height_min = 10.4
+fog_height_max = -18.5
+fog_height_curve = 0.68302
+ss_reflections_max_steps = 16
+ss_reflections_fade_in = 0.243676
+glow_enabled = true
+glow_levels/3 = false
+glow_intensity = 0.98
+glow_bloom = 0.31
+glow_blend_mode = 0
+glow_hdr_scale = 1.72
+glow_bicubic_upscale = true
+
+[sub_resource type="SpatialMaterial" id=3]
+render_priority = -2
+flags_transparent = true
+albedo_color = Color( 1, 1, 1, 0.647059 )
+albedo_texture = ExtResource( 1 )
+metallic_specular = 1.0
+roughness = 0.34
+normal_enabled = true
+normal_scale = 0.06
+normal_texture = ExtResource( 2 )
+uv1_scale = Vector3( 1, 64, 1 )
+distance_fade_mode = 1
+distance_fade_min_distance = 35.0
+distance_fade_max_distance = 6.0
+
+[sub_resource type="PlaneMesh" id=4]
+material = SubResource( 3 )
+size = Vector2( 3, 96 )
+subdivide_width = 192
+subdivide_depth = 3
+
+[sub_resource type="CanvasItemMaterial" id=5]
+
+[sub_resource type="SpatialMaterial" id=6]
+render_priority = -1
+flags_transparent = true
+albedo_color = Color( 0.337255, 0.337255, 0.337255, 1 )
+albedo_texture = ExtResource( 6 )
+
+[sub_resource type="PlaneMesh" id=7]
+material = SubResource( 6 )
+size = Vector2( 8, 3 )
+
+[node name="Space" type="Spatial"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 2 )
+
+[node name="RainbowRoad" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, -1.06581e-14, 0, 1, 0, 1.06581e-14, 0, 1, 0, -1.7, 0 )
+mesh = SubResource( 4 )
+material/0 = null
+script = ExtResource( 4 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 1, 0, 0, 0, -0.937865, 0.347001, 0, -0.347001, -0.937865, 0, 0, -9.25 )
+light_color = Color( 0.917647, 0.792157, 1, 1 )
+light_energy = 0.09
+
+[node name="Vignette" type="TextureRect" parent="."]
+material = SubResource( 5 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.09279e-08, -1.69, 1.25 )
+mesh = SubResource( 7 )
+material/0 = null
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.73472 )
+current = true
+far = 500.0
+
+[node name="RayCast" type="RayCast" parent="Camera"]
+cast_to = Vector3( 0, 0, -100 )
+collide_with_areas = true
+collide_with_bodies = false

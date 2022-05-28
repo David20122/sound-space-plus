@@ -186,10 +186,11 @@ func _ready():
 	if SSP.mod_extra_energy:
 		max_energy = 12
 		energy = 12
-	var space = load(SSP.selected_space.path)
-	var spinst = space.instance()
+#	var space = SSP.loaded_world
+	var spinst = SSP.loaded_world.instance()
 	get_parent().call_deferred("add_child",spinst)
 	spinst.name = "Space"
+#	call_deferred("raise")
 	$BlackFade.color = Color(0,0,0,black_fade)
 	get_tree().paused = false
 	$Spawn.connect("ms_change",self,"update_timer")

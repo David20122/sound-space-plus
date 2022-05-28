@@ -3,6 +3,7 @@ extends Node
 var leaving:bool = false
 
 var target:String = "res://song.tscn"
+var target2:String = SSP.selected_space.path
 
 var black_fade_target:bool = false
 var black_fade:float = 0
@@ -22,9 +23,11 @@ func _ready():
 	$AudioStreamPlayer.play()
 	
 	var res = RQueue.queue_resource(target)
-	if res != OK: get_tree().change_scene("res://songloaderror.tscn")
+	var res2 = RQueue.queue_resource(target2)
+	if res != OK or res2 != OK: get_tree().change_scene("res://songloaderror.tscn")
 
 var result
+var result2
 var left:bool = false
 
 func _process(delta):
@@ -38,11 +41,13 @@ func _process(delta):
 		$BlackFade.color = Color(0,0,0,black_fade)
 	
 	if !leaving:
-		if RQueue.is_ready(target):
+		if RQueue.is_ready(target) and RQueue.is_ready(target2):
 			result = RQueue.get_resource(target)
+			result2 = RQueue.get_resource(target2)
 			leaving = true
 			black_fade_target = true
-			if !(result is Object): get_tree().change_scene("res://songloaderror.tscn")
+			SSP.loaded_world = result2
+			if !(result is Object) or !(result2 is Object): get_tree().change_scene("res://songloaderror.tscn")
 	
 	if leaving and result and black_fade == 1:
 		get_tree().change_scene_to(result)

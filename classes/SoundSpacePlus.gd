@@ -123,6 +123,7 @@ var fail_snd:AudioStream
 var pb_snd:AudioStream
 var menu_bgm:AudioStream
 
+var loaded_world = null
 
 # Other save data
 var personal_bests:Dictionary = {
@@ -563,9 +564,19 @@ func do_init(_ud=null):
 		"res://content/worlds/covers/neon_tunnel.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
+		"ssp_deep_space", "Deep Space",
+		"res://content/worlds/deep_space.tscn", "Chedski",
+		"res://content/worlds/covers/deep_space.png"
+	))
+	registry_world.add_item(BackgroundWorld.new(
 		"ssp_void", "VOID",
 		"res://content/worlds/void.tscn", "Chedski",
 		"res://content/worlds/covers/void.png"
+	))
+	registry_world.add_item(BackgroundWorld.new(
+		"ssp_rainbow_road", "Rainbow Road",
+		"res://content/worlds/rainbow_road.tscn", "Chedski",
+		"res://content/worlds/covers/rainbow_road.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_classic", "Beyond",

@@ -59,7 +59,7 @@ font_data = ExtResource( 15 )
 [sub_resource type="StyleBoxFlat" id=11]
 bg_color = Color( 1, 1, 1, 1 )
 corner_detail = 1
-anti_aliasing_size = 3.0
+anti_aliasing_size = 3
 
 [sub_resource type="DynamicFont" id=12]
 size = 52
@@ -96,87 +96,87 @@ size = 28
 use_filter = true
 font_data = ExtResource( 17 )
 
-[sub_resource type="DynamicFont" id=36]
+[sub_resource type="DynamicFont" id=19]
 size = 128
 use_filter = true
 font_data = ExtResource( 17 )
 
-[sub_resource type="ViewportTexture" id=19]
+[sub_resource type="ViewportTexture" id=20]
 flags = 4
 viewport_path = NodePath("Game/Grid/TimerVP")
 
-[sub_resource type="ViewportTexture" id=20]
+[sub_resource type="ViewportTexture" id=21]
 flags = 4
 viewport_path = NodePath("Game/Grid/LeftVP")
 
-[sub_resource type="ViewportTexture" id=21]
+[sub_resource type="ViewportTexture" id=22]
 flags = 4
 viewport_path = NodePath("Game/Grid/GiveUpVP")
 
-[sub_resource type="ViewportTexture" id=22]
+[sub_resource type="ViewportTexture" id=23]
 flags = 4
 viewport_path = NodePath("Game/Grid/PauseVP")
 
-[sub_resource type="ViewportTexture" id=23]
+[sub_resource type="ViewportTexture" id=24]
 flags = 4
 viewport_path = NodePath("Game/Grid/RightVP")
 
-[sub_resource type="ViewportTexture" id=24]
+[sub_resource type="ViewportTexture" id=25]
 flags = 4
 viewport_path = NodePath("Game/Grid/EnergyVP")
 
-[sub_resource type="ViewportTexture" id=25]
+[sub_resource type="ViewportTexture" id=26]
 flags = 4
 viewport_path = NodePath("Game/Grid/ConfigVP")
 
-[sub_resource type="ViewportTexture" id=37]
+[sub_resource type="ViewportTexture" id=27]
 flags = 4
 viewport_path = NodePath("Game/Grid/ComboVP")
 
-[sub_resource type="PlaneMesh" id=26]
+[sub_resource type="PlaneMesh" id=28]
 size = Vector2( 3.1, 3.1 )
 
-[sub_resource type="SpatialMaterial" id=27]
+[sub_resource type="SpatialMaterial" id=29]
 resource_local_to_scene = true
 flags_transparent = true
 flags_unshaded = true
 albedo_color = Color( 1, 1, 1, 0.588235 )
 albedo_texture = ExtResource( 9 )
 
-[sub_resource type="PlaneMesh" id=28]
+[sub_resource type="PlaneMesh" id=30]
 size = Vector2( 3, 3 )
 
-[sub_resource type="SpatialMaterial" id=29]
+[sub_resource type="SpatialMaterial" id=31]
 resource_local_to_scene = true
 flags_transparent = true
 flags_unshaded = true
 albedo_color = Color( 1, 1, 1, 0.352941 )
 albedo_texture = ExtResource( 7 )
 
-[sub_resource type="BoxShape" id=30]
+[sub_resource type="BoxShape" id=32]
 extents = Vector3( 40, 40, 1 )
 
-[sub_resource type="PlaneMesh" id=31]
+[sub_resource type="PlaneMesh" id=33]
 size = Vector2( 0.273, 0.273 )
 
-[sub_resource type="SpatialMaterial" id=32]
+[sub_resource type="SpatialMaterial" id=34]
 resource_local_to_scene = true
 flags_transparent = true
 flags_unshaded = true
 albedo_color = Color( 1, 0, 0, 1 )
 albedo_texture = ExtResource( 10 )
 
-[sub_resource type="SpatialMaterial" id=33]
+[sub_resource type="SpatialMaterial" id=35]
 flags_unshaded = true
 params_specular_mode = 4
 distance_fade_mode = 1
 distance_fade_min_distance = 100.0
 distance_fade_max_distance = 90.0
 
-[sub_resource type="PlaneMesh" id=34]
+[sub_resource type="PlaneMesh" id=36]
 size = Vector2( 0.8, 18 )
 
-[sub_resource type="SpatialMaterial" id=35]
+[sub_resource type="SpatialMaterial" id=37]
 flags_transparent = true
 flags_unshaded = true
 params_specular_mode = 4
@@ -223,6 +223,7 @@ own_world = true
 world = SubResource( 3 )
 transparent_bg = true
 msaa = 2
+hdr = false
 usage = 0
 
 [node name="Control" type="Control" parent="Game/Grid/TimerVP"]
@@ -260,6 +261,7 @@ valign = 2
 [node name="LeftVP" type="Viewport" parent="Game/Grid"]
 size = Vector2( 300, 900 )
 transparent_bg = true
+hdr = false
 usage = 0
 gui_snap_controls_to_pixels = false
 
@@ -390,6 +392,7 @@ size = Vector2( 600, 600 )
 transparent_bg = true
 msaa = 1
 fxaa = true
+hdr = false
 usage = 0
 gui_snap_controls_to_pixels = false
 
@@ -440,6 +443,7 @@ custom_styles/panel = SubResource( 11 )
 [node name="RightVP" type="Viewport" parent="Game/Grid"]
 size = Vector2( 300, 900 )
 transparent_bg = true
+hdr = false
 usage = 0
 gui_snap_controls_to_pixels = false
 
@@ -542,6 +546,7 @@ own_world = true
 world = SubResource( 3 )
 transparent_bg = true
 msaa = 2
+hdr = false
 usage = 0
 
 [node name="Control" type="Control" parent="Game/Grid/EnergyVP"]
@@ -567,6 +572,7 @@ size = Vector2( 600, 600 )
 transparent_bg = true
 msaa = 1
 fxaa = true
+hdr = false
 usage = 0
 gui_snap_controls_to_pixels = false
 
@@ -589,8 +595,8 @@ margin_left = -300.0
 margin_top = -300.0
 margin_right = 300.0
 margin_bottom = 300.0
-custom_colors/font_color = Color( 0.407843, 1, 0, 1 )
 custom_fonts/font = SubResource( 16 )
+custom_colors/font_color = Color( 0.407843, 1, 0, 1 )
 text = "PAUSED"
 align = 1
 valign = 1
@@ -620,6 +626,7 @@ size = Vector2( 600, 600 )
 transparent_bg = true
 msaa = 1
 fxaa = true
+hdr = false
 usage = 0
 gui_snap_controls_to_pixels = false
 
@@ -826,6 +833,7 @@ size = Vector2( 600, 600 )
 transparent_bg = true
 msaa = 1
 fxaa = true
+hdr = false
 usage = 0
 gui_snap_controls_to_pixels = false
 
@@ -837,8 +845,8 @@ anchor_bottom = 0.25
 margin_bottom = 236.0
 grow_horizontal = 2
 grow_vertical = 0
+custom_fonts/font = SubResource( 19 )
 custom_colors/font_color = Color( 1, 1, 1, 0.196078 )
-custom_fonts/font = SubResource( 36 )
 text = "0"
 align = 1
 valign = 1
@@ -852,14 +860,14 @@ transform = Transform( 1, 1.37938e-07, -1.50892e-07, 8.58073e-08, 0.386727, 0.92
 cast_shadow = 0
 pixel_size = 0.0033
 axis = 1
-texture = SubResource( 19 )
+texture = SubResource( 20 )
 
 [node name="LeftHud" type="Sprite3D" parent="Game/Grid"]
 transform = Transform( 0.996195, -0.0871558, -3.8097e-09, 0, -4.37114e-08, 1, -0.0871557, -0.996195, -4.35451e-08, -1.95702, 2.18557e-08, 0.280393 )
 cast_shadow = 0
 pixel_size = 0.0033
 axis = 1
-texture = SubResource( 20 )
+texture = SubResource( 21 )
 
 [node name="GiveUpHud" type="Sprite3D" parent="Game/Grid"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2.23827e-08, 0.512057 )
@@ -867,7 +875,7 @@ visible = false
 cast_shadow = 0
 pixel_size = 0.0033
 axis = 1
-texture = SubResource( 21 )
+texture = SubResource( 22 )
 
 [node name="PauseHud" type="Sprite3D" parent="Game/Grid"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.89666e-08, 0.433905 )
@@ -875,51 +883,51 @@ visible = false
 cast_shadow = 0
 pixel_size = 0.0044
 axis = 1
-texture = SubResource( 22 )
+texture = SubResource( 23 )
 
 [node name="RightHud" type="Sprite3D" parent="Game/Grid"]
 transform = Transform( 0.996195, 0.0871558, 3.8097e-09, 0, -4.37114e-08, 1, 0.0871557, -0.996195, -4.35451e-08, 1.957, 0, 0.28 )
 cast_shadow = 0
 pixel_size = 0.0033
 axis = 1
-texture = SubResource( 23 )
+texture = SubResource( 24 )
 
 [node name="EnergyHud" type="Sprite3D" parent="Game/Grid"]
 transform = Transform( 1, 0, 0, 0, -0.378633, 0.925547, 0, -0.925547, -0.378632, 0, -1.79008, 0.0537441 )
 cast_shadow = 0
 pixel_size = 0.0033
 axis = 1
-texture = SubResource( 24 )
+texture = SubResource( 25 )
 
 [node name="ConfigHud" type="Sprite3D" parent="Game/Grid"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2.35546e-08, 0.538867 )
 cast_shadow = 0
 pixel_size = 0.0033
 axis = 1
-texture = SubResource( 25 )
+texture = SubResource( 26 )
 
 [node name="ComboHud" type="Sprite3D" parent="Game/Grid"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1, -0.461133 )
 cast_shadow = 0
 pixel_size = 0.0033
 axis = 1
-texture = SubResource( 37 )
+texture = SubResource( 27 )
 
 [node name="Outer" type="MeshInstance" parent="Game/Grid"]
 transform = Transform( -4.37114e-08, -4.37114e-08, -1, -1, 1.91069e-15, 4.37114e-08, 0, 1, -4.37114e-08, 0, 0, 0 )
-mesh = SubResource( 26 )
-material/0 = SubResource( 27 )
-
-[node name="Inner" type="MeshInstance" parent="Game/Grid"]
-transform = Transform( -4.37114e-08, -4.37114e-08, -1, -1, 1.91069e-15, 4.37114e-08, 0, 1, -4.37114e-08, 0.000825644, 0.00653231, -0.00601089 )
 mesh = SubResource( 28 )
 material/0 = SubResource( 29 )
+
+[node name="Inner" type="MeshInstance" parent="Game/Grid"]
+transform = Transform( -4.37114e-08, -4.37114e-08, -1, -1, 1.91069e-15, 4.37114e-08, 0, 1, -4.37114e-08, 0.001, 0, -0.006 )
+mesh = SubResource( 30 )
+material/0 = SubResource( 31 )
 
 [node name="Area" type="Area" parent="Game/Grid"]
 
 [node name="CollisionShape" type="CollisionShape" parent="Game/Grid/Area"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000244856, 0.00723147, -0.998636 )
-shape = SubResource( 30 )
+shape = SubResource( 32 )
 
 [node name="Spawn" type="Spatial" parent="Game"]
 pause_mode = 1
@@ -944,17 +952,17 @@ script = ExtResource( 14 )
 
 [node name="Mesh" type="MeshInstance" parent="Game/Spawn/Cursor"]
 transform = Transform( 1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 0, 0, 0 )
-mesh = SubResource( 31 )
-material/0 = SubResource( 32 )
+mesh = SubResource( 33 )
+material/0 = SubResource( 34 )
 
 [node name="Mesh2" type="MeshInstance" parent="Game/Spawn/Cursor"]
 transform = Transform( 9.55343e-16, 2.18557e-08, 0.5, 0.5, -2.18557e-08, 0, 2.18557e-08, 0.5, -2.18557e-08, 4.36088e-10, -4.36088e-10, 0.00997654 )
 visible = false
-mesh = SubResource( 31 )
-material/0 = SubResource( 32 )
+mesh = SubResource( 33 )
+material/0 = SubResource( 34 )
 
 [node name="Note" type="Spatial" parent="Game/Spawn"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -1, 8 )
+transform = Transform( 0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 1, -1, 8 )
 visible = false
 script = ExtResource( 4 )
 
@@ -962,12 +970,12 @@ script = ExtResource( 4 )
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.0182791, -0.058707, -0.0731821 )
 cast_shadow = 0
 mesh = ExtResource( 12 )
-material/0 = SubResource( 33 )
+material/0 = SubResource( 35 )
 
 [node name="Spawn" type="Spatial" parent="Game/Spawn/Note"]
 
 [node name="Mesh" type="MeshInstance" parent="Game/Spawn/Note/Spawn"]
 transform = Transform( 1, 0, 0, 0, -2.18557e-08, -0.5, 0, 0.5, -2.18557e-08, 0.013, 4.5, -0.005 )
 cast_shadow = 0
-mesh = SubResource( 34 )
-material/0 = SubResource( 35 )
+mesh = SubResource( 36 )
+material/0 = SubResource( 37 )
