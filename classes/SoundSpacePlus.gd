@@ -308,6 +308,9 @@ func _process(delta):
 const current_sf_version = 20
 
 func load_saved_settings():
+	if Input.is_key_pressed(KEY_CONTROL) and Input.is_key_pressed(KEY_L): 
+		print("force settings read error")
+		return -1
 	var file:File = File.new()
 	if file.file_exists("user://settings"):
 		var err = file.open("user://settings",File.READ)
