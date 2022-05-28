@@ -1515,6 +1515,7 @@ __meta__ = {
 }
 
 [node name="Settings" type="ScrollContainer" parent="PageMgr"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 10.0
@@ -2680,7 +2681,6 @@ valign = 1
 clip_text = true
 
 [node name="MapRegistry" type="ReferenceRect" parent="PageMgr"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -3001,7 +3001,7 @@ __meta__ = {
 }
 
 [node name="AMOGUS" type="Panel" parent="PageMgr/MapRegistry/T/D"]
-self_modulate = Color( 0, 0.952941, 1, 1 )
+self_modulate = Color( 0.211765, 0.188235, 0.309804, 1 )
 margin_left = 170.0
 margin_right = 202.0
 margin_bottom = 32.0
@@ -3013,7 +3013,7 @@ __meta__ = {
 
 [node name="TextureRect" type="TextureRect" parent="PageMgr/MapRegistry/T/D/AMOGUS"]
 modulate = Color( 0.501961, 0.501961, 0.501961, 1 )
-self_modulate = Color( 0, 0.952941, 1, 1 )
+self_modulate = Color( 0.211765, 0.188235, 0.309804, 1 )
 show_behind_parent = true
 material = SubResource( 28 )
 anchor_right = 1.0
@@ -3025,7 +3025,7 @@ margin_bottom = -2.0
 texture = ExtResource( 19 )
 expand = true
 __meta__ = {
-"_edit_use_anchors_": true
+"_edit_use_anchors_": false
 }
 
 [node name="Label" type="Label" parent="PageMgr/MapRegistry/T/D/AMOGUS"]
@@ -3034,7 +3034,7 @@ anchor_bottom = 1.0
 margin_right = -1.0
 margin_bottom = -3.0
 custom_fonts/font = SubResource( 37 )
-text = "包"
+text = "助"
 align = 1
 valign = 1
 autowrap = true
@@ -3693,7 +3693,7 @@ __meta__ = {
 }
 
 [node name="AMOGUS" type="Panel" parent="PageMgr/MapRegistry/S/G"]
-self_modulate = Color( 0, 0.952941, 1, 1 )
+self_modulate = Color( 0.211765, 0.188235, 0.309804, 1 )
 margin_top = 132.0
 margin_right = 128.0
 margin_bottom = 260.0
@@ -3703,7 +3703,7 @@ script = ExtResource( 48 )
 
 [node name="TextureRect" type="TextureRect" parent="PageMgr/MapRegistry/S/G/AMOGUS"]
 modulate = Color( 0.501961, 0.501961, 0.501961, 1 )
-self_modulate = Color( 0, 0.952941, 1, 1 )
+self_modulate = Color( 0.211765, 0.188235, 0.309804, 1 )
 show_behind_parent = true
 material = SubResource( 28 )
 anchor_right = 1.0
@@ -3726,7 +3726,7 @@ margin_top = 6.0
 margin_right = -6.0
 margin_bottom = -6.0
 custom_fonts/font = SubResource( 48 )
-text = "包"
+text = "助"
 align = 1
 valign = 1
 autowrap = true
@@ -3751,7 +3751,7 @@ __meta__ = {
 
 [node name="F" type="TextureRect" parent="PageMgr/MapRegistry/S/G/AMOGUS"]
 visible = false
-modulate = Color( 1, 0.632667, 0.42, 1 )
+modulate = Color( 0.419608, 0.498039, 1, 1 )
 margin_left = -1.0
 margin_top = -1.0
 margin_right = 31.0

@@ -84,7 +84,8 @@ const difficulty_names:Dictionary = {
 	1: "MEDIUM",
 	2: "HARD",
 	3: "LOGIC?",
-	4: "包",
+	4: "助",
+#	4: "包",
 }
 
 const difficulty_colors:Dictionary = {
@@ -93,7 +94,8 @@ const difficulty_colors:Dictionary = {
 	1: Color("#ffb900"),
 	2: Color("#ff0000"),
 	3: Color("#d76aff"),
-	4: Color("#00f3ff"),
+	4: Color("#36304f"),
+#	4: Color("#00f3ff"),
 }
 
 const official_map_difficulties:Dictionary = {
