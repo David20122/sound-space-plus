@@ -43,7 +43,7 @@ func spawn_notes(notes:Array):
 		add_child(note)
 		note.transform.origin = Vector3(n[0],-n[1],8)
 		if SSP.mod_mirror_x: note.transform.origin.x = 2 - note.transform.origin.x
-		if SSP.mod_mirror_y: note.transform.origin.y = 2 - note.transform.origin.y
+		if SSP.mod_mirror_y: note.transform.origin.y = (-note.transform.origin.y) - 2
 		note.notems = n[2]
 		note.reposition(ms,approach_rate)
 		note.setup(colors[ci])

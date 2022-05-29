@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=2]
+[gd_scene load_steps=58 format=2]
 
 [ext_resource path="res://Camera.gd" type="Script" id=1]
 [ext_resource path="res://NoteManager.gd" type="Script" id=2]
@@ -39,144 +39,149 @@ size = 48
 use_filter = true
 font_data = ExtResource( 18 )
 
-[sub_resource type="StyleBoxFlat" id=7]
-bg_color = Color( 0.54902, 1, 0, 1 )
-
-[sub_resource type="DynamicFont" id=8]
+[sub_resource type="DynamicFont" id=7]
 size = 36
 use_filter = true
 font_data = ExtResource( 17 )
 
+[sub_resource type="StyleBoxFlat" id=8]
+bg_color = Color( 0.54902, 1, 0, 1 )
+
 [sub_resource type="DynamicFont" id=9]
+size = 36
+use_filter = true
+font_data = ExtResource( 17 )
+
+[sub_resource type="DynamicFont" id=10]
 size = 48
 font_data = ExtResource( 16 )
 
-[sub_resource type="DynamicFont" id=10]
+[sub_resource type="DynamicFont" id=11]
 size = 96
 use_filter = true
 font_data = ExtResource( 15 )
 
-[sub_resource type="StyleBoxFlat" id=11]
+[sub_resource type="StyleBoxFlat" id=12]
 bg_color = Color( 1, 1, 1, 1 )
 corner_detail = 1
 anti_aliasing_size = 3
 
-[sub_resource type="DynamicFont" id=12]
+[sub_resource type="DynamicFont" id=13]
 size = 52
 use_filter = true
 font_data = ExtResource( 17 )
 
-[sub_resource type="DynamicFont" id=13]
+[sub_resource type="DynamicFont" id=14]
 size = 72
 outline_size = 2
 outline_color = Color( 0, 0, 0, 0.333333 )
 use_filter = true
 font_data = ExtResource( 15 )
 
-[sub_resource type="StyleBoxFlat" id=14]
+[sub_resource type="StyleBoxFlat" id=15]
 bg_color = Color( 0.227451, 0.647059, 0.0823529, 1 )
 
-[sub_resource type="StyleBoxFlat" id=15]
+[sub_resource type="StyleBoxFlat" id=16]
 bg_color = Color( 0.580392, 0.129412, 0.129412, 0.686275 )
 
-[sub_resource type="DynamicFont" id=16]
+[sub_resource type="DynamicFont" id=17]
 size = 72
 outline_size = 2
 outline_color = Color( 0, 0, 0, 0.333333 )
 use_filter = true
 font_data = ExtResource( 17 )
 
-[sub_resource type="DynamicFont" id=17]
+[sub_resource type="DynamicFont" id=18]
 size = 44
 use_filter = true
 font_data = ExtResource( 17 )
 
-[sub_resource type="DynamicFont" id=18]
+[sub_resource type="DynamicFont" id=19]
 size = 28
 use_filter = true
 font_data = ExtResource( 17 )
 
-[sub_resource type="DynamicFont" id=19]
+[sub_resource type="DynamicFont" id=20]
 size = 128
 use_filter = true
 font_data = ExtResource( 17 )
 
-[sub_resource type="ViewportTexture" id=20]
+[sub_resource type="ViewportTexture" id=21]
 flags = 4
 viewport_path = NodePath("Game/Grid/TimerVP")
 
-[sub_resource type="ViewportTexture" id=21]
+[sub_resource type="ViewportTexture" id=22]
 flags = 4
 viewport_path = NodePath("Game/Grid/LeftVP")
 
-[sub_resource type="ViewportTexture" id=22]
+[sub_resource type="ViewportTexture" id=23]
 flags = 4
 viewport_path = NodePath("Game/Grid/GiveUpVP")
 
-[sub_resource type="ViewportTexture" id=23]
+[sub_resource type="ViewportTexture" id=24]
 flags = 4
 viewport_path = NodePath("Game/Grid/PauseVP")
 
-[sub_resource type="ViewportTexture" id=24]
+[sub_resource type="ViewportTexture" id=25]
 flags = 4
 viewport_path = NodePath("Game/Grid/RightVP")
 
-[sub_resource type="ViewportTexture" id=25]
+[sub_resource type="ViewportTexture" id=26]
 flags = 4
 viewport_path = NodePath("Game/Grid/EnergyVP")
 
-[sub_resource type="ViewportTexture" id=26]
+[sub_resource type="ViewportTexture" id=27]
 flags = 4
 viewport_path = NodePath("Game/Grid/ConfigVP")
 
-[sub_resource type="ViewportTexture" id=27]
+[sub_resource type="ViewportTexture" id=28]
 flags = 4
 viewport_path = NodePath("Game/Grid/ComboVP")
 
-[sub_resource type="PlaneMesh" id=28]
+[sub_resource type="PlaneMesh" id=29]
 size = Vector2( 3.1, 3.1 )
 
-[sub_resource type="SpatialMaterial" id=29]
+[sub_resource type="SpatialMaterial" id=30]
 resource_local_to_scene = true
 flags_transparent = true
 flags_unshaded = true
 albedo_color = Color( 1, 1, 1, 0.588235 )
 albedo_texture = ExtResource( 9 )
 
-[sub_resource type="PlaneMesh" id=30]
+[sub_resource type="PlaneMesh" id=31]
 size = Vector2( 3, 3 )
 
-[sub_resource type="SpatialMaterial" id=31]
+[sub_resource type="SpatialMaterial" id=32]
 resource_local_to_scene = true
 flags_transparent = true
 flags_unshaded = true
 albedo_color = Color( 1, 1, 1, 0.352941 )
 albedo_texture = ExtResource( 7 )
 
-[sub_resource type="BoxShape" id=32]
+[sub_resource type="BoxShape" id=33]
 extents = Vector3( 40, 40, 1 )
 
-[sub_resource type="PlaneMesh" id=33]
+[sub_resource type="PlaneMesh" id=34]
 size = Vector2( 0.273, 0.273 )
 
-[sub_resource type="SpatialMaterial" id=34]
+[sub_resource type="SpatialMaterial" id=35]
 resource_local_to_scene = true
 flags_transparent = true
 flags_unshaded = true
 albedo_color = Color( 1, 0, 0, 1 )
 albedo_texture = ExtResource( 10 )
 
-[sub_resource type="SpatialMaterial" id=35]
+[sub_resource type="SpatialMaterial" id=36]
 flags_unshaded = true
 params_specular_mode = 4
 distance_fade_mode = 1
 distance_fade_min_distance = 100.0
 distance_fade_max_distance = 90.0
 
-[sub_resource type="PlaneMesh" id=36]
+[sub_resource type="PlaneMesh" id=37]
 size = Vector2( 0.8, 18 )
 
-[sub_resource type="SpatialMaterial" id=37]
+[sub_resource type="SpatialMaterial" id=38]
 flags_transparent = true
 flags_unshaded = true
 params_specular_mode = 4
@@ -218,7 +223,7 @@ __meta__ = {
 pause_mode = 1
 
 [node name="TimerVP" type="Viewport" parent="Game/Grid"]
-size = Vector2( 900, 150 )
+size = Vector2( 900, 300 )
 own_world = true
 world = SubResource( 3 )
 transparent_bg = true
@@ -228,7 +233,7 @@ usage = 0
 
 [node name="Control" type="Control" parent="Game/Grid/TimerVP"]
 margin_right = 900.0
-margin_bottom = 150.0
+margin_bottom = 300.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -257,6 +262,22 @@ custom_fonts/font = SubResource( 6 )
 text = "CLICK TO START"
 align = 1
 valign = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SongName" type="Label" parent="Game/Grid/TimerVP/Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = -125.0
+custom_fonts/font = SubResource( 7 )
+text = "Artist Name - Song Name"
+align = 1
+valign = 2
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="LeftVP" type="Viewport" parent="Game/Grid"]
 size = Vector2( 300, 900 )
@@ -281,7 +302,7 @@ margin_left = -1.18921
 margin_top = -50.0
 margin_right = -1.18921
 margin_bottom = -25.0
-custom_styles/fg = SubResource( 7 )
+custom_styles/fg = SubResource( 8 )
 custom_styles/bg = SubResource( 5 )
 max_value = 1.0
 step = 0.0
@@ -297,7 +318,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -231.908
 margin_bottom = -156.908
-custom_fonts/font = SubResource( 8 )
+custom_fonts/font = SubResource( 9 )
 text = "ACCURACY"
 align = 1
 valign = 1
@@ -311,7 +332,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -166.622
 margin_bottom = -91.6223
-custom_fonts/font = SubResource( 9 )
+custom_fonts/font = SubResource( 10 )
 text = "-"
 align = 1
 valign = 1
@@ -335,7 +356,7 @@ empty_color = Color( 0.117188, 0.117188, 0.117188, 1 )
 [node name="Label" type="Label" parent="Game/Grid/LeftVP/Control/Combo"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_fonts/font = SubResource( 10 )
+custom_fonts/font = SubResource( 11 )
 text = "1x"
 align = 1
 valign = 1
@@ -357,7 +378,7 @@ margin_left = -5.0
 margin_top = -100.0
 margin_right = 5.0
 margin_bottom = -93.0
-custom_styles/panel = SubResource( 11 )
+custom_styles/panel = SubResource( 12 )
 
 [node name="Pauses" type="Label" parent="Game/Grid/LeftVP/Control"]
 anchor_top = 1.0
@@ -365,7 +386,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -552.179
 margin_bottom = -477.179
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 13 )
 text = "0"
 align = 1
 valign = 1
@@ -379,7 +400,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -616.776
 margin_bottom = -541.776
-custom_fonts/font = SubResource( 8 )
+custom_fonts/font = SubResource( 9 )
 text = "PAUSES"
 align = 1
 valign = 1
@@ -415,7 +436,7 @@ margin_left = -300.0
 margin_top = -300.0
 margin_right = 300.0
 margin_bottom = 300.0
-custom_fonts/font = SubResource( 13 )
+custom_fonts/font = SubResource( 14 )
 text = "Giving up..."
 align = 1
 valign = 1
@@ -438,7 +459,7 @@ margin_left = -15.0
 margin_top = -250.0
 margin_right = 15.0
 margin_bottom = -236.0
-custom_styles/panel = SubResource( 11 )
+custom_styles/panel = SubResource( 12 )
 
 [node name="RightVP" type="Viewport" parent="Game/Grid"]
 size = Vector2( 300, 900 )
@@ -461,7 +482,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -167.31
 margin_bottom = -92.3102
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 13 )
 text = "0/0"
 align = 1
 valign = 1
@@ -475,7 +496,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -231.908
 margin_bottom = -156.908
-custom_fonts/font = SubResource( 8 )
+custom_fonts/font = SubResource( 9 )
 text = "NOTES"
 align = 1
 valign = 1
@@ -489,7 +510,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -552.179
 margin_bottom = -477.179
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 13 )
 text = "0"
 align = 1
 valign = 1
@@ -503,7 +524,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -616.776
 margin_bottom = -541.776
-custom_fonts/font = SubResource( 8 )
+custom_fonts/font = SubResource( 9 )
 text = "MISSES"
 align = 1
 valign = 1
@@ -517,7 +538,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -785.513
 margin_bottom = -710.513
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 13 )
 text = "0"
 align = 1
 valign = 1
@@ -532,7 +553,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -850.11
 margin_bottom = -775.11
-custom_fonts/font = SubResource( 8 )
+custom_fonts/font = SubResource( 9 )
 text = "FPS"
 align = 1
 valign = 1
@@ -541,7 +562,7 @@ __meta__ = {
 }
 
 [node name="EnergyVP" type="Viewport" parent="Game/Grid"]
-size = Vector2( 900, 150 )
+size = Vector2( 900, 300 )
 own_world = true
 world = SubResource( 3 )
 transparent_bg = true
@@ -551,7 +572,7 @@ usage = 0
 
 [node name="Control" type="Control" parent="Game/Grid/EnergyVP"]
 margin_right = 900.0
-margin_bottom = 150.0
+margin_bottom = 300.0
 
 [node name="Energy" type="ProgressBar" parent="Game/Grid/EnergyVP/Control"]
 anchor_left = 0.5
@@ -560,12 +581,25 @@ margin_left = -400.0
 margin_top = 15.0
 margin_right = 400.0
 margin_bottom = 30.0
-custom_styles/fg = SubResource( 14 )
-custom_styles/bg = SubResource( 15 )
+custom_styles/fg = SubResource( 15 )
+custom_styles/bg = SubResource( 16 )
 max_value = 1.0
 step = 0.0
 value = 1.0
 percent_visible = false
+
+[node name="Modifiers" type="Label" parent="Game/Grid/EnergyVP/Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 50.0
+margin_bottom = -125.0
+custom_fonts/font = SubResource( 7 )
+custom_colors/font_color = Color( 1, 0.929412, 0.658824, 1 )
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="PauseVP" type="Viewport" parent="Game/Grid"]
 size = Vector2( 600, 600 )
@@ -595,7 +629,7 @@ margin_left = -300.0
 margin_top = -300.0
 margin_right = 300.0
 margin_bottom = 300.0
-custom_fonts/font = SubResource( 16 )
+custom_fonts/font = SubResource( 17 )
 custom_colors/font_color = Color( 0.407843, 1, 0, 1 )
 text = "PAUSED"
 align = 1
@@ -619,7 +653,7 @@ margin_left = -15.0
 margin_top = -250.0
 margin_right = 15.0
 margin_bottom = -236.0
-custom_styles/panel = SubResource( 11 )
+custom_styles/panel = SubResource( 12 )
 
 [node name="ConfigVP" type="Viewport" parent="Game/Grid"]
 size = Vector2( 600, 600 )
@@ -647,7 +681,7 @@ margin_left = 30.0
 margin_top = -525.0
 margin_right = -315.0
 margin_bottom = -460.0
-custom_fonts/font = SubResource( 17 )
+custom_fonts/font = SubResource( 18 )
 text = "35 ms"
 align = 1
 valign = 1
@@ -658,7 +692,7 @@ __meta__ = {
 [node name="Title" type="Label" parent="Game/Grid/ConfigVP/Control/HitWindow"]
 anchor_right = 1.0
 margin_top = -40.0
-custom_fonts/font = SubResource( 18 )
+custom_fonts/font = SubResource( 19 )
 text = "HIT WINDOW"
 align = 1
 valign = 1
@@ -674,7 +708,7 @@ margin_left = 315.0
 margin_top = -525.0
 margin_right = -30.0
 margin_bottom = -460.0
-custom_fonts/font = SubResource( 17 )
+custom_fonts/font = SubResource( 18 )
 text = "50"
 align = 1
 valign = 1
@@ -685,7 +719,7 @@ __meta__ = {
 [node name="Title" type="Label" parent="Game/Grid/ConfigVP/Control/Approach"]
 anchor_right = 1.0
 margin_top = -40.0
-custom_fonts/font = SubResource( 18 )
+custom_fonts/font = SubResource( 19 )
 text = "APPROACH RATE"
 align = 1
 valign = 1
@@ -701,7 +735,7 @@ margin_left = 30.0
 margin_top = -400.0
 margin_right = -315.0
 margin_bottom = -335.0
-custom_fonts/font = SubResource( 17 )
+custom_fonts/font = SubResource( 18 )
 text = "LOCK"
 align = 1
 valign = 1
@@ -712,7 +746,7 @@ __meta__ = {
 [node name="Title" type="Label" parent="Game/Grid/ConfigVP/Control/Camera"]
 anchor_right = 1.0
 margin_top = -40.0
-custom_fonts/font = SubResource( 18 )
+custom_fonts/font = SubResource( 19 )
 text = "CAMERA TYPE"
 align = 1
 valign = 1
@@ -728,7 +762,7 @@ margin_left = 315.0
 margin_top = -400.0
 margin_right = -30.0
 margin_bottom = -335.0
-custom_fonts/font = SubResource( 17 )
+custom_fonts/font = SubResource( 18 )
 text = "1.00"
 align = 1
 valign = 1
@@ -739,7 +773,7 @@ __meta__ = {
 [node name="Title" type="Label" parent="Game/Grid/ConfigVP/Control/Parallax"]
 anchor_right = 1.0
 margin_top = -40.0
-custom_fonts/font = SubResource( 18 )
+custom_fonts/font = SubResource( 19 )
 text = "PARALLAX"
 align = 1
 valign = 1
@@ -755,7 +789,7 @@ margin_left = 30.0
 margin_top = -275.0
 margin_right = -315.0
 margin_bottom = -210.0
-custom_fonts/font = SubResource( 17 )
+custom_fonts/font = SubResource( 18 )
 text = "NO"
 align = 1
 valign = 1
@@ -766,7 +800,7 @@ __meta__ = {
 [node name="Title" type="Label" parent="Game/Grid/ConfigVP/Control/EdgeBuffer"]
 anchor_right = 1.0
 margin_top = -40.0
-custom_fonts/font = SubResource( 18 )
+custom_fonts/font = SubResource( 19 )
 text = "EDGE BUFFER"
 align = 1
 valign = 1
@@ -782,7 +816,7 @@ margin_left = 30.0
 margin_top = -150.0
 margin_right = -315.0
 margin_bottom = -85.0
-custom_fonts/font = SubResource( 17 )
+custom_fonts/font = SubResource( 18 )
 text = "1.27 (+0)"
 align = 1
 valign = 1
@@ -793,7 +827,7 @@ __meta__ = {
 [node name="Title" type="Label" parent="Game/Grid/ConfigVP/Control/Hitbox"]
 anchor_right = 1.0
 margin_top = -40.0
-custom_fonts/font = SubResource( 18 )
+custom_fonts/font = SubResource( 19 )
 text = "HITBOX SIZE"
 align = 1
 valign = 1
@@ -809,7 +843,7 @@ margin_left = 315.0
 margin_top = -275.0
 margin_right = -30.0
 margin_bottom = -210.0
-custom_fonts/font = SubResource( 17 )
+custom_fonts/font = SubResource( 18 )
 text = "1.00"
 align = 1
 valign = 1
@@ -820,7 +854,7 @@ __meta__ = {
 [node name="Title" type="Label" parent="Game/Grid/ConfigVP/Control/Sensitivity"]
 anchor_right = 1.0
 margin_top = -40.0
-custom_fonts/font = SubResource( 18 )
+custom_fonts/font = SubResource( 19 )
 text = "SENSITIVITY"
 align = 1
 valign = 1
@@ -845,7 +879,7 @@ anchor_bottom = 0.25
 margin_bottom = 236.0
 grow_horizontal = 2
 grow_vertical = 0
-custom_fonts/font = SubResource( 19 )
+custom_fonts/font = SubResource( 20 )
 custom_colors/font_color = Color( 1, 1, 1, 0.196078 )
 text = "0"
 align = 1
@@ -856,18 +890,18 @@ __meta__ = {
 }
 
 [node name="TimerHud" type="Sprite3D" parent="Game/Grid"]
-transform = Transform( 1, 1.37938e-07, -1.50892e-07, 8.58073e-08, 0.386727, 0.922195, 1.8556e-07, -0.922195, 0.386727, 0, 1.74844, 0.112263 )
+transform = Transform( 1, 1.37938e-07, -1.50892e-07, 8.58073e-08, 0.386727, 0.922195, 1.8556e-07, -0.922195, 0.386727, -3.7723e-08, 1.97899, 0.208945 )
 cast_shadow = 0
 pixel_size = 0.0033
 axis = 1
-texture = SubResource( 20 )
+texture = SubResource( 21 )
 
 [node name="LeftHud" type="Sprite3D" parent="Game/Grid"]
 transform = Transform( 0.996195, -0.0871558, -3.8097e-09, 0, -4.37114e-08, 1, -0.0871557, -0.996195, -4.35451e-08, -1.95702, 2.18557e-08, 0.280393 )
 cast_shadow = 0
 pixel_size = 0.0033
 axis = 1
-texture = SubResource( 21 )
+texture = SubResource( 22 )
 
 [node name="GiveUpHud" type="Sprite3D" parent="Game/Grid"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2.23827e-08, 0.512057 )
@@ -875,7 +909,7 @@ visible = false
 cast_shadow = 0
 pixel_size = 0.0033
 axis = 1
-texture = SubResource( 22 )
+texture = SubResource( 23 )
 
 [node name="PauseHud" type="Sprite3D" parent="Game/Grid"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.89666e-08, 0.433905 )
@@ -883,51 +917,51 @@ visible = false
 cast_shadow = 0
 pixel_size = 0.0044
 axis = 1
-texture = SubResource( 23 )
+texture = SubResource( 24 )
 
 [node name="RightHud" type="Sprite3D" parent="Game/Grid"]
 transform = Transform( 0.996195, 0.0871558, 3.8097e-09, 0, -4.37114e-08, 1, 0.0871557, -0.996195, -4.35451e-08, 1.957, 0, 0.28 )
 cast_shadow = 0
 pixel_size = 0.0033
 axis = 1
-texture = SubResource( 24 )
+texture = SubResource( 25 )
 
 [node name="EnergyHud" type="Sprite3D" parent="Game/Grid"]
-transform = Transform( 1, 0, 0, 0, -0.378633, 0.925547, 0, -0.925547, -0.378632, 0, -1.79008, 0.0537441 )
+transform = Transform( 1, 0, 0, 0, -0.378633, 0.925547, 0, -0.925547, -0.378632, 0, -2.02147, 0.148402 )
 cast_shadow = 0
 pixel_size = 0.0033
 axis = 1
-texture = SubResource( 25 )
+texture = SubResource( 26 )
 
 [node name="ConfigHud" type="Sprite3D" parent="Game/Grid"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2.35546e-08, 0.538867 )
 cast_shadow = 0
 pixel_size = 0.0033
 axis = 1
-texture = SubResource( 26 )
+texture = SubResource( 27 )
 
 [node name="ComboHud" type="Sprite3D" parent="Game/Grid"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1, -0.461133 )
 cast_shadow = 0
 pixel_size = 0.0033
 axis = 1
-texture = SubResource( 27 )
+texture = SubResource( 28 )
 
 [node name="Outer" type="MeshInstance" parent="Game/Grid"]
 transform = Transform( -4.37114e-08, -4.37114e-08, -1, -1, 1.91069e-15, 4.37114e-08, 0, 1, -4.37114e-08, 0, 0, 0 )
-mesh = SubResource( 28 )
-material/0 = SubResource( 29 )
+mesh = SubResource( 29 )
+material/0 = SubResource( 30 )
 
 [node name="Inner" type="MeshInstance" parent="Game/Grid"]
 transform = Transform( -4.37114e-08, -4.37114e-08, -1, -1, 1.91069e-15, 4.37114e-08, 0, 1, -4.37114e-08, 0.001, 0, -0.006 )
-mesh = SubResource( 30 )
-material/0 = SubResource( 31 )
+mesh = SubResource( 31 )
+material/0 = SubResource( 32 )
 
 [node name="Area" type="Area" parent="Game/Grid"]
 
 [node name="CollisionShape" type="CollisionShape" parent="Game/Grid/Area"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000244856, 0.00723147, -0.998636 )
-shape = SubResource( 32 )
+shape = SubResource( 33 )
 
 [node name="Spawn" type="Spatial" parent="Game"]
 pause_mode = 1
@@ -952,14 +986,14 @@ script = ExtResource( 14 )
 
 [node name="Mesh" type="MeshInstance" parent="Game/Spawn/Cursor"]
 transform = Transform( 1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 0, 0, 0 )
-mesh = SubResource( 33 )
-material/0 = SubResource( 34 )
+mesh = SubResource( 34 )
+material/0 = SubResource( 35 )
 
 [node name="Mesh2" type="MeshInstance" parent="Game/Spawn/Cursor"]
 transform = Transform( 9.55343e-16, 2.18557e-08, 0.5, 0.5, -2.18557e-08, 0, 2.18557e-08, 0.5, -2.18557e-08, 4.36088e-10, -4.36088e-10, 0.00997654 )
 visible = false
-mesh = SubResource( 33 )
-material/0 = SubResource( 34 )
+mesh = SubResource( 34 )
+material/0 = SubResource( 35 )
 
 [node name="Note" type="Spatial" parent="Game/Spawn"]
 transform = Transform( 0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 1, -1, 8 )
@@ -970,12 +1004,12 @@ script = ExtResource( 4 )
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.0182791, -0.058707, -0.0731821 )
 cast_shadow = 0
 mesh = ExtResource( 12 )
-material/0 = SubResource( 35 )
+material/0 = SubResource( 36 )
 
 [node name="Spawn" type="Spatial" parent="Game/Spawn/Note"]
 
 [node name="Mesh" type="MeshInstance" parent="Game/Spawn/Note/Spawn"]
 transform = Transform( 1, 0, 0, 0, -2.18557e-08, -0.5, 0, 0.5, -2.18557e-08, 0.013, 4.5, -0.005 )
 cast_shadow = 0
-mesh = SubResource( 36 )
-material/0 = SubResource( 37 )
+mesh = SubResource( 37 )
+material/0 = SubResource( 38 )

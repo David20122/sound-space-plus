@@ -40,11 +40,13 @@ func loadMapFile():
 
 onready var timebar:ProgressBar = get_node("Grid/TimerVP/Control/Time")
 onready var timelabel:Label = get_node("Grid/TimerVP/Control/Label")
+onready var songnametxt:Label = get_node("Grid/TimerVP/Control/SongName")
 onready var acclabel:Label = get_node("Grid/LeftVP/Control/Accuracy")
 onready var accbar:ProgressBar = get_node("Grid/LeftVP/Control/AccuracyBar")
 onready var noteslabel:Label = get_node("Grid/RightVP/Control/Notes")
 onready var misseslabel:Label = get_node("Grid/RightVP/Control/Misses")
 onready var energybar:ProgressBar = get_node("Grid/EnergyVP/Control/Energy")
+onready var modtxt:Label = get_node("Grid/EnergyVP/Control/Modifiers")
 
 onready var comboring:Control = get_node("Grid/LeftVP/Control/Combo")
 onready var combotxt:Label = get_node("Grid/LeftVP/Control/Combo/Label")
@@ -200,7 +202,38 @@ func _ready():
 	if !SSP.show_config: $Grid/ConfigHud.visible = false
 	if !SSP.enable_grid: $Grid/Inner.visible = false
 	if !SSP.enable_border: $Grid/Outer.visible = false
+	songnametxt.text = SSP.selected_song.name
 	
+	var ms = ""
+	if SSP.mod_nofail: ms = "[ NOFAIL ACTIVE ]\n"
+	var mods = []
+	if SSP.mod_speed_level != Globals.SPEED_NORMAL:
+		match SSP.mod_speed_level:
+			Globals.SPEED_MMM: mods.append("Speed---")
+			Globals.SPEED_MM: mods.append("Speed--")
+			Globals.SPEED_M: mods.append("Speed-")
+			Globals.SPEED_P: mods.append("Speed+")
+			Globals.SPEED_PP: mods.append("Speed++")
+			Globals.SPEED_PPP: mods.append("Speed+++")
+			Globals.SPEED_CUSTOM: mods.append("Speed%.01f%%" % Globals.speed_multi[Globals.SPEED_CUSTOM]*100)
+	if SSP.mod_extra_energy: mods.append("Energy+")
+	if SSP.mod_no_regen: mods.append("NoRegen")
+	if SSP.mod_mirror_x or SSP.mod_mirror_y:
+		var mirrorst = "Mirror"
+		if SSP.mod_mirror_x: mirrorst += "X"
+		if SSP.mod_mirror_y: mirrorst += "Y"
+		mods.append(mirrorst)
+	if SSP.mod_ghost: mods.append("Ghost")
+	if SSP.mod_ghost: mods.append("Nearsight")
+	for i in range(mods.size()):
+		if i != 0: ms += " "
+		ms += mods[i]
+	if mods.size() != 0 and !SSP.mod_nofail: ms += '\n'
+	
+	if SSP.hitwindow_ms != 55 or SSP.note_hitbox_size != 1.27:
+		ms += "Hitwindow: %.0f ms | Hitboxes: %.02f m" % [SSP.hitwindow_ms,SSP.note_hitbox_size]
+	
+	modtxt.text = ms
 #	var mat:SpatialMaterial = get_node("Grid/TimerHud").get_surface_material(0)
 ##	get_node("Grid/TimerHud").set_surface_material(0,mat)
 #	var vpt:ViewportTexture = ViewportTexture.new()
