@@ -1,10 +1,10 @@
 extends CheckBox
 
 func _process(_d):
-	if pressed != SSP.mod_mirror_y:
-		SSP.mod_mirror_y = pressed
+	if pressed != SSP.mod_ghost:
+		SSP.mod_ghost = pressed
 
-func upd(): pressed = SSP.mod_mirror_y
+func upd(): pressed = SSP.mod_ghost
 
 func _ready():
 	upd()

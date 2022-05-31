@@ -57,6 +57,7 @@ var misses:float = 0
 var total_notes:float = 0
 var energy:float = 6
 var max_energy:float = 6
+var energy_per_hit:float = 1
 
 func update_hud():
 	if hits == total_notes: acclabel.text = "100%"
@@ -152,14 +153,13 @@ func _process(delta):
 	elif !black_fade_target && black_fade != 0:
 		black_fade = max(black_fade - (delta/0.75),0)
 		$BlackFade.color = Color(0,0,0,black_fade)
-		
 
 
 func hit(col):
 	emit_signal("hit",col)
 	hits += 1
 	total_notes += 1
-	if !SSP.mod_no_regen: energy = clamp(energy+1,0,max_energy)
+	if !SSP.mod_no_regen: energy = clamp(energy+energy_per_hit,0,max_energy)
 	combo += 1
 	if combo_level != 8 or (combo_level == 8 and lvl_progress != 8):
 		lvl_progress += 1
@@ -184,10 +184,18 @@ func miss(col):
 func _ready():
 	SSP.song_end_pause_count = 0
 	get_tree().paused = true
-#	SSP.fail_asm.stream = SSP.fail_snd
-	if SSP.mod_extra_energy:
-		max_energy = 12
-		energy = 12
+	if SSP.mod_sudden_death:
+		max_energy = 1
+	elif SSP.health_model == Globals.HP_OLD:
+		energy_per_hit = 1
+		if SSP.mod_extra_energy: max_energy = 10
+		else: max_energy = 6
+	elif SSP.health_model == Globals.HP_SOUNDSPACE:
+		energy_per_hit = 0.5
+		if SSP.mod_extra_energy: max_energy = 8
+		else: max_energy = 5
+	
+	energy = max_energy
 #	var space = SSP.loaded_world
 	var spinst = SSP.loaded_world.instance()
 	get_parent().call_deferred("add_child",spinst)
@@ -200,12 +208,15 @@ func _ready():
 	$Spawn.connect("miss",self,"miss")
 	loadMapFile()
 	if !SSP.show_config: $Grid/ConfigHud.visible = false
-	if !SSP.enable_grid: $Grid/Inner.visible = false
-	if !SSP.enable_border: $Grid/Outer.visible = false
+	if !SSP.enable_grid: $Spawn/Inner.visible = false
+	if !SSP.enable_border: $Spawn/Outer.visible = false
 	songnametxt.text = SSP.selected_song.name
 	
 	var ms = ""
+	
 	if SSP.mod_nofail: ms = "[ NOFAIL ACTIVE ]\n"
+	elif SSP.health_model == Globals.HP_OLD: ms = "Using old hp model (more hp + fast regen)\n"
+	
 	var mods = []
 	if SSP.mod_speed_level != Globals.SPEED_NORMAL:
 		match SSP.mod_speed_level:
@@ -216,6 +227,7 @@ func _ready():
 			Globals.SPEED_PP: mods.append("Speed++")
 			Globals.SPEED_PPP: mods.append("Speed+++")
 			Globals.SPEED_CUSTOM: mods.append("Speed%.01f%%" % Globals.speed_multi[Globals.SPEED_CUSTOM]*100)
+	if SSP.mod_sudden_death: mods.append("SuddenDeath")
 	if SSP.mod_extra_energy: mods.append("Energy+")
 	if SSP.mod_no_regen: mods.append("NoRegen")
 	if SSP.mod_mirror_x or SSP.mod_mirror_y:
@@ -224,7 +236,7 @@ func _ready():
 		if SSP.mod_mirror_y: mirrorst += "Y"
 		mods.append(mirrorst)
 	if SSP.mod_ghost: mods.append("Ghost")
-	if SSP.mod_ghost: mods.append("Nearsight")
+	if SSP.mod_nearsighted: mods.append("Nearsight")
 	for i in range(mods.size()):
 		if i != 0: ms += " "
 		ms += mods[i]
@@ -234,10 +246,3 @@ func _ready():
 		ms += "Hitwindow: %.0f ms | Hitboxes: %.02f m" % [SSP.hitwindow_ms,SSP.note_hitbox_size]
 	
 	modtxt.text = ms
-#	var mat:SpatialMaterial = get_node("Grid/TimerHud").get_surface_material(0)
-##	get_node("Grid/TimerHud").set_surface_material(0,mat)
-#	var vpt:ViewportTexture = ViewportTexture.new()
-#	vpt.viewport_path = get_node("Grid/TimerVP").get_path()#.get_path_to(get_node("Grid/TimerVP"))
-#	mat.albedo_texture = vpt
-	
-	

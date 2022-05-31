@@ -2,7 +2,7 @@ extends ReferenceRect
 
 func upd(_s=null):
 	if SSP.selected_song:
-		$Mods.visible = true
+		$ModsHolder.visible = true
 		$EndInfo.visible = true
 		$Run.disabled = SSP.selected_song.is_broken
 		$PreviewMusic.disabled = SSP.selected_song.is_broken
@@ -17,7 +17,7 @@ func upd(_s=null):
 func _ready():
 	SSP.connect("selected_song_changed",self,"upd")
 	if !SSP.selected_song:
-		$Mods.visible = false
+		$ModsHolder.visible = false
 		$EndInfo.visible = false
 		$Run.disabled = true
 		$PreviewMusic.disabled = true

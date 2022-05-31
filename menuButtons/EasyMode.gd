@@ -4,5 +4,8 @@ func _process(_d):
 	if pressed != SSP.mod_extra_energy:
 		SSP.mod_extra_energy = pressed
 
+func upd(): pressed = SSP.mod_extra_energy
+
 func _ready():
-	pressed = SSP.mod_extra_energy
+	upd()
+	SSP.connect("mods_changed",self,"upd")

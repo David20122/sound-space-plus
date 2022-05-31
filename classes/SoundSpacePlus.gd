@@ -53,23 +53,42 @@ var mod_mirror_x:bool = false setget set_mod_mirror_x
 var mod_mirror_y:bool = false setget set_mod_mirror_y
 var mod_nearsighted:bool = false setget set_mod_nearsighted
 var mod_ghost:bool = false setget set_mod_ghost
+var mod_sudden_death:bool = false setget set_mod_sudden_death
 
 func set_mod_extra_energy(v:bool):
+	if v:
+		mod_sudden_death = false
+		mod_nofail = false
 	mod_extra_energy = v; emit_signal("mods_changed")
 func set_mod_no_regen(v:bool):
+	if v:
+		mod_sudden_death = false
+		mod_nofail = false
 	mod_no_regen = v; emit_signal("mods_changed")
 func set_mod_speed_level(v:int):
 	mod_speed_level = v; emit_signal("mods_changed"); emit_signal("speed_mod_changed")
 func set_mod_nofail(v:bool):
+	if v:
+		mod_extra_energy = false
+		mod_no_regen = false
+		mod_sudden_death = false
 	mod_nofail = v; emit_signal("mods_changed")
 func set_mod_mirror_x(v:bool):
 	mod_mirror_x = v; emit_signal("mods_changed")
 func set_mod_mirror_y(v:bool):
 	mod_mirror_y = v; emit_signal("mods_changed")
 func set_mod_nearsighted(v:bool):
+	if v: mod_ghost = false
 	mod_nearsighted = v; emit_signal("mods_changed")
 func set_mod_ghost(v:bool):
+	if v: mod_nearsighted = false
 	mod_ghost = v; emit_signal("mods_changed")
+func set_mod_sudden_death(v:bool):
+	if v:
+		mod_extra_energy = false
+		mod_no_regen = false
+		mod_nofail = false
+	mod_sudden_death = v; emit_signal("mods_changed")
 
 # Registries
 var registry_colorset:Registry
@@ -93,6 +112,7 @@ var play_miss_snd:bool = true
 var approach_rate:float = 50
 var sensitivity:float = 1
 var parallax:float = 1
+var ui_parallax:float = 1
 var camera_mode:int = Globals.CAMERA_HALF_LOCK
 var hitwindow_ms:float = 55
 var auto_preview_song:bool = true
@@ -106,13 +126,22 @@ var enable_drift_cursor:bool = true
 var cursor_spin:float = 0
 var note_hitbox_size:float = 1.27
 var spawn_distance:float = 100
-var custom_speed:float = 1
 var note_spawn_effect:bool = true
 var display_true_combo:bool = true
 var cursor_face_velocity:bool = false
+
+var custom_speed:float = 1
+func _set_custom_speed(v:float):
+	custom_speed = v; emit_signal("mods_changed")
+
+var health_model:int = Globals.HP_SOUNDSPACE setget _set_health_model
+func _set_health_model(v:int):
+	health_model = v; emit_signal("mods_changed")
+
 var play_menu_music:bool = false setget _set_menu_music
 func _set_menu_music(v:bool):
 	play_menu_music = v; emit_signal("menu_music_state_changed")
+
 var music_volume_db:float = 0 setget _set_music_volume
 func _set_music_volume(v:float):
 	music_volume_db = v; emit_signal("volume_changed")
@@ -236,17 +265,22 @@ func generate_pb_str():
 		Globals.SPEED_PP: pts.append("s:++")
 		Globals.SPEED_PPP: pts.append("s:+++")
 		Globals.SPEED_CUSTOM: pts.append("s:c%.02f" % custom_speed)
+	match health_model:
+		Globals.HP_OLD: pts.append("hp_old")
+		Globals.HP_SOUNDSPACE: pass # prevents wiping of old pbs
 	pts.append("hitw:%s" % String(floor(hitwindow_ms)))
 	pts.append("hbox:%.02f" % note_hitbox_size)
 	pts.append("ar:%d" % sign(approach_rate))
 	if music_volume_db <= -50: pts.append("silent")
 	
+	if mod_sudden_death: pts.append("m_sd")
 	if mod_extra_energy: pts.append("m_morehp")
 	if mod_no_regen: pts.append("m_noregen")
 	if mod_mirror_x: pts.append("m_mirror_x")
 	if mod_mirror_y: pts.append("m_mirror_y")
 	if mod_nearsighted: pts.append("m_nsight")
 	if mod_ghost: pts.append("m_ghost")
+	if mod_sudden_death: pts.append("m_sd")
 	
 	pts.sort()
 	
@@ -331,7 +365,7 @@ func _process(delta):
 	if Input.is_action_just_pressed("fullscreen"):
 		OS.window_fullscreen = not OS.window_fullscreen
 
-const current_sf_version = 22
+const current_sf_version = 23
 
 func load_saved_settings():
 	if Input.is_key_pressed(KEY_CONTROL) and Input.is_key_pressed(KEY_L): 
@@ -398,6 +432,10 @@ func load_saved_settings():
 			display_true_combo = bool(file.get_8())
 		if sv >= 22:
 			cursor_face_velocity = bool(file.get_8())
+		if sv >= 23:
+			if file.get_8() != 147:
+				print("integ 7"); return 9
+			ui_parallax = file.get_float()
 		file.close()
 	return 0
 
@@ -440,6 +478,8 @@ func save_settings():
 	file.store_8(int(note_spawn_effect))
 	file.store_8(int(display_true_combo))
 	file.store_8(int(cursor_face_velocity))
+	file.store_8(147) # integrity check
+	file.store_float(ui_parallax)
 	file.close()
 
 func get_stream_with_default(path:String,default:AudioStream) -> AudioStream:

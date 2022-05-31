@@ -78,6 +78,11 @@ enum {
 	MAP_SSPM = 3
 }
 
+enum {
+	HP_SOUNDSPACE = 0
+	HP_OLD = 1
+}
+
 const difficulty_names:Dictionary = {
 	-1: "N/A",
 	0: "EASY",

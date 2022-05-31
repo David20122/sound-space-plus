@@ -63,14 +63,18 @@ func _ready():
 	$Note/Mesh.mesh = load(SSP.selected_mesh.path)
 	var m:SpatialMaterial = $Note/Mesh.get("material/0")
 	if SSP.mod_nearsighted:
-		m.distance_fade_min_distance = 30
-		m.distance_fade_max_distance = 5
+		print("nearsight!")
+		m.distance_fade_min_distance = ((30.0/50.0)*SSP.approach_rate)+4.0
+		m.distance_fade_max_distance = ((5.0/50.0)*SSP.approach_rate)+4.0
 	elif SSP.mod_ghost:
-		m.distance_fade_max_distance = 10
-		m.distance_fade_min_distance = 0
+		print("ghost!")
+		m.distance_fade_min_distance = ((2.0/50.0)*SSP.approach_rate)+4.0
+		m.distance_fade_max_distance = ((10.0/50)*SSP.approach_rate)+4.0
 	else:
-		m.distance_fade_min_distance = SSP.spawn_distance + min(SSP.approach_rate * 0.1, SSP.spawn_distance * 0.6)
-		m.distance_fade_max_distance = SSP.spawn_distance - min(SSP.approach_rate * 0.1, SSP.spawn_distance * 0.6)
+		m.distance_fade_min_distance = (SSP.spawn_distance + min(SSP.approach_rate * 0.1, SSP.spawn_distance * 0.6))+4.0
+		m.distance_fade_max_distance = (SSP.spawn_distance - min(SSP.approach_rate * 0.1, SSP.spawn_distance * 0.6))+4.0
+	print("min: ",m.distance_fade_min_distance)
+	print("max: ",m.distance_fade_max_distance)
 
 var music_started:bool = false
 
@@ -84,8 +88,12 @@ func do_half_lock():
 	var cursorpos = $Cursor.transform.origin
 	var centeroff = cursorpos - cursor_offset
 	var hlm = 0.35
+	var uim = 1 - SSP.ui_parallax
 	cam.transform.origin = Vector3(
 		centeroff.x*hlpower*hlm, centeroff.y*hlpower*hlm, 3.735
+	)
+	get_parent().get_node("Grid").transform.origin = Vector3(
+		centeroff.x*hlpower*hlm*uim, centeroff.y*hlpower*hlm*uim, 0
 	)
 #	get_parent().transform.origin = Vector3(-centeroff.x*hlpower,-centeroff.y*hlpower,0) * 0.5
 #	get_parent().get_node("Grid/Inner").transform.origin = Vector3(-centeroff.x*hlpower,-centeroff.y*hlpower,0) * 0.5
@@ -146,9 +154,8 @@ func _process(delta:float):
 			emit_signal("ms_change",ms)
 			$Music.stop()
 	elif Input.is_action_just_pressed("pause"):
-#			print("pause press: state = ",pause_state)
 		if pause_state == 0 and (ms > 1100 and ms < get_parent().last_ms):
-#				print("state 0")
+			print("PAUSED AT MS %.0f" % ms)
 			SSP.song_end_pause_count += 1
 			pause_state = -1
 			ms -= 750
