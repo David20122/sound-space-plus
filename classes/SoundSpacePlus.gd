@@ -78,10 +78,8 @@ func set_mod_mirror_x(v:bool):
 func set_mod_mirror_y(v:bool):
 	mod_mirror_y = v; emit_signal("mods_changed")
 func set_mod_nearsighted(v:bool):
-	if v: mod_ghost = false
 	mod_nearsighted = v; emit_signal("mods_changed")
 func set_mod_ghost(v:bool):
-	if v: mod_nearsighted = false
 	mod_ghost = v; emit_signal("mods_changed")
 func set_mod_sudden_death(v:bool):
 	if v:
@@ -198,27 +196,7 @@ func remove_favorite(id:String):
 		save_favorites()
 
 func save_pbs():
-	var file:File = File.new()
-	file.open("user://pb.json",File.WRITE)
-	var json = JSON.print(personal_bests)
-	file.store_line(json)
-#	file.store_16(4)
-#	for songid in personal_bests.keys():
-#		file.store_16(65535) # indicate gap between songs
-#		file.store_line(songid)
-#		for pb in personal_bests[songid]:
-#			file.store_16(69) # indicate gap between modifier sets
-#			file.store_8(int(pb.has_passed))
-#			file.store_8(int(pb.mod_extra_energy))
-#			file.store_8(int(pb.mod_no_regen))
-#			file.store_8(int(pb.mod_speed_level))
-#			file.store_64(int(pb.position))
-#			file.store_64(int(pb.length))
-#			file.store_32(int(pb.hit_notes))
-#			file.store_32(int(pb.total_notes))
-#			file.store_16(int(pb.pauses))
-##	file.store_16(16384) # indicate eof
-	file.close()
+	pass
 
 func load_pbs():
 	var file:File = File.new()
@@ -622,6 +600,11 @@ func do_init(_ud=null):
 		"ssp_classic", "Beyond",
 		"res://content/worlds/classic.tscn", "Chedski",
 		"res://content/worlds/covers/classic.png"
+	))
+	registry_world.add_item(BackgroundWorld.new(
+		"ssp_custombg", "Custom Background (hdri)",
+		"res://content/worlds/custombg.tscn", "Someone",
+		"res://error.jpg"
 	))
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_custom", "Custom (info in the discord)",

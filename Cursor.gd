@@ -55,20 +55,12 @@ func _process(delta):
 	if SSP.cursor_face_velocity:
 		$Mesh.rotation_degrees.x += ((rad2deg(face.angle()) + 180) - $Mesh.rotation_degrees.x) * 0.025
 
-func load_png(file:String):
-	var imgtex = ImageTexture.new()
-	var res = imgtex.load(file)
-	if res != OK: return null
-	else: return imgtex
-
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	var mat:SpatialMaterial = $Mesh.get("material/0")
-	var file:File = File.new()
 	$Mesh.scale = Vector3(SSP.cursor_scale,SSP.cursor_scale,SSP.cursor_scale)
 	$Mesh2.scale = 0.5 * Vector3(SSP.cursor_scale,SSP.cursor_scale,SSP.cursor_scale)
-	if file.file_exists("user://cursor.png"):
-		var img = load_png("user://cursor.png")
-		if img:
-			mat.albedo_color = Color(1,1,1)
-			mat.albedo_texture = img
+	var img = Globals.imageLoader.load_if_exists("user://cursor")
+	if img:
+		mat.albedo_color = Color(1,1,1)
+		mat.albedo_texture = img

@@ -432,3 +432,4 @@ const official_map_difficulties:Dictionary = {
 var error_sound:AudioStream
 
 var audioLoader:AudioLoader = AudioLoader.new()
+var imageLoader:ImageLoader = ImageLoader.new()

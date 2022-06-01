@@ -9,7 +9,7 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Reference",
+"base": "Node",
 "class": "AudioLoader",
 "language": "GDScript",
 "path": "res://classes/AudioLoader.gd"
@@ -23,6 +23,11 @@ _global_script_classes=[ {
 "class": "ColorSet",
 "language": "GDScript",
 "path": "res://classes/ColorSet.gd"
+}, {
+"base": "Node",
+"class": "ImageLoader",
+"language": "GDScript",
+"path": "res://classes/ImageLoader.gd"
 }, {
 "base": "Spatial",
 "class": "Note",
@@ -48,6 +53,7 @@ _global_script_class_icons={
 "AudioLoader": "",
 "BackgroundWorld": "",
 "ColorSet": "",
+"ImageLoader": "",
 "Note": "",
 "NoteMesh": "",
 "Registry": "",
@@ -65,7 +71,7 @@ boot_splash/fullsize=false
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://icon.png"
 config/windows_native_icon="res://icon.ico"
-config/version="0.6.4-alpha"
+config/version="0.6.5-alpha"
 config/autoload_map_registries="test maps|res://test_assets/test_maps.sspmr;built in|res://content/songs/built_in_maps.sspmr"
 
 [audio]

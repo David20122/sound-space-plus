@@ -36,11 +36,11 @@ func check(cpos:Vector3):
 	return (cpos.x <= ori.x + hbs and cpos.x >= ori.x - hbs) and (cpos.y <= ori.y + hbs and cpos.y >= ori.y - hbs)
 
 func setup(color:Color):
-	var mat:SpatialMaterial = $Mesh.get_surface_material(0).duplicate()
+	var mat:ShaderMaterial = $Mesh.get_surface_material(0).duplicate()
 	var mat2:SpatialMaterial = get_node("Spawn/Mesh").get_surface_material(0).duplicate()
 	$Mesh.set_surface_material(0,mat)
 	get_node("Spawn/Mesh").set_surface_material(0,mat2)
-	mat.albedo_color = color
+	mat.set_shader_param("notecolor",color)
 	mat2.albedo_color = color
 	col = color
 

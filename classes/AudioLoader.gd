@@ -24,6 +24,7 @@
 
 #I honestly don't care that much, Kopimi ftw, but it's my little baby and I want it to look nice :3
 
+extends Node
 class_name AudioLoader
 
 func report_errors(err, filepath):

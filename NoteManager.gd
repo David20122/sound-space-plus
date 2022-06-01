@@ -61,20 +61,21 @@ func _ready():
 	$Miss.stream = SSP.miss_snd
 	$Hit.stream = SSP.hit_snd
 	$Note/Mesh.mesh = load(SSP.selected_mesh.path)
-	var m:SpatialMaterial = $Note/Mesh.get("material/0")
+	var m:ShaderMaterial = $Note/Mesh.get("material/0")
+	
+	if SSP.mod_ghost:
+		print("ghost!")
+		m.set_shader_param("fade_out_start",((12.0/50)*SSP.approach_rate)+4.0)
+		m.set_shader_param("fade_out_end",((4.0/50.0)*SSP.approach_rate)+4.0)
+	
 	if SSP.mod_nearsighted:
 		print("nearsight!")
-		m.distance_fade_min_distance = ((30.0/50.0)*SSP.approach_rate)+4.0
-		m.distance_fade_max_distance = ((5.0/50.0)*SSP.approach_rate)+4.0
-	elif SSP.mod_ghost:
-		print("ghost!")
-		m.distance_fade_min_distance = ((2.0/50.0)*SSP.approach_rate)+4.0
-		m.distance_fade_max_distance = ((10.0/50)*SSP.approach_rate)+4.0
+		m.set_shader_param("fade_in_start",((30.0/50.0)*SSP.approach_rate)+4.0)
+		m.set_shader_param("fade_in_end",((5.0/50.0)*SSP.approach_rate)+4.0)
 	else:
-		m.distance_fade_min_distance = (SSP.spawn_distance + min(SSP.approach_rate * 0.1, SSP.spawn_distance * 0.6))+4.0
-		m.distance_fade_max_distance = (SSP.spawn_distance - min(SSP.approach_rate * 0.1, SSP.spawn_distance * 0.6))+4.0
-	print("min: ",m.distance_fade_min_distance)
-	print("max: ",m.distance_fade_max_distance)
+		m.set_shader_param("fade_in_start",SSP.spawn_distance+4.0)
+		m.set_shader_param("fade_in_end",(SSP.spawn_distance*0.5)+4.0)
+#		m.distance_fade_max_distance = (SSP.spawn_distance - min(SSP.approach_rate * 0.1, SSP.spawn_distance * 0.6))+4.0
 
 var music_started:bool = false
 
