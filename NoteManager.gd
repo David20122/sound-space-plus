@@ -89,12 +89,16 @@ func do_half_lock():
 	var cursorpos = $Cursor.transform.origin
 	var centeroff = cursorpos - cursor_offset
 	var hlm = 0.35
-	var uim = 1 - SSP.ui_parallax
+	var uim = SSP.ui_parallax * 0.1
+	var grm = SSP.grid_parallax * 0.1
 	cam.transform.origin = Vector3(
 		centeroff.x*hlpower*hlm, centeroff.y*hlpower*hlm, 3.735
 	)
 	get_parent().get_node("Grid").transform.origin = Vector3(
-		centeroff.x*hlpower*hlm*uim, centeroff.y*hlpower*hlm*uim, 0
+		-centeroff.x*hlm*uim, -centeroff.y*hlm*uim, 0
+	)
+	transform.origin = Vector3(
+		-(centeroff.x*hlm*grm)-1, -(centeroff.y*hlm*grm)+1, 0
 	)
 #	get_parent().transform.origin = Vector3(-centeroff.x*hlpower,-centeroff.y*hlpower,0) * 0.5
 #	get_parent().get_node("Grid/Inner").transform.origin = Vector3(-centeroff.x*hlpower,-centeroff.y*hlpower,0) * 0.5

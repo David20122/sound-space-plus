@@ -1,4 +1,4 @@
-[gd_scene load_steps=157 format=2]
+[gd_scene load_steps=158 format=2]
 
 [ext_resource path="res://font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://uitheme.tres" type="Theme" id=2]
@@ -88,6 +88,7 @@
 [ext_resource path="res://menuButtons/SuddenDeath.gd" type="Script" id=86]
 [ext_resource path="res://menuButtons/Ghost.gd" type="Script" id=87]
 [ext_resource path="res://menuButtons/UIParallax.gd" type="Script" id=88]
+[ext_resource path="res://menuButtons/GridParallax.gd" type="Script" id=89]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.498039, 0.894118, 1, 1 )
@@ -474,9 +475,6 @@ action_mode = 0
 text = "Convert map to .sspm"
 clip_text = true
 script = ExtResource( 76 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Difficulty" type="OptionButton" parent="MapSelect"]
 visible = false
@@ -1768,6 +1766,7 @@ margin_right = 373.0
 margin_bottom = 87.0
 focus_mode = 2
 theme = ExtResource( 2 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
 custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
@@ -2006,6 +2005,7 @@ margin_right = 373.0
 margin_bottom = 127.0
 focus_mode = 2
 theme = ExtResource( 2 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
 custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
@@ -2013,9 +2013,6 @@ text = "world name here"
 flat = false
 align = 0
 script = ExtResource( 63 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Label" type="Label" parent="PageMgr/Settings/F/World"]
 margin_left = -149.0
@@ -2040,6 +2037,7 @@ margin_right = 723.0
 margin_bottom = 127.0
 focus_mode = 2
 theme = ExtResource( 2 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
 custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
@@ -2156,9 +2154,9 @@ __meta__ = {
 
 [node name="CustomSpeed" type="SpinBox" parent="PageMgr/Settings/F"]
 margin_left = 173.0
-margin_top = 335.0
+margin_top = 375.0
 margin_right = 373.0
-margin_bottom = 367.0
+margin_bottom = 407.0
 focus_mode = 2
 theme = ExtResource( 2 )
 min_value = 5.0
@@ -2216,9 +2214,9 @@ __meta__ = {
 
 [node name="CursorSpin" type="SpinBox" parent="PageMgr/Settings/F"]
 margin_left = 523.0
-margin_top = 215.0
+margin_top = 255.0
 margin_right = 723.0
-margin_bottom = 247.0
+margin_bottom = 287.0
 focus_mode = 2
 theme = ExtResource( 2 )
 min_value = -3600.0
@@ -2248,9 +2246,9 @@ __meta__ = {
 
 [node name="MusicVolume" type="SpinBox" parent="PageMgr/Settings/F"]
 margin_left = 523.0
-margin_top = 255.0
+margin_top = 295.0
 margin_right = 723.0
-margin_bottom = 287.0
+margin_bottom = 327.0
 focus_mode = 2
 theme = ExtResource( 2 )
 min_value = -80.0
@@ -2280,9 +2278,9 @@ __meta__ = {
 
 [node name="SpawnDist" type="SpinBox" parent="PageMgr/Settings/F"]
 margin_left = 523.0
-margin_top = 295.0
+margin_top = 335.0
 margin_right = 723.0
-margin_bottom = 327.0
+margin_bottom = 367.0
 focus_mode = 2
 theme = ExtResource( 2 )
 min_value = 10.0
@@ -2326,14 +2324,14 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="PageMgr/Settings/F/Parallax"]
-margin_left = -115.0
+margin_left = -134.0
 margin_right = -10.0
 margin_bottom = 32.0
 focus_mode = 2
 theme = ExtResource( 2 )
 custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
 custom_fonts/font = SubResource( 3 )
-text = "Parallax"
+text = "Camera Parallax"
 align = 2
 valign = 1
 clip_text = true
@@ -2343,9 +2341,9 @@ __meta__ = {
 
 [node name="UIParallax" type="SpinBox" parent="PageMgr/Settings/F"]
 margin_left = 523.0
-margin_top = 335.0
+margin_top = 215.0
 margin_right = 723.0
-margin_bottom = 367.0
+margin_bottom = 247.0
 focus_mode = 2
 theme = ExtResource( 2 )
 step = 0.01
@@ -2371,11 +2369,38 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="GridParallax" type="SpinBox" parent="PageMgr/Settings/F"]
+margin_left = 174.0
+margin_top = 255.0
+margin_right = 374.0
+margin_bottom = 287.0
+focus_mode = 2
+theme = ExtResource( 2 )
+step = 0.01
+value = 1.0
+script = ExtResource( 89 )
+
+[node name="Label" type="Label" parent="PageMgr/Settings/F/GridParallax"]
+margin_left = -115.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 2 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Grid Parallax"
+align = 2
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="HitWindow" type="SpinBox" parent="PageMgr/Settings/F"]
 margin_left = 173.0
-margin_top = 255.0
+margin_top = 295.0
 margin_right = 373.0
-margin_bottom = 287.0
+margin_bottom = 327.0
 focus_mode = 2
 theme = ExtResource( 2 )
 max_value = 1000.0
@@ -2401,9 +2426,9 @@ __meta__ = {
 
 [node name="NoteHitboxSize" type="SpinBox" parent="PageMgr/Settings/F"]
 margin_left = 173.0
-margin_top = 295.0
+margin_top = 335.0
 margin_right = 373.0
-margin_bottom = 327.0
+margin_bottom = 367.0
 focus_mode = 2
 theme = ExtResource( 2 )
 max_value = 8.0
@@ -2430,9 +2455,9 @@ __meta__ = {
 
 [node name="HitSound" type="CheckBox" parent="PageMgr/Settings/F"]
 margin_left = 173.0
-margin_top = 403.0
+margin_top = 443.0
 margin_right = 697.0
-margin_bottom = 435.0
+margin_bottom = 475.0
 theme = ExtResource( 2 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -2463,9 +2488,9 @@ __meta__ = {
 
 [node name="MenuMusic" type="CheckBox" parent="PageMgr/Settings/F"]
 margin_left = 173.0
-margin_top = 373.0
+margin_top = 413.0
 margin_right = 732.0
-margin_bottom = 405.0
+margin_bottom = 445.0
 theme = ExtResource( 2 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -2498,9 +2523,9 @@ __meta__ = {
 
 [node name="MissSound" type="CheckBox" parent="PageMgr/Settings/F"]
 margin_left = 173.0
-margin_top = 433.0
+margin_top = 473.0
 margin_right = 708.0
-margin_bottom = 465.0
+margin_bottom = 505.0
 theme = ExtResource( 2 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -2531,9 +2556,9 @@ __meta__ = {
 
 [node name="Spin" type="CheckBox" parent="PageMgr/Settings/F"]
 margin_left = 173.0
-margin_top = 463.0
+margin_top = 503.0
 margin_right = 555.0
-margin_bottom = 495.0
+margin_bottom = 535.0
 theme = ExtResource( 2 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -2567,9 +2592,9 @@ __meta__ = {
 
 [node name="BufferCursor" type="CheckBox" parent="PageMgr/Settings/F"]
 margin_left = 173.0
-margin_top = 493.0
+margin_top = 533.0
 margin_right = 644.0
-margin_bottom = 525.0
+margin_bottom = 565.0
 theme = ExtResource( 2 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -2604,9 +2629,9 @@ __meta__ = {
 
 [node name="Grid" type="CheckBox" parent="PageMgr/Settings/F"]
 margin_left = 173.0
-margin_top = 523.0
+margin_top = 563.0
 margin_right = 555.0
-margin_bottom = 555.0
+margin_bottom = 595.0
 theme = ExtResource( 2 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -2641,9 +2666,9 @@ __meta__ = {
 
 [node name="Border" type="CheckBox" parent="PageMgr/Settings/F"]
 margin_left = 173.0
-margin_top = 553.0
+margin_top = 593.0
 margin_right = 555.0
-margin_bottom = 585.0
+margin_bottom = 625.0
 theme = ExtResource( 2 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -2678,9 +2703,9 @@ __meta__ = {
 
 [node name="Config" type="CheckBox" parent="PageMgr/Settings/F"]
 margin_left = 173.0
-margin_top = 583.0
+margin_top = 623.0
 margin_right = 755.0
-margin_bottom = 615.0
+margin_bottom = 655.0
 theme = ExtResource( 2 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -2715,9 +2740,9 @@ __meta__ = {
 
 [node name="AutoPreview" type="CheckBox" parent="PageMgr/Settings/F"]
 margin_left = 172.0
-margin_top = 643.0
+margin_top = 683.0
 margin_right = 554.0
-margin_bottom = 675.0
+margin_bottom = 715.0
 theme = ExtResource( 2 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -2748,9 +2773,9 @@ __meta__ = {
 
 [node name="VSync" type="CheckBox" parent="PageMgr/Settings/F"]
 margin_left = 173.0
-margin_top = 673.0
+margin_top = 713.0
 margin_right = 605.0
-margin_bottom = 705.0
+margin_bottom = 745.0
 theme = ExtResource( 2 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -2780,9 +2805,9 @@ __meta__ = {
 
 [node name="VSyncCompositor" type="CheckBox" parent="PageMgr/Settings/F"]
 margin_left = 173.0
-margin_top = 703.0
+margin_top = 743.0
 margin_right = 725.0
-margin_bottom = 735.0
+margin_bottom = 775.0
 theme = ExtResource( 2 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -2815,9 +2840,9 @@ __meta__ = {
 
 [node name="Fullscreen" type="CheckBox" parent="PageMgr/Settings/F"]
 margin_left = 173.0
-margin_top = 733.0
+margin_top = 773.0
 margin_right = 546.0
-margin_bottom = 765.0
+margin_bottom = 805.0
 theme = ExtResource( 2 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -2844,9 +2869,9 @@ clip_text = true
 
 [node name="DisplayTrueCombo" type="CheckBox" parent="PageMgr/Settings/F"]
 margin_left = 172.0
-margin_top = 763.0
+margin_top = 803.0
 margin_right = 545.0
-margin_bottom = 795.0
+margin_bottom = 835.0
 theme = ExtResource( 2 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -2874,9 +2899,9 @@ clip_text = true
 
 [node name="CursorFaceVelocity" type="CheckBox" parent="PageMgr/Settings/F"]
 margin_left = 173.0
-margin_top = 793.0
-margin_right = 546.0
-margin_bottom = 825.0
+margin_top = 833.0
+margin_right = 567.0
+margin_bottom = 865.0
 theme = ExtResource( 2 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -2904,9 +2929,9 @@ clip_text = true
 
 [node name="NoteSpawnEffect" type="CheckBox" parent="PageMgr/Settings/F"]
 margin_left = 173.0
-margin_top = 613.0
+margin_top = 653.0
 margin_right = 546.0
-margin_bottom = 645.0
+margin_bottom = 685.0
 theme = ExtResource( 2 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )

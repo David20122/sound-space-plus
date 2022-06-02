@@ -110,7 +110,8 @@ var play_miss_snd:bool = true
 var approach_rate:float = 50
 var sensitivity:float = 1
 var parallax:float = 1
-var ui_parallax:float = 1
+var ui_parallax:float = 0.2
+var grid_parallax:float = 3
 var camera_mode:int = Globals.CAMERA_HALF_LOCK
 var hitwindow_ms:float = 55
 var auto_preview_song:bool = true
@@ -307,7 +308,6 @@ func prepare_new_pb(songid:String):
 
 func do_pb_check_and_set() -> bool:
 	if mod_nofail: return false
-#	if hitwindow_ms >= 80 or hitwindow_ms <= 0: return false
 	var has_passed:bool = song_end_type == Globals.END_PASS
 	var pb:Dictionary = {}
 	pb.position = song_end_position
@@ -343,7 +343,7 @@ func _process(delta):
 	if Input.is_action_just_pressed("fullscreen"):
 		OS.window_fullscreen = not OS.window_fullscreen
 
-const current_sf_version = 23
+const current_sf_version = 24
 
 func load_saved_settings():
 	if Input.is_key_pressed(KEY_CONTROL) and Input.is_key_pressed(KEY_L): 
@@ -414,6 +414,11 @@ func load_saved_settings():
 			if file.get_8() != 147:
 				print("integ 7"); return 9
 			ui_parallax = file.get_float()
+		if sv >= 24:
+			grid_parallax = file.get_float()
+		else:
+			grid_parallax = 0
+			ui_parallax = 0
 		file.close()
 	return 0
 
@@ -458,6 +463,7 @@ func save_settings():
 	file.store_8(int(cursor_face_velocity))
 	file.store_8(147) # integrity check
 	file.store_float(ui_parallax)
+	file.store_float(grid_parallax)
 	file.close()
 
 func get_stream_with_default(path:String,default:AudioStream) -> AudioStream:
@@ -595,6 +601,11 @@ func do_init(_ud=null):
 		"ssp_rainbow_road", "Rainbow Road",
 		"res://content/worlds/rainbow_road.tscn", "Chedski",
 		"res://content/worlds/covers/rainbow_road.png"
+	))
+	registry_world.add_item(BackgroundWorld.new(
+		"ssp_cubic", "Cubic",
+		"res://content/worlds/cubic.tscn", "Chedski",
+		"res://content/worlds/covers/cubic.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_classic", "Beyond",
