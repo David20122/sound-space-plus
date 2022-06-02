@@ -1,7 +1,7 @@
 extends Label
 
 func upd():
-	text = "C (%.0f%%)" % (SSP.custom_speed * 100)
+	text = "C (%.0f%%)" % (Globals.speed_multi[Globals.SPEED_CUSTOM] * 100)
 
 func _ready():
 	upd()

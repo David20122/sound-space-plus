@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=2]
+[gd_scene load_steps=62 format=2]
 
 [ext_resource path="res://Camera.gd" type="Script" id=1]
 [ext_resource path="res://NoteManager.gd" type="Script" id=2]
@@ -12,13 +12,15 @@
 [ext_resource path="res://content/cursors/square.png" type="Texture" id=10]
 [ext_resource path="res://MusicVolumeSetter.gd" type="Script" id=11]
 [ext_resource path="res://content/blocks/default.obj" type="ArrayMesh" id=12]
-[ext_resource path="res://CircularProgress.gd" type="Script" id=13]
+[ext_resource path="res://content/ui/spinner_thin.png" type="Texture" id=13]
 [ext_resource path="res://Cursor.gd" type="Script" id=14]
 [ext_resource path="res://font/Lato/Lato-Light.ttf" type="DynamicFontData" id=15]
 [ext_resource path="res://font/Roboto/Regular.ttf" type="DynamicFontData" id=16]
 [ext_resource path="res://font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=17]
 [ext_resource path="res://font/Lato/Lato-Bold.ttf" type="DynamicFontData" id=18]
 [ext_resource path="res://TrueComboHandler.gd" type="Script" id=19]
+[ext_resource path="res://content/ui/spinner_thick.png" type="Texture" id=20]
+[ext_resource path="res://CircularProgress2.gd" type="Script" id=21]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.145098, 0.74902, 0, 1 )
@@ -61,10 +63,36 @@ size = 96
 use_filter = true
 font_data = ExtResource( 15 )
 
-[sub_resource type="StyleBoxFlat" id=12]
-bg_color = Color( 1, 1, 1, 1 )
-corner_detail = 1
-anti_aliasing_size = 3
+[sub_resource type="Shader" id=41]
+code = "shader_type canvas_item;
+
+uniform float value:hint_range(0.0,1.0) = 0.5;
+uniform vec4 fill_color:hint_color = vec4(1,1,1,1);
+uniform vec4 empty_color:hint_color = vec4(0.2,0.2,0.2,0.5);
+uniform float sml:hint_range(0.0,1.0) = 0.0;
+
+void fragment() {
+	vec4 col = texture(TEXTURE,UV);
+	vec2 p = (UV - vec2(0.5)) * 2.0;
+	float ang = -(degrees(atan(p.x,p.y)) - 180.0);
+	float pos = ang/360.0;
+	
+	float v = 0.5;
+	if (sml != 0.0) {
+		v = 1.0 - clamp((pos - (value + (sml * ((value*2.0)-1.0)))) / max(sml * 2.0,0.0001),0.0,1.0);
+	} else {
+		v = float(pos <= value);
+	}
+	vec4 final = mix(empty_color,fill_color,v);
+	COLOR = vec4(final.rgb,final.a*col.a);
+}"
+
+[sub_resource type="ShaderMaterial" id=42]
+shader = SubResource( 41 )
+shader_param/value = 0.5
+shader_param/fill_color = Color( 0.482353, 1, 0.952941, 1 )
+shader_param/empty_color = Color( 0.294118, 0.294118, 0.294118, 0.72549 )
+shader_param/sml = 0.0
 
 [sub_resource type="DynamicFont" id=13]
 size = 52
@@ -418,12 +446,9 @@ margin_left = 25.0
 margin_top = 25.0
 margin_right = -25.0
 margin_bottom = 275.0
-script = ExtResource( 13 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-fill_color = Color( 0.482353, 1, 0.976471, 1 )
-empty_color = Color( 0.117188, 0.117188, 0.117188, 1 )
+script = ExtResource( 21 )
+fill_color = Color( 0.482353, 1, 0.952941, 1 )
+empty_color = Color( 0.294118, 0.294118, 0.294118, 0.72549 )
 
 [node name="Label" type="Label" parent="Game/Grid/LeftVP/Control/Combo"]
 anchor_right = 1.0
@@ -436,21 +461,15 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Part" type="Control" parent="Game/Grid/LeftVP/Control/Combo"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ColorRect" type="Panel" parent="Game/Grid/LeftVP/Control/Combo/Part"]
-margin_left = -5.0
-margin_top = -100.0
-margin_right = 5.0
-margin_bottom = -93.0
-custom_styles/panel = SubResource( 12 )
+[node name="Spin" type="TextureRect" parent="Game/Grid/LeftVP/Control/Combo"]
+material = SubResource( 42 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource( 13 )
+expand = true
+stretch_mode = 6
 
 [node name="Pauses" type="Label" parent="Game/Grid/LeftVP/Control"]
 anchor_top = 1.0
@@ -492,12 +511,9 @@ gui_snap_controls_to_pixels = false
 [node name="Control" type="Control" parent="Game/Grid/GiveUpVP"]
 margin_right = 600.0
 margin_bottom = 600.0
-script = ExtResource( 13 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-fill_color = Color( 1, 0.490196, 0, 1 )
-empty_color = Color( 0.219608, 0.219608, 0.219608, 1 )
+script = ExtResource( 21 )
+fill_color = Color( 1, 0.560784, 0.172549, 1 )
+empty_color = Color( 0.435294, 0.435294, 0.435294, 0 )
 
 [node name="Label" type="Label" parent="Game/Grid/GiveUpVP/Control"]
 anchor_left = 0.5
@@ -517,21 +533,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Part" type="Control" parent="Game/Grid/GiveUpVP/Control"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ColorRect" type="Panel" parent="Game/Grid/GiveUpVP/Control/Part"]
-margin_left = -15.0
-margin_top = -250.0
-margin_right = 15.0
-margin_bottom = -236.0
-custom_styles/panel = SubResource( 12 )
+[node name="Spin" type="TextureRect" parent="Game/Grid/GiveUpVP/Control"]
+material = SubResource( 42 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 50.0
+margin_top = 50.0
+margin_right = -50.0
+margin_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource( 20 )
+expand = true
+stretch_mode = 6
 
 [node name="RightVP" type="Viewport" parent="Game/Grid"]
 size = Vector2( 300, 900 )
@@ -665,8 +679,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 50.0
 margin_bottom = -125.0
-custom_fonts/font = SubResource( 7 )
 custom_colors/font_color = Color( 1, 0.929412, 0.658824, 1 )
+custom_fonts/font = SubResource( 7 )
 align = 1
 autowrap = true
 __meta__ = {
@@ -685,12 +699,9 @@ gui_snap_controls_to_pixels = false
 [node name="Control" type="Control" parent="Game/Grid/PauseVP"]
 margin_right = 600.0
 margin_bottom = 600.0
-script = ExtResource( 13 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+script = ExtResource( 21 )
 fill_color = Color( 0.537255, 1, 0.0745098, 1 )
-empty_color = Color( 0.12549, 0.270588, 0.101961, 0 )
+empty_color = Color( 0.435294, 0.435294, 0.435294, 0 )
 
 [node name="Label" type="Label" parent="Game/Grid/PauseVP/Control"]
 anchor_left = 0.5
@@ -701,8 +712,8 @@ margin_left = -300.0
 margin_top = -300.0
 margin_right = 300.0
 margin_bottom = 300.0
-custom_fonts/font = SubResource( 17 )
 custom_colors/font_color = Color( 0.407843, 1, 0, 1 )
+custom_fonts/font = SubResource( 17 )
 text = "PAUSED"
 align = 1
 valign = 1
@@ -711,21 +722,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Part" type="Control" parent="Game/Grid/PauseVP/Control"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ColorRect" type="Panel" parent="Game/Grid/PauseVP/Control/Part"]
-margin_left = -15.0
-margin_top = -250.0
-margin_right = 15.0
-margin_bottom = -236.0
-custom_styles/panel = SubResource( 12 )
+[node name="Spin" type="TextureRect" parent="Game/Grid/PauseVP/Control"]
+material = SubResource( 42 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 50.0
+margin_top = 50.0
+margin_right = -50.0
+margin_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource( 20 )
+expand = true
+stretch_mode = 6
 
 [node name="ConfigVP" type="Viewport" parent="Game/Grid"]
 size = Vector2( 600, 600 )
@@ -951,8 +960,8 @@ anchor_bottom = 0.25
 margin_bottom = 236.0
 grow_horizontal = 2
 grow_vertical = 0
-custom_fonts/font = SubResource( 20 )
 custom_colors/font_color = Color( 1, 1, 1, 0.196078 )
+custom_fonts/font = SubResource( 20 )
 text = "0"
 align = 1
 valign = 1
