@@ -45,10 +45,13 @@ func select_random():
 		if b.song == SSP.selected_song: b.get_node("Select").pressed = true
 		else: b.get_node("Select").pressed = false
 
-func load_pg():
+var rslp = Vector2(-1,-1)
+func load_pg(is_resize:bool=false):
 	var col = clamp(floor(rect_size.x/132),1,10)
 	if columns != col: columns = col
 	var spp = clamp(col*floor((get_parent().rect_size.y-74)/132),1,6*col)
+	if is_resize and Vector2(col,spp) == rslp: return
+	else: rslp = Vector2(col,spp)
 	get_parent().get_node("P").rect_position.x = (col*132)+66
 	get_parent().get_node("P").rect_size.y = ((spp/col)*132)+12
 	get_parent().get_node("M").rect_size.y = ((spp/col)*132)+12
@@ -204,7 +207,7 @@ func pg(dir:int):
 #		load_pg()
 
 func handle_window_resize():
-	if ready: load_pg()
+	if ready: load_pg(true)
 
 func firstload():
 	get_parent().get_node("P").connect("pressed",self,"pg",[1])
