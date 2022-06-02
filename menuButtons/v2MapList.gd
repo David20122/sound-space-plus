@@ -48,7 +48,7 @@ func select_random():
 func load_pg():
 	var col = clamp(floor(rect_size.x/132),1,10)
 	if columns != col: columns = col
-	var spp = clamp(col*floor(rect_size.y/132)-1,1,6*col)
+	var spp = clamp(col*floor((get_parent().rect_size.y-74)/132),1,6*col)
 	get_parent().get_node("P").rect_position.x = (col*132)+66
 	get_parent().get_node("P").rect_size.y = ((spp/col)*132)+12
 	get_parent().get_node("M").rect_size.y = ((spp/col)*132)+12
@@ -203,9 +203,20 @@ func pg(dir:int):
 #		last_size = OS.window_size
 #		load_pg()
 
-func _notification(what):
-	if what == NOTIFICATION_RESIZED:
-		load_pg()
+func handle_window_resize():
+	if ready: load_pg()
+
+func firstload():
+	get_parent().get_node("P").connect("pressed",self,"pg",[1])
+	get_parent().get_node("M").connect("pressed",self,"pg",[-1])
+	get_parent().get_node("Random").connect("pressed",self,"select_random")
+	page = SSP.last_page_num
+	prepare_songs()
+	reload_to_current_page()
+	ready = true
+	SSP.connect("favorite_songs_changed",self,"reload_to_current_page")
+	get_tree().root.connect("size_changed",self,"handle_window_resize")
+	SSP.emit_signal("map_list_ready")
 
 func _ready():
 	randomize()
@@ -216,12 +227,4 @@ func _ready():
 	$LOGIC.visible = false
 	$AMOGUS.visible = false
 	$NODIF.visible = false
-	get_parent().get_node("P").connect("pressed",self,"pg",[1])
-	get_parent().get_node("M").connect("pressed",self,"pg",[-1])
-	get_parent().get_node("Random").connect("pressed",self,"select_random")
-	page = SSP.last_page_num
-	prepare_songs()
-	reload_to_current_page()
-	ready = true
-	SSP.connect("favorite_songs_changed",self,"reload_to_current_page")
-	SSP.emit_signal("map_list_ready")
+	call_deferred("firstload")
