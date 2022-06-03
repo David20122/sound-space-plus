@@ -7,6 +7,7 @@ onready var normal:CheckBox = $Normal
 onready var p:CheckBox = $P
 onready var pp:CheckBox = $PP
 onready var ppp:CheckBox = $PPP
+onready var pppp:CheckBox = $PPPP
 onready var custom:CheckBox = $Custom
 
 func on_button_changed(state:bool,selectedSpeed:int):
@@ -20,6 +21,7 @@ func _ready():
 	p.pressed = SSP.mod_speed_level == Globals.SPEED_P
 	pp.pressed = SSP.mod_speed_level == Globals.SPEED_PP
 	ppp.pressed = SSP.mod_speed_level == Globals.SPEED_PPP
+	pppp.pressed = SSP.mod_speed_level == Globals.SPEED_PPPP
 	custom.pressed = SSP.mod_speed_level == Globals.SPEED_CUSTOM
 	
 	mmm.connect("toggled",self,"on_button_changed",[Globals.SPEED_MMM])
@@ -29,4 +31,5 @@ func _ready():
 	p.connect("toggled",self,"on_button_changed",[Globals.SPEED_P])
 	pp.connect("toggled",self,"on_button_changed",[Globals.SPEED_PP])
 	ppp.connect("toggled",self,"on_button_changed",[Globals.SPEED_PPP])
+	pppp.connect("toggled",self,"on_button_changed",[Globals.SPEED_PPPP])
 	custom.connect("toggled",self,"on_button_changed",[Globals.SPEED_CUSTOM])

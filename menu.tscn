@@ -845,9 +845,41 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="PPPP" type="CheckBox" parent="MapSelect/ModsHolder/Mods/SpeedMod"]
+margin_left = 142.0
+margin_right = 158.0
+margin_bottom = 32.0
+theme = ExtResource( 2 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 4 )
+action_mode = 0
+group = SubResource( 5 )
+flat = true
+
+[node name="Label2" type="Label" parent="MapSelect/ModsHolder/Mods/SpeedMod/PPPP"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -50.0
+margin_top = 24.0
+margin_right = 50.0
+margin_bottom = 41.0
+rect_pivot_offset = Vector2( 0, 16 )
+focus_mode = 2
+theme = ExtResource( 2 )
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 0
+custom_fonts/font = SubResource( 6 )
+text = ">>>>"
+align = 1
+clip_text = true
+
 [node name="Custom" type="CheckBox" parent="MapSelect/ModsHolder/Mods/SpeedMod"]
-margin_left = 140.0
-margin_right = 156.0
+margin_left = 164.0
+margin_right = 180.0
 margin_bottom = 32.0
 theme = ExtResource( 2 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )

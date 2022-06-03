@@ -131,7 +131,7 @@ var cursor_face_velocity:bool = false
 
 var custom_speed:float = 1
 func _set_custom_speed(v:float):
-	custom_speed = v; emit_signal("mods_changed")
+	custom_speed = v; emit_signal("mods_changed"); emit_signal("speed_mod_changed")
 
 var health_model:int = Globals.HP_SOUNDSPACE setget _set_health_model
 func _set_health_model(v:int):
@@ -243,7 +243,8 @@ func generate_pb_str():
 		Globals.SPEED_P: pts.append("s:+")
 		Globals.SPEED_PP: pts.append("s:++")
 		Globals.SPEED_PPP: pts.append("s:+++")
-		Globals.SPEED_CUSTOM: pts.append("s:c%.02f" % custom_speed)
+		Globals.SPEED_PPPP: pts.append("s:++++")
+		Globals.SPEED_CUSTOM: pts.append("s:c%.2f" % custom_speed)
 	match health_model:
 		Globals.HP_OLD: pts.append("hp_old")
 		Globals.HP_SOUNDSPACE: pass # prevents wiping of old pbs
