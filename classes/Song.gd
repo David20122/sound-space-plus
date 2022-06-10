@@ -90,7 +90,11 @@ func save_pbs():
 		file.store_16(pb.pauses)
 		file.store_32(pb.hit_notes)
 		file.store_32(pb.total_notes)
-		file.store_32(floor(pb.position))
+		
+		# prevent the 69420:00 bug (hacky but it should work)
+		if pb.has_passed: file.store_32(floor(pb.length))
+		else: file.store_32(floor(min(pb.length,pb.position)))
+		
 		file.store_32(floor(pb.length))
 	file.close()
 
