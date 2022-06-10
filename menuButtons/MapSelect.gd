@@ -5,6 +5,7 @@ func upd(_s=null):
 		$ModsHolder.visible = true
 		$ModsTitle.visible = true
 		$EndInfo.visible = true
+		$Hitboxes.visible = true
 		$Run.disabled = SSP.selected_song.is_broken
 		$PreviewMusic.disabled = SSP.selected_song.is_broken
 		$Convert.disabled = $Convert.debounce or SSP.selected_song.converted or SSP.selected_song.is_broken or SSP.selected_song.is_builtin or SSP.selected_song.songType == Globals.MAP_SSPM
@@ -20,6 +21,7 @@ func _ready():
 	if !SSP.selected_song:
 		$ModsHolder.visible = false
 		$ModsTitle.visible = false
+		$Hitboxes.visible = false
 		$EndInfo.visible = false
 		$Run.disabled = true
 		$PreviewMusic.disabled = true

@@ -113,7 +113,6 @@ var parallax:float = 1
 var ui_parallax:float = 0.2
 var grid_parallax:float = 3
 var camera_mode:int = Globals.CAMERA_HALF_LOCK
-var hitwindow_ms:float = 55
 var auto_preview_song:bool = true
 var cam_unlock:bool = false
 var show_config:bool = true
@@ -123,11 +122,19 @@ var cursor_scale:float = 1
 var edge_drift:float = 0
 var enable_drift_cursor:bool = true
 var cursor_spin:float = 0
-var note_hitbox_size:float = 1.27
 var spawn_distance:float = 100
 var note_spawn_effect:bool = true
 var display_true_combo:bool = true
 var cursor_face_velocity:bool = false
+var fade_length:float = 0.5
+
+var note_hitbox_size:float = 1.27 setget _set_hitbox_size
+func _set_hitbox_size(v:float):
+	note_hitbox_size = v; emit_signal("mods_changed")
+
+var hitwindow_ms:float = 55 setget _set_hitwindow
+func _set_hitwindow(v:float):
+	hitwindow_ms = v; emit_signal("mods_changed")
 
 var custom_speed:float = 1
 func _set_custom_speed(v:float):
@@ -344,7 +351,7 @@ func _process(delta):
 	if Input.is_action_just_pressed("fullscreen"):
 		OS.window_fullscreen = not OS.window_fullscreen
 
-const current_sf_version = 24
+const current_sf_version = 25
 
 func load_saved_settings():
 	if Input.is_key_pressed(KEY_CONTROL) and Input.is_key_pressed(KEY_L): 
@@ -420,6 +427,7 @@ func load_saved_settings():
 		else:
 			grid_parallax = 0
 			ui_parallax = 0
+		if sv >= 25: fade_length = file.get_float()
 		file.close()
 	return 0
 
@@ -465,6 +473,7 @@ func save_settings():
 	file.store_8(147) # integrity check
 	file.store_float(ui_parallax)
 	file.store_float(grid_parallax)
+	file.store_float(fade_length)
 	file.close()
 
 func get_stream_with_default(path:String,default:AudioStream) -> AudioStream:

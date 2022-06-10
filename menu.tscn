@@ -1,4 +1,4 @@
-[gd_scene load_steps=158 format=2]
+[gd_scene load_steps=161 format=2]
 
 [ext_resource path="res://font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://uitheme.tres" type="Theme" id=2]
@@ -89,6 +89,8 @@
 [ext_resource path="res://menuButtons/Ghost.gd" type="Script" id=87]
 [ext_resource path="res://menuButtons/UIParallax.gd" type="Script" id=88]
 [ext_resource path="res://menuButtons/GridParallax.gd" type="Script" id=89]
+[ext_resource path="res://menuButtons/Hitboxes.gd" type="Script" id=90]
+[ext_resource path="res://menuButtons/FadeLength.gd" type="Script" id=91]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.498039, 0.894118, 1, 1 )
@@ -100,6 +102,10 @@ corner_radius_bottom_left = 6
 [sub_resource type="DynamicFont" id=2]
 size = 24
 font_data = ExtResource( 10 )
+
+[sub_resource type="DynamicFont" id=69]
+use_filter = true
+font_data = ExtResource( 1 )
 
 [sub_resource type="DynamicFont" id=3]
 use_filter = true
@@ -448,9 +454,6 @@ margin_right = 456.0
 margin_bottom = -55.0
 border_color = Color( 0, 1, 0, 1 )
 script = ExtResource( 33 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Run" type="Button" parent="MapSelect"]
 margin_left = 15.0
@@ -537,6 +540,21 @@ text = "Modifiers"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Hitboxes" type="Label" parent="MapSelect"]
+margin_left = 20.0
+margin_top = 490.0
+margin_right = 444.0
+margin_bottom = 520.0
+focus_mode = 2
+theme = ExtResource( 2 )
+custom_colors/font_color = Color( 0.717647, 0.905882, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 69 )
+text = "Default hitboxes, default hitwindow"
+align = 2
+valign = 2
+script = ExtResource( 90 )
 
 [node name="ModsHolder" type="ScrollContainer" parent="MapSelect"]
 anchor_bottom = 1.0
@@ -2214,6 +2232,34 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="FadeLength" type="SpinBox" parent="PageMgr/Settings/F"]
+margin_left = 523.0
+margin_top = 375.0
+margin_right = 723.0
+margin_bottom = 407.0
+focus_mode = 2
+theme = ExtResource( 2 )
+step = 0.01
+value = 50.0
+suffix = "%"
+script = ExtResource( 91 )
+
+[node name="Label" type="Label" parent="PageMgr/Settings/F/FadeLength"]
+margin_left = -149.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 2 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Fade Length"
+align = 2
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="EdgeBuffer" type="SpinBox" parent="PageMgr/Settings/F"]
 margin_left = 523.0
 margin_top = 175.0
@@ -2288,9 +2334,6 @@ max_value = 300.0
 step = 0.01
 suffix = "dB (0 = 100%)"
 script = ExtResource( 61 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Label" type="Label" parent="PageMgr/Settings/F/MusicVolume"]
 margin_left = -146.0
@@ -2321,9 +2364,6 @@ step = 0.01
 value = 100.0
 suffix = "m (def. 100)"
 script = ExtResource( 75 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Label" type="Label" parent="PageMgr/Settings/F/SpawnDist"]
 margin_left = -146.0

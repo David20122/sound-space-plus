@@ -74,7 +74,7 @@ func _ready():
 		m.set_shader_param("fade_in_end",((5.0/50.0)*SSP.approach_rate)+4.0)
 	else:
 		m.set_shader_param("fade_in_start",SSP.spawn_distance+4.0)
-		m.set_shader_param("fade_in_end",(SSP.spawn_distance*0.5)+4.0)
+		m.set_shader_param("fade_in_end",(SSP.spawn_distance*clamp(1 - SSP.fade_length,0,0.995))+4.0)
 #		m.distance_fade_max_distance = (SSP.spawn_distance - min(SSP.approach_rate * 0.1, SSP.spawn_distance * 0.6))+4.0
 
 var music_started:bool = false
@@ -155,17 +155,17 @@ func _process(delta:float):
 			pause_state = -1
 			get_parent().get_node("Grid/PauseHud").modulate = Color(1,1,1,1)
 			get_parent().get_node("Grid/PauseVP/Control").percent = 0
-			ms = pause_ms - 750
+			ms = pause_ms# - (750 * speed_multi)
 			emit_signal("ms_change",ms)
 			$Music.stop()
 	elif Input.is_action_just_pressed("pause"):
-		if pause_state == 0 and (ms > 1100 and ms < get_parent().last_ms):
+		if pause_state == 0 and (ms > (1000 * speed_multi) and ms < get_parent().last_ms):
 			print("PAUSED AT MS %.0f" % ms)
 			SSP.song_end_pause_count += 1
 			pause_state = -1
-			ms -= 750
+#			ms -= 750
 			emit_signal("ms_change",ms)
-			pause_ms = ms + 750
+			pause_ms = ms# + (750 * speed_multi)
 			$Music.stop()
 			get_parent().get_node("Grid/LeftVP/Control/Pauses").text = comma_sep(SSP.song_end_pause_count)
 			get_parent().get_node("Grid/PauseHud").visible = true
@@ -176,7 +176,7 @@ func _process(delta:float):
 #				print(pause_ms)
 			pause_state = 1
 			get_parent().get_node("Grid/PauseHud").modulate = Color(1,1,1,pause_state)
-			ms = pause_ms - (pause_state * 750)
+			ms = pause_ms - (pause_state * (750 * speed_multi))
 			emit_signal("ms_change",ms)
 			$Music.volume_db = SSP.music_volume_db - 30
 			$Music.play(ms/1000)

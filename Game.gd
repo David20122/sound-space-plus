@@ -227,7 +227,7 @@ func _ready():
 			Globals.SPEED_PP: mods.append("Speed++")
 			Globals.SPEED_PPP: mods.append("Speed+++")
 			Globals.SPEED_PPPP: mods.append("Speed++++")
-			Globals.SPEED_CUSTOM: mods.append("Speed%.1f%%" % (Globals.speed_multi[Globals.SPEED_CUSTOM] * 100))
+			Globals.SPEED_CUSTOM: mods.append("Speed%s%%" % [Globals.speed_multi[Globals.SPEED_CUSTOM] * 100])
 	if SSP.mod_sudden_death: mods.append("SuddenDeath")
 	if SSP.mod_extra_energy: mods.append("Energy+")
 	if SSP.mod_no_regen: mods.append("NoRegen")
