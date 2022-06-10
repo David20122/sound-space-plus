@@ -5,3 +5,6 @@ export_presets.cfg
 .import/*
 *.translation
 .mono/
+addons/discord_game_sdk/discord_game_sdk.dll
+addons/discord_game_sdk/discord_game_sdk.dylib
+addons/discord_game_sdk/libdiscord_game_sdk.so
