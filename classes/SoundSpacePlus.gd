@@ -161,23 +161,11 @@ var menu_bgm:AudioStream
 var loaded_world = null
 
 # Other save data
-var personal_bests:Dictionary = {
-#	ss_archive_SAO_CF = [
-#		{
-#			has_passed = false,
-#			mod_extra_energy = false,
-#			mod_no_regen = false,
-#			mod_speed_level = Globals.SPEED_NORMAL,
-#			position = 53000,
-#			length = 240000,
-#			hit_notes = 4,
-#			total_notes = 10
-#		}
-#	]
-}
+var personal_bests:Dictionary = {}
 var favorite_songs:Array = []
 
 var do_archive_convert:bool = false
+
 
 func save_favorites():
 	var file:File = File.new()
@@ -202,6 +190,7 @@ func remove_favorite(id:String):
 		favorite_songs.remove(favorite_songs.find(id))
 		emit_signal("favorite_songs_changed")
 		save_favorites()
+
 
 func save_pbs():
 	pass
@@ -329,6 +318,7 @@ func do_pb_check_and_set() -> bool:
 func get_best():
 	return selected_song.get_pb(generate_pb_str())
 
+
 func select_colorset(set:ColorSet):
 	if set:
 		selected_colorset = set
@@ -347,9 +337,56 @@ func select_mesh(mesh:NoteMesh):
 	selected_mesh = mesh
 	emit_signal("selected_mesh_changed",mesh)
 
+
 func _process(delta):
 	if Input.is_action_just_pressed("fullscreen"):
 		OS.window_fullscreen = not OS.window_fullscreen
+
+
+func update_rpc_song():
+	if selected_song == null: return
+	var txt = ""
+	var mods = []
+	if mod_nofail: mods.append("Nofail")
+	if mod_speed_level != Globals.SPEED_NORMAL:
+		match mod_speed_level:
+			Globals.SPEED_MMM: mods.append("Speed---")
+			Globals.SPEED_MM: mods.append("Speed--")
+			Globals.SPEED_M: mods.append("Speed-")
+			Globals.SPEED_P: mods.append("Speed+")
+			Globals.SPEED_PP: mods.append("Speed++")
+			Globals.SPEED_PPP: mods.append("Speed+++")
+			Globals.SPEED_PPPP: mods.append("Speed++++")
+			Globals.SPEED_CUSTOM: mods.append("Speed %s%%" % [Globals.speed_multi[Globals.SPEED_CUSTOM] * 100])
+	if mod_sudden_death: mods.append("SuddenDeath")
+	if mod_extra_energy: mods.append("Energy+")
+	if mod_no_regen: mods.append("NoRegen")
+	if mod_mirror_x or mod_mirror_y:
+		var mirrorst = "Mirror"
+		if SSP.mod_mirror_x: mirrorst += "X"
+		if SSP.mod_mirror_y: mirrorst += "Y"
+		mods.append(mirrorst)
+	if mod_ghost: mods.append("Ghost")
+	if mod_nearsighted: mods.append("Nearsight")
+	
+	if mods.size() == 0: txt = "No modifiers"
+	else:
+		for i in range(mods.size()):
+			if i != 0: txt += ", "
+			txt += mods[i]
+	
+	var activity = Discord.Activity.new()
+	activity.set_type(Discord.ActivityType.Playing)
+	activity.set_state(txt)
+	activity.set_details(selected_song.name)
+
+	var assets = activity.get_assets()
+	assets.set_large_image("icon")
+
+	var result = yield(Discord.activity_manager.update_activity(activity), "result").result
+	if result != Discord.Result.Ok:
+		push_error(result)
+
 
 const current_sf_version = 25
 
@@ -502,6 +539,8 @@ func _ready():
 	call_deferred("add_child",fail_asp)
 	pause_mode = PAUSE_MODE_PROCESS
 
+var errornum:int = 0
+
 func do_init(_ud=null):
 	installed_packs = []
 	var lmid
@@ -511,7 +550,6 @@ func do_init(_ud=null):
 	var file:File = File.new()
 	var dir:Directory = Directory.new()
 	dir.open("user://")
-#	var pause_len:float = 0.05
 	
 	# Setup directories if they don't already exist
 	var convert_pb_format:bool = false
@@ -827,6 +865,7 @@ func do_init(_ud=null):
 	var result = load_saved_settings()
 	print(result)
 	if result != 0:
+		errornum = result
 		# errors are returned when settings are invalid
 		get_tree().change_scene("res://starterror.tscn")
 		return
@@ -895,11 +934,3 @@ func do_init(_ud=null):
 	first_init_done = true
 	do_archive_convert = false
 	emit_signal("init_stage_reached","Waiting for menu",true)
-
-
-
-
-
-
-
-

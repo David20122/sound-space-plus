@@ -442,11 +442,8 @@ corner_radius_bottom_left = 6
 pause_mode = 2
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 0.121569, 0.0980392, 0.14902, 1 )
+color = Color( 0, 0, 0, 1 )
 script = ExtResource( 11 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="MapSelect" type="ReferenceRect" parent="."]
 anchor_bottom = 1.0

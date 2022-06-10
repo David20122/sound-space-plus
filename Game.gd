@@ -247,3 +247,6 @@ func _ready():
 		ms += "Hitwindow: %.0f ms | Hitboxes: %.02f m" % [SSP.hitwindow_ms,SSP.note_hitbox_size]
 	
 	modtxt.text = ms
+	
+	SSP.update_rpc_song()
+

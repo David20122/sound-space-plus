@@ -35,6 +35,22 @@ func _ready():
 	$AudioStreamPlayer.play()
 	
 	thread.start(SSP,"do_init")
+	
+	
+	var activity = Discord.Activity.new()
+	activity.set_type(Discord.ActivityType.Playing)
+	activity.set_details("Initialization")
+	
+	if SSP.do_archive_convert: activity.set_state("Mass-converting songs")
+	elif SSP.first_init_done: activity.set_state("Reloading content")
+	else: activity.set_state("Starting the game")
+
+	var assets = activity.get_assets()
+	assets.set_large_image("icon")
+
+	var res = yield(Discord.activity_manager.update_activity(activity), "result").result
+	if res != Discord.Result.Ok:
+		push_error(res)
 #	SSP.do_init()
 
 func _exit_tree():
