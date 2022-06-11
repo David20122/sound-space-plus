@@ -1,7 +1,7 @@
 extends ColorRect
 
-onready var pages:Array = [$Settings,$MapRegistry,$ContentMgr]
-onready var buttons:Array = [$SettingsBtn,$MapRegBtn,$ContentMgrBtn]
+onready var pages:Array = [$Settings,$MapRegistry,$ContentMgr,$Credits]
+onready var buttons:Array = [$SettingsBtn,$MapRegBtn,$ContentMgrBtn,$CreditsBtn]
 
 func press(bi:int,q:bool=false):
 	if !q: $Press.play()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=161 format=2]
+[gd_scene load_steps=169 format=2]
 
 [ext_resource path="res://font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://uitheme.tres" type="Theme" id=2]
@@ -91,6 +91,8 @@
 [ext_resource path="res://menuButtons/GridParallax.gd" type="Script" id=89]
 [ext_resource path="res://menuButtons/Hitboxes.gd" type="Script" id=90]
 [ext_resource path="res://menuButtons/FadeLength.gd" type="Script" id=91]
+[ext_resource path="res://menuButtons/ContentMgrAddMap.gd" type="Script" id=92]
+[ext_resource path="res://menuButtons/PatreonCredits.gd" type="Script" id=94]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.498039, 0.894118, 1, 1 )
@@ -438,6 +440,38 @@ corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 
+[sub_resource type="DynamicFont" id=70]
+size = 28
+use_filter = true
+font_data = ExtResource( 10 )
+
+[sub_resource type="DynamicFont" id=72]
+size = 24
+use_filter = true
+font_data = ExtResource( 10 )
+
+[sub_resource type="DynamicFont" id=73]
+size = 26
+use_filter = true
+font_data = ExtResource( 10 )
+
+[sub_resource type="DynamicFont" id=74]
+size = 22
+use_filter = true
+font_data = ExtResource( 10 )
+
+[sub_resource type="DynamicFont" id=75]
+size = 24
+use_filter = true
+font_data = ExtResource( 10 )
+
+[sub_resource type="DynamicFont" id=71]
+size = 20
+use_filter = true
+extra_spacing_top = -2
+extra_spacing_bottom = -2
+font_data = ExtResource( 10 )
+
 [node name="Menu" type="ColorRect"]
 pause_mode = 2
 anchor_right = 1.0
@@ -461,9 +495,6 @@ theme = ExtResource( 2 )
 action_mode = 0
 text = "Run Map"
 script = ExtResource( 6 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Convert" type="Button" parent="MapSelect"]
 margin_left = 216.0
@@ -1680,9 +1711,6 @@ margin_left = 456.0
 margin_top = 48.0
 color = Color( 0.0588235, 0.0235294, 0.0666667, 1 )
 script = ExtResource( 29 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Press" type="AudioStreamPlayer" parent="PageMgr"]
 stream = ExtResource( 31 )
@@ -1752,15 +1780,32 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="CreditsBtn" type="Button" parent="PageMgr"]
+margin_left = 405.0
+margin_top = -33.0
+margin_right = 545.0
+theme = ExtResource( 2 )
+custom_colors/font_color_disabled = Color( 0.301961, 0.211765, 0.211765, 1 )
+custom_colors/font_color = Color( 0.784314, 0.784314, 0.784314, 1 )
+custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
+custom_colors/font_color_pressed = Color( 1, 1, 1, 1 )
+custom_styles/hover = SubResource( 22 )
+custom_styles/pressed = SubResource( 23 )
+custom_styles/focus = SubResource( 24 )
+custom_styles/disabled = SubResource( 25 )
+custom_styles/normal = SubResource( 26 )
+toggle_mode = true
+action_mode = 0
+group = SubResource( 27 )
+text = "Patreon Credits"
+
 [node name="Settings" type="ScrollContainer" parent="PageMgr"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 10.0
 follow_focus = true
 scroll_horizontal_enabled = false
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="F" type="ReferenceRect" parent="PageMgr/Settings"]
 margin_right = 800.0
@@ -4749,6 +4794,119 @@ __meta__ = {
 }
 target_scene = "res://menuload.tscn"
 
+[node name="Credits" type="ReferenceRect" parent="PageMgr"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 4.0
+border_color = Color( 1, 0, 0, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="C" type="HBoxContainer" parent="PageMgr/Credits"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 30.0
+alignment = 1
+script = ExtResource( 94 )
+
+[node name="S" type="ScrollContainer" parent="PageMgr/Credits/C"]
+margin_left = 311.0
+margin_right = 508.0
+margin_bottom = 638.0
+follow_focus = true
+scroll_horizontal_enabled = false
+scroll_deadzone = 45
+
+[node name="L" type="VBoxContainer" parent="PageMgr/Credits/C/S"]
+margin_right = 197.0
+margin_bottom = 120.0
+grow_horizontal = 2
+custom_constants/separation = 12
+alignment = 1
+
+[node name="T3" type="VBoxContainer" parent="PageMgr/Credits/C/S/L"]
+margin_right = 197.0
+margin_bottom = 34.0
+grow_horizontal = 2
+custom_constants/separation = 8
+alignment = 1
+
+[node name="Title" type="Label" parent="PageMgr/Credits/C/S/L/T3"]
+margin_right = 197.0
+margin_bottom = 34.0
+custom_colors/font_color = Color( 0.835294, 0.309804, 1, 1 )
+custom_fonts/font = SubResource( 70 )
+text = "- big money! -"
+align = 1
+
+[node name="Label" type="Label" parent="PageMgr/Credits/C/S/L/T3"]
+visible = false
+margin_top = 42.0
+margin_right = 197.0
+margin_bottom = 72.0
+custom_colors/font_color = Color( 0.972549, 0.721569, 1, 1 )
+custom_fonts/font = SubResource( 72 )
+text = "patron name 1"
+align = 1
+autowrap = true
+
+[node name="T2" type="VBoxContainer" parent="PageMgr/Credits/C/S/L"]
+margin_top = 46.0
+margin_right = 197.0
+margin_bottom = 78.0
+grow_horizontal = 2
+custom_constants/separation = 8
+alignment = 1
+
+[node name="Title" type="Label" parent="PageMgr/Credits/C/S/L/T2"]
+margin_right = 197.0
+margin_bottom = 32.0
+custom_colors/font_color = Color( 0.34902, 0.937255, 0.380392, 1 )
+custom_fonts/font = SubResource( 73 )
+text = "- extra support! -"
+align = 1
+
+[node name="Label" type="Label" parent="PageMgr/Credits/C/S/L/T2"]
+visible = false
+margin_top = 40.0
+margin_right = 197.0
+margin_bottom = 67.0
+custom_colors/font_color = Color( 0.721569, 1, 0.737255, 1 )
+custom_fonts/font = SubResource( 74 )
+text = "patron name 2"
+align = 1
+
+[node name="T1" type="VBoxContainer" parent="PageMgr/Credits/C/S/L"]
+margin_top = 90.0
+margin_right = 197.0
+margin_bottom = 120.0
+grow_horizontal = 2
+custom_constants/separation = 8
+alignment = 1
+
+[node name="Title" type="Label" parent="PageMgr/Credits/C/S/L/T1"]
+margin_right = 197.0
+margin_bottom = 30.0
+custom_colors/font_color = Color( 0.45098, 0.854902, 0.847059, 1 )
+custom_fonts/font = SubResource( 75 )
+text = "- thank you! -"
+align = 1
+
+[node name="Label" type="Label" parent="PageMgr/Credits/C/S/L/T1"]
+visible = false
+margin_top = 38.0
+margin_right = 400.0
+margin_bottom = 59.0
+rect_min_size = Vector2( 400, 0 )
+custom_colors/font_color = Color( 0.803922, 0.972549, 1, 1 )
+custom_fonts/font = SubResource( 71 )
+text = "patron name 3"
+align = 1
+autowrap = true
+
 [node name="Quit" type="Button" parent="."]
 modulate = Color( 1, 0.6, 0.6, 1 )
 anchor_left = 1.0
@@ -4764,6 +4922,20 @@ script = ExtResource( 59 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="ToContentMgr" type="Button" parent="."]
+modulate = Color( 0.552941, 0.988235, 1, 1 )
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -159.0
+margin_top = 15.0
+margin_right = -64.0
+margin_bottom = 42.0
+grow_horizontal = 0
+theme = ExtResource( 2 )
+action_mode = 0
+text = "Add Songs"
+script = ExtResource( 92 )
 
 [node name="BlackFade" type="ColorRect" parent="."]
 visible = false

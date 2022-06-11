@@ -165,7 +165,7 @@ var personal_bests:Dictionary = {}
 var favorite_songs:Array = []
 
 var do_archive_convert:bool = false
-
+var conmgr_transit = null
 
 func save_favorites():
 	var file:File = File.new()

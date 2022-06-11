@@ -175,6 +175,8 @@ config/icon="res://icon.png"
 config/windows_native_icon="res://icon.ico"
 config/version="0.6.8-alpha"
 config/autoload_map_registries="test maps|res://test_assets/test_maps.sspmr;built in|res://content/songs/built_in_maps.sspmr"
+config/enable_new_content_mgr=false
+config/enable_new_content_mgr.editor=false
 
 [audio]
 
