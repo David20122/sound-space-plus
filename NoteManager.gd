@@ -10,7 +10,7 @@ var ms:float = -3000
 var notes_loaded:bool = false
 
 var noteNodes:Array = []
-#var colors:Array = [ Color("#fc94f2"),Color("#96fc94") ]
+var noteQueue:Array = []
 var colors:Array = SSP.selected_colorset.colors
 
 const base_position = Vector3(-1,1,0)
@@ -24,7 +24,8 @@ func reposition_notes(force:bool=false):
 		else: if note.reposition(ms,SSP.approach_rate) == false: return
 		if ms >= note.notems and note.state == Globals.NSTATE_ACTIVE:
 			var result = note.check($Cursor.transform.origin)
-			if !result and ms > note.notems + SSP.hitwindow_ms:
+			if !result and (ms > note.notems + SSP.hitwindow_ms or pause_state == -1):
+				# notes should not be in the hitwindow if the game is paused
 				note.state = Globals.NSTATE_MISS
 				if SSP.play_miss_snd: $Miss.play()
 				emit_signal("miss",note.col)
@@ -36,20 +37,37 @@ func reposition_notes(force:bool=false):
 			noteNodes.remove(noteNodes.find(note))
 			note.queue_free()
 
+var color_index:int = 0
+
+func spawn_note(n:Array):
+	var note:Note = $Note.duplicate()
+	add_child(note)
+	note.transform.origin = Vector3(n[0],-n[1],8)
+	if SSP.mod_mirror_x: note.transform.origin.x = 2 - note.transform.origin.x
+	if SSP.mod_mirror_y: note.transform.origin.y = (-note.transform.origin.y) - 2
+	note.notems = n[2]
+	note.reposition(ms,approach_rate)
+	note.setup(colors[color_index])
+	noteNodes.append(note)
+	color_index += 1
+	if color_index == colors.size(): color_index = 0
+
 func spawn_notes(notes:Array):
-	var ci:int = 0
 	for n in notes:
-		var note:Note = $Note.duplicate()
-		add_child(note)
-		note.transform.origin = Vector3(n[0],-n[1],8)
-		if SSP.mod_mirror_x: note.transform.origin.x = 2 - note.transform.origin.x
-		if SSP.mod_mirror_y: note.transform.origin.y = (-note.transform.origin.y) - 2
-		note.notems = n[2]
-		note.reposition(ms,approach_rate)
-		note.setup(colors[ci])
-		noteNodes.append(note)
-		ci += 1
-		if ci == colors.size(): ci = 0
+		if n[2] <= 5000: # load the first 5 seconds immediately
+			var note:Note = $Note.duplicate()
+			add_child(note)
+			note.transform.origin = Vector3(n[0],-n[1],8)
+			if SSP.mod_mirror_x: note.transform.origin.x = 2 - note.transform.origin.x
+			if SSP.mod_mirror_y: note.transform.origin.y = (-note.transform.origin.y) - 2
+			note.notems = n[2]
+			note.reposition(ms,approach_rate)
+			note.setup(colors[color_index])
+			noteNodes.append(note)
+			color_index += 1
+			if color_index == colors.size(): color_index = 0
+		else:
+			noteQueue.append(n)
 	notes_loaded = true
 	reposition_notes(true)
 
@@ -142,13 +160,24 @@ func comma_sep(number):
 		res += string[i]
 	
 	return res
+
+var spawn_ms_dist:float = ((max(SSP.spawn_distance / SSP.approach_rate,0.6) * 1000) + 500)
+
+func do_note_queue():
+	var rem:int = 0
+	for n in noteQueue:
+		if n[2] <= (ms + (spawn_ms_dist * speed_multi)):
+			rem += 1
+			spawn_note(n)
+		else: break
 	
+	for i in range(rem): noteQueue.pop_front()
+
 func _process(delta:float):
 #	delta *= Engine.time_scale
 	if SSP.cam_unlock: do_spin()
 	else: do_half_lock()
 	if !notes_loaded: return
-	
 	
 	if Input.is_action_just_released("pause"):
 		if pause_state > 0:
@@ -194,6 +223,7 @@ func _process(delta:float):
 	if pause_state == 0 or (pause_state > 0 and Input.is_action_pressed("pause")):
 		ms += delta * 1000 * speed_multi
 		emit_signal("ms_change",ms)
+		do_note_queue()
 		if ms >= 0 and !music_started:
 			$Music.play(ms/1000)
 			music_started = true
