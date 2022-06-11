@@ -576,7 +576,7 @@ margin_right = 444.0
 margin_bottom = 520.0
 focus_mode = 2
 theme = ExtResource( 2 )
-custom_colors/font_color = Color( 0.717647, 0.905882, 1, 1 )
+custom_colors/font_color = Color( 0.717647, 1, 0.760784, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
 custom_fonts/font = SubResource( 69 )
 text = "Default hitboxes, default hitwindow"
@@ -2546,8 +2546,8 @@ focus_mode = 2
 theme = ExtResource( 2 )
 max_value = 8.0
 step = 0.001
-value = 1.27
-suffix = "(def. 1.27)"
+value = 1.14
+suffix = "(def. 1.14)"
 script = ExtResource( 74 )
 
 [node name="Label" type="Label" parent="PageMgr/Settings/F/NoteHitboxSize"]

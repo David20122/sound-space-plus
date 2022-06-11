@@ -55,7 +55,7 @@ func load_pbs():
 			return
 		
 		var sv:int = file.get_16()
-		if sv > 1:
+		if sv > 2:
 			print("invalid file version for pb file (%s)" % id)
 			file.close()
 			return
@@ -65,6 +65,7 @@ func load_pbs():
 		for i in range(amt):
 			var pb:Dictionary = {}
 			var s:String = file.get_line()
+			if sv == 1: s = s.replace("1.27","1.14") # handle the default hitbox change
 			pb.has_passed = bool(file.get_8())
 			pb.pauses = file.get_16()
 			pb.hit_notes = file.get_32()
@@ -81,7 +82,7 @@ func save_pbs():
 		print("error writing pb file for %s: %s" % [id, String(err)])
 		return
 	file.store_buffer(PoolByteArray([0x53,0x53,0x2B,0x70,0x42]))
-	file.store_16(1) # version
+	file.store_16(2) # version
 	file.store_64(pb_data.size()) # number of PBs
 	for k in pb_data.keys():
 		var pb:Dictionary = pb_data[k]

@@ -243,7 +243,7 @@ func _ready():
 		ms += mods[i]
 	if mods.size() != 0 and !SSP.mod_nofail: ms += '\n'
 	
-	if SSP.hitwindow_ms != 55 or SSP.note_hitbox_size != 1.27:
+	if SSP.hitwindow_ms != 55 or SSP.note_hitbox_size != 1.140:
 		ms += "Hitwindow: %.0f ms | Hitboxes: %.02f m" % [SSP.hitwindow_ms,SSP.note_hitbox_size]
 	
 	modtxt.text = ms

@@ -2,7 +2,7 @@ extends Label
 
 func upd():
 	var txt = ""
-	if SSP.note_hitbox_size == 1.27: txt += "Default hitboxes, "
+	if SSP.note_hitbox_size == 1.140: txt += "Default hitboxes, "
 	else: txt += "Hitboxes: %s, " % SSP.note_hitbox_size
 	if SSP.hitwindow_ms == 55: txt += "default hitwindow"
 	else: txt += "hitwindow: %s ms" % SSP.hitwindow_ms

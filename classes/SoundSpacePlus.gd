@@ -128,8 +128,9 @@ var display_true_combo:bool = true
 var cursor_face_velocity:bool = false
 var fade_length:float = 0.5
 
-var note_hitbox_size:float = 1.27 setget _set_hitbox_size
+var note_hitbox_size:float = 1.140 setget _set_hitbox_size
 func _set_hitbox_size(v:float):
+	
 	note_hitbox_size = v; emit_signal("mods_changed")
 
 var hitwindow_ms:float = 55 setget _set_hitwindow
@@ -245,6 +246,7 @@ func generate_pb_str():
 		Globals.HP_OLD: pts.append("hp_old")
 		Globals.HP_SOUNDSPACE: pass # prevents wiping of old pbs
 	pts.append("hitw:%s" % String(floor(hitwindow_ms)))
+	var hb = note_hitbox_size
 	pts.append("hbox:%.02f" % note_hitbox_size)
 	pts.append("ar:%d" % sign(approach_rate))
 	if music_volume_db <= -50: pts.append("silent")
@@ -388,7 +390,7 @@ func update_rpc_song():
 		push_error(result)
 
 
-const current_sf_version = 25
+const current_sf_version = 26
 
 func load_saved_settings():
 	if Input.is_key_pressed(KEY_CONTROL) and Input.is_key_pressed(KEY_L): 
@@ -465,6 +467,9 @@ func load_saved_settings():
 			grid_parallax = 0
 			ui_parallax = 0
 		if sv >= 25: fade_length = file.get_float()
+		if sv < 26 and String(note_hitbox_size) == "1.27":
+			print("0.13 :laugh:")
+			note_hitbox_size = 1.140
 		file.close()
 	return 0
 
@@ -901,7 +906,7 @@ func do_init(_ud=null):
 	# Read PB data
 	if convert_pb_format:
 		hitwindow_ms = 55
-		note_hitbox_size = 1.27
+		note_hitbox_size = 1.14
 		
 		emit_signal("init_stage_reached","Upgrading personal best data\nReading legacy data")
 		yield(get_tree(),"idle_frame")
