@@ -1,4 +1,4 @@
-[gd_scene load_steps=169 format=2]
+[gd_scene load_steps=170 format=2]
 
 [ext_resource path="res://font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://uitheme.tres" type="Theme" id=2]
@@ -92,6 +92,7 @@
 [ext_resource path="res://menuButtons/Hitboxes.gd" type="Script" id=90]
 [ext_resource path="res://menuButtons/FadeLength.gd" type="Script" id=91]
 [ext_resource path="res://menuButtons/ContentMgrAddMap.gd" type="Script" id=92]
+[ext_resource path="res://menuButtons/ShowHitEffect.gd" type="Script" id=93]
 [ext_resource path="res://menuButtons/PatreonCredits.gd" type="Script" id=94]
 
 [sub_resource type="StyleBoxFlat" id=1]
@@ -2669,9 +2670,9 @@ __meta__ = {
 
 [node name="Spin" type="CheckBox" parent="PageMgr/Settings/F"]
 margin_left = 173.0
-margin_top = 503.0
+margin_top = 533.0
 margin_right = 555.0
-margin_bottom = 535.0
+margin_bottom = 565.0
 theme = ExtResource( 2 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -2705,9 +2706,9 @@ __meta__ = {
 
 [node name="BufferCursor" type="CheckBox" parent="PageMgr/Settings/F"]
 margin_left = 173.0
-margin_top = 533.0
+margin_top = 563.0
 margin_right = 644.0
-margin_bottom = 565.0
+margin_bottom = 595.0
 theme = ExtResource( 2 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -2742,9 +2743,9 @@ __meta__ = {
 
 [node name="Grid" type="CheckBox" parent="PageMgr/Settings/F"]
 margin_left = 173.0
-margin_top = 563.0
+margin_top = 593.0
 margin_right = 555.0
-margin_bottom = 595.0
+margin_bottom = 625.0
 theme = ExtResource( 2 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -2779,9 +2780,9 @@ __meta__ = {
 
 [node name="Border" type="CheckBox" parent="PageMgr/Settings/F"]
 margin_left = 173.0
-margin_top = 593.0
+margin_top = 623.0
 margin_right = 555.0
-margin_bottom = 625.0
+margin_bottom = 655.0
 theme = ExtResource( 2 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -2816,9 +2817,9 @@ __meta__ = {
 
 [node name="Config" type="CheckBox" parent="PageMgr/Settings/F"]
 margin_left = 173.0
-margin_top = 623.0
+margin_top = 653.0
 margin_right = 755.0
-margin_bottom = 655.0
+margin_bottom = 685.0
 theme = ExtResource( 2 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -2853,9 +2854,9 @@ __meta__ = {
 
 [node name="AutoPreview" type="CheckBox" parent="PageMgr/Settings/F"]
 margin_left = 172.0
-margin_top = 683.0
+margin_top = 713.0
 margin_right = 554.0
-margin_bottom = 715.0
+margin_bottom = 745.0
 theme = ExtResource( 2 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -2886,9 +2887,9 @@ __meta__ = {
 
 [node name="VSync" type="CheckBox" parent="PageMgr/Settings/F"]
 margin_left = 173.0
-margin_top = 713.0
+margin_top = 743.0
 margin_right = 605.0
-margin_bottom = 745.0
+margin_bottom = 775.0
 theme = ExtResource( 2 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -2918,9 +2919,9 @@ __meta__ = {
 
 [node name="VSyncCompositor" type="CheckBox" parent="PageMgr/Settings/F"]
 margin_left = 173.0
-margin_top = 743.0
+margin_top = 773.0
 margin_right = 725.0
-margin_bottom = 775.0
+margin_bottom = 805.0
 theme = ExtResource( 2 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -2953,9 +2954,9 @@ __meta__ = {
 
 [node name="Fullscreen" type="CheckBox" parent="PageMgr/Settings/F"]
 margin_left = 173.0
-margin_top = 773.0
+margin_top = 803.0
 margin_right = 546.0
-margin_bottom = 805.0
+margin_bottom = 835.0
 theme = ExtResource( 2 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -2982,9 +2983,9 @@ clip_text = true
 
 [node name="DisplayTrueCombo" type="CheckBox" parent="PageMgr/Settings/F"]
 margin_left = 172.0
-margin_top = 803.0
+margin_top = 833.0
 margin_right = 545.0
-margin_bottom = 835.0
+margin_bottom = 865.0
 theme = ExtResource( 2 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -3012,9 +3013,9 @@ clip_text = true
 
 [node name="CursorFaceVelocity" type="CheckBox" parent="PageMgr/Settings/F"]
 margin_left = 173.0
-margin_top = 833.0
+margin_top = 863.0
 margin_right = 567.0
-margin_bottom = 865.0
+margin_bottom = 895.0
 theme = ExtResource( 2 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -3040,11 +3041,41 @@ align = 2
 valign = 1
 clip_text = true
 
+[node name="ShowHitEffect" type="CheckBox" parent="PageMgr/Settings/F"]
+margin_left = 173.0
+margin_top = 503.0
+margin_right = 567.0
+margin_bottom = 535.0
+theme = ExtResource( 2 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 4 )
+pressed = true
+action_mode = 0
+text = "puts a ripple at your cursor when you hit a note - customize with \"hit.png\""
+flat = true
+script = ExtResource( 93 )
+
+[node name="Label" type="Label" parent="PageMgr/Settings/F/ShowHitEffect"]
+margin_left = -165.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 2 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Hit Effect"
+align = 2
+valign = 1
+clip_text = true
+
 [node name="NoteSpawnEffect" type="CheckBox" parent="PageMgr/Settings/F"]
 margin_left = 173.0
-margin_top = 653.0
+margin_top = 683.0
 margin_right = 546.0
-margin_bottom = 685.0
+margin_bottom = 715.0
 theme = ExtResource( 2 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )

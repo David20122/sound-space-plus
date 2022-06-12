@@ -126,6 +126,7 @@ var spawn_distance:float = 100
 var note_spawn_effect:bool = true
 var display_true_combo:bool = true
 var cursor_face_velocity:bool = false
+var show_hit_effect:bool = true
 var fade_length:float = 0.5
 
 var note_hitbox_size:float = 1.140 setget _set_hitbox_size
@@ -390,7 +391,7 @@ func update_rpc_song():
 		push_error(result)
 
 
-const current_sf_version = 26
+const current_sf_version = 27
 
 func load_saved_settings():
 	if Input.is_key_pressed(KEY_CONTROL) and Input.is_key_pressed(KEY_L): 
@@ -448,7 +449,7 @@ func load_saved_settings():
 		if sv >= 16: play_menu_music = bool(file.get_8())
 		if sv >= 17: if file.get_8() != 12:
 			print("integ 6"); return 8
-		if sv >= 18: note_hitbox_size = file.get_float()
+		if sv >= 18: note_hitbox_size = float(str(file.get_float())) # fix weirdness with 1.14
 		if sv >= 19: spawn_distance = file.get_float()
 		if sv >= 20:
 			custom_speed = file.get_float()
@@ -470,6 +471,8 @@ func load_saved_settings():
 		if sv < 26 and String(note_hitbox_size) == "1.27":
 			print("0.13 :laugh:")
 			note_hitbox_size = 1.140
+		if sv >= 27:
+			show_hit_effect = bool(file.get_8())
 		file.close()
 	return 0
 
@@ -516,6 +519,7 @@ func save_settings():
 	file.store_float(ui_parallax)
 	file.store_float(grid_parallax)
 	file.store_float(fade_length)
+	file.store_8(int(show_hit_effect))
 	file.close()
 
 func get_stream_with_default(path:String,default:AudioStream) -> AudioStream:

@@ -28,10 +28,18 @@ func reposition_notes(force:bool=false):
 				# notes should not be in the hitwindow if the game is paused
 				note.state = Globals.NSTATE_MISS
 				if SSP.play_miss_snd: $Miss.play()
+#				$MissEffect.duplicate().spawn(
+#					self,Vector3(note.transform.origin.x,note.transform.origin.y,0.002)
+#				)
 				emit_signal("miss",note.col)
 			elif result:
 				note.state = Globals.NSTATE_HIT
 				if SSP.play_hit_snd: $Hit.play()
+					#$Hit.play((ms - note.notems)/1000.0)
+				if SSP.show_hit_effect:
+					$HitEffect.duplicate().spawn(
+						self,Vector3($Cursor.transform.origin.x,$Cursor.transform.origin.y,0.002)
+					)
 				emit_signal("hit",note.col)
 		elif ms - note.notems > 100:
 			noteNodes.remove(noteNodes.find(note))
