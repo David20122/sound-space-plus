@@ -1,8 +1,10 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://uitheme.tres" type="Theme" id=2]
 [ext_resource path="res://content/ui/text_file.png" type="Texture" id=3]
+[ext_resource path="res://content/ui/humor_funny.png" type="Texture" id=4]
+[ext_resource path="res://content/ui/application-software.png" type="Texture" id=5]
 [ext_resource path="res://contentmgr.gd" type="Script" id=11]
 [ext_resource path="res://icon.png" type="Texture" id=12]
 [ext_resource path="res://VersionNumber.gd" type="Script" id=17]
@@ -60,6 +62,16 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
+[sub_resource type="DynamicFont" id=77]
+use_filter = true
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=78]
+size = 14
+use_filter = true
+extra_spacing_bottom = -4
+font_data = ExtResource( 1 )
+
 [sub_resource type="DynamicFont" id=21]
 size = 22
 use_filter = true
@@ -111,7 +123,7 @@ text = "Select song type."
 align = 1
 valign = 1
 
-[node name="Button" type="Button" parent="AddSong/SelectType"]
+[node name="txt" type="Button" parent="AddSong/SelectType"]
 anchor_right = 1.0
 margin_left = 15.0
 margin_top = 40.0
@@ -124,23 +136,36 @@ custom_styles/disabled = SubResource( 74 )
 custom_styles/normal = SubResource( 73 )
 action_mode = 0
 
-[node name="TextureRect" type="TextureRect" parent="AddSong/SelectType/Button"]
+[node name="TextureRect" type="TextureRect" parent="AddSong/SelectType/txt"]
 margin_left = 10.0
 margin_top = 10.0
 margin_right = 50.0
 margin_bottom = 50.0
 texture = ExtResource( 3 )
 expand = true
-stretch_mode = 1
+stretch_mode = 6
 
-[node name="Label" type="Label" parent="AddSong/SelectType/Button"]
+[node name="Title" type="Label" parent="AddSong/SelectType/txt"]
 anchor_right = 1.0
 margin_left = 60.0
-margin_bottom = 30.0
-text = "Text Map"
-valign = 1
+margin_bottom = 22.0
+custom_fonts/font = SubResource( 77 )
+text = "Raw Text Map"
+valign = 2
 
-[node name="Button2" type="Button" parent="AddSong/SelectType"]
+[node name="Describe" type="Label" parent="AddSong/SelectType/txt"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 60.0
+margin_top = 22.0
+custom_colors/font_color = Color( 0.784314, 0.827451, 0.866667, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 78 )
+text = "Requires raw text data and the music/asset file.
+Use this if you have a .txt file or copied data."
+clip_text = true
+
+[node name="sspm" type="Button" parent="AddSong/SelectType"]
 anchor_right = 1.0
 margin_left = 15.0
 margin_top = 110.0
@@ -153,7 +178,36 @@ custom_styles/disabled = SubResource( 74 )
 custom_styles/normal = SubResource( 73 )
 action_mode = 0
 
-[node name="Button3" type="Button" parent="AddSong/SelectType"]
+[node name="TextureRect" type="TextureRect" parent="AddSong/SelectType/sspm"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 52.0
+margin_bottom = 52.0
+texture = ExtResource( 12 )
+expand = true
+stretch_mode = 6
+
+[node name="Title" type="Label" parent="AddSong/SelectType/sspm"]
+anchor_right = 1.0
+margin_left = 60.0
+margin_bottom = 22.0
+custom_fonts/font = SubResource( 77 )
+text = "Sound Space+ Map"
+valign = 2
+
+[node name="Describe" type="Label" parent="AddSong/SelectType/sspm"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 60.0
+margin_top = 22.0
+custom_colors/font_color = Color( 0.784314, 0.827451, 0.866667, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 78 )
+text = "Requires a complete Sound Space+ map file.
+Use this if you have an .sspm file."
+clip_text = true
+
+[node name="vulnus" type="Button" parent="AddSong/SelectType"]
 anchor_right = 1.0
 margin_left = 15.0
 margin_top = 180.0
@@ -166,7 +220,36 @@ custom_styles/disabled = SubResource( 74 )
 custom_styles/normal = SubResource( 73 )
 action_mode = 0
 
-[node name="Button4" type="Button" parent="AddSong/SelectType"]
+[node name="TextureRect" type="TextureRect" parent="AddSong/SelectType/vulnus"]
+margin_left = 12.0
+margin_top = 12.0
+margin_right = 48.0
+margin_bottom = 48.0
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 6
+
+[node name="Title" type="Label" parent="AddSong/SelectType/vulnus"]
+anchor_right = 1.0
+margin_left = 60.0
+margin_bottom = 22.0
+custom_fonts/font = SubResource( 77 )
+text = "Vulnus Map"
+valign = 2
+
+[node name="Describe" type="Label" parent="AddSong/SelectType/vulnus"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 60.0
+margin_top = 22.0
+custom_colors/font_color = Color( 0.784314, 0.827451, 0.866667, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 78 )
+text = "Requires a folder or .zip containing Vulnus map data.
+Use this if you have a folder containing .json files."
+clip_text = true
+
+[node name="sspmr" type="Button" parent="AddSong/SelectType"]
 anchor_right = 1.0
 margin_left = 15.0
 margin_top = 250.0
@@ -178,6 +261,35 @@ custom_styles/focus = SubResource( 76 )
 custom_styles/disabled = SubResource( 74 )
 custom_styles/normal = SubResource( 73 )
 action_mode = 0
+
+[node name="TextureRect" type="TextureRect" parent="AddSong/SelectType/sspmr"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 52.0
+margin_bottom = 52.0
+texture = ExtResource( 5 )
+expand = true
+stretch_mode = 6
+
+[node name="Title" type="Label" parent="AddSong/SelectType/sspmr"]
+anchor_right = 1.0
+margin_left = 60.0
+margin_bottom = 22.0
+custom_fonts/font = SubResource( 77 )
+text = "Legacy Map Pack"
+valign = 2
+
+[node name="Describe" type="Label" parent="AddSong/SelectType/sspmr"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 60.0
+margin_top = 22.0
+custom_colors/font_color = Color( 0.784314, 0.827451, 0.866667, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 78 )
+text = "Requires a folder containing a .sspmr file and audio.
+Use this if you have a pack of maps (ie. ssarchive)."
+clip_text = true
 
 [node name="VersionNumber" type="Label" parent="."]
 anchor_top = 1.0
