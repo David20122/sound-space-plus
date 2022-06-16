@@ -1,10 +1,13 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://uitheme.tres" type="Theme" id=2]
 [ext_resource path="res://content/ui/text_file.png" type="Texture" id=3]
 [ext_resource path="res://content/ui/humor_funny.png" type="Texture" id=4]
 [ext_resource path="res://content/ui/application-software.png" type="Texture" id=5]
+[ext_resource path="res://cmgr/AddSong.gd" type="Script" id=6]
+[ext_resource path="res://font/Noto_Sans_JP/NotoSansJP-Medium.otf" type="DynamicFontData" id=7]
+[ext_resource path="res://content/ui/placeholder_dark.jpg" type="Texture" id=8]
 [ext_resource path="res://contentmgr.gd" type="Script" id=11]
 [ext_resource path="res://icon.png" type="Texture" id=12]
 [ext_resource path="res://VersionNumber.gd" type="Script" id=17]
@@ -48,13 +51,6 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[sub_resource type="StyleBoxFlat" id=74]
-bg_color = Color( 0.113725, 0.105882, 0.0941176, 1 )
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-
 [sub_resource type="StyleBoxFlat" id=73]
 bg_color = Color( 0.129412, 0.0901961, 0.141176, 1 )
 corner_radius_top_left = 8
@@ -72,6 +68,28 @@ use_filter = true
 extra_spacing_bottom = -4
 font_data = ExtResource( 1 )
 
+[sub_resource type="StyleBoxFlat" id=74]
+bg_color = Color( 0.113725, 0.105882, 0.0941176, 1 )
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="DynamicFont" id=79]
+use_filter = true
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=80]
+size = 14
+use_filter = true
+font_data = ExtResource( 1 )
+fallback/0 = ExtResource( 7 )
+
+[sub_resource type="DynamicFont" id=81]
+size = 18
+use_filter = true
+font_data = ExtResource( 1 )
+
 [sub_resource type="DynamicFont" id=21]
 size = 22
 use_filter = true
@@ -81,6 +99,7 @@ font_data = ExtResource( 1 )
 pause_mode = 2
 anchor_right = 1.0
 anchor_bottom = 1.0
+focus_mode = 1
 theme = ExtResource( 2 )
 color = Color( 0, 0, 0, 1 )
 script = ExtResource( 11 )
@@ -100,6 +119,8 @@ margin_top = -270.0
 margin_right = 220.0
 margin_bottom = 270.0
 custom_styles/panel = SubResource( 70 )
+script = ExtResource( 6 )
+cover_placeholder = ExtResource( 8 )
 
 [node name="Title" type="Label" parent="AddSong"]
 anchor_right = 1.0
@@ -124,6 +145,7 @@ align = 1
 valign = 1
 
 [node name="txt" type="Button" parent="AddSong/SelectType"]
+modulate = Color( 0.5, 0.5, 0.5, 1 )
 anchor_right = 1.0
 margin_left = 15.0
 margin_top = 40.0
@@ -132,8 +154,9 @@ margin_bottom = 100.0
 custom_styles/hover = SubResource( 75 )
 custom_styles/pressed = SubResource( 75 )
 custom_styles/focus = SubResource( 76 )
-custom_styles/disabled = SubResource( 74 )
+custom_styles/disabled = SubResource( 73 )
 custom_styles/normal = SubResource( 73 )
+disabled = true
 action_mode = 0
 
 [node name="TextureRect" type="TextureRect" parent="AddSong/SelectType/txt"]
@@ -250,6 +273,7 @@ Use this if you have a folder containing .json files."
 clip_text = true
 
 [node name="sspmr" type="Button" parent="AddSong/SelectType"]
+modulate = Color( 0.5, 0.5, 0.5, 1 )
 anchor_right = 1.0
 margin_left = 15.0
 margin_top = 250.0
@@ -258,8 +282,9 @@ margin_bottom = 310.0
 custom_styles/hover = SubResource( 75 )
 custom_styles/pressed = SubResource( 75 )
 custom_styles/focus = SubResource( 76 )
-custom_styles/disabled = SubResource( 74 )
+custom_styles/disabled = SubResource( 73 )
 custom_styles/normal = SubResource( 73 )
+disabled = true
 action_mode = 0
 
 [node name="TextureRect" type="TextureRect" parent="AddSong/SelectType/sspmr"]
@@ -290,6 +315,443 @@ custom_fonts/font = SubResource( 78 )
 text = "Requires a folder containing a .sspmr file and audio.
 Use this if you have a pack of maps (ie. ssarchive)."
 clip_text = true
+
+[node name="VulnusFile" type="ReferenceRect" parent="AddSong"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 35.0
+border_color = Color( 1, 0, 0, 0 )
+
+[node name="Title" type="Label" parent="AddSong/VulnusFile"]
+anchor_right = 1.0
+margin_bottom = 24.0
+custom_fonts/font = SubResource( 72 )
+text = "Vulnus Map - Select File"
+align = 1
+valign = 1
+
+[node name="Error" type="Label" parent="AddSong/VulnusFile"]
+visible = false
+anchor_right = 1.0
+margin_top = 180.0
+margin_bottom = 204.0
+custom_colors/font_color = Color( 1, 0.580392, 0.580392, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 79 )
+text = "Selected folder was missing a meta.json!"
+align = 1
+autowrap = true
+
+[node name="Success" type="Label" parent="AddSong/VulnusFile"]
+visible = false
+anchor_right = 1.0
+margin_top = 180.0
+margin_bottom = 204.0
+custom_colors/font_color = Color( 0.611765, 1, 0.580392, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 79 )
+text = "Selected folder was missing a meta.json!"
+align = 1
+autowrap = true
+
+[node name="zip" type="Button" parent="AddSong/VulnusFile"]
+anchor_right = 1.0
+margin_left = 15.0
+margin_top = 40.0
+margin_right = -15.0
+margin_bottom = 100.0
+custom_styles/hover = SubResource( 75 )
+custom_styles/pressed = SubResource( 75 )
+custom_styles/focus = SubResource( 76 )
+custom_styles/disabled = SubResource( 74 )
+custom_styles/normal = SubResource( 73 )
+action_mode = 0
+
+[node name="Title" type="Label" parent="AddSong/VulnusFile/zip"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 77 )
+text = "Import from a .zip, .rar, or .7z file"
+align = 1
+valign = 1
+
+[node name="folder" type="Button" parent="AddSong/VulnusFile"]
+anchor_right = 1.0
+margin_left = 15.0
+margin_top = 110.0
+margin_right = -15.0
+margin_bottom = 170.0
+custom_styles/hover = SubResource( 75 )
+custom_styles/pressed = SubResource( 75 )
+custom_styles/focus = SubResource( 76 )
+custom_styles/disabled = SubResource( 74 )
+custom_styles/normal = SubResource( 73 )
+action_mode = 0
+
+[node name="Title" type="Label" parent="AddSong/VulnusFile/folder"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 77 )
+text = "Import from a folder"
+align = 1
+valign = 1
+
+[node name="cancel" type="Button" parent="AddSong/VulnusFile"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 45.0
+margin_top = -50.0
+margin_right = -45.0
+margin_bottom = -15.0
+custom_styles/hover = SubResource( 75 )
+custom_styles/pressed = SubResource( 75 )
+custom_styles/focus = SubResource( 76 )
+custom_styles/disabled = SubResource( 74 )
+custom_styles/normal = SubResource( 73 )
+action_mode = 0
+
+[node name="Title" type="Label" parent="AddSong/VulnusFile/cancel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 77 )
+text = "Back"
+align = 1
+valign = 1
+
+[node name="Edit" type="ReferenceRect" parent="AddSong"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 35.0
+focus_mode = 1
+border_color = Color( 1, 0, 0, 0 )
+
+[node name="Title" type="Label" parent="AddSong/Edit"]
+anchor_right = 1.0
+margin_bottom = 24.0
+custom_fonts/font = SubResource( 72 )
+text = "Edit data"
+align = 1
+valign = 1
+
+[node name="Error" type="Label" parent="AddSong/Edit"]
+visible = false
+anchor_right = 1.0
+margin_top = 180.0
+margin_bottom = 204.0
+custom_colors/font_color = Color( 1, 0.580392, 0.580392, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 79 )
+text = "Selected folder was missing a meta.json!"
+align = 1
+autowrap = true
+
+[node name="Success" type="Label" parent="AddSong/Edit"]
+visible = false
+anchor_right = 1.0
+margin_top = 180.0
+margin_bottom = 204.0
+custom_colors/font_color = Color( 0.611765, 1, 0.580392, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 79 )
+text = "Selected folder was missing a meta.json!"
+align = 1
+autowrap = true
+
+[node name="zip" type="Button" parent="AddSong/Edit"]
+visible = false
+anchor_right = 1.0
+margin_left = 15.0
+margin_top = 40.0
+margin_right = -15.0
+margin_bottom = 100.0
+custom_styles/hover = SubResource( 75 )
+custom_styles/pressed = SubResource( 75 )
+custom_styles/focus = SubResource( 76 )
+custom_styles/disabled = SubResource( 74 )
+custom_styles/normal = SubResource( 73 )
+action_mode = 0
+
+[node name="Title" type="Label" parent="AddSong/Edit/zip"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 77 )
+text = "Import from a .zip, .rar, or .7z file"
+align = 1
+valign = 1
+
+[node name="done" type="Button" parent="AddSong/Edit"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = -50.0
+margin_right = -45.0
+margin_bottom = -15.0
+custom_styles/hover = SubResource( 75 )
+custom_styles/pressed = SubResource( 75 )
+custom_styles/focus = SubResource( 76 )
+custom_styles/disabled = SubResource( 74 )
+custom_styles/normal = SubResource( 73 )
+action_mode = 0
+
+[node name="Title" type="Label" parent="AddSong/Edit/done"]
+modulate = Color( 0.580392, 0.937255, 0.505882, 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 77 )
+text = "Finish"
+align = 1
+valign = 1
+
+[node name="cancel" type="Button" parent="AddSong/Edit"]
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = 45.0
+margin_top = -50.0
+margin_right = -5.0
+margin_bottom = -15.0
+custom_styles/hover = SubResource( 75 )
+custom_styles/pressed = SubResource( 75 )
+custom_styles/focus = SubResource( 76 )
+custom_styles/disabled = SubResource( 74 )
+custom_styles/normal = SubResource( 73 )
+action_mode = 0
+
+[node name="Title" type="Label" parent="AddSong/Edit/cancel"]
+modulate = Color( 1, 0.494118, 0.494118, 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 77 )
+text = "Back"
+align = 1
+valign = 1
+
+[node name="Cover" type="ReferenceRect" parent="AddSong/Edit"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -161.0
+margin_top = 48.0
+margin_right = -16.0
+margin_bottom = 211.0
+border_color = Color( 1, 0, 0.960784, 0 )
+border_width = 0.0
+
+[node name="T" type="TextureRect" parent="AddSong/Edit/Cover"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -128.0
+margin_bottom = 128.0
+texture = ExtResource( 8 )
+expand = true
+
+[node name="B" type="Button" parent="AddSong/Edit/Cover/T"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+flat = true
+
+[node name="Label" type="Label" parent="AddSong/Edit/Cover/T/B"]
+anchor_right = 1.0
+margin_top = -20.0
+custom_colors/font_color = Color( 0.85098, 0.85098, 0.85098, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 80 )
+text = "(click to replace)"
+align = 1
+
+[node name="C" type="CheckBox" parent="AddSong/Edit/Cover"]
+margin_left = 17.0
+margin_top = 132.0
+margin_right = 145.0
+margin_bottom = 152.0
+custom_colors/font_color_disabled = Color( 0.239216, 0.239216, 0.239216, 1 )
+custom_colors/font_color_focus = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover_pressed = Color( 1, 1, 1, 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
+custom_colors/font_color_pressed = Color( 1, 1, 1, 1 )
+disabled = true
+pressed = true
+text = "Import cover"
+flat = true
+clip_text = true
+align = 2
+
+[node name="Info" type="VBoxContainer" parent="AddSong/Edit"]
+margin_left = 15.0
+margin_top = 50.0
+margin_right = 281.0
+margin_bottom = 176.0
+
+[node name="Info" type="Label" parent="AddSong/Edit/Info"]
+margin_right = 266.0
+margin_bottom = 17.0
+custom_colors/font_color = Color( 0.827451, 0.827451, 0.827451, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 80 )
+text = "(click field to edit)"
+autowrap = true
+
+[node name="Id" type="Label" parent="AddSong/Edit/Info"]
+margin_top = 21.0
+margin_right = 266.0
+margin_bottom = 38.0
+custom_colors/font_color = Color( 0.831373, 1, 0.784314, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 80 )
+text = "rak_dimrain47_-_at_the_speed_of_light"
+autowrap = true
+
+[node name="B" type="Button" parent="AddSong/Edit/Info/Id"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+flat = true
+
+[node name="T" type="LineEdit" parent="AddSong/Edit/Info/Id"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 80 )
+
+[node name="SongName" type="Label" parent="AddSong/Edit/Info"]
+margin_top = 42.0
+margin_right = 266.0
+margin_bottom = 59.0
+custom_colors/font_color = Color( 0.976471, 0.784314, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 80 )
+text = "Artist Name - Song Name"
+autowrap = true
+
+[node name="B" type="Button" parent="AddSong/Edit/Info/SongName"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+flat = true
+
+[node name="T" type="LineEdit" parent="AddSong/Edit/Info/SongName"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 80 )
+
+[node name="Mapper" type="Label" parent="AddSong/Edit/Info"]
+margin_top = 63.0
+margin_right = 266.0
+margin_bottom = 80.0
+custom_fonts/font = SubResource( 80 )
+text = "Mapper: your mom"
+autowrap = true
+
+[node name="B" type="Button" parent="AddSong/Edit/Info/Mapper"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+flat = true
+
+[node name="T" type="LineEdit" parent="AddSong/Edit/Info/Mapper"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 80 )
+
+[node name="Difficulty" type="Label" parent="AddSong/Edit/Info"]
+margin_top = 84.0
+margin_right = 266.0
+margin_bottom = 101.0
+custom_fonts/font = SubResource( 80 )
+text = "Difficulty: N/A"
+autowrap = true
+
+[node name="B" type="OptionButton" parent="AddSong/Edit/Info/Difficulty"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_colors/font_color_disabled = Color( 0, 0, 0, 0 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 0 )
+custom_colors/font_color = Color( 0, 0, 0, 0 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 0 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 80 )
+flat = true
+
+[node name="Finish" type="ReferenceRect" parent="AddSong"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 35.0
+focus_mode = 1
+border_color = Color( 1, 0, 0, 0 )
+
+[node name="Title" type="Label" parent="AddSong/Finish"]
+anchor_right = 1.0
+margin_bottom = 24.0
+custom_fonts/font = SubResource( 72 )
+text = "Finishing"
+align = 1
+valign = 1
+
+[node name="Error" type="Label" parent="AddSong/Finish"]
+visible = false
+anchor_right = 1.0
+margin_top = 24.0
+margin_bottom = 455.0
+custom_colors/font_color = Color( 1, 0.580392, 0.580392, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 81 )
+text = "Failed"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="Success" type="Label" parent="AddSong/Finish"]
+visible = false
+anchor_right = 1.0
+margin_top = 24.0
+margin_bottom = 455.0
+custom_colors/font_color = Color( 0.611765, 1, 0.580392, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 81 )
+text = "Succesfully saved map!"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="Wait" type="Label" parent="AddSong/Finish"]
+anchor_right = 1.0
+margin_top = 24.0
+margin_bottom = 455.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 81 )
+text = "Please wait..."
+align = 1
+valign = 1
+autowrap = true
+
+[node name="ok" type="Button" parent="AddSong/Finish"]
+visible = false
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 45.0
+margin_top = -50.0
+margin_right = -45.0
+margin_bottom = -15.0
+custom_styles/hover = SubResource( 75 )
+custom_styles/pressed = SubResource( 75 )
+custom_styles/focus = SubResource( 76 )
+custom_styles/disabled = SubResource( 74 )
+custom_styles/normal = SubResource( 73 )
+action_mode = 0
+
+[node name="Title" type="Label" parent="AddSong/Finish/ok"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 77 )
+text = "Import another map"
+align = 1
+valign = 1
 
 [node name="VersionNumber" type="Label" parent="."]
 anchor_top = 1.0

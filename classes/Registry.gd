@@ -46,6 +46,7 @@ func add_item(item,subregistry:bool=false,replaceSongs:bool=false):
 		idx_difficulty.append(null)
 		idx_rarity.append(null)
 		idx_type.append("Registry")
+		return true
 	elif item is ColorSet:
 		check_and_remove_id(item.id)
 		items.append(item)
@@ -55,6 +56,7 @@ func add_item(item,subregistry:bool=false,replaceSongs:bool=false):
 		idx_difficulty.append(null)
 		idx_rarity.append(null)
 		idx_type.append("ColorSet")
+		return true
 	elif item is BackgroundWorld:
 		check_and_remove_id(item.id)
 		items.append(item)
@@ -64,6 +66,7 @@ func add_item(item,subregistry:bool=false,replaceSongs:bool=false):
 		idx_difficulty.append(null)
 		idx_rarity.append(null)
 		idx_type.append("BackgroundWorld")
+		return true
 	elif item is NoteMesh:
 		check_and_remove_id(item.id)
 		items.append(item)
@@ -73,9 +76,10 @@ func add_item(item,subregistry:bool=false,replaceSongs:bool=false):
 		idx_difficulty.append(null)
 		idx_rarity.append(null)
 		idx_type.append("BackgroundWorld")
+		return true
 	elif item is Song:
 		if replaceSongs: check_and_remove_id(item.id)
-		elif idx_id.has(item.id): return
+		elif idx_id.has(item.id): return false
 		items.append(item)
 		idx_id.append(item.id)
 		idx_name.append(item.name)
@@ -83,6 +87,7 @@ func add_item(item,subregistry:bool=false,replaceSongs:bool=false):
 		idx_difficulty.append(item.difficulty)
 		idx_rarity.append(null)
 		idx_type.append("Song")
+		return true
 	else: assert(false,"Invalid asset type for registry")
 
 func load_png(file:String):

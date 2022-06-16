@@ -431,7 +431,7 @@ func convert_to_sspm():
 	
 	var file2:File = File.new()
 	# Cover
-	if cover and (cover.get_height() + cover.get_width()) >= 9:
+	if has_cover and cover and (cover.get_height() + cover.get_width()) >= 9:
 		file.store_8(2)
 		var img:Image = cover.get_data()
 #		file.store_16(img.get_height()) # Height
@@ -444,16 +444,50 @@ func convert_to_sspm():
 	else: file.store_8(0)
 	
 	# Audio
-	err = file2.open(musicFile,File.READ)
-	if err != OK:
-		file.store_8(0)
-		push_warning("Failed to open music file while converting map!")
+	if songType == Globals.MAP_SSPM:
+		err = file2.open(filePath,File.READ)
+		if err == OK:
+			file2.seek(8) # Skip over header data
+			file2.get_line() # Skip over metadata
+			file2.get_line()
+			file2.get_line()
+			file2.seek(file2.get_position() + 9)
+			
+			var ct = file2.get_8()
+			if ct == 1: # Skip over cover
+				file.seek(file2.get_position() + 6)
+				var clen = file2.get_64()
+				file2.seek(file2.get_position() + clen)
+			elif ct == 2:
+				var clen = file2.get_64()
+				file2.seek(file2.get_position() + clen)
+			
+			if file2.get_8() != 1:
+				file2.close()
+				file.store_8(0)
+				push_warning("no music present")
+			else:
+				var blen:int = file2.get_64()
+				var buf:PoolByteArray = file2.get_buffer(blen) # Actual song data
+				
+				file.store_8(1)
+				file2.close()
+				file.store_64(buf.size())
+				file.store_buffer(buf)
+		else:
+			file.store_8(0)
+			push_warning("err was %s" % err)
 	else:
-		var mdata:PoolByteArray = file2.get_buffer(file2.get_len())
-		file.store_8(1)
-		file2.close()
-		file.store_64(mdata.size())
-		file.store_buffer(mdata)
+		err = file2.open(musicFile,File.READ)
+		if err != OK:
+			file.store_8(0)
+			push_warning("Failed to open music file while converting map!")
+		else:
+			var mdata:PoolByteArray = file2.get_buffer(file2.get_len())
+			file.store_8(1)
+			file2.close()
+			file.store_64(mdata.size())
+			file.store_buffer(mdata)
 	
 	# Note data
 	for n in notes:
