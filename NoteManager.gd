@@ -6,7 +6,7 @@ signal miss
 
 var approach_rate:float = SSP.approach_rate
 var speed_multi:float = 1
-var ms:float = -3000
+var ms:float = -min(3000 * Globals.speed_multi[SSP.mod_speed_level],3000) # make waiting time shorter on speed-
 var notes_loaded:bool = false
 
 var noteNodes:Array = []
@@ -15,14 +15,21 @@ var colors:Array = SSP.selected_colorset.colors
 
 const base_position = Vector3(-1,1,0)
 
+var prev_ms:float = -100000
+var next_ms:float = 100000
+
 var out_of_notes:bool = false
 func reposition_notes(force:bool=false):
 	var for_del:int = 0
 	if noteNodes.size() == 0: out_of_notes = true
+	var is_first:bool = true
 	for note in noteNodes:
 		if force: note.reposition(ms,SSP.approach_rate)
 		else: if note.reposition(ms,SSP.approach_rate) == false: return
-		if ms >= note.notems and note.state == Globals.NSTATE_ACTIVE:
+		if ms < note.notems and is_first:
+			is_first = false
+			next_ms = note.notems
+		elif ms >= note.notems and note.state == Globals.NSTATE_ACTIVE:
 			var result = note.check($Cursor.transform.origin)
 			if !result and (ms > note.notems + SSP.hitwindow_ms or pause_state == -1):
 				# notes should not be in the hitwindow if the game is paused
@@ -32,6 +39,7 @@ func reposition_notes(force:bool=false):
 #					self,Vector3(note.transform.origin.x,note.transform.origin.y,0.002)
 #				)
 				emit_signal("miss",note.col)
+				prev_ms = note.notems
 			elif result:
 				note.state = Globals.NSTATE_HIT
 				if SSP.play_hit_snd: $Hit.play()
@@ -41,6 +49,7 @@ func reposition_notes(force:bool=false):
 						self,Vector3($Cursor.transform.origin.x,$Cursor.transform.origin.y,0.002)
 					)
 				emit_signal("hit",note.col)
+				prev_ms = note.notems
 		elif ms - note.notems > 100:
 			noteNodes.remove(noteNodes.find(note))
 			note.queue_free()
@@ -174,6 +183,8 @@ var spawn_ms_dist:float = ((max(SSP.spawn_distance / SSP.approach_rate,0.6) * 10
 func do_note_queue():
 	var rem:int = 0
 	for n in noteQueue:
+		if n == noteQueue[0] and n[2] < next_ms:
+			next_ms = n[2]
 		if n[2] <= (ms + (spawn_ms_dist * speed_multi)):
 			rem += 1
 			spawn_note(n)
@@ -187,6 +198,11 @@ func _process(delta:float):
 	else: do_half_lock()
 	if !notes_loaded: return
 	
+	var can_skip:bool = (next_ms >= max(ms+(3000*speed_multi),1100*speed_multi))
+	
+	if can_skip: get_node("../Grid/TimerHud").modulate = Color(0.7,1,1)
+	else: get_node("../Grid/TimerHud").modulate = Color(1,1,1)
+	
 	if Input.is_action_just_released("pause"):
 		if pause_state > 0:
 			pause_state = -1
@@ -196,27 +212,35 @@ func _process(delta:float):
 			emit_signal("ms_change",ms)
 			$Music.stop()
 	elif Input.is_action_just_pressed("pause"):
-		if pause_state == 0 and (ms > (1000 * speed_multi) and ms < get_parent().last_ms):
-			print("PAUSED AT MS %.0f" % ms)
-			SSP.song_end_pause_count += 1
-			pause_state = -1
-#			ms -= 750
+		if pause_state == 0 and can_skip:
+			ms = next_ms - (1000*speed_multi)
 			emit_signal("ms_change",ms)
-			pause_ms = ms# + (750 * speed_multi)
-			$Music.stop()
-			get_parent().get_node("Grid/LeftVP/Control/Pauses").text = comma_sep(SSP.song_end_pause_count)
-			get_parent().get_node("Grid/PauseHud").visible = true
-			get_parent().get_node("Grid/PauseHud").modulate = Color(1,1,1,1)
-			get_parent().get_node("Grid/PauseVP/Control").percent = 0
+			do_note_queue()
+			if ms >= 0:
+				$Music.play(ms/1000)
+				music_started = true
 		else:
-#				print("YEAH baby that's what i've been waiting for")
-#				print(pause_ms)
-			pause_state = 1
-			get_parent().get_node("Grid/PauseHud").modulate = Color(1,1,1,pause_state)
-			ms = pause_ms - (pause_state * (750 * speed_multi))
-			emit_signal("ms_change",ms)
-			$Music.volume_db = SSP.music_volume_db - 30
-			$Music.play(ms/1000)
+			if pause_state == 0 and (ms > (1000 * speed_multi) and ms < get_parent().last_ms):
+				print("PAUSED AT MS %.0f" % ms)
+				SSP.song_end_pause_count += 1
+				pause_state = -1
+	#			ms -= 750
+				emit_signal("ms_change",ms)
+				pause_ms = ms# + (750 * speed_multi)
+				$Music.stop()
+				get_parent().get_node("Grid/LeftVP/Control/Pauses").text = comma_sep(SSP.song_end_pause_count)
+				get_parent().get_node("Grid/PauseHud").visible = true
+				get_parent().get_node("Grid/PauseHud").modulate = Color(1,1,1,1)
+				get_parent().get_node("Grid/PauseVP/Control").percent = 0
+			else:
+	#				print("YEAH baby that's what i've been waiting for")
+	#				print(pause_ms)
+				pause_state = 1
+				get_parent().get_node("Grid/PauseHud").modulate = Color(1,1,1,pause_state)
+				ms = pause_ms - (pause_state * (750 * speed_multi))
+				emit_signal("ms_change",ms)
+				$Music.volume_db = SSP.music_volume_db - 30
+				$Music.play(ms/1000)
 	if Input.is_action_pressed("pause") and pause_state >= 0:
 		pause_state = max(pause_state - (delta/0.75), 0)
 		$Music.volume_db = min($Music.volume_db + (delta * 30), SSP.music_volume_db)
