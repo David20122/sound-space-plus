@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=2]
 
-[ext_resource path="res://Spinner.gd" type="Script" id=1]
+[ext_resource path="res://game/Spinner.gd" type="Script" id=1]
 [ext_resource path="res://content/blocks/default.obj" type="ArrayMesh" id=2]
 [ext_resource path="res://icon.png" type="Texture" id=3]
 
