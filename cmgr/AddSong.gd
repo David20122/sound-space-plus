@@ -35,7 +35,118 @@ enum {
 	FO_VDIR
 	FO_COVER
 	FO_SSPM
+	FO_TXT
+	FO_SONG
 }
+
+var txt_using_manual_id:bool = false
+
+func check_txt_requirements():
+	if song.rawData == "":
+		$TxtFile/done.disabled = true
+		$TxtFile/done/Title.text = "Map data required"
+	elif !song.musicFile:
+		$TxtFile/done.disabled = true
+		$TxtFile/done/Title.text = "Music file required"
+	elif song.name.to_lower() == "artist name - song name":
+		$TxtFile/done.disabled = true
+		$TxtFile/done/Title.text = "Song name required"
+	elif song.creator.to_lower() == "mapper":
+		$TxtFile/done.disabled = true
+		$TxtFile/done/Title.text = "Mapper required"
+	else:
+		if SSP.registry_song.idx_id.has(song.id):
+			$TxtFile/done.disabled = true
+			$TxtFile/done/Title.text = "ID in use"
+		else:
+			$TxtFile/done.disabled = false
+			$TxtFile/done/Title.text = "Finish"
+
+func check_txt(txt:String):
+	if txt.split(",").size() >= 2 and txt.split(",")[1].split("|").size() == 3:
+		song.loadRawData(txt)
+		$TxtFile/H/data/Info.set("custom_colors/font_color",Color(0.5,1,0.5))
+		if txt.length() > 25: $TxtFile/H/data/Info.text = txt.substr(0,25) + "..."
+		else: $Label.text = txt
+		$TxtFile/H/data/text.text = txt
+		check_txt_requirements()
+	else:
+		song.rawData = ""
+		$TxtFile/H/data/Info.text = "Invalid map data"
+		$TxtFile/H/data/Info.set("custom_colors/font_color",Color(1,0.5,0.5))
+		$TxtFile/H/data/text.text = ""
+		check_txt_requirements()
+
+func txt_song_preview():
+	if $TxtFile/H/audio/player.playing:
+		$TxtFile/H/audio/preview/Title.text = "Preview"
+		$TxtFile/H/audio/player.stop()
+		if SSP.play_menu_music:
+			get_node("../MenuSong").play()
+	elif !$TxtFile/H/audio/preview.disabled:
+		$TxtFile/H/audio/preview/Title.text = "Stop previewing"
+		get_node("../MenuSong").stop()
+		$TxtFile/H/audio/player.play()
+
+func do_txt_paste():
+	$TxtFile/H/data.rect_min_size.y = 150
+	$TxtFile/H/data/file.visible = false
+	$TxtFile/H/data/paste.visible = false
+	$TxtFile/H/data/text_done.visible = true
+	$TxtFile/H/data/text.visible = true
+	$TxtFile/H/data/text.grab_focus()
+	$TxtFile/H/data/text.select_all()
+
+func end_txt_paste():
+	$TxtFile/H/data.rect_min_size.y = 60
+	$TxtFile/H/data/file.visible = true
+	$TxtFile/H/data/paste.visible = true
+	$TxtFile/H/data/text_done.visible = false
+	$TxtFile/H/data/text.visible = false
+	check_txt($TxtFile/H/data/text.text)
+
+func reset_text_edit_screen():
+	txt_using_manual_id = false
+	edit_pop = true
+	song = Song.new(
+		generate_id("Artist Name - Song Name","mapper"),
+		"Artist Name - Song Name",
+		"mapper"
+	)
+	$TxtFile/H/data.rect_min_size.y = 60
+	$TxtFile/H/data/file.visible = true
+	$TxtFile/H/data/paste.visible = true
+	$TxtFile/H/data/text_done.visible = false
+	$TxtFile/H/data/text.visible = false
+	$TxtFile/H/data/text.text = ""
+	
+	$TxtFile/H/E/Info/Id.text = song.id
+	$TxtFile/H/E/Info/Id/T.text = "auto"
+	$TxtFile/H/E/Info/SongName.text = song.name
+	$TxtFile/H/E/Info/SongName/T.text = song.name
+	$TxtFile/H/E/Info/Difficulty.text = "Difficulty: " + Globals.difficulty_names[song.difficulty]
+	$TxtFile/H/E/Info/Mapper.text = "Mapper: %s" % song.creator
+	$TxtFile/H/E/Info/Mapper/T.text = song.creator
+	$TxtFile/H/E/Info/Difficulty/B.selected = (song.difficulty + 1)
+	
+	$TxtFile/H/data/Info.text = "Required"
+	$TxtFile/H/data/Info.set("custom_colors/font_color",Color(1,0.5,0.5))
+	$TxtFile/H/audio/Info.text = "Required"
+	$TxtFile/H/audio/Info.set("custom_colors/font_color",Color(1,0.5,0.5))
+	$TxtFile/H/audio/preview.disabled = true
+	$TxtFile/H/audio/preview.modulate = Color(0.5,0.5,0.5)
+	$TxtFile/H/audio/preview/Title.text = "Preview"
+	if SSP.play_menu_music and !get_node("../MenuSong").playing:
+		get_node("../MenuSong").play()
+	$TxtFile/H/audio/player.stop()
+	
+	$TxtFile/H/E/Cover/T.texture = load("res://content/ui/placeholder_dark.jpg")
+	$TxtFile/H/E/Cover/C.disabled = true
+	$TxtFile/H/E/Cover/C.pressed = false
+	
+	check_txt_requirements()
+	
+	edit_pop = false
 
 func select_type(type:int):
 	if type == T_VULNUS:
@@ -52,6 +163,12 @@ func select_type(type:int):
 		openFile.title = "Select SS+ map..."
 		openFile.multiselect = false
 		openFile.show()
+	elif type == T_TXT:
+		reset_text_edit_screen()
+		maptype = T_TXT
+		step = 1
+		$SelectType.visible = false
+		$TxtFile.visible = true
 
 func sel_filetype(type:int):
 	print(type)
@@ -61,7 +178,7 @@ func sel_filetype(type:int):
 			print("opening vulnus zip")
 			opening = FO_VZIP
 			openFile.clear_filters()
-			openFile.add_filter("*.zip, *.rar, *.7z, *.gz ; archive files")
+			openFile.add_filter("*.zip, *.rar, *.7z, *.gz, *.vmap ; archive files")
 			openFile.initial_path = "~/Downloads"
 			openFile.title = "Select Vulnus map..."
 			openFile.multiselect = false
@@ -72,7 +189,23 @@ func sel_filetype(type:int):
 			openFolder.initial_path = "~/Downloads"
 			openFolder.title = "Select Vulnus map..."
 			openFolder.show()
-		
+	elif maptype == T_TXT:
+		if type == FO_TXT:
+			opening = FO_TXT
+			openFile.clear_filters()
+			openFile.add_filter("*.txt ; Text files")
+			openFile.initial_path = "~/Downloads"
+			openFile.title = "Select map data..."
+			openFile.multiselect = false
+			openFile.show()
+		elif type == FO_SONG:
+			opening = FO_SONG
+			openFile.clear_filters()
+			openFile.add_filter("*.mp3, *.ogg ; Audio files")
+			openFile.initial_path = "~/Downloads"
+			openFile.title = "Select music..."
+			openFile.multiselect = false
+			openFile.show()
 
 const valid_chars = "0123456789abcdefghijklmnopqrstuvwxyz_-"
 
@@ -108,11 +241,16 @@ func populate_edit_screen():
 		$Edit/Cover/C.disabled = false
 		$Edit/Cover/C.pressed = true
 	else:
+		$Edit/Cover/T.texture = load("res://content/ui/placeholder_dark.jpg")
 		$Edit/Cover/C.disabled = true
 		$Edit/Cover/C.pressed = false
+	
 	if SSP.registry_song.idx_id.has(song.id):
 		$Edit/done.disabled = true
 		$Edit/done/Title.text = "ID in use"
+	elif song.id == "_NOTREADY":
+		$Edit/done.disabled = true
+		$Edit/done/Title.text = "Not ready"
 	else:
 		$Edit/done.disabled = false
 		$Edit/done/Title.text = "Finish"
@@ -229,6 +367,9 @@ func file_selected(files:PoolStringArray):
 				$Edit/Cover/T.texture = cover
 				$Edit/Cover/C.disabled = false
 				$Edit/Cover/C.pressed = true
+				$TxtFile/H/E/Cover/T.texture = cover
+				$TxtFile/H/E/Cover/C.disabled = false
+				$TxtFile/H/E/Cover/C.pressed = true
 		FO_SSPM:
 			song = Song.new()
 			song.load_from_sspm(files[0])
@@ -252,35 +393,33 @@ func file_selected(files:PoolStringArray):
 			yield(get_tree(),"idle_frame")
 			
 			var output = []
-			if OS.has_feature("Windows"):
-				var binarypath = OS.get_executable_path().get_base_dir().plus_file("7z.exe")
-				var args = [
-					# x -bb0 -y -bd ./Dimrain47_-_at_the_speed_of_light.zip *
-					'x',
-					'-bb0',
-					'-y',
-					'-bd',
-					'-o"%s"' % [ProjectSettings.globalize_path("user://temp").replace("\\","/")],
-					'"%s"' % [files[0].replace("\\","/")],
-					'*'
-				]
-				var exit_code = OS.execute(binarypath, args, true, output)
+			var binarypath:String = ProjectSettings.get_setting("application/config/7zip_binary_path")
+			if binarypath != "":
+				if binarypath.begins_with("install_dir/"):
+					binarypath = OS.get_executable_path().get_base_dir().plus_file(binarypath.trim_prefix("install_dir/"))
 				
-				if exit_code != 0:
-					print("nonzero exit code of %s" % [exit_code])
-					$VulnusFile/Error.text = "error occurred while extracting zip (exit code %s)" % [exit_code]
-					$VulnusFile/Error.visible = true
-					return
-			elif OS.has_feature("X11"):
-				var binarypath = OS.get_executable_path().get_base_dir().plus_file("7zz")
+				var outpath:String = ProjectSettings.globalize_path("user://temp")
+				var inpath:String = ProjectSettings.globalize_path(files[0])
+				
+				if inpath.ends_with(".vmap"):
+					dir.rename(files[0], files[0].trim_suffix("vmap") + "zip")
+				
+				if OS.has_feature("Windows"): # Windows has different requirements for its file paths
+					outpath = outpath.replace("\\","/")
+					inpath = inpath.replace("\\","/")
+				else:
+					outpath = outpath.replace('"','\\"')
+					inpath = inpath.replace('"','\\"')
+				
+				
 				var args = [
 					# x -bb0 -y -bd ./Dimrain47_-_at_the_speed_of_light.zip *
 					'x',
 					'-bb0',
 					'-y',
 					'-bd',
-					'-o"%s"' % [ProjectSettings.globalize_path("user://temp").replace('"','\\"')],
-					'"%s"' % [files[0].replace('"','\\"')],
+					'-o"%s"' % [ProjectSettings.globalize_path("user://temp")],
+					'"%s"' % [files[0].replace("\\","/")],
 					'*'
 				]
 				var exit_code = OS.execute(binarypath, args, true, output)
@@ -303,7 +442,29 @@ func file_selected(files:PoolStringArray):
 			$VulnusFile/Error.visible = false
 			path = files[0]
 			import_vulnus_folder()
-			
+		FO_TXT:
+			file.open(files[0],File.READ)
+			check_txt(file.get_as_text())
+			file.close()
+		FO_SONG:
+			if !get_node("../MenuSong").playing: get_node("../MenuSong").play()
+			$TxtFile/H/audio/player.stop()
+			$TxtFile/H/audio/preview/Title.text = "Preview"
+			var stream = Globals.audioLoader.load_file(files[0])
+			if stream == Globals.error_sound:
+				$TxtFile/H/audio/preview.disabled = true
+				$TxtFile/H/audio/preview.modulate = Color(0.5,0.5,0.5)
+				$TxtFile/H/audio/Info.text = "Audio invalid or unsupported"
+				$TxtFile/H/audio/Info.set("custom_colors/font_color",Color(1,0.5,0.5))
+			else:
+				song.musicFile = files[0]
+				$TxtFile/H/audio/Info.text = files[0].get_file()
+				$TxtFile/H/audio/Info.set("custom_colors/font_color",Color(0,1,0.5))
+				$TxtFile/H/audio/preview.disabled = false
+				$TxtFile/H/audio/preview.modulate = Color(1,1,1)
+				if !(stream is AudioStreamSample): stream.loop = true
+				$TxtFile/H/audio/player.stream = stream
+			check_txt_requirements()
 
 func folder_selected(path:String):
 	if path != "": file_selected(PoolStringArray([path]))
@@ -313,43 +474,100 @@ func edit_field(field:String,done:bool=false):
 		if !Input.is_action_just_pressed("ui_select"):
 			match field:
 				"name":
-					if $Edit/Info/SongName/T.text.length() != 0:
-						song.name = $Edit/Info/SongName/T.text
-						$Edit/Info/SongName/T.visible = false
-						$Edit/Info/SongName.text = song.name
-				"mapper":
-					if $Edit/Info/Mapper/T.text.length() != 0:
-						song.creator = $Edit/Info/Mapper/T.text
-						$Edit/Info/Mapper/T.visible = false
-						$Edit/Info/Mapper.text = "Mapper: %s" % song.creator
-				"id":
-					var id = $Edit/Info/Id/T.text
-					if id.length() == 0 or id.begins_with("_") or !("n" + id).replace("-","").is_valid_identifier():
-						return
+					if maptype == T_TXT:
+						if $TxtFile/H/E/Info/SongName/T.text.length() != 0:
+							song.name = $TxtFile/H/E/Info/SongName/T.text
+							$TxtFile/H/E/Info/SongName/T.visible = false
+							$TxtFile/H/E/Info/SongName.text = song.name
+							if !txt_using_manual_id:
+								song.id = generate_id(song.name,song.creator)
+								$TxtFile/H/E/Info/Id.text = song.id
+								$TxtFile/H/E/Info/Id/T.text = "auto"
+							check_txt_requirements()
 					else:
-						song.id = id
-						$Edit/Info/Id/T.visible = false
-						$Edit/Info/Id.text = song.id
-						if SSP.registry_song.idx_id.has(song.id):
-							$Edit/done.disabled = true
-							$Edit/done/Title.text = "ID in use"
+						if $Edit/Info/SongName/T.text.length() != 0:
+							song.name = $Edit/Info/SongName/T.text
+							$Edit/Info/SongName/T.visible = false
+							$Edit/Info/SongName.text = song.name
+						
+				"mapper":
+					if maptype == T_TXT:
+						if $TxtFile/H/E/Info/Mapper/T.text.length() != 0:
+							song.creator = $TxtFile/H/E/Info/Mapper/T.text
+							$TxtFile/H/E/Info/Mapper/T.visible = false
+							$TxtFile/H/E/Info/Mapper.text = "Mapper: %s" % song.creator
+							if !txt_using_manual_id:
+								song.id = generate_id(song.name,song.creator)
+								$TxtFile/H/E/Info/Id.text = song.id
+								$TxtFile/H/E/Info/Id/T.text = "auto"
+							check_txt_requirements()
+					else:
+						if $Edit/Info/Mapper/T.text.length() != 0:
+							song.creator = $Edit/Info/Mapper/T.text
+							$Edit/Info/Mapper/T.visible = false
+							$Edit/Info/Mapper.text = "Mapper: %s" % song.creator
+				"id":
+					if maptype == T_TXT:
+						var id = $TxtFile/H/E/Info/Id/T.text
+						if id.length() == 0 or id.begins_with("_") or !("n" + id).replace("-","").is_valid_identifier():
+							return
+						elif song.id == id:
+							$TxtFile/H/E/Info/Id/T.visible = false
+							return
+						elif id == "auto":
+							$TxtFile/H/E/Info/Id/T.visible = false
+							txt_using_manual_id = false
+							check_txt_requirements()
+							return
 						else:
-							$Edit/done.disabled = false
-							$Edit/done/Title.text = "Finish"
+							txt_using_manual_id = true
+							song.id = id
+							$TxtFile/H/E/Info/Id/T.visible = false
+							$TxtFile/H/E/Info/Id.text = song.id
+							check_txt_requirements()
+					else:
+						var id = $Edit/Info/Id/T.text
+						if id.length() == 0 or id.begins_with("_") or !("n" + id).replace("-","").is_valid_identifier():
+							return
+						else:
+							song.id = id
+							$Edit/Info/Id/T.visible = false
+							$Edit/Info/Id.text = song.id
+							if SSP.registry_song.idx_id.has(song.id):
+								$Edit/done.disabled = true
+								$Edit/done/Title.text = "ID in use"
+							else:
+								$Edit/done.disabled = false
+								$Edit/done/Title.text = "Finish"
 	else:
 		match field:
 			"name":
-				$Edit/Info/SongName/T.visible = true
-				$Edit/Info/SongName/T.grab_focus()
-				$Edit/Info/SongName/T.select_all()
+				if maptype == T_TXT:
+					$TxtFile/H/E/Info/SongName/T.visible = true
+					$TxtFile/H/E/Info/SongName/T.grab_focus()
+					$TxtFile/H/E/Info/SongName/T.select_all()
+				else:
+					$Edit/Info/SongName/T.visible = true
+					$Edit/Info/SongName/T.grab_focus()
+					$Edit/Info/SongName/T.select_all()
 			"mapper":
-				$Edit/Info/Mapper/T.visible = true
-				$Edit/Info/Mapper/T.grab_focus()
-				$Edit/Info/Mapper/T.select_all()
+				if maptype == T_TXT:
+					$TxtFile/H/E/Info/Mapper/T.visible = true
+					$TxtFile/H/E/Info/Mapper/T.grab_focus()
+					$TxtFile/H/E/Info/Mapper/T.select_all()
+				else:
+					$Edit/Info/Mapper/T.visible = true
+					$Edit/Info/Mapper/T.grab_focus()
+					$Edit/Info/Mapper/T.select_all()
 			"id":
-				$Edit/Info/Id/T.visible = true
-				$Edit/Info/Id/T.grab_focus()
-				$Edit/Info/Id/T.select_all()
+				if maptype == T_TXT:
+					$TxtFile/H/E/Info/Id/T.visible = true
+					$TxtFile/H/E/Info/Id/T.grab_focus()
+					$TxtFile/H/E/Info/Id/T.select_all()
+				else:
+					$Edit/Info/Id/T.visible = true
+					$Edit/Info/Id/T.grab_focus()
+					$Edit/Info/Id/T.select_all()
 
 func onopen():
 	maptype = -1
@@ -364,13 +582,20 @@ func onopen():
 	
 	$VulnusFile/Success.visible = false
 	$VulnusFile/Error.visible = false
+	$TxtFile/H/audio/preview/Title.text = "Preview"
+	$TxtFile/H/audio/player.stop()
+	if SSP.play_menu_music and !get_node("../MenuSong").playing:
+		get_node("../MenuSong").play()
 	
 	visible = true
 
 func difficulty_sel(i:int):
 	if edit_pop or !song: return
 	song.difficulty = i - 1
-	$Edit/Info/Difficulty.text = "Difficulty: " + Globals.difficulty_names[song.difficulty]
+	if maptype == T_TXT:
+		$TxtFile/H/E/Info/Difficulty.text = "Difficulty: " + Globals.difficulty_names[song.difficulty]
+	else:
+		$Edit/Info/Difficulty.text = "Difficulty: " + Globals.difficulty_names[song.difficulty]
 
 func set_use_cover(v:bool):
 	song.has_cover = v
@@ -386,7 +611,9 @@ func do_coversel():
 	openFile.show()
 
 func finish_map():
+	$TxtFile/H/audio/player.stop()
 	$Edit.visible = false
+	$TxtFile.visible = false
 	$Finish.visible = true
 	$Finish/ok.visible = false
 	$Finish/Error.visible = false
@@ -405,6 +632,12 @@ func finish_map():
 		$Finish/Error.visible = true
 	$Finish/ok.visible = true
 
+func back_to_menu():
+	get_parent().black_fade_target = true
+	yield(get_tree().create_timer(1),"timeout")
+	SSP.conmgr_transit = null
+	get_tree().change_scene("res://menuload.tscn")
+
 func _ready():
 	openFile = NativeDialogs.OpenFile.new()
 	openFolder = NativeDialogs.SelectFolder.new()
@@ -415,9 +648,16 @@ func _ready():
 	$SelectType/sspm.connect("pressed",self,"select_type",[T_SSPM])
 	$SelectType/vulnus.connect("pressed",self,"select_type",[T_VULNUS])
 	$SelectType/sspmr.connect("pressed",self,"select_type",[T_SSPMR])
+	$SelectType/cancel.connect("pressed",self,"back_to_menu")
 	
 	$VulnusFile/zip.connect("pressed",self,"sel_filetype",[F_ZIP])
 	$VulnusFile/folder.connect("pressed",self,"sel_filetype",[F_DIR])
+	
+	$TxtFile/H/data/file.connect("pressed",self,"sel_filetype",[FO_TXT])
+	$TxtFile/H/data/paste.connect("pressed",self,"do_txt_paste")
+	$TxtFile/H/data/text_done.connect("pressed",self,"end_txt_paste")
+	$TxtFile/H/audio/file.connect("pressed",self,"sel_filetype",[FO_SONG])
+	$TxtFile/H/audio/preview.connect("pressed",self,"txt_song_preview")
 	
 	$Edit/Cover/T/B.connect("pressed",self,"do_coversel")
 	$Edit/Cover/C.connect("toggled",self,"set_use_cover")
@@ -437,7 +677,26 @@ func _ready():
 	
 	$Edit/done.connect("pressed",self,"finish_map")
 	
+	$TxtFile/H/E/Cover/T/B.connect("pressed",self,"do_coversel")
+	$TxtFile/H/E/Cover/C.connect("toggled",self,"set_use_cover")
+	$TxtFile/H/E/Info/Difficulty/B.add_item("N/A",0)
+	$TxtFile/H/E/Info/Difficulty/B.add_item("Easy",1)
+	$TxtFile/H/E/Info/Difficulty/B.add_item("Medium",2)
+	$TxtFile/H/E/Info/Difficulty/B.add_item("Hard",3)
+	$TxtFile/H/E/Info/Difficulty/B.add_item("Logic?",4)
+	$TxtFile/H/E/Info/Difficulty/B.add_item("助",5)
+	$TxtFile/H/E/Info/Difficulty/B.connect("item_selected",self,"difficulty_sel")
+	$TxtFile/H/E/Info/SongName/B.connect("pressed",self,"edit_field",["name"])
+	$TxtFile/H/E/Info/SongName/T.connect("focus_exited",self,"edit_field",["name",true])
+	$TxtFile/H/E/Info/Mapper/B.connect("pressed",self,"edit_field",["mapper"])
+	$TxtFile/H/E/Info/Mapper/T.connect("focus_exited",self,"edit_field",["mapper",true])
+	$TxtFile/H/E/Info/Id/B.connect("pressed",self,"edit_field",["id"])
+	$TxtFile/H/E/Info/Id/T.connect("focus_exited",self,"edit_field",["id",true])
+	
+	$TxtFile/done.connect("pressed",self,"finish_map")
+	
 	$Edit/cancel.connect("pressed",self,"onopen")
+	$TxtFile/cancel.connect("pressed",self,"onopen")
 	$VulnusFile/cancel.connect("pressed",self,"onopen")
 	$Finish/ok.connect("pressed",self,"onopen")
 	
@@ -450,5 +709,9 @@ func _ready():
 
 func _process(delta):
 	if Input.is_action_just_pressed("ui_accept"):
+		if $Edit/Info/Id/T.visible: edit_field("id",true)
 		if $Edit/Info/SongName/T.visible: edit_field("name",true)
 		if $Edit/Info/Mapper/T.visible: edit_field("mapper",true)
+		if $TxtFile/H/E/Info/Id/T.visible: edit_field("id",true)
+		if $TxtFile/H/E/Info/SongName/T.visible: edit_field("name",true)
+		if $TxtFile/H/E/Info/Mapper/T.visible: edit_field("mapper",true)

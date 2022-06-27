@@ -1,0 +1,2016 @@
+[gd_scene load_steps=55 format=2]
+
+[ext_resource path="res://uitheme.tres" type="Theme" id=1]
+[ext_resource path="res://font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://font/Noto_Sans_JP/NotoSansJP-Medium.otf" type="DynamicFontData" id=3]
+[ext_resource path="res://menuButtons/MenuMusic.gd" type="Script" id=4]
+[ext_resource path="res://menuButtons/UserDir.gd" type="Script" id=5]
+[ext_resource path="res://menuButtons/NoteHitboxSize.gd" type="Script" id=6]
+[ext_resource path="res://menuButtons/ShowConfig.gd" type="Script" id=7]
+[ext_resource path="res://menuButtons/MusicVolume.gd" type="Script" id=8]
+[ext_resource path="res://menuButtons/Grid.gd" type="Script" id=9]
+[ext_resource path="res://menuButtons/CursorSpin.gd" type="Script" id=10]
+[ext_resource path="res://menuButtons/WorldSel.gd" type="Script" id=11]
+[ext_resource path="res://menuButtons/EdgeBuffer.gd" type="Script" id=12]
+[ext_resource path="res://menuButtons/BufferCursor.gd" type="Script" id=13]
+[ext_resource path="res://menuButtons/Border.gd" type="Script" id=14]
+[ext_resource path="res://menuButtons/ColorSetSelectorButton.gd" type="Script" id=15]
+[ext_resource path="res://menuButtons/NoteMesh.gd" type="Script" id=16]
+[ext_resource path="res://menuButtons/CursorScale.gd" type="Script" id=17]
+[ext_resource path="res://menuButtons/VSyncCompositor.gd" type="Script" id=18]
+[ext_resource path="res://menuButtons/MissSound.gd" type="Script" id=19]
+[ext_resource path="res://menuButtons/SaveSettings.gd" type="Script" id=20]
+[ext_resource path="res://menuButtons/HitWindow.gd" type="Script" id=21]
+[ext_resource path="res://menuButtons/Sensitivity.gd" type="Script" id=22]
+[ext_resource path="res://menuButtons/VSync.gd" type="Script" id=23]
+[ext_resource path="res://menuButtons/ApproachRate.gd" type="Script" id=24]
+[ext_resource path="res://menuButtons/HitSound.gd" type="Script" id=25]
+[ext_resource path="res://menuButtons/AutoPreview.gd" type="Script" id=26]
+[ext_resource path="res://menuButtons/Fullscreen.gd" type="Script" id=27]
+[ext_resource path="res://menuButtons/Parallax.gd" type="Script" id=28]
+[ext_resource path="res://menuButtons/Spin.gd" type="Script" id=29]
+[ext_resource path="res://menuButtons/SpawnDist.gd" type="Script" id=30]
+[ext_resource path="res://menuButtons/CustomSpeed.gd" type="Script" id=31]
+[ext_resource path="res://menuButtons/NoteSpawnEffect.gd" type="Script" id=32]
+[ext_resource path="res://menuButtons/UIParallax.gd" type="Script" id=33]
+[ext_resource path="res://menuButtons/GridParallax.gd" type="Script" id=34]
+[ext_resource path="res://menuButtons/DisplayTrueCombo.gd" type="Script" id=35]
+[ext_resource path="res://menuButtons/ArchiveConvert.gd" type="Script" id=36]
+[ext_resource path="res://menuButtons/FadeLength.gd" type="Script" id=37]
+[ext_resource path="res://menuButtons/CursorFaceVelocity.gd" type="Script" id=38]
+[ext_resource path="res://menuButtons/ShowHitEffect.gd" type="Script" id=39]
+[ext_resource path="res://font/Lato/Lato-Bold.ttf" type="DynamicFontData" id=40]
+[ext_resource path="res://content/ui/arrow_up_white.png" type="Texture" id=41]
+[ext_resource path="res://content/ui/arrow_down_white.png" type="Texture" id=42]
+[ext_resource path="res://menu2/SettingsGroup.gd" type="Script" id=43]
+[ext_resource path="res://content/cursors/square.png" type="Texture" id=44]
+[ext_resource path="res://menu2/ReplaceCustomFile.gd" type="Script" id=45]
+[ext_resource path="res://addons/native_dialogs/bin/native_dialog_open_file.gdns" type="Script" id=46]
+[ext_resource path="res://content/notefx/ripple.png" type="Texture" id=47]
+[ext_resource path="res://error.jpg" type="Texture" id=48]
+[ext_resource path="res://menuButtons/RainbowCursor.gd" type="Script" id=49]
+[ext_resource path="res://menuButtons/LockMouse.gd" type="Script" id=50]
+[ext_resource path="res://menuButtons/CursorTrail.gd" type="Script" id=51]
+
+[sub_resource type="DynamicFont" id=5]
+size = 18
+use_filter = true
+font_data = ExtResource( 40 )
+
+[sub_resource type="DynamicFont" id=3]
+use_filter = true
+font_data = ExtResource( 2 )
+fallback/0 = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 14
+font_data = ExtResource( 2 )
+
+[node name="F" type="VBoxContainer"]
+anchor_right = 1.0
+margin_bottom = 915.0
+rect_min_size = Vector2( 800, 915 )
+theme = ExtResource( 1 )
+
+[node name="TopButtons" type="Control" parent="."]
+margin_right = 1280.0
+margin_bottom = 55.0
+rect_min_size = Vector2( 0, 55 )
+
+[node name="Save" type="Button" parent="TopButtons"]
+margin_left = 53.0
+margin_top = 11.0
+margin_right = 161.0
+margin_bottom = 44.0
+theme = ExtResource( 1 )
+text = "Save"
+script = ExtResource( 20 )
+
+[node name="UserDir" type="Button" parent="TopButtons"]
+margin_left = 173.0
+margin_top = 11.0
+margin_right = 323.0
+margin_bottom = 44.0
+theme = ExtResource( 1 )
+text = "Open User Folder"
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ArchiveConvert" type="Button" parent="TopButtons"]
+margin_left = 333.0
+margin_top = 11.0
+margin_right = 589.0
+margin_bottom = 44.0
+theme = ExtResource( 1 )
+text = "Convert SS archive to .sspm"
+script = ExtResource( 36 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="M" type="VBoxContainer" parent="."]
+margin_top = 59.0
+margin_right = 1280.0
+margin_bottom = 1627.0
+custom_constants/separation = 0
+
+[node name="Modifiers" type="VBoxContainer" parent="M"]
+margin_right = 1280.0
+margin_bottom = 140.0
+script = ExtResource( 43 )
+
+[node name="Title" type="MarginContainer" parent="M/Modifiers"]
+margin_right = 1280.0
+margin_bottom = 32.0
+custom_constants/margin_left = 32
+
+[node name="C" type="CheckBox" parent="M/Modifiers/Title"]
+margin_left = 32.0
+margin_right = 1280.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 0, 32 )
+custom_colors/font_color_disabled = Color( 1, 1, 1, 1 )
+custom_colors/font_color_focus = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover_pressed = Color( 1, 1, 1, 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
+custom_colors/font_color_pressed = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 5 )
+custom_icons/checked = ExtResource( 42 )
+custom_icons/unchecked = ExtResource( 41 )
+text = "Modifiers"
+flat = true
+
+[node name="Group" type="MarginContainer" parent="M/Modifiers"]
+margin_top = 36.0
+margin_right = 1280.0
+margin_bottom = 140.0
+custom_constants/margin_left = 180
+
+[node name="H" type="GridContainer" parent="M/Modifiers/Group"]
+margin_left = 180.0
+margin_right = 1280.0
+margin_bottom = 104.0
+
+[node name="CustomSpeed" type="Control" parent="M/Modifiers/Group/H"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="CustomSpeed" type="SpinBox" parent="M/Modifiers/Group/H/CustomSpeed"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+focus_mode = 2
+theme = ExtResource( 1 )
+min_value = 5.0
+max_value = 1000.0
+step = 0.01
+value = 100.0
+suffix = "%"
+script = ExtResource( 31 )
+
+[node name="Label" type="Label" parent="M/Modifiers/Group/H/CustomSpeed/CustomSpeed"]
+margin_left = -149.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Custom Speed Rate"
+align = 2
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HitboxSize" type="Control" parent="M/Modifiers/Group/H"]
+margin_top = 36.0
+margin_right = 200.0
+margin_bottom = 68.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="NoteHitboxSize" type="SpinBox" parent="M/Modifiers/Group/H/HitboxSize"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+focus_mode = 2
+theme = ExtResource( 1 )
+max_value = 8.0
+step = 0.001
+value = 1.14
+suffix = "(def. 1.14)"
+script = ExtResource( 6 )
+
+[node name="Label" type="Label" parent="M/Modifiers/Group/H/HitboxSize/NoteHitboxSize"]
+margin_left = -115.0
+margin_right = -10.0
+margin_bottom = 32.0
+grow_horizontal = 0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Hitbox Size"
+align = 2
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HitWindow" type="Control" parent="M/Modifiers/Group/H"]
+margin_top = 72.0
+margin_right = 200.0
+margin_bottom = 104.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="HitWindow" type="SpinBox" parent="M/Modifiers/Group/H/HitWindow"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+focus_mode = 2
+theme = ExtResource( 1 )
+max_value = 1000.0
+value = 55.0
+suffix = "ms (def. 55)"
+script = ExtResource( 21 )
+
+[node name="Label" type="Label" parent="M/Modifiers/Group/H/HitWindow/HitWindow"]
+margin_left = -115.0
+margin_right = -10.0
+margin_bottom = 32.0
+grow_horizontal = 0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Hit Window"
+align = 2
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Customization" type="VBoxContainer" parent="M"]
+margin_top = 140.0
+margin_right = 1280.0
+margin_bottom = 572.0
+script = ExtResource( 43 )
+
+[node name="Title" type="MarginContainer" parent="M/Customization"]
+margin_right = 1280.0
+margin_bottom = 32.0
+custom_constants/margin_left = 32
+
+[node name="C" type="CheckBox" parent="M/Customization/Title"]
+margin_left = 32.0
+margin_right = 1280.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 0, 32 )
+custom_colors/font_color_disabled = Color( 1, 1, 1, 1 )
+custom_colors/font_color_focus = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover_pressed = Color( 1, 1, 1, 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
+custom_colors/font_color_pressed = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 5 )
+custom_icons/checked = ExtResource( 42 )
+custom_icons/unchecked = ExtResource( 41 )
+text = "Customization"
+flat = true
+
+[node name="Group" type="MarginContainer" parent="M/Customization"]
+margin_top = 36.0
+margin_right = 1280.0
+margin_bottom = 432.0
+custom_constants/margin_left = 180
+custom_constants/margin_bottom = 12
+
+[node name="H" type="GridContainer" parent="M/Customization/Group"]
+margin_left = 180.0
+margin_right = 1280.0
+margin_bottom = 384.0
+
+[node name="ColorSet" type="Control" parent="M/Customization/Group/H"]
+margin_right = 268.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="ColorSet" type="MenuButton" parent="M/Customization/Group/H/ColorSet"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+text = "colorset name here"
+flat = false
+align = 0
+script = ExtResource( 15 )
+
+[node name="Colors" type="GridContainer" parent="M/Customization/Group/H/ColorSet/ColorSet"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 10.0
+margin_right = 360.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 350, 0 )
+columns = 32
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="0" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
+visible = false
+margin_right = 30.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+
+[node name="1" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
+visible = false
+margin_right = 30.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+
+[node name="2" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
+visible = false
+margin_right = 30.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+
+[node name="3" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
+visible = false
+margin_right = 30.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+
+[node name="4" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
+visible = false
+margin_right = 30.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+
+[node name="5" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
+visible = false
+margin_right = 30.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+
+[node name="6" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
+visible = false
+margin_right = 30.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+
+[node name="7" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
+visible = false
+margin_right = 30.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+
+[node name="8" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
+visible = false
+margin_right = 30.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+
+[node name="9" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
+visible = false
+margin_right = 30.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+
+[node name="10" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
+visible = false
+margin_right = 30.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+
+[node name="11" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
+visible = false
+margin_right = 30.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+
+[node name="12" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
+visible = false
+margin_right = 30.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+
+[node name="13" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
+visible = false
+margin_right = 30.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+
+[node name="14" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
+visible = false
+margin_right = 30.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+
+[node name="15" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
+visible = false
+margin_right = 30.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+
+[node name="16" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
+visible = false
+margin_right = 30.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+
+[node name="17" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
+visible = false
+margin_right = 30.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+
+[node name="18" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
+visible = false
+margin_right = 30.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+
+[node name="19" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
+visible = false
+margin_right = 30.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+
+[node name="20" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
+visible = false
+margin_right = 30.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+
+[node name="21" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
+visible = false
+margin_right = 30.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+
+[node name="22" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
+visible = false
+margin_right = 30.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+
+[node name="23" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
+visible = false
+margin_right = 30.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+
+[node name="24" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
+visible = false
+margin_right = 30.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+
+[node name="25" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
+visible = false
+margin_right = 30.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+
+[node name="26" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
+visible = false
+margin_right = 30.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+
+[node name="27" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
+visible = false
+margin_right = 30.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+
+[node name="28" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
+visible = false
+margin_right = 30.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+
+[node name="29" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
+visible = false
+margin_right = 30.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+
+[node name="30" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
+visible = false
+margin_right = 30.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+
+[node name="31" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
+visible = false
+margin_right = 30.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 30, 30 )
+
+[node name="Label" type="Label" parent="M/Customization/Group/H/ColorSet/ColorSet"]
+margin_left = -115.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Block Colors"
+align = 2
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="World" type="Control" parent="M/Customization/Group/H"]
+margin_top = 36.0
+margin_right = 268.0
+margin_bottom = 68.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="World" type="MenuButton" parent="M/Customization/Group/H/World"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+text = "world name here"
+flat = false
+align = 0
+script = ExtResource( 11 )
+
+[node name="Label" type="Label" parent="M/Customization/Group/H/World/World"]
+margin_left = -149.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Background World"
+align = 2
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Mesh" type="Control" parent="M/Customization/Group/H"]
+margin_top = 72.0
+margin_right = 268.0
+margin_bottom = 104.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="Mesh" type="MenuButton" parent="M/Customization/Group/H/Mesh"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+text = "mesh name here"
+flat = false
+align = 0
+script = ExtResource( 16 )
+
+[node name="Label" type="Label" parent="M/Customization/Group/H/Mesh/Mesh"]
+margin_left = -149.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Note Mesh"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="CursorScale" type="Control" parent="M/Customization/Group/H"]
+margin_top = 108.0
+margin_right = 268.0
+margin_bottom = 140.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="CursorScale" type="SpinBox" parent="M/Customization/Group/H/CursorScale"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+focus_mode = 2
+theme = ExtResource( 1 )
+step = 0.01
+value = 1.0
+script = ExtResource( 17 )
+
+[node name="Label" type="Label" parent="M/Customization/Group/H/CursorScale/CursorScale"]
+margin_left = -115.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Cursor Scale"
+align = 2
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CursorSpin" type="Control" parent="M/Customization/Group/H"]
+margin_top = 144.0
+margin_right = 268.0
+margin_bottom = 176.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="CursorSpin" type="SpinBox" parent="M/Customization/Group/H/CursorSpin"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+focus_mode = 2
+theme = ExtResource( 1 )
+min_value = -3600.0
+max_value = 3600.0
+step = 0.01
+suffix = "degrees/sec"
+script = ExtResource( 10 )
+
+[node name="Label" type="Label" parent="M/Customization/Group/H/CursorSpin/CursorSpin"]
+margin_left = -146.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Cursor Spin"
+align = 2
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CustomCursor" type="Control" parent="M/Customization/Group/H"]
+margin_top = 180.0
+margin_right = 268.0
+margin_bottom = 212.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="CustomCursor" type="Button" parent="M/Customization/Group/H/CustomCursor"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+theme = ExtResource( 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+text = "Click to replace"
+script = ExtResource( 45 )
+default_image = ExtResource( 44 )
+
+[node name="OpenFile" type="Node" parent="M/Customization/Group/H/CustomCursor/CustomCursor"]
+script = ExtResource( 46 )
+title = "Select file"
+initial_path = "~/Downloads"
+filters = PoolStringArray( "*.png, *.jpg, *.jpeg, *.webp, *.bmp ; Image files" )
+
+[node name="Label" type="Label" parent="M/Customization/Group/H/CustomCursor/CustomCursor"]
+margin_left = -149.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Cursor Image"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="ImgPreview" type="TextureRect" parent="M/Customization/Group/H/CustomCursor/CustomCursor"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 5.0
+margin_right = 37.0
+margin_bottom = 32.0
+texture = ExtResource( 44 )
+expand = true
+stretch_mode = 1
+
+[node name="TouchIndicator" type="Control" parent="M/Customization/Group/H"]
+margin_top = 216.0
+margin_right = 268.0
+margin_bottom = 248.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="TouchIndicator" type="Button" parent="M/Customization/Group/H/TouchIndicator"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+theme = ExtResource( 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+text = "Click to replace"
+script = ExtResource( 45 )
+target = "touch"
+default_image = ExtResource( 44 )
+
+[node name="OpenFile" type="Node" parent="M/Customization/Group/H/TouchIndicator/TouchIndicator"]
+script = ExtResource( 46 )
+title = "Select file"
+initial_path = "~/Downloads"
+filters = PoolStringArray( "*.png, *.jpg, *.jpeg, *.webp, *.bmp ; Image files" )
+
+[node name="Label" type="Label" parent="M/Customization/Group/H/TouchIndicator/TouchIndicator"]
+margin_left = -149.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Touch Indicator"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="ImgPreview" type="TextureRect" parent="M/Customization/Group/H/TouchIndicator/TouchIndicator"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 5.0
+margin_right = 37.0
+margin_bottom = 32.0
+texture = ExtResource( 44 )
+expand = true
+stretch_mode = 1
+
+[node name="HitEffect" type="Control" parent="M/Customization/Group/H"]
+margin_top = 252.0
+margin_right = 268.0
+margin_bottom = 284.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="HitEffect" type="Button" parent="M/Customization/Group/H/HitEffect"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+theme = ExtResource( 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+text = "Click to replace"
+script = ExtResource( 45 )
+target = "hit"
+default_image = ExtResource( 47 )
+
+[node name="OpenFile" type="Node" parent="M/Customization/Group/H/HitEffect/HitEffect"]
+script = ExtResource( 46 )
+title = "Select file"
+initial_path = "~/Downloads"
+filters = PoolStringArray( "*.png, *.jpg, *.jpeg, *.webp, *.bmp ; Image files" )
+
+[node name="Label" type="Label" parent="M/Customization/Group/H/HitEffect/HitEffect"]
+margin_left = -149.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Hit Effect Image"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="ImgPreview" type="TextureRect" parent="M/Customization/Group/H/HitEffect/HitEffect"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 5.0
+margin_right = 37.0
+margin_bottom = 32.0
+texture = ExtResource( 47 )
+expand = true
+stretch_mode = 1
+
+[node name="CustomBg" type="Control" parent="M/Customization/Group/H"]
+margin_top = 288.0
+margin_right = 268.0
+margin_bottom = 320.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="CustomBg" type="Button" parent="M/Customization/Group/H/CustomBg"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+theme = ExtResource( 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+text = "Click to replace"
+script = ExtResource( 45 )
+target = "custombg"
+default_image = ExtResource( 48 )
+
+[node name="OpenFile" type="Node" parent="M/Customization/Group/H/CustomBg/CustomBg"]
+script = ExtResource( 46 )
+title = "Select file"
+initial_path = "~/Downloads"
+filters = PoolStringArray( "*.png, *.jpg, *.jpeg, *.webp, *.bmp ; Image files" )
+
+[node name="Label" type="Label" parent="M/Customization/Group/H/CustomBg/CustomBg"]
+margin_left = -162.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Custom World BG"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="ImgPreview" type="TextureRect" parent="M/Customization/Group/H/CustomBg/CustomBg"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 5.0
+margin_right = 37.0
+margin_bottom = 32.0
+texture = ExtResource( 48 )
+expand = true
+stretch_mode = 1
+
+[node name="RainbowCursor" type="CheckBox" parent="M/Customization/Group/H"]
+margin_top = 324.0
+margin_right = 268.0
+margin_bottom = 352.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 4 )
+action_mode = 0
+text = "works best with a white cursor"
+flat = true
+script = ExtResource( 49 )
+
+[node name="Label" type="Label" parent="M/Customization/Group/H/RainbowCursor"]
+anchor_bottom = 1.0
+margin_left = -147.0
+margin_right = -10.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Rainbow Cursor"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="CursorTrail" type="CheckBox" parent="M/Customization/Group/H"]
+margin_top = 356.0
+margin_right = 268.0
+margin_bottom = 384.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 4 )
+action_mode = 0
+text = "many of you have asked so i shall deliver"
+flat = true
+script = ExtResource( 51 )
+
+[node name="Label" type="Label" parent="M/Customization/Group/H/CursorTrail"]
+anchor_bottom = 1.0
+margin_left = -147.0
+margin_right = -10.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Cursor Trail"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="Audio" type="VBoxContainer" parent="M"]
+margin_top = 572.0
+margin_right = 1280.0
+margin_bottom = 768.0
+script = ExtResource( 43 )
+
+[node name="Title" type="MarginContainer" parent="M/Audio"]
+margin_right = 1280.0
+margin_bottom = 32.0
+custom_constants/margin_left = 32
+
+[node name="C" type="CheckBox" parent="M/Audio/Title"]
+margin_left = 32.0
+margin_right = 1280.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 0, 32 )
+custom_colors/font_color_disabled = Color( 1, 1, 1, 1 )
+custom_colors/font_color_focus = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover_pressed = Color( 1, 1, 1, 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
+custom_colors/font_color_pressed = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 5 )
+custom_icons/checked = ExtResource( 42 )
+custom_icons/unchecked = ExtResource( 41 )
+text = "Audio"
+flat = true
+
+[node name="Group" type="MarginContainer" parent="M/Audio"]
+margin_top = 36.0
+margin_right = 1280.0
+margin_bottom = 196.0
+custom_constants/margin_left = 180
+
+[node name="H" type="GridContainer" parent="M/Audio/Group"]
+margin_left = 180.0
+margin_right = 1280.0
+margin_bottom = 160.0
+
+[node name="MusicVolume" type="Control" parent="M/Audio/Group/H"]
+margin_right = 559.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="MusicVolume" type="SpinBox" parent="M/Audio/Group/H/MusicVolume"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+focus_mode = 2
+theme = ExtResource( 1 )
+min_value = -80.0
+max_value = 300.0
+step = 0.01
+suffix = "dB (0 = 100%)"
+script = ExtResource( 8 )
+
+[node name="Label" type="Label" parent="M/Audio/Group/H/MusicVolume/MusicVolume"]
+margin_left = -146.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Music Volume"
+align = 2
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MenuMusic" type="CheckBox" parent="M/Audio/Group/H"]
+margin_top = 36.0
+margin_right = 559.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 4 )
+action_mode = 0
+text = "customize this with a \"menu.mp3\" file in your save directory (default song by scriptima)"
+flat = true
+script = ExtResource( 4 )
+
+[node name="Label" type="Label" parent="M/Audio/Group/H/MenuMusic"]
+anchor_bottom = 1.0
+margin_left = -115.0
+margin_right = -10.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Menu Music"
+align = 2
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AutoPreview" type="CheckBox" parent="M/Audio/Group/H"]
+margin_top = 68.0
+margin_right = 559.0
+margin_bottom = 96.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 4 )
+action_mode = 0
+text = "automatically play previews when a song is selected"
+flat = true
+script = ExtResource( 26 )
+
+[node name="Label" type="Label" parent="M/Audio/Group/H/AutoPreview"]
+anchor_bottom = 1.0
+margin_left = -150.0
+margin_right = -10.0
+grow_horizontal = 0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Auto Preview Songs"
+align = 2
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HitSound" type="CheckBox" parent="M/Audio/Group/H"]
+margin_top = 100.0
+margin_right = 559.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 4 )
+pressed = true
+action_mode = 0
+text = "customize this with a \"hit.mp3\" file in your save directory"
+flat = true
+script = ExtResource( 25 )
+
+[node name="Label" type="Label" parent="M/Audio/Group/H/HitSound"]
+anchor_bottom = 1.0
+margin_left = -115.0
+margin_right = -10.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Hit Sound"
+align = 2
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MissSound" type="CheckBox" parent="M/Audio/Group/H"]
+margin_top = 132.0
+margin_right = 559.0
+margin_bottom = 160.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 4 )
+pressed = true
+action_mode = 0
+text = "customize this with a \"miss.mp3\" file in your save directory"
+flat = true
+script = ExtResource( 19 )
+
+[node name="Label" type="Label" parent="M/Audio/Group/H/MissSound"]
+anchor_bottom = 1.0
+margin_left = -115.0
+margin_right = -10.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Miss Sound"
+align = 2
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Camera" type="VBoxContainer" parent="M"]
+margin_top = 768.0
+margin_right = 1280.0
+margin_bottom = 1076.0
+script = ExtResource( 43 )
+
+[node name="Title" type="MarginContainer" parent="M/Camera"]
+margin_right = 1280.0
+margin_bottom = 32.0
+custom_constants/margin_left = 32
+
+[node name="C" type="CheckBox" parent="M/Camera/Title"]
+margin_left = 32.0
+margin_right = 1280.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 0, 32 )
+custom_colors/font_color_disabled = Color( 1, 1, 1, 1 )
+custom_colors/font_color_focus = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover_pressed = Color( 1, 1, 1, 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
+custom_colors/font_color_pressed = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 5 )
+custom_icons/checked = ExtResource( 42 )
+custom_icons/unchecked = ExtResource( 41 )
+text = "Camera & Controls"
+flat = true
+
+[node name="Group" type="MarginContainer" parent="M/Camera"]
+margin_top = 36.0
+margin_right = 1280.0
+margin_bottom = 308.0
+custom_constants/margin_left = 180
+
+[node name="H" type="GridContainer" parent="M/Camera/Group"]
+margin_left = 180.0
+margin_right = 1280.0
+margin_bottom = 272.0
+
+[node name="Parallax" type="Control" parent="M/Camera/Group/H"]
+margin_right = 608.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="Parallax" type="SpinBox" parent="M/Camera/Group/H/Parallax"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+focus_mode = 2
+theme = ExtResource( 1 )
+step = 0.01
+value = 1.0
+script = ExtResource( 28 )
+
+[node name="Label" type="Label" parent="M/Camera/Group/H/Parallax/Parallax"]
+margin_left = -134.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Camera Parallax"
+align = 2
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="UIParallax" type="Control" parent="M/Camera/Group/H"]
+margin_top = 36.0
+margin_right = 608.0
+margin_bottom = 68.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="UIParallax" type="SpinBox" parent="M/Camera/Group/H/UIParallax"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+focus_mode = 2
+theme = ExtResource( 1 )
+step = 0.01
+value = 1.0
+script = ExtResource( 33 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="M/Camera/Group/H/UIParallax/UIParallax"]
+margin_left = -115.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "HUD Parallax"
+align = 2
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GridParallax" type="Control" parent="M/Camera/Group/H"]
+margin_top = 72.0
+margin_right = 608.0
+margin_bottom = 104.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="GridParallax" type="SpinBox" parent="M/Camera/Group/H/GridParallax"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+focus_mode = 2
+theme = ExtResource( 1 )
+step = 0.01
+value = 1.0
+script = ExtResource( 34 )
+
+[node name="Label" type="Label" parent="M/Camera/Group/H/GridParallax/GridParallax"]
+margin_left = -115.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Grid Parallax"
+align = 2
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Spin" type="CheckBox" parent="M/Camera/Group/H"]
+margin_top = 108.0
+margin_right = 608.0
+margin_bottom = 136.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 4 )
+action_mode = 0
+text = "enables camera rotation - aka \"spin\""
+flat = true
+script = ExtResource( 29 )
+
+[node name="Label" type="Label" parent="M/Camera/Group/H/Spin"]
+anchor_bottom = 1.0
+margin_left = -150.0
+margin_right = -10.0
+grow_horizontal = 0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Camera Unlock"
+align = 2
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sensitivity" type="Control" parent="M/Camera/Group/H"]
+margin_top = 140.0
+margin_right = 608.0
+margin_bottom = 172.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="Sensitivity" type="SpinBox" parent="M/Camera/Group/H/Sensitivity"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+focus_mode = 2
+theme = ExtResource( 1 )
+step = 0.01
+value = 1.0
+script = ExtResource( 22 )
+
+[node name="Label" type="Label" parent="M/Camera/Group/H/Sensitivity/Sensitivity"]
+margin_left = -115.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Sensitivity"
+align = 2
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EdgeBuffer" type="Control" parent="M/Camera/Group/H"]
+margin_top = 176.0
+margin_right = 608.0
+margin_bottom = 208.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="EdgeBuffer" type="SpinBox" parent="M/Camera/Group/H/EdgeBuffer"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+focus_mode = 2
+theme = ExtResource( 1 )
+min_value = -1.5
+step = 0.01
+script = ExtResource( 12 )
+
+[node name="Label" type="Label" parent="M/Camera/Group/H/EdgeBuffer/EdgeBuffer"]
+margin_left = -146.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Edge Buffer (Drift)"
+align = 2
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BufferCursor" type="CheckBox" parent="M/Camera/Group/H"]
+margin_top = 212.0
+margin_right = 608.0
+margin_bottom = 240.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 4 )
+pressed = true
+action_mode = 0
+text = "shows a mini cursor at the \"real\" position when you enter the edge buffer"
+flat = true
+script = ExtResource( 13 )
+
+[node name="Label" type="Label" parent="M/Camera/Group/H/BufferCursor"]
+anchor_bottom = 1.0
+margin_left = -150.0
+margin_right = -10.0
+grow_horizontal = 0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Buffer Cursor"
+align = 2
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LockMouse" type="CheckBox" parent="M/Camera/Group/H"]
+margin_top = 244.0
+margin_right = 608.0
+margin_bottom = 272.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 4 )
+pressed = true
+action_mode = 0
+text = "turning this off will unlock the mouse while playing (it'll still be confined to the window though)"
+flat = true
+script = ExtResource( 50 )
+
+[node name="Label" type="Label" parent="M/Camera/Group/H/LockMouse"]
+anchor_bottom = 1.0
+margin_left = -150.0
+margin_right = -10.0
+grow_horizontal = 0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Lock Mouse"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="CursorFaceVelocity" type="CheckBox" parent="M/Camera/Group/H"]
+visible = false
+margin_top = 244.0
+margin_right = 471.0
+margin_bottom = 272.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 4 )
+pressed = true
+action_mode = 0
+text = "points your cursor in the direction of your mouse movement"
+flat = true
+script = ExtResource( 38 )
+
+[node name="Label" type="Label" parent="M/Camera/Group/H/CursorFaceVelocity"]
+anchor_bottom = 1.0
+margin_left = -165.0
+margin_right = -10.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Cursor Face Velocity"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="Notes" type="VBoxContainer" parent="M"]
+margin_top = 1076.0
+margin_right = 1280.0
+margin_bottom = 1280.0
+script = ExtResource( 43 )
+
+[node name="Title" type="MarginContainer" parent="M/Notes"]
+margin_right = 1280.0
+margin_bottom = 32.0
+custom_constants/margin_left = 32
+
+[node name="C" type="CheckBox" parent="M/Notes/Title"]
+margin_left = 32.0
+margin_right = 1280.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 0, 32 )
+custom_colors/font_color_disabled = Color( 1, 1, 1, 1 )
+custom_colors/font_color_focus = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover_pressed = Color( 1, 1, 1, 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
+custom_colors/font_color_pressed = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 5 )
+custom_icons/checked = ExtResource( 42 )
+custom_icons/unchecked = ExtResource( 41 )
+text = "Approach & Note Display"
+flat = true
+
+[node name="Group" type="MarginContainer" parent="M/Notes"]
+margin_top = 36.0
+margin_right = 1280.0
+margin_bottom = 204.0
+custom_constants/margin_left = 180
+
+[node name="H" type="GridContainer" parent="M/Notes/Group"]
+margin_left = 180.0
+margin_right = 1280.0
+margin_bottom = 168.0
+
+[node name="ApproachRate" type="Control" parent="M/Notes/Group/H"]
+margin_right = 312.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="ApproachRate" type="SpinBox" parent="M/Notes/Group/H/ApproachRate"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+focus_mode = 2
+theme = ExtResource( 1 )
+min_value = -500.0
+max_value = 500.0
+step = 0.1
+value = 50.0
+suffix = "m/s (def. 50)"
+script = ExtResource( 24 )
+
+[node name="Label" type="Label" parent="M/Notes/Group/H/ApproachRate/ApproachRate"]
+margin_left = -115.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Approach Rate"
+align = 2
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SpawnDist" type="Control" parent="M/Notes/Group/H"]
+margin_top = 36.0
+margin_right = 312.0
+margin_bottom = 68.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="SpawnDist" type="SpinBox" parent="M/Notes/Group/H/SpawnDist"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+focus_mode = 2
+theme = ExtResource( 1 )
+min_value = 10.0
+max_value = 1000.0
+step = 0.01
+value = 100.0
+suffix = "m (def. 100)"
+script = ExtResource( 30 )
+
+[node name="Label" type="Label" parent="M/Notes/Group/H/SpawnDist/SpawnDist"]
+margin_left = -146.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Spawn Distance"
+align = 2
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FadeLength" type="Control" parent="M/Notes/Group/H"]
+margin_top = 72.0
+margin_right = 312.0
+margin_bottom = 104.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="FadeLength" type="SpinBox" parent="M/Notes/Group/H/FadeLength"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+focus_mode = 2
+theme = ExtResource( 1 )
+step = 0.01
+value = 50.0
+suffix = "%"
+script = ExtResource( 37 )
+
+[node name="Label" type="Label" parent="M/Notes/Group/H/FadeLength/FadeLength"]
+margin_left = -149.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Fade Length"
+align = 2
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NoteSpawnEffect" type="CheckBox" parent="M/Notes/Group/H"]
+margin_top = 108.0
+margin_right = 312.0
+margin_bottom = 136.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 4 )
+pressed = true
+action_mode = 0
+text = "alright, fine. no distractions for you."
+flat = true
+script = ExtResource( 32 )
+
+[node name="Label" type="Label" parent="M/Notes/Group/H/NoteSpawnEffect"]
+anchor_bottom = 1.0
+margin_left = -173.0
+margin_right = -10.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Note Spawn Effect"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="ShowHitEffect" type="CheckBox" parent="M/Notes/Group/H"]
+margin_top = 140.0
+margin_right = 312.0
+margin_bottom = 168.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 4 )
+pressed = true
+action_mode = 0
+text = "puts a ripple at your cursor when you hit a note"
+flat = true
+script = ExtResource( 39 )
+
+[node name="Label" type="Label" parent="M/Notes/Group/H/ShowHitEffect"]
+anchor_bottom = 1.0
+margin_left = -165.0
+margin_right = -10.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Hit Effect"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="UI" type="VBoxContainer" parent="M"]
+margin_top = 1280.0
+margin_right = 1280.0
+margin_bottom = 1440.0
+script = ExtResource( 43 )
+
+[node name="Title" type="MarginContainer" parent="M/UI"]
+margin_right = 1280.0
+margin_bottom = 32.0
+custom_constants/margin_left = 32
+
+[node name="C" type="CheckBox" parent="M/UI/Title"]
+margin_left = 32.0
+margin_right = 1280.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 0, 32 )
+custom_colors/font_color_disabled = Color( 1, 1, 1, 1 )
+custom_colors/font_color_focus = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover_pressed = Color( 1, 1, 1, 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
+custom_colors/font_color_pressed = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 5 )
+custom_icons/checked = ExtResource( 42 )
+custom_icons/unchecked = ExtResource( 41 )
+text = "UI"
+flat = true
+
+[node name="Group" type="MarginContainer" parent="M/UI"]
+margin_top = 36.0
+margin_right = 1280.0
+margin_bottom = 160.0
+custom_constants/margin_left = 180
+
+[node name="H" type="GridContainer" parent="M/UI/Group"]
+margin_left = 180.0
+margin_right = 1280.0
+margin_bottom = 124.0
+
+[node name="Grid" type="CheckBox" parent="M/UI/Group/H"]
+margin_right = 582.0
+margin_bottom = 28.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 4 )
+pressed = true
+action_mode = 0
+text = "turns the note grid on or off"
+flat = true
+script = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="M/UI/Group/H/Grid"]
+anchor_bottom = 1.0
+margin_left = -150.0
+margin_right = -10.0
+grow_horizontal = 0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Enable Grid"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="Border" type="CheckBox" parent="M/UI/Group/H"]
+margin_top = 32.0
+margin_right = 582.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 4 )
+pressed = true
+action_mode = 0
+text = "turns the note grid border on or off"
+flat = true
+script = ExtResource( 14 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="M/UI/Group/H/Border"]
+anchor_bottom = 1.0
+margin_left = -150.0
+margin_right = -10.0
+grow_horizontal = 0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Enable Border"
+align = 2
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Config" type="CheckBox" parent="M/UI/Group/H"]
+margin_top = 64.0
+margin_right = 582.0
+margin_bottom = 92.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 4 )
+pressed = true
+action_mode = 0
+text = "shows your approach rate, hit window, and camera config at the start of songs (to show off)"
+flat = true
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="M/UI/Group/H/Config"]
+anchor_bottom = 1.0
+margin_left = -150.0
+margin_right = -10.0
+grow_horizontal = 0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Show Settings"
+align = 2
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DisplayTrueCombo" type="CheckBox" parent="M/UI/Group/H"]
+margin_top = 96.0
+margin_right = 582.0
+margin_bottom = 124.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 4 )
+pressed = true
+action_mode = 0
+text = "displays the real value of your combo behind the grid"
+flat = true
+script = ExtResource( 35 )
+
+[node name="Label" type="Label" parent="M/UI/Group/H/DisplayTrueCombo"]
+anchor_bottom = 1.0
+margin_left = -165.0
+margin_right = -10.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Display True Combo"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="Graphics" type="VBoxContainer" parent="M"]
+margin_top = 1440.0
+margin_right = 1280.0
+margin_bottom = 1568.0
+script = ExtResource( 43 )
+
+[node name="Title" type="MarginContainer" parent="M/Graphics"]
+margin_right = 1280.0
+margin_bottom = 32.0
+custom_constants/margin_left = 32
+
+[node name="C" type="CheckBox" parent="M/Graphics/Title"]
+margin_left = 32.0
+margin_right = 1280.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 0, 32 )
+custom_colors/font_color_disabled = Color( 1, 1, 1, 1 )
+custom_colors/font_color_focus = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover_pressed = Color( 1, 1, 1, 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
+custom_colors/font_color_pressed = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 5 )
+custom_icons/checked = ExtResource( 42 )
+custom_icons/unchecked = ExtResource( 41 )
+text = "Graphics"
+flat = true
+
+[node name="Group" type="MarginContainer" parent="M/Graphics"]
+margin_top = 36.0
+margin_right = 1280.0
+margin_bottom = 128.0
+custom_constants/margin_left = 180
+
+[node name="H" type="GridContainer" parent="M/Graphics/Group"]
+margin_left = 180.0
+margin_right = 1280.0
+margin_bottom = 92.0
+
+[node name="VSync" type="CheckBox" parent="M/Graphics/Group/H"]
+margin_right = 552.0
+margin_bottom = 28.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 4 )
+action_mode = 0
+text = "makes the game smoother at the cost of slightly increased input lag"
+flat = true
+script = ExtResource( 23 )
+
+[node name="Label" type="Label" parent="M/Graphics/Group/H/VSync"]
+anchor_bottom = 1.0
+margin_left = -115.0
+margin_right = -10.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Vsync"
+align = 2
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VSyncCompositor" type="CheckBox" parent="M/Graphics/Group/H"]
+margin_top = 32.0
+margin_right = 552.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 4 )
+action_mode = 0
+text = "use this if vsync puts your framerate at half your monitor refresh rate (eg. 38 vs 75 fps)"
+flat = true
+script = ExtResource( 18 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="M/Graphics/Group/H/VSyncCompositor"]
+anchor_bottom = 1.0
+margin_left = -157.0
+margin_right = -10.0
+grow_horizontal = 0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Vsync via compositor"
+align = 2
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Fullscreen" type="CheckBox" parent="M/Graphics/Group/H"]
+margin_top = 64.0
+margin_right = 552.0
+margin_bottom = 92.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 4 )
+action_mode = 0
+text = "because you don't have anything else to focus on, do you?"
+flat = true
+script = ExtResource( 27 )
+
+[node name="Label" type="Label" parent="M/Graphics/Group/H/Fullscreen"]
+anchor_bottom = 1.0
+margin_left = -115.0
+margin_right = -10.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Fullscreen"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="Other" type="VBoxContainer" parent="M"]
+visible = false
+margin_top = 640.0
+margin_right = 800.0
+margin_bottom = 672.0
+script = ExtResource( 43 )
+
+[node name="Title" type="MarginContainer" parent="M/Other"]
+margin_right = 800.0
+margin_bottom = 32.0
+custom_constants/margin_left = 32
+
+[node name="C" type="CheckBox" parent="M/Other/Title"]
+margin_left = 32.0
+margin_right = 800.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 0, 32 )
+custom_colors/font_color_disabled = Color( 1, 1, 1, 1 )
+custom_colors/font_color_focus = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover_pressed = Color( 1, 1, 1, 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
+custom_colors/font_color_pressed = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 5 )
+custom_icons/checked = ExtResource( 42 )
+custom_icons/unchecked = ExtResource( 41 )
+text = "Other"
+flat = true
+
+[node name="Group" type="MarginContainer" parent="M/Other"]
+visible = false
+margin_top = 36.0
+margin_right = 800.0
+margin_bottom = 36.0
+custom_constants/margin_left = 180
+
+[node name="H" type="GridContainer" parent="M/Other/Group"]
+margin_left = 180.0
+margin_right = 800.0
+
+[node name="BottomMargin" type="Control" parent="."]
+margin_top = 1631.0
+margin_right = 1280.0
+margin_bottom = 1727.0
+rect_min_size = Vector2( 0, 96 )

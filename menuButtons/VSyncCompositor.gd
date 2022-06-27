@@ -5,4 +5,5 @@ func _pressed():
 		OS.vsync_via_compositor = pressed
 
 func _ready():
+	visible = OS.has_feature("pc")
 	pressed = OS.vsync_via_compositor

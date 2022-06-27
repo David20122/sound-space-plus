@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://uitheme.tres" type="Theme" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://cmgr/AddSong.gd" type="Script" id=6]
 [ext_resource path="res://font/Noto_Sans_JP/NotoSansJP-Medium.otf" type="DynamicFontData" id=7]
 [ext_resource path="res://content/ui/placeholder_dark.jpg" type="Texture" id=8]
+[ext_resource path="res://font/Lato/Lato-Bold.ttf" type="DynamicFontData" id=9]
+[ext_resource path="res://MusicVolumeSetter.gd" type="Script" id=10]
 [ext_resource path="res://contentmgr.gd" type="Script" id=11]
 [ext_resource path="res://icon.png" type="Texture" id=12]
 [ext_resource path="res://VersionNumber.gd" type="Script" id=17]
@@ -79,6 +81,17 @@ corner_radius_bottom_left = 8
 use_filter = true
 font_data = ExtResource( 1 )
 
+[sub_resource type="StyleBoxFlat" id=82]
+bg_color = Color( 0.074, 0.04, 0.08, 1 )
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="DynamicFont" id=83]
+use_filter = true
+font_data = ExtResource( 9 )
+
 [sub_resource type="DynamicFont" id=80]
 size = 14
 use_filter = true
@@ -145,7 +158,6 @@ align = 1
 valign = 1
 
 [node name="txt" type="Button" parent="AddSong/SelectType"]
-modulate = Color( 0.5, 0.5, 0.5, 1 )
 anchor_right = 1.0
 margin_left = 15.0
 margin_top = 40.0
@@ -156,7 +168,6 @@ custom_styles/pressed = SubResource( 75 )
 custom_styles/focus = SubResource( 76 )
 custom_styles/disabled = SubResource( 73 )
 custom_styles/normal = SubResource( 73 )
-disabled = true
 action_mode = 0
 
 [node name="TextureRect" type="TextureRect" parent="AddSong/SelectType/txt"]
@@ -316,6 +327,29 @@ text = "Requires a folder containing a .sspmr file and audio.
 Use this if you have a pack of maps (ie. ssarchive)."
 clip_text = true
 
+[node name="cancel" type="Button" parent="AddSong/SelectType"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 45.0
+margin_top = -50.0
+margin_right = -45.0
+margin_bottom = -15.0
+custom_styles/hover = SubResource( 75 )
+custom_styles/pressed = SubResource( 75 )
+custom_styles/focus = SubResource( 76 )
+custom_styles/disabled = SubResource( 74 )
+custom_styles/normal = SubResource( 73 )
+action_mode = 0
+
+[node name="Title" type="Label" parent="AddSong/SelectType/cancel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 77 )
+text = "Return to menu"
+align = 1
+valign = 1
+
 [node name="VulnusFile" type="ReferenceRect" parent="AddSong"]
 visible = false
 anchor_right = 1.0
@@ -413,6 +447,435 @@ custom_styles/normal = SubResource( 73 )
 action_mode = 0
 
 [node name="Title" type="Label" parent="AddSong/VulnusFile/cancel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 77 )
+text = "Back"
+align = 1
+valign = 1
+
+[node name="TxtFile" type="ReferenceRect" parent="AddSong"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 35.0
+border_color = Color( 1, 0, 0, 0 )
+
+[node name="Title" type="Label" parent="AddSong/TxtFile"]
+anchor_right = 1.0
+margin_bottom = 24.0
+custom_fonts/font = SubResource( 72 )
+text = "Text Map - Select Files"
+align = 1
+valign = 1
+
+[node name="Error" type="Label" parent="AddSong/TxtFile"]
+visible = false
+anchor_right = 1.0
+margin_top = 180.0
+margin_bottom = 204.0
+custom_colors/font_color = Color( 1, 0.580392, 0.580392, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 79 )
+text = "Selected folder was missing a meta.json!"
+align = 1
+autowrap = true
+
+[node name="Success" type="Label" parent="AddSong/TxtFile"]
+visible = false
+anchor_right = 1.0
+margin_top = 180.0
+margin_bottom = 204.0
+custom_colors/font_color = Color( 0.611765, 1, 0.580392, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 79 )
+text = "Selected folder was missing a meta.json!"
+align = 1
+autowrap = true
+
+[node name="H" type="VBoxContainer" parent="AddSong/TxtFile"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 15.0
+margin_top = 40.0
+margin_right = -15.0
+margin_bottom = -70.0
+custom_constants/separation = 10
+
+[node name="data" type="Panel" parent="AddSong/TxtFile/H"]
+margin_right = 410.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 0, 60 )
+custom_styles/panel = SubResource( 82 )
+
+[node name="Title" type="Label" parent="AddSong/TxtFile/H/data"]
+anchor_right = 1.0
+margin_left = 5.0
+margin_right = -155.0
+margin_bottom = 35.0
+custom_fonts/font = SubResource( 83 )
+text = "Map data"
+align = 1
+valign = 1
+
+[node name="Info" type="Label" parent="AddSong/TxtFile/H/data"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = -35.0
+margin_right = -155.0
+custom_colors/font_color = Color( 1, 0.501961, 0.501961, 1 )
+custom_fonts/font = SubResource( 77 )
+text = "Required"
+align = 1
+valign = 1
+clip_text = true
+
+[node name="file" type="Button" parent="AddSong/TxtFile/H/data"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -150.0
+margin_bottom = 28.0
+custom_styles/hover = SubResource( 75 )
+custom_styles/pressed = SubResource( 75 )
+custom_styles/focus = SubResource( 76 )
+custom_styles/disabled = SubResource( 74 )
+custom_styles/normal = SubResource( 73 )
+action_mode = 0
+
+[node name="Title" type="Label" parent="AddSong/TxtFile/H/data/file"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 77 )
+text = "Open file"
+align = 1
+valign = 1
+
+[node name="paste" type="Button" parent="AddSong/TxtFile/H/data"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -150.0
+margin_top = -28.0
+custom_styles/hover = SubResource( 75 )
+custom_styles/pressed = SubResource( 75 )
+custom_styles/focus = SubResource( 76 )
+custom_styles/disabled = SubResource( 74 )
+custom_styles/normal = SubResource( 73 )
+action_mode = 0
+
+[node name="Title" type="Label" parent="AddSong/TxtFile/H/data/paste"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 77 )
+text = "Paste data"
+align = 1
+valign = 1
+
+[node name="text_done" type="Button" parent="AddSong/TxtFile/H/data"]
+visible = false
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -75.0
+margin_top = -28.0
+custom_styles/hover = SubResource( 75 )
+custom_styles/pressed = SubResource( 75 )
+custom_styles/focus = SubResource( 76 )
+custom_styles/disabled = SubResource( 74 )
+custom_styles/normal = SubResource( 73 )
+action_mode = 0
+
+[node name="Title" type="Label" parent="AddSong/TxtFile/H/data/text_done"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 77 )
+text = "Done"
+align = 1
+valign = 1
+
+[node name="text" type="TextEdit" parent="AddSong/TxtFile/H/data"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -80.0
+wrap_enabled = true
+
+[node name="audio" type="Panel" parent="AddSong/TxtFile/H"]
+margin_top = 70.0
+margin_right = 410.0
+margin_bottom = 130.0
+rect_min_size = Vector2( 0, 60 )
+custom_styles/panel = SubResource( 82 )
+
+[node name="player" type="AudioStreamPlayer" parent="AddSong/TxtFile/H/audio"]
+bus = "Music"
+script = ExtResource( 10 )
+
+[node name="Title" type="Label" parent="AddSong/TxtFile/H/audio"]
+anchor_right = 1.0
+margin_left = 5.0
+margin_right = -155.0
+margin_bottom = 35.0
+custom_fonts/font = SubResource( 83 )
+text = "Music"
+align = 1
+valign = 1
+
+[node name="Info" type="Label" parent="AddSong/TxtFile/H/audio"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = -35.0
+margin_right = -155.0
+custom_colors/font_color = Color( 1, 0.501961, 0.501961, 1 )
+custom_fonts/font = SubResource( 77 )
+text = "Required"
+align = 1
+valign = 1
+clip_text = true
+
+[node name="file" type="Button" parent="AddSong/TxtFile/H/audio"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -150.0
+margin_bottom = 28.0
+custom_styles/hover = SubResource( 75 )
+custom_styles/pressed = SubResource( 75 )
+custom_styles/focus = SubResource( 76 )
+custom_styles/disabled = SubResource( 74 )
+custom_styles/normal = SubResource( 73 )
+action_mode = 0
+
+[node name="Title" type="Label" parent="AddSong/TxtFile/H/audio/file"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 77 )
+text = "Open file"
+align = 1
+valign = 1
+
+[node name="preview" type="Button" parent="AddSong/TxtFile/H/audio"]
+modulate = Color( 0.5, 0.5, 0.5, 1 )
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -150.0
+margin_top = -28.0
+custom_styles/hover = SubResource( 75 )
+custom_styles/pressed = SubResource( 75 )
+custom_styles/focus = SubResource( 76 )
+custom_styles/disabled = SubResource( 73 )
+custom_styles/normal = SubResource( 73 )
+disabled = true
+action_mode = 0
+
+[node name="Title" type="Label" parent="AddSong/TxtFile/H/audio/preview"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 77 )
+text = "Preview"
+align = 1
+valign = 1
+
+[node name="E" type="Control" parent="AddSong/TxtFile/H"]
+margin_top = 140.0
+margin_right = 410.0
+margin_bottom = 312.0
+rect_min_size = Vector2( 0, 172 )
+
+[node name="Info" type="VBoxContainer" parent="AddSong/TxtFile/H/E"]
+margin_right = 266.0
+margin_bottom = 101.0
+
+[node name="Info" type="Label" parent="AddSong/TxtFile/H/E/Info"]
+margin_right = 266.0
+margin_bottom = 17.0
+custom_colors/font_color = Color( 0.827451, 0.827451, 0.827451, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 80 )
+text = "(click field to edit)"
+autowrap = true
+
+[node name="Id" type="Label" parent="AddSong/TxtFile/H/E/Info"]
+margin_top = 21.0
+margin_right = 266.0
+margin_bottom = 38.0
+custom_colors/font_color = Color( 0.831373, 1, 0.784314, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 80 )
+text = "rak_dimrain47_-_at_the_speed_of_light"
+autowrap = true
+
+[node name="B" type="Button" parent="AddSong/TxtFile/H/E/Info/Id"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+flat = true
+
+[node name="T" type="LineEdit" parent="AddSong/TxtFile/H/E/Info/Id"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 80 )
+
+[node name="SongName" type="Label" parent="AddSong/TxtFile/H/E/Info"]
+margin_top = 42.0
+margin_right = 266.0
+margin_bottom = 59.0
+custom_colors/font_color = Color( 0.976471, 0.784314, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 80 )
+text = "Artist Name - Song Name"
+autowrap = true
+
+[node name="B" type="Button" parent="AddSong/TxtFile/H/E/Info/SongName"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+flat = true
+
+[node name="T" type="LineEdit" parent="AddSong/TxtFile/H/E/Info/SongName"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 80 )
+
+[node name="Mapper" type="Label" parent="AddSong/TxtFile/H/E/Info"]
+margin_top = 63.0
+margin_right = 266.0
+margin_bottom = 80.0
+custom_fonts/font = SubResource( 80 )
+text = "Mapper: your mom"
+autowrap = true
+
+[node name="B" type="Button" parent="AddSong/TxtFile/H/E/Info/Mapper"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+flat = true
+
+[node name="T" type="LineEdit" parent="AddSong/TxtFile/H/E/Info/Mapper"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 80 )
+
+[node name="Difficulty" type="Label" parent="AddSong/TxtFile/H/E/Info"]
+margin_top = 84.0
+margin_right = 266.0
+margin_bottom = 101.0
+custom_fonts/font = SubResource( 80 )
+text = "Difficulty: N/A"
+autowrap = true
+
+[node name="B" type="OptionButton" parent="AddSong/TxtFile/H/E/Info/Difficulty"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_colors/font_color_disabled = Color( 0, 0, 0, 0 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 0 )
+custom_colors/font_color = Color( 0, 0, 0, 0 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 0 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 80 )
+flat = true
+
+[node name="Cover" type="ReferenceRect" parent="AddSong/TxtFile/H/E"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -161.0
+margin_top = 20.0
+margin_right = -16.0
+margin_bottom = 183.0
+border_color = Color( 1, 0, 0.960784, 0 )
+border_width = 0.0
+
+[node name="T" type="TextureRect" parent="AddSong/TxtFile/H/E/Cover"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -128.0
+margin_bottom = 128.0
+texture = ExtResource( 8 )
+expand = true
+
+[node name="B" type="Button" parent="AddSong/TxtFile/H/E/Cover/T"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+flat = true
+
+[node name="Label" type="Label" parent="AddSong/TxtFile/H/E/Cover/T/B"]
+anchor_right = 1.0
+margin_top = -20.0
+custom_colors/font_color = Color( 0.85098, 0.85098, 0.85098, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 80 )
+text = "(click to replace)"
+align = 1
+
+[node name="C" type="CheckBox" parent="AddSong/TxtFile/H/E/Cover"]
+margin_left = 17.0
+margin_top = 132.0
+margin_right = 145.0
+margin_bottom = 152.0
+custom_colors/font_color_disabled = Color( 0.239216, 0.239216, 0.239216, 1 )
+custom_colors/font_color_focus = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover_pressed = Color( 1, 1, 1, 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
+custom_colors/font_color_pressed = Color( 1, 1, 1, 1 )
+disabled = true
+pressed = true
+text = "Import cover"
+flat = true
+clip_text = true
+align = 2
+
+[node name="done" type="Button" parent="AddSong/TxtFile"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = -50.0
+margin_right = -45.0
+margin_bottom = -15.0
+custom_styles/hover = SubResource( 75 )
+custom_styles/pressed = SubResource( 75 )
+custom_styles/focus = SubResource( 76 )
+custom_styles/disabled = SubResource( 74 )
+custom_styles/normal = SubResource( 73 )
+disabled = true
+action_mode = 0
+
+[node name="Title" type="Label" parent="AddSong/TxtFile/done"]
+modulate = Color( 0.580392, 0.937255, 0.505882, 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 77 )
+text = "Finish"
+align = 1
+valign = 1
+clip_text = true
+
+[node name="cancel" type="Button" parent="AddSong/TxtFile"]
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = 45.0
+margin_top = -50.0
+margin_right = -5.0
+margin_bottom = -15.0
+custom_styles/hover = SubResource( 75 )
+custom_styles/pressed = SubResource( 75 )
+custom_styles/focus = SubResource( 76 )
+custom_styles/disabled = SubResource( 74 )
+custom_styles/normal = SubResource( 73 )
+action_mode = 0
+
+[node name="Title" type="Label" parent="AddSong/TxtFile/cancel"]
+modulate = Color( 1, 0.494118, 0.494118, 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_fonts/font = SubResource( 77 )
@@ -797,7 +1260,6 @@ script = ExtResource( 59 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-mouse_filter = 2
 color = Color( 0, 0, 0, 0 )
 __meta__ = {
 "_edit_use_anchors_": false

@@ -69,7 +69,7 @@ func _ready():
 	if $MenuSong.stream is AudioStreamSample: $MenuSong.stream.loop_mode = 1
 	else: $MenuSong.stream.loop = true
 	if SSP.play_menu_music:
-#		yield(get_tree().create_timer(1),"timeout")
+		yield(get_tree().create_timer(0.5),"timeout")
 		if !$Song.playing:
-			$MenuSong.volume_db = -45
+#			$MenuSong.volume_db = -45
 			$MenuSong.play()

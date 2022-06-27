@@ -1,6 +1,7 @@
 extends Spatial
 
 signal ms_change
+signal timer_update
 signal hit
 signal miss
 
@@ -229,7 +230,6 @@ func _process(delta:float):
 				pause_ms = ms# + (750 * speed_multi)
 				$Music.stop()
 				get_parent().get_node("Grid/LeftVP/Control/Pauses").text = comma_sep(SSP.song_end_pause_count)
-				get_parent().get_node("Grid/PauseHud").visible = true
 				get_parent().get_node("Grid/PauseHud").modulate = Color(1,1,1,1)
 				get_parent().get_node("Grid/PauseVP/Control").percent = 0
 			else:
@@ -244,13 +244,19 @@ func _process(delta:float):
 	if Input.is_action_pressed("pause") and pause_state >= 0:
 		pause_state = max(pause_state - (delta/0.75), 0)
 		$Music.volume_db = min($Music.volume_db + (delta * 30), SSP.music_volume_db)
-		get_parent().get_node("Grid/PauseVP/Control").percent = (1 - (pause_state / 0.75))
-		get_parent().get_node("Grid/PauseHud").modulate = Color(1,1,1,pause_state)
 		if pause_state == 0:
 #				print("YEAH baby that's what i've been waiting for")
 			get_parent().get_node("Grid/PauseHud").visible = false
 			$Music.volume_db = 0
 			pause_state = 0
+	
+	# Ensure pause screen is always visible when paused
+	if pause_state != 0:
+		get_parent().get_node("Grid/PauseHud").visible = true
+		get_parent().get_node("Grid/PauseVP/Control").percent = clamp(1 - (pause_state / 0.75),0,1)
+		get_parent().get_node("Grid/PauseHud").modulate = Color(1,1,1,abs(pause_state))
+	else:
+		get_parent().get_node("Grid/PauseHud").visible = false
 	
 	if pause_state == 0 or (pause_state > 0 and Input.is_action_pressed("pause")):
 		ms += delta * 1000 * speed_multi
@@ -259,5 +265,7 @@ func _process(delta:float):
 		if ms >= 0 and !music_started:
 			$Music.play(ms/1000)
 			music_started = true
+	
+	emit_signal("timer_update",ms,can_skip)
 	
 	reposition_notes()

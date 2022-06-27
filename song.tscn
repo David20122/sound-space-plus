@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=2]
+[gd_scene load_steps=66 format=2]
 
 [ext_resource path="res://game/Camera.gd" type="Script" id=1]
 [ext_resource path="res://game/NoteManager.gd" type="Script" id=2]
@@ -23,6 +23,7 @@
 [ext_resource path="res://CircularProgress2.gd" type="Script" id=21]
 [ext_resource path="res://content/notefx/ripple.tscn" type="PackedScene" id=22]
 [ext_resource path="res://content/notefx/ripple_miss.tscn" type="PackedScene" id=23]
+[ext_resource path="res://game/CursorTrail.gd" type="Script" id=24]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.145098, 0.74902, 0, 1 )
@@ -116,9 +117,15 @@ bg_color = Color( 0.580392, 0.129412, 0.129412, 0.686275 )
 
 [sub_resource type="DynamicFont" id=17]
 size = 72
-outline_size = 2
 outline_color = Color( 0, 0, 0, 0.333333 )
 use_filter = true
+font_data = ExtResource( 17 )
+
+[sub_resource type="DynamicFont" id=43]
+size = 28
+outline_color = Color( 0, 0, 0, 0.333333 )
+use_filter = true
+extra_spacing_space = 3
 font_data = ExtResource( 17 )
 
 [sub_resource type="DynamicFont" id=18]
@@ -198,7 +205,6 @@ size = Vector2( 0.273, 0.273 )
 resource_local_to_scene = true
 flags_transparent = true
 flags_unshaded = true
-albedo_color = Color( 1, 0, 0, 1 )
 albedo_texture = ExtResource( 10 )
 
 [sub_resource type="Shader" id=39]
@@ -311,15 +317,6 @@ collide_with_bodies = false
 pause_mode = 2
 script = ExtResource( 3 )
 timer_fg_done = SubResource( 1 )
-
-[node name="BlackFade" type="ColorRect" parent="Game"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 1
-color = Color( 0, 0, 0, 0 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Grid" type="Spatial" parent="Game"]
 pause_mode = 1
@@ -724,6 +721,24 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Label2" type="Label" parent="Game/Grid/PauseVP/Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -300.0
+margin_top = 40.0
+margin_right = 300.0
+margin_bottom = 300.0
+custom_colors/font_color = Color( 1, 0.858824, 0, 1 )
+custom_fonts/font = SubResource( 43 )
+text = "HOLD R TO EXIT"
+align = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Spin" type="TextureRect" parent="Game/Grid/PauseVP/Control"]
 material = SubResource( 42 )
 anchor_right = 1.0
@@ -1018,6 +1033,7 @@ texture = SubResource( 26 )
 
 [node name="ConfigHud" type="Sprite3D" parent="Game/Grid"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2.35546e-08, 0.538867 )
+visible = false
 cast_shadow = 0
 pixel_size = 0.0033
 axis = 1
@@ -1083,6 +1099,29 @@ visible = false
 mesh = SubResource( 34 )
 material/0 = SubResource( 35 )
 
+[node name="VisualPos" type="Control" parent="Game/Spawn/Cursor"]
+visible = false
+modulate = Color( 1, 1, 1, 0.313726 )
+
+[node name="T" type="TextureRect" parent="Game/Spawn/Cursor/VisualPos"]
+margin_left = -16.0
+margin_top = -16.0
+margin_right = 16.0
+margin_bottom = 16.0
+texture = ExtResource( 10 )
+expand = true
+stretch_mode = 6
+
+[node name="CursorTrail" type="Spatial" parent="Game/Spawn"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -1, 0 )
+visible = false
+script = ExtResource( 24 )
+
+[node name="Mesh" type="MeshInstance" parent="Game/Spawn/CursorTrail"]
+transform = Transform( 1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, -3.59989e-21, 4.37114e-08, 1, -4.37114e-08, 0, 0, 0 )
+mesh = SubResource( 34 )
+material/0 = SubResource( 35 )
+
 [node name="Note" type="Spatial" parent="Game/Spawn"]
 transform = Transform( 0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 1, -1, 8 )
 visible = false
@@ -1101,3 +1140,9 @@ transform = Transform( 1, 0, 0, 0, -2.18557e-08, -0.5, 0, 0.5, -2.18557e-08, 0.0
 cast_shadow = 0
 mesh = SubResource( 37 )
 material/0 = SubResource( 38 )
+
+[node name="BlackFade" type="ColorRect" parent="Game"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+color = Color( 0, 0, 0, 0 )

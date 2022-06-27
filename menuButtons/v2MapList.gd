@@ -33,29 +33,64 @@ func search_matches(s:Song):
 		(search_text == "" or s.name.to_lower().find(search_text.to_lower()) != -1)
 	)
 
+var has_been_pressed = false
+func play_song():
+	if !SSP.selected_song: return
+	if has_been_pressed: return
+	has_been_pressed = true
+	get_node("/root/Menu").black_fade_target = true
+	yield(get_tree().create_timer(1),"timeout")
+	get_tree().change_scene("res://songload.tscn")
+
+var pt = 1
 func on_pressed(i):
 	$Press.play()
 	var s:Song = disp[i]
 	if s != SSP.selected_song:
 		SSP.select_song(s)
+	else:
+		print(pt)
+		if pt < 0.25:
+			play_song()
+	pt = 0
+	switch_to_play_screen()
+
+var auto_switch_to_play:bool = true
+func switch_to_play_screen():
+	if !auto_switch_to_play: return
+	if SSP.menu_target != "res://menu2.tscn": return
+	get_node("/root/Menu/Main/MapRegistry").visible = false
+	get_node("/root/Menu/Main/Results").visible = true
+	get_node("/root/Menu/Sidebar/L/Results").pressed = true
+
+var was_maximized = OS.window_maximized
+var was_fullscreen = OS.window_fullscreen
+func _process(delta):
+	var lpt = pt
+	pt += delta
+	if OS.window_maximized != was_maximized or OS.window_fullscreen != was_fullscreen:
+		was_maximized = OS.window_maximized
+		was_fullscreen = OS.window_fullscreen
+		handle_window_resize()
+#		yield(get_tree().create_timer(0.1),"timeout")
+#		load_pg()
 
 func select_random():
 	on_pressed(randi()%disp.size())
 	for b in btns:
 		if b.song == SSP.selected_song: b.get_node("Select").pressed = true
 		else: b.get_node("Select").pressed = false
+	switch_to_play_screen()
 
 var page_size = Vector2(-1,-1)
 func load_pg(is_resize:bool=false):
-	var col = clamp(floor(rect_size.x/132),1,10)
+	
+	var col = clamp(floor((get_parent().rect_size.x-124)/132),1,14)
 	if columns != col: columns = col
 	var spp = clamp(col*floor((get_parent().rect_size.y-74)/132),1,6*col)
 	if is_resize and Vector2(col,spp) == page_size: return
 	else: page_size = Vector2(col,spp)
 	
-	get_parent().get_node("P").rect_position.x = (col*132)+66
-	get_parent().get_node("P").rect_size.y = ((spp/col)*132)+12
-	get_parent().get_node("M").rect_size.y = ((spp/col)*132)+12
 	for n in btns: n.queue_free()
 	btns.clear()
 	if floor(float(disp.size())/spp) < page:
@@ -93,6 +128,10 @@ func load_pg(is_resize:bool=false):
 				btn.get_node("Select").pressed = true
 			add_child(btn)
 			btn.visible = true
+			
+	get_parent().get_node("P").rect_position.x = (col*132) + 66
+	get_parent().get_node("P").rect_size.y = ((spp/col)*132)+12
+	get_parent().get_node("M").rect_size.y = ((spp/col)*132)+12
 
 func append_filtering_favorites(to:Array,from:Array):
 	for s in from:

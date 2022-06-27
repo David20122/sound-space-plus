@@ -187,7 +187,7 @@ func load_file(filepath:String,loop:bool=false):
 	if err != OK:
 		report_errors(err, filepath)
 		file.close()
-		return AudioStreamSample.new()
+		return Globals.error_sound
 	
 	var bytes:PoolByteArray = file.get_buffer(file.get_len())
 	file.close()

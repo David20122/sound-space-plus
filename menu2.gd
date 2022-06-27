@@ -9,11 +9,13 @@ func idle_status():
 
 	var assets = activity.get_assets()
 	assets.set_large_image("icon")
-
+	
 	if OS.has_feature("discord"):
 		var result = yield(Discord.activity_manager.update_activity(activity), "result").result
 		if result != Discord.Result.Ok:
 			push_error(result)
+
+
 
 func _ready():
 	get_tree().paused = false

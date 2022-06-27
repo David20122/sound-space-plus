@@ -2,7 +2,7 @@ extends Node
 
 
 var thread:Thread = Thread.new()
-var target:String = "res://menu.tscn"
+var target:String = SSP.menu_target
 var leaving:bool = false
 
 func stage(text:String,done:bool=false):
@@ -30,7 +30,7 @@ func _ready():
 		$Music.stream = st
 		$Music.play()
 	yield(get_tree().create_timer(0.5),"timeout")
-	OS.window_maximized = true
+	if ProjectSettings.get_setting("application/config/auto_maximize"): OS.window_maximized = true
 	yield(get_tree().create_timer(0.5),"timeout")
 	$AudioStreamPlayer.play()
 	
@@ -47,10 +47,11 @@ func _ready():
 
 	var assets = activity.get_assets()
 	assets.set_large_image("icon")
-
-	var res = yield(Discord.activity_manager.update_activity(activity), "result").result
-	if res != Discord.Result.Ok:
-		push_error(res)
+	
+	if OS.has_feature("discord"):
+		var res = yield(Discord.activity_manager.update_activity(activity), "result").result
+		if res != Discord.Result.Ok:
+			push_error(res)
 #	SSP.do_init()
 
 func _exit_tree():

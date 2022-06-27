@@ -25,6 +25,12 @@ func _ready():
 	var res = RQueue.queue_resource(target)
 	var res2 = RQueue.queue_resource(target2)
 	if res != OK or res2 != OK: get_tree().change_scene("res://songloaderror.tscn")
+	
+	SSP.miss_snd = SSP.get_stream_with_default("user://miss",SSP.miss_snd)
+	SSP.hit_snd = SSP.get_stream_with_default("user://hit",SSP.hit_snd)
+	SSP.fail_snd = SSP.get_stream_with_default("user://fail",SSP.fail_snd)
+	SSP.pb_snd = SSP.get_stream_with_default("user://new_best",SSP.pb_snd)
+	SSP.menu_bgm = SSP.get_stream_with_default("user://menu",SSP.menu_bgm)
 
 var result
 var result2

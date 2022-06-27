@@ -30,6 +30,7 @@ var selected_space:BackgroundWorld
 var selected_colorset:ColorSet
 var selected_song:Song
 var selected_mesh:NoteMesh
+var was_auto_play_switch:bool = true
 var last_search_str:String = ""
 var last_search_incl_broken:bool = false
 var last_search_flip_sort:bool = false
@@ -54,6 +55,8 @@ var mod_mirror_y:bool = false setget set_mod_mirror_y
 var mod_nearsighted:bool = false setget set_mod_nearsighted
 var mod_ghost:bool = false setget set_mod_ghost
 var mod_sudden_death:bool = false setget set_mod_sudden_death
+
+var menu_target:String = ProjectSettings.get_setting("application/config/default_menu_target")
 
 func set_mod_extra_energy(v:bool):
 	if v:
@@ -127,6 +130,9 @@ var note_spawn_effect:bool = true
 var display_true_combo:bool = true
 var cursor_face_velocity:bool = false
 var show_hit_effect:bool = true
+var lock_mouse:bool = true
+var rainbow_cursor:bool = false
+var cursor_trail:bool = false
 var fade_length:float = 0.5
 
 var note_hitbox_size:float = 1.140 setget _set_hitbox_size
@@ -340,14 +346,15 @@ func select_mesh(mesh:NoteMesh):
 	selected_mesh = mesh
 	emit_signal("selected_mesh_changed",mesh)
 
-
+var rainbow_t:float = 0
 func _process(delta):
+	rainbow_t = fmod(rainbow_t + (delta*0.5),10)
 	if Input.is_action_just_pressed("fullscreen"):
 		OS.window_fullscreen = not OS.window_fullscreen
 
 
 func update_rpc_song():
-	if selected_song == null: return
+	if !OS.has_feature("discord") or selected_song == null: return
 	var txt = ""
 	var mods = []
 	if mod_nofail: mods.append("Nofail")
@@ -391,7 +398,7 @@ func update_rpc_song():
 		push_error(result)
 
 
-const current_sf_version = 27
+const current_sf_version = 28
 
 func load_saved_settings():
 	if Input.is_key_pressed(KEY_CONTROL) and Input.is_key_pressed(KEY_L): 
@@ -473,6 +480,12 @@ func load_saved_settings():
 			note_hitbox_size = 1.140
 		if sv >= 27:
 			show_hit_effect = bool(file.get_8())
+		if sv >= 28:
+			if file.get_8() != 6:
+				print("integ 8"); return 10
+			lock_mouse = bool(file.get_8())
+			rainbow_cursor = bool(file.get_8())
+			cursor_trail = bool(file.get_8())
 		file.close()
 	return 0
 
@@ -520,6 +533,10 @@ func save_settings():
 	file.store_float(grid_parallax)
 	file.store_float(fade_length)
 	file.store_8(int(show_hit_effect))
+	file.store_8(6) # integrity check
+	file.store_8(int(lock_mouse))
+	file.store_8(int(rainbow_cursor))
+	file.store_8(int(cursor_trail))
 	file.close()
 
 func get_stream_with_default(path:String,default:AudioStream) -> AudioStream:

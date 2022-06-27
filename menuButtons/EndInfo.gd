@@ -98,3 +98,4 @@ func _ready():
 		$Progress.text = "%s\n%.1f%%" % [SSP.song_end_time_str,clamp(SSP.song_end_position/SSP.song_end_length,0,1)*100]
 	else:
 		show_pb()
+	SSP.just_ended_song = false

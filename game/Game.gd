@@ -94,19 +94,18 @@ func end(end_type:int):
 	yield(get_tree().create_timer(1),"timeout")
 	get_tree().change_scene("res://menuload.tscn")
 
-func update_timer(ms:float):
+func update_timer(ms:float,canSkip:bool=false):
 	var s = clamp(floor(ms/1000),0,last_ms/1000)
 	var m = floor(s / 60)
 	var rs = fmod(s,60)
 	timebar.value = clamp(ms/last_ms,0,1)
-	timelabel.text = "%d:%02d" % [m,rs]
-	SSP.song_end_time_str = timelabel.text
+	if canSkip: timelabel.text = "PRESS SPACE TO SKIP"
+	else: timelabel.text = "%d:%02d" % [m,rs]
+	SSP.song_end_time_str = "%d:%02d" % [m,rs]
 	if ms >= last_ms:
-#		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		if get_node("Spawn/Music").playing:
 			yield(get_node("Spawn/Music"),"finished")
 		end(Globals.END_PASS)
-#		get_tree().quit()
 
 
 var loaded = false
@@ -203,7 +202,7 @@ func _ready():
 #	call_deferred("raise")
 	$BlackFade.color = Color(0,0,0,black_fade)
 	get_tree().paused = false
-	$Spawn.connect("ms_change",self,"update_timer")
+	$Spawn.connect("timer_update",self,"update_timer")
 	$Spawn.connect("hit",self,"hit")
 	$Spawn.connect("miss",self,"miss")
 	loadMapFile()

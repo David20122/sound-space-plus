@@ -2,13 +2,14 @@ extends Node
 
 var leaving:bool = false
 
-var target:String = "res://menu.tscn"
+var target:String = SSP.menu_target
 
 var black_fade_target:bool = false
 var black_fade:float = 0
 
 func _ready():
 	get_tree().paused = false
+	Input.set_default_cursor_shape(Input.CURSOR_ARROW)
 	SSP.conmgr_transit = null
 	SSP.loaded_world = null
 	$BlackFade.visible = true

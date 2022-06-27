@@ -7,7 +7,7 @@ var creator:String
 
 var difficulty:int = Globals.DIFF_UNKNOWN
 
-var rawData:String
+var rawData:String = ""
 var notes:Array
 var note_count:int
 var musicFile:String
@@ -16,7 +16,7 @@ var source_registry:String = "[unknown]"
 var warning:String = ""
 
 var should_reload_on_play:bool = false
-var songType:int
+var songType:int = -1
 var initFile:String
 
 var filePath:String
@@ -32,14 +32,6 @@ var sspm_song_stored:bool = false
 
 var pbs_loaded:bool = false
 var pb_data:Dictionary = {}
-
-
-#	pb.position = song_end_position
-#	pb.length = song_end_length
-#	pb.hit_notes = song_end_hits
-#	pb.total_notes = song_end_total_notes
-#	pb.pauses = song_end_pause_count
-#	pb.has_passed = song_end_type == Globals.END_PASS
 
 func load_pbs():
 	var file:File = File.new()
@@ -189,12 +181,6 @@ func loadFromFile(path:String):
 
 func loadRawData(data:String):
 	rawData = data
-#	var songPath:String = path.replace("txt","oga")
-#	if !file.file_exists(songPath): songPath = path.replace("txt","ogg")
-#	if !file.file_exists(songPath): songPath = path.replace("txt","mp3")
-#	var song:AudioStream = load(songPath)
-#	if song is AudioStreamMP3: song.loop = false
-#	if song is AudioStreamOGGVorbis: song.loop = false
 	var blank = 0
 	var invalid = 0
 	var split:Array = rawData.split(",")
@@ -218,8 +204,6 @@ func loadRawData(data:String):
 	elif invalid != 0: warning = "[txt map] Song has %s invalid note(s)" % String(invalid)
 	elif blank != 0: warning = "[txt map] Song has %s blank note(s)" % String(blank)
 	note_count = notes.size()
-#	get_node("Spawn/Music").stream = song
-#	$Spawn.spawn_notes(notes)
 
 func loadVulnusNoteArray(vNotes:Array):
 	notes = []
