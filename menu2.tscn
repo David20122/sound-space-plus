@@ -1,4 +1,4 @@
-[gd_scene load_steps=130 format=2]
+[gd_scene load_steps=129 format=2]
 
 [ext_resource path="res://uitheme.tres" type="Theme" id=1]
 [ext_resource path="res://font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=2]
@@ -50,32 +50,6 @@
 [ext_resource path="res://menuButtons/PatreonCredits.gd" type="Script" id=48]
 [ext_resource path="res://settings_page.tscn" type="PackedScene" id=49]
 [ext_resource path="res://font/UbuntuMono/Regular.ttf" type="DynamicFontData" id=50]
-[ext_resource path="res://menu2/BlackFade.gd" type="Script" id=51]
-
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0, 0, 0, 1 )
-border_width_right = 2
-border_color = Color( 0.0784314, 0.0784314, 0.0784314, 1 )
-
-[sub_resource type="StyleBoxFlat" id=4]
-bg_color = Color( 0, 0, 0, 1 )
-
-[sub_resource type="StyleBoxFlat" id=2]
-bg_color = Color( 0.0588235, 0.0588235, 0.0588235, 1 )
-
-[sub_resource type="StyleBoxEmpty" id=3]
-
-[sub_resource type="ButtonGroup" id=5]
-
-[sub_resource type="DynamicFont" id=6]
-size = 18
-use_filter = true
-font_data = ExtResource( 2 )
-
-[sub_resource type="DynamicFont" id=8]
-size = 18
-use_filter = true
-font_data = ExtResource( 2 )
 
 [sub_resource type="StyleBoxFlat" id=59]
 draw_center = false
@@ -437,6 +411,31 @@ extra_spacing_top = -2
 extra_spacing_bottom = -2
 font_data = ExtResource( 27 )
 
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0, 0, 0, 1 )
+border_width_right = 2
+border_color = Color( 0.0784314, 0.0784314, 0.0784314, 1 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.0588235, 0.0588235, 0.0588235, 1 )
+
+[sub_resource type="StyleBoxEmpty" id=3]
+
+[sub_resource type="ButtonGroup" id=5]
+
+[sub_resource type="DynamicFont" id=6]
+size = 18
+use_filter = true
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=8]
+size = 18
+use_filter = true
+font_data = ExtResource( 2 )
+
 [sub_resource type="DynamicFont" id=7]
 size = 22
 use_filter = true
@@ -454,246 +453,6 @@ script = ExtResource( 13 )
 stream = ExtResource( 5 )
 volume_db = -16.0
 pitch_scale = 1.25
-
-[node name="Sidebar" type="Panel" parent="."]
-anchor_bottom = 1.0
-margin_right = 60.0
-rect_min_size = Vector2( 60, 0 )
-rect_clip_content = true
-custom_styles/panel = SubResource( 1 )
-script = ExtResource( 12 )
-__meta__ = {
-"_edit_group_": true,
-"_edit_lock_": true
-}
-
-[node name="L" type="VBoxContainer" parent="Sidebar"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_right = -2.0
-custom_constants/separation = 0
-
-[node name="Results" type="Button" parent="Sidebar/L"]
-margin_right = 58.0
-margin_bottom = 58.0
-rect_min_size = Vector2( 0, 58 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 2 )
-custom_styles/focus = SubResource( 3 )
-custom_styles/disabled = SubResource( 4 )
-custom_styles/normal = SubResource( 4 )
-toggle_mode = true
-action_mode = 0
-group = SubResource( 5 )
-
-[node name="Tex" type="TextureRect" parent="Sidebar/L/Results"]
-margin_left = 10.0
-margin_top = 10.0
-margin_right = 48.0
-margin_bottom = 48.0
-texture = ExtResource( 7 )
-expand = true
-stretch_mode = 6
-
-[node name="Label" type="Label" parent="Sidebar/L/Results"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 64.0
-custom_fonts/font = SubResource( 6 )
-text = "Play Song"
-valign = 1
-
-[node name="MapSelect" type="Button" parent="Sidebar/L"]
-margin_top = 58.0
-margin_right = 58.0
-margin_bottom = 116.0
-rect_min_size = Vector2( 0, 58 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 2 )
-custom_styles/focus = SubResource( 3 )
-custom_styles/disabled = SubResource( 4 )
-custom_styles/normal = SubResource( 4 )
-toggle_mode = true
-pressed = true
-action_mode = 0
-group = SubResource( 5 )
-
-[node name="Tex" type="TextureRect" parent="Sidebar/L/MapSelect"]
-margin_left = 10.0
-margin_top = 10.0
-margin_right = 48.0
-margin_bottom = 48.0
-texture = ExtResource( 7 )
-expand = true
-stretch_mode = 6
-
-[node name="Label" type="Label" parent="Sidebar/L/MapSelect"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 64.0
-custom_fonts/font = SubResource( 6 )
-text = "Song Select"
-valign = 1
-
-[node name="Settings" type="Button" parent="Sidebar/L"]
-margin_top = 116.0
-margin_right = 58.0
-margin_bottom = 174.0
-rect_min_size = Vector2( 0, 58 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 2 )
-custom_styles/focus = SubResource( 3 )
-custom_styles/disabled = SubResource( 4 )
-custom_styles/normal = SubResource( 4 )
-toggle_mode = true
-action_mode = 0
-group = SubResource( 5 )
-
-[node name="Tex" type="TextureRect" parent="Sidebar/L/Settings"]
-margin_left = 10.0
-margin_top = 10.0
-margin_right = 48.0
-margin_bottom = 48.0
-texture = ExtResource( 7 )
-expand = true
-stretch_mode = 6
-
-[node name="Label" type="Label" parent="Sidebar/L/Settings"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 64.0
-custom_fonts/font = SubResource( 6 )
-text = "Settings"
-valign = 1
-
-[node name="Credits" type="Button" parent="Sidebar/L"]
-margin_top = 174.0
-margin_right = 58.0
-margin_bottom = 232.0
-rect_min_size = Vector2( 0, 58 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 2 )
-custom_styles/focus = SubResource( 3 )
-custom_styles/disabled = SubResource( 4 )
-custom_styles/normal = SubResource( 4 )
-toggle_mode = true
-action_mode = 0
-group = SubResource( 5 )
-
-[node name="Tex" type="TextureRect" parent="Sidebar/L/Credits"]
-margin_left = 10.0
-margin_top = 10.0
-margin_right = 48.0
-margin_bottom = 48.0
-texture = ExtResource( 7 )
-expand = true
-stretch_mode = 6
-
-[node name="Label" type="Label" parent="Sidebar/L/Credits"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 64.0
-custom_fonts/font = SubResource( 6 )
-text = "Patreon Credits"
-valign = 1
-
-[node name="ContentMgr" type="Button" parent="Sidebar/L"]
-margin_top = 232.0
-margin_right = 58.0
-margin_bottom = 290.0
-rect_min_size = Vector2( 0, 58 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 2 )
-custom_styles/focus = SubResource( 3 )
-custom_styles/disabled = SubResource( 4 )
-custom_styles/normal = SubResource( 4 )
-toggle_mode = true
-action_mode = 0
-group = SubResource( 5 )
-
-[node name="Tex" type="TextureRect" parent="Sidebar/L/ContentMgr"]
-margin_left = 10.0
-margin_top = 10.0
-margin_right = 48.0
-margin_bottom = 48.0
-texture = ExtResource( 7 )
-expand = true
-stretch_mode = 6
-
-[node name="Label" type="Label" parent="Sidebar/L/ContentMgr"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 64.0
-custom_fonts/font = SubResource( 6 )
-text = "Content Manager"
-valign = 1
-
-[node name="OldMenu" type="Button" parent="Sidebar/L"]
-margin_top = 290.0
-margin_right = 58.0
-margin_bottom = 348.0
-rect_min_size = Vector2( 0, 58 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 2 )
-custom_styles/focus = SubResource( 3 )
-custom_styles/disabled = SubResource( 4 )
-custom_styles/normal = SubResource( 4 )
-toggle_mode = true
-action_mode = 0
-group = SubResource( 5 )
-
-[node name="Tex" type="TextureRect" parent="Sidebar/L/OldMenu"]
-margin_left = 10.0
-margin_top = 10.0
-margin_right = 48.0
-margin_bottom = 48.0
-texture = ExtResource( 7 )
-expand = true
-stretch_mode = 6
-
-[node name="Label" type="Label" parent="Sidebar/L/OldMenu"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 64.0
-custom_fonts/font = SubResource( 8 )
-text = "Switch to Old Menu"
-valign = 1
-
-[node name="Quit" type="Button" parent="Sidebar/L"]
-margin_top = 348.0
-margin_right = 58.0
-margin_bottom = 406.0
-rect_min_size = Vector2( 0, 58 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 2 )
-custom_styles/focus = SubResource( 3 )
-custom_styles/disabled = SubResource( 4 )
-custom_styles/normal = SubResource( 4 )
-toggle_mode = true
-action_mode = 0
-group = SubResource( 5 )
-
-[node name="Tex" type="TextureRect" parent="Sidebar/L/Quit"]
-margin_left = 10.0
-margin_top = 10.0
-margin_right = 48.0
-margin_bottom = 48.0
-texture = ExtResource( 7 )
-expand = true
-stretch_mode = 6
-
-[node name="Label" type="Label" parent="Sidebar/L/Quit"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 64.0
-custom_fonts/font = SubResource( 8 )
-text = "Quit to Desktop"
-valign = 1
-
-[node name="Click" type="ColorRect" parent="Sidebar"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color( 1, 1, 1, 0 )
 
 [node name="Main" type="ReferenceRect" parent="."]
 anchor_right = 1.0
@@ -3775,6 +3534,246 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 1, 1, 1, 0 )
 
+[node name="Sidebar" type="Panel" parent="."]
+anchor_bottom = 1.0
+margin_right = 60.0
+rect_min_size = Vector2( 60, 0 )
+rect_clip_content = true
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 12 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="L" type="VBoxContainer" parent="Sidebar"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -2.0
+custom_constants/separation = 0
+
+[node name="Results" type="Button" parent="Sidebar/L"]
+margin_right = 58.0
+margin_bottom = 58.0
+rect_min_size = Vector2( 0, 58 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/focus = SubResource( 3 )
+custom_styles/disabled = SubResource( 4 )
+custom_styles/normal = SubResource( 4 )
+toggle_mode = true
+action_mode = 0
+group = SubResource( 5 )
+
+[node name="Tex" type="TextureRect" parent="Sidebar/L/Results"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 48.0
+margin_bottom = 48.0
+texture = ExtResource( 7 )
+expand = true
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="Sidebar/L/Results"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 64.0
+custom_fonts/font = SubResource( 6 )
+text = "Play Song"
+valign = 1
+
+[node name="MapSelect" type="Button" parent="Sidebar/L"]
+margin_top = 58.0
+margin_right = 58.0
+margin_bottom = 116.0
+rect_min_size = Vector2( 0, 58 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/focus = SubResource( 3 )
+custom_styles/disabled = SubResource( 4 )
+custom_styles/normal = SubResource( 4 )
+toggle_mode = true
+pressed = true
+action_mode = 0
+group = SubResource( 5 )
+
+[node name="Tex" type="TextureRect" parent="Sidebar/L/MapSelect"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 48.0
+margin_bottom = 48.0
+texture = ExtResource( 7 )
+expand = true
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="Sidebar/L/MapSelect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 64.0
+custom_fonts/font = SubResource( 6 )
+text = "Song Select"
+valign = 1
+
+[node name="Settings" type="Button" parent="Sidebar/L"]
+margin_top = 116.0
+margin_right = 58.0
+margin_bottom = 174.0
+rect_min_size = Vector2( 0, 58 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/focus = SubResource( 3 )
+custom_styles/disabled = SubResource( 4 )
+custom_styles/normal = SubResource( 4 )
+toggle_mode = true
+action_mode = 0
+group = SubResource( 5 )
+
+[node name="Tex" type="TextureRect" parent="Sidebar/L/Settings"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 48.0
+margin_bottom = 48.0
+texture = ExtResource( 7 )
+expand = true
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="Sidebar/L/Settings"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 64.0
+custom_fonts/font = SubResource( 6 )
+text = "Settings"
+valign = 1
+
+[node name="Credits" type="Button" parent="Sidebar/L"]
+margin_top = 174.0
+margin_right = 58.0
+margin_bottom = 232.0
+rect_min_size = Vector2( 0, 58 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/focus = SubResource( 3 )
+custom_styles/disabled = SubResource( 4 )
+custom_styles/normal = SubResource( 4 )
+toggle_mode = true
+action_mode = 0
+group = SubResource( 5 )
+
+[node name="Tex" type="TextureRect" parent="Sidebar/L/Credits"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 48.0
+margin_bottom = 48.0
+texture = ExtResource( 7 )
+expand = true
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="Sidebar/L/Credits"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 64.0
+custom_fonts/font = SubResource( 6 )
+text = "Patreon Credits"
+valign = 1
+
+[node name="ContentMgr" type="Button" parent="Sidebar/L"]
+margin_top = 232.0
+margin_right = 58.0
+margin_bottom = 290.0
+rect_min_size = Vector2( 0, 58 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/focus = SubResource( 3 )
+custom_styles/disabled = SubResource( 4 )
+custom_styles/normal = SubResource( 4 )
+toggle_mode = true
+action_mode = 0
+group = SubResource( 5 )
+
+[node name="Tex" type="TextureRect" parent="Sidebar/L/ContentMgr"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 48.0
+margin_bottom = 48.0
+texture = ExtResource( 7 )
+expand = true
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="Sidebar/L/ContentMgr"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 64.0
+custom_fonts/font = SubResource( 6 )
+text = "Content Manager"
+valign = 1
+
+[node name="OldMenu" type="Button" parent="Sidebar/L"]
+margin_top = 290.0
+margin_right = 58.0
+margin_bottom = 348.0
+rect_min_size = Vector2( 0, 58 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/focus = SubResource( 3 )
+custom_styles/disabled = SubResource( 4 )
+custom_styles/normal = SubResource( 4 )
+toggle_mode = true
+action_mode = 0
+group = SubResource( 5 )
+
+[node name="Tex" type="TextureRect" parent="Sidebar/L/OldMenu"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 48.0
+margin_bottom = 48.0
+texture = ExtResource( 7 )
+expand = true
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="Sidebar/L/OldMenu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 64.0
+custom_fonts/font = SubResource( 8 )
+text = "Switch to Old Menu"
+valign = 1
+
+[node name="Quit" type="Button" parent="Sidebar/L"]
+margin_top = 348.0
+margin_right = 58.0
+margin_bottom = 406.0
+rect_min_size = Vector2( 0, 58 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/focus = SubResource( 3 )
+custom_styles/disabled = SubResource( 4 )
+custom_styles/normal = SubResource( 4 )
+toggle_mode = true
+action_mode = 0
+group = SubResource( 5 )
+
+[node name="Tex" type="TextureRect" parent="Sidebar/L/Quit"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 48.0
+margin_bottom = 48.0
+texture = ExtResource( 7 )
+expand = true
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="Sidebar/L/Quit"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 64.0
+custom_fonts/font = SubResource( 8 )
+text = "Quit to Desktop"
+valign = 1
+
+[node name="Click" type="ColorRect" parent="Sidebar"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 1, 1, 1, 0 )
+
 [node name="VersionNumber" type="Label" parent="."]
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -3830,7 +3829,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 color = Color( 0, 0, 0, 0 )
-script = ExtResource( 51 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
