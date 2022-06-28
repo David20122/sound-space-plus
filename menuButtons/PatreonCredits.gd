@@ -40,4 +40,4 @@ func _ready():
 			label.text = n
 			label.visible = true
 	
-	else: get_node("../../CreditsBtn").visible = false
+	elif has_node("../../CreditsBtn"): get_node("../../CreditsBtn").visible = false

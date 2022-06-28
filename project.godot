@@ -248,9 +248,13 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
-quality/directional_shadow/size=2048
-quality/directional_shadow/size.mobile=1024
+quality/directional_shadow/size=1024
+quality/directional_shadow/size.mobile=512
+quality/shadow_atlas/size=2048
+quality/shadow_atlas/size.mobile=1024
+quality/shadows/filter_mode=0
 quality/reflections/texture_array_reflections=false
+quality/filters/anisotropic_filter_level=2
 2d/options/use_software_skinning=false
 quality/lightmapping/use_bicubic_sampling=false
 environment/default_clear_color=Color( 0.137255, 0.137255, 0.137255, 1 )

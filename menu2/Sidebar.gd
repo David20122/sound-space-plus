@@ -66,6 +66,7 @@ func _ready():
 	$L/ContentMgr.connect("pressed",self,"to_content_mgr")
 	$L/Quit.connect("pressed",self,"quit")
 	$L/Quit.visible = OS.has_feature("pc")
+	raise()
 	
 
 func _process(delta:float):
