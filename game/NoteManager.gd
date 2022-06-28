@@ -193,6 +193,10 @@ func do_note_queue():
 	
 	for i in range(rem): noteQueue.pop_front()
 
+onready var TimerHud = get_node("../Grid/TimerHud")
+onready var ComboHud = get_node("../Grid/ComboHud")
+onready var Energy = get_node("../Grid/EnergyVP/Control/Energy")
+
 func _process(delta:float):
 #	delta *= Engine.time_scale
 	if SSP.cam_unlock: do_spin()
@@ -201,8 +205,9 @@ func _process(delta:float):
 	
 	var can_skip:bool = (next_ms >= max(ms+(3000*speed_multi),1100*speed_multi))
 	
-	if can_skip: get_node("../Grid/TimerHud").modulate = Color(0.7,1,1)
-	else: get_node("../Grid/TimerHud").modulate = Color(1,1,1)
+	if !SSP.rainbow_hud:
+		if can_skip: TimerHud.modulate = Color(0.7,1,1)
+		else: TimerHud.modulate = Color(1,1,1)
 	
 	if Input.is_action_just_released("pause"):
 		if pause_state > 0:
@@ -267,5 +272,16 @@ func _process(delta:float):
 			music_started = true
 	
 	emit_signal("timer_update",ms,can_skip)
+	
+	if SSP.rainbow_grid:
+		$Inner.get("material/0").albedo_color = Color.from_hsv(SSP.rainbow_t*0.1,0.65,1)
+		$Outer.get("material/0").albedo_color = Color.from_hsv(SSP.rainbow_t*0.1,0.65,1)
+	if SSP.rainbow_hud:
+		Energy.get("custom_styles/fg").bg_color = Color.from_hsv(SSP.rainbow_t*0.1,0.4,1)
+		Energy.get("custom_styles/bg").bg_color = Color.from_hsv(SSP.rainbow_t*0.1,0.4,0.2,0.65)
+		TimerHud.modulate = Color.from_hsv(SSP.rainbow_t*0.1,0.4,1)
+		ComboHud.modulate = Color.from_hsv(SSP.rainbow_t*0.1,0.4,1)
+		get_node("../Grid/LeftHud").modulate = Color.from_hsv(SSP.rainbow_t*0.1,0.4,1)
+		get_node("../Grid/RightHud").modulate = Color.from_hsv(SSP.rainbow_t*0.1,0.4,1)
 	
 	reposition_notes()

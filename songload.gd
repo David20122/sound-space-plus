@@ -24,7 +24,12 @@ func _ready():
 	
 	var res = RQueue.queue_resource(target)
 	var res2 = RQueue.queue_resource(target2)
-	if res != OK or res2 != OK: get_tree().change_scene("res://songloaderror.tscn")
+	if res != OK:
+		SSP.errorstr = "song.tscn queue_resource returned %s" % res
+		get_tree().change_scene("res://errors/menuload.tscn")
+	elif res2 != OK:
+		SSP.errorstr = "bg world queue_resource returned %s" % res
+		get_tree().change_scene("res://errors/menuload.tscn")
 	
 	SSP.miss_snd = SSP.get_stream_with_default("user://miss",SSP.miss_snd)
 	SSP.hit_snd = SSP.get_stream_with_default("user://hit",SSP.hit_snd)
@@ -53,7 +58,12 @@ func _process(delta):
 			leaving = true
 			black_fade_target = true
 			SSP.loaded_world = result2
-			if !(result is Object) or !(result2 is Object): get_tree().change_scene("res://songloaderror.tscn")
+			if !(result is Object):
+				SSP.errorstr = "song.tscn get_resource returned non-object (probably null)"
+				get_tree().change_scene("res://errors/menuload.tscn")
+			if !(result2 is Object):
+				SSP.errorstr = "bg world get_resource returned non-object (probably null)"
+				get_tree().change_scene("res://errors/menuload.tscn")
 	
 	if leaving and result and black_fade == 1:
 		get_tree().change_scene_to(result)

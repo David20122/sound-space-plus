@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=2]
+[gd_scene load_steps=70 format=2]
 
 [ext_resource path="res://game/Camera.gd" type="Script" id=1]
 [ext_resource path="res://game/NoteManager.gd" type="Script" id=2]
@@ -24,6 +24,8 @@
 [ext_resource path="res://content/notefx/ripple.tscn" type="PackedScene" id=22]
 [ext_resource path="res://content/notefx/ripple_miss.tscn" type="PackedScene" id=23]
 [ext_resource path="res://game/CursorTrail.gd" type="Script" id=24]
+[ext_resource path="res://error.jpg" type="Texture" id=25]
+[ext_resource path="res://game/Friend.gd" type="Script" id=26]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.145098, 0.74902, 0, 1 )
@@ -297,6 +299,16 @@ params_cull_mode = 2
 albedo_texture = ExtResource( 8 )
 uv1_scale = Vector3( 1, 0.9, 1 )
 uv1_offset = Vector3( 0, 0.03, 0 )
+
+[sub_resource type="PlaneMesh" id=44]
+size = Vector2( 0.5, 0.5 )
+
+[sub_resource type="SpatialMaterial" id=45]
+resource_local_to_scene = true
+flags_transparent = true
+flags_unshaded = true
+albedo_color = Color( 1, 1, 1, 0.705882 )
+albedo_texture = ExtResource( 25 )
 
 [node name="Spatial" type="Spatial"]
 
@@ -1140,6 +1152,31 @@ transform = Transform( 1, 0, 0, 0, -2.18557e-08, -0.5, 0, 0.5, -2.18557e-08, 0.0
 cast_shadow = 0
 mesh = SubResource( 37 )
 material/0 = SubResource( 38 )
+
+[node name="Friend" type="MeshInstance" parent="Game/Spawn"]
+transform = Transform( 1, 4.37114e-08, -1.91069e-15, 0, -4.37114e-08, -1, -4.37114e-08, 1, -4.37114e-08, 2.25, -2.25, -1.09278e-07 )
+mesh = SubResource( 44 )
+skeleton = NodePath("../Cursor")
+material/0 = SubResource( 45 )
+script = ExtResource( 26 )
+
+[node name="FriendLR" type="Position3D" parent="Game/Spawn"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 2.25, -2.25, 0 )
+
+[node name="FriendUR" type="Position3D" parent="Game/Spawn"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 2.25, 0.25, 0 )
+
+[node name="FriendLL" type="Position3D" parent="Game/Spawn"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.25, -2.25, 0 )
+
+[node name="FriendC" type="Position3D" parent="Game/Spawn"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 1, -1, 0 )
+
+[node name="FriendBG" type="Position3D" parent="Game/Spawn"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 1, -2.16145, -1.17369 )
+
+[node name="FriendUL" type="Position3D" parent="Game/Spawn"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.25, 0.25, 0 )
 
 [node name="BlackFade" type="ColorRect" parent="Game"]
 anchor_right = 1.0

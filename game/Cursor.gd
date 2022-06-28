@@ -41,7 +41,7 @@ func _input(event:InputEvent):
 #			visible = false
 #			return
 		visible = true
-		if (event is InputEventMouseMotion):# or 
+		if (event is InputEventMouseMotion):# or
 #		if (event is InputEventScreenDrag):
 #			$VisualPos.visible = true
 #			$VisualPos.rect_position = event.position
@@ -80,10 +80,15 @@ func _ready():
 	if img: $VisualPos/T.texture = img
 	
 	if SSP.cursor_trail:
-		for i in range(10):
+		var last
+		for i in range(SSP.trail_detail):
 			var trail:Spatial = get_node("../CursorTrail")
 			if i != 0:
 				trail = trail.duplicate()
 				get_parent().call_deferred("add_child",trail)
-			trail.offset = (i + 1) * 0.1
+			
+			trail.offset = (i + 1) / float(SSP.trail_detail)
+			if last: trail.before = last
+			else: trail.before = self
 			trail.start()
+			last = trail

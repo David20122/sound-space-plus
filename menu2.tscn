@@ -1,4 +1,4 @@
-[gd_scene load_steps=129 format=2]
+[gd_scene load_steps=130 format=2]
 
 [ext_resource path="res://uitheme.tres" type="Theme" id=1]
 [ext_resource path="res://font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=2]
@@ -6,7 +6,7 @@
 [ext_resource path="res://icon.png" type="Texture" id=4]
 [ext_resource path="res://content/sfx/hit.wav" type="AudioStream" id=5]
 [ext_resource path="res://menuButtons/Quit.gd" type="Script" id=6]
-[ext_resource path="res://content/ui/placeholder_dark.jpg" type="Texture" id=7]
+[ext_resource path="res://content/ui/potted_plant.png" type="Texture" id=7]
 [ext_resource path="res://menuButtons/ContentMgrAddMap.gd" type="Script" id=8]
 [ext_resource path="res://menuButtons/PlaySong.gd" type="Script" id=9]
 [ext_resource path="res://MusicVolumeSetter.gd" type="Script" id=10]
@@ -50,6 +50,12 @@
 [ext_resource path="res://menuButtons/PatreonCredits.gd" type="Script" id=48]
 [ext_resource path="res://settings_page.tscn" type="PackedScene" id=49]
 [ext_resource path="res://font/UbuntuMono/Regular.ttf" type="DynamicFontData" id=50]
+[ext_resource path="res://content/ui/play_circle.png" type="Texture" id=51]
+[ext_resource path="res://content/ui/home.png" type="Texture" id=52]
+[ext_resource path="res://content/ui/settings.png" type="Texture" id=53]
+[ext_resource path="res://content/ui/add_icon.png" type="Texture" id=54]
+[ext_resource path="res://content/ui/old_menu.png" type="Texture" id=55]
+[ext_resource path="res://content/ui/quit_to_desktop.png" type="Texture" id=56]
 
 [sub_resource type="StyleBoxFlat" id=59]
 draw_center = false
@@ -260,6 +266,18 @@ size = 12
 use_filter = true
 font_data = ExtResource( 2 )
 
+[sub_resource type="DynamicFont" id=97]
+size = 24
+use_filter = true
+font_data = ExtResource( 27 )
+fallback/0 = ExtResource( 15 )
+
+[sub_resource type="DynamicFont" id=98]
+size = 18
+use_filter = true
+font_data = ExtResource( 27 )
+fallback/0 = ExtResource( 15 )
+
 [sub_resource type="DynamicFont" id=116]
 size = 17
 use_filter = true
@@ -338,28 +356,6 @@ corner_radius_top_left = 6
 corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
-
-[sub_resource type="DynamicFont" id=97]
-size = 24
-use_filter = true
-font_data = ExtResource( 27 )
-fallback/0 = ExtResource( 15 )
-
-[sub_resource type="DynamicFont" id=98]
-size = 18
-use_filter = true
-font_data = ExtResource( 27 )
-fallback/0 = ExtResource( 15 )
-
-[sub_resource type="StyleBoxEmpty" id=100]
-
-[sub_resource type="StyleBoxEmpty" id=101]
-
-[sub_resource type="StyleBoxEmpty" id=102]
-
-[sub_resource type="StyleBoxEmpty" id=103]
-
-[sub_resource type="StyleBoxEmpty" id=104]
 
 [sub_resource type="DynamicFont" id=105]
 size = 28
@@ -2112,9 +2108,9 @@ action_mode = 0
 
 [node name="Actions" type="ReferenceRect" parent="Main/Results"]
 margin_left = 347.0
-margin_top = 288.0
+margin_top = 280.0
 margin_right = 572.0
-margin_bottom = 315.0
+margin_bottom = 307.0
 theme = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
@@ -2842,27 +2838,93 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Info" type="Control" parent="Main/Results"]
+[node name="Info" type="VBoxContainer" parent="Main/Results"]
 margin_left = 138.0
 margin_top = 15.0
 margin_right = 588.0
-margin_bottom = 183.0
-
-[node name="V" type="VBoxContainer" parent="Main/Results/Info"]
-anchor_right = 1.0
-margin_left = 13.0
-margin_top = 30.0
-margin_right = -13.0
-margin_bottom = 70.0
+margin_bottom = 240.0
 custom_constants/separation = 0
 
-[node name="Name" type="MarginContainer" parent="Main/Results/Info/V"]
+[node name="D" type="Control" parent="Main/Results/Info"]
+margin_right = 450.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 450, 32 )
+focus_mode = 2
+theme = ExtResource( 1 )
+
+[node name="Difficulty" type="Label" parent="Main/Results/Info/D"]
+margin_right = 450.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_fonts/font = SubResource( 97 )
+text = "-"
+align = 2
+valign = 1
+
+[node name="Label" type="Label" parent="Main/Results/Info/D/Difficulty"]
+visible = false
+margin_left = -85.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.698039, 0.901961, 0.639216, 1 )
+custom_fonts/font = SubResource( 91 )
+text = "Difficulty:"
+align = 2
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Data" type="Label" parent="Main/Results/Info/D"]
+margin_right = 425.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_fonts/font = SubResource( 98 )
+text = "-"
+valign = 1
+
+[node name="Label" type="Label" parent="Main/Results/Info/D/Data"]
+visible = false
+margin_left = -85.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.698039, 0.901961, 0.639216, 1 )
+custom_fonts/font = SubResource( 91 )
+text = "Difficulty:"
+align = 2
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="M" type="MarginContainer" parent="Main/Results/Info"]
+margin_top = 32.0
+margin_right = 450.0
+margin_bottom = 221.0
+custom_constants/margin_right = 13
+custom_constants/margin_left = 13
+
+[node name="V" type="VBoxContainer" parent="Main/Results/Info/M"]
+margin_left = 13.0
+margin_right = 437.0
+margin_bottom = 189.0
+custom_constants/separation = 0
+
+[node name="Name" type="MarginContainer" parent="Main/Results/Info/M/V"]
 margin_right = 424.0
 margin_bottom = 32.0
 custom_constants/margin_top = 6
 custom_constants/margin_bottom = 5
 
-[node name="L" type="Label" parent="Main/Results/Info/V/Name"]
+[node name="L" type="Label" parent="Main/Results/Info/M/V/Name"]
 margin_top = 6.0
 margin_right = 424.0
 margin_bottom = 27.0
@@ -2877,7 +2939,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Main/Results/Info/V/Name/L"]
+[node name="Label" type="Label" parent="Main/Results/Info/M/V/Name/L"]
 visible = false
 margin_left = -85.0
 margin_right = -10.0
@@ -2894,13 +2956,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Mapper" type="MarginContainer" parent="Main/Results/Info/V"]
+[node name="Mapper" type="MarginContainer" parent="Main/Results/Info/M/V"]
 margin_top = 32.0
 margin_right = 424.0
 margin_bottom = 57.0
 custom_constants/margin_left = 62
 
-[node name="L" type="Label" parent="Main/Results/Info/V/Mapper"]
+[node name="L" type="Label" parent="Main/Results/Info/M/V/Mapper"]
 margin_left = 62.0
 margin_right = 424.0
 margin_bottom = 25.0
@@ -2916,7 +2978,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Title" type="Label" parent="Main/Results/Info/V/Mapper/L"]
+[node name="Title" type="Label" parent="Main/Results/Info/M/V/Mapper/L"]
 margin_left = -68.0
 margin_right = -6.0
 margin_bottom = 25.0
@@ -2929,13 +2991,13 @@ align = 2
 valign = 1
 clip_text = true
 
-[node name="Id" type="MarginContainer" parent="Main/Results/Info/V"]
+[node name="Id" type="MarginContainer" parent="Main/Results/Info/M/V"]
 margin_top = 57.0
 margin_right = 424.0
 margin_bottom = 82.0
 custom_constants/margin_left = 62
 
-[node name="L" type="Label" parent="Main/Results/Info/V/Id"]
+[node name="L" type="Label" parent="Main/Results/Info/M/V/Id"]
 margin_left = 62.0
 margin_right = 424.0
 margin_bottom = 25.0
@@ -2951,7 +3013,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Title" type="Label" parent="Main/Results/Info/V/Id/L"]
+[node name="Title" type="Label" parent="Main/Results/Info/M/V/Id/L"]
 margin_left = -85.0
 margin_right = -6.0
 margin_bottom = 25.0
@@ -2964,14 +3026,14 @@ align = 2
 valign = 1
 clip_text = true
 
-[node name="Warning" type="MarginContainer" parent="Main/Results/Info/V"]
+[node name="Warning" type="MarginContainer" parent="Main/Results/Info/M/V"]
 visible = false
 margin_top = 106.0
 margin_right = 399.0
 margin_bottom = 131.0
 custom_constants/margin_top = 5
 
-[node name="L" type="Label" parent="Main/Results/Info/V/Warning"]
+[node name="L" type="Label" parent="Main/Results/Info/M/V/Warning"]
 margin_top = 5.0
 margin_right = 399.0
 margin_bottom = 25.0
@@ -2983,13 +3045,13 @@ text = "Warning text goes here"
 align = 1
 valign = 1
 
-[node name="Run" type="MarginContainer" parent="Main/Results/Info/V"]
+[node name="Run" type="MarginContainer" parent="Main/Results/Info/M/V"]
 margin_top = 82.0
 margin_right = 424.0
 margin_bottom = 145.0
 custom_constants/margin_top = 15
 
-[node name="Run" type="Button" parent="Main/Results/Info/V/Run"]
+[node name="Run" type="Button" parent="Main/Results/Info/M/V/Run"]
 margin_top = 15.0
 margin_right = 424.0
 margin_bottom = 63.0
@@ -3011,7 +3073,7 @@ action_mode = 0
 text = "Start!"
 script = ExtResource( 30 )
 
-[node name="Buttons" type="MarginContainer" parent="Main/Results/Info/V"]
+[node name="Buttons" type="MarginContainer" parent="Main/Results/Info/M/V"]
 margin_top = 145.0
 margin_right = 424.0
 margin_bottom = 189.0
@@ -3019,14 +3081,14 @@ custom_constants/margin_right = 5
 custom_constants/margin_top = 12
 custom_constants/margin_left = 5
 
-[node name="Control" type="Control" parent="Main/Results/Info/V/Buttons"]
+[node name="Control" type="Control" parent="Main/Results/Info/M/V/Buttons"]
 margin_left = 5.0
 margin_top = 12.0
 margin_right = 419.0
 margin_bottom = 44.0
 rect_min_size = Vector2( 0, 32 )
 
-[node name="Favorite" type="Button" parent="Main/Results/Info/V/Buttons/Control"]
+[node name="Favorite" type="Button" parent="Main/Results/Info/M/V/Buttons/Control"]
 anchor_right = 0.5
 margin_right = -6.0
 margin_bottom = 32.0
@@ -3038,7 +3100,7 @@ action_mode = 0
 text = "Favorite"
 script = ExtResource( 38 )
 
-[node name="PreviewMusic" type="Button" parent="Main/Results/Info/V/Buttons/Control"]
+[node name="PreviewMusic" type="Button" parent="Main/Results/Info/M/V/Buttons/Control"]
 anchor_left = 0.5
 anchor_right = 1.0
 margin_left = 6.0
@@ -3049,110 +3111,20 @@ action_mode = 0
 text = "Play Music"
 script = ExtResource( 9 )
 
-[node name="Song" type="AudioStreamPlayer" parent="Main/Results/Info/V/Buttons/Control/PreviewMusic"]
+[node name="Song" type="AudioStreamPlayer" parent="Main/Results/Info/M/V/Buttons/Control/PreviewMusic"]
 bus = "Music"
 script = ExtResource( 10 )
 
-[node name="MenuSong" type="AudioStreamPlayer" parent="Main/Results/Info/V/Buttons/Control/PreviewMusic"]
+[node name="MenuSong" type="AudioStreamPlayer" parent="Main/Results/Info/M/V/Buttons/Control/PreviewMusic"]
 stream = ExtResource( 11 )
 volume_db = -10.0
 bus = "Music"
 
-[node name="Difficulty" type="Label" parent="Main/Results/Info"]
-margin_right = 450.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_fonts/font = SubResource( 97 )
-text = "-"
-align = 2
-valign = 1
-
-[node name="Label" type="Label" parent="Main/Results/Info/Difficulty"]
-visible = false
-margin_left = -85.0
-margin_right = -10.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.698039, 0.901961, 0.639216, 1 )
-custom_fonts/font = SubResource( 91 )
-text = "Difficulty:"
-align = 2
-valign = 1
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Data" type="Label" parent="Main/Results/Info"]
-margin_right = 425.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_fonts/font = SubResource( 98 )
-text = "-"
-valign = 1
-
-[node name="Label" type="Label" parent="Main/Results/Info/Data"]
-visible = false
-margin_left = -85.0
-margin_right = -10.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.698039, 0.901961, 0.639216, 1 )
-custom_fonts/font = SubResource( 91 )
-text = "Difficulty:"
-align = 2
-valign = 1
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="MusicPath" type="Button" parent="Main/Results/Info"]
-visible = false
-margin_left = 85.0
-margin_top = 117.0
-margin_right = 400.0
-margin_bottom = 149.0
-theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 1, 1, 1, 1 )
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
-custom_colors/font_color_pressed = Color( 1, 1, 1, 1 )
-custom_fonts/font = SubResource( 91 )
-custom_styles/hover = SubResource( 100 )
-custom_styles/pressed = SubResource( 101 )
-custom_styles/focus = SubResource( 102 )
-custom_styles/disabled = SubResource( 103 )
-custom_styles/normal = SubResource( 104 )
-flat = true
-clip_text = true
-align = 0
-
-[node name="Label" type="Label" parent="Main/Results/Info/MusicPath"]
-margin_left = -85.0
-margin_right = -10.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.698039, 0.901961, 0.639216, 1 )
-custom_fonts/font = SubResource( 91 )
-text = "Music:"
-align = 2
-valign = 1
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="EndInfo" type="ReferenceRect" parent="Main/Results"]
 margin_left = 15.0
-margin_top = 284.0
+margin_top = 280.0
 margin_right = 298.0
-margin_bottom = 516.0
+margin_bottom = 512.0
 script = ExtResource( 29 )
 __meta__ = {
 "_edit_group_": true
@@ -3375,7 +3347,7 @@ scroll_horizontal_enabled = false
 [node name="F" parent="Main/Settings/S" instance=ExtResource( 49 )]
 anchor_right = 0.0
 margin_right = 800.0
-margin_bottom = 1727.0
+margin_bottom = 2087.0
 rect_clip_content = true
 
 [node name="Credits" type="ReferenceRect" parent="Main"]
@@ -3570,7 +3542,7 @@ margin_left = 10.0
 margin_top = 10.0
 margin_right = 48.0
 margin_bottom = 48.0
-texture = ExtResource( 7 )
+texture = ExtResource( 51 )
 expand = true
 stretch_mode = 6
 
@@ -3602,7 +3574,7 @@ margin_left = 10.0
 margin_top = 10.0
 margin_right = 48.0
 margin_bottom = 48.0
-texture = ExtResource( 7 )
+texture = ExtResource( 52 )
 expand = true
 stretch_mode = 6
 
@@ -3633,7 +3605,7 @@ margin_left = 10.0
 margin_top = 10.0
 margin_right = 48.0
 margin_bottom = 48.0
-texture = ExtResource( 7 )
+texture = ExtResource( 53 )
 expand = true
 stretch_mode = 6
 
@@ -3695,7 +3667,7 @@ margin_left = 10.0
 margin_top = 10.0
 margin_right = 48.0
 margin_bottom = 48.0
-texture = ExtResource( 7 )
+texture = ExtResource( 54 )
 expand = true
 stretch_mode = 6
 
@@ -3726,7 +3698,7 @@ margin_left = 10.0
 margin_top = 10.0
 margin_right = 48.0
 margin_bottom = 48.0
-texture = ExtResource( 7 )
+texture = ExtResource( 55 )
 expand = true
 stretch_mode = 6
 
@@ -3757,7 +3729,7 @@ margin_left = 10.0
 margin_top = 10.0
 margin_right = 48.0
 margin_bottom = 48.0
-texture = ExtResource( 7 )
+texture = ExtResource( 56 )
 expand = true
 stretch_mode = 6
 

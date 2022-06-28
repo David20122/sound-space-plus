@@ -3,7 +3,6 @@ extends Node
 var leaving:bool = false
 
 var target:String = "res://contentmgr.tscn"
-var target2:String = SSP.selected_space.path
 
 var black_fade_target:bool = false
 var black_fade:float = 0
@@ -23,8 +22,10 @@ func _ready():
 	$AudioStreamPlayer.play()
 	
 	var res = RQueue.queue_resource(target)
-	var res2 = RQueue.queue_resource(target2)
-	if res != OK or res2 != OK: get_tree().change_scene("res://menuloaderror.tscn")
+	if res != OK:
+		SSP.errorstr = "queue_resource returned %s" % res
+		SSP.menu_target = "res://contentmgr.tscn"
+		get_tree().change_scene("res://errors/menuload.tscn")
 
 var result
 var result2
@@ -41,13 +42,14 @@ func _process(delta):
 		$BlackFade.color = Color(0,0,0,black_fade)
 	
 	if !leaving:
-		if RQueue.is_ready(target) and RQueue.is_ready(target2):
+		if RQueue.is_ready(target):
 			result = RQueue.get_resource(target)
-			result2 = RQueue.get_resource(target2)
 			leaving = true
 			black_fade_target = true
-			SSP.loaded_world = result2
-			if !(result is Object) or !(result2 is Object): get_tree().change_scene("res://menuloaderror.tscn")
+			if !(result is Object):
+				SSP.errorstr = "get_resource returned non-object (probably null)"
+				SSP.menu_target = "res://contentmgr.tscn"
+				get_tree().change_scene("res://errors/menuload.tscn")
 	
 	if leaving and result and black_fade == 1:
 		get_tree().change_scene_to(result)

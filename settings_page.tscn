@@ -1,44 +1,31 @@
-[gd_scene load_steps=55 format=2]
+[gd_scene load_steps=42 format=2]
 
 [ext_resource path="res://uitheme.tres" type="Theme" id=1]
 [ext_resource path="res://font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://font/Noto_Sans_JP/NotoSansJP-Medium.otf" type="DynamicFontData" id=3]
-[ext_resource path="res://menuButtons/MenuMusic.gd" type="Script" id=4]
 [ext_resource path="res://menuButtons/UserDir.gd" type="Script" id=5]
 [ext_resource path="res://menuButtons/NoteHitboxSize.gd" type="Script" id=6]
-[ext_resource path="res://menuButtons/ShowConfig.gd" type="Script" id=7]
 [ext_resource path="res://menuButtons/MusicVolume.gd" type="Script" id=8]
-[ext_resource path="res://menuButtons/Grid.gd" type="Script" id=9]
 [ext_resource path="res://menuButtons/CursorSpin.gd" type="Script" id=10]
 [ext_resource path="res://menuButtons/WorldSel.gd" type="Script" id=11]
 [ext_resource path="res://menuButtons/EdgeBuffer.gd" type="Script" id=12]
-[ext_resource path="res://menuButtons/BufferCursor.gd" type="Script" id=13]
-[ext_resource path="res://menuButtons/Border.gd" type="Script" id=14]
 [ext_resource path="res://menuButtons/ColorSetSelectorButton.gd" type="Script" id=15]
 [ext_resource path="res://menuButtons/NoteMesh.gd" type="Script" id=16]
 [ext_resource path="res://menuButtons/CursorScale.gd" type="Script" id=17]
 [ext_resource path="res://menuButtons/VSyncCompositor.gd" type="Script" id=18]
-[ext_resource path="res://menuButtons/MissSound.gd" type="Script" id=19]
 [ext_resource path="res://menuButtons/SaveSettings.gd" type="Script" id=20]
 [ext_resource path="res://menuButtons/HitWindow.gd" type="Script" id=21]
 [ext_resource path="res://menuButtons/Sensitivity.gd" type="Script" id=22]
 [ext_resource path="res://menuButtons/VSync.gd" type="Script" id=23]
 [ext_resource path="res://menuButtons/ApproachRate.gd" type="Script" id=24]
-[ext_resource path="res://menuButtons/HitSound.gd" type="Script" id=25]
-[ext_resource path="res://menuButtons/AutoPreview.gd" type="Script" id=26]
 [ext_resource path="res://menuButtons/Fullscreen.gd" type="Script" id=27]
 [ext_resource path="res://menuButtons/Parallax.gd" type="Script" id=28]
-[ext_resource path="res://menuButtons/Spin.gd" type="Script" id=29]
 [ext_resource path="res://menuButtons/SpawnDist.gd" type="Script" id=30]
 [ext_resource path="res://menuButtons/CustomSpeed.gd" type="Script" id=31]
-[ext_resource path="res://menuButtons/NoteSpawnEffect.gd" type="Script" id=32]
 [ext_resource path="res://menuButtons/UIParallax.gd" type="Script" id=33]
 [ext_resource path="res://menuButtons/GridParallax.gd" type="Script" id=34]
-[ext_resource path="res://menuButtons/DisplayTrueCombo.gd" type="Script" id=35]
 [ext_resource path="res://menuButtons/ArchiveConvert.gd" type="Script" id=36]
 [ext_resource path="res://menuButtons/FadeLength.gd" type="Script" id=37]
-[ext_resource path="res://menuButtons/CursorFaceVelocity.gd" type="Script" id=38]
-[ext_resource path="res://menuButtons/ShowHitEffect.gd" type="Script" id=39]
 [ext_resource path="res://font/Lato/Lato-Bold.ttf" type="DynamicFontData" id=40]
 [ext_resource path="res://content/ui/arrow_up_white.png" type="Texture" id=41]
 [ext_resource path="res://content/ui/arrow_down_white.png" type="Texture" id=42]
@@ -48,9 +35,9 @@
 [ext_resource path="res://addons/native_dialogs/bin/native_dialog_open_file.gdns" type="Script" id=46]
 [ext_resource path="res://content/notefx/ripple.png" type="Texture" id=47]
 [ext_resource path="res://error.jpg" type="Texture" id=48]
-[ext_resource path="res://menuButtons/RainbowCursor.gd" type="Script" id=49]
-[ext_resource path="res://menuButtons/LockMouse.gd" type="Script" id=50]
-[ext_resource path="res://menuButtons/CursorTrail.gd" type="Script" id=51]
+[ext_resource path="res://menuButtons/TrailTime.gd" type="Script" id=52]
+[ext_resource path="res://menuButtons/TrailDetail.gd" type="Script" id=53]
+[ext_resource path="res://menu2/SettingsCheckbox.gd" type="Script" id=54]
 
 [sub_resource type="DynamicFont" id=5]
 size = 18
@@ -113,7 +100,7 @@ __meta__ = {
 [node name="M" type="VBoxContainer" parent="."]
 margin_top = 59.0
 margin_right = 1280.0
-margin_bottom = 1627.0
+margin_bottom = 1987.0
 custom_constants/separation = 0
 
 [node name="Modifiers" type="VBoxContainer" parent="M"]
@@ -258,7 +245,7 @@ __meta__ = {
 [node name="Customization" type="VBoxContainer" parent="M"]
 margin_top = 140.0
 margin_right = 1280.0
-margin_bottom = 572.0
+margin_bottom = 676.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Customization"]
@@ -286,17 +273,17 @@ flat = true
 [node name="Group" type="MarginContainer" parent="M/Customization"]
 margin_top = 36.0
 margin_right = 1280.0
-margin_bottom = 432.0
+margin_bottom = 536.0
 custom_constants/margin_left = 180
 custom_constants/margin_bottom = 12
 
 [node name="H" type="GridContainer" parent="M/Customization/Group"]
 margin_left = 180.0
 margin_right = 1280.0
-margin_bottom = 384.0
+margin_bottom = 488.0
 
 [node name="ColorSet" type="Control" parent="M/Customization/Group/H"]
-margin_right = 268.0
+margin_right = 510.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 200, 32 )
 
@@ -537,7 +524,7 @@ __meta__ = {
 
 [node name="World" type="Control" parent="M/Customization/Group/H"]
 margin_top = 36.0
-margin_right = 268.0
+margin_right = 510.0
 margin_bottom = 68.0
 rect_min_size = Vector2( 200, 32 )
 
@@ -574,7 +561,7 @@ __meta__ = {
 
 [node name="Mesh" type="Control" parent="M/Customization/Group/H"]
 margin_top = 72.0
-margin_right = 268.0
+margin_right = 510.0
 margin_bottom = 104.0
 rect_min_size = Vector2( 200, 32 )
 
@@ -608,7 +595,7 @@ clip_text = true
 
 [node name="CursorScale" type="Control" parent="M/Customization/Group/H"]
 margin_top = 108.0
-margin_right = 268.0
+margin_right = 510.0
 margin_bottom = 140.0
 rect_min_size = Vector2( 200, 32 )
 
@@ -640,7 +627,7 @@ __meta__ = {
 
 [node name="CursorSpin" type="Control" parent="M/Customization/Group/H"]
 margin_top = 144.0
-margin_right = 268.0
+margin_right = 510.0
 margin_bottom = 176.0
 rect_min_size = Vector2( 200, 32 )
 
@@ -674,7 +661,7 @@ __meta__ = {
 
 [node name="CustomCursor" type="Control" parent="M/Customization/Group/H"]
 margin_top = 180.0
-margin_right = 268.0
+margin_right = 510.0
 margin_bottom = 212.0
 rect_min_size = Vector2( 200, 32 )
 
@@ -722,7 +709,7 @@ stretch_mode = 1
 
 [node name="TouchIndicator" type="Control" parent="M/Customization/Group/H"]
 margin_top = 216.0
-margin_right = 268.0
+margin_right = 510.0
 margin_bottom = 248.0
 rect_min_size = Vector2( 200, 32 )
 
@@ -771,7 +758,7 @@ stretch_mode = 1
 
 [node name="HitEffect" type="Control" parent="M/Customization/Group/H"]
 margin_top = 252.0
-margin_right = 268.0
+margin_right = 510.0
 margin_bottom = 284.0
 rect_min_size = Vector2( 200, 32 )
 
@@ -820,7 +807,7 @@ stretch_mode = 1
 
 [node name="CustomBg" type="Control" parent="M/Customization/Group/H"]
 margin_top = 288.0
-margin_right = 268.0
+margin_right = 510.0
 margin_bottom = 320.0
 rect_min_size = Vector2( 200, 32 )
 
@@ -869,7 +856,7 @@ stretch_mode = 1
 
 [node name="RainbowCursor" type="CheckBox" parent="M/Customization/Group/H"]
 margin_top = 324.0
-margin_right = 268.0
+margin_right = 510.0
 margin_bottom = 352.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -881,7 +868,8 @@ custom_fonts/font = SubResource( 4 )
 action_mode = 0
 text = "works best with a white cursor"
 flat = true
-script = ExtResource( 49 )
+script = ExtResource( 54 )
+target = "rainbow_cursor"
 
 [node name="Label" type="Label" parent="M/Customization/Group/H/RainbowCursor"]
 anchor_bottom = 1.0
@@ -898,7 +886,7 @@ clip_text = true
 
 [node name="CursorTrail" type="CheckBox" parent="M/Customization/Group/H"]
 margin_top = 356.0
-margin_right = 268.0
+margin_right = 510.0
 margin_bottom = 384.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -910,7 +898,8 @@ custom_fonts/font = SubResource( 4 )
 action_mode = 0
 text = "many of you have asked so i shall deliver"
 flat = true
-script = ExtResource( 51 )
+script = ExtResource( 54 )
+target = "cursor_trail"
 
 [node name="Label" type="Label" parent="M/Customization/Group/H/CursorTrail"]
 anchor_bottom = 1.0
@@ -925,10 +914,109 @@ align = 2
 valign = 1
 clip_text = true
 
+[node name="SmartTrail" type="CheckBox" parent="M/Customization/Group/H"]
+margin_top = 388.0
+margin_right = 510.0
+margin_bottom = 416.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 4 )
+action_mode = 0
+text = "hides parts of the trail if they're at the same position as each other or the cursor"
+flat = true
+script = ExtResource( 54 )
+target = "smart_trail"
+
+[node name="Label" type="Label" parent="M/Customization/Group/H/SmartTrail"]
+anchor_bottom = 1.0
+margin_left = -147.0
+margin_right = -10.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Smart Trail"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="TrailDetail" type="Control" parent="M/Customization/Group/H"]
+margin_top = 420.0
+margin_right = 510.0
+margin_bottom = 452.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="TrailDetail" type="SpinBox" parent="M/Customization/Group/H/TrailDetail"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+focus_mode = 2
+theme = ExtResource( 1 )
+min_value = 1.0
+max_value = 9.22337e+18
+value = 10.0
+allow_greater = true
+script = ExtResource( 53 )
+
+[node name="Label" type="Label" parent="M/Customization/Group/H/TrailDetail/TrailDetail"]
+margin_left = -115.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Trail Detail"
+align = 2
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TrailTime" type="Control" parent="M/Customization/Group/H"]
+margin_top = 456.0
+margin_right = 510.0
+margin_bottom = 488.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="TrailTime" type="SpinBox" parent="M/Customization/Group/H/TrailTime"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+focus_mode = 2
+theme = ExtResource( 1 )
+min_value = 0.001
+max_value = 1e+12
+step = 0.0
+value = 0.15
+allow_greater = true
+script = ExtResource( 52 )
+
+[node name="Label" type="Label" parent="M/Customization/Group/H/TrailTime/TrailTime"]
+margin_left = -146.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Trail Time"
+align = 2
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Audio" type="VBoxContainer" parent="M"]
-margin_top = 572.0
+margin_top = 676.0
 margin_right = 1280.0
-margin_bottom = 768.0
+margin_bottom = 872.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Audio"]
@@ -1011,7 +1099,8 @@ custom_fonts/font = SubResource( 4 )
 action_mode = 0
 text = "customize this with a \"menu.mp3\" file in your save directory (default song by scriptima)"
 flat = true
-script = ExtResource( 4 )
+script = ExtResource( 54 )
+target = "play_menu_music"
 
 [node name="Label" type="Label" parent="M/Audio/Group/H/MenuMusic"]
 anchor_bottom = 1.0
@@ -1043,7 +1132,8 @@ custom_fonts/font = SubResource( 4 )
 action_mode = 0
 text = "automatically play previews when a song is selected"
 flat = true
-script = ExtResource( 26 )
+script = ExtResource( 54 )
+target = "auto_preview_song"
 
 [node name="Label" type="Label" parent="M/Audio/Group/H/AutoPreview"]
 anchor_bottom = 1.0
@@ -1077,7 +1167,8 @@ pressed = true
 action_mode = 0
 text = "customize this with a \"hit.mp3\" file in your save directory"
 flat = true
-script = ExtResource( 25 )
+script = ExtResource( 54 )
+target = "play_hit_snd"
 
 [node name="Label" type="Label" parent="M/Audio/Group/H/HitSound"]
 anchor_bottom = 1.0
@@ -1110,7 +1201,8 @@ pressed = true
 action_mode = 0
 text = "customize this with a \"miss.mp3\" file in your save directory"
 flat = true
-script = ExtResource( 19 )
+script = ExtResource( 54 )
+target = "play_miss_snd"
 
 [node name="Label" type="Label" parent="M/Audio/Group/H/MissSound"]
 anchor_bottom = 1.0
@@ -1129,9 +1221,9 @@ __meta__ = {
 }
 
 [node name="Camera" type="VBoxContainer" parent="M"]
-margin_top = 768.0
+margin_top = 872.0
 margin_right = 1280.0
-margin_bottom = 1076.0
+margin_bottom = 1180.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Camera"]
@@ -1279,7 +1371,8 @@ custom_fonts/font = SubResource( 4 )
 action_mode = 0
 text = "enables camera rotation - aka \"spin\""
 flat = true
-script = ExtResource( 29 )
+script = ExtResource( 54 )
+target = "cam_unlock"
 
 [node name="Label" type="Label" parent="M/Camera/Group/H/Spin"]
 anchor_bottom = 1.0
@@ -1377,7 +1470,8 @@ pressed = true
 action_mode = 0
 text = "shows a mini cursor at the \"real\" position when you enter the edge buffer"
 flat = true
-script = ExtResource( 13 )
+script = ExtResource( 54 )
+target = "enable_drift_cursor"
 
 [node name="Label" type="Label" parent="M/Camera/Group/H/BufferCursor"]
 anchor_bottom = 1.0
@@ -1411,7 +1505,8 @@ pressed = true
 action_mode = 0
 text = "turning this off will unlock the mouse while playing (it'll still be confined to the window though)"
 flat = true
-script = ExtResource( 50 )
+script = ExtResource( 54 )
+target = "lock_mouse"
 
 [node name="Label" type="Label" parent="M/Camera/Group/H/LockMouse"]
 anchor_bottom = 1.0
@@ -1443,7 +1538,8 @@ pressed = true
 action_mode = 0
 text = "points your cursor in the direction of your mouse movement"
 flat = true
-script = ExtResource( 38 )
+script = ExtResource( 54 )
+target = "cursor_face_velocity"
 
 [node name="Label" type="Label" parent="M/Camera/Group/H/CursorFaceVelocity"]
 anchor_bottom = 1.0
@@ -1459,9 +1555,9 @@ valign = 1
 clip_text = true
 
 [node name="Notes" type="VBoxContainer" parent="M"]
-margin_top = 1076.0
+margin_top = 1180.0
 margin_right = 1280.0
-margin_bottom = 1280.0
+margin_bottom = 1384.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Notes"]
@@ -1614,7 +1710,8 @@ pressed = true
 action_mode = 0
 text = "alright, fine. no distractions for you."
 flat = true
-script = ExtResource( 32 )
+script = ExtResource( 54 )
+target = "note_spawn_effect"
 
 [node name="Label" type="Label" parent="M/Notes/Group/H/NoteSpawnEffect"]
 anchor_bottom = 1.0
@@ -1644,7 +1741,8 @@ pressed = true
 action_mode = 0
 text = "puts a ripple at your cursor when you hit a note"
 flat = true
-script = ExtResource( 39 )
+script = ExtResource( 54 )
+target = "show_hit_effect"
 
 [node name="Label" type="Label" parent="M/Notes/Group/H/ShowHitEffect"]
 anchor_bottom = 1.0
@@ -1660,9 +1758,9 @@ valign = 1
 clip_text = true
 
 [node name="UI" type="VBoxContainer" parent="M"]
-margin_top = 1280.0
+margin_top = 1384.0
 margin_right = 1280.0
-margin_bottom = 1440.0
+margin_bottom = 1800.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/UI"]
@@ -1690,13 +1788,13 @@ flat = true
 [node name="Group" type="MarginContainer" parent="M/UI"]
 margin_top = 36.0
 margin_right = 1280.0
-margin_bottom = 160.0
+margin_bottom = 416.0
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="M/UI/Group"]
 margin_left = 180.0
 margin_right = 1280.0
-margin_bottom = 124.0
+margin_bottom = 380.0
 
 [node name="Grid" type="CheckBox" parent="M/UI/Group/H"]
 margin_right = 582.0
@@ -1712,10 +1810,11 @@ pressed = true
 action_mode = 0
 text = "turns the note grid on or off"
 flat = true
-script = ExtResource( 9 )
+script = ExtResource( 54 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+target = "enable_grid"
 
 [node name="Label" type="Label" parent="M/UI/Group/H/Grid"]
 anchor_bottom = 1.0
@@ -1746,10 +1845,11 @@ pressed = true
 action_mode = 0
 text = "turns the note grid border on or off"
 flat = true
-script = ExtResource( 14 )
+script = ExtResource( 54 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+target = "enable_border"
 
 [node name="Label" type="Label" parent="M/UI/Group/H/Border"]
 anchor_bottom = 1.0
@@ -1783,10 +1883,11 @@ pressed = true
 action_mode = 0
 text = "shows your approach rate, hit window, and camera config at the start of songs (to show off)"
 flat = true
-script = ExtResource( 7 )
+script = ExtResource( 54 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+target = "show_config"
 
 [node name="Label" type="Label" parent="M/UI/Group/H/Config"]
 anchor_bottom = 1.0
@@ -1820,7 +1921,8 @@ pressed = true
 action_mode = 0
 text = "displays the real value of your combo behind the grid"
 flat = true
-script = ExtResource( 35 )
+script = ExtResource( 54 )
+target = "display_true_combo"
 
 [node name="Label" type="Label" parent="M/UI/Group/H/DisplayTrueCombo"]
 anchor_bottom = 1.0
@@ -1835,10 +1937,254 @@ align = 2
 valign = 1
 clip_text = true
 
+[node name="ShowHealth" type="CheckBox" parent="M/UI/Group/H"]
+margin_top = 128.0
+margin_right = 582.0
+margin_bottom = 156.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 4 )
+pressed = true
+action_mode = 0
+text = "i don't understand why you'd turn this off but people have asked so here you go"
+flat = true
+script = ExtResource( 54 )
+target = "show_hp_bar"
+
+[node name="Label" type="Label" parent="M/UI/Group/H/ShowHealth"]
+anchor_bottom = 1.0
+margin_left = -165.0
+margin_right = -10.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Show Energy"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="ShowTimer" type="CheckBox" parent="M/UI/Group/H"]
+margin_top = 160.0
+margin_right = 582.0
+margin_bottom = 188.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 4 )
+pressed = true
+action_mode = 0
+text = "tells you how far into a song you are (and the name of the song)"
+flat = true
+script = ExtResource( 54 )
+target = "show_timer"
+
+[node name="Label" type="Label" parent="M/UI/Group/H/ShowTimer"]
+anchor_bottom = 1.0
+margin_left = -165.0
+margin_right = -10.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Show Timer"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="ShowLeftPanel" type="CheckBox" parent="M/UI/Group/H"]
+margin_top = 192.0
+margin_right = 582.0
+margin_bottom = 220.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 4 )
+pressed = true
+action_mode = 0
+text = "contains: combo meter, pause counter, accuracy"
+flat = true
+script = ExtResource( 54 )
+target = "show_left_panel"
+
+[node name="Label" type="Label" parent="M/UI/Group/H/ShowLeftPanel"]
+anchor_bottom = 1.0
+margin_left = -165.0
+margin_right = -10.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Show Left Panel"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="ShowRightPanel" type="CheckBox" parent="M/UI/Group/H"]
+margin_top = 224.0
+margin_right = 582.0
+margin_bottom = 252.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 4 )
+pressed = true
+action_mode = 0
+text = "contains: framerate, miss counter, notes hit / total notes"
+flat = true
+script = ExtResource( 54 )
+target = "show_right_panel"
+
+[node name="Label" type="Label" parent="M/UI/Group/H/ShowRightPanel"]
+anchor_bottom = 1.0
+margin_left = -165.0
+margin_right = -10.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Show Right Panel"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="AttachHpToGrid" type="CheckBox" parent="M/UI/Group/H"]
+margin_top = 256.0
+margin_right = 582.0
+margin_bottom = 284.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 4 )
+action_mode = 0
+text = "attaches your health bar + modifiers to the note grid"
+flat = true
+script = ExtResource( 54 )
+target = "attach_hp_to_grid"
+
+[node name="Label" type="Label" parent="M/UI/Group/H/AttachHpToGrid"]
+anchor_bottom = 1.0
+margin_left = -165.0
+margin_right = -10.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Attach Energy to Grid"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="AttachTimerToGrid" type="CheckBox" parent="M/UI/Group/H"]
+margin_top = 288.0
+margin_right = 582.0
+margin_bottom = 316.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 4 )
+action_mode = 0
+text = "attaches the timer + song name to the note grid"
+flat = true
+script = ExtResource( 54 )
+target = "attach_timer_to_grid"
+
+[node name="Label" type="Label" parent="M/UI/Group/H/AttachTimerToGrid"]
+anchor_bottom = 1.0
+margin_left = -165.0
+margin_right = -10.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Attach Timer to Grid"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="RainbowGrid" type="CheckBox" parent="M/UI/Group/H"]
+margin_top = 320.0
+margin_right = 582.0
+margin_bottom = 348.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 4 )
+action_mode = 0
+text = "makes the grid rainbow"
+flat = true
+script = ExtResource( 54 )
+target = "rainbow_grid"
+
+[node name="Label" type="Label" parent="M/UI/Group/H/RainbowGrid"]
+anchor_bottom = 1.0
+margin_left = -165.0
+margin_right = -10.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Rainbow Grid"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="RainbowHUD" type="CheckBox" parent="M/UI/Group/H"]
+margin_top = 352.0
+margin_right = 582.0
+margin_bottom = 380.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 4 )
+action_mode = 0
+text = "makes literally your entire HUD rainbow"
+flat = true
+script = ExtResource( 54 )
+target = "rainbow_hud"
+
+[node name="Label" type="Label" parent="M/UI/Group/H/RainbowHUD"]
+anchor_bottom = 1.0
+margin_left = -165.0
+margin_right = -10.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Rainbow HUD"
+align = 2
+valign = 1
+clip_text = true
+
 [node name="Graphics" type="VBoxContainer" parent="M"]
-margin_top = 1440.0
+margin_top = 1800.0
 margin_right = 1280.0
-margin_bottom = 1568.0
+margin_bottom = 1928.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Graphics"]
@@ -2010,7 +2356,7 @@ margin_left = 180.0
 margin_right = 800.0
 
 [node name="BottomMargin" type="Control" parent="."]
-margin_top = 1631.0
+margin_top = 1991.0
 margin_right = 1280.0
-margin_bottom = 1727.0
+margin_bottom = 2087.0
 rect_min_size = Vector2( 0, 96 )

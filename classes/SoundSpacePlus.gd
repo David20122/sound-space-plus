@@ -131,9 +131,25 @@ var display_true_combo:bool = true
 var cursor_face_velocity:bool = false
 var show_hit_effect:bool = true
 var lock_mouse:bool = true
+var fade_length:float = 0.5
+
 var rainbow_cursor:bool = false
 var cursor_trail:bool = false
-var fade_length:float = 0.5
+var smart_trail:bool = true
+var trail_detail:int = 10 # default 10 but 35
+var trail_time:float = 0.15 # default 0.15 but 0.1
+
+var friend_position:int = Globals.FRIEND_BEHIND_GRID
+
+var show_hp_bar:bool = true
+var show_timer:bool = true
+var show_left_panel:bool = true
+var show_right_panel:bool = true
+var attach_hp_to_grid:bool = false
+var attach_timer_to_grid:bool = false
+
+var rainbow_grid:bool = false
+var rainbow_hud:bool = false
 
 var note_hitbox_size:float = 1.140 setget _set_hitbox_size
 func _set_hitbox_size(v:float):
@@ -354,7 +370,7 @@ func _process(delta):
 
 
 func update_rpc_song():
-	if !OS.has_feature("discord") or selected_song == null: return
+	if !ProjectSettings.get_setting("application/config/discord_rpc") or selected_song == null: return
 	var txt = ""
 	var mods = []
 	if mod_nofail: mods.append("Nofail")
@@ -398,7 +414,7 @@ func update_rpc_song():
 		push_error(result)
 
 
-const current_sf_version = 28
+const current_sf_version = 30
 
 func load_saved_settings():
 	if Input.is_key_pressed(KEY_CONTROL) and Input.is_key_pressed(KEY_L): 
@@ -486,58 +502,88 @@ func load_saved_settings():
 			lock_mouse = bool(file.get_8())
 			rainbow_cursor = bool(file.get_8())
 			cursor_trail = bool(file.get_8())
+		if sv >= 29:
+			trail_detail = file.get_32() # some people are insane
+			trail_time = file.get_real() # 64-bit float bc small numbers
+		if sv >= 30:
+			friend_position = file.get_8()
+			show_hp_bar = bool(file.get_8())
+			show_timer = bool(file.get_8())
+			show_left_panel = bool(file.get_8())
+			show_right_panel = bool(file.get_8())
+			attach_hp_to_grid = bool(file.get_8())
+			attach_timer_to_grid = bool(file.get_8())
+			rainbow_grid = bool(file.get_8())
+			rainbow_hud = bool(file.get_8())
+			smart_trail = bool(file.get_8())
 		file.close()
 	return 0
 
 func save_settings():
 	var file:File = File.new()
-	file.open("user://settings",File.WRITE)
-	file.store_16(current_sf_version)
-	file.store_float(approach_rate)
-	file.store_float(sensitivity)
-	file.store_8(int(play_hit_snd))
-	file.store_8(int(play_miss_snd))
-	file.store_8(int(auto_preview_song))
-	file.store_8(0) # integrity check
-	file.store_8(int(OS.vsync_enabled))
-	file.store_8(int(OS.vsync_via_compositor))
-	file.store_8(int(OS.window_fullscreen))
-	file.store_line(selected_colorset.id)
-	file.store_float(parallax)
-	file.store_8(int(cam_unlock))
-	file.store_8(215) # integrity check
-	file.store_8(int(show_config))
-	file.store_8(int(enable_grid))
-	file.store_float(cursor_scale)
-	file.store_8(43) # integrity check
-	file.store_float(edge_drift)
-	file.store_8(int(enable_drift_cursor))
-	file.store_float(hitwindow_ms)
-	file.store_8(117) # integrity check
-	file.store_float(cursor_spin)
-	file.store_float(music_volume_db)
-	file.store_line(selected_space.id)
-	file.store_8(89) # integrity check
-	file.store_8(int(enable_border))
-	file.store_line(selected_mesh.id)
-	file.store_8(int(play_menu_music))
-	file.store_8(12) # integrity check
-	file.store_float(note_hitbox_size)
-	file.store_float(spawn_distance)
-	file.store_float(custom_speed)
-	file.store_8(int(note_spawn_effect))
-	file.store_8(int(display_true_combo))
-	file.store_8(int(cursor_face_velocity))
-	file.store_8(147) # integrity check
-	file.store_float(ui_parallax)
-	file.store_float(grid_parallax)
-	file.store_float(fade_length)
-	file.store_8(int(show_hit_effect))
-	file.store_8(6) # integrity check
-	file.store_8(int(lock_mouse))
-	file.store_8(int(rainbow_cursor))
-	file.store_8(int(cursor_trail))
-	file.close()
+	var err:int = file.open("user://settings",File.WRITE)
+	if err == OK:
+		file.store_16(current_sf_version)
+		file.store_float(approach_rate)
+		file.store_float(sensitivity)
+		file.store_8(int(play_hit_snd))
+		file.store_8(int(play_miss_snd))
+		file.store_8(int(auto_preview_song))
+		file.store_8(0) # integrity check
+		file.store_8(int(OS.vsync_enabled))
+		file.store_8(int(OS.vsync_via_compositor))
+		file.store_8(int(OS.window_fullscreen))
+		file.store_line(selected_colorset.id)
+		file.store_float(parallax)
+		file.store_8(int(cam_unlock))
+		file.store_8(215) # integrity check
+		file.store_8(int(show_config))
+		file.store_8(int(enable_grid))
+		file.store_float(cursor_scale)
+		file.store_8(43) # integrity check
+		file.store_float(edge_drift)
+		file.store_8(int(enable_drift_cursor))
+		file.store_float(hitwindow_ms)
+		file.store_8(117) # integrity check
+		file.store_float(cursor_spin)
+		file.store_float(music_volume_db)
+		file.store_line(selected_space.id)
+		file.store_8(89) # integrity check
+		file.store_8(int(enable_border))
+		file.store_line(selected_mesh.id)
+		file.store_8(int(play_menu_music))
+		file.store_8(12) # integrity check
+		file.store_float(note_hitbox_size)
+		file.store_float(spawn_distance)
+		file.store_float(custom_speed)
+		file.store_8(int(note_spawn_effect))
+		file.store_8(int(display_true_combo))
+		file.store_8(int(cursor_face_velocity))
+		file.store_8(147) # integrity check
+		file.store_float(ui_parallax)
+		file.store_float(grid_parallax)
+		file.store_float(fade_length)
+		file.store_8(int(show_hit_effect))
+		file.store_8(6) # integrity check
+		file.store_8(int(lock_mouse))
+		file.store_8(int(rainbow_cursor))
+		file.store_8(int(cursor_trail))
+		file.store_32(trail_detail)
+		file.store_real(trail_time)
+		file.store_8(friend_position)
+		file.store_8(int(show_hp_bar))
+		file.store_8(int(show_timer))
+		file.store_8(int(show_left_panel))
+		file.store_8(int(show_right_panel))
+		file.store_8(int(attach_hp_to_grid))
+		file.store_8(int(attach_timer_to_grid))
+		file.store_8(int(rainbow_grid))
+		file.store_8(int(rainbow_hud))
+		file.store_8(int(smart_trail))
+		file.close()
+		return "OK"
+	else:
+		print("error code %s" % err)
 
 func get_stream_with_default(path:String,default:AudioStream) -> AudioStream:
 	var file:File = File.new()
@@ -566,6 +612,7 @@ func _ready():
 	pause_mode = PAUSE_MODE_PROCESS
 
 var errornum:int = 0
+var errorstr:String = ""
 
 func do_init(_ud=null):
 	installed_packs = []
@@ -575,7 +622,16 @@ func do_init(_ud=null):
 	var lp:bool = false # load pause
 	var file:File = File.new()
 	var dir:Directory = Directory.new()
-	dir.open("user://")
+	var err:int = dir.open("user://")
+	if OS.has_feature("editor"):
+		yield(get_tree().create_timer(0.35),"timeout")
+	if Input.is_key_pressed(KEY_CONTROL) and Input.is_key_pressed(KEY_U):
+		err = -1
+	
+	if err != OK:
+		errornum = err
+		get_tree().change_scene("res://errors/userfolder.tscn")
+		return
 	
 	# Setup directories if they don't already exist
 	var convert_pb_format:bool = false
@@ -889,11 +945,10 @@ func do_init(_ud=null):
 	emit_signal("init_stage_reached","Read user settings")
 	yield(get_tree(),"idle_frame")
 	var result = load_saved_settings()
-	print(result)
 	if result != 0:
 		errornum = result
 		# errors are returned when settings are invalid
-		get_tree().change_scene("res://starterror.tscn")
+		get_tree().change_scene("res://errors/settings.tscn")
 		return
 	print('settings done')
 	
@@ -955,7 +1010,6 @@ func do_init(_ud=null):
 			file.close()
 			favorite_songs = txt.split("\n")
 	
-#	yield(get_tree().create_timer(60000),"timeout")
 	dir.change_dir("res://")
 	first_init_done = true
 	do_archive_convert = false

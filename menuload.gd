@@ -25,7 +25,9 @@ func _ready():
 	$AudioStreamPlayer.play()
 	
 	var res = RQueue.queue_resource(target)
-	if res != OK: get_tree().change_scene("res://menuloaderror.tscn")
+	if res != OK:
+		SSP.errorstr = "queue_resource returned %s" % res
+		get_tree().change_scene("res://errors/menuload.tscn")
 
 var result
 var left:bool = false
@@ -45,7 +47,9 @@ func _process(delta):
 			result = RQueue.get_resource(target)
 			leaving = true
 			black_fade_target = true
-			if !(result is Object): get_tree().change_scene("res://menuloaderror.tscn")
+			if !(result is Object):
+				SSP.errorstr = "get_resource returned non-object (probably null)"
+				get_tree().change_scene("res://errors/menuload.tscn")
 	
 	if leaving and result and black_fade == 1:
 		get_tree().change_scene_to(result)

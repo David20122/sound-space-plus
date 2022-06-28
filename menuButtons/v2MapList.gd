@@ -66,7 +66,6 @@ func switch_to_play_screen():
 var was_maximized = OS.window_maximized
 var was_fullscreen = OS.window_fullscreen
 func _process(delta):
-	var lpt = pt
 	pt += delta
 	if OS.window_maximized != was_maximized or OS.window_fullscreen != was_fullscreen:
 		was_maximized = OS.window_maximized
@@ -100,7 +99,6 @@ func load_pg(is_resize:bool=false):
 		if i < disp.size():
 			var map:Song = disp[i]
 			var btn:Panel
-			var add_to:Array
 			match map.difficulty:
 				Globals.DIFF_EASY: btn = $EASY.duplicate()
 				Globals.DIFF_MEDIUM: btn = $MEDIUM.duplicate()

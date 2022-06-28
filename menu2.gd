@@ -10,10 +10,9 @@ func idle_status():
 	var assets = activity.get_assets()
 	assets.set_large_image("icon")
 	
-	if OS.has_feature("discord"):
-		var result = yield(Discord.activity_manager.update_activity(activity), "result").result
-		if result != Discord.Result.Ok:
-			push_error(result)
+	var result = yield(Discord.activity_manager.update_activity(activity), "result").result
+	if result != Discord.Result.Ok:
+		push_error(result)
 
 
 
@@ -23,19 +22,20 @@ func _ready():
 	$BlackFade.color = Color(0,0,0,black_fade)
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	
-	var activity = Discord.Activity.new()
-	activity.set_type(Discord.ActivityType.Playing)
-	activity.set_details("Main Menu")
-	activity.set_state("Selecting a song")
+	if ProjectSettings.get_setting("application/config/discord_rpc"):
+		var activity = Discord.Activity.new()
+		activity.set_type(Discord.ActivityType.Playing)
+		activity.set_details("Main Menu")
+		activity.set_state("Selecting a song")
 
-	var assets = activity.get_assets()
-	assets.set_large_image("icon")
+		var assets = activity.get_assets()
+		assets.set_large_image("icon")
 
-	var result = yield(Discord.activity_manager.update_activity(activity), "result").result
-	if result != Discord.Result.Ok:
-		push_error(result)
-	
-	get_tree().create_timer(300).connect("timeout",self,"idle_status")
+		var result = yield(Discord.activity_manager.update_activity(activity), "result").result
+		if result != Discord.Result.Ok:
+			push_error(result)
+		
+		get_tree().create_timer(300).connect("timeout",self,"idle_status")
 
 var black_fade_target:bool = false
 var black_fade:float = 1

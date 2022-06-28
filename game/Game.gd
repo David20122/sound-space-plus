@@ -52,6 +52,8 @@ onready var comboring:Control = get_node("Grid/LeftVP/Control/Combo")
 onready var combotxt:Label = get_node("Grid/LeftVP/Control/Combo/Label")
 onready var truecombo:Label = get_node("Grid/ComboVP/Value")
 
+onready var friend:MeshInstance = get_node("Spawn/Friend")
+
 var hits:float = 0
 var misses:float = 0
 var total_notes:float = 0
@@ -79,7 +81,10 @@ var ending:bool = false
 func end(end_type:int):
 	if ending: return
 	ending = true
-	if end_type != Globals.END_PASS: SSP.fail_asp.play()
+	if end_type != Globals.END_PASS:
+		friend.failed = true
+		SSP.fail_asp.play()
+	friend.upd()
 	get_tree().paused = true
 	if total_notes == 0: total_notes = 1
 	update_hud()
@@ -182,6 +187,7 @@ func miss(col):
 
 func _ready():
 	SSP.song_end_pause_count = 0
+	SSP.song_end_misses = 0
 	get_tree().paused = true
 	if SSP.mod_sudden_death:
 		max_energy = 1
@@ -209,7 +215,24 @@ func _ready():
 	if !SSP.show_config: $Grid/ConfigHud.visible = false
 	if !SSP.enable_grid: $Spawn/Inner.visible = false
 	if !SSP.enable_border: $Spawn/Outer.visible = false
+	if !SSP.show_left_panel: $Grid/LeftHud.visible = false
+	if !SSP.show_right_panel: $Grid/RightHud.visible = false
+	if !SSP.show_hp_bar:
+		$Grid/EnergyVP/Control/Energy.visible = false
+		$Grid/EnergyVP/Control/Modifiers.margin_top -= 30
+	if !SSP.show_timer: $Grid/TimerHud.visible = false
+	if SSP.attach_hp_to_grid:
+		var eh = $Grid/EnergyHud
+		$Grid.remove_child(eh)
+		$Spawn.add_child(eh)
+		eh.transform.origin += Vector3(1,-1,0)
+	if SSP.attach_timer_to_grid:
+		var th = $Grid/TimerHud
+		$Grid.remove_child(th)
+		$Spawn.add_child(th)
+		th.transform.origin += Vector3(1,-1,0)
 	songnametxt.text = SSP.selected_song.name
+
 	
 	var ms = ""
 	
@@ -246,6 +269,12 @@ func _ready():
 		ms += "Hitwindow: %.0f ms | Hitboxes: %.02f m" % [SSP.hitwindow_ms,SSP.note_hitbox_size]
 	
 	modtxt.text = ms
+	
+	if SSP.rainbow_hud:
+		comboring.fill_color = Color(1,1,1)
+		comboring.empty_color = Color(0.2,0.2,0.2,0.75)
+		accbar.get("custom_styles/fg").bg_color = Color(1,1,1)
+		accbar.get("custom_styles/bg").bg_color = Color(0.2,0.2,0.2,0.75)
 	
 	SSP.update_rpc_song()
 

@@ -7,7 +7,6 @@ func _ready():
 	var p2:Array = []
 	var p1:Array = []
 	
-	var txt
 	
 	if file.open("res://patreon3.txt",File.READ) == OK: # will be FILE_NOT_FOUND if it doesn't exist
 		p3 = file.get_as_text().split("\n",false)

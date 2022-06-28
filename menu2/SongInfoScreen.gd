@@ -32,12 +32,12 @@ func update(_s=null):
 	var map:Song = SSP.selected_song
 	$EndInfo.visible = true
 	$Actions.visible = true
-	$Info/V/Id/L.text = map.id
-	$Info/V/Name/L.text = map.name
-	$Info/V/Mapper/L.text = map.creator
-	$Info/Difficulty.text = Globals.difficulty_names.get(map.difficulty,"INVALID DIFFICULTY ID")
-	$Info/Difficulty.modulate = Globals.difficulty_colors.get(map.difficulty,Color("#ffffff"))
-	$Info/Data.text = "%s - %s notes" % [get_time_ms(map.last_ms),comma_sep(map.note_count)]
+	$Info/M/V/Id/L.text = map.id
+	$Info/M/V/Name/L.text = map.name
+	$Info/M/V/Mapper/L.text = map.creator
+	$Info/D/Difficulty.text = Globals.difficulty_names.get(map.difficulty,"INVALID DIFFICULTY ID")
+	$Info/D/Difficulty.modulate = Globals.difficulty_colors.get(map.difficulty,Color("#ffffff"))
+	$Info/D/Data.text = "%s - %s notes" % [get_time_ms(map.last_ms),comma_sep(map.note_count)]
 	
 	var txt = ""
 	if SSP.note_hitbox_size == 1.140: txt += "Default hitboxes, "
@@ -60,23 +60,23 @@ func update(_s=null):
 			n.get_node("Name").text = map.name
 	
 	if map.warning != "":
-		$Info/V/Warning.visible = true
-		$Info/V/Warning/L.text = map.warning
+		$Info/M/V/Warning.visible = true
+		$Info/M/V/Warning/L.text = map.warning
 		if map.is_broken:
-			$Info/V/Warning/L.set("custom_colors/font_color",Color(1,0,0))
-			$Info/V/Run/Run.disabled = true
-			$Info/V/Buttons/Control/Favorite.disabled = true
-			$Info/V/Buttons/Control/PreviewMusic.disabled = true
+			$Info/M/V/Warning/L.set("custom_colors/font_color",Color(1,0,0))
+			$Info/M/V/Run/Run.disabled = true
+			$Info/M/V/Buttons/Control/Favorite.disabled = true
+			$Info/M/V/Buttons/Control/PreviewMusic.disabled = true
 		else:
-			$Info/V/Warning/L.set("custom_colors/font_color",Color(1,1,0))
-			$Info/V/Run/Run.disabled = false
-			$Info/V/Buttons/Control/Favorite.disabled = false
-			$Info/V/Buttons/Control/PreviewMusic.disabled = false
+			$Info/M/V/Warning/L.set("custom_colors/font_color",Color(1,1,0))
+			$Info/M/V/Run/Run.disabled = false
+			$Info/M/V/Buttons/Control/Favorite.disabled = false
+			$Info/M/V/Buttons/Control/PreviewMusic.disabled = false
 	else:
-		$Info/V/Warning.visible = false
-		$Info/V/Run/Run.disabled = false
-		$Info/V/Buttons/Control/Favorite.disabled = false
-		$Info/V/Buttons/Control/PreviewMusic.disabled = false
+		$Info/M/V/Warning.visible = false
+		$Info/M/V/Run/Run.disabled = false
+		$Info/M/V/Buttons/Control/Favorite.disabled = false
+		$Info/M/V/Buttons/Control/PreviewMusic.disabled = false
 	
 	$Actions/Convert.disabled = (
 		$Actions/Convert.debounce or
@@ -92,6 +92,15 @@ func update(_s=null):
 		$Actions/Convert.visible = true
 		$Actions/Difficulty.visible = false
 	
+	# give the containers time to update
+	yield(get_tree(),"idle_frame")
+	yield(get_tree(),"idle_frame")
+	if $Info.rect_size.y > 245:
+		$Actions.rect_position.y = $Info.rect_size.y + 35
+		$EndInfo.rect_position.y = $Info.rect_size.y + 35
+	else:
+		$Actions.rect_position.y = 280
+		$EndInfo.rect_position.y = 280
 
 func return_to_song_select():
 	get_node("/root/Menu/Sidebar").press(1,false)
@@ -105,6 +114,6 @@ func _ready():
 	else:
 		$EndInfo.visible = false
 		$Actions.visible = false
-		$Info/V/Run/Run.disabled = true
-		$Info/V/Buttons/Control/Favorite.disabled = true
-		$Info/V/Buttons/Control/PreviewMusic.disabled = true
+		$Info/M/V/Run/Run.disabled = true
+		$Info/M/V/Buttons/Control/Favorite.disabled = true
+		$Info/M/V/Buttons/Control/PreviewMusic.disabled = true
