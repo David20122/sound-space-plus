@@ -13,8 +13,8 @@ var before
 var transp_multi = 1
 
 func respawn():
-	visible = cursor.transform.origin != last_origin
-	transform.origin = cursor.transform.origin
+	visible = (cursor.transform.origin - Vector3(0,0,0.001)) != last_origin
+	transform.origin = cursor.transform.origin - Vector3(0,0,0.001)
 	if SSP.smart_trail:
 		if before and visible:
 			visible = transform.origin != before.transform.origin
