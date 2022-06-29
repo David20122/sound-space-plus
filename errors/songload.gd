@@ -9,6 +9,8 @@ error info: %s""" % [
 		OS.get_name(),
 		SSP.errorstr,
 	]
+	if OS.has_feature("mobile"):
+		$Info.get("custom_fonts/font").size = 28
 	if ProjectSettings.get_setting("application/config/discord_rpc"):
 		var activity = Discord.Activity.new()
 		activity.set_type(Discord.ActivityType.Playing)

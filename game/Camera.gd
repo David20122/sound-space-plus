@@ -19,6 +19,5 @@ func _input(event):
 			pitch = max(min(pitch - event.relative.y * SSP.sensitivity * 0.2, 89), -89)
 			rotation = Vector3(deg2rad(pitch), deg2rad(yaw), 0)
 
-#func _ready():
-#	if SSP.edge_drift != 0:
-#		transform.origin.z = 5.5
+func _ready():
+	fov = ProjectSettings.get_setting("application/config/fov")

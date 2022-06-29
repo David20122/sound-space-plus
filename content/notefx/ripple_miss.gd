@@ -12,8 +12,8 @@ func _process(delta):
 		$Mesh.scale = Vector3(t*1.2,t*1.2,1)
 		$Mesh.get("material/0").albedo_color.a = 1.0 - (t/0.6)
 
-func spawn(spawn:Node,pos:Vector3):
+func spawn(parent:Node,pos:Vector3,col:Color):
 	$Mesh.set("material/0",$Mesh.get("material/0").duplicate())
 	transform.origin = pos
-	spawn.add_child(self)
+	parent.add_child(self)
 	active = true

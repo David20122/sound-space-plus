@@ -77,6 +77,16 @@ func add_item(item,subregistry:bool=false,replaceSongs:bool=false):
 		idx_rarity.append(null)
 		idx_type.append("BackgroundWorld")
 		return true
+	elif item is NoteEffect:
+		check_and_remove_id(item.id)
+		items.append(item)
+		idx_id.append(item.id)
+		idx_name.append(item.name)
+		idx_creator.append(item.creator)
+		idx_difficulty.append(null)
+		idx_rarity.append(null)
+		idx_type.append("NoteEffect")
+		return true
 	elif item is Song:
 		if replaceSongs: check_and_remove_id(item.id)
 		elif idx_id.has(item.id): return false

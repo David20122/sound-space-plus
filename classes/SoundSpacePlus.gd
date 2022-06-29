@@ -7,6 +7,7 @@ signal selected_song_changed
 signal selected_space_changed
 signal selected_colorset_changed
 signal selected_mesh_changed
+signal selected_hit_effect_changed
 signal init_stage_reached
 signal map_list_ready
 signal volume_changed
@@ -30,6 +31,7 @@ var selected_space:BackgroundWorld
 var selected_colorset:ColorSet
 var selected_song:Song
 var selected_mesh:NoteMesh
+var selected_hit_effect:NoteEffect
 var was_auto_play_switch:bool = true
 var last_search_str:String = ""
 var last_search_incl_broken:bool = false
@@ -96,13 +98,14 @@ var registry_colorset:Registry
 var registry_song:Registry
 var registry_world:Registry
 var registry_mesh:Registry
+var registry_effect:Registry
 
 # Content management
-var user_pack_dir:String = "user://packs"
-var user_mod_dir:String = "user://mods"
-var user_vmap_dir:String = "user://vmaps"
-var user_map_dir:String = "user://maps"
-var user_best_dir:String = "user://bests"
+var user_pack_dir:String = Globals.p("user://packs")
+var user_mod_dir:String = Globals.p("user://mods")
+var user_vmap_dir:String = Globals.p("user://vmaps")
+var user_map_dir:String = Globals.p("user://maps")
+var user_best_dir:String = Globals.p("user://bests")
 var installed_dlc:Array = ["ssp_basegame"]
 var installed_mods:Array = []
 var installed_packs:Array = []
@@ -130,6 +133,7 @@ var note_spawn_effect:bool = true
 var display_true_combo:bool = true
 var cursor_face_velocity:bool = false
 var show_hit_effect:bool = true
+var hit_effect_at_cursor:bool = true
 var lock_mouse:bool = true
 var fade_length:float = 0.5
 
@@ -193,7 +197,7 @@ var conmgr_transit = null
 
 func save_favorites():
 	var file:File = File.new()
-	file.open("user://favorites.txt",File.WRITE)
+	file.open(Globals.p("user://favorites.txt"),File.WRITE)
 	var txt:String = ""
 	for s in favorite_songs:
 		if s != favorite_songs[0]: txt += "\n"
@@ -221,12 +225,12 @@ func save_pbs():
 
 func load_pbs():
 	var file:File = File.new()
-	if file.file_exists("user://pb.json"):
-		file.open("user://pb.json",File.READ)
+	if file.file_exists(Globals.p("user://pb.json")):
+		file.open(Globals.p("user://pb.json"),File.READ)
 		personal_bests = parse_json(file.get_as_text())
 		file.close()
-	elif file.file_exists("user://pb"):
-		file.open("user://pb",File.READ)
+	elif file.file_exists(Globals.p("user://pb")):
+		file.open(Globals.p("user://pb"),File.READ)
 		var ver:int = file.get_16() # READ 2
 		var x:int = file.get_16() # READ 2
 		while !file.eof_reached():
@@ -362,6 +366,11 @@ func select_mesh(mesh:NoteMesh):
 	selected_mesh = mesh
 	emit_signal("selected_mesh_changed",mesh)
 
+func select_hit_effect(effect:NoteEffect):
+	if effect:
+		selected_hit_effect = effect
+		emit_signal("selected_hit_effect_changed",effect)
+
 var rainbow_t:float = 0
 func _process(delta):
 	rainbow_t = fmod(rainbow_t + (delta*0.5),10)
@@ -414,15 +423,15 @@ func update_rpc_song():
 		push_error(result)
 
 
-const current_sf_version = 30
+const current_sf_version = 31
 
 func load_saved_settings():
 	if Input.is_key_pressed(KEY_CONTROL) and Input.is_key_pressed(KEY_L): 
 		print("force settings read error")
 		return -1
 	var file:File = File.new()
-	if file.file_exists("user://settings"):
-		var err = file.open("user://settings",File.READ)
+	if file.file_exists(Globals.p("user://settings")):
+		var err = file.open(Globals.p("user://settings"),File.READ)
 		if err != OK:
 			print("file.open failed"); return 1
 		var sv:int = file.get_16()
@@ -516,12 +525,19 @@ func load_saved_settings():
 			rainbow_grid = bool(file.get_8())
 			rainbow_hud = bool(file.get_8())
 			smart_trail = bool(file.get_8())
+		if sv >= 31:
+			var eff = registry_effect.get_item(file.get_line())
+			if eff: select_hit_effect(eff)
+			if file.get_8() != 192:
+				print("integ 9"); return 11
+			hit_effect_at_cursor = bool(file.get_8())
+			
 		file.close()
 	return 0
 
 func save_settings():
 	var file:File = File.new()
-	var err:int = file.open("user://settings",File.WRITE)
+	var err:int = file.open(Globals.p("user://settings"),File.WRITE)
 	if err == OK:
 		file.store_16(current_sf_version)
 		file.store_float(approach_rate)
@@ -580,12 +596,16 @@ func save_settings():
 		file.store_8(int(rainbow_grid))
 		file.store_8(int(rainbow_hud))
 		file.store_8(int(smart_trail))
+		file.store_line(selected_hit_effect.id)
+		file.store_8(192) # integrity check
+		file.store_8(int(hit_effect_at_cursor))
 		file.close()
 		return "OK"
 	else:
 		print("error code %s" % err)
 
 func get_stream_with_default(path:String,default:AudioStream) -> AudioStream:
+	path = Globals.p(path)
 	var file:File = File.new()
 	if file.file_exists(path + ".ogg"): path += ".ogg"
 	elif file.file_exists(path + ".mp3"): path += ".mp3"
@@ -614,48 +634,8 @@ func _ready():
 var errornum:int = 0
 var errorstr:String = ""
 
-func do_init(_ud=null):
-	installed_packs = []
-	var lmid
-	yield(get_tree().create_timer(0.05),"timeout") # haha thread safety go brrrr
-	if first_init_done and selected_song: lmid = selected_song.id
-	var lp:bool = false # load pause
-	var file:File = File.new()
-	var dir:Directory = Directory.new()
-	var err:int = dir.open("user://")
-	if OS.has_feature("editor"):
-		yield(get_tree().create_timer(0.35),"timeout")
-	if Input.is_key_pressed(KEY_CONTROL) and Input.is_key_pressed(KEY_U):
-		err = -1
-	
-	if err != OK:
-		errornum = err
-		get_tree().change_scene("res://errors/userfolder.tscn")
-		return
-	
-	# Setup directories if they don't already exist
-	var convert_pb_format:bool = false
-	
-	if !first_init_done:
-		emit_signal("init_stage_reached","Init filesystem")
-		if lp: yield(get_tree(),"idle_frame")
-		if !dir.dir_exists(user_mod_dir): dir.make_dir(user_mod_dir)
-		if !dir.dir_exists(user_pack_dir): dir.make_dir(user_pack_dir)
-		if !dir.dir_exists(user_vmap_dir): dir.make_dir(user_vmap_dir)
-		if !dir.dir_exists(user_map_dir): dir.make_dir(user_map_dir)
-		if !dir.dir_exists(user_best_dir):
-			convert_pb_format = true
-			dir.make_dir(user_best_dir)
-	
-	# set up registries
-	emit_signal("init_stage_reached","Init registries")
-	if lp: yield(get_tree(),"idle_frame")
-	registry_colorset = Registry.new()
-	registry_song = Registry.new()
-	registry_world = Registry.new()
-	registry_mesh = Registry.new()
-	
-	# Register built-in colorsets
+# separated these, should hopefully make them easier to find
+func register_colorsets():
 	registry_colorset.add_item(ColorSet.new(
 		[ Color("#fc94f2"),Color("#96fc94") ],
 		"ssp_everybodyvotes", "Everybody Votes Channel", "Chedski"
@@ -704,8 +684,8 @@ func do_init(_ud=null):
 		[ Color("#9a5ef9") ],
 		"ssp_purple", "purple!!!", "Chedski"
 	))
-	
-	# Register built-in worlds
+
+func register_worlds():
 	# idI:String,nameI:String,pathI:String,creatorI:String="Unknown"
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_space_tunnel", "Neon Corners",
@@ -743,7 +723,7 @@ func do_init(_ud=null):
 		"res://content/worlds/covers/classic.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
-		"ssp_custombg", "Custom Background (hdri)",
+		"ssp_custombg", "Custom Background",
 		"res://content/worlds/custombg.tscn", "Someone",
 		"res://error.jpg"
 	))
@@ -752,7 +732,8 @@ func do_init(_ud=null):
 		"res://content/worlds/custom.tscn", "Someone",
 		"res://content/worlds/covers/custom.png"
 	))
-	
+
+func register_meshes():
 	registry_mesh.add_item(NoteMesh.new(
 		"ssp_square", "Square",
 		"res://content/blocks/default.obj", "Chedski"
@@ -765,9 +746,83 @@ func do_init(_ud=null):
 		"ssp_circle", "Circle",
 		"res://content/blocks/circle.obj", "Chedski"
 	))
+
+func register_effects():
+	registry_effect.add_item(NoteEffect.new(
+		"ssp_ripple", "Ripple* (no color)",
+		"res://content/notefx/ripple.tscn", "Chedski"
+	))
+	registry_effect.add_item(NoteEffect.new(
+		"ssp_ripple_n", "Ripple* (note color)",
+		"res://content/notefx/ripple.tscn", "Chedski"
+	))
+	registry_effect.add_item(NoteEffect.new(
+		"ssp_ripple_r", "Ripple* (rainbow)",
+		"res://content/notefx/ripple.tscn", "Chedski"
+	))
+	registry_effect.add_item(NoteEffect.new(
+		"ssp_shards", "Shards (note color)",
+		"res://content/notefx/shards.tscn", "Chedski"
+	))
+	registry_effect.add_item(NoteEffect.new(
+		"ssp_shards_r", "Shards (rainbow)",
+		"res://content/notefx/shards.tscn", "Chedski"
+	))
+
+func do_init(_ud=null):
+	installed_packs = []
+	var lmid
+	yield(get_tree().create_timer(0.05),"timeout") # haha thread safety go brrrr
+	if first_init_done and selected_song: lmid = selected_song.id
+	var lp:bool = false # load pause
+	var file:File = File.new()
+	var dir:Directory = Directory.new()
+	if OS.has_feature("Android"): OS.request_permissions()
+	var user_dir = Globals.p("user://")
+	if user_dir == "RETRY":
+		yield(get_tree().create_timer(7),"timeout")
+		user_dir = Globals.p("user://")
+	var err:int = dir.open(user_dir)
+	if OS.has_feature("editor"):
+		yield(get_tree().create_timer(0.35),"timeout")
+	if Input.is_key_pressed(KEY_CONTROL) and Input.is_key_pressed(KEY_U):
+		err = -1
 	
-	if file.file_exists("user://colors.txt"):
-		file.open("user://colors.txt",File.READ)
+	if err != OK:
+		Globals.errornum = err
+		get_tree().change_scene("res://errors/userfolder.tscn")
+		return
+	
+	# Setup directories if they don't already exist
+	var convert_pb_format:bool = false
+	
+	if !first_init_done:
+		emit_signal("init_stage_reached","Init filesystem")
+		if lp: yield(get_tree(),"idle_frame")
+		if !dir.dir_exists(user_mod_dir): dir.make_dir(user_mod_dir)
+		if !dir.dir_exists(user_pack_dir): dir.make_dir(user_pack_dir)
+		if !dir.dir_exists(user_vmap_dir): dir.make_dir(user_vmap_dir)
+		if !dir.dir_exists(user_map_dir): dir.make_dir(user_map_dir)
+		if !dir.dir_exists(user_best_dir):
+			convert_pb_format = true
+			dir.make_dir(user_best_dir)
+	
+	# set up registries
+	emit_signal("init_stage_reached","Init registries")
+	if lp: yield(get_tree(),"idle_frame")
+	registry_colorset = Registry.new()
+	registry_song = Registry.new()
+	registry_world = Registry.new()
+	registry_mesh = Registry.new()
+	registry_effect = Registry.new()
+	
+	register_colorsets()
+	register_effects()
+	register_meshes()
+	register_worlds()
+	
+	if file.file_exists(Globals.p("user://colors.txt")):
+		file.open(Globals.p("user://colors.txt"),File.READ)
 		var ctxt:String = file.get_as_text()
 		file.close()
 		var split:Array = ctxt.split("\n",false)
@@ -888,11 +943,11 @@ func do_init(_ud=null):
 		if fmod(i,floor(float(vmaps.size())/100)) == 0: yield(get_tree(),"idle_frame")
 		registry_song.add_vulnus_map(user_vmap_dir + "/" + vmaps[i])
 	dir.list_dir_end()
-	if dir.dir_exists("user://officialmaps"):
+	if dir.dir_exists(Globals.p("user://officialmaps")):
 		var vmaps_o:Array = []
 		emit_signal("init_stage_reached","Register content 4/4\nImport official map archive")
 		yield(get_tree(),"idle_frame")
-		dir.change_dir("user://officialmaps")
+		dir.change_dir(Globals.p("user://officialmaps"))
 		dir.list_dir_begin(true)
 		n = dir.get_next()
 		while n:
@@ -903,7 +958,7 @@ func do_init(_ud=null):
 				100*(float(i)/float(vmaps_o.size()))
 			))
 			if fmod(i,floor(float(vmaps_o.size())/100)) == 0: yield(get_tree(),"idle_frame")
-			registry_song.add_vulnus_map("user://officialmaps/" + vmaps_o[i])
+			registry_song.add_vulnus_map(Globals.p("user://officialmaps/") + vmaps_o[i])
 		dir.list_dir_end()
 	
 	# Default 
@@ -912,10 +967,12 @@ func do_init(_ud=null):
 	
 	emit_signal("init_stage_reached","Init default assets 1/6")
 	if lp: yield(get_tree(),"idle_frame")
+	selected_hit_effect = registry_effect.get_item("ssp_ripple")
 	selected_colorset = registry_colorset.get_item("ssp_everybodyvotes")
 	selected_space = registry_world.get_item("ssp_space_tunnel")
 	selected_mesh = registry_mesh.get_item("ssp_square")
 	
+	assert(selected_hit_effect)
 	assert(selected_colorset)
 	assert(selected_space)
 	assert(selected_mesh)
@@ -1004,8 +1061,8 @@ func do_init(_ud=null):
 	if !first_init_done:
 		emit_signal("init_stage_reached","Read favorite songs")
 		yield(get_tree(),"idle_frame")
-		if file.file_exists("user://favorites.txt"):
-			file.open("user://favorites.txt",File.READ)
+		if file.file_exists(Globals.p("user://favorites.txt")):
+			file.open(Globals.p("user://favorites.txt"),File.READ)
 			var txt = file.get_as_text()
 			file.close()
 			favorite_songs = txt.split("\n")

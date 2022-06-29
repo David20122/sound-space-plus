@@ -183,9 +183,9 @@ func load_buffer(bytes:PoolByteArray,loop:bool=false):
 
 func load_file(filepath:String,loop:bool=false):
 	var file = File.new()
-	var err = file.open(filepath, File.READ)
+	var err = file.open(Globals.p(filepath), File.READ)
 	if err != OK:
-		report_errors(err, filepath)
+		report_errors(err, Globals.p(filepath))
 		file.close()
 		return Globals.error_sound
 	

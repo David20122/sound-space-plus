@@ -5,21 +5,24 @@ export(float) var offset = 0.1
 var started:bool = false
 var t:float = 0
 
-onready var cursor = get_node("../Cursor")
-onready var cursormesh = get_node("../Cursor/Mesh")
+onready var cursor = get_node("../Spawn/Cursor")
+onready var cursormesh = get_node("../Spawn/Cursor/Mesh")
 
 var last_origin = Vector3(-100,0,0)
 var before
 var transp_multi = 1
 
 func respawn():
-	visible = (cursor.transform.origin - Vector3(0,0,0.001)) != last_origin
-	transform.origin = cursor.transform.origin - Vector3(0,0,0.001)
+	visible = (cursor.global_transform.origin - Vector3(0,0,0.001)) != last_origin
+	global_transform.origin = cursor.global_transform.origin - Vector3(0,0,0.001)
 	if SSP.smart_trail:
 		if before and visible:
-			visible = transform.origin != before.transform.origin
-		last_origin = transform.origin
-		transp_multi = clamp((transform.origin - before.transform.origin).length() / 0.1,0.0,1.0)
+			visible = global_transform.origin != before.global_transform.origin
+		last_origin = global_transform.origin
+		transp_multi = clamp(
+			(global_transform.origin - before.global_transform.origin).length() / 0.1,
+			0.0,1.0
+		)
 	$Mesh.get("material/0").albedo_color = cursormesh.get("material/0").albedo_color
 	$Mesh.rotation = cursormesh.rotation
 

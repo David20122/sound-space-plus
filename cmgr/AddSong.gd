@@ -1,12 +1,9 @@
 extends Panel
 
-const NativeDialogs := preload("res://addons/native_dialogs/native_dialogs.gd")
-var gdunzip = load("res://classes/gdunzip.gd").new()
-
 var dir:Directory = Directory.new()
 var file:File = File.new()
-var openFile:NativeDialogs.OpenFile
-var openFolder:NativeDialogs.SelectFolder
+onready var openFile = $FileDialog
+onready var openFolder = $FolderDialog
 
 export(Texture) var cover_placeholder
 
@@ -639,10 +636,6 @@ func back_to_menu():
 	get_tree().change_scene("res://menuload.tscn")
 
 func _ready():
-	openFile = NativeDialogs.OpenFile.new()
-	openFolder = NativeDialogs.SelectFolder.new()
-	openFile.name = "FileDialog"
-	openFile.name = "FolderDialog"
 	
 	$SelectType/txt.connect("pressed",self,"select_type",[T_TXT])
 	$SelectType/sspm.connect("pressed",self,"select_type",[T_SSPM])
@@ -703,8 +696,8 @@ func _ready():
 	openFile.connect("files_selected",self,"file_selected")
 	openFolder.connect("folder_selected",self,"folder_selected")
 	
-	call_deferred("add_child",openFile)
-	call_deferred("add_child",openFolder)
+#	call_deferred("add_child",openFile)
+#	call_deferred("add_child",openFolder)
 	call_deferred("onopen")
 
 func _process(delta):

@@ -12,10 +12,17 @@ func _process(delta):
 		$Mesh.scale = Vector3(t*1.2,t*1.2,1)
 		$Mesh.get("material/0").albedo_color.a = 0.6 - t
 
-func spawn(spawn:Node,pos:Vector3):
-	$Mesh.set("material/0",$Mesh.get("material/0").duplicate())
+func spawn(parent:Node,pos:Vector3,col:Color):
+	var mat:SpatialMaterial = $Mesh.get("material/0").duplicate()
+	$Mesh.set("material/0",mat)
+	
+	if SSP.selected_hit_effect.id == "ssp_ripple_n":
+		mat.albedo_color = col
+	elif SSP.selected_hit_effect.id == "ssp_ripple_r":
+		mat.albedo_color = Color.from_hsv(SSP.rainbow_t*0.1,0.4,1)
+	
 	transform.origin = pos
-	spawn.add_child(self)
+	parent.add_child(self)
 	active = true
 
 var is_first:bool = true

@@ -13,6 +13,7 @@ var notes_loaded:bool = false
 var noteNodes:Array = []
 var noteQueue:Array = []
 var colors:Array = SSP.selected_colorset.colors
+var hitEffect:Spatial = load(SSP.selected_hit_effect.path).instance()
 
 const base_position = Vector3(-1,1,0)
 
@@ -21,7 +22,6 @@ var next_ms:float = 100000
 
 var out_of_notes:bool = false
 func reposition_notes(force:bool=false):
-	var for_del:int = 0
 	if noteNodes.size() == 0: out_of_notes = true
 	var is_first:bool = true
 	for note in noteNodes:
@@ -37,7 +37,11 @@ func reposition_notes(force:bool=false):
 				note.state = Globals.NSTATE_MISS
 				if SSP.play_miss_snd: $Miss.play()
 #				$MissEffect.duplicate().spawn(
-#					self,Vector3(note.transform.origin.x,note.transform.origin.y,0.002)
+#					get_parent(),Vector3(
+#						$Cursor.global_transform.origin.x,
+#						$Cursor.global_transform.origin.y,
+#						0.002
+#					),note.col
 #				)
 				emit_signal("miss",note.col)
 				prev_ms = note.notems
@@ -46,9 +50,16 @@ func reposition_notes(force:bool=false):
 				if SSP.play_hit_snd: $Hit.play()
 					#$Hit.play((ms - note.notems)/1000.0)
 				if SSP.show_hit_effect:
-					$HitEffect.duplicate().spawn(
-						self,Vector3($Cursor.transform.origin.x,$Cursor.transform.origin.y,0.002)
+					var pos:Vector3 = Vector3(
+						$Cursor.global_transform.origin.x,
+						$Cursor.global_transform.origin.y,
+						0.002
 					)
+					if !SSP.hit_effect_at_cursor:
+						pos.x = note.global_transform.origin.x
+						pos.y = note.global_transform.origin.y
+					
+					hitEffect.duplicate().spawn(get_parent(),pos,note.col)
 				emit_signal("hit",note.col)
 				prev_ms = note.notems
 		elif ms - note.notems > 100:
@@ -111,13 +122,10 @@ func _ready():
 	else:
 		m.set_shader_param("fade_in_start",SSP.spawn_distance+4.0)
 		m.set_shader_param("fade_in_end",(SSP.spawn_distance*clamp(1 - SSP.fade_length,0,0.995))+4.0)
-#		m.distance_fade_max_distance = (SSP.spawn_distance - min(SSP.approach_rate * 0.1, SSP.spawn_distance * 0.6))+4.0
 
 var music_started:bool = false
-
 const cursor_offset = Vector3(1,-1,0)
-
-onready var cam:Camera = get_parent().get_parent().get_node("Camera")
+onready var cam:Camera = get_node("../..").get_node("Camera")
 var hlpower = (0.1 * SSP.parallax)
 
 
@@ -136,17 +144,11 @@ func do_half_lock():
 	transform.origin = Vector3(
 		-(centeroff.x*hlm*grm)-1, -(centeroff.y*hlm*grm)+1, 0
 	)
-#	get_parent().transform.origin = Vector3(-centeroff.x*hlpower,-centeroff.y*hlpower,0) * 0.5
-#	get_parent().get_node("Grid/Inner").transform.origin = Vector3(-centeroff.x*hlpower,-centeroff.y*hlpower,0) * 0.5
-#	transform.origin = -cursor_offset + Vector3(-centeroff.x*hlpower,-centeroff.y*hlpower,0) * 0.5
-#	if SSP.background_parallax != 0:
-#		var spaceoff = (transform.origin - Vector3(-1,1,0)) * SSP.background_parallax
-#		get_parent().get_parent().get_node("Space").transform.origin = spaceoff
 
 var sh:Vector2 = Vector2(-0.5,-0.5)
 var edgec:float = 0
 func do_spin():
-	var centeroff = get_parent().get_parent().get_node("SpinPos").global_transform.origin + cursor_offset
+	var centeroff = get_node("../..").get_node("SpinPos").global_transform.origin + cursor_offset
 	
 	var cx = centeroff.x
 	var cy = -centeroff.y
@@ -158,11 +160,7 @@ func do_spin():
 	cam.transform.origin = Vector3(
 		centeroff.x*hlpower, centeroff.y*hlpower, 3.735
 	)
-#	get_parent().get_node("Grid/Inner").transform.origin = Vector3(-centeroff.x*hlpower,-centeroff.y*hlpower,0) * 0.5
 	get_node("Cursor").transform.origin = centeroff + cursor_offset
-#	transform.origin = -cursor_offset + Vector3(-centeroff.x*hlpower,-centeroff.y*hlpower,0) * 0.5
-#	if get_parent().get_parent().has_node("Space"):
-#		get_parent().get_parent().get_node("Space").transform.origin = -cursor_offset + Vector3(-centeroff.x*hlpower,-centeroff.y*hlpower,0) * 0.5
 
 var pause_state:float = 0
 var pause_ms:float = 0
@@ -191,7 +189,7 @@ func do_note_queue():
 			spawn_note(n)
 		else: break
 	
-	for i in range(rem): noteQueue.pop_front()
+	for _i in range(rem): noteQueue.pop_front()
 
 onready var TimerHud = get_node("../Grid/TimerHud")
 onready var ComboHud = get_node("../Grid/ComboHud")

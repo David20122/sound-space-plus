@@ -1,4 +1,4 @@
-[gd_scene load_steps=130 format=2]
+[gd_scene load_steps=132 format=2]
 
 [ext_resource path="res://uitheme.tres" type="Theme" id=1]
 [ext_resource path="res://font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=2]
@@ -56,6 +56,8 @@
 [ext_resource path="res://content/ui/add_icon.png" type="Texture" id=54]
 [ext_resource path="res://content/ui/old_menu.png" type="Texture" id=55]
 [ext_resource path="res://content/ui/quit_to_desktop.png" type="Texture" id=56]
+[ext_resource path="res://addons/native_dialogs/bin/native_dialog_save_file.gdns" type="Script" id=57]
+[ext_resource path="res://menuButtons/ExportTxt.gd" type="Script" id=58]
 
 [sub_resource type="StyleBoxFlat" id=59]
 draw_center = false
@@ -2106,7 +2108,7 @@ custom_styles/disabled = SubResource( 65 )
 custom_styles/normal = SubResource( 66 )
 action_mode = 0
 
-[node name="Actions" type="ReferenceRect" parent="Main/Results"]
+[node name="Actions" type="VBoxContainer" parent="Main/Results"]
 margin_left = 347.0
 margin_top = 280.0
 margin_right = 572.0
@@ -2119,6 +2121,7 @@ __meta__ = {
 [node name="Convert" type="Button" parent="Main/Results/Actions"]
 margin_right = 225.0
 margin_bottom = 27.0
+rect_min_size = Vector2( 225, 27 )
 theme = ExtResource( 1 )
 action_mode = 0
 text = "Convert map to .sspm"
@@ -2126,13 +2129,31 @@ clip_text = true
 script = ExtResource( 39 )
 
 [node name="Difficulty" type="OptionButton" parent="Main/Results/Actions"]
-visible = false
+margin_top = 31.0
 margin_right = 225.0
-margin_bottom = 27.0
-rect_min_size = Vector2( 0, 25 )
+margin_bottom = 58.0
+rect_min_size = Vector2( 225, 27 )
 theme = ExtResource( 1 )
+text = "Set difficulty"
 align = 1
 script = ExtResource( 40 )
+
+[node name="ExportTxt" type="Button" parent="Main/Results/Actions"]
+margin_top = 62.0
+margin_right = 225.0
+margin_bottom = 89.0
+rect_min_size = Vector2( 225, 27 )
+theme = ExtResource( 1 )
+action_mode = 0
+text = "Export map data"
+clip_text = true
+script = ExtResource( 58 )
+
+[node name="SaveFile" type="Node" parent="Main/Results/Actions/ExportTxt"]
+script = ExtResource( 57 )
+title = "Save map data..."
+initial_path = "~/Downloads"
+filters = PoolStringArray( "*.txt ; Text files" )
 
 [node name="ModsTitle" type="Label" parent="Main/Results"]
 margin_left = 624.0
@@ -3347,7 +3368,7 @@ scroll_horizontal_enabled = false
 [node name="F" parent="Main/Settings/S" instance=ExtResource( 49 )]
 anchor_right = 0.0
 margin_right = 800.0
-margin_bottom = 2087.0
+margin_bottom = 2155.0
 rect_clip_content = true
 
 [node name="Credits" type="ReferenceRect" parent="Main"]

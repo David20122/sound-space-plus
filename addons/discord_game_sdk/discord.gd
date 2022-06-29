@@ -256,13 +256,14 @@ func _ready():
 	#else:
 	#	OS.set_environment("DISCORD_INSTANCE_ID", "0")
 	
-	discore_core_ = DiscordCore.new()
-	if discore_core_:
-		discore_core_.create(978085646272983060, CreateFlags.NoRequireDiscord)
-		
-		activity_manager = ActivityManager_.new(discore_core_.get_activity_manager())
-		lobby_manager = LobbyManager_.new(discore_core_.get_lobby_manager())
-		overlay_manager = OverlayManager_.new(discore_core_.get_overlay_manager())
+	if ProjectSettings.get_setting("application/config/discord_rpc"):
+		discore_core_ = DiscordCore.new()
+		if discore_core_:
+			discore_core_.create(978085646272983060, CreateFlags.NoRequireDiscord)
+			
+			activity_manager = ActivityManager_.new(discore_core_.get_activity_manager())
+			lobby_manager = LobbyManager_.new(discore_core_.get_lobby_manager())
+			overlay_manager = OverlayManager_.new(discore_core_.get_overlay_manager())
 	
 func _process(delta:float) -> void:
 	if discore_core_:

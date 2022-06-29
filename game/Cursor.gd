@@ -68,7 +68,6 @@ func _ready():
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	else:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
-		Input.set_default_cursor_shape(Input.CURSOR_CROSS)
 	var mat:SpatialMaterial = $Mesh.get("material/0")
 	$Mesh.scale = Vector3(SSP.cursor_scale,SSP.cursor_scale,SSP.cursor_scale)
 	$Mesh2.scale = 0.5 * Vector3(SSP.cursor_scale,SSP.cursor_scale,SSP.cursor_scale)
@@ -80,14 +79,15 @@ func _ready():
 	if img: $VisualPos/T.texture = img
 	
 	if SSP.cursor_trail:
+		var base:Spatial = get_node("../../CursorTrail")
 		var last
 		for i in range(SSP.trail_detail):
-			var trail:Spatial = get_node("../CursorTrail")
+			var trail:Spatial = base
 			if i != 0:
 				trail = trail.duplicate()
-				get_parent().call_deferred("add_child",trail)
+				get_node("../..").call_deferred("add_child",trail)
 			
-			trail.offset = (i + 1) / float(SSP.trail_detail)
+			trail.offset = (i) / float(SSP.trail_detail)
 			if last: trail.before = last
 			else: trail.before = self
 			trail.start()

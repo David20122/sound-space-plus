@@ -11,41 +11,57 @@ enum KIND {
 
 export(KIND) var kind = KIND.IMAGE
 
-var zero = 0
+var copy_old_from:String
+
+func save_sel(file:String):
+	dir.copy(copy_old_from,file)
 
 func rename_old(ext:String):
 	var dt = OS.get_datetime()
-	if dir.file_exists("user://%s.%s" % [target,ext]):
-		dir.rename(
-			"user://%s.%s" % [target,ext],
-			"user://%s_old_%s-%s-%s_%s-%s-%s.%s" % [
-				target, dt.year,dt.month,dt.day,
-				dt.hour,dt.minute,dt.second, ext
-			]
-		)
+	copy_old_from = Globals.p("user://%s.%s" % [target,ext])
+	$SaveFile.filters = [
+		"*.%s ; %s file" % [ext,ext]
+	]
+	$SaveFile.initial_path = "~/Downloads/%s.%s" % [target,ext] 
+	$SaveFile.show()
 
 func sel(files:Array):
 	if files.size() != 0:
 		if kind == KIND.IMAGE:
-			if dir.file_exists("user://%s.png" % target): rename_old("png")
-			elif dir.file_exists("user://%s.jpg" % target): rename_old("jpg")
-			elif dir.file_exists("user://%s.jpeg" % target): rename_old("jpeg")
-			elif dir.file_exists("user://%s.webp" % target): rename_old("webp")
-			elif dir.file_exists("user://%s.bmp" % target): rename_old("bmp")
-			dir.copy(files[0],"user://%s.%s" % [target,files[0].get_extension()])
-			
-			var tex = Globals.imageLoader.load_if_exists("user://" + target)
-			if tex: $ImgPreview.texture = tex
-			else: $ImgPreview.texture = default_image
+			Globals.confirm_prompt.open(
+				"Are you sure? This will overwrite the previous image!",
+				"Replace Custom Asset",
+				[
+					{ text = "Cancel" },
+					{ text = "Save old image" },
+					{ text = "OK", wait = 2 }
+				]
+			)
+			var response:int = yield(Globals.confirm_prompt,"option_selected")
+			while response == 1:
+				if dir.file_exists(Globals.p("user://%s.png" % target)): rename_old("png")
+				elif dir.file_exists(Globals.p("user://%s.jpg" % target)): rename_old("jpg")
+				elif dir.file_exists(Globals.p("user://%s.jpeg" % target)): rename_old("jpeg")
+				elif dir.file_exists(Globals.p("user://%s.webp" % target)): rename_old("webp")
+				elif dir.file_exists(Globals.p("user://%s.bmp" % target)): rename_old("bmp")
+				response = yield(Globals.confirm_prompt,"option_selected")
+			if response == 2:
+				dir.copy(files[0],Globals.p("user://%s.%s" % [target,files[0].get_extension()]))
+				
+				var tex = Globals.imageLoader.load_if_exists("user://" + target)
+				if tex: $ImgPreview.texture = tex
+				else: $ImgPreview.texture = default_image
+			else: print("cancelled")
+			Globals.confirm_prompt.close()
 		else:
 			pass
 
 func _pressed():
-	
 	$OpenFile.show()
 
 func _ready():
 	$OpenFile.connect("files_selected",self,"sel")
+	$SaveFile.connect("file_selected",self,"save_sel")
 	if OS.has_feature("mobile"):
 		disabled = true
 		text = "Not supported yet"

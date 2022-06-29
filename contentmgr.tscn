@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://uitheme.tres" type="Theme" id=2]
@@ -12,6 +12,8 @@
 [ext_resource path="res://MusicVolumeSetter.gd" type="Script" id=10]
 [ext_resource path="res://contentmgr.gd" type="Script" id=11]
 [ext_resource path="res://icon.png" type="Texture" id=12]
+[ext_resource path="res://addons/native_dialogs/bin/native_dialog_open_file.gdns" type="Script" id=13]
+[ext_resource path="res://addons/native_dialogs/bin/native_dialog_select_folder.gdns" type="Script" id=14]
 [ext_resource path="res://VersionNumber.gd" type="Script" id=17]
 [ext_resource path="res://menuButtons/CMgrExit.gd" type="Script" id=59]
 [ext_resource path="res://content/sfx/menu_full.mp3" type="AudioStream" id=70]
@@ -134,6 +136,12 @@ margin_bottom = 270.0
 custom_styles/panel = SubResource( 70 )
 script = ExtResource( 6 )
 cover_placeholder = ExtResource( 8 )
+
+[node name="FileDialog" type="Node" parent="AddSong"]
+script = ExtResource( 13 )
+
+[node name="FolderDialog" type="Node" parent="AddSong"]
+script = ExtResource( 14 )
 
 [node name="Title" type="Label" parent="AddSong"]
 anchor_right = 1.0

@@ -27,14 +27,16 @@ func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	SSP.connect("init_stage_reached",self,"stage")
 	var s = Globals.error_sound
-	var st = SSP.get_stream_with_default("user://loadingmusic",s)
-	if st != s:
-		$Music.stream = st
-		$Music.play()
+#	var st = SSP.get_stream_with_default("user://loadingmusic",s)
+#	if st != s:
+#		$Music.stream = st
+#		$Music.play()
+	OS.request_permissions()
 	yield(get_tree().create_timer(0.5),"timeout")
 	if ProjectSettings.get_setting("application/config/auto_maximize"): OS.window_maximized = true
 	yield(get_tree().create_timer(0.5),"timeout")
 	$AudioStreamPlayer.play()
+	
 	
 	thread.start(SSP,"do_init")
 	

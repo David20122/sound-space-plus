@@ -81,9 +81,9 @@ func load_buffer(bytes:PoolByteArray) -> Texture:
 
 func load_file(filepath:String) -> Texture:
 	var file = File.new()
-	var err = file.open(filepath, File.READ)
+	var err = file.open(Globals.p(filepath), File.READ)
 	if err != OK:
-		report_errors(err, filepath)
+		report_errors(err, Globals.p(filepath))
 		file.close()
 		return error_texture
 	
@@ -93,6 +93,7 @@ func load_file(filepath:String) -> Texture:
 
 func load_if_exists(path:String):
 	var file:File = File.new()
+	path = Globals.p(path)
 	if file.file_exists(path + ".png"): path += ".png"
 	elif file.file_exists(path + ".jpg"): path += ".jpg"
 	elif file.file_exists(path + ".jpeg"): path += ".jpeg"

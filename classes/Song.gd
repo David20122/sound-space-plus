@@ -35,8 +35,8 @@ var pb_data:Dictionary = {}
 
 func load_pbs():
 	var file:File = File.new()
-	if file.file_exists("user://bests/%s" % id):
-		var err:int = file.open("user://bests/%s" % id,File.READ)
+	if file.file_exists(Globals.p("user://bests/%s" % id)):
+		var err:int = file.open(Globals.p("user://bests/%s" % id),File.READ)
 		if err != OK:
 #			print("error reading pb file for %s: %s" % [id, String(err)])
 			return
@@ -69,7 +69,7 @@ func load_pbs():
 
 func save_pbs():
 	var file:File = File.new()
-	var err:int = file.open("user://bests/%s" % id,File.WRITE)
+	var err:int = file.open(Globals.p("user://bests/%s") % id,File.WRITE)
 	if err != OK:
 		print("error writing pb file for %s: %s" % [id, String(err)])
 		return
@@ -324,9 +324,10 @@ func read_notes() -> Array:
 			
 			if file.get_8() != 1:
 				print("no music?")
-				file.close()
-				return []
-			file.seek(file.get_position() + file.get_64() + 8) # Skip over music
+#				file.close()
+#				return []
+			else:
+				file.seek(file.get_position() + file.get_64() + 8) # Skip over music
 			
 			# Note data
 			for i in range(note_count):
@@ -388,8 +389,8 @@ func convert_to_sspm():
 	var file:File = File.new()
 	var dir:Directory = Directory.new()
 	# Figure out the path and make sure it's usable
-	var path:String = "user://maps/%s.sspm" % id
-	if !dir.dir_exists("user://maps"): dir.make_dir("user://maps")
+	var path:String = Globals.p("user://maps/%s.sspm") % id
+	if !dir.dir_exists(Globals.p("user://maps")): dir.make_dir(Globals.p("user://maps"))
 	if file.file_exists(path): return "File already exists!"
 	# Open the file for writing
 	var err = file.open(path,File.WRITE)
@@ -554,6 +555,22 @@ func load_from_sspm(path:String):
 	
 	file.close() # All done!
 	return self
+
+func export_text(path:String):
+	var txt = id + ","
+	var notearr:Array = read_notes()
+	if notearr.size() == 0:
+		return "no notes"
+	else:
+		for n in read_notes():
+			txt += "%s|%s|%s," % n
+
+	var file:File = File.new()
+	var err:int = file.open(path,File.WRITE)
+	if err != OK: return "file.open errored - code " + String(err)
+	file.store_string(txt)
+	file.close()
+	return "OK"
 
 func _init(idI:String="SOMETHING IS VERY BROKEN",nameI:String="SOMETHING IS VERY BROKEN",creatorI:String="Unknown"):
 	id = idI

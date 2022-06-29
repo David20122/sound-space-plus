@@ -65,6 +65,7 @@ func _ready():
 	$L/OldMenu.connect("pressed",self,"to_old_menu")
 	$L/ContentMgr.connect("pressed",self,"to_content_mgr")
 	$L/Quit.connect("pressed",self,"quit")
+	$L/ContentMgr.visible = ProjectSettings.get_setting("application/config/enable_new_content_mgr")
 	$L/Quit.visible = OS.has_feature("pc")
 	
 
