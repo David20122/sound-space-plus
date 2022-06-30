@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/mkw_next.mp3-7d6f8def7792291dfc9c7eeb1fac5797.mp3str"
+
+[deps]
+
+source_file="res://content/sfx/mkw_next.mp3"
+dest_files=[ "res://.import/mkw_next.mp3-7d6f8def7792291dfc9c7eeb1fac5797.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

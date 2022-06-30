@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/mkw_alert.mp3-fc26219857a8f8844b70bec21a79b24f.mp3str"
+
+[deps]
+
+source_file="res://content/sfx/mkw_alert.mp3"
+dest_files=[ "res://.import/mkw_alert.mp3-fc26219857a8f8844b70bec21a79b24f.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

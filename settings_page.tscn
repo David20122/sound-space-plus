@@ -106,7 +106,7 @@ __meta__ = {
 [node name="M" type="VBoxContainer" parent="."]
 margin_top = 59.0
 margin_right = 1150.0
-margin_bottom = 2055.0
+margin_bottom = 2143.0
 custom_constants/separation = 0
 
 [node name="Modifiers" type="VBoxContainer" parent="M"]
@@ -189,7 +189,7 @@ theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
 custom_fonts/font = SubResource( 4 )
-text = "[default 100%] used by the custom speed modifier (speed+ is 115, s++ is 125, s+++ is 135, and s++++ is 145)"
+text = "[default 100%] used by the custom speed modifier (speed+ mods are 115, 125, 135, and 145)"
 valign = 1
 
 [node name="HitboxSize" type="Control" parent="M/Modifiers/Group/H"]
@@ -326,7 +326,7 @@ margin_right = 1150.0
 margin_bottom = 588.0
 
 [node name="ColorSet" type="Control" parent="M/Customization/Group/H"]
-margin_right = 510.0
+margin_right = 658.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 200, 32 )
 
@@ -567,7 +567,7 @@ __meta__ = {
 
 [node name="World" type="Control" parent="M/Customization/Group/H"]
 margin_top = 36.0
-margin_right = 510.0
+margin_right = 658.0
 margin_bottom = 68.0
 rect_min_size = Vector2( 200, 32 )
 
@@ -616,7 +616,7 @@ valign = 1
 
 [node name="Mesh" type="Control" parent="M/Customization/Group/H"]
 margin_top = 72.0
-margin_right = 510.0
+margin_right = 658.0
 margin_bottom = 104.0
 rect_min_size = Vector2( 200, 32 )
 
@@ -662,7 +662,7 @@ valign = 1
 
 [node name="HitEffect" type="Control" parent="M/Customization/Group/H"]
 margin_top = 108.0
-margin_right = 510.0
+margin_right = 658.0
 margin_bottom = 140.0
 rect_min_size = Vector2( 200, 32 )
 
@@ -708,7 +708,7 @@ valign = 1
 
 [node name="CursorScale" type="Control" parent="M/Customization/Group/H"]
 margin_top = 144.0
-margin_right = 510.0
+margin_right = 658.0
 margin_bottom = 176.0
 rect_min_size = Vector2( 200, 32 )
 
@@ -753,7 +753,7 @@ valign = 1
 
 [node name="CursorSpin" type="Control" parent="M/Customization/Group/H"]
 margin_top = 180.0
-margin_right = 510.0
+margin_right = 658.0
 margin_bottom = 212.0
 rect_min_size = Vector2( 200, 32 )
 
@@ -802,7 +802,7 @@ valign = 1
 
 [node name="CustomCursor" type="Control" parent="M/Customization/Group/H"]
 margin_top = 216.0
-margin_right = 510.0
+margin_right = 658.0
 margin_bottom = 248.0
 rect_min_size = Vector2( 200, 32 )
 
@@ -881,7 +881,7 @@ stretch_mode = 4
 
 [node name="TouchIndicator" type="Control" parent="M/Customization/Group/H"]
 margin_top = 252.0
-margin_right = 510.0
+margin_right = 658.0
 margin_bottom = 284.0
 rect_min_size = Vector2( 200, 32 )
 
@@ -946,7 +946,7 @@ valign = 1
 
 [node name="HitRipple" type="Control" parent="M/Customization/Group/H"]
 margin_top = 288.0
-margin_right = 510.0
+margin_right = 658.0
 margin_bottom = 320.0
 rect_min_size = Vector2( 200, 32 )
 
@@ -1011,7 +1011,7 @@ valign = 1
 
 [node name="CustomBg" type="Control" parent="M/Customization/Group/H"]
 margin_top = 324.0
-margin_right = 510.0
+margin_right = 658.0
 margin_bottom = 356.0
 rect_min_size = Vector2( 200, 32 )
 
@@ -1076,7 +1076,7 @@ valign = 1
 
 [node name="ShowHitEffect" type="CheckBox" parent="M/Customization/Group/H"]
 margin_top = 360.0
-margin_right = 510.0
+margin_right = 658.0
 margin_bottom = 388.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -1109,7 +1109,7 @@ clip_text = true
 
 [node name="HitEffectCursor" type="CheckBox" parent="M/Customization/Group/H"]
 margin_top = 392.0
-margin_right = 510.0
+margin_right = 658.0
 margin_bottom = 420.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -1142,7 +1142,7 @@ clip_text = true
 
 [node name="RainbowCursor" type="CheckBox" parent="M/Customization/Group/H"]
 margin_top = 424.0
-margin_right = 510.0
+margin_right = 658.0
 margin_bottom = 452.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -1174,7 +1174,7 @@ clip_text = true
 
 [node name="CursorTrail" type="CheckBox" parent="M/Customization/Group/H"]
 margin_top = 456.0
-margin_right = 510.0
+margin_right = 658.0
 margin_bottom = 484.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -1206,7 +1206,7 @@ clip_text = true
 
 [node name="SmartTrail" type="CheckBox" parent="M/Customization/Group/H"]
 margin_top = 488.0
-margin_right = 510.0
+margin_right = 658.0
 margin_bottom = 516.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -1218,7 +1218,7 @@ custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_fonts/font = SubResource( 4 )
 action_mode = 0
-text = "hides parts of the trail if they're at the same position as each other or the cursor"
+text = "makes the trail smooth by using distance moved to spawn particles instead of having a constant number"
 flat = true
 script = ExtResource( 54 )
 target = "smart_trail"
@@ -1238,7 +1238,7 @@ clip_text = true
 
 [node name="TrailDetail" type="Control" parent="M/Customization/Group/H"]
 margin_top = 520.0
-margin_right = 510.0
+margin_right = 658.0
 margin_bottom = 552.0
 rect_min_size = Vector2( 200, 32 )
 
@@ -1249,7 +1249,7 @@ rect_min_size = Vector2( 200, 32 )
 rect_pivot_offset = Vector2( 286, 276 )
 focus_mode = 2
 theme = ExtResource( 1 )
-min_value = 1.0
+min_value = 2.0
 max_value = 9.22337e+18
 value = 10.0
 allow_greater = true
@@ -1280,12 +1280,12 @@ theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
 custom_fonts/font = SubResource( 4 )
-text = "[def. 10] number of particles in the cursor trail"
+text = "[def. 10] number of particles in the cursor trail / (smart trail) number spawned per grid unit"
 valign = 1
 
 [node name="TrailTime" type="Control" parent="M/Customization/Group/H"]
 margin_top = 556.0
-margin_right = 510.0
+margin_right = 658.0
 margin_bottom = 588.0
 rect_min_size = Vector2( 200, 32 )
 
@@ -1562,7 +1562,7 @@ __meta__ = {
 [node name="Camera" type="VBoxContainer" parent="M"]
 margin_top = 972.0
 margin_right = 1150.0
-margin_bottom = 1280.0
+margin_bottom = 1304.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Camera"]
@@ -1590,13 +1590,13 @@ flat = true
 [node name="Group" type="MarginContainer" parent="M/Camera"]
 margin_top = 36.0
 margin_right = 1150.0
-margin_bottom = 308.0
+margin_bottom = 332.0
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="M/Camera/Group"]
 margin_left = 180.0
 margin_right = 1150.0
-margin_bottom = 272.0
+margin_bottom = 296.0
 
 [node name="Parallax" type="Control" parent="M/Camera/Group/H"]
 margin_right = 608.0
@@ -1827,8 +1827,8 @@ valign = 1
 [node name="EdgeBuffer" type="Control" parent="M/Camera/Group/H"]
 margin_top = 176.0
 margin_right = 608.0
-margin_bottom = 208.0
-rect_min_size = Vector2( 200, 32 )
+margin_bottom = 232.0
+rect_min_size = Vector2( 200, 56 )
 
 [node name="EdgeBuffer" type="SpinBox" parent="M/Camera/Group/H/EdgeBuffer"]
 margin_right = 200.0
@@ -1860,20 +1860,20 @@ __meta__ = {
 
 [node name="Desc" type="Label" parent="M/Camera/Group/H/EdgeBuffer/EdgeBuffer"]
 margin_left = 215.0
-margin_right = 562.0
+margin_right = 838.0
 margin_bottom = 32.0
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
 custom_fonts/font = SubResource( 4 )
-text = "[def. 0] aka cursor drift; makes the cursor \"stick\" to the edges by allowing its real position to go slightly outside the grid"
+text = "[def. 0] aka cursor drift; makes the cursor \"stick\" to the edges by letting it move slightly past the edges"
 valign = 1
 
 [node name="BufferCursor" type="CheckBox" parent="M/Camera/Group/H"]
-margin_top = 212.0
+margin_top = 236.0
 margin_right = 608.0
-margin_bottom = 240.0
+margin_bottom = 264.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -1908,9 +1908,9 @@ __meta__ = {
 }
 
 [node name="LockMouse" type="CheckBox" parent="M/Camera/Group/H"]
-margin_top = 244.0
+margin_top = 268.0
 margin_right = 608.0
-margin_bottom = 272.0
+margin_bottom = 296.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -1974,9 +1974,9 @@ valign = 1
 clip_text = true
 
 [node name="Notes" type="VBoxContainer" parent="M"]
-margin_top = 1280.0
+margin_top = 1304.0
 margin_right = 1150.0
-margin_bottom = 1452.0
+margin_bottom = 1476.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Notes"]
@@ -2190,9 +2190,9 @@ valign = 1
 clip_text = true
 
 [node name="UI" type="VBoxContainer" parent="M"]
-margin_top = 1452.0
+margin_top = 1476.0
 margin_right = 1150.0
-margin_bottom = 1868.0
+margin_bottom = 1892.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/UI"]
@@ -2638,9 +2638,9 @@ valign = 1
 clip_text = true
 
 [node name="Graphics" type="VBoxContainer" parent="M"]
-margin_top = 1868.0
+margin_top = 1892.0
 margin_right = 1150.0
-margin_bottom = 1996.0
+margin_bottom = 2084.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Graphics"]
@@ -2662,22 +2662,22 @@ custom_colors/font_color_pressed = Color( 1, 1, 1, 1 )
 custom_fonts/font = SubResource( 5 )
 custom_icons/checked = ExtResource( 42 )
 custom_icons/unchecked = ExtResource( 41 )
-text = "Graphics"
+text = "Graphics & Advanced"
 flat = true
 
 [node name="Group" type="MarginContainer" parent="M/Graphics"]
 margin_top = 36.0
 margin_right = 1150.0
-margin_bottom = 128.0
+margin_bottom = 192.0
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="M/Graphics/Group"]
 margin_left = 180.0
 margin_right = 1150.0
-margin_bottom = 92.0
+margin_bottom = 156.0
 
 [node name="VSync" type="CheckBox" parent="M/Graphics/Group/H"]
-margin_right = 552.0
+margin_right = 594.0
 margin_bottom = 28.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -2711,7 +2711,7 @@ __meta__ = {
 
 [node name="VSyncCompositor" type="CheckBox" parent="M/Graphics/Group/H"]
 margin_top = 32.0
-margin_right = 552.0
+margin_right = 594.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -2748,7 +2748,7 @@ __meta__ = {
 
 [node name="Fullscreen" type="CheckBox" parent="M/Graphics/Group/H"]
 margin_top = 64.0
-margin_right = 552.0
+margin_right = 594.0
 margin_bottom = 92.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -2773,6 +2773,70 @@ theme = ExtResource( 1 )
 custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
 custom_fonts/font = SubResource( 3 )
 text = "Fullscreen"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="Replays" type="CheckBox" parent="M/Graphics/Group/H"]
+margin_top = 96.0
+margin_right = 594.0
+margin_bottom = 124.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_focus = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 4 )
+action_mode = 0
+text = "records replays. what did you expect"
+flat = true
+script = ExtResource( 54 )
+target = "record_replays"
+
+[node name="Label" type="Label" parent="M/Graphics/Group/H/Replays"]
+anchor_bottom = 1.0
+margin_left = -165.0
+margin_right = -10.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Record Replays"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="Warnings" type="CheckBox" parent="M/Graphics/Group/H"]
+margin_top = 128.0
+margin_right = 594.0
+margin_bottom = 156.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_focus = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 4 )
+action_mode = 0
+text = "turning this off disables the warnings for things like high trail detail or unhittable hitwindows"
+flat = true
+script = ExtResource( 54 )
+target = "show_warnings"
+
+[node name="Label" type="Label" parent="M/Graphics/Group/H/Warnings"]
+anchor_bottom = 1.0
+margin_left = -165.0
+margin_right = -10.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Show Warnings"
 align = 2
 valign = 1
 clip_text = true
@@ -2818,7 +2882,7 @@ margin_left = 180.0
 margin_right = 800.0
 
 [node name="BottomMargin" type="Control" parent="."]
-margin_top = 2059.0
+margin_top = 2147.0
 margin_right = 1150.0
-margin_bottom = 2155.0
+margin_bottom = 2243.0
 rect_min_size = Vector2( 0, 96 )

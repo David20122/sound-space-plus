@@ -12,6 +12,10 @@ func _ready():
 	Input.set_default_cursor_shape(Input.CURSOR_ARROW)
 	SSP.conmgr_transit = null
 	SSP.loaded_world = null
+	SSP.was_replay = SSP.replaying
+	SSP.replaying = false
+	if SSP.was_replay: SSP.restore_prev_state()
+	SSP.replay_path = ""
 	$BlackFade.visible = true
 	black_fade = 1
 	$BlackFade.color = Color(0,0,0,black_fade)

@@ -74,13 +74,16 @@ func _ready():
 		var is_best:bool = SSP.do_pb_check_and_set()
 		if is_best: $NewBest.play()
 		if SSP.song_end_type == Globals.END_PASS:
-			if is_best: $Result.text = "New best!"
+			if SSP.was_replay: $Result.text = "Replay passed"
+			elif is_best: $Result.text = "New best!"
 			else: $Result.text = "You passed!"
 			$Result.set("custom_colors/font_color",Color("#6ff1ff"))
+		elif SSP.was_replay: $Result.text = "Replay failed"
 		elif is_best:
 			$Result.text = "You failed (new best!)"
 			$Result.set("custom_colors/font_color",Color("#ea4aca"))
 		else: $Result.text = "You failed!"
+		
 		
 		$FullCombo.visible = SSP.song_end_misses == 0 && SSP.song_end_type == Globals.END_PASS
 		$Misses.visible = !SSP.song_end_misses == 0 || !SSP.song_end_type == Globals.END_PASS

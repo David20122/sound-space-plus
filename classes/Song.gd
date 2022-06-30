@@ -568,7 +568,7 @@ func export_text(path:String):
 	var file:File = File.new()
 	var err:int = file.open(path,File.WRITE)
 	if err != OK: return "file.open errored - code " + String(err)
-	file.store_string(txt)
+	file.store_string(txt.trim_suffix(","))
 	file.close()
 	return "OK"
 

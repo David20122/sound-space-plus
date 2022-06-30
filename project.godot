@@ -139,6 +139,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://classes/Registry.gd"
 }, {
+"base": "Node",
+"class": "Replay",
+"language": "GDScript",
+"path": "res://classes/Replay.gd"
+}, {
 "base": "Resource",
 "class": "Song",
 "language": "GDScript",
@@ -171,6 +176,7 @@ _global_script_class_icons={
 "NoteEffect": "",
 "NoteMesh": "",
 "Registry": "",
+"Replay": "",
 "Song": ""
 }
 
@@ -186,7 +192,7 @@ boot_splash/fullsize=false
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://icon.png"
 config/windows_native_icon="res://icon.ico"
-config/version="0.7.4-alpha"
+config/version="0.8.0-alpha"
 config/autoload_map_registries="test maps|res://test_assets/test_maps.sspmr;built in|res://content/songs/built_in_maps.sspmr"
 config/enable_new_content_mgr=true
 config/default_menu_target="res://menu2.tscn"
@@ -205,6 +211,9 @@ config/save_dir.Android="/sdcard/Android/data/net.chedski.soundspaceplus/"
 config/fov=70.0
 config/enable_new_content_mgr.mobile=false
 config/discord_rpc.mobile=false
+config/replays=true
+config/replays.editor=true
+config/show_trail_debug=false
 
 [audio]
 
@@ -236,10 +245,6 @@ window/stretch/aspect.mobile="keep_height"
 [editor_plugins]
 
 enabled=PoolStringArray( "res://addons/discord_game_sdk/plugin.cfg", "res://addons/native_dialogs/plugin.cfg" )
-
-[global]
-
-fov=0.0
 
 [input]
 

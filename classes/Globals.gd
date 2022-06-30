@@ -6,6 +6,15 @@ enum {
 }
 
 enum {
+	RS_CURSOR = 0
+	RS_HIT = 1
+	RS_MISS = 2
+	RS_PAUSE = 3
+	RS_GIVEUP = 4
+	RS_END = 5
+}
+
+enum {
 	MAPR_FILE = 0
 	MAPR_FILE_ABSOLUTE = 1
 	MAPR_FILE_SONG_ABSOLUTE = 2

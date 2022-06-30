@@ -96,6 +96,8 @@ func end(end_type:int):
 	SSP.song_end_length = last_ms
 	SSP.song_end_type = end_type
 	black_fade_target = true
+	if SSP.record_replays:
+		SSP.replay.end_recording()
 	yield(get_tree().create_timer(1),"timeout")
 	get_tree().change_scene("res://menuload.tscn")
 
@@ -103,9 +105,14 @@ func update_timer(ms:float,canSkip:bool=false):
 	var s = clamp(floor(ms/1000),0,last_ms/1000)
 	var m = floor(s / 60)
 	var rs = fmod(s,60)
+	
+	var ls = floor(last_ms/1000)
+	var lm = floor(ls / 60)
+	var lrs = fmod(ls,60)
+	
 	timebar.value = clamp(ms/last_ms,0,1)
 	if canSkip: timelabel.text = "PRESS SPACE TO SKIP"
-	else: timelabel.text = "%d:%02d" % [m,rs]
+	else: timelabel.text = "%d:%02d / %d:%02d" % [m,rs,lm,lrs]
 	SSP.song_end_time_str = "%d:%02d" % [m,rs]
 	if ms >= last_ms:
 		if get_node("Spawn/Music").playing:
@@ -236,8 +243,12 @@ func _ready():
 	
 	var ms = ""
 	
-	if SSP.mod_nofail: ms = "[ NOFAIL ACTIVE ]\n"
-	elif SSP.health_model == Globals.HP_OLD: ms = "Using old hp model (more hp + fast regen)\n"
+	if SSP.replaying:
+		if SSP.replay.autoplayer: ms += "[ AUTOPLAYING ]\n"
+		else: ms += "[ REPLAYING ]\n"
+	
+	if SSP.mod_nofail: ms += "[ NOFAIL ACTIVE ]\n"
+	elif SSP.health_model == Globals.HP_OLD: ms += "Using old hp model (more hp + fast regen)\n"
 	
 	var mods = []
 	if SSP.mod_speed_level != Globals.SPEED_NORMAL:

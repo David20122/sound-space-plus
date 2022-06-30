@@ -64,19 +64,18 @@ func update(_s=null):
 		$Info/M/V/Warning/L.text = map.warning
 		if map.is_broken:
 			$Info/M/V/Warning/L.set("custom_colors/font_color",Color(1,0,0))
-			$Info/M/V/Run/Run.disabled = true
-			$Info/M/V/Buttons/Control/Favorite.disabled = true
-			$Info/M/V/Buttons/Control/PreviewMusic.disabled = true
+#			$Info/M/V/Run/Run.disabled = true
+#			$Info/M/V/Buttons/Control/Favorite.disabled = true
+#			$Info/M/V/Buttons/Control/PreviewMusic.disabled = true
 		else:
 			$Info/M/V/Warning/L.set("custom_colors/font_color",Color(1,1,0))
-			$Info/M/V/Run/Run.disabled = false
-			$Info/M/V/Buttons/Control/Favorite.disabled = false
-			$Info/M/V/Buttons/Control/PreviewMusic.disabled = false
-	else:
-		$Info/M/V/Warning.visible = false
-		$Info/M/V/Run/Run.disabled = false
-		$Info/M/V/Buttons/Control/Favorite.disabled = false
-		$Info/M/V/Buttons/Control/PreviewMusic.disabled = false
+#			$Info/M/V/Run/Run.disabled = false
+#			$Info/M/V/Buttons/Control/Favorite.disabled = false
+#			$Info/M/V/Buttons/Control/PreviewMusic.disabled = false
+	else: $Info/M/V/Warning.visible = false
+	$Info/M/V/Run/Run.disabled = false
+	$Info/M/V/Buttons/Control/Favorite.disabled = false
+	$Info/M/V/Buttons/Control/PreviewMusic.disabled = false
 	
 	$Actions/Convert.disabled = (
 		$Actions/Convert.debounce or

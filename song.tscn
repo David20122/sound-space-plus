@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=2]
+[gd_scene load_steps=70 format=2]
 
 [ext_resource path="res://game/Camera.gd" type="Script" id=1]
 [ext_resource path="res://game/NoteManager.gd" type="Script" id=2]
@@ -21,6 +21,7 @@
 [ext_resource path="res://game/TrueComboHandler.gd" type="Script" id=19]
 [ext_resource path="res://content/ui/spinner_thick.png" type="Texture" id=20]
 [ext_resource path="res://CircularProgress2.gd" type="Script" id=21]
+[ext_resource path="res://font/UbuntuMono/Regular.ttf" type="DynamicFontData" id=22]
 [ext_resource path="res://game/CursorTrail.gd" type="Script" id=24]
 [ext_resource path="res://error.jpg" type="Texture" id=25]
 [ext_resource path="res://game/Friend.gd" type="Script" id=26]
@@ -35,6 +36,8 @@ size = Vector2( 0.273, 0.273 )
 resource_local_to_scene = true
 flags_transparent = true
 flags_unshaded = true
+flags_do_not_receive_shadows = true
+flags_disable_ambient_light = true
 albedo_texture = ExtResource( 10 )
 
 [sub_resource type="Environment" id=2]
@@ -207,6 +210,11 @@ flags_unshaded = true
 albedo_color = Color( 1, 1, 1, 0.352941 )
 albedo_texture = ExtResource( 7 )
 
+[sub_resource type="DynamicFont" id=46]
+size = 18
+use_filter = true
+font_data = ExtResource( 22 )
+
 [sub_resource type="Shader" id=39]
 code = "shader_type spatial;
 render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_disabled,unshaded;
@@ -259,13 +267,13 @@ void fragment() {
 	float fade_out = clamp(smoothstep(fade_out_end,fade_out_start,-VERTEX.z),0.0,1.0);
 	
 	if (fade_out_enabled && fade_in_enabled) {
-		ALPHA = min(fade_in,fade_out);
+		ALPHA = min(fade_in,fade_out)*notecolor.a;
 	} else if (fade_out_enabled) {
-		ALPHA = fade_out;
+		ALPHA = fade_out*notecolor.a;
 	} else if (fade_in_enabled) {
-		ALPHA = fade_in;
+		ALPHA = fade_in*notecolor.a;
 	} else {
-		ALPHA = 1.0;
+		ALPHA = notecolor.a;
 	}
 }
 "
@@ -329,11 +337,14 @@ script = ExtResource( 3 )
 timer_fg_done = SubResource( 1 )
 
 [node name="CursorTrail" type="Spatial" parent="Game"]
+pause_mode = 1
 visible = false
 script = ExtResource( 24 )
 
 [node name="Mesh" type="MeshInstance" parent="Game/CursorTrail"]
 transform = Transform( 1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, -3.59989e-21, 4.37114e-08, 1, -4.37114e-08, 0, 0, 0 )
+cast_shadow = 0
+generate_lightmap = false
 mesh = SubResource( 34 )
 material/0 = SubResource( 35 )
 
@@ -1125,6 +1136,16 @@ margin_bottom = 16.0
 texture = ExtResource( 10 )
 expand = true
 stretch_mode = 6
+
+[node name="L" type="Label" parent="Game/Spawn/Cursor"]
+visible = false
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 106.0
+margin_bottom = 27.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 46 )
+text = "cursor debug"
 
 [node name="Note" type="Spatial" parent="Game/Spawn"]
 transform = Transform( 0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 1, -1, 8 )

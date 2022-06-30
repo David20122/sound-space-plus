@@ -135,13 +135,20 @@ var cursor_face_velocity:bool = false
 var show_hit_effect:bool = true
 var hit_effect_at_cursor:bool = true
 var lock_mouse:bool = true
+var show_warnings:bool = true
 var fade_length:float = 0.5
+
+var record_replays:bool = ProjectSettings.get_setting("application/config/replays")
+var replay:Replay
+var replay_path:String = ""
+var was_replay:bool = false
+var replaying:bool = false
 
 var rainbow_cursor:bool = false
 var cursor_trail:bool = false
-var smart_trail:bool = true
-var trail_detail:int = 10 # default 10 but 35
-var trail_time:float = 0.15 # default 0.15 but 0.1
+var smart_trail:bool = false
+var trail_detail:int = 10
+var trail_time:float = 0.15
 
 var friend_position:int = Globals.FRIEND_BEHIND_GRID
 
@@ -166,7 +173,10 @@ func _set_hitwindow(v:float):
 
 var custom_speed:float = 1
 func _set_custom_speed(v:float):
-	custom_speed = v; emit_signal("mods_changed"); emit_signal("speed_mod_changed")
+	custom_speed = v
+	Globals.speed_multi[Globals.SPEED_CUSTOM] = v
+	emit_signal("mods_changed")
+	emit_signal("speed_mod_changed")
 
 var health_model:int = Globals.HP_SOUNDSPACE setget _set_health_model
 func _set_health_model(v:int):
@@ -185,6 +195,12 @@ var hit_snd:AudioStream
 var fail_snd:AudioStream
 var pb_snd:AudioStream
 var menu_bgm:AudioStream
+
+var def_miss_snd:AudioStream
+var def_hit_snd:AudioStream
+var def_fail_snd:AudioStream
+var def_pb_snd:AudioStream
+var def_menu_bgm:AudioStream
 
 var loaded_world = null
 
@@ -296,6 +312,51 @@ func generate_pb_str():
 	
 	return s
 
+func parse_pb_str(txt:String):
+	var data:Dictionary = {}
+	var pts:Array = txt.split(";",false)
+	data.health_model = Globals.HP_SOUNDSPACE
+	
+	data.mod_sudden_death = false
+	data.mod_extra_energy = false
+	data.mod_no_regen = false
+	data.mod_mirror_x = false
+	data.mod_mirror_y = false
+	data.mod_nearsighted = false
+	data.mod_ghost = false
+	
+	for s in pts:
+		if s.begins_with("s:c"):
+			data.mod_speed_level = Globals.SPEED_CUSTOM
+			data.custom_speed = float(s.substr(3))
+		elif s.begins_with("hitw:"):
+			data.hitwindow_ms = float(s.substr(5))
+		elif s.begins_with("hbox:"):
+			data.note_hitbox_size = float(s.substr(5))
+		else:
+			match s:
+				"s:---": data.mod_speed_level = Globals.SPEED_MMM
+				"s:--": data.mod_speed_level = Globals.SPEED_MM
+				"s:-": data.mod_speed_level = Globals.SPEED_M
+				"s:=": data.mod_speed_level = Globals.SPEED_NORMAL
+				"s:+": data.mod_speed_level = Globals.SPEED_P
+				"s:++": data.mod_speed_level = Globals.SPEED_PP
+				"s:+++": data.mod_speed_level = Globals.SPEED_PPP
+				"s:++++": data.mod_speed_level = Globals.SPEED_PPPP
+				"hp_old": data.health_model = Globals.HP_OLD
+				"m_sd": data.mod_sudden_death = true
+				"m_morehp": data.mod_extra_energy = true
+				"m_noregen": data.mod_no_regen = true
+				"m_mirror_x": data.mod_mirror_x = true
+				"m_mirror_y": data.mod_mirror_y = true
+				"m_nsight": data.mod_nearsighted = true
+				"m_ghost": data.mod_ghost = true
+	return data
+
+var prev_state:Dictionary = {}
+func save_current_state(): prev_state = parse_pb_str(generate_pb_str())
+func restore_prev_state(): for k in prev_state.keys(): set(k,prev_state.get(k))
+
 func set_pb(songid:String,pbtype:int):
 	var pb = personal_bests[songid][pbtype]
 	pb.position = song_end_position
@@ -333,7 +394,7 @@ func prepare_new_pb(songid:String):
 	set_pb(songid,i)
 
 func do_pb_check_and_set() -> bool:
-	if mod_nofail: return false
+	if mod_nofail or was_replay: return false
 	var has_passed:bool = song_end_type == Globals.END_PASS
 	var pb:Dictionary = {}
 	pb.position = song_end_position
@@ -419,11 +480,13 @@ func update_rpc_song():
 	assets.set_large_image("icon")
 
 	var result = yield(Discord.activity_manager.update_activity(activity), "result").result
-	if result != Discord.Result.Ok:
-		push_error(result)
+#	if result != Discord.Result.Ok:
+#		push_error(result)
 
 
-const current_sf_version = 31
+const current_sf_version = 34
+var alert:String = ""
+var should_ask_about_replays:bool = true
 
 func load_saved_settings():
 	if Input.is_key_pressed(KEY_CONTROL) and Input.is_key_pressed(KEY_L): 
@@ -524,14 +587,25 @@ func load_saved_settings():
 			attach_timer_to_grid = bool(file.get_8())
 			rainbow_grid = bool(file.get_8())
 			rainbow_hud = bool(file.get_8())
-			smart_trail = bool(file.get_8())
+			var had_smart_trail = bool(file.get_8())
+			if sv >= 32: smart_trail = had_smart_trail
+			else:
+				alert = "The behavior of the Smart Trail setting has been significantly changed, so it has been turned off. See its description in Settings for the new behavior."
+				save_settings()
 		if sv >= 31:
-			var eff = registry_effect.get_item(file.get_line())
+			var en = file.get_line()
+			print(en)
+			var eff = registry_effect.get_item(en)
+			print(eff)
 			if eff: select_hit_effect(eff)
 			if file.get_8() != 192:
 				print("integ 9"); return 11
 			hit_effect_at_cursor = bool(file.get_8())
-			
+		if sv >= 33:
+			show_warnings = bool(file.get_8())
+		if sv >= 34:
+			should_ask_about_replays = false
+			record_replays = bool(file.get_8())
 		file.close()
 	return 0
 
@@ -599,6 +673,8 @@ func save_settings():
 		file.store_line(selected_hit_effect.id)
 		file.store_8(192) # integrity check
 		file.store_8(int(hit_effect_at_cursor))
+		file.store_8(int(show_warnings))
+		file.store_8(int(record_replays))
 		file.close()
 		return "OK"
 	else:
@@ -803,6 +879,7 @@ func do_init(_ud=null):
 		if !dir.dir_exists(user_pack_dir): dir.make_dir(user_pack_dir)
 		if !dir.dir_exists(user_vmap_dir): dir.make_dir(user_vmap_dir)
 		if !dir.dir_exists(user_map_dir): dir.make_dir(user_map_dir)
+		if !dir.dir_exists(Globals.p("user://replays")): dir.make_dir(Globals.p("user://replays"))
 		if !dir.dir_exists(user_best_dir):
 			convert_pb_format = true
 			dir.make_dir(user_best_dir)
@@ -979,24 +1056,29 @@ func do_init(_ud=null):
 	
 	emit_signal("init_stage_reached","Init default assets 2/6")
 	if lp: yield(get_tree(),"idle_frame")
-	miss_snd = load("res://content/sfx/miss.wav")
+	def_miss_snd = load("res://content/sfx/miss.wav")
+	miss_snd = def_miss_snd
 	
 	emit_signal("init_stage_reached","Init default assets 3/6")
 	if lp: yield(get_tree(),"idle_frame")
-	hit_snd = load("res://content/sfx/hit.wav")
+	def_hit_snd = load("res://content/sfx/hit.wav")
+	hit_snd = def_hit_snd
 	
 	emit_signal("init_stage_reached","Init default assets 4/6")
 	if lp: yield(get_tree(),"idle_frame")
-	fail_snd = load("res://content/sfx/fail.wav")
+	def_fail_snd = load("res://content/sfx/fail.wav")
+	fail_snd = def_fail_snd
 	
 	emit_signal("init_stage_reached","Init default assets 5/6")
 	if lp: yield(get_tree(),"idle_frame")
-	pb_snd = load("res://content/sfx/new_best.wav")
+	def_pb_snd = load("res://content/sfx/new_best.wav")
+	pb_snd = def_pb_snd
 	normal_pb_sound = pb_snd
 	
 	emit_signal("init_stage_reached","Init default assets 6/6")
 	if lp: yield(get_tree(),"idle_frame")
-	menu_bgm = load("res://content/sfx/music/menu_loop.ogg")
+	def_menu_bgm = load("res://content/sfx/music/menu_loop.ogg")
+	menu_bgm = def_menu_bgm
 	
 	# Read settings
 	emit_signal("init_stage_reached","Read user settings")
@@ -1070,4 +1152,30 @@ func do_init(_ud=null):
 	dir.change_dir("res://")
 	first_init_done = true
 	do_archive_convert = false
+	
+	if Input.is_key_pressed(KEY_W):
+		alert = "Test alert"
+	
+	var alert_snd_played:bool = false
+	if alert != "":
+		emit_signal("init_stage_reached","Alert prompt")
+		if !alert_snd_played: Globals.confirm_prompt.s_alert.play()
+		alert_snd_played = true
+		Globals.confirm_prompt.open(alert,"Alert",[{text="OK",wait=2}])
+		yield(Globals.confirm_prompt,"option_selected")
+		Globals.confirm_prompt.s_next.play()
+		Globals.confirm_prompt.close()
+		yield(Globals.confirm_prompt,"done_closing")
+	if should_ask_about_replays:
+		emit_signal("init_stage_reached","Setup")
+		if !alert_snd_played: Globals.confirm_prompt.s_alert.play()
+		alert_snd_played = true
+		Globals.confirm_prompt.open("Would you like to record replays? This can be changed in settings later.","Replays",[{text="No"},{text="Yes"}])
+		var sel = yield(Globals.confirm_prompt,"option_selected")
+		record_replays = bool(sel)
+		save_settings()
+		Globals.confirm_prompt.s_next.play()
+		Globals.confirm_prompt.close()
+		yield(Globals.confirm_prompt,"done_closing")
 	emit_signal("init_stage_reached","Waiting for menu",true)
+

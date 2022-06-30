@@ -6,8 +6,8 @@ signal hit
 signal miss
 
 var approach_rate:float = SSP.approach_rate
-var speed_multi:float = 1
-var ms:float = -min(3000 * Globals.speed_multi[SSP.mod_speed_level],3000) # make waiting time shorter on speed-
+var speed_multi:float = Globals.speed_multi[SSP.mod_speed_level]
+var ms:float = -(3000 * speed_multi) # make waiting time shorter on lower speeds
 var notes_loaded:bool = false
 
 var noteNodes:Array = []
@@ -23,14 +23,16 @@ var next_ms:float = 100000
 var out_of_notes:bool = false
 func reposition_notes(force:bool=false):
 	if noteNodes.size() == 0: out_of_notes = true
+	var note_passed:bool = false
 	var is_first:bool = true
 	for note in noteNodes:
 		if force: note.reposition(ms,SSP.approach_rate)
-		else: if note.reposition(ms,SSP.approach_rate) == false: return
+		else: if note.reposition(ms,SSP.approach_rate) == false: return note_passed
 		if ms < note.notems and is_first:
 			is_first = false
 			next_ms = note.notems
 		elif ms >= note.notems and note.state == Globals.NSTATE_ACTIVE:
+			note_passed = true
 			var result = note.check($Cursor.transform.origin)
 			if !result and (ms > note.notems + SSP.hitwindow_ms or pause_state == -1):
 				# notes should not be in the hitwindow if the game is paused
@@ -65,6 +67,7 @@ func reposition_notes(force:bool=false):
 		elif ms - note.notems > 100:
 			noteNodes.remove(noteNodes.find(note))
 			note.queue_free()
+	return note_passed
 
 var color_index:int = 0
 
@@ -102,8 +105,6 @@ func spawn_notes(notes:Array):
 
 
 func _ready():
-	speed_multi = Globals.speed_multi[SSP.mod_speed_level]
-	ms *= speed_multi
 	$Music.pitch_scale = speed_multi
 	$Miss.stream = SSP.miss_snd
 	$Hit.stream = SSP.hit_snd
@@ -122,6 +123,10 @@ func _ready():
 	else:
 		m.set_shader_param("fade_in_start",SSP.spawn_distance+4.0)
 		m.set_shader_param("fade_in_end",(SSP.spawn_distance*clamp(1 - SSP.fade_length,0,0.995))+4.0)
+	
+	if !SSP.replaying and SSP.record_replays:
+		SSP.replay = Replay.new()
+		SSP.replay.start_recording(SSP.selected_song)
 
 var music_started:bool = false
 const cursor_offset = Vector3(1,-1,0)
@@ -195,6 +200,9 @@ onready var TimerHud = get_node("../Grid/TimerHud")
 onready var ComboHud = get_node("../Grid/ComboHud")
 onready var Energy = get_node("../Grid/EnergyVP/Control/Energy")
 
+
+var rt:float = 0
+var rec_interval:float = 20 * speed_multi
 func _process(delta:float):
 #	delta *= Engine.time_scale
 	if SSP.cam_unlock: do_spin()
@@ -255,7 +263,7 @@ func _process(delta:float):
 	
 	# Ensure pause screen is always visible when paused
 	if pause_state != 0:
-		get_parent().get_node("Grid/PauseHud").visible = true
+		get_parent().get_node("Grid/PauseHud").visible = !Input.is_key_pressed(KEY_C)
 		get_parent().get_node("Grid/PauseVP/Control").percent = clamp(1 - (pause_state / 0.75),0,1)
 		get_parent().get_node("Grid/PauseHud").modulate = Color(1,1,1,abs(pause_state))
 	else:
@@ -263,6 +271,7 @@ func _process(delta:float):
 	
 	if pause_state == 0 or (pause_state > 0 and Input.is_action_pressed("pause")):
 		ms += delta * 1000 * speed_multi
+		rt += delta * 1000 * speed_multi
 		emit_signal("ms_change",ms)
 		do_note_queue()
 		if ms >= 0 and !music_started:
@@ -270,6 +279,14 @@ func _process(delta:float):
 			music_started = true
 	
 	emit_signal("timer_update",ms,can_skip)
+	
+	var rn_res:bool = reposition_notes()
+	if !SSP.replaying and SSP.record_replays:
+		var should_write_pos:bool = rn_res
+		if rt >= rec_interval:
+			rt -= rec_interval
+			should_write_pos = true
+		if ms >= 0: SSP.replay.store_cursor_pos(ms,$Cursor.transform.origin.x,$Cursor.transform.origin.y)
 	
 	if SSP.rainbow_grid:
 		$Inner.get("material/0").albedo_color = Color.from_hsv(SSP.rainbow_t*0.1,0.65,1)
@@ -282,4 +299,4 @@ func _process(delta:float):
 		get_node("../Grid/LeftHud").modulate = Color.from_hsv(SSP.rainbow_t*0.1,0.4,1)
 		get_node("../Grid/RightHud").modulate = Color.from_hsv(SSP.rainbow_t*0.1,0.4,1)
 	
-	reposition_notes()
+	
