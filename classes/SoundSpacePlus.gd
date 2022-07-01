@@ -172,8 +172,9 @@ var hitwindow_ms:float = 55 setget _set_hitwindow
 func _set_hitwindow(v:float):
 	hitwindow_ms = v; emit_signal("mods_changed")
 
-var custom_speed:float = 1
+var custom_speed:float = 1 setget _set_custom_speed
 func _set_custom_speed(v:float):
+	print("custom speed changed")
 	custom_speed = v
 	Globals.speed_multi[Globals.SPEED_CUSTOM] = v
 	emit_signal("mods_changed")

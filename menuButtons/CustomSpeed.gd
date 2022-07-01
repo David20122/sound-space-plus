@@ -1,6 +1,7 @@
 extends SpinBox
 
 func upd():
+	print("changing the thigny")
 	SSP.custom_speed = value / 100
 
 func _process(_d):
