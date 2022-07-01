@@ -65,6 +65,8 @@ func read_data(from_path:String=""):
 			song = fsong
 			SSP.selected_song = fsong
 			var state = SSP.parse_pb_str(file.get_line())
+			SSP.apply_state(state)
+			
 			file.get_8()
 			end_ms = float(file.get_32())
 			
@@ -142,7 +144,7 @@ func get_cursor_position(ms:float):
 	if autoplayer:
 		var dist = bp[0] - ap[0]
 		var pdist = (bp[1] - ap[1]).length()
-		var curve = clamp((dist-300)/150,-clamp(((pdist-0.75)*0.5)/(dist/400),-0.5,1.2),2)
+		var curve = clamp((dist-300)/150,-clamp(((pdist-0.75)*0.5)/(dist/400),-0.5,1.2),1)
 		v = ease(v,curve) # -2
 	return lerp(ap[1],bp[1],v)
 

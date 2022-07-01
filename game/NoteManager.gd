@@ -105,24 +105,20 @@ func spawn_notes(notes:Array):
 
 
 func _ready():
+	$Note.speed_multi = speed_multi
 	$Music.pitch_scale = speed_multi
 	$Miss.stream = SSP.miss_snd
 	$Hit.stream = SSP.hit_snd
 	$Note/Mesh.mesh = load(SSP.selected_mesh.path)
-	var m:ShaderMaterial = $Note/Mesh.get("material/0")
+	var m:ShaderMaterial = $Note.solid_mat
+	var mt:ShaderMaterial = $Note.transparent_mat
 	
-	if SSP.mod_ghost:
-		print("ghost!")
-		m.set_shader_param("fade_out_start",((12.0/50)*SSP.approach_rate)+4.0)
-		m.set_shader_param("fade_out_end",((4.0/50.0)*SSP.approach_rate)+4.0)
+	var img = Globals.imageLoader.load_if_exists("user://note")
+	if img:
+		m.albedo_texture = img
+		mt.albedo_texture = img
 	
-	if SSP.mod_nearsighted:
-		print("nearsight!")
-		m.set_shader_param("fade_in_start",((30.0/50.0)*SSP.approach_rate)+4.0)
-		m.set_shader_param("fade_in_end",((5.0/50.0)*SSP.approach_rate)+4.0)
-	else:
-		m.set_shader_param("fade_in_start",SSP.spawn_distance+4.0)
-		m.set_shader_param("fade_in_end",(SSP.spawn_distance*clamp(1 - SSP.fade_length,0,0.995))+4.0)
+	# moved the fade in/out pos calculations to the note setup function for debugging
 	
 	if !SSP.replaying and SSP.record_replays:
 		SSP.replay = Replay.new()
