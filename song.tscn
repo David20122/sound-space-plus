@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=2]
+[gd_scene load_steps=76 format=2]
 
 [ext_resource path="res://game/Camera.gd" type="Script" id=1]
 [ext_resource path="res://game/NoteManager.gd" type="Script" id=2]
@@ -22,9 +22,13 @@
 [ext_resource path="res://content/ui/spinner_thick.png" type="Texture" id=20]
 [ext_resource path="res://CircularProgress2.gd" type="Script" id=21]
 [ext_resource path="res://font/UbuntuMono/Regular.ttf" type="DynamicFontData" id=22]
+[ext_resource path="res://cam_handler.gd" type="Script" id=23]
 [ext_resource path="res://game/CursorTrail.gd" type="Script" id=24]
 [ext_resource path="res://error.jpg" type="Texture" id=25]
 [ext_resource path="res://game/Friend.gd" type="Script" id=26]
+[ext_resource path="res://AvatarPointer.gd" type="Script" id=27]
+[ext_resource path="res://content/animations/Idle.tres" type="Animation" id=28]
+[ext_resource path="res://content/meshes/LowCube.obj" type="ArrayMesh" id=29]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.145098, 0.74902, 0, 1 )
@@ -316,7 +320,90 @@ flags_unshaded = true
 albedo_color = Color( 1, 1, 1, 0.705882 )
 albedo_texture = ExtResource( 25 )
 
+[sub_resource type="SpatialMaterial" id=48]
+emission_enabled = true
+emission = Color( 1, 1, 1, 1 )
+emission_energy = 1.0
+emission_operator = 0
+emission_on_uv2 = false
+
+[sub_resource type="Animation" id=49]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Head:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, -0.1, 2 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Head:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Torso:translation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, -0.75, 2 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("ArmR:translation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0.5, -0.75, 2 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("ArmR:rotation_degrees")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("ArmL/Pointer:translation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, -0.25 ) ]
+}
+
 [node name="Spatial" type="Spatial"]
+script = ExtResource( 23 )
 
 [node name="SpinPos" type="Position3D" parent="."]
 
@@ -327,6 +414,16 @@ far = 500.0
 script = ExtResource( 1 )
 
 [node name="RayCast" type="RayCast" parent="Camera"]
+cast_to = Vector3( 0, 0, -100 )
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="AltCam" type="Camera" parent="."]
+transform = Transform( 0.866025, 0.12941, -0.482963, -7.45058e-09, 0.965926, 0.258819, 0.5, -0.224144, 0.836516, -2.59934, 1.25852, 3.80604 )
+far = 500.0
+script = ExtResource( 1 )
+
+[node name="RayCast" type="RayCast" parent="AltCam"]
 cast_to = Vector3( 0, 0, -100 )
 collide_with_areas = true
 collide_with_bodies = false
@@ -1196,3 +1293,34 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 1
 color = Color( 0, 0, 0, 0 )
+
+[node name="Avatar" type="Spatial" parent="Game"]
+
+[node name="Head" type="MeshInstance" parent="Game/Avatar"]
+transform = Transform( 0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, -0.1, 2 )
+mesh = ExtResource( 29 )
+material/0 = SubResource( 48 )
+
+[node name="Torso" type="MeshInstance" parent="Game/Avatar"]
+transform = Transform( 0.15, 0, 0, 0, 0.25, 0, 0, 0, 0.15, 0, -0.75, 2 )
+mesh = ExtResource( 29 )
+material/0 = SubResource( 48 )
+
+[node name="ArmR" type="MeshInstance" parent="Game/Avatar"]
+transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0.5, -0.75, 2 )
+mesh = ExtResource( 29 )
+material/0 = SubResource( 48 )
+
+[node name="ArmL" type="Spatial" parent="Game/Avatar"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, -0.5, 2 )
+script = ExtResource( 27 )
+
+[node name="Pointer" type="MeshInstance" parent="Game/Avatar/ArmL"]
+transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, -0.25 )
+mesh = ExtResource( 29 )
+skeleton = NodePath("../..")
+material/0 = SubResource( 48 )
+
+[node name="Animations" type="AnimationPlayer" parent="Game/Avatar"]
+anims/Idle = ExtResource( 28 )
+anims/RESET = SubResource( 49 )
