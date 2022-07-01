@@ -485,7 +485,7 @@ func update_rpc_song():
 #		push_error(result)
 
 
-const current_sf_version = 34
+const current_sf_version = 35
 var alert:String = ""
 var should_ask_about_replays:bool = true
 

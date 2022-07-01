@@ -419,7 +419,7 @@ collide_with_areas = true
 collide_with_bodies = false
 
 [node name="AltCam" type="Camera" parent="."]
-transform = Transform( 0.866025, 0.12941, -0.482963, -7.45058e-09, 0.965926, 0.258819, 0.5, -0.224144, 0.836516, -2.59934, 1.25852, 3.80604 )
+transform = Transform( 0.904923, 0.124458, -0.406969, -0.0240046, 0.969686, 0.243171, 0.424897, -0.210282, 0.880479, -2.64018, 1.0221, 3.87739 )
 far = 500.0
 script = ExtResource( 1 )
 
