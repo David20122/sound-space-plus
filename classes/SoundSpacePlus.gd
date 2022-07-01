@@ -143,6 +143,7 @@ var replay:Replay
 var replay_path:String = ""
 var was_replay:bool = false
 var replaying:bool = false
+var alt_cam:bool = false
 
 var rainbow_cursor:bool = false
 var cursor_trail:bool = false
@@ -607,6 +608,8 @@ func load_saved_settings():
 		if sv >= 34:
 			should_ask_about_replays = false
 			record_replays = bool(file.get_8())
+		if sv >= 35:
+			alt_cam = bool(file.get_8())
 		file.close()
 	return 0
 
@@ -676,6 +679,7 @@ func save_settings():
 		file.store_8(int(hit_effect_at_cursor))
 		file.store_8(int(show_warnings))
 		file.store_8(int(record_replays))
+		file.store_8(int(alt_cam))
 		file.close()
 		return "OK"
 	else:
