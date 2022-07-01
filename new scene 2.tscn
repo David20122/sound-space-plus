@@ -47,7 +47,6 @@ func _ready():
 panorama = ExtResource( 4 )
 
 [sub_resource type="Environment" id=5]
-background_mode = 2
 background_sky = SubResource( 4 )
 background_color = Color( 0.0980392, 0.0313726, 0.0313726, 1 )
 background_canvas_max_layer = -128
@@ -284,3 +283,5 @@ visible = false
 extra_cull_margin = 500.0
 mesh = SubResource( 11 )
 material/0 = SubResource( 12 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]

@@ -1,0 +1,34 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=39]
+code = "shader_type spatial;
+render_mode blend_mix,cull_back,diffuse_burley,specular_disabled,unshaded;
+uniform vec4 notecolor : hint_color = vec4(1,1,1,1);
+
+uniform float alpha_multi = 1;
+uniform float fade = 1;
+
+uniform bool use_image = false;
+uniform sampler2D image;
+
+
+void fragment() {
+	vec2 base_uv = UV;
+	vec4 img = vec4(1.0);
+	if (use_image) {
+		img = texture(image,UV);
+	}
+	ALBEDO = notecolor.rgb * img.rgb;
+//	ALBEDO.r = 1.0 - fade;
+//	ALBEDO.b = 0.0;
+//	ALBEDO.g = fade;
+	ALPHA = notecolor.a*img.a*alpha_multi*fade;
+}
+"
+
+[resource]
+shader = SubResource( 39 )
+shader_param/notecolor = Color( 1, 1, 1, 1 )
+shader_param/alpha_multi = 1.0
+shader_param/fade = 1.0
+shader_param/use_image = false

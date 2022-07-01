@@ -10,6 +10,7 @@ var black_fade:float = 0
 func _ready():
 	get_tree().paused = false
 	Input.set_default_cursor_shape(Input.CURSOR_ARROW)
+	SSP.load_color_txt()
 	SSP.conmgr_transit = null
 	SSP.loaded_world = null
 	SSP.was_replay = SSP.replaying

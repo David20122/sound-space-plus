@@ -66,6 +66,8 @@ func finish():
 		SSP.errorstr = "bg world get_resource returned non-object (probably null)"
 		get_tree().change_scene("res://errors/songload.tscn")
 	
+	SSP.load_color_txt()
+	
 	if Input.is_key_pressed(KEY_L):
 		SSP.replaying = true
 		SSP.replay = Replay.new()

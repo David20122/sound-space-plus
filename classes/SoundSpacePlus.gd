@@ -356,6 +356,7 @@ func parse_pb_str(txt:String):
 var prev_state:Dictionary = {}
 func save_current_state(): prev_state = parse_pb_str(generate_pb_str())
 func restore_prev_state(): for k in prev_state.keys(): set(k,prev_state.get(k))
+func apply_state(state:Dictionary): for k in state.keys(): set(k,state.get(k))
 
 func set_pb(songid:String,pbtype:int):
 	var pb = personal_bests[songid][pbtype]
@@ -690,13 +691,13 @@ func get_stream_with_default(path:String,default:AudioStream) -> AudioStream:
 		if !path.begins_with("res://"):
 			var stream = Globals.audioLoader.load_file(path)
 			if stream and stream is AudioStream: return stream
-			else: return default
 		else: 
 			var mf:AudioStream = load(path) as AudioStream
-			if mf is AudioStreamOGGVorbis or mf is AudioStreamMP3: mf.loop = false
-			elif mf is AudioStreamSample: mf.loop_mode = AudioStreamSample.LOOP_DISABLED
-			return mf
-	else: return default
+			if mf is AudioStream:
+				if mf is AudioStreamOGGVorbis or mf is AudioStreamMP3: mf.loop = false
+				elif mf is AudioStreamSample: mf.loop_mode = AudioStreamSample.LOOP_DISABLED
+				return mf
+	return default
 
 var first_init_done = false
 var normal_pb_sound
@@ -822,6 +823,10 @@ func register_meshes():
 		"ssp_circle", "Circle",
 		"res://content/blocks/circle.obj", "Chedski"
 	))
+	registry_mesh.add_item(NoteMesh.new(
+		"ssp_block", "Block",
+		"res://content/blocks/cube.obj", "Chedski"
+	))
 
 func register_effects():
 	registry_effect.add_item(NoteEffect.new(
@@ -844,6 +849,36 @@ func register_effects():
 		"ssp_shards_r", "Shards (rainbow)",
 		"res://content/notefx/shards.tscn", "Chedski"
 	))
+
+func load_color_txt():
+	print("(re)load custom colors file")
+	var regex:RegEx = RegEx.new()
+	regex.compile("#?([a-zA-Z\\d]{2})([a-zA-Z\\d]{2})([a-zA-Z\\d]{2})([a-zA-Z\\d]{2})?")
+	
+	var cf:ColorSet = registry_colorset.get_item("colorsfile")
+	if !cf: push_error("somehow colorsfile wasnt created")
+	
+	var file:File = File.new()
+	if file.file_exists(Globals.p("user://colors.txt")):
+		var err:int = file.open(Globals.p("user://colors.txt"),File.READ)
+		if err == OK:
+			var ctxt:String = file.get_as_text()
+			file.close()
+			var split:Array = ctxt.split("\n",false)
+			var colarr:Array = []
+			for st in split:
+				if st.strip_edges().is_valid_html_color():
+					colarr.append(Color(st.strip_edges()))
+			
+			if colarr.size() == 0:
+				print("no valid colors found")
+				colarr = [ Color("#ffffff") ]
+			
+			cf.colors = colarr
+			return
+		else: print("couldnt open colors.txt because error %s" % err)
+	else: print("no colors.txt")
+	cf.colors = [ Color("#ffffff") ]
 
 func do_init(_ud=null):
 	installed_packs = []
@@ -898,25 +933,12 @@ func do_init(_ud=null):
 	register_meshes()
 	register_worlds()
 	
-	if file.file_exists(Globals.p("user://colors.txt")):
-		file.open(Globals.p("user://colors.txt"),File.READ)
-		var ctxt:String = file.get_as_text()
-		file.close()
-		var split:Array = ctxt.split("\n",false)
-		var colarr:Array = []
-		for st in split:
-			#var st:String = s
-			if st.is_valid_html_color():
-				colarr.append(Color(st))
-		registry_colorset.add_item(ColorSet.new(
-			colarr,
-			"colorsfile", "colors.txt (1 per line)", "You!"
-		))
-	else:
-		registry_colorset.add_item(ColorSet.new(
-			[ Color("#ffffff") ],
-			"colorsfile", "colors.txt (1 per line)", "You!"
-		))
+	# init colors.txt
+	registry_colorset.add_item(ColorSet.new(
+		[ Color("#ffffff") ],
+		"colorsfile", "colors.txt (1 per line)", "You!"
+	))
+	load_color_txt()
 	
 	# Load content
 	var mapreg:Array = []
@@ -1057,28 +1079,23 @@ func do_init(_ud=null):
 	emit_signal("init_stage_reached","Init default assets 2/6")
 	if lp: yield(get_tree(),"idle_frame")
 	def_miss_snd = load("res://content/sfx/miss.wav")
-	miss_snd = def_miss_snd
 	
 	emit_signal("init_stage_reached","Init default assets 3/6")
 	if lp: yield(get_tree(),"idle_frame")
 	def_hit_snd = load("res://content/sfx/hit.wav")
-	hit_snd = def_hit_snd
 	
 	emit_signal("init_stage_reached","Init default assets 4/6")
 	if lp: yield(get_tree(),"idle_frame")
 	def_fail_snd = load("res://content/sfx/fail.wav")
-	fail_snd = def_fail_snd
 	
 	emit_signal("init_stage_reached","Init default assets 5/6")
 	if lp: yield(get_tree(),"idle_frame")
 	def_pb_snd = load("res://content/sfx/new_best.wav")
-	pb_snd = def_pb_snd
-	normal_pb_sound = pb_snd
+	normal_pb_sound = def_pb_snd
 	
 	emit_signal("init_stage_reached","Init default assets 6/6")
 	if lp: yield(get_tree(),"idle_frame")
 	def_menu_bgm = load("res://content/sfx/music/menu_loop.ogg")
-	menu_bgm = def_menu_bgm
 	
 	# Read settings
 	emit_signal("init_stage_reached","Read user settings")
@@ -1097,23 +1114,23 @@ func do_init(_ud=null):
 	
 	emit_signal("init_stage_reached","Load asset replacement 1/5\nmiss")
 	if lp: yield(get_tree(),"idle_frame")
-	miss_snd = get_stream_with_default("user://miss",miss_snd)
+	miss_snd = get_stream_with_default("user://miss",def_miss_snd)
 	
 	emit_signal("init_stage_reached","Load asset replacement 2/5\nhit")
 	if lp: yield(get_tree(),"idle_frame")
-	hit_snd = get_stream_with_default("user://hit",hit_snd)
+	hit_snd = get_stream_with_default("user://hit",def_hit_snd)
 	
 	emit_signal("init_stage_reached","Load asset replacement 3/5\nfail")
 	if lp: yield(get_tree(),"idle_frame")
-	fail_snd = get_stream_with_default("user://fail",fail_snd)
+	fail_snd = get_stream_with_default("user://fail",def_fail_snd)
 	
 	emit_signal("init_stage_reached","Load asset replacement 4/5\nnew_best")
 	if lp: yield(get_tree(),"idle_frame")
-	pb_snd = get_stream_with_default("user://new_best",pb_snd)
+	pb_snd = get_stream_with_default("user://new_best",def_pb_snd)
 	
 	emit_signal("init_stage_reached","Load asset replacement 5/5\nmenu")
 	if lp: yield(get_tree(),"idle_frame")
-	menu_bgm = get_stream_with_default("user://menu",menu_bgm)
+	menu_bgm = get_stream_with_default("user://menu",def_menu_bgm)
 	
 	fail_asp.stream = fail_snd
 	Globals.error_sound = miss_snd
