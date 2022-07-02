@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=2]
+[gd_scene load_steps=83 format=2]
 
 [ext_resource path="res://game/Camera.gd" type="Script" id=1]
 [ext_resource path="res://game/NoteManager.gd" type="Script" id=2]
@@ -30,6 +30,7 @@
 [ext_resource path="res://content/animations/Idle.tres" type="Animation" id=28]
 [ext_resource path="res://content/meshes/LowCube.obj" type="ArrayMesh" id=29]
 [ext_resource path="res://game/CameraControl.gd" type="Script" id=30]
+[ext_resource path="res://content/animations/Blink.tres" type="Animation" id=31]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.145098, 0.74902, 0, 1 )
@@ -311,6 +312,64 @@ flags_transparent = true
 flags_unshaded = true
 albedo_color = Color( 1, 1, 1, 0.705882 )
 albedo_texture = ExtResource( 25 )
+
+[sub_resource type="ShaderMaterial" id=54]
+shader = SubResource( 39 )
+shader_param/notecolor = Color( 0, 0, 0, 1 )
+shader_param/alpha_multi = 1.0
+shader_param/fade = 1.0
+shader_param/use_image = false
+
+[sub_resource type="Animation" id=55]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("EyeL:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0.1, 0.4, 0.01 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("EyeR:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0.1, 0.4, 0.01 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("EyeR:translation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0.35, 0.25, -1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("EyeL:translation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( -0.35, 0.25, -1 ) ]
+}
 
 [node name="Song" type="Spatial"]
 script = ExtResource( 23 )
@@ -1230,6 +1289,22 @@ pause_mode = 1
 transform = Transform( 0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, -0.1, 2 )
 mesh = ExtResource( 29 )
 material/0 = SubResource( 48 )
+
+[node name="EyeR" type="MeshInstance" parent="Game/Avatar/Head"]
+transform = Transform( 0.1, 0, 0, 0, 0.4, 0, 0, 0, 0.01, 0.35, 0.25, -1 )
+mesh = ExtResource( 29 )
+skeleton = NodePath("../..")
+material/0 = SubResource( 54 )
+
+[node name="EyeL" type="MeshInstance" parent="Game/Avatar/Head"]
+transform = Transform( 0.1, 0, 0, 0, 0.4, 0, 0, 0, 0.01, -0.35, 0.25, -1 )
+mesh = ExtResource( 29 )
+skeleton = NodePath("../..")
+material/0 = SubResource( 54 )
+
+[node name="Blinking" type="AnimationPlayer" parent="Game/Avatar/Head"]
+anims/Blink = ExtResource( 31 )
+anims/RESET = SubResource( 55 )
 
 [node name="Torso" type="MeshInstance" parent="Game/Avatar"]
 transform = Transform( 0.15, 0, 0, 0, 0.25, 0, 0, 0, 0.15, 0, -0.75, 2 )

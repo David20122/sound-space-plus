@@ -7,6 +7,7 @@ func _ready():
 		$AltCam.set_enabled(true)
 		$Game/Avatar.visible = true
 		$Game/Avatar/Animations.play("Idle")
+		$Game/Avatar/Head/Blinking.play("Blink")
 	else:
 		$AltCam.set_enabled(false)
 		$Game/Avatar.visible = false
