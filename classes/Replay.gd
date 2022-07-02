@@ -1,8 +1,9 @@
-extends Node
+extends Resource
 class_name Replay
 
 const file_sig:PoolByteArray = PoolByteArray([0x53,0x73,0x2A,0x52])
 const current_sv:int = 2
+const debug:bool = false
 
 var song:Song
 var past_cursor_positions:Array = []
@@ -21,6 +22,8 @@ var loaded:bool = false
 var autoplayer:bool = false
 var end_ms:float = 0
 
+var read_start_offset:int = 0
+
 func replay_error(txt:String):
 	SSP.get_tree().paused = true
 	Globals.confirm_prompt.s_alert.play()
@@ -32,23 +35,44 @@ func replay_error(txt:String):
 	SSP.just_ended_song = false # Prevent PB handling
 	SSP.get_tree().change_scene("res://menuload.tscn")
 
-var debug_txt = [
-	"replay id:",
-	"autoplayer:..:",
-	"end ms:",
-	"rms:",
-	"cursor p:",
-	"past cursor p:",
-	"trigger:",
-	"past trigger:",
-]
+var debug_label:Label
+
+var debug_txt = {}
 
 signal progress
 signal done_loading
+
+func update_debug_text():
+	if debug:
+		var txt:String = "-- replay debug --"
+		for k in debug_txt.keys():
+			txt += "\n%s: %s" % [k,String(debug_txt[k])]
+		debug_label.text = txt
+		debug_label.raise()
+
 func read_data(from_path:String=""):
+	print("reading data")
 	if !loaded:
+		if debug:
+			if Globals.get_tree().root.has_node("ReplayDebug"):
+				debug_label = Globals.get_tree().root.get_node("ReplayDebug")
+			else:
+				debug_label = Label.new()
+				Globals.get_tree().root.add_child(debug_label)
+				debug_label.set("custom_fonts/font",load("res://font/debug.tres"))
+				debug_label.name = "ReplayDebug"
+				debug_label.rect_position = Vector2(10,10)
+				debug_label.text = "-- replay debug --"
+			debug_label.raise()
+			
+			debug_txt = { source_path = from_path }
+			update_debug_text()
+		
 		if from_path:
 			var err:int = file.open(from_path,File.READ)
+			
+			debug_txt.autoplayer = false
+			update_debug_text()
 			
 			if err != OK:
 				replay_error("The replay could not be read. You will now be returned to the main menu.\n(file open error %s)" % err)
@@ -59,16 +83,22 @@ func read_data(from_path:String=""):
 				return
 			
 			sv = file.get_16()
+			debug_txt.sv = sv
+			update_debug_text()
 			
 			if sv > current_sv or sv == 0:
 				file.close()
 				replay_error("The replay is corrupted. You will now be returned to the main menu.\n(invalid file version)")
 				return
 			
-			file.get_64()
+			debug_txt.reserved_1 = file.get_64()
 			id = file.get_line()
 			var song_id = id.split(".")[0]
 			var fsong = SSP.registry_song.get_item(song_id)
+			
+			debug_txt.replay_id = id
+			debug_txt.song_id = song_id
+			update_debug_text()
 			
 			if !fsong:
 				file.close()
@@ -77,18 +107,30 @@ func read_data(from_path:String=""):
 			
 			song = fsong
 			SSP.selected_song = fsong
-			var state = SSP.parse_pb_str(file.get_line())
+			var state_str = file.get_line()
+			var state = SSP.parse_pb_str(state_str)
+			debug_txt.state_str_after_offset = file.get_position()
 			SSP.apply_state(state)
+			debug_txt.state_str = state_str
+			debug_txt.state = state
 			
-			file.get_8()
+			debug_txt.reserved_2 = file.get_8()
 			end_ms = float(file.get_32())
-			print(end_ms)
+			debug_txt.end_ms = end_ms
+			update_debug_text()
+			
 			var sigcount = file.get_32()
-			print(sigcount)
+			debug_txt.sigcount = sigcount
+			update_debug_text()
+			
 			if sigcount == 0:
 				file.close()
 				replay_error("The replay is corrupted. You will now be returned to the main menu.\n(signal count is zero)")
 				return
+			
+			read_start_offset = file.get_position()
+			debug_txt.read_start_offset = read_start_offset
+			update_debug_text()
 			
 			var kind:int = file.get_8()
 			print(kind)
@@ -96,11 +138,18 @@ func read_data(from_path:String=""):
 			var cursor_unrev = []
 			while kind != Globals.RS_END:
 				i += 1
+				debug_txt.kind = kind
+				debug_txt.i = i
+				update_debug_text()
 				if fmod(i,70) == 0:
 					emit_signal("progress",(float(i)/float(sigcount)) * 0.6)
 					yield(SSP.get_tree(),"idle_frame")
+				
 				if kind == Globals.RS_CURSOR:
-					cursor_unrev.append([file.get_32(),Vector2(file.get_float(),file.get_float())])
+					var ms = file.get_32()
+					var c = Vector3(file.get_float(),file.get_float(),ms)
+					debug_txt.c = c
+					cursor_unrev.append(c)
 					
 				elif kind == Globals.RS_PAUSE and sv >= 2:
 					var ms = file.get_32()
@@ -143,11 +192,17 @@ func read_data(from_path:String=""):
 			i = 0
 			var curcount = cursor_unrev.size()
 			for num in range(cursor_unrev.size()):
+				debug_txt.i = num
+				update_debug_text()
 				if fmod(num,250) == 0:
-#					print(num)
 					emit_signal("progress",0.6 + ((float(num)/float(curcount)) * 0.4))
 					yield(SSP.get_tree(),"idle_frame")
 				cursor_positions.append(cursor_unrev.pop_back())
+			
+			debug_txt.noteres_amt = note_results.size()
+			debug_txt.cur_amt = cursor_positions.size()
+			debug_txt.trig_amt = triggers.size()
+			update_debug_text()
 			
 			print("nr: ",note_results.size())
 			print("cur: ",cursor_positions.size())
@@ -156,18 +211,43 @@ func read_data(from_path:String=""):
 			loaded = true
 		else:
 			autoplayer = true
+			debug_txt.autoplayer = true
+			update_debug_text()
 			song = SSP.selected_song
 			var notes = song.read_notes()
-			var prev = [-1]
+			var prev = Vector3(1,-1,-1)
+			var cursor_unrev = []
+			var i = 0
 			for n in notes:
-				var p:Array = [float(n[2]),Vector2(n[0],-n[1])]
-				if SSP.mod_mirror_x: p[1].x = 2 - p[1].x
-				if SSP.mod_mirror_y: p[1].y = (-p[1].y) - 2
-				if p[0] != prev[0]:
+				i += 1
+				if fmod(i,250) == 0:
+					emit_signal("progress",(float(i)/float(notes.size())) * 0.6)
+					yield(SSP.get_tree(),"idle_frame")
+				var p:Vector3 = Vector3(n[0],-n[1],float(n[2]))
+				if SSP.mod_mirror_x: p.x = 2 - p.x
+				if SSP.mod_mirror_y: p.y = (-p.y) - 2
+				if p.z != prev.z:
 					prev = p
-					cursor_positions.append(p)
+					cursor_unrev.append(p)
 				else:
-					prev[1] = lerp(p[1],prev[1],0.5)
+					prev.x = lerp(p.x,prev.x,0.5)
+					prev.y = lerp(p.y,prev.y,0.5)
+			
+			var curcount = cursor_unrev.size()
+			debug_txt.c_r_mismatch = 0
+			for num in range(cursor_unrev.size()):
+				debug_txt.i = num
+				update_debug_text()
+				if fmod(num,250) == 0:
+					emit_signal("progress",0.6 + ((float(num)/float(curcount)) * 0.4))
+					yield(SSP.get_tree(),"idle_frame")
+				var c:Vector3 = cursor_unrev.pop_back()
+				var r:Vector3 = Vector3(clamp(c.x,-0.5,2.5),clamp(c.y,-2.5,0.5),c.z)
+				if c != r:
+					print("c/r mismatch! %s != %s" % [String(c),String(r)])
+					debug_txt.c_r_mismatch += 1
+				cursor_positions.append(r)
+			
 			end_ms = SSP.selected_song.last_ms
 			yield(SSP.get_tree(),"idle_frame")
 			emit_signal("done_loading")
@@ -176,45 +256,74 @@ func read_data(from_path:String=""):
 # Playback
 var last_ms:float = -100000000000
 var last_pos_offset:int = 0
+
 func get_cursor_position(ms:float):
 	var start_off:int = last_pos_offset
+	debug_txt.ms = ms
+	debug_txt.start_off = last_pos_offset
+	update_debug_text()
 #	if ms >= last_ms:
 #		start_off = last_pos_offset
 #		last_ms = ms
-	var ap:Array
-	var bp:Array
+	var ap:Vector3
+	var bp:Vector3
+	var rem = 0
 	if ms >= end_ms:
 		ap = cursor_positions[cursor_positions.size()-1]
-		bp = [end_ms + 3000, Vector2(1,-1)]
+		bp = Vector3(1,-1,end_ms+3000)
 	else:
-		for i in range(cursor_positions.size()-1,start_off,-1):
-			var p:Array = cursor_positions[i]
-			if p[0] >= ms:
+		for i in range(cursor_positions.size()-2,0,-1):
+			var p:Vector3 = cursor_positions[i]
+			if p.z >= ms:
 #				breakpoint
-				if i != 0: ap = cursor_positions[i-1]
-				else: ap = [-3000*Globals.speed_multi[SSP.mod_speed_level],Vector2(1,-1)]
+				if i != cursor_positions.size(): ap = cursor_positions[i+1]
+				else: ap = Vector3(1,-1,-3000*Globals.speed_multi[SSP.mod_speed_level])
 				bp = p
 				last_pos_offset = i
 				break
+			else:
+				rem += 1
 	
-	if !ap or !bp or ap.size() == 0 or bp.size() == 0:
+	if !ap or !bp:
 		ap = cursor_positions[last_pos_offset]
-		bp = [ap[0]+10,ap[1]]
+		bp = Vector3(ap.x,ap.y,ap.z+10)
 	
 	var i = last_pos_offset
-	while i > last_pos_offset+2:
-#		past_cursor_positions.append(cursor_positions[i])
-		cursor_positions.remove(i)
+	rem = max(rem-1,0)
+	var rc = 0
+	for _n in range(rem):
+		cursor_positions.remove(cursor_positions.size()-1)
+		rc += 1
+		rem += 1
 		i -= 1
 	last_pos_offset -= i
 	
-	var v = smoothstep(ap[0],bp[0],ms)
+	
+	var a2 = Vector2(ap.x,ap.y)
+	var b2 = Vector2(bp.x,bp.y)
+	var v = clamp(smoothstep(ap.z,bp.z,ms),0,1)
+	debug_txt.rc = rc
+	debug_txt.rem = rem
+	debug_txt.i = i
+	debug_txt.cpos_size = cursor_positions.size()
+	debug_txt.a = ap
+	debug_txt.b = bp
+	debug_txt.v = v
+	update_debug_text()
+	
 	if autoplayer:
-		var dist = bp[0] - ap[0]
-		var pdist = (bp[1] - ap[1]).length()
-		var curve = clamp((dist-300)/150,-clamp(((pdist-0.75)*0.5)/(dist/400),-0.5,1.2),1)
+		var dist = bp.z - ap.z
+		var pdist = (b2 - a2).length()
+		var curve = clamp((dist-300)/150,-clamp(((pdist-0.75)*0.5)/(dist/400),0.5,1.2),1.2)
 		v = ease(v,curve) # -2
-	return lerp(ap[1],bp[1],v)
+		debug_txt.v2 = v
+		debug_txt.tdist = dist
+		debug_txt.pdist = pdist
+		debug_txt.curve = curve
+	var res:Vector2 = lerp(a2,b2,v)
+	debug_txt.result = res
+	update_debug_text() 
+	return res
 
 var last_sig_ms:float = -100000000000
 var last_sig_offset:int = -1

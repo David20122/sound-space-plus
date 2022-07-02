@@ -61,6 +61,8 @@ var energy:float = 6
 var max_energy:float = 6
 var energy_per_hit:float = 1
 
+var rainbow_letter_grade:bool = false
+
 func update_hud():
 	if hits == total_notes: acclabel.text = "100%"
 	elif hits == 0: acclabel.text = "0%"
@@ -76,11 +78,46 @@ func update_hud():
 	
 	truecombo.text = String(combo)
 	truecombo.rect_position.y = 100
+	
+	var grade:String = "--"
+	var gcol:Color = Color(1,0,1)
+	var shine:float = 0
+	var acc = hits/total_notes
+	rainbow_letter_grade = (acc == 1)
+	if acc == 1:
+		grade = "SS"
+		gcol = Color.from_hsv(SSP.rainbow_t*0.1,0.4,1)
+		shine = 1
+	elif acc >= 0.95:
+		grade = "S"
+		gcol = Color("#91fffa")
+		shine = 0.5
+	elif acc >= 0.9:
+		grade = "A"
+		gcol = Color("#91ff92")
+	elif acc >= 0.8:
+		grade = "B"
+		gcol = Color("#e7ffc0")
+	elif acc >= 0.7:
+		grade = "C"
+		gcol = Color("#fcf7b3")
+	elif acc >= 0.6:
+		grade = "D"
+		gcol = Color("#fcd0b3")
+	else:
+		grade = "F"
+		gcol = Color("#ff8282")
+	
+	$Grid/LeftVP/Control/LetterGrade.text = grade
+	$Grid/LeftVP/Control/LetterGrade.material.set_shader_param("amount",shine)
+	if !SSP.rainbow_hud: $Grid/LeftVP/Control/LetterGrade.set("custom_colors/font_color",gcol)
 
 var ending:bool = false
 func end(end_type:int):
 	if ending: return
 	ending = true
+	if end_type == Globals.END_GIVEUP and SSP.record_replays and !SSP.replaying:
+		SSP.replay.store_sig($Spawn.rms,Globals.RS_GIVEUP)
 	if end_type != Globals.END_PASS:
 		friend.failed = true
 		SSP.fail_asp.play()
@@ -96,7 +133,7 @@ func end(end_type:int):
 	SSP.song_end_length = last_ms
 	SSP.song_end_type = end_type
 	black_fade_target = true
-	if SSP.record_replays:
+	if SSP.record_replays and !SSP.replaying:
 		SSP.replay.end_recording()
 	yield(get_tree().create_timer(1),"timeout")
 	get_tree().change_scene("res://menuload.tscn")
@@ -158,12 +195,20 @@ func _process(delta):
 		misseslabel.modulate.g = min(misseslabel.modulate.g+5*delta,1)
 		misseslabel.modulate.b = min(misseslabel.modulate.b+5*delta,1)
 	
+	if SSP.replaying and Input.is_action_just_pressed("pause"):
+		get_tree().paused = !get_tree().paused
+	
+	if rainbow_letter_grade and !SSP.rainbow_hud:
+		$Grid/LeftVP/Control/LetterGrade.set("custom_colors/font_color",Color.from_hsv(SSP.rainbow_t*0.1,0.4,1))
+	
 	if black_fade_target && black_fade != 1:
 		black_fade = min(black_fade + (delta/0.75),1)
 		$BlackFade.color = Color(0,0,0,black_fade)
 	elif !black_fade_target && black_fade != 0:
 		black_fade = max(black_fade - (delta/0.75),0)
 		$BlackFade.color = Color(0,0,0,black_fade)
+	
+	$BlackFade.visible = (black_fade != 0)
 
 
 func hit(col):
@@ -177,6 +222,7 @@ func hit(col):
 	if combo_level != 8 and lvl_progress == 8:
 		lvl_progress = 0
 		combo_level += 1
+		if combo_level == 8: lvl_progress = 8
 	update_hud()
 
 func miss(col):
@@ -224,6 +270,7 @@ func _ready():
 	if !SSP.enable_border: $Spawn/Outer.visible = false
 	if !SSP.show_left_panel: $Grid/LeftHud.visible = false
 	if !SSP.show_right_panel: $Grid/RightHud.visible = false
+	if !SSP.show_letter_grade: $Grid/LeftHud/Control/LetterGrade.visible = false
 	if !SSP.show_accuracy_bar: $Grid/LeftVP/Control/AccuracyBar.visible = false
 	if !SSP.show_hp_bar:
 		$Grid/EnergyVP/Control/Energy.visible = false

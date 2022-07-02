@@ -1,4 +1,4 @@
-[gd_scene load_steps=132 format=2]
+[gd_scene load_steps=135 format=2]
 
 [ext_resource path="res://uitheme.tres" type="Theme" id=1]
 [ext_resource path="res://font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=2]
@@ -235,6 +235,7 @@ font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=89]
 size = 24
+use_filter = true
 font_data = ExtResource( 27 )
 
 [sub_resource type="DynamicFont" id=90]
@@ -358,6 +359,28 @@ corner_radius_top_left = 6
 corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
+
+[sub_resource type="Shader" id=125]
+code = "shader_type canvas_item;
+
+uniform float amount = 0.0;
+
+void fragment() {
+	vec2 uv = UV + vec2(TIME * -0.07);
+	float mult = ( 0.8 + (( 1.0 - amount ) * 0.2) + (amount * 0.2 * sin(length( uv*38.0) )) );
+	COLOR.rgb *= texture(TEXTURE,UV).rgb * mult;
+	COLOR.a *= texture(TEXTURE,UV).a;
+	
+}"
+
+[sub_resource type="ShaderMaterial" id=126]
+shader = SubResource( 125 )
+shader_param/amount = 0.0
+
+[sub_resource type="DynamicFont" id=127]
+size = 28
+use_filter = true
+font_data = ExtResource( 27 )
 
 [sub_resource type="DynamicFont" id=105]
 size = 28
@@ -3169,6 +3192,18 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="LetterGrade" type="Label" parent="Main/Results/EndInfo"]
+material = SubResource( 126 )
+margin_left = 148.0
+margin_right = 279.0
+margin_bottom = 44.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 127 )
+align = 2
+valign = 1
+
 [node name="Misses" type="Label" parent="Main/Results/EndInfo"]
 margin_left = 5.0
 margin_top = 72.0
@@ -3368,7 +3403,7 @@ scroll_horizontal_enabled = false
 [node name="F" parent="Main/Settings/S" instance=ExtResource( 49 )]
 anchor_right = 0.0
 margin_right = 1150.0
-margin_bottom = 2275.0
+margin_bottom = 2371.0
 rect_clip_content = true
 
 [node name="Credits" type="ReferenceRect" parent="Main"]

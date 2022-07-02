@@ -73,6 +73,7 @@ func check(cpos:Vector3):
 
 func setup(color:Color):
 	var mat2:SpatialMaterial = get_node("Spawn/Mesh").get_surface_material(0).duplicate()
+	set_physics_process(false)
 	mat_s = solid_mat.duplicate()
 	mat_t = transparent_mat.duplicate()
 	$Mesh.set_surface_material(0,mat_s)

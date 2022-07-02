@@ -21,6 +21,42 @@ func get_time_ms(ms:float):
 	var rs = fmod(s,60)
 	return "%d:%02d" % [m,rs]
 
+var rainbow_letter_grade:bool = false
+func update_letter_grade(acc:float=0):
+	var grade:String = "--"
+	var gcol:Color = Color(1,0,1)
+	var shine:float = 0
+	rainbow_letter_grade = (acc == 1)
+	if acc == 1:
+		grade = "SS"
+		gcol = Color.from_hsv(SSP.rainbow_t*0.1,0.5,1)
+	elif acc >= 0.95:
+		grade = "S"
+		gcol = Color("#91fffa")
+	elif acc >= 0.9:
+		grade = "A"
+		gcol = Color("#91ff92")
+	elif acc >= 0.8:
+		grade = "B"
+		gcol = Color("#e7ffc0")
+	elif acc >= 0.7:
+		grade = "C"
+		gcol = Color("#fcf7b3")
+	elif acc >= 0.6:
+		grade = "D"
+		gcol = Color("#fcd0b3")
+	else:
+		grade = "F"
+		gcol = Color("#ff8282")
+	
+	$LetterGrade.text = grade
+	$LetterGrade.material.set_shader_param("shine",shine)
+	$LetterGrade.set("custom_colors/font_color",gcol)
+
+func _process(delta):
+	if rainbow_letter_grade:
+		$LetterGrade.set("custom_colors/font_color",Color.from_hsv(SSP.rainbow_t*0.1,0.4,1))
+
 func show_pb(_s=null):
 	if SSP.selected_song != null:
 		var pb = SSP.get_best()
@@ -47,10 +83,15 @@ func show_pb(_s=null):
 				comma_sep(pb.total_notes),
 				(float(pb.hit_notes)/float(pb.total_notes))*100
 			]
+			update_letter_grade(float(pb.hit_notes)/float(pb.total_notes))
 			$Progress.text = "%s\n%.2f%%" % [get_time_ms(pb.position),clamp(pb.position/SSP.selected_song.last_ms,0,1)*100]
 		else:
 			visible = true
 			$Result.text = "No PB"
+			$LetterGrade.text = "-"
+			rainbow_letter_grade = false
+			$LetterGrade.set("custom_colors/font_color",Color(1,1,1))
+			$LetterGrade.material.set_shader_param("shine",0)
 			$Result.set("custom_colors/font_color",Color("#ffdd99"))
 			$FullCombo.visible = false
 			$Misses.visible = true
@@ -98,6 +139,7 @@ func _ready():
 			comma_sep(SSP.song_end_total_notes),
 			(float(SSP.song_end_hits)/float(SSP.song_end_total_notes))*100
 		]
+		update_letter_grade(float(SSP.song_end_hits)/float(SSP.song_end_total_notes))
 		$Progress.text = "%s\n%.1f%%" % [SSP.song_end_time_str,clamp(SSP.song_end_position/SSP.song_end_length,0,1)*100]
 	else:
 		show_pb()

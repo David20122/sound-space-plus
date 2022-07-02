@@ -161,7 +161,7 @@ var attach_hp_to_grid:bool = false
 var attach_timer_to_grid:bool = false
 
 var show_accuracy_bar:bool = true
-var show_score:bool = true
+#var show_score:bool = true
 var show_letter_grade:bool = true
 var simple_hud:bool = false
 
@@ -492,7 +492,7 @@ func update_rpc_song():
 #		push_error(result)
 
 
-const current_sf_version = 35
+const current_sf_version = 36
 var alert:String = ""
 var should_ask_about_replays:bool = true
 
@@ -560,7 +560,8 @@ func load_saved_settings():
 		if sv >= 21:
 			display_true_combo = bool(file.get_8())
 		if sv >= 22:
-			cursor_face_velocity = bool(file.get_8())
+			#cursor_face_velocity = bool(
+			file.get_8()#)
 		if sv >= 23:
 			if file.get_8() != 147:
 				print("integ 7"); return 9
@@ -616,6 +617,10 @@ func load_saved_settings():
 			record_replays = bool(file.get_8())
 		if sv >= 35:
 			alt_cam = bool(file.get_8())
+		if sv >= 36:
+			show_accuracy_bar = bool(file.get_8())
+			show_letter_grade = bool(file.get_8())
+			simple_hud = bool(file.get_8())
 		file.close()
 	return 0
 
@@ -686,6 +691,9 @@ func save_settings():
 		file.store_8(int(show_warnings))
 		file.store_8(int(record_replays))
 		file.store_8(int(alt_cam))
+		file.store_8(int(show_accuracy_bar))
+		file.store_8(int(show_letter_grade))
+		file.store_8(int(simple_hud))
 		file.close()
 		return "OK"
 	else:
@@ -1174,7 +1182,7 @@ func do_init(_ud=null):
 			file.open(Globals.p("user://favorites.txt"),File.READ)
 			var txt = file.get_as_text()
 			file.close()
-			favorite_songs = txt.split("\n")
+			favorite_songs = txt.split("\n",false)
 	
 	dir.change_dir("res://")
 	first_init_done = true

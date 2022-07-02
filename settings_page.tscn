@@ -110,7 +110,7 @@ script = ExtResource( 36 )
 [node name="M" type="VBoxContainer" parent="."]
 margin_top = 59.0
 margin_right = 1150.0
-margin_bottom = 2175.0
+margin_bottom = 2271.0
 custom_constants/separation = 0
 
 [node name="Modifiers" type="VBoxContainer" parent="M"]
@@ -2196,7 +2196,7 @@ clip_text = true
 [node name="UI" type="VBoxContainer" parent="M"]
 margin_top = 1476.0
 margin_right = 1150.0
-margin_bottom = 1892.0
+margin_bottom = 1988.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/UI"]
@@ -2224,13 +2224,13 @@ flat = true
 [node name="Group" type="MarginContainer" parent="M/UI"]
 margin_top = 36.0
 margin_right = 1150.0
-margin_bottom = 416.0
+margin_bottom = 512.0
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="M/UI/Group"]
 margin_left = 180.0
 margin_right = 1150.0
-margin_bottom = 380.0
+margin_bottom = 476.0
 
 [node name="Grid" type="CheckBox" parent="M/UI/Group/H"]
 margin_right = 582.0
@@ -2308,10 +2308,84 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Config" type="CheckBox" parent="M/UI/Group/H"]
+[node name="SimpleHud" type="CheckBox" parent="M/UI/Group/H"]
 margin_top = 64.0
 margin_right = 582.0
 margin_bottom = 92.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_focus = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 4 )
+pressed = true
+action_mode = 0
+text = "changes the side panels to show only your misses and pauses"
+flat = true
+script = ExtResource( 54 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+target = "simple_hud"
+
+[node name="Label" type="Label" parent="M/UI/Group/H/SimpleHud"]
+anchor_bottom = 1.0
+margin_left = -150.0
+margin_right = -10.0
+grow_horizontal = 0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Simple HUD"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="LetterGrade" type="CheckBox" parent="M/UI/Group/H"]
+margin_top = 96.0
+margin_right = 582.0
+margin_bottom = 124.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_focus = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 4 )
+pressed = true
+action_mode = 0
+text = "shows a letter grade (SS, S, A, etc.) above your accuracy"
+flat = true
+script = ExtResource( 54 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+target = "show_letter_grade"
+
+[node name="Label" type="Label" parent="M/UI/Group/H/LetterGrade"]
+anchor_bottom = 1.0
+margin_left = -150.0
+margin_right = -10.0
+grow_horizontal = 0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Show Letter Grade"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="Config" type="CheckBox" parent="M/UI/Group/H"]
+margin_top = 128.0
+margin_right = 582.0
+margin_bottom = 156.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -2349,9 +2423,9 @@ __meta__ = {
 }
 
 [node name="DisplayTrueCombo" type="CheckBox" parent="M/UI/Group/H"]
-margin_top = 96.0
+margin_top = 160.0
 margin_right = 582.0
-margin_bottom = 124.0
+margin_bottom = 188.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -2382,9 +2456,9 @@ valign = 1
 clip_text = true
 
 [node name="ShowHealth" type="CheckBox" parent="M/UI/Group/H"]
-margin_top = 128.0
+margin_top = 192.0
 margin_right = 582.0
-margin_bottom = 156.0
+margin_bottom = 220.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -2415,9 +2489,9 @@ valign = 1
 clip_text = true
 
 [node name="ShowTimer" type="CheckBox" parent="M/UI/Group/H"]
-margin_top = 160.0
+margin_top = 224.0
 margin_right = 582.0
-margin_bottom = 188.0
+margin_bottom = 252.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -2447,10 +2521,43 @@ align = 2
 valign = 1
 clip_text = true
 
-[node name="ShowLeftPanel" type="CheckBox" parent="M/UI/Group/H"]
-margin_top = 192.0
+[node name="AccuracyBar" type="CheckBox" parent="M/UI/Group/H"]
+margin_top = 256.0
 margin_right = 582.0
-margin_bottom = 220.0
+margin_bottom = 284.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_focus = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 4 )
+pressed = true
+action_mode = 0
+text = "shows your accuracy on a progress bar"
+flat = true
+script = ExtResource( 54 )
+target = "show_accuracy_bar"
+
+[node name="Label" type="Label" parent="M/UI/Group/H/AccuracyBar"]
+anchor_bottom = 1.0
+margin_left = -165.0
+margin_right = -10.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Accuracy Bar"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="ShowLeftPanel" type="CheckBox" parent="M/UI/Group/H"]
+margin_top = 288.0
+margin_right = 582.0
+margin_bottom = 316.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -2481,9 +2588,9 @@ valign = 1
 clip_text = true
 
 [node name="ShowRightPanel" type="CheckBox" parent="M/UI/Group/H"]
-margin_top = 224.0
+margin_top = 320.0
 margin_right = 582.0
-margin_bottom = 252.0
+margin_bottom = 348.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -2514,9 +2621,9 @@ valign = 1
 clip_text = true
 
 [node name="AttachHpToGrid" type="CheckBox" parent="M/UI/Group/H"]
-margin_top = 256.0
+margin_top = 352.0
 margin_right = 582.0
-margin_bottom = 284.0
+margin_bottom = 380.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -2546,9 +2653,9 @@ valign = 1
 clip_text = true
 
 [node name="AttachTimerToGrid" type="CheckBox" parent="M/UI/Group/H"]
-margin_top = 288.0
+margin_top = 384.0
 margin_right = 582.0
-margin_bottom = 316.0
+margin_bottom = 412.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -2578,9 +2685,9 @@ valign = 1
 clip_text = true
 
 [node name="RainbowGrid" type="CheckBox" parent="M/UI/Group/H"]
-margin_top = 320.0
+margin_top = 416.0
 margin_right = 582.0
-margin_bottom = 348.0
+margin_bottom = 444.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -2610,9 +2717,9 @@ valign = 1
 clip_text = true
 
 [node name="RainbowHUD" type="CheckBox" parent="M/UI/Group/H"]
-margin_top = 352.0
+margin_top = 448.0
 margin_right = 582.0
-margin_bottom = 380.0
+margin_bottom = 476.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -2642,9 +2749,9 @@ valign = 1
 clip_text = true
 
 [node name="Graphics" type="VBoxContainer" parent="M"]
-margin_top = 1892.0
+margin_top = 1988.0
 margin_right = 1150.0
-margin_bottom = 2116.0
+margin_bottom = 2212.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Graphics"]
@@ -2918,7 +3025,7 @@ margin_left = 180.0
 margin_right = 800.0
 
 [node name="BottomMargin" type="Control" parent="."]
-margin_top = 2179.0
+margin_top = 2275.0
 margin_right = 1150.0
-margin_bottom = 2275.0
+margin_bottom = 2371.0
 rect_min_size = Vector2( 0, 96 )

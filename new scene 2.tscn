@@ -1,9 +1,10 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://game/Spinner.gd" type="Script" id=1]
 [ext_resource path="res://content/blocks/default.obj" type="ArrayMesh" id=2]
 [ext_resource path="res://icon.png" type="Texture" id=3]
 [ext_resource path="res://content/worlds/pano.png" type="Texture" id=4]
+[ext_resource path="res://game/CameraControl.gd" type="Script" id=5]
 
 [sub_resource type="QuadMesh" id=1]
 
@@ -98,6 +99,7 @@ size = Vector2( 1000, 1000 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.73472 )
 current = true
 far = 500.0
+script = ExtResource( 5 )
 
 [node name="ReferenceRect" type="ReferenceRect" parent="Camera"]
 anchor_left = 0.5

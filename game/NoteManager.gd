@@ -284,10 +284,10 @@ func _process(delta:float):
 			elif s[1] == Globals.RS_FINISH_UNPAUSE:
 				should_end_unpause = true
 		
-		if can_skip and should_skip:
+		if should_skip:
 			var prev_ms = ms
 			ms = next_ms - (1000*speed_multi)
-			rms += (prev_ms - ms)
+#			rms += (prev_ms - ms)
 			emit_signal("ms_change",ms)
 			do_note_queue()
 			if ms >= 0:
@@ -331,6 +331,7 @@ func _process(delta:float):
 				get_parent().get_node("Grid/PauseHud").visible = false
 				$Music.volume_db = 0
 				pause_state = 0
+		if should_giveup: get_parent().end(Globals.END_GIVEUP)
 
 
 	# Ensure pause screen is always visible when paused

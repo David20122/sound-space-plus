@@ -87,7 +87,7 @@ func _process(delta):
 	if SSP.smart_trail and trail_started:
 		var start_p = global_transform.origin
 		var end_p = prev_end
-		var amt = ceil(SSP.trail_detail*(start_p-end_p).length())
+		var amt = min(ceil(SSP.trail_detail*(start_p-end_p).length()),120)
 		var new = 0
 		var cached = 0
 		for i in range(amt):

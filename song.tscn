@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=2]
+[gd_scene load_steps=80 format=2]
 
 [ext_resource path="res://game/Camera.gd" type="Script" id=1]
 [ext_resource path="res://game/NoteManager.gd" type="Script" id=2]
@@ -29,6 +29,7 @@
 [ext_resource path="res://AvatarPointer.gd" type="Script" id=27]
 [ext_resource path="res://content/animations/Idle.tres" type="Animation" id=28]
 [ext_resource path="res://content/meshes/LowCube.obj" type="ArrayMesh" id=29]
+[ext_resource path="res://game/CameraControl.gd" type="Script" id=30]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.145098, 0.74902, 0, 1 )
@@ -82,7 +83,30 @@ font_data = ExtResource( 17 )
 
 [sub_resource type="DynamicFont" id=10]
 size = 48
+use_filter = true
 font_data = ExtResource( 16 )
+
+[sub_resource type="Shader" id=52]
+code = "shader_type canvas_item;
+
+uniform float amount = 0.0;
+
+void fragment() {
+	vec2 uv = UV + vec2(TIME * -0.07);
+	float mult = ( 0.75 + (( 1.0 - amount ) * 0.25) + (amount * 0.25 * sin(length( uv*38.0) )) );
+	COLOR.rgb *= texture(TEXTURE,UV).rgb * mult;
+	COLOR.a *= texture(TEXTURE,UV).a;
+	
+}"
+
+[sub_resource type="ShaderMaterial" id=53]
+shader = SubResource( 52 )
+shader_param/amount = 0.0
+
+[sub_resource type="DynamicFont" id=51]
+size = 64
+use_filter = true
+font_data = ExtResource( 18 )
 
 [sub_resource type="DynamicFont" id=11]
 size = 96
@@ -305,9 +329,10 @@ collide_with_areas = true
 collide_with_bodies = false
 
 [node name="AltCam" type="Camera" parent="."]
-transform = Transform( 0.904923, 0.124458, -0.406969, -0.0240046, 0.969686, 0.243171, 0.424897, -0.210282, 0.880479, -2.13836, 1.00879, 4.11302 )
+pause_mode = 2
+transform = Transform( 0.907726, 0.102027, -0.406969, 0, 0.969983, 0.243175, 0.419563, -0.220736, 0.880479, -2.13836, 1.00879, 4.11302 )
 far = 500.0
-script = ExtResource( 1 )
+script = ExtResource( 30 )
 
 [node name="RayCast" type="RayCast" parent="AltCam"]
 cast_to = Vector3( 0, 0, -100 )
@@ -447,15 +472,25 @@ __meta__ = {
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -166.622
-margin_bottom = -91.6223
+margin_top = -167.0
+margin_bottom = -92.0003
 custom_fonts/font = SubResource( 10 )
 text = "-"
 align = 1
 valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
+
+[node name="LetterGrade" type="Label" parent="Game/Grid/LeftVP/Control"]
+material = SubResource( 53 )
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -343.0
+margin_bottom = -265.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 51 )
+text = "--"
+align = 1
+valign = 1
 
 [node name="Combo" type="Control" parent="Game/Grid/LeftVP/Control"]
 anchor_right = 1.0
@@ -588,8 +623,8 @@ custom_styles/panel = SubResource( 50 )
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -167.31
-margin_bottom = -92.3102
+margin_top = -168.0
+margin_bottom = -93.0002
 custom_fonts/font = SubResource( 13 )
 text = "0/0"
 align = 1
@@ -602,8 +637,8 @@ __meta__ = {
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -231.908
-margin_bottom = -156.908
+margin_top = -232.0
+margin_bottom = -157.0
 custom_fonts/font = SubResource( 9 )
 text = "NOTES"
 align = 1
@@ -616,8 +651,8 @@ __meta__ = {
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -552.179
-margin_bottom = -477.179
+margin_top = -552.0
+margin_bottom = -477.0
 custom_fonts/font = SubResource( 13 )
 text = "0"
 align = 1
@@ -630,8 +665,8 @@ __meta__ = {
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -616.776
-margin_bottom = -541.776
+margin_top = -617.0
+margin_bottom = -542.0
 custom_fonts/font = SubResource( 9 )
 text = "MISSES"
 align = 1
@@ -644,8 +679,8 @@ __meta__ = {
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -785.513
-margin_bottom = -710.513
+margin_top = -785.0
+margin_bottom = -710.0
 custom_fonts/font = SubResource( 13 )
 text = "0"
 align = 1
@@ -659,8 +694,8 @@ __meta__ = {
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -850.11
-margin_bottom = -775.11
+margin_top = -850.0
+margin_bottom = -775.0
 custom_fonts/font = SubResource( 9 )
 text = "FPS"
 align = 1
@@ -1188,13 +1223,8 @@ transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 1, -2.1
 [node name="FriendUL" type="Position3D" parent="Game/Spawn"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.25, 0.25, 0 )
 
-[node name="BlackFade" type="ColorRect" parent="Game"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 1
-color = Color( 0, 0, 0, 0 )
-
 [node name="Avatar" type="Spatial" parent="Game"]
+pause_mode = 1
 
 [node name="Head" type="MeshInstance" parent="Game/Avatar"]
 transform = Transform( 0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, -0.1, 2 )
@@ -1224,7 +1254,14 @@ material/0 = SubResource( 48 )
 [node name="Animations" type="AnimationPlayer" parent="Game/Avatar"]
 anims/Idle = ExtResource( 28 )
 
+[node name="BlackFade" type="ColorRect" parent="Game"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+color = Color( 0, 0, 0, 0 )
+
 [node name="Debug" type="Label" parent="."]
+visible = false
 margin_left = 10.0
 margin_top = 10.0
 margin_right = 106.0

@@ -16,6 +16,7 @@ enum {
 	RS_CANCEL_UNPAUSE = 7
 	RS_FINISH_UNPAUSE = 8
 	RS_SKIP = 9
+	RS_GIVEUP_CANCEL = 10
 }
 
 enum {
@@ -479,6 +480,10 @@ var error_sound:AudioStream
 var audioLoader:AudioLoader = AudioLoader.new()
 var imageLoader:ImageLoader = ImageLoader.new()
 var confirm_prompt:ConfirmationPrompt2D
+
+#func _process(delta):
+#	if get_tree().root.has_node("ReplayDebug"):
+#		get_node("/root/ReplayDebug").raise()
 
 func _ready():
 	confirm_prompt = load("res://confirm.tscn").instance()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=136 format=2]
+[gd_scene load_steps=139 format=2]
 
 [ext_resource path="res://font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://uitheme.tres" type="Theme" id=2]
@@ -147,6 +147,28 @@ font_data = ExtResource( 1 )
 size = 24
 use_filter = true
 font_data = ExtResource( 1 )
+
+[sub_resource type="Shader" id=125]
+code = "shader_type canvas_item;
+
+uniform float amount = 0.0;
+
+void fragment() {
+	vec2 uv = UV + vec2(TIME * -0.07);
+	float mult = ( 0.8 + (( 1.0 - amount ) * 0.2) + (amount * 0.2 * sin(length( uv*38.0) )) );
+	COLOR.rgb *= texture(TEXTURE,UV).rgb * mult;
+	COLOR.a *= texture(TEXTURE,UV).a;
+	
+}"
+
+[sub_resource type="ShaderMaterial" id=126]
+shader = SubResource( 125 )
+shader_param/amount = 0.0
+
+[sub_resource type="DynamicFont" id=127]
+size = 28
+use_filter = true
+font_data = ExtResource( 10 )
 
 [sub_resource type="DynamicFont" id=21]
 size = 22
@@ -1624,6 +1646,18 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="LetterGrade" type="Label" parent="MapSelect/EndInfo"]
+material = SubResource( 126 )
+margin_left = 148.0
+margin_right = 279.0
+margin_bottom = 44.0
+focus_mode = 2
+theme = ExtResource( 2 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 127 )
+align = 2
+valign = 1
+
 [node name="VersionNumber" type="Label" parent="."]
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -1755,7 +1789,7 @@ scroll_horizontal_enabled = false
 [node name="F" parent="PageMgr/Settings" instance=ExtResource( 3 )]
 anchor_right = 0.0
 margin_right = 1150.0
-margin_bottom = 2243.0
+margin_bottom = 2371.0
 rect_clip_content = true
 
 [node name="MapRegistry" type="ReferenceRect" parent="PageMgr"]
