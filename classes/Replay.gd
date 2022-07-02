@@ -162,6 +162,10 @@ func read_data(from_path:String=""):
 				elif kind == Globals.RS_CANCEL_UNPAUSE and sv >= 2:
 					var ms = file.get_32()
 					triggers.append([ms,Globals.RS_CANCEL_UNPAUSE])
+				
+				elif kind == Globals.RS_SKIP and sv >= 2:
+					var ms = file.get_32()
+					triggers.append([ms,Globals.RS_SKIP])
 					
 				elif kind == Globals.RS_FINISH_UNPAUSE and sv >= 2:
 					var ms = file.get_32()
