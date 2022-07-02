@@ -1375,7 +1375,7 @@ margin_right = 1150.0
 margin_bottom = 160.0
 
 [node name="MusicVolume" type="Control" parent="M/Audio/Group/H"]
-margin_right = 559.0
+margin_right = 540.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 200, 32 )
 
@@ -1422,7 +1422,7 @@ valign = 1
 
 [node name="MenuMusic" type="CheckBox" parent="M/Audio/Group/H"]
 margin_top = 36.0
-margin_right = 559.0
+margin_right = 540.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -1434,7 +1434,7 @@ custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_fonts/font = SubResource( 4 )
 action_mode = 0
-text = "customize this with a \"menu.mp3\" file in your save directory (default song by scriptima)"
+text = "customize this with a \"menu.mp3\" file in your save directory (default song by pyrule)"
 flat = true
 script = ExtResource( 54 )
 target = "play_menu_music"
@@ -1457,7 +1457,7 @@ __meta__ = {
 
 [node name="AutoPreview" type="CheckBox" parent="M/Audio/Group/H"]
 margin_top = 68.0
-margin_right = 559.0
+margin_right = 540.0
 margin_bottom = 96.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -1493,7 +1493,7 @@ __meta__ = {
 
 [node name="HitSound" type="CheckBox" parent="M/Audio/Group/H"]
 margin_top = 100.0
-margin_right = 559.0
+margin_right = 540.0
 margin_bottom = 128.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -1529,7 +1529,7 @@ __meta__ = {
 
 [node name="MissSound" type="CheckBox" parent="M/Audio/Group/H"]
 margin_top = 132.0
-margin_right = 559.0
+margin_right = 540.0
 margin_bottom = 160.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
