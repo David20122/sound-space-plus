@@ -160,6 +160,11 @@ var show_right_panel:bool = true
 var attach_hp_to_grid:bool = false
 var attach_timer_to_grid:bool = false
 
+var show_accuracy_bar:bool = true
+var show_score:bool = true
+var show_letter_grade:bool = true
+var simple_hud:bool = false
+
 var rainbow_grid:bool = false
 var rainbow_hud:bool = false
 

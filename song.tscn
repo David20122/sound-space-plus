@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=2]
+[gd_scene load_steps=76 format=2]
 
 [ext_resource path="res://game/Camera.gd" type="Script" id=1]
 [ext_resource path="res://game/NoteManager.gd" type="Script" id=2]
@@ -64,6 +64,13 @@ font_data = ExtResource( 18 )
 size = 36
 use_filter = true
 font_data = ExtResource( 17 )
+
+[sub_resource type="StyleBoxFlat" id=50]
+bg_color = Color( 0, 0, 0, 0.45098 )
+corner_radius_top_left = 125
+corner_radius_top_right = 125
+corner_radius_bottom_right = 125
+corner_radius_bottom_left = 125
 
 [sub_resource type="StyleBoxFlat" id=8]
 bg_color = Color( 0.54902, 1, 0, 1 )
@@ -281,89 +288,7 @@ flags_unshaded = true
 albedo_color = Color( 1, 1, 1, 0.705882 )
 albedo_texture = ExtResource( 25 )
 
-[sub_resource type="SpatialMaterial" id=48]
-emission_enabled = true
-emission = Color( 1, 1, 1, 1 )
-emission_energy = 1.0
-emission_operator = 0
-emission_on_uv2 = false
-
-[sub_resource type="Animation" id=49]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath("Head:translation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector3( 0, -0.1, 2 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Head:rotation_degrees")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector3( 0, 0, 0 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Torso:translation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector3( 0, -0.75, 2 ) ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("ArmR:translation")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector3( 0.5, -0.75, 2 ) ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("ArmR:rotation_degrees")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector3( 0, 0, 0 ) ]
-}
-tracks/5/type = "value"
-tracks/5/path = NodePath("ArmL/Pointer:translation")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector3( 0, 0, -0.25 ) ]
-}
-
-[node name="Spatial" type="Spatial"]
+[node name="Song" type="Spatial"]
 script = ExtResource( 23 )
 
 [node name="SpinPos" type="Position3D" parent="."]
@@ -380,7 +305,7 @@ collide_with_areas = true
 collide_with_bodies = false
 
 [node name="AltCam" type="Camera" parent="."]
-transform = Transform( 0.904923, 0.124458, -0.406969, -0.0240046, 0.969686, 0.243171, 0.424897, -0.210282, 0.880479, -2.64018, 1.0221, 3.87739 )
+transform = Transform( 0.904923, 0.124458, -0.406969, -0.0240046, 0.969686, 0.243171, 0.424897, -0.210282, 0.880479, -2.13836, 1.00879, 4.11302 )
 far = 500.0
 script = ExtResource( 1 )
 
@@ -476,10 +401,15 @@ gui_snap_controls_to_pixels = false
 [node name="Control" type="ColorRect" parent="Game/Grid/LeftVP"]
 margin_right = 300.0
 margin_bottom = 900.0
-color = Color( 0, 0, 0, 0.294118 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+color = Color( 0, 0, 0, 0.45098 )
+
+[node name="SimpleBg" type="Panel" parent="Game/Grid/LeftVP/Control"]
+visible = false
+margin_left = 25.0
+margin_top = 225.0
+margin_right = 275.0
+margin_bottom = 475.0
+custom_styles/panel = SubResource( 50 )
 
 [node name="AccuracyBar" type="ProgressBar" parent="Game/Grid/LeftVP/Control"]
 anchor_top = 1.0
@@ -562,8 +492,8 @@ stretch_mode = 6
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -552.179
-margin_bottom = -477.179
+margin_top = -552.0
+margin_bottom = -477.0
 custom_fonts/font = SubResource( 13 )
 text = "0"
 align = 1
@@ -644,10 +574,15 @@ gui_snap_controls_to_pixels = false
 [node name="Control" type="ColorRect" parent="Game/Grid/RightVP"]
 margin_right = 300.0
 margin_bottom = 900.0
-color = Color( 0, 0, 0, 0.294118 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+color = Color( 0, 0, 0, 0.45098 )
+
+[node name="SimpleBg" type="Panel" parent="Game/Grid/RightVP/Control"]
+visible = false
+margin_left = 25.0
+margin_top = 225.0
+margin_right = 275.0
+margin_bottom = 475.0
+custom_styles/panel = SubResource( 50 )
 
 [node name="Notes" type="Label" parent="Game/Grid/RightVP/Control"]
 anchor_top = 1.0
@@ -1207,6 +1142,7 @@ text = "cursor debug"
 
 [node name="Note" type="Spatial" parent="Game/Spawn"]
 transform = Transform( 0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 1, -1, 8 )
+visible = false
 script = ExtResource( 4 )
 solid_mat = SubResource( 48 )
 transparent_mat = SubResource( 49 )
@@ -1287,4 +1223,11 @@ material/0 = SubResource( 48 )
 
 [node name="Animations" type="AnimationPlayer" parent="Game/Avatar"]
 anims/Idle = ExtResource( 28 )
-anims/RESET = SubResource( 49 )
+
+[node name="Debug" type="Label" parent="."]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 106.0
+margin_bottom = 27.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 46 )

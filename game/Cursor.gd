@@ -78,7 +78,9 @@ func _process(delta):
 		global_transform.origin = Vector3(ct-1.5,sin(ct*4),global_transform.origin.z)
 	
 	if SSP.replaying:
-		var p = SSP.replay.get_cursor_position(get_parent().ms)
+		var p
+		if SSP.replay.sv == 1 or SSP.replay.autoplayer: p = SSP.replay.get_cursor_position(get_parent().ms)
+		else: p = SSP.replay.get_cursor_position(get_parent().rms)
 		transform.origin.x = p.x
 		transform.origin.y = p.y
 	
@@ -115,10 +117,14 @@ func _process(delta):
 		prev_end = global_transform.origin
 
 func _ready():
-	if SSP.lock_mouse:
-		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	if !SSP.replaying:
+		if SSP.lock_mouse:
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		else:
+			Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
 	else:
-		Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
+		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	
 	var mat:SpatialMaterial = $Mesh.get("material/0")
 	$Mesh.scale = Vector3(SSP.cursor_scale,SSP.cursor_scale,SSP.cursor_scale)
 	$Mesh2.scale = 0.5 * Vector3(SSP.cursor_scale,SSP.cursor_scale,SSP.cursor_scale)

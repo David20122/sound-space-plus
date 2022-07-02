@@ -414,7 +414,6 @@ margin_bottom = 10.0
 color = Color( 0.941176, 0.94902, 0.952941, 1 )
 
 [node name="P" type="ProgressBar" parent="."]
-visible = false
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0

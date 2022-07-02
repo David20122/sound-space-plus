@@ -6,6 +6,7 @@ export(ShaderMaterial) var transparent_mat
 
 var notems:float
 var was_visible:bool = false
+var id:int = -1
 var state:int = 0
 var spawn_effect_t:float = 0
 onready var speed_multi:float = get_parent().speed_multi
@@ -62,10 +63,13 @@ func reposition(ms:float,approachSpeed:float):
 		return !(state == Globals.NSTATE_ACTIVE and sign(approachSpeed) == 1 and current_dist > 100)
 
 func check(cpos:Vector3):
-	var hbs:float = SSP.note_hitbox_size/2
-	if hbs == 0.57: hbs = 0.56875 # 1.1375
-	var ori:Vector3 = transform.origin
-	return (cpos.x <= ori.x + hbs and cpos.x >= ori.x - hbs) and (cpos.y <= ori.y + hbs and cpos.y >= ori.y - hbs)
+	if SSP.replaying and SSP.replay.sv != 1:
+		return SSP.replay.should_hit(id)
+	else:
+		var hbs:float = SSP.note_hitbox_size/2
+		if hbs == 0.57: hbs = 0.56875 # 1.1375
+		var ori:Vector3 = transform.origin
+		return (cpos.x <= ori.x + hbs and cpos.x >= ori.x - hbs) and (cpos.y <= ori.y + hbs and cpos.y >= ori.y - hbs)
 
 func setup(color:Color):
 	var mat2:SpatialMaterial = get_node("Spawn/Mesh").get_surface_material(0).duplicate()

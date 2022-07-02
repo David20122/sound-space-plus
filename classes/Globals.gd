@@ -12,6 +12,10 @@ enum {
 	RS_PAUSE = 3
 	RS_GIVEUP = 4
 	RS_END = 5
+	RS_START_UNPAUSE = 6
+	RS_CANCEL_UNPAUSE = 7
+	RS_FINISH_UNPAUSE = 8
+	RS_SKIP = 9
 }
 
 enum {

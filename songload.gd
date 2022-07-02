@@ -74,8 +74,8 @@ func finish():
 	
 	if SSP.replaying:
 		SSP.save_current_state()
-		SSP.replay.read_data(SSP.replay_path)
 		SSP.replay.connect("progress",self,"progress")
+		SSP.replay.read_data(SSP.replay_path)
 		yield(SSP.replay,"done_loading")
 	
 	black_fade_target = true

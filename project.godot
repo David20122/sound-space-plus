@@ -134,6 +134,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://classes/NoteMesh.gd"
 }, {
+"base": "Reference",
+"class": "ObjParse",
+"language": "GDScript",
+"path": "res://classes/ObjParse.gd"
+}, {
 "base": "Resource",
 "class": "Registry",
 "language": "GDScript",
@@ -175,6 +180,7 @@ _global_script_class_icons={
 "Note": "",
 "NoteEffect": "",
 "NoteMesh": "",
+"ObjParse": "",
 "Registry": "",
 "Replay": "",
 "Song": ""
@@ -192,7 +198,7 @@ boot_splash/fullsize=false
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://icon.png"
 config/windows_native_icon="res://icon.ico"
-config/version="0.8.0-alpha"
+config/version="0.8.1-alpha"
 config/autoload_map_registries="test maps|res://test_assets/test_maps.sspmr;built in|res://content/songs/built_in_maps.sspmr"
 config/enable_new_content_mgr=true
 config/default_menu_target="res://menu2.tscn"

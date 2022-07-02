@@ -224,6 +224,7 @@ func _ready():
 	if !SSP.enable_border: $Spawn/Outer.visible = false
 	if !SSP.show_left_panel: $Grid/LeftHud.visible = false
 	if !SSP.show_right_panel: $Grid/RightHud.visible = false
+	if !SSP.show_accuracy_bar: $Grid/LeftVP/Control/AccuracyBar.visible = false
 	if !SSP.show_hp_bar:
 		$Grid/EnergyVP/Control/Energy.visible = false
 		$Grid/EnergyVP/Control/Modifiers.margin_top -= 30
@@ -238,6 +239,17 @@ func _ready():
 		$Grid.remove_child(th)
 		$Spawn.add_child(th)
 		th.transform.origin += Vector3(1,-1,0)
+	if SSP.simple_hud:
+		$Grid/LeftVP/Control.color = Color(0,0,0,0)
+		$Grid/RightVP/Control.color = Color(0,0,0,0)
+		
+		for n in $Grid/LeftVP/Control.get_children():
+			n.visible = n.name == "SimpleBg" or n.name == "Pauses" or n.name == "PausesTitle"
+			if n.visible: n.rect_position.y += 100
+		for n in $Grid/RightVP/Control.get_children():
+			n.visible = n.name == "SimpleBg" or n.name == "Misses" or n.name == "MissesTitle"
+			if n.visible: n.rect_position.y += 100
+		
 	songnametxt.text = SSP.selected_song.name
 
 	
