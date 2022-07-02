@@ -309,6 +309,7 @@ func generate_pb_str():
 	if mod_nearsighted: pts.append("m_nsight")
 	if mod_ghost: pts.append("m_ghost")
 	if mod_sudden_death: pts.append("m_sd")
+	if mod_nofail: pts.append("m_nofail") # for replays
 	
 	pts.sort()
 	
@@ -331,6 +332,7 @@ func parse_pb_str(txt:String):
 	data.mod_mirror_y = false
 	data.mod_nearsighted = false
 	data.mod_ghost = false
+	data.mod_nofail = false
 	
 	for s in pts:
 		if s.begins_with("s:c"):
@@ -358,6 +360,7 @@ func parse_pb_str(txt:String):
 				"m_mirror_y": data.mod_mirror_y = true
 				"m_nsight": data.mod_nearsighted = true
 				"m_ghost": data.mod_ghost = true
+				"m_nofail": data.mod_nofail = true
 	return data
 
 var prev_state:Dictionary = {}
@@ -823,7 +826,7 @@ func register_worlds():
 		"res://error.jpg"
 	))
 	registry_world.add_item(BackgroundWorld.new(
-		"ssp_custom", "Custom (info in the discord)",
+		"ssp_custom", "Modworld (info in the discord)",
 		"res://content/worlds/custom.tscn", "Someone",
 		"res://content/worlds/covers/custom.png"
 	))
@@ -900,9 +903,7 @@ func load_color_txt():
 
 func do_init(_ud=null):
 	installed_packs = []
-	var lmid
 	yield(get_tree().create_timer(0.05),"timeout") # haha thread safety go brrrr
-	if first_init_done and selected_song: lmid = selected_song.id
 	var lp:bool = false # load pause
 	var file:File = File.new()
 	var dir:Directory = Directory.new()

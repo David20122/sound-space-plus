@@ -58,6 +58,7 @@ stretch_mode = 6
 stream = ExtResource( 2 )
 volume_db = -45.0
 autoplay = true
+bus = "Music"
 script = SubResource( 1 )
 
 [node name="Info" type="Label" parent="."]
