@@ -164,15 +164,17 @@ var show_accuracy_bar:bool = true
 #var show_score:bool = true
 var show_letter_grade:bool = true
 var simple_hud:bool = false
+var faraway_hud:bool = true
 
 var rainbow_grid:bool = false
 var rainbow_hud:bool = false
 
-var start_offset:float = 0
+var start_offset:float = 0 setget _set_start_offset
+func _set_start_offset(v:float):
+	start_offset = v; emit_signal("mods_changed")
 
 var note_hitbox_size:float = 1.140 setget _set_hitbox_size
 func _set_hitbox_size(v:float):
-	
 	note_hitbox_size = v; emit_signal("mods_changed")
 
 var hitwindow_ms:float = 55 setget _set_hitwindow

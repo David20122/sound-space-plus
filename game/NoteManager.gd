@@ -126,7 +126,7 @@ var music_started:bool = false
 const cursor_offset = Vector3(1,-1,0)
 onready var cam:Camera = get_node("../..").get_node("Camera")
 var hlpower = (0.1 * SSP.parallax)
-
+onready var Grid = get_node("../Grid")
 
 func do_half_lock():
 	var cursorpos = $Cursor.transform.origin
@@ -137,8 +137,8 @@ func do_half_lock():
 	cam.transform.origin = Vector3(
 		centeroff.x*hlpower*hlm, centeroff.y*hlpower*hlm, 3.735
 	)
-	get_parent().get_node("Grid").transform.origin = Vector3(
-		-centeroff.x*hlm*uim, -centeroff.y*hlm*uim, 0
+	Grid.transform.origin = Vector3(
+		-centeroff.x*hlm*uim, -centeroff.y*hlm*uim, Grid.transform.origin.z
 	)
 	transform.origin = Vector3(
 		-(centeroff.x*hlm*grm)-1, -(centeroff.y*hlm*grm)+1, 0

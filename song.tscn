@@ -35,6 +35,9 @@
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.145098, 0.74902, 0, 1 )
 
+[sub_resource type="BoxShape" id=29]
+extents = Vector3( 40, 40, 1 )
+
 [sub_resource type="PlaneMesh" id=34]
 size = Vector2( 0.273, 0.273 )
 
@@ -225,9 +228,6 @@ viewport_path = NodePath("Game/Grid/ConfigVP")
 flags = 4
 viewport_path = NodePath("Game/Grid/ComboVP")
 
-[sub_resource type="BoxShape" id=29]
-extents = Vector3( 40, 40, 1 )
-
 [sub_resource type="PlaneMesh" id=30]
 size = Vector2( 3.1, 3.1 )
 
@@ -414,6 +414,12 @@ collide_with_bodies = false
 pause_mode = 2
 script = ExtResource( 3 )
 timer_fg_done = SubResource( 1 )
+
+[node name="Area" type="Area" parent="Game"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Game/Area"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000244856, 0.00723147, -0.998636 )
+shape = SubResource( 29 )
 
 [node name="CursorTrail" type="Spatial" parent="Game"]
 pause_mode = 1
@@ -1183,12 +1189,6 @@ pixel_size = 0.0033
 axis = 1
 texture = SubResource( 28 )
 
-[node name="Area" type="Area" parent="Game/Grid"]
-
-[node name="CollisionShape" type="CollisionShape" parent="Game/Grid/Area"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000244856, 0.00723147, -0.998636 )
-shape = SubResource( 29 )
-
 [node name="Spawn" type="Spatial" parent="Game"]
 pause_mode = 1
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, 0 )
@@ -1304,6 +1304,7 @@ transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.25, 
 
 [node name="Avatar" type="Spatial" parent="Game"]
 pause_mode = 1
+visible = false
 
 [node name="Head" type="MeshInstance" parent="Game/Avatar"]
 transform = Transform( 0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, -0.1, 2 )

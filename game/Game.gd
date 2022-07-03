@@ -296,6 +296,9 @@ func _ready():
 		for n in $Grid/RightVP/Control.get_children():
 			n.visible = n.name == "SimpleBg" or n.name == "Misses" or n.name == "MissesTitle"
 			if n.visible: n.rect_position.y += 100
+	if SSP.faraway_hud:
+		$Grid.transform.origin = Vector3(0,0,-10)
+		$Grid.scale = Vector3(3.7,3.7,3.7)
 		
 	songnametxt.text = SSP.selected_song.name
 
