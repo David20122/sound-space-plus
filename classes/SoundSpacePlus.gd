@@ -855,6 +855,10 @@ func register_meshes():
 		"ssp_block", "Block",
 		"res://content/blocks/cube.obj", "Chedski"
 	))
+	registry_mesh.add_item(NoteMesh.new(
+		"ssp_plane", "Front of Block",
+		"res://content/blocks/plane.obj", "Chedski"
+	))
 
 func register_effects():
 	registry_effect.add_item(NoteEffect.new(
