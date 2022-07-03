@@ -213,7 +213,7 @@ func get_item(value,searchType:int=Globals.SEARCH_ID,checkSubRegistries:bool=tru
 	match searchType:
 		Globals.SEARCH_ID:
 			var f = idx_id.find(value)
-			if f: return items[f]
+			if f != -1: return items[f]
 			for i in range(items.size()):
 				if String(idx_id[i]) == String(value): return items[i]
 				if idx_type[i] == "Registry":

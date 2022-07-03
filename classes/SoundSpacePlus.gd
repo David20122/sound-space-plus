@@ -168,6 +168,8 @@ var simple_hud:bool = false
 var rainbow_grid:bool = false
 var rainbow_hud:bool = false
 
+var start_offset:float = 0
+
 var note_hitbox_size:float = 1.140 setget _set_hitbox_size
 func _set_hitbox_size(v:float):
 	
@@ -228,7 +230,8 @@ func save_favorites():
 	file.store_line(txt)
 	file.close()
 
-func is_favorite(id:String): return favorite_songs.has(id)
+func is_favorite(id:String):
+	return favorite_songs.has(id)
 
 func add_favorite(id:String):
 	if !favorite_songs.has(id):
@@ -280,7 +283,7 @@ func load_pbs():
 				x = file.get_16() # READ 2
 		file.close()
 
-func generate_pb_str():
+func generate_pb_str(real:bool=false):
 	var pts:Array = []
 	match mod_speed_level:
 		Globals.SPEED_MMM: pts.append("s:---")
@@ -299,6 +302,7 @@ func generate_pb_str():
 	var hb = note_hitbox_size
 	pts.append("hbox:%.02f" % note_hitbox_size)
 	pts.append("ar:%d" % sign(approach_rate))
+	if !real and start_offset != 0: pts.append("so:%f" % start_offset)
 	if music_volume_db <= -50: pts.append("silent")
 	
 	if mod_sudden_death: pts.append("m_sd")
@@ -325,6 +329,7 @@ func parse_pb_str(txt:String):
 	var pts:Array = txt.split(";",false)
 	data.health_model = Globals.HP_SOUNDSPACE
 	
+	data.start_offset = 0
 	data.mod_sudden_death = false
 	data.mod_extra_energy = false
 	data.mod_no_regen = false
@@ -340,6 +345,8 @@ func parse_pb_str(txt:String):
 			data.custom_speed = float(s.substr(3))
 		elif s.begins_with("hitw:"):
 			data.hitwindow_ms = float(s.substr(5))
+		elif s.begins_with("so:"):
+			data.start_offset = float(s.substr(3))
 		elif s.begins_with("hbox:"):
 			data.note_hitbox_size = float(s.substr(5))
 		else:
@@ -391,7 +398,7 @@ func convert_song_pbs(song:Song):
 			"pauses": pb.pauses,
 			"has_passed": pb.has_passed
 		}
-		song.set_pb_if_better(generate_pb_str(),npb)
+		song.set_pb_if_better(generate_pb_str(true),npb)
 
 func prepare_new_pb(songid:String):
 	var data = {
@@ -405,7 +412,7 @@ func prepare_new_pb(songid:String):
 	set_pb(songid,i)
 
 func do_pb_check_and_set() -> bool:
-	if mod_nofail or was_replay: return false
+	if mod_nofail or was_replay or start_offset != 0: return false
 	var has_passed:bool = song_end_type == Globals.END_PASS
 	var pb:Dictionary = {}
 	pb.position = song_end_position
@@ -414,10 +421,10 @@ func do_pb_check_and_set() -> bool:
 	pb.total_notes = song_end_total_notes
 	pb.pauses = song_end_pause_count
 	pb.has_passed = song_end_type == Globals.END_PASS
-	return selected_song.set_pb_if_better(generate_pb_str(),pb)
+	return selected_song.set_pb_if_better(generate_pb_str(true),pb)
 
 func get_best():
-	return selected_song.get_pb(generate_pb_str())
+	return selected_song.get_pb(generate_pb_str(true))
 
 
 func select_colorset(set:ColorSet):

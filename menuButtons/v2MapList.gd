@@ -142,7 +142,8 @@ func build_list():
 	favorite = []
 	for id in SSP.favorite_songs:
 		var s = SSP.registry_song.get_item(id)
-		if s and search_matches(s): favorite.append(s)
+		if s and search_matches(s) and SSP.is_favorite(id):
+			favorite.append(s)
 	favorite.sort_custom(self,"sortsong")
 	disp.append_array(favorite)
 	if flip_display:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=83 format=2]
+[gd_scene load_steps=84 format=2]
 
 [ext_resource path="res://game/Camera.gd" type="Script" id=1]
 [ext_resource path="res://game/NoteManager.gd" type="Script" id=2]
@@ -40,10 +40,12 @@ size = Vector2( 0.273, 0.273 )
 
 [sub_resource type="SpatialMaterial" id=35]
 resource_local_to_scene = true
+render_priority = 1
 flags_transparent = true
 flags_unshaded = true
 flags_do_not_receive_shadows = true
 flags_disable_ambient_light = true
+params_depth_draw_mode = 2
 albedo_texture = ExtResource( 10 )
 
 [sub_resource type="Environment" id=2]
@@ -245,6 +247,16 @@ flags_transparent = true
 flags_unshaded = true
 albedo_color = Color( 1, 1, 1, 0.352941 )
 albedo_texture = ExtResource( 7 )
+
+[sub_resource type="SpatialMaterial" id=56]
+resource_local_to_scene = true
+render_priority = 2
+flags_transparent = true
+flags_unshaded = true
+flags_do_not_receive_shadows = true
+flags_disable_ambient_light = true
+params_depth_draw_mode = 2
+albedo_texture = ExtResource( 10 )
 
 [sub_resource type="DynamicFont" id=46]
 size = 18
@@ -1105,17 +1117,21 @@ __meta__ = {
 }
 
 [node name="TimerHud" type="Sprite3D" parent="Game/Grid"]
-transform = Transform( 1, 1.37938e-07, -1.50892e-07, 8.58073e-08, 0.386727, 0.922195, 1.8556e-07, -0.922195, 0.386727, -3.7723e-08, 1.97899, 0.208945 )
+transform = Transform( -1, 2.9595e-08, -1.50892e-07, -1.50597e-07, -0.386727, 0.922195, -3.10616e-08, 0.922195, 0.386727, -3.7723e-08, 1.97899, 0.208945 )
 cast_shadow = 0
+flip_h = true
 pixel_size = 0.0033
 axis = 1
+double_sided = false
 texture = SubResource( 21 )
 
 [node name="LeftHud" type="Sprite3D" parent="Game/Grid"]
-transform = Transform( 0.996195, -0.0871558, -3.8097e-09, 0, -4.37114e-08, 1, -0.0871557, -0.996195, -4.35451e-08, -1.95702, 2.18557e-08, 0.280393 )
+transform = Transform( -0.996195, 0.0871559, 3.8097e-09, 0, -4.37114e-08, 1, 0.0871559, 0.996195, 4.35451e-08, -1.95702, 2.18557e-08, 0.280393 )
 cast_shadow = 0
+flip_h = true
 pixel_size = 0.0033
 axis = 1
+double_sided = false
 texture = SubResource( 22 )
 
 [node name="GiveUpHud" type="Sprite3D" parent="Game/Grid"]
@@ -1135,17 +1151,21 @@ axis = 1
 texture = SubResource( 24 )
 
 [node name="RightHud" type="Sprite3D" parent="Game/Grid"]
-transform = Transform( 0.996195, 0.0871558, 3.8097e-09, 0, -4.37114e-08, 1, 0.0871557, -0.996195, -4.35451e-08, 1.957, 0, 0.28 )
+transform = Transform( -0.996195, -0.0871557, -3.80969e-09, 0, -4.37114e-08, 1, -0.0871557, 0.996195, 4.35451e-08, 1.957, 0, 0.28 )
 cast_shadow = 0
+flip_h = true
 pixel_size = 0.0033
 axis = 1
+double_sided = false
 texture = SubResource( 25 )
 
 [node name="EnergyHud" type="Sprite3D" parent="Game/Grid"]
-transform = Transform( 1, 0, 0, 0, -0.378633, 0.925547, 0, -0.925547, -0.378632, 0, -2.02147, 0.148402 )
+transform = Transform( -1, 6.50888e-09, 3.31011e-08, 3.31011e-08, 0.378633, 0.925547, -6.5089e-09, 0.925547, -0.378633, 0, -2.02147, 0.148402 )
 cast_shadow = 0
+flip_h = true
 pixel_size = 0.0033
 axis = 1
+double_sided = false
 texture = SubResource( 26 )
 
 [node name="ConfigHud" type="Sprite3D" parent="Game/Grid"]
@@ -1203,13 +1223,13 @@ script = ExtResource( 14 )
 [node name="Mesh" type="MeshInstance" parent="Game/Spawn/Cursor"]
 transform = Transform( 1, 4.37114e-08, -1.91069e-15, 0, -4.37114e-08, -1, -4.37114e-08, 1, -4.37114e-08, 0, 0, 0 )
 mesh = SubResource( 34 )
-material/0 = SubResource( 35 )
+material/0 = SubResource( 56 )
 
 [node name="Mesh2" type="MeshInstance" parent="Game/Spawn/Cursor"]
 transform = Transform( 9.55343e-16, 2.18557e-08, 0.5, 0.5, -2.18557e-08, 0, 2.18557e-08, 0.5, -2.18557e-08, 4.36088e-10, -4.36088e-10, 0.00997654 )
 visible = false
 mesh = SubResource( 34 )
-material/0 = SubResource( 35 )
+material/0 = SubResource( 56 )
 
 [node name="VisualPos" type="Control" parent="Game/Spawn/Cursor"]
 visible = false

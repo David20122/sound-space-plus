@@ -132,6 +132,12 @@ func _ready():
 	if img:
 		mat.albedo_color = Color(1,1,1)
 		mat.albedo_texture = img
+	
+	mat = get_node("../../CursorTrail/Mesh").get("material/0")
+	var img2 = Globals.imageLoader.load_if_exists("user://trail")
+	if img2: mat.albedo_texture = img2
+	elif img: mat.albedo_texture = img
+	
 	img = Globals.imageLoader.load_if_exists("user://touch")
 	if img: $VisualPos/T.texture = img
 	

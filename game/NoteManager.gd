@@ -7,7 +7,7 @@ signal miss
 
 var approach_rate:float = SSP.approach_rate
 var speed_multi:float = Globals.speed_multi[SSP.mod_speed_level]
-var ms:float = -(3000 * speed_multi) # make waiting time shorter on lower speeds
+var ms:float = SSP.start_offset - (3000 * speed_multi) # make waiting time shorter on lower speeds
 var notes_loaded:bool = false
 
 var noteNodes:Array = []
@@ -78,6 +78,8 @@ var color_index:int = 0
 var note_count:int = 0
 
 func spawn_note(n:Array):
+	if n[2] < SSP.start_offset:
+		return
 	var note:Note = $Note.duplicate()
 	add_child(note)
 	note.id = note_count
@@ -94,7 +96,7 @@ func spawn_note(n:Array):
 
 func spawn_notes(notes:Array):
 	for n in notes:
-		if n[2] <= 5000: # load the first 5 seconds immediately
+		if n[2] > SSP.start_offset and n[2] <= SSP.start_offset + 5000: # load the first 5 seconds immediately
 			spawn_note(n)
 		else:
 			noteQueue.append(n)
@@ -227,7 +229,7 @@ func _process(delta:float):
 				ms = next_ms - (1000*speed_multi)
 				emit_signal("ms_change",ms)
 				do_note_queue()
-				if ms >= 0:
+				if ms >= SSP.start_offset:
 					$Music.play(ms/1000)
 					music_started = true
 			else:
@@ -290,7 +292,7 @@ func _process(delta:float):
 #			rms += (prev_ms - ms)
 			emit_signal("ms_change",ms)
 			do_note_queue()
-			if ms >= 0:
+			if ms >= SSP.start_offset:
 				$Music.play(ms/1000)
 				music_started = true
 		if just_cancelled_unpause:
@@ -348,7 +350,7 @@ func _process(delta:float):
 		ms += delta * 1000 * speed_multi
 		emit_signal("ms_change",ms)
 		do_note_queue()
-		if ms >= 0 and !music_started:
+		if ms >= SSP.start_offset and !music_started:
 			$Music.play(ms/1000)
 			music_started = true
 	
@@ -365,7 +367,7 @@ func _process(delta:float):
 		if rec_t >= ri:
 			rec_t = 0
 			should_write_pos = true
-		if ms >= 0: SSP.replay.store_cursor_pos(rms,$Cursor.transform.origin.x,$Cursor.transform.origin.y)
+		SSP.replay.store_cursor_pos(rms,$Cursor.transform.origin.x,$Cursor.transform.origin.y)
 	
 	if SSP.rainbow_grid:
 		$Inner.get("material/0").albedo_color = Color.from_hsv(SSP.rainbow_t*0.1,0.65,1)

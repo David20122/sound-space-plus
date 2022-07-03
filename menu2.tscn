@@ -1,4 +1,4 @@
-[gd_scene load_steps=135 format=2]
+[gd_scene load_steps=136 format=2]
 
 [ext_resource path="res://uitheme.tres" type="Theme" id=1]
 [ext_resource path="res://font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=2]
@@ -58,6 +58,7 @@
 [ext_resource path="res://content/ui/quit_to_desktop.png" type="Texture" id=56]
 [ext_resource path="res://addons/native_dialogs/bin/native_dialog_save_file.gdns" type="Script" id=57]
 [ext_resource path="res://menuButtons/ExportTxt.gd" type="Script" id=58]
+[ext_resource path="res://menu2/StartOffset.gd" type="Script" id=59]
 
 [sub_resource type="StyleBoxFlat" id=59]
 draw_center = false
@@ -2212,8 +2213,8 @@ follow_focus = true
 
 [node name="Mods" type="ReferenceRect" parent="Main/Results/ModsHolder"]
 margin_right = 456.0
-margin_bottom = 220.0
-rect_min_size = Vector2( 456, 220 )
+margin_bottom = 250.0
+rect_min_size = Vector2( 456, 250 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -2574,11 +2575,38 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HpModel" type="MenuButton" parent="Main/Results/ModsHolder/Mods"]
+[node name="StartOffset" type="SpinBox" parent="Main/Results/ModsHolder/Mods"]
 margin_left = 130.0
 margin_top = 176.0
 margin_right = 330.0
 margin_bottom = 202.0
+focus_mode = 2
+theme = ExtResource( 1 )
+allow_greater = true
+suffix = "sec"
+script = ExtResource( 59 )
+
+[node name="Label" type="Label" parent="Main/Results/ModsHolder/Mods/StartOffset"]
+margin_left = -149.0
+margin_right = -10.0
+margin_bottom = 26.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.960784, 1, 0.478431, 1 )
+custom_fonts/font = SubResource( 91 )
+text = "Start Offset"
+align = 2
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HpModel" type="MenuButton" parent="Main/Results/ModsHolder/Mods"]
+margin_left = 130.0
+margin_top = 208.0
+margin_right = 314.0
+margin_bottom = 234.0
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
@@ -2588,9 +2616,6 @@ text = "hp model here"
 flat = false
 align = 0
 script = ExtResource( 41 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Label" type="Label" parent="Main/Results/ModsHolder/Mods/HpModel"]
 margin_left = -149.0

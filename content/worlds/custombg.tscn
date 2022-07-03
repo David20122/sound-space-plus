@@ -66,6 +66,7 @@ panorama = SubResource( 7 )
 resource_local_to_scene = true
 background_mode = 2
 background_sky = SubResource( 1 )
+background_sky_orientation = Basis( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1 )
 background_canvas_max_layer = -128
 ambient_light_color = Color( 0.027451, 0.0627451, 0.0313726, 1 )
 fog_color = Color( 0, 0, 0, 1 )
