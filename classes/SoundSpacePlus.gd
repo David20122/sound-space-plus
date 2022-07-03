@@ -164,7 +164,8 @@ var show_accuracy_bar:bool = true
 #var show_score:bool = true
 var show_letter_grade:bool = true
 var simple_hud:bool = false
-var faraway_hud:bool = true
+
+var faraway_hud:bool = false
 
 var rainbow_grid:bool = false
 var rainbow_hud:bool = false
