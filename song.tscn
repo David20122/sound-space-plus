@@ -1,4 +1,4 @@
-[gd_scene load_steps=84 format=2]
+[gd_scene load_steps=86 format=2]
 
 [ext_resource path="res://game/Camera.gd" type="Script" id=1]
 [ext_resource path="res://game/NoteManager.gd" type="Script" id=2]
@@ -325,8 +325,43 @@ flags_unshaded = true
 albedo_color = Color( 1, 1, 1, 0.705882 )
 albedo_texture = ExtResource( 25 )
 
-[sub_resource type="ShaderMaterial" id=54]
-shader = SubResource( 39 )
+[sub_resource type="Shader" id=57]
+code = "shader_type spatial;
+render_mode blend_mix,cull_back,diffuse_burley,specular_disabled,unshaded;
+uniform vec4 notecolor : hint_color = vec4(1,1,1,1);
+
+uniform float alpha_multi = 1;
+uniform float fade = 1;
+
+uniform bool use_image = false;
+uniform sampler2D image;
+
+
+void fragment() {
+	vec2 base_uv = UV;
+	vec4 img = vec4(1.0);
+	if (use_image) {
+		img = texture(image,UV);
+	}
+	ALBEDO = notecolor.rgb * img.rgb;
+//	ALBEDO.r = 1.0 - fade;
+//	ALBEDO.b = 0.0;
+//	ALBEDO.g = fade;
+	ALPHA = notecolor.a*img.a*alpha_multi*fade;
+}
+"
+
+[sub_resource type="ShaderMaterial" id=58]
+render_priority = 2
+shader = SubResource( 57 )
+shader_param/notecolor = Color( 1, 1, 1, 1 )
+shader_param/alpha_multi = 1.0
+shader_param/fade = 1.0
+shader_param/use_image = false
+
+[sub_resource type="ShaderMaterial" id=59]
+render_priority = 2
+shader = SubResource( 57 )
 shader_param/notecolor = Color( 0, 0, 0, 1 )
 shader_param/alpha_multi = 1.0
 shader_param/fade = 1.0
@@ -1309,19 +1344,19 @@ visible = false
 [node name="Head" type="MeshInstance" parent="Game/Avatar"]
 transform = Transform( 0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, -0.1, 2 )
 mesh = ExtResource( 29 )
-material/0 = SubResource( 48 )
+material/0 = SubResource( 58 )
 
 [node name="EyeR" type="MeshInstance" parent="Game/Avatar/Head"]
 transform = Transform( 0.1, 0, 0, 0, 0.4, 0, 0, 0, 0.01, 0.35, 0.25, -1 )
 mesh = ExtResource( 29 )
 skeleton = NodePath("../..")
-material/0 = SubResource( 54 )
+material/0 = SubResource( 59 )
 
 [node name="EyeL" type="MeshInstance" parent="Game/Avatar/Head"]
 transform = Transform( 0.1, 0, 0, 0, 0.4, 0, 0, 0, 0.01, -0.35, 0.25, -1 )
 mesh = ExtResource( 29 )
 skeleton = NodePath("../..")
-material/0 = SubResource( 54 )
+material/0 = SubResource( 59 )
 
 [node name="Blinking" type="AnimationPlayer" parent="Game/Avatar/Head"]
 anims/Blink = ExtResource( 31 )
@@ -1330,12 +1365,12 @@ anims/RESET = SubResource( 55 )
 [node name="Torso" type="MeshInstance" parent="Game/Avatar"]
 transform = Transform( 0.15, 0, 0, 0, 0.25, 0, 0, 0, 0.15, 0, -0.75, 2 )
 mesh = ExtResource( 29 )
-material/0 = SubResource( 48 )
+material/0 = SubResource( 58 )
 
 [node name="ArmR" type="MeshInstance" parent="Game/Avatar"]
 transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0.5, -0.75, 2 )
 mesh = ExtResource( 29 )
-material/0 = SubResource( 48 )
+material/0 = SubResource( 58 )
 
 [node name="ArmL" type="Spatial" parent="Game/Avatar"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, -0.5, 2 )
@@ -1345,7 +1380,7 @@ script = ExtResource( 27 )
 transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, -0.25 )
 mesh = ExtResource( 29 )
 skeleton = NodePath("../..")
-material/0 = SubResource( 48 )
+material/0 = SubResource( 58 )
 
 [node name="Animations" type="AnimationPlayer" parent="Game/Avatar"]
 anims/Idle = ExtResource( 28 )
