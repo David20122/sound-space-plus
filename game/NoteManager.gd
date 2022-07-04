@@ -69,7 +69,11 @@ func reposition_notes(force:bool=false):
 					hitEffect.duplicate().spawn(get_parent(),pos,note.col)
 				emit_signal("hit",note.col)
 				prev_ms = note.notems
-		elif ms < (note.notems + SSP.hitwindow_ms):
+		elif ms > (note.notems + SSP.hitwindow_ms) + 100:
+			if noteNodes.size() > 1:
+				next_ms = noteNodes[1].notems
+			elif noteQueue.size() != 0:
+				next_ms = noteQueue[0][2]
 			noteNodes.remove(noteNodes.find(note))
 			note.queue_free()
 	return note_passed
@@ -80,6 +84,8 @@ var note_count:int = 0
 func spawn_note(n:Array):
 	if n[2] < SSP.start_offset:
 		return
+	if n[2] < next_ms:
+		next_ms = n[2]
 	var note:Note = $Note.duplicate()
 	add_child(note)
 	note.id = note_count
@@ -95,6 +101,7 @@ func spawn_note(n:Array):
 	if color_index == colors.size(): color_index = 0
 
 func spawn_notes(notes:Array):
+	next_ms = notes[0][2]
 	for n in notes:
 		if n[2] > SSP.start_offset and n[2] <= SSP.start_offset + 5000: # load the first 5 seconds immediately
 			spawn_note(n)
@@ -187,8 +194,6 @@ var spawn_ms_dist:float = ((max(SSP.spawn_distance / SSP.approach_rate,0.6) * 10
 func do_note_queue():
 	var rem:int = 0
 	for n in noteQueue:
-		if n == noteQueue[0] and n[2] > next_ms:
-			next_ms = n[2]
 		if n[2] <= (ms + (spawn_ms_dist * speed_multi)):
 			rem += 1
 			spawn_note(n)
@@ -215,7 +220,7 @@ func _process(delta:float):
 	else: do_half_lock()
 	if !notes_loaded: return
 	
-	var can_skip:bool = (next_ms-prev_ms) > 5000 and (next_ms >= max(ms+(3000*speed_multi),1100*speed_multi))
+	var can_skip:bool = ((next_ms-prev_ms) > 5000) and (next_ms >= max(ms+(3000*speed_multi),1100*speed_multi))
 	
 	if !SSP.rainbow_hud:
 		if can_skip: TimerHud.modulate = Color(0.7,1,1)
