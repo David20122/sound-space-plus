@@ -621,6 +621,7 @@ func finish_map():
 	
 	if (maptype == T_TXT and $TxtFile/H/Temp.pressed):
 		SSP.registry_song.add_item(song)
+		$Finish/Wait.visible = false
 		$Finish/Success.visible = true
 		$Finish/ok.visible = true
 	else:

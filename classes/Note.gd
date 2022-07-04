@@ -53,8 +53,9 @@ func reposition(ms:float,approachSpeed:float):
 			var alpha:float = min(fade_in,fade_out)
 			
 			$Mesh.visible = (alpha != 0)
-			mat_s.set_shader_param("fade",alpha)
-			mat_t.set_shader_param("fade",alpha)
+			if mat_s and mat_t:
+				mat_s.set_shader_param("fade",alpha)
+				mat_t.set_shader_param("fade",alpha)
 			
 		
 		return true

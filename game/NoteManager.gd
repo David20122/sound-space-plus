@@ -18,7 +18,7 @@ var hitEffect:Spatial = load(SSP.selected_hit_effect.path).instance()
 const base_position = Vector3(-1,1,0)
 
 var prev_ms:float = -100000
-var next_ms:float = 100000
+var next_ms:float = 0
 
 var out_of_notes:bool = false
 func reposition_notes(force:bool=false):
@@ -69,7 +69,7 @@ func reposition_notes(force:bool=false):
 					hitEffect.duplicate().spawn(get_parent(),pos,note.col)
 				emit_signal("hit",note.col)
 				prev_ms = note.notems
-		elif ms - note.notems > 100:
+		elif ms < (note.notems + SSP.hitwindow_ms):
 			noteNodes.remove(noteNodes.find(note))
 			note.queue_free()
 	return note_passed
@@ -187,7 +187,7 @@ var spawn_ms_dist:float = ((max(SSP.spawn_distance / SSP.approach_rate,0.6) * 10
 func do_note_queue():
 	var rem:int = 0
 	for n in noteQueue:
-		if n == noteQueue[0] and n[2] < next_ms:
+		if n == noteQueue[0] and n[2] > next_ms:
 			next_ms = n[2]
 		if n[2] <= (ms + (spawn_ms_dist * speed_multi)):
 			rem += 1
@@ -215,7 +215,7 @@ func _process(delta:float):
 	else: do_half_lock()
 	if !notes_loaded: return
 	
-	var can_skip:bool = (next_ms >= max(ms+(3000*speed_multi),1100*speed_multi))
+	var can_skip:bool = (next_ms-prev_ms) > 5000 and (next_ms >= max(ms+(3000*speed_multi),1100*speed_multi))
 	
 	if !SSP.rainbow_hud:
 		if can_skip: TimerHud.modulate = Color(0.7,1,1)
