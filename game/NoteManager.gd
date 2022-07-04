@@ -156,8 +156,17 @@ func do_spin():
 	centeroff.x = cx - cursor_offset.x
 	centeroff.y = -cy - cursor_offset.y
 	
+	var hlm = 0.35
+	var uim = SSP.ui_parallax * 0.1
+	var grm = SSP.grid_parallax * 0.1
 	cam.transform.origin = Vector3(
 		centeroff.x*hlpower, centeroff.y*hlpower, 3.735
+	)
+	Grid.transform.origin = Vector3(
+		-centeroff.x*hlm*uim, -centeroff.y*hlm*uim, Grid.transform.origin.z
+	)
+	transform.origin = Vector3(
+		-(centeroff.x*hlm*grm)-1, -(centeroff.y*hlm*grm)+1, 0
 	)
 	get_node("Cursor").transform.origin = centeroff + cursor_offset
 

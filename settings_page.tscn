@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=2]
+[gd_scene load_steps=48 format=2]
 
 [ext_resource path="res://uitheme.tres" type="Theme" id=1]
 [ext_resource path="res://font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=2]
@@ -18,6 +18,7 @@
 [ext_resource path="res://menuButtons/NoteMesh.gd" type="Script" id=16]
 [ext_resource path="res://menuButtons/CursorScale.gd" type="Script" id=17]
 [ext_resource path="res://menuButtons/VSyncCompositor.gd" type="Script" id=18]
+[ext_resource path="res://menu2/CameraPresets.gd" type="Script" id=19]
 [ext_resource path="res://menuButtons/SaveSettings.gd" type="Script" id=20]
 [ext_resource path="res://menuButtons/HitWindow.gd" type="Script" id=21]
 [ext_resource path="res://menuButtons/Sensitivity.gd" type="Script" id=22]
@@ -110,7 +111,7 @@ script = ExtResource( 36 )
 [node name="M" type="VBoxContainer" parent="."]
 margin_top = 59.0
 margin_right = 1150.0
-margin_bottom = 2271.0
+margin_bottom = 2323.0
 custom_constants/separation = 0
 
 [node name="Modifiers" type="VBoxContainer" parent="M"]
@@ -1566,7 +1567,7 @@ __meta__ = {
 [node name="Camera" type="VBoxContainer" parent="M"]
 margin_top = 972.0
 margin_right = 1150.0
-margin_bottom = 1304.0
+margin_bottom = 1356.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Camera"]
@@ -1594,17 +1595,51 @@ flat = true
 [node name="Group" type="MarginContainer" parent="M/Camera"]
 margin_top = 36.0
 margin_right = 1150.0
-margin_bottom = 332.0
+margin_bottom = 384.0
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="M/Camera/Group"]
 margin_left = 180.0
 margin_right = 1150.0
-margin_bottom = 296.0
+margin_bottom = 348.0
+
+[node name="Presets" type="Control" parent="M/Camera/Group/H"]
+margin_right = 608.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 200, 40 )
+
+[node name="Presets" type="MenuButton" parent="M/Camera/Group/H/Presets"]
+margin_left = -10.0
+margin_right = 194.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+text = "Camera Mode Presets"
+flat = false
+script = ExtResource( 19 )
+
+[node name="Label" type="Label" parent="M/Camera/Group/H/Presets/Presets"]
+visible = false
+margin_left = -142.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Presets"
+align = 2
+valign = 1
+clip_text = true
 
 [node name="Parallax" type="Control" parent="M/Camera/Group/H"]
+margin_top = 44.0
 margin_right = 608.0
-margin_bottom = 32.0
+margin_bottom = 76.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="Parallax" type="SpinBox" parent="M/Camera/Group/H/Parallax"]
@@ -1649,9 +1684,9 @@ text = "[def. 1] how much the camera moves with the cursor - affects everything"
 valign = 1
 
 [node name="UIParallax" type="Control" parent="M/Camera/Group/H"]
-margin_top = 36.0
+margin_top = 80.0
 margin_right = 608.0
-margin_bottom = 68.0
+margin_bottom = 112.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="UIParallax" type="SpinBox" parent="M/Camera/Group/H/UIParallax"]
@@ -1699,9 +1734,9 @@ text = "[def. 0.2] how much the hud moves with the cursor - added on top of came
 valign = 1
 
 [node name="GridParallax" type="Control" parent="M/Camera/Group/H"]
-margin_top = 72.0
+margin_top = 116.0
 margin_right = 608.0
-margin_bottom = 104.0
+margin_bottom = 148.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="GridParallax" type="SpinBox" parent="M/Camera/Group/H/GridParallax"]
@@ -1746,9 +1781,9 @@ text = "[def. 3] how much the note grid moves with the cursor - added on top of 
 valign = 1
 
 [node name="Spin" type="CheckBox" parent="M/Camera/Group/H"]
-margin_top = 108.0
+margin_top = 152.0
 margin_right = 608.0
-margin_bottom = 136.0
+margin_bottom = 180.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -1781,10 +1816,43 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Sensitivity" type="Control" parent="M/Camera/Group/H"]
-margin_top = 140.0
+[node name="FarawayHud" type="CheckBox" parent="M/Camera/Group/H"]
+margin_top = 184.0
 margin_right = 608.0
-margin_bottom = 172.0
+margin_bottom = 212.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_focus = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 4 )
+action_mode = 0
+text = "aka kermeet mode - moves the HUD back by 10 grid units (20 studs) and makes it larger"
+flat = true
+script = ExtResource( 54 )
+target = "faraway_hud"
+
+[node name="Label" type="Label" parent="M/Camera/Group/H/FarawayHud"]
+anchor_bottom = 1.0
+margin_left = -150.0
+margin_right = -10.0
+grow_horizontal = 0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Faraway Hud"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="Sensitivity" type="Control" parent="M/Camera/Group/H"]
+margin_top = 216.0
+margin_right = 608.0
+margin_bottom = 248.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="Sensitivity" type="SpinBox" parent="M/Camera/Group/H/Sensitivity"]
@@ -1829,10 +1897,10 @@ text = "[def. 1] changes how much the cursor/camera move with mouse/touch input"
 valign = 1
 
 [node name="EdgeBuffer" type="Control" parent="M/Camera/Group/H"]
-margin_top = 176.0
+margin_top = 252.0
 margin_right = 608.0
-margin_bottom = 232.0
-rect_min_size = Vector2( 200, 56 )
+margin_bottom = 284.0
+rect_min_size = Vector2( 200, 32 )
 
 [node name="EdgeBuffer" type="SpinBox" parent="M/Camera/Group/H/EdgeBuffer"]
 margin_right = 200.0
@@ -1875,9 +1943,9 @@ text = "[def. 0] aka cursor drift; makes the cursor \"stick\" to the edges by le
 valign = 1
 
 [node name="BufferCursor" type="CheckBox" parent="M/Camera/Group/H"]
-margin_top = 236.0
+margin_top = 288.0
 margin_right = 608.0
-margin_bottom = 264.0
+margin_bottom = 316.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -1912,9 +1980,9 @@ __meta__ = {
 }
 
 [node name="LockMouse" type="CheckBox" parent="M/Camera/Group/H"]
-margin_top = 268.0
+margin_top = 320.0
 margin_right = 608.0
-margin_bottom = 296.0
+margin_bottom = 348.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -1978,9 +2046,9 @@ valign = 1
 clip_text = true
 
 [node name="Notes" type="VBoxContainer" parent="M"]
-margin_top = 1304.0
+margin_top = 1356.0
 margin_right = 1150.0
-margin_bottom = 1476.0
+margin_bottom = 1528.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Notes"]
@@ -2194,9 +2262,9 @@ valign = 1
 clip_text = true
 
 [node name="UI" type="VBoxContainer" parent="M"]
-margin_top = 1476.0
+margin_top = 1528.0
 margin_right = 1150.0
-margin_bottom = 1988.0
+margin_bottom = 2040.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/UI"]
@@ -2749,9 +2817,9 @@ valign = 1
 clip_text = true
 
 [node name="Graphics" type="VBoxContainer" parent="M"]
-margin_top = 1988.0
+margin_top = 2040.0
 margin_right = 1150.0
-margin_bottom = 2212.0
+margin_bottom = 2264.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Graphics"]
@@ -3025,7 +3093,7 @@ margin_left = 180.0
 margin_right = 800.0
 
 [node name="BottomMargin" type="Control" parent="."]
-margin_top = 2275.0
+margin_top = 2327.0
 margin_right = 1150.0
-margin_bottom = 2371.0
+margin_bottom = 2423.0
 rect_min_size = Vector2( 0, 96 )
