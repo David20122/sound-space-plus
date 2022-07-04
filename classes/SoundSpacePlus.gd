@@ -505,7 +505,7 @@ func update_rpc_song():
 #		push_error(result)
 
 
-const current_sf_version = 36
+const current_sf_version = 37
 var alert:String = ""
 var should_ask_about_replays:bool = true
 
@@ -634,6 +634,8 @@ func load_saved_settings():
 			show_accuracy_bar = bool(file.get_8())
 			show_letter_grade = bool(file.get_8())
 			simple_hud = bool(file.get_8())
+		if sv >= 37:
+			faraway_hud = bool(file.get_8())
 		file.close()
 	return 0
 
@@ -707,6 +709,7 @@ func save_settings():
 		file.store_8(int(show_accuracy_bar))
 		file.store_8(int(show_letter_grade))
 		file.store_8(int(simple_hud))
+		file.store_8(int(faraway_hud))
 		file.close()
 		return "OK"
 	else:

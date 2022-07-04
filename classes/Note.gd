@@ -77,8 +77,9 @@ func setup(color:Color):
 	mat_s = solid_mat.duplicate()
 	mat_t = transparent_mat.duplicate()
 	$Mesh.set_surface_material(0,mat_s)
-	if $Mesh.get_surface_material_count() != 0:
+	if $Mesh.get_surface_material_count() > 1:
 		$Mesh.set_surface_material(1,mat_t)
+	if $Mesh.get_surface_material_count() > 2:
 		$Mesh.set_surface_material(2,mat_s)
 	get_node("Spawn/Mesh").set_surface_material(0,mat2)
 	mat_s.set_shader_param("notecolor",color)
