@@ -54,6 +54,8 @@ onready var truecombo:Label = get_node("Grid/ComboVP/Value")
 
 onready var friend:MeshInstance = get_node("Spawn/Friend")
 
+onready var head:Spatial = get_node("Avatar/Head")
+
 var hits:float = 0
 var misses:float = 0
 var total_notes:float = 0
@@ -163,6 +165,7 @@ var giving_up:float = 0
 var black_fade_target:bool = false
 var black_fade:float = 1
 var config_time:float = 2.5
+var passed:bool = false
 
 func _process(delta):
 	if SSP.show_config:
@@ -171,8 +174,21 @@ func _process(delta):
 		else: $Grid/ConfigHud.opacity = min(1,config_time)
 	
 	if $Spawn.ms > last_ms:
+		
+		passed = true
+		
 		if $Grid/TimerVP/Control/Time.get("custom_styles/fg") != timer_fg_done:
 			$Grid/TimerVP/Control/Time.set("custom_styles/fg",timer_fg_done)
+			
+		head.get_node("EyeL").visible = false
+		head.get_node("HappyL").visible = true
+			
+		head.get_node("EyeR").visible = false
+		head.get_node("HappyR").visible = true
+		
+	if passed:
+		$Avatar/ArmR.translation.y += (1 - $Avatar/ArmR.translation.y) * 0.01
+			
 	if !ending:
 		if Input.is_action_pressed("give_up"):
 			giving_up += delta/0.6
