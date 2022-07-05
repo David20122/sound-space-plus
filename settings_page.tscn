@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=2]
+[gd_scene load_steps=49 format=2]
 
 [ext_resource path="res://uitheme.tres" type="Theme" id=1]
 [ext_resource path="res://font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=2]
@@ -24,6 +24,7 @@
 [ext_resource path="res://menuButtons/Sensitivity.gd" type="Script" id=22]
 [ext_resource path="res://menuButtons/VSync.gd" type="Script" id=23]
 [ext_resource path="res://menuButtons/ApproachRate.gd" type="Script" id=24]
+[ext_resource path="res://menuButtons/MusicOffset.gd" type="Script" id=25]
 [ext_resource path="res://menuButtons/Fullscreen.gd" type="Script" id=27]
 [ext_resource path="res://menuButtons/Parallax.gd" type="Script" id=28]
 [ext_resource path="res://menuButtons/SpawnDist.gd" type="Script" id=30]
@@ -111,7 +112,7 @@ script = ExtResource( 36 )
 [node name="M" type="VBoxContainer" parent="."]
 margin_top = 59.0
 margin_right = 1150.0
-margin_bottom = 2323.0
+margin_bottom = 2359.0
 custom_constants/separation = 0
 
 [node name="Modifiers" type="VBoxContainer" parent="M"]
@@ -1339,7 +1340,7 @@ valign = 1
 [node name="Audio" type="VBoxContainer" parent="M"]
 margin_top = 776.0
 margin_right = 1150.0
-margin_bottom = 972.0
+margin_bottom = 1008.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Audio"]
@@ -1367,20 +1368,65 @@ flat = true
 [node name="Group" type="MarginContainer" parent="M/Audio"]
 margin_top = 36.0
 margin_right = 1150.0
-margin_bottom = 196.0
+margin_bottom = 232.0
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="M/Audio/Group"]
 margin_left = 180.0
 margin_right = 1150.0
-margin_bottom = 160.0
+margin_bottom = 196.0
 
-[node name="MusicVolume" type="Control" parent="M/Audio/Group/H"]
+[node name="MusicOffset" type="Control" parent="M/Audio/Group/H"]
 margin_right = 540.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 200, 32 )
 
-[node name="MusicVolume" type="SpinBox" parent="M/Audio/Group/H/MusicVolume"]
+[node name="MusicOffset" type="SpinBox" parent="M/Audio/Group/H/MusicOffset"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+rect_pivot_offset = Vector2( 286, 160 )
+focus_mode = 2
+theme = ExtResource( 1 )
+min_value = -80.0
+max_value = 300.0
+allow_greater = true
+allow_lesser = true
+suffix = "ms"
+script = ExtResource( 25 )
+
+[node name="Label" type="Label" parent="M/Audio/Group/H/MusicOffset/MusicOffset"]
+margin_left = -146.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Universal Offset"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="Desc" type="Label" parent="M/Audio/Group/H/MusicOffset/MusicOffset"]
+margin_left = 215.0
+margin_right = 562.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 4 )
+text = "[def. 0 ms] offsets the music from the actual map (positive = music starts later)"
+valign = 1
+
+[node name="MusicVolume2" type="Control" parent="M/Audio/Group/H"]
+margin_top = 36.0
+margin_right = 540.0
+margin_bottom = 68.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="MusicVolume" type="SpinBox" parent="M/Audio/Group/H/MusicVolume2"]
 margin_right = 200.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 200, 32 )
@@ -1393,7 +1439,7 @@ step = 0.01
 suffix = "dB"
 script = ExtResource( 8 )
 
-[node name="Label" type="Label" parent="M/Audio/Group/H/MusicVolume/MusicVolume"]
+[node name="Label" type="Label" parent="M/Audio/Group/H/MusicVolume2/MusicVolume"]
 margin_left = -146.0
 margin_right = -10.0
 margin_bottom = 32.0
@@ -1405,11 +1451,8 @@ text = "Music Volume"
 align = 2
 valign = 1
 clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="Desc" type="Label" parent="M/Audio/Group/H/MusicVolume/MusicVolume"]
+[node name="Desc" type="Label" parent="M/Audio/Group/H/MusicVolume2/MusicVolume"]
 margin_left = 215.0
 margin_right = 562.0
 margin_bottom = 32.0
@@ -1422,9 +1465,9 @@ text = "[def. 0 dB] music volume in dB. (0 dB = 100%, 6 dB ≈ 200%) - see wikip
 valign = 1
 
 [node name="MenuMusic" type="CheckBox" parent="M/Audio/Group/H"]
-margin_top = 36.0
+margin_top = 72.0
 margin_right = 540.0
-margin_bottom = 64.0
+margin_bottom = 100.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -1457,9 +1500,9 @@ __meta__ = {
 }
 
 [node name="AutoPreview" type="CheckBox" parent="M/Audio/Group/H"]
-margin_top = 68.0
+margin_top = 104.0
 margin_right = 540.0
-margin_bottom = 96.0
+margin_bottom = 132.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -1493,9 +1536,9 @@ __meta__ = {
 }
 
 [node name="HitSound" type="CheckBox" parent="M/Audio/Group/H"]
-margin_top = 100.0
+margin_top = 136.0
 margin_right = 540.0
-margin_bottom = 128.0
+margin_bottom = 164.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -1529,9 +1572,9 @@ __meta__ = {
 }
 
 [node name="MissSound" type="CheckBox" parent="M/Audio/Group/H"]
-margin_top = 132.0
+margin_top = 168.0
 margin_right = 540.0
-margin_bottom = 160.0
+margin_bottom = 196.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -1565,9 +1608,9 @@ __meta__ = {
 }
 
 [node name="Camera" type="VBoxContainer" parent="M"]
-margin_top = 972.0
+margin_top = 1008.0
 margin_right = 1150.0
-margin_bottom = 1356.0
+margin_bottom = 1392.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Camera"]
@@ -2046,9 +2089,9 @@ valign = 1
 clip_text = true
 
 [node name="Notes" type="VBoxContainer" parent="M"]
-margin_top = 1356.0
+margin_top = 1392.0
 margin_right = 1150.0
-margin_bottom = 1528.0
+margin_bottom = 1564.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Notes"]
@@ -2262,9 +2305,9 @@ valign = 1
 clip_text = true
 
 [node name="UI" type="VBoxContainer" parent="M"]
-margin_top = 1528.0
+margin_top = 1564.0
 margin_right = 1150.0
-margin_bottom = 2040.0
+margin_bottom = 2076.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/UI"]
@@ -2817,9 +2860,9 @@ valign = 1
 clip_text = true
 
 [node name="Graphics" type="VBoxContainer" parent="M"]
-margin_top = 2040.0
+margin_top = 2076.0
 margin_right = 1150.0
-margin_bottom = 2264.0
+margin_bottom = 2300.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Graphics"]
@@ -3093,7 +3136,7 @@ margin_left = 180.0
 margin_right = 800.0
 
 [node name="BottomMargin" type="Control" parent="."]
-margin_top = 2327.0
+margin_top = 2363.0
 margin_right = 1150.0
-margin_bottom = 2423.0
+margin_bottom = 2459.0
 rect_min_size = Vector2( 0, 96 )

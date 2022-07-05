@@ -243,8 +243,8 @@ func _process(delta:float):
 				ms = next_ms - (1000*speed_multi)
 				emit_signal("ms_change",ms)
 				do_note_queue()
-				if ms >= SSP.start_offset:
-					$Music.play(ms/1000)
+				if (ms + SSP.music_offset) >= SSP.start_offset:
+					$Music.play((ms + SSP.music_offset)/1000)
 					music_started = true
 			else:
 				if pause_state == 0 and (ms > (1000 * speed_multi) and ms < get_parent().last_ms):
@@ -306,8 +306,8 @@ func _process(delta:float):
 #			rms += (prev_ms - ms)
 			emit_signal("ms_change",ms)
 			do_note_queue()
-			if ms >= SSP.start_offset:
-				$Music.play(ms/1000)
+			if (ms + SSP.music_offset) >= SSP.start_offset:
+				$Music.play((ms + SSP.music_offset)/1000)
 				music_started = true
 		if just_cancelled_unpause:
 			pause_state = -1
@@ -338,7 +338,7 @@ func _process(delta:float):
 			ms = pause_ms - (pause_state * (750 * speed_multi))
 			emit_signal("ms_change",ms)
 			$Music.volume_db = SSP.music_volume_db - 30
-			$Music.play(ms/1000)
+			$Music.play((ms + SSP.music_offset)/1000)
 		if replay_unpause and pause_state >= 0:
 			pause_state = max(pause_state - (delta/0.75), 0)
 			$Music.volume_db = min($Music.volume_db + (delta * 30), SSP.music_volume_db)
@@ -364,8 +364,8 @@ func _process(delta:float):
 		ms += delta * 1000 * speed_multi
 		emit_signal("ms_change",ms)
 		do_note_queue()
-		if ms >= SSP.start_offset and !music_started:
-			$Music.play(ms/1000)
+		if (ms + SSP.music_offset) >= SSP.start_offset and !music_started:
+			$Music.play((ms + SSP.music_offset)/1000)
 			music_started = true
 	
 	if SSP.replaying:

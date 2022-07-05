@@ -170,6 +170,8 @@ var faraway_hud:bool = false
 var rainbow_grid:bool = false
 var rainbow_hud:bool = false
 
+var music_offset:float = 0
+
 var start_offset:float = 0 setget _set_start_offset
 func _set_start_offset(v:float):
 	start_offset = v; emit_signal("mods_changed")
@@ -636,6 +638,8 @@ func load_saved_settings():
 			simple_hud = bool(file.get_8())
 		if sv >= 37:
 			faraway_hud = bool(file.get_8())
+		if sv >= 8:
+			music_offset = float(file.get_32())
 		file.close()
 	return 0
 
@@ -710,6 +714,7 @@ func save_settings():
 		file.store_8(int(show_letter_grade))
 		file.store_8(int(simple_hud))
 		file.store_8(int(faraway_hud))
+		file.store_32(music_offset)
 		file.close()
 		return "OK"
 	else:

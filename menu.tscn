@@ -1233,7 +1233,7 @@ focus_mode = 2
 theme = ExtResource( 2 )
 custom_colors/font_color = Color( 0.960784, 1, 0.478431, 1 )
 custom_fonts/font = SubResource( 128 )
-text = "Start Offset"
+text = "Start From"
 align = 2
 valign = 1
 clip_text = true
@@ -1816,7 +1816,7 @@ scroll_horizontal_enabled = false
 [node name="F" parent="PageMgr/Settings" instance=ExtResource( 3 )]
 anchor_right = 0.0
 margin_right = 1150.0
-margin_bottom = 2371.0
+margin_bottom = 2423.0
 rect_clip_content = true
 
 [node name="MapRegistry" type="ReferenceRect" parent="PageMgr"]
