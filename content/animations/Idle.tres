@@ -41,7 +41,7 @@ tracks/2/keys = {
 "values": [ Vector3( 0, -0.775, 2 ), Vector3( 0, -0.725, 2 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("ArmR:translation")
+tracks/3/path = NodePath("ArmR/Mesh:translation")
 tracks/3/interp = 2
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -53,7 +53,7 @@ tracks/3/keys = {
 "values": [ Vector3( 0.5, -0.75, 2 ), Vector3( 0.6, -0.6, 2 ) ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("ArmR:rotation_degrees")
+tracks/4/path = NodePath("ArmR/Mesh:rotation_degrees")
 tracks/4/interp = 2
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -74,5 +74,5 @@ tracks/5/keys = {
 "times": PoolRealArray( 0.3, 1.6 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector3( 0, 0, -0.25 ), Vector3( 0, 0.05, -0.25 ) ]
+"values": [ Vector3( 0, 0, -0.4 ), Vector3( 0, 0.05, -0.375 ) ]
 }
