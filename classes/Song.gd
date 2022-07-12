@@ -10,14 +10,14 @@ var difficulty:int = Globals.DIFF_UNKNOWN
 var rawData:String = ""
 var notes:Array
 var note_count:int
-var musicFile:String
+var musicFile:String = ""
 var last_ms:float = 0
 var source_registry:String = "[unknown]"
 var warning:String = ""
 
 var should_reload_on_play:bool = false
 var songType:int = -1
-var initFile:String
+var initFile:String = ""
 
 var filePath:String
 
@@ -171,6 +171,8 @@ func stream() -> AudioStream:
 		return mf
 
 func loadFromFile(path:String):
+	print("LOAD FILE")
+	initFile = path
 	var file:File = File.new()
 	var err = file.open(path,File.READ)
 	if err != OK:
@@ -180,6 +182,7 @@ func loadFromFile(path:String):
 	file.close()
 
 func loadRawData(data:String):
+	print("PARSE RAW DATA")
 	rawData = data
 	var blank = 0
 	var invalid = 0
@@ -203,6 +206,9 @@ func loadRawData(data:String):
 		is_broken = true
 	elif invalid != 0: warning = "[txt map] Song has %s invalid note(s)" % String(invalid)
 	elif blank != 0: warning = "[txt map] Song has %s blank note(s)" % String(blank)
+	else:
+		warning = ""
+		is_broken = false
 	note_count = notes.size()
 
 func loadVulnusNoteArray(vNotes:Array):
@@ -275,14 +281,18 @@ func notesort(a,b):
 	return a[2] < b[2]
 
 func read_notes() -> Array:
-#	print(notes.size())
+	print("should be: ",Globals.MAP_TXT)
+	print("is actually: ",songType)
+	if songType == Globals.MAP_TXT:
+		discard_notes()
 	if notes.size() == 0:
 		if (songType == Globals.MAP_RAW or songType == Globals.MAP_TXT):
-#			print("RAW/TXT")
+			print("RAW/TXT")
 			if songType == Globals.MAP_TXT:
-#				print("TXT")
+				print("TXT")
 				loadFromFile(initFile)
 			loadRawData(rawData)
+			print(notes.size())
 			return notes
 		elif songType == Globals.MAP_VULNUS:
 #			print("VULNUS")
@@ -348,9 +358,9 @@ func read_notes() -> Array:
 	return notes
 
 func discard_notes():
+	print("Discarding cached note data")
 	notes = []
-	if songType == Globals.MAP_TXT:
-		rawData = ""
+	rawData = "" 
 
 func change_difficulty(to:int):
 	if songType != Globals.MAP_SSPM: 

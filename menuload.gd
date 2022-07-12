@@ -16,6 +16,7 @@ func _ready():
 	SSP.was_replay = SSP.replaying
 	SSP.replaying = false
 	if SSP.was_replay: SSP.restore_prev_state()
+	if SSP.selected_song: SSP.selected_song.discard_notes()
 	SSP.replay_path = ""
 	$BlackFade.visible = true
 	black_fade = 1

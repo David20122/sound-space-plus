@@ -110,6 +110,9 @@ func reset_text_edit_screen():
 		"Artist Name - Song Name",
 		"mapper"
 	)
+	song.songType = Globals.MAP_TXT
+	print(Globals.MAP_TXT)
+	print(song.songType)
 	$TxtFile/H/data.rect_min_size.y = 60
 	$TxtFile/H/data/file.visible = true
 	$TxtFile/H/data/paste.visible = true
@@ -440,11 +443,13 @@ func file_selected(files:PoolStringArray):
 			path = files[0]
 			import_vulnus_folder()
 		FO_TXT:
+			song.initFile = files[0]
 			file.open(files[0],File.READ)
 			check_txt(file.get_as_text())
 			file.close()
 		FO_SONG:
-			if !get_node("../MenuSong").playing: get_node("../MenuSong").play()
+			if SSP.play_menu_music and !get_node("../MenuSong").playing:
+				get_node("../MenuSong").play()
 			$TxtFile/H/audio/player.stop()
 			$TxtFile/H/audio/preview/Title.text = "Preview"
 			var stream = Globals.audioLoader.load_file(files[0])
@@ -620,6 +625,8 @@ func finish_map():
 	yield(get_tree(),"idle_frame") # Make sure the screen updates
 	
 	if (maptype == T_TXT and $TxtFile/H/Temp.pressed):
+		song.discard_notes()
+		song.read_notes()
 		SSP.registry_song.add_item(song)
 		$Finish/Wait.visible = false
 		$Finish/Success.visible = true
