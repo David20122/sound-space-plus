@@ -481,9 +481,60 @@ var audioLoader:AudioLoader = AudioLoader.new()
 var imageLoader:ImageLoader = ImageLoader.new()
 var confirm_prompt:ConfirmationPrompt2D
 
-#func _process(delta):
-#	if get_tree().root.has_node("ReplayDebug"):
-#		get_node("/root/ReplayDebug").raise()
+func get_files_recursive(paths:Array,max_layers:int=5,filter_ext:String="",folders_with:String=""):
+	print("-- start recurse --")
+	print(paths)
+	var dir:Directory = Directory.new()
+	
+	var files:Array = []
+	var folders:Array = []
+	
+	var subfolders:Array = []
+	var subfolders2:Array = paths
+	
+	var layer = 0
+	while subfolders2.size() != 0:
+		layer += 1
+		
+		if layer > max_layers:
+			print("recursed too deep! stopping!")
+			break
+		
+		print("start layer %s" % layer)
+		subfolders = subfolders2
+		subfolders2 = []
+		
+		while subfolders.size() != 0:
+			var cpath:String = ProjectSettings.globalize_path(subfolders.pop_back().strip_edges())
+			cpath = cpath.simplify_path()
+			var err = dir.open(cpath)
+			if err == OK:
+				err = dir.list_dir_begin(true)
+				if err == OK:
+					var n:String = dir.get_next()
+					var p:String = cpath.plus_file(n)
+					while n:
+						if folders_with != "" and n == folders_with:
+							folders.append(cpath)
+						
+						if dir.dir_exists(p):
+							if folders_with == "": folders.append(p)
+							subfolders2.append(p)
+						elif filter_ext == "" or p.get_extension() == filter_ext:
+							files.append(p)
+						
+						n = dir.get_next()
+						p = cpath.plus_file(n)
+					dir.list_dir_end()
+				else:
+					print("failed to list files in folder %s (error code %s)" % [cpath,err])
+			else:
+				print("failed to change to folder %s (error code %s)" % [cpath,err])
+			
+	
+	
+	print("-- end recurse --")
+	return {files = files, folders = folders}
 
 func _ready():
 	confirm_prompt = load("res://confirm.tscn").instance()

@@ -1026,80 +1026,54 @@ func do_init(_ud=null):
 	yield(get_tree(),"idle_frame")
 	
 	var smaps:Array = []
-	emit_signal("init_stage_reached","Register content 1/4\nImport SS+ maps")
+	emit_signal("init_stage_reached","Register content 1/3\nImport SS+ maps")
 	yield(get_tree(),"idle_frame")
 	var sd:Array = []
 	dir.change_dir(user_map_dir)
-	dir.list_dir_begin(true)
-	n = dir.get_next()
 	var li = 0
-	while n:
-		if n.ends_with(".sspm"): smaps.append(n)
-		elif dir.dir_exists(n) or n.ends_with(".zip"): sd.append(n)
-		n = dir.get_next()
-		li += 1
-		if fmod(li,100) == 0: yield(get_tree(),"idle_frame")
-	for d in sd:
-		li += 1
-		if fmod(li,100) == 0: yield(get_tree(),"idle_frame")
-		dir.change_dir(d)
-		if dir.current_is_dir():
-			dir.list_dir_begin(true)
-			n = dir.get_next()
-			while n:
-				if n.ends_with(".sspm"): smaps.append(d + "/" + n)
-				n = dir.get_next()
-				li += 1
-				if fmod(li,100) == 0: yield(get_tree(),"idle_frame")
+	
+	var map_search_folders = [user_map_dir]
+	err = file.open(Globals.p("user://map_folders.txt"),File.READ)
+	if err == OK:
+		var txt = file.get_as_text()
+		var list = txt.split("\n",false)
+		map_search_folders.append_array(list)
+	
+	smaps = Globals.get_files_recursive(map_search_folders,5,"sspm").files
 	for i in range(smaps.size()):
-		emit_signal("init_stage_reached","Register content 1/4\nImport SS+ maps\n%.0f%%" % (
+		emit_signal("init_stage_reached","Register content 1/3\nImport SS+ maps\n%.0f%%" % (
 			100*(float(i)/float(smaps.size()))
 		))
 		if fmod(i,max(min(floor(float(smaps.size())/200),40),5)) == 0: yield(get_tree(),"idle_frame")
-		registry_song.add_sspm_map(user_map_dir + "/" + smaps[i])
-	dir.list_dir_end()
+		registry_song.add_sspm_map(smaps[i])
+#	dir.list_dir_end()
 	
 	for i in range(mapreg.size()):
 		var amr:Array = mapreg[i]
-		emit_signal("init_stage_reached","Register content 2/4\nLoad map registry %d/%d\n%s" % [i,mapreg.size(),amr[0]])
+		emit_signal("init_stage_reached","Register content 2/3\nLoad map registry %d/%d\n%s" % [i,mapreg.size(),amr[0]])
 		yield(get_tree(),"idle_frame")
 		if lp: yield(get_tree(),"idle_frame")
 		registry_song.load_registry_file(amr[1],Globals.REGISTRY_MAP,amr[0])
 		yield(registry_song,"done_loading_reg")
 	
 	var vmaps:Array = []
-	emit_signal("init_stage_reached","Register content 3/4\nImport Vulnus maps")
+	
+	var vmap_search_folders = [user_vmap_dir]
+	err = file.open(Globals.p("user://vmap_folders.txt"),File.READ)
+	if err == OK:
+		var txt = file.get_as_text()
+		var list = txt.split("\n",false)
+		vmap_search_folders.append_array(list)
+	
+	emit_signal("init_stage_reached","Register content 3/3\nImport Vulnus maps")
 	yield(get_tree(),"idle_frame")
-	dir.change_dir(user_vmap_dir)
-	dir.list_dir_begin(true)
-	n = dir.get_next()
-	while n:
-		vmaps.append(n)
-		n = dir.get_next()
+	vmaps = Globals.get_files_recursive(vmap_search_folders,6,"","meta.json").folders
 	for i in range(vmaps.size()):
-		emit_signal("init_stage_reached","Register content 3/4\nImport Vulnus maps\n%.0f%%" % (
+		emit_signal("init_stage_reached","Register content 3/3\nImport Vulnus maps\n%.0f%%" % (
 			100*(float(i)/float(vmaps.size()))
 		))
 		if fmod(i,floor(float(vmaps.size())/100)) == 0: yield(get_tree(),"idle_frame")
-		registry_song.add_vulnus_map(user_vmap_dir + "/" + vmaps[i])
-	dir.list_dir_end()
-	if dir.dir_exists(Globals.p("user://officialmaps")):
-		var vmaps_o:Array = []
-		emit_signal("init_stage_reached","Register content 4/4\nImport official map archive")
-		yield(get_tree(),"idle_frame")
-		dir.change_dir(Globals.p("user://officialmaps"))
-		dir.list_dir_begin(true)
-		n = dir.get_next()
-		while n:
-			vmaps_o.append(n)
-			n = dir.get_next()
-		for i in range(vmaps_o.size()):
-			emit_signal("init_stage_reached","Register content 4/4\nImport official map archive\n%.0f%%" % (
-				100*(float(i)/float(vmaps_o.size()))
-			))
-			if fmod(i,floor(float(vmaps_o.size())/100)) == 0: yield(get_tree(),"idle_frame")
-			registry_song.add_vulnus_map(Globals.p("user://officialmaps/") + vmaps_o[i])
-		dir.list_dir_end()
+		registry_song.add_vulnus_map(vmaps[i])
 	
 	# Default 
 	emit_signal("init_stage_reached","Init default assets")

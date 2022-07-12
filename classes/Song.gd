@@ -171,7 +171,6 @@ func stream() -> AudioStream:
 		return mf
 
 func loadFromFile(path:String):
-	print("LOAD FILE")
 	initFile = path
 	var file:File = File.new()
 	var err = file.open(path,File.READ)
@@ -182,7 +181,6 @@ func loadFromFile(path:String):
 	file.close()
 
 func loadRawData(data:String):
-	print("PARSE RAW DATA")
 	rawData = data
 	var blank = 0
 	var invalid = 0
@@ -358,7 +356,6 @@ func read_notes() -> Array:
 	return notes
 
 func discard_notes():
-	print("Discarding cached note data")
 	notes = []
 	rawData = "" 
 
