@@ -103,9 +103,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Sound Space+   vA-B-C-branch"
 valign = 1
 script = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="TextureRect" type="TextureRect" parent="VersionNumber"]
 anchor_bottom = 1.0
@@ -114,9 +111,6 @@ margin_right = -10.0
 rect_min_size = Vector2( 30, 30 )
 texture = ExtResource( 3 )
 expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Spinner" type="ReferenceRect" parent="."]
 pause_mode = 2
