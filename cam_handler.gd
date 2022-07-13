@@ -1,7 +1,9 @@
 extends Spatial
 
+var state = (SSP.replaying and SSP.alt_cam)
+
 func _ready():
-	if SSP.replaying and SSP.alt_cam:
+	if state:
 		$Camera.current = false
 		$AltCam.current = true
 		$AltCam.set_enabled(true)
@@ -13,3 +15,8 @@ func _ready():
 		$Game/Avatar.visible = false
 		$Camera.current = true
 		$AltCam.current = false
+
+func _process(delta):
+	if Input.is_action_just_pressed("debug_freecam_toggle"):
+		state = !state
+		_ready()

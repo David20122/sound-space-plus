@@ -10,9 +10,7 @@ func idle_status():
 	var assets = activity.get_assets()
 	assets.set_large_image("icon")
 	
-	var result = yield(Discord.activity_manager.update_activity(activity), "result").result
-	if result != Discord.Result.Ok:
-		push_error(result)
+	Discord.activity_manager.update_activity(activity)
 
 
 
@@ -31,9 +29,7 @@ func _ready():
 		var assets = activity.get_assets()
 		assets.set_large_image("icon")
 
-		var result = yield(Discord.activity_manager.update_activity(activity), "result").result
-		if result != Discord.Result.Ok:
-			push_error(result)
+		Discord.activity_manager.update_activity(activity)
 		
 		get_tree().create_timer(300).connect("timeout",self,"idle_status")
 

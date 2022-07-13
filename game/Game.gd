@@ -35,8 +35,9 @@ func loadMapFile():
 	notes = map.read_notes()
 	var file:File = File.new()
 	var song:AudioStream = map.stream()
-	get_node("Spawn/Music").stream = song
 	$Spawn.spawn_notes(notes)
+	
+	get_node("Spawn/Music").stream = song
 
 onready var timebar:ProgressBar = get_node("Grid/TimerVP/Control/Time")
 onready var timelabel:Label = get_node("Grid/TimerVP/Control/Label")
@@ -117,6 +118,7 @@ func update_hud():
 var ending:bool = false
 func end(end_type:int):
 	if ending: return
+	print("My god, what are you doing?!")
 	ending = true
 	if end_type == Globals.END_GIVEUP and SSP.record_replays and !SSP.replaying:
 		SSP.replay.store_sig($Spawn.rms,Globals.RS_GIVEUP)
@@ -154,9 +156,12 @@ func update_timer(ms:float,canSkip:bool=false):
 	else: timelabel.text = "%d:%02d / %d:%02d" % [m,rs,lm,lrs]
 	SSP.song_end_time_str = "%d:%02d" % [m,rs]
 	if ms >= last_ms:
-		if get_node("Spawn/Music").playing:
-			yield(get_node("Spawn/Music"),"finished")
-		end(Globals.END_PASS)
+#		if get_node("Spawn/Music").playing:
+#			yield(get_node("Spawn/Music"),"finished")
+		if !get_node("Spawn/Music").playing:
+			end(Globals.END_PASS)
+#		else:
+#			print("i think i'm doing this wrong")
 
 
 var loaded = false
@@ -188,7 +193,7 @@ func _process(delta):
 		
 	if passed:
 		$Avatar/ArmR.translation.y += (1 - $Avatar/ArmR.translation.y) * 0.01
-			
+	
 	if !ending:
 		if Input.is_action_pressed("give_up"):
 			giving_up += delta/0.6

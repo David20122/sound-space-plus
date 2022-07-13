@@ -37,9 +37,8 @@ func reposition(ms:float,approachSpeed:float):
 			was_visible = true
 			if SSP.note_spawn_effect:
 				if !SSP.mod_nearsighted: spawn_effect_t = 1
-		if state == Globals.NSTATE_ACTIVE:
-			transform.origin.z = -current_dist
-			visible = true
+		transform.origin.z = -current_dist
+		visible = true
 		
 		if fade_in_enabled or fade_out_enabled:
 			var fade_in:float = 1

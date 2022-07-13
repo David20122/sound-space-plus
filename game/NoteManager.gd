@@ -128,6 +128,14 @@ func _ready():
 	if !SSP.replaying and SSP.record_replays:
 		SSP.replay = Replay.new()
 		SSP.replay.start_recording(SSP.selected_song)
+	
+	# force everything to be loaded now
+	yield(get_tree(),"idle_frame")
+	hitEffect.duplicate().spawn(get_parent(),Vector3(0,0,-400),Color(1,1,1))
+	$Note.visible = true
+	$Note.transform.origin = Vector3(0,0,-400)
+	yield(get_tree(),"idle_frame")
+	$Note.visible = false
 
 var music_started:bool = false
 const cursor_offset = Vector3(1,-1,0)
@@ -193,9 +201,14 @@ var spawn_ms_dist:float = ((max(SSP.spawn_distance / SSP.approach_rate,0.6) * 10
 
 func do_note_queue():
 	var rem:int = 0
+#	var amt:int = 0
 	for n in noteQueue:
 		if n[2] <= (ms + (spawn_ms_dist * speed_multi)):
 			rem += 1
+#			amt += 1
+#			if amt > 10:
+#				print("TOO MANY NOTES SPAWNED THIS FRAME!")
+#				break
 			spawn_note(n)
 		else: break
 	
@@ -214,7 +227,11 @@ var pause_ms:float = 0
 var replay_unpause:bool = false
 
 var replay_sig:Array = []
+var last_usec = OS.get_ticks_usec()
 func _process(delta:float):
+	var u = OS.get_ticks_usec()
+	delta = float(u - last_usec) / 1_000_000.0
+	last_usec = u
 #	delta *= Engine.time_scale
 	if SSP.cam_unlock: do_spin()
 	else: do_half_lock()
@@ -233,13 +250,15 @@ func _process(delta:float):
 				get_parent().get_node("Grid/PauseHud").modulate = Color(1,1,1,1)
 				get_parent().get_node("Grid/PauseVP/Control").percent = 0
 				ms = pause_ms# - (750 * speed_multi)
-				SSP.replay.store_sig(rms,Globals.RS_CANCEL_UNPAUSE)
+				if SSP.record_replays:
+					SSP.replay.store_sig(rms,Globals.RS_CANCEL_UNPAUSE)
 				emit_signal("ms_change",ms)
 				$Music.stop()
 		elif Input.is_action_just_pressed("pause"):
 			if pause_state == 0 and can_skip:
 				var prev_ms = ms
-				SSP.replay.store_sig(rms,Globals.RS_SKIP)
+				if SSP.record_replays:
+					SSP.replay.store_sig(rms,Globals.RS_SKIP)
 				ms = next_ms - (1000*speed_multi)
 				emit_signal("ms_change",ms)
 				do_note_queue()
@@ -261,7 +280,8 @@ func _process(delta:float):
 					get_parent().get_node("Grid/PauseHud").modulate = Color(1,1,1,1)
 					get_parent().get_node("Grid/PauseVP/Control").percent = 0
 				else:
-					SSP.replay.store_sig(rms,Globals.RS_START_UNPAUSE)
+					if SSP.record_replays:
+						SSP.replay.store_sig(rms,Globals.RS_START_UNPAUSE)
 					pause_state = 1
 					get_parent().get_node("Grid/PauseHud").modulate = Color(1,1,1,pause_state)
 					ms = pause_ms - (pause_state * (750 * speed_multi))
@@ -274,7 +294,8 @@ func _process(delta:float):
 			$Music.volume_db = min($Music.volume_db + (delta * 30), SSP.music_volume_db)
 			if pause_state == 0:
 	#				print("YEAH baby that's what i've been waiting for")
-				if prev_state != pause_state: SSP.replay.store_sig(rms,Globals.RS_FINISH_UNPAUSE)
+				if (prev_state != pause_state) and SSP.record_replays:
+					SSP.replay.store_sig(rms,Globals.RS_FINISH_UNPAUSE)
 				get_parent().get_node("Grid/PauseHud").visible = false
 				$Music.volume_db = 0
 				pause_state = 0

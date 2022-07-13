@@ -502,9 +502,7 @@ func update_rpc_song():
 	var assets = activity.get_assets()
 	assets.set_large_image("icon")
 
-	var result = yield(Discord.activity_manager.update_activity(activity), "result").result
-#	if result != Discord.Result.Ok:
-#		push_error(result)
+	Discord.activity_manager.update_activity(activity)
 
 
 const current_sf_version = 37

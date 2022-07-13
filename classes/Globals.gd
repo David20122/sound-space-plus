@@ -481,6 +481,16 @@ var audioLoader:AudioLoader = AudioLoader.new()
 var imageLoader:ImageLoader = ImageLoader.new()
 var confirm_prompt:ConfirmationPrompt2D
 
+func comma_sep(number):
+	var string = str(number)
+	var mod = string.length() % 3
+	var res = ""
+	for i in range(0, string.length()):
+		if i != 0 && i % 3 == mod:
+			res += ","
+		res += string[i]
+	return res
+
 func get_files_recursive(paths:Array,max_layers:int=5,filter_ext:String="",folders_with:String=""):
 	print("-- start recurse --")
 	print(paths)

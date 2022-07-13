@@ -65,6 +65,8 @@ func cache_trail(part:Spatial):
 	trail_cache.append(part)
 
 func _process(delta):
+	if Input.is_action_just_pressed("debug_enable_mouse"):
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	frame = Engine.get_frames_drawn()
 	if SSP.cursor_spin != 0 and !SSP.cursor_face_velocity:
 		$Mesh.rotate_z(deg2rad(-delta*SSP.cursor_spin))

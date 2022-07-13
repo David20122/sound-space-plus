@@ -20,6 +20,8 @@ var black_fade_target:bool = false
 var black_fade:float = 0
 
 func _ready():
+#	VisualServer.set_debug_generate_wireframes(true)
+#	get_viewport().debug_draw = get_viewport().DEBUG_DRAW_OVERDRAW
 	get_tree().paused = false
 	$BlackFade.visible = true
 	black_fade = 1
@@ -52,9 +54,7 @@ func _ready():
 		var assets = activity.get_assets()
 		assets.set_large_image("icon")
 		
-		var res = yield(Discord.activity_manager.update_activity(activity), "result").result
-		if res != Discord.Result.Ok:
-			push_error(res)
+		Discord.activity_manager.update_activity(activity)
 
 func _exit_tree():
 	thread.wait_to_finish()

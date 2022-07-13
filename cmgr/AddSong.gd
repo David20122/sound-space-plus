@@ -59,7 +59,9 @@ func check_txt_requirements():
 			$TxtFile/done.disabled = false
 			$TxtFile/done/Title.text = "Finish"
 
-func check_txt(txt:String):
+func check_txt(txt:String,is_raw:bool=false):
+	if is_raw: song.songType = Globals.MAP_RAW
+	else: song.songType = Globals.MAP_TXT
 	if txt.split(",").size() >= 2 and txt.split(",")[1].split("|").size() == 3:
 		song.loadRawData(txt)
 		$TxtFile/H/data/Info.set("custom_colors/font_color",Color(0.5,1,0.5))
@@ -100,7 +102,7 @@ func end_txt_paste():
 	$TxtFile/H/data/paste.visible = true
 	$TxtFile/H/data/text_done.visible = false
 	$TxtFile/H/data/text.visible = false
-	check_txt($TxtFile/H/data/text.text)
+	check_txt($TxtFile/H/data/text.text,true)
 
 func reset_text_edit_screen():
 	txt_using_manual_id = false

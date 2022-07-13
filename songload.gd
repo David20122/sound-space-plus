@@ -10,6 +10,7 @@ var black_fade:float = 0
 
 
 func _ready():
+	print("song loading")
 	get_tree().paused = false
 	$BlackFade.visible = true
 	black_fade = 1

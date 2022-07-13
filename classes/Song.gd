@@ -279,8 +279,6 @@ func notesort(a,b):
 	return a[2] < b[2]
 
 func read_notes() -> Array:
-	print("should be: ",Globals.MAP_TXT)
-	print("is actually: ",songType)
 	if songType == Globals.MAP_TXT:
 		discard_notes()
 	if notes.size() == 0:
@@ -289,6 +287,7 @@ func read_notes() -> Array:
 			if songType == Globals.MAP_TXT:
 				print("TXT")
 				loadFromFile(initFile)
+			else: print(rawData)
 			loadRawData(rawData)
 			print(notes.size())
 			return notes
@@ -416,7 +415,9 @@ func convert_to_sspm():
 	# Map metadata
 	var notes:Array = read_notes()
 	note_count = notes.size()
-	last_ms = notes[notes.size()-1][2]
+	if notes.size() != 0:
+		last_ms = notes[notes.size()-1][2]
+	else: last_ms = 0
 	file.store_32(last_ms) # Map length
 	file.store_32(note_count) # Map note count
 	file.store_8(difficulty + 1)
