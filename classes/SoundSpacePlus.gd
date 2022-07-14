@@ -57,6 +57,7 @@ var mod_mirror_y:bool = false setget set_mod_mirror_y
 var mod_nearsighted:bool = false setget set_mod_nearsighted
 var mod_ghost:bool = false setget set_mod_ghost
 var mod_sudden_death:bool = false setget set_mod_sudden_death
+var mod_chaos:bool = false setget set_mod_chaos
 
 var menu_target:String = ProjectSettings.get_setting("application/config/default_menu_target")
 
@@ -92,6 +93,8 @@ func set_mod_sudden_death(v:bool):
 		mod_no_regen = false
 		mod_nofail = false
 	mod_sudden_death = v; emit_signal("mods_changed")
+func set_mod_chaos(v:bool):
+	mod_chaos = v; emit_signal("mods_changed")
 
 # Registries
 var registry_colorset:Registry
@@ -106,6 +109,7 @@ var user_mod_dir:String = Globals.p("user://mods")
 var user_vmap_dir:String = Globals.p("user://vmaps")
 var user_map_dir:String = Globals.p("user://maps")
 var user_best_dir:String = Globals.p("user://bests")
+var user_colorset_dir:String = Globals.p("user://colorsets")
 var installed_dlc:Array = ["ssp_basegame"]
 var installed_mods:Array = []
 var installed_packs:Array = []
@@ -318,6 +322,7 @@ func generate_pb_str(real:bool=false):
 	if mod_nearsighted: pts.append("m_nsight")
 	if mod_ghost: pts.append("m_ghost")
 	if mod_sudden_death: pts.append("m_sd")
+	if mod_chaos: pts.append("m_chaos")
 	if mod_nofail: pts.append("m_nofail") # for replays
 	
 	pts.sort()
@@ -342,6 +347,7 @@ func parse_pb_str(txt:String):
 	data.mod_mirror_y = false
 	data.mod_nearsighted = false
 	data.mod_ghost = false
+	data.mod_chaos = false
 	data.mod_nofail = false
 	
 	for s in pts:
@@ -372,6 +378,7 @@ func parse_pb_str(txt:String):
 				"m_mirror_y": data.mod_mirror_y = true
 				"m_nsight": data.mod_nearsighted = true
 				"m_ghost": data.mod_ghost = true
+				"m_chaos": data.mod_chaos = true
 				"m_nofail": data.mod_nofail = true
 	return data
 
@@ -891,25 +898,41 @@ func register_effects():
 		"res://content/notefx/shards.tscn", "Chedski"
 	))
 
-func load_color_txt():
-	print("(re)load custom colors file")
+func load_color_txt(path:String="",id:String=""):
+	if path == "" and id == "":
+		yield(get_tree(),"idle_frame")
+		load_color_folder()
+		return
+	
 	var regex:RegEx = RegEx.new()
 	regex.compile("#?([a-zA-Z\\d]{2})([a-zA-Z\\d]{2})([a-zA-Z\\d]{2})([a-zA-Z\\d]{2})?")
 	
-	var cf:ColorSet = registry_colorset.get_item("colorsfile")
-	if !cf: push_error("somehow colorsfile wasnt created")
+	var cfname:String = "colors.txt (1 per line)"
+	if id != "colorsfile":
+		cfname = path.get_file().get_basename()
+	var cf:ColorSet 
+	
+	if registry_colorset.idx_id.has(id):
+		cf = registry_colorset.get_item(id)
+	else:
+		cf = ColorSet.new([],id,cfname,"Someone")
+		registry_colorset.add_item(cf)
 	
 	var file:File = File.new()
-	if file.file_exists(Globals.p("user://colors.txt")):
-		var err:int = file.open(Globals.p("user://colors.txt"),File.READ)
+	if file.file_exists(Globals.p(path)):
+		var err:int = file.open(Globals.p(path),File.READ)
 		if err == OK:
 			var ctxt:String = file.get_as_text()
 			file.close()
 			var split:Array = ctxt.split("\n",false)
 			var colarr:Array = []
+			var mirror = false
 			for st in split:
 				if st.strip_edges().is_valid_html_color():
 					colarr.append(Color(st.strip_edges()))
+				elif st.to_lower() == "m":
+					mirror = true
+			cf.mirror = mirror
 			
 			if colarr.size() == 0:
 				print("no valid colors found")
@@ -917,9 +940,28 @@ func load_color_txt():
 			
 			cf.colors = colarr
 			return
-		else: print("couldnt open colors.txt because error %s" % err)
+		else: print("couldnt open %s because error %s" % [path,err])
 	else: print("no colors.txt")
 	cf.colors = [ Color("#ffffff") ]
+
+signal colors_done
+func load_color_folder():
+	var a = OS.get_ticks_usec()
+	print("(re)load custom colorsets")
+	load_color_txt("user://colors.txt","colorsfile")
+	var dir:Directory = Directory.new()
+	if dir.dir_exists(user_colorset_dir):
+		var files = Globals.get_files_recursive([user_colorset_dir],5)
+		var i = 0
+		for n in files.files:
+			var b = OS.get_ticks_usec()
+			load_color_txt(n,"custom_" + n.get_file().to_lower().md5_text())
+			i += 1
+			if fmod(i,4) == 0: yield(get_tree(),"idle_frame")
+			n = dir.get_next()
+			print("set %s took %s usec" % [i,Globals.comma_sep(OS.get_ticks_usec() - b)])
+	print("colorsets took %s usec" % [Globals.comma_sep(OS.get_ticks_usec() - a)])
+	emit_signal("colors_done")
 
 func do_init(_ud=null):
 	installed_packs = []
@@ -973,11 +1015,13 @@ func do_init(_ud=null):
 	register_worlds()
 	
 	# init colors.txt
+	emit_signal("init_stage_reached","Load user colorsets")
 	registry_colorset.add_item(ColorSet.new(
 		[ Color("#ffffff") ],
-		"colorsfile", "colors.txt (1 per line)", "You!"
+		"colorsfile", "colors.txt (1 per line)", "Someone"
 	))
 	load_color_txt()
+	yield(self,"colors_done")
 	
 	# Load content
 	var mapreg:Array = []
@@ -1024,7 +1068,7 @@ func do_init(_ud=null):
 	yield(get_tree(),"idle_frame")
 	
 	var smaps:Array = []
-	emit_signal("init_stage_reached","Register content 1/3\nImport SS+ maps")
+	emit_signal("init_stage_reached","Register content 1/3\nImport SS+ maps\nLocating files")
 	yield(get_tree(),"idle_frame")
 	var sd:Array = []
 	dir.change_dir(user_map_dir)
@@ -1037,7 +1081,9 @@ func do_init(_ud=null):
 		var list = txt.split("\n",false)
 		map_search_folders.append_array(list)
 	
-	smaps = Globals.get_files_recursive(map_search_folders,5,"sspm").files
+	Globals.get_files_recursive(map_search_folders,5,"sspm","",90)
+	smaps = yield(Globals,"recurse_result").files
+	
 	for i in range(smaps.size()):
 		emit_signal("init_stage_reached","Register content 1/3\nImport SS+ maps\n%.0f%%" % (
 			100*(float(i)/float(smaps.size()))
@@ -1063,9 +1109,12 @@ func do_init(_ud=null):
 		var list = txt.split("\n",false)
 		vmap_search_folders.append_array(list)
 	
-	emit_signal("init_stage_reached","Register content 3/3\nImport Vulnus maps")
+	emit_signal("init_stage_reached","Register content 3/3\nImport Vulnus maps\nLocating files")
 	yield(get_tree(),"idle_frame")
-	vmaps = Globals.get_files_recursive(vmap_search_folders,6,"","meta.json").folders
+	
+	Globals.get_files_recursive(vmap_search_folders,6,"","meta.json",70)
+	vmaps = yield(Globals,"recurse_result").folders
+	
 	for i in range(vmaps.size()):
 		emit_signal("init_stage_reached","Register content 3/3\nImport Vulnus maps\n%.0f%%" % (
 			100*(float(i)/float(vmaps.size()))

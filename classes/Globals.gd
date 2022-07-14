@@ -491,7 +491,16 @@ func comma_sep(number):
 		res += string[i]
 	return res
 
-func get_files_recursive(paths:Array,max_layers:int=5,filter_ext:String="",folders_with:String=""):
+signal recurse_result
+func get_files_recursive(
+	paths:Array,
+	max_layers:int=5,
+	filter_ext:String="",
+	folders_with:String="",
+	pause_amt:int=(-1) # Outputs through the signal recurse_result if used
+):
+	var a = OS.get_ticks_usec()
+	if pause_amt != -1: yield(get_tree(),"idle_frame")
 	print("-- start recurse --")
 	print(paths)
 	var dir:Directory = Directory.new()
@@ -502,6 +511,7 @@ func get_files_recursive(paths:Array,max_layers:int=5,filter_ext:String="",folde
 	var subfolders:Array = []
 	var subfolders2:Array = paths
 	
+	var i = 0
 	var layer = 0
 	while subfolders2.size() != 0:
 		layer += 1
@@ -510,11 +520,19 @@ func get_files_recursive(paths:Array,max_layers:int=5,filter_ext:String="",folde
 			print("recursed too deep! stopping!")
 			break
 		
-		print("start layer %s" % layer)
+		i += 1
+		if pause_amt != -1 and (pause_amt == 0 or ((i%pause_amt) == 0)):
+			yield(get_tree(),"idle_frame")
+		
+#		print("start layer %s" % layer)
 		subfolders = subfolders2
 		subfolders2 = []
 		
 		while subfolders.size() != 0:
+			i += 1
+			if pause_amt != -1 and (pause_amt == 0 or ((i%pause_amt) == 0)):
+				yield(get_tree(),"idle_frame")
+			
 			var cpath:String = ProjectSettings.globalize_path(subfolders.pop_back().strip_edges())
 			cpath = cpath.simplify_path()
 			var err = dir.open(cpath)
@@ -524,6 +542,10 @@ func get_files_recursive(paths:Array,max_layers:int=5,filter_ext:String="",folde
 					var n:String = dir.get_next()
 					var p:String = cpath.plus_file(n)
 					while n:
+						i += 1
+						if pause_amt != -1 and (pause_amt == 0 or ((i%pause_amt) == 0)):
+							yield(get_tree(),"idle_frame")
+						
 						if folders_with != "" and n == folders_with:
 							folders.append(cpath)
 						
@@ -542,8 +564,9 @@ func get_files_recursive(paths:Array,max_layers:int=5,filter_ext:String="",folde
 				print("failed to change to folder %s (error code %s)" % [cpath,err])
 			
 	
-	
-	print("-- end recurse --")
+	print("-- end recurse - took %s usec --" % [Globals.comma_sep(OS.get_ticks_usec() - a)])
+	if pause_amt != -1:
+		emit_signal("recurse_result",{files = files, folders = folders})
 	return {files = files, folders = folders}
 
 func _ready():

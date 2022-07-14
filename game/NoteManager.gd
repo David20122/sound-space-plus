@@ -14,6 +14,8 @@ var noteNodes:Array = []
 var noteQueue:Array = []
 var colors:Array = SSP.selected_colorset.colors
 var hitEffect:Spatial = load(SSP.selected_hit_effect.path).instance()
+var chaos_rng:RandomNumberGenerator = RandomNumberGenerator.new()
+
 
 const base_position = Vector3(-1,1,0)
 
@@ -128,6 +130,8 @@ func _ready():
 	if !SSP.replaying and SSP.record_replays:
 		SSP.replay = Replay.new()
 		SSP.replay.start_recording(SSP.selected_song)
+	
+	chaos_rng.seed = hash(SSP.selected_song.id)
 	
 	# force everything to be loaded now
 	yield(get_tree(),"idle_frame")
@@ -374,7 +378,11 @@ func _process(delta:float):
 	# Ensure pause screen is always visible when paused
 	if pause_state != 0:
 		get_parent().get_node("Grid/PauseHud").visible = !Input.is_key_pressed(KEY_C)
-		get_parent().get_node("Grid/PauseVP/Control").percent = clamp(1 - (pause_state / 0.75),0,1)
+		get_parent().get_node("Grid/PauseVP/Control").percent = clamp(
+			1 - (pause_state),
+			0,
+			float(pause_state != -1)
+		)
 		get_parent().get_node("Grid/PauseHud").modulate = Color(1,1,1,abs(pause_state))
 	else:
 		get_parent().get_node("Grid/PauseHud").visible = false

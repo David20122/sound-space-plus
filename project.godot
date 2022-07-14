@@ -208,7 +208,7 @@ config/default_menu_target.editor="res://menu2.tscn"
 config/7zip_binary_path=""
 config/7zip_binary_path.Windows="install_dir/util/7z.exe"
 config/7zip_binary_path.X11="install_dir/util/7zz"
-config/auto_maximize=false
+config/auto_maximize=true
 config/auto_maximize.editor=false
 config/use_custom_user_dir.Android=false
 config/discord_rpc=true
@@ -252,6 +252,10 @@ window/stretch/aspect.mobile="keep_height"
 [editor_plugins]
 
 enabled=PoolStringArray( "res://addons/discord_game_sdk/plugin.cfg", "res://addons/native_dialogs/plugin.cfg" )
+
+[gui]
+
+timers/tooltip_delay_sec=0.05
 
 [input]
 

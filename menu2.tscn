@@ -68,7 +68,7 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color( 1, 1, 1, 1 )
 
-[sub_resource type="Shader" id=29]
+[sub_resource type="Shader" id=128]
 code = "shader_type canvas_item;
 
 void fragment() {
@@ -78,7 +78,7 @@ void fragment() {
 }"
 
 [sub_resource type="ShaderMaterial" id=60]
-shader = SubResource( 29 )
+shader = SubResource( 128 )
 
 [sub_resource type="DynamicFont" id=61]
 outline_size = 1
@@ -86,7 +86,7 @@ outline_color = Color( 0, 0, 0, 0.207843 )
 use_filter = true
 font_data = ExtResource( 14 )
 
-[sub_resource type="Shader" id=32]
+[sub_resource type="Shader" id=129]
 code = "shader_type canvas_item;
 
 void fragment() {
@@ -95,7 +95,7 @@ void fragment() {
 }"
 
 [sub_resource type="ShaderMaterial" id=62]
-shader = SubResource( 32 )
+shader = SubResource( 129 )
 
 [sub_resource type="StyleBoxFlat" id=63]
 bg_color = Color( 0.6, 0.6, 0.6, 0.0941176 )
@@ -133,7 +133,7 @@ outline_color = Color( 0, 0, 0, 0.207843 )
 use_filter = true
 font_data = ExtResource( 14 )
 
-[sub_resource type="Shader" id=42]
+[sub_resource type="Shader" id=130]
 code = "shader_type canvas_item;
 
 void fragment() {
@@ -143,7 +143,7 @@ void fragment() {
 }"
 
 [sub_resource type="ShaderMaterial" id=72]
-shader = SubResource( 42 )
+shader = SubResource( 130 )
 
 [sub_resource type="StyleBoxFlat" id=73]
 bg_color = Color( 1, 1, 0.937255, 0.333333 )
@@ -483,6 +483,7 @@ margin_left = 60.0
 rect_pivot_offset = Vector2( -398, 64 )
 
 [node name="MapRegistry" type="ReferenceRect" parent="Main"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -1669,7 +1670,6 @@ __meta__ = {
 }
 
 [node name="Results" type="ReferenceRect" parent="Main"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 12.0
@@ -3415,8 +3415,8 @@ scroll_horizontal_enabled = false
 
 [node name="F" parent="Main/Settings/S" instance=ExtResource( 49 )]
 anchor_right = 0.0
-margin_right = 1150.0
-margin_bottom = 2459.0
+margin_right = 1210.0
+margin_bottom = 2499.0
 rect_clip_content = true
 
 [node name="Credits" type="ReferenceRect" parent="Main"]
