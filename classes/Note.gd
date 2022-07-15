@@ -12,6 +12,8 @@ var spawn_effect_t:float = 0
 onready var speed_multi:float = get_parent().speed_multi
 var col:Color
 
+var chaos_offset:Vector2 = Vector2()
+var real_position:Vector2 = Vector2()
 
 var fade_in_enabled:bool = true
 var fade_in_start:float = 8
@@ -33,12 +35,20 @@ func reposition(ms:float,approachSpeed:float):
 		(current_dist >= -50 and current_dist <= 0.1 and sign(approachSpeed) == -1) or
 		sign(approachSpeed) == 0
 	) and state == Globals.NSTATE_ACTIVE: # state 2 = miss # and current_dist >= -0.5
+		
 		if !was_visible:
 			was_visible = true
 			if SSP.note_spawn_effect:
 				if !SSP.mod_nearsighted: spawn_effect_t = 1
+		
+		
 		transform.origin.z = -current_dist
 		visible = true
+		
+		if SSP.mod_chaos:
+			var v = ease(max((current_offset_ms-250)/400,0),1.5)
+			transform.origin.x = real_position.x + (chaos_offset.x * v)	
+			transform.origin.y = real_position.y + (chaos_offset.y * v)
 		
 		if fade_in_enabled or fade_out_enabled:
 			var fade_in:float = 1
@@ -86,6 +96,11 @@ func setup(color:Color):
 	mat_t.set_shader_param("notecolor",color)
 	mat2.albedo_color = color
 	col = color
+	
+	if SSP.mod_chaos:
+		var rng = get_parent().chaos_rng
+		chaos_offset = Vector2(rng.randf_range(-1,1),rng.randf_range(-1,1)).normalized() * 2
+		real_position = Vector2(transform.origin.x,transform.origin.y)
 	
 	if SSP.mod_ghost:
 		fade_out_enabled = true

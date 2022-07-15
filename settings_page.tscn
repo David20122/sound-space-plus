@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=2]
+[gd_scene load_steps=64 format=2]
 
 [ext_resource path="res://uitheme.tres" type="Theme" id=1]
 [ext_resource path="res://font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=2]
@@ -25,10 +25,13 @@
 [ext_resource path="res://menuButtons/VSync.gd" type="Script" id=23]
 [ext_resource path="res://menuButtons/ApproachRate.gd" type="Script" id=24]
 [ext_resource path="res://menuButtons/MusicOffset.gd" type="Script" id=25]
+[ext_resource path="res://tiles.png" type="Texture" id=26]
 [ext_resource path="res://menuButtons/Fullscreen.gd" type="Script" id=27]
 [ext_resource path="res://menuButtons/Parallax.gd" type="Script" id=28]
+[ext_resource path="res://menu2/ColorSet.gd" type="Script" id=29]
 [ext_resource path="res://menuButtons/SpawnDist.gd" type="Script" id=30]
 [ext_resource path="res://menuButtons/CustomSpeed.gd" type="Script" id=31]
+[ext_resource path="res://font/NotoColorEmoji.ttf" type="DynamicFontData" id=32]
 [ext_resource path="res://menuButtons/UIParallax.gd" type="Script" id=33]
 [ext_resource path="res://menuButtons/GridParallax.gd" type="Script" id=34]
 [ext_resource path="res://menuButtons/ArchiveConvert.gd" type="Script" id=36]
@@ -61,15 +64,86 @@ size = 14
 use_filter = true
 font_data = ExtResource( 2 )
 
+[sub_resource type="StyleBoxFlat" id=33]
+draw_center = false
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="Shader" id=29]
+code = "shader_type canvas_item;
+
+void fragment() {
+	vec2 muv = (UV - vec2(0.5)) * 2.0;
+	float m = 1.0 - max(abs(muv.x),abs(muv.y));
+	COLOR = texture(TEXTURE,UV)*(1.0 + clamp((m*1.5+0.5),0,1.0))/2.0;
+}"
+
+[sub_resource type="ShaderMaterial" id=43]
+shader = SubResource( 29 )
+
+[sub_resource type="Shader" id=32]
+code = "shader_type canvas_item;
+
+void fragment() {
+	vec2 uv = UV + vec2(TIME * -0.2);
+	COLOR.rgb = texture(TEXTURE,UV).rgb * (0.75 + (0.25 * sin(length(uv*6.285))));
+}"
+
+[sub_resource type="ShaderMaterial" id=44]
+shader = SubResource( 32 )
+
+[sub_resource type="StyleBoxFlat" id=36]
+bg_color = Color( 0.6, 0.6, 0.6, 0.0941176 )
+
+[sub_resource type="StyleBoxFlat" id=37]
+bg_color = Color( 1, 1, 0.937255, 0.333333 )
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color( 1, 1, 1, 1 )
+border_blend = true
+expand_margin_left = 2.0
+expand_margin_right = 2.0
+expand_margin_top = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxEmpty" id=38]
+
+[sub_resource type="StyleBoxEmpty" id=40]
+
+[sub_resource type="ButtonGroup" id=45]
+
+[sub_resource type="DynamicFont" id=46]
+size = 12
+outline_size = 2
+outline_color = Color( 0, 0, 0, 0.207843 )
+use_filter = true
+font_data = ExtResource( 2 )
+fallback/0 = ExtResource( 32 )
+fallback/1 = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=47]
+size = 14
+outline_size = 2
+outline_color = Color( 0, 0, 0, 0.207843 )
+use_filter = true
+font_data = ExtResource( 2 )
+fallback/0 = ExtResource( 32 )
+fallback/1 = ExtResource( 3 )
+
 [node name="F" type="VBoxContainer"]
 anchor_right = 1.0
-margin_right = -130.0
 margin_bottom = 2155.0
 rect_min_size = Vector2( 1150, 915 )
+size_flags_horizontal = 3
 theme = ExtResource( 1 )
 
 [node name="TopButtons" type="Control" parent="."]
-margin_right = 1150.0
+margin_right = 1280.0
 margin_bottom = 55.0
 rect_min_size = Vector2( 0, 55 )
 
@@ -111,23 +185,23 @@ script = ExtResource( 36 )
 
 [node name="M" type="VBoxContainer" parent="."]
 margin_top = 59.0
-margin_right = 1150.0
-margin_bottom = 2359.0
+margin_right = 1280.0
+margin_bottom = 2399.0
 custom_constants/separation = 0
 
 [node name="Modifiers" type="VBoxContainer" parent="M"]
-margin_right = 1150.0
+margin_right = 1280.0
 margin_bottom = 140.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Modifiers"]
-margin_right = 1150.0
+margin_right = 1280.0
 margin_bottom = 32.0
 custom_constants/margin_left = 32
 
 [node name="C" type="CheckBox" parent="M/Modifiers/Title"]
 margin_left = 32.0
-margin_right = 1150.0
+margin_right = 1280.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 0, 32 )
 custom_colors/font_color_disabled = Color( 1, 1, 1, 1 )
@@ -144,13 +218,13 @@ flat = true
 
 [node name="Group" type="MarginContainer" parent="M/Modifiers"]
 margin_top = 36.0
-margin_right = 1150.0
+margin_right = 1280.0
 margin_bottom = 140.0
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="M/Modifiers/Group"]
 margin_left = 180.0
-margin_right = 1150.0
+margin_right = 1280.0
 margin_bottom = 104.0
 
 [node name="CustomSpeed" type="Control" parent="M/Modifiers/Group/H"]
@@ -293,18 +367,18 @@ valign = 1
 
 [node name="Customization" type="VBoxContainer" parent="M"]
 margin_top = 140.0
-margin_right = 1150.0
-margin_bottom = 776.0
+margin_right = 1280.0
+margin_bottom = 816.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Customization"]
-margin_right = 1150.0
+margin_right = 1280.0
 margin_bottom = 32.0
 custom_constants/margin_left = 32
 
 [node name="C" type="CheckBox" parent="M/Customization/Title"]
 margin_left = 32.0
-margin_right = 1150.0
+margin_right = 1280.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 0, 32 )
 custom_colors/font_color_disabled = Color( 1, 1, 1, 1 )
@@ -321,18 +395,19 @@ flat = true
 
 [node name="Group" type="MarginContainer" parent="M/Customization"]
 margin_top = 36.0
-margin_right = 1150.0
-margin_bottom = 636.0
+margin_right = 1280.0
+margin_bottom = 676.0
 custom_constants/margin_left = 180
 custom_constants/margin_bottom = 12
 
 [node name="H" type="GridContainer" parent="M/Customization/Group"]
 margin_left = 180.0
-margin_right = 1150.0
-margin_bottom = 588.0
+margin_right = 1280.0
+margin_bottom = 628.0
 
 [node name="ColorSet" type="Control" parent="M/Customization/Group/H"]
-margin_right = 658.0
+visible = false
+margin_right = 1100.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 200, 32 )
 
@@ -359,9 +434,6 @@ margin_right = 360.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 350, 0 )
 columns = 32
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="0" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
 visible = false
@@ -567,14 +639,128 @@ text = "Note Colors"
 align = 2
 valign = 1
 clip_text = true
+
+[node name="ColorSet2" type="VBoxContainer" parent="M/Customization/Group/H"]
+margin_right = 1100.0
+margin_bottom = 72.0
+rect_min_size = Vector2( 200, 72 )
+size_flags_horizontal = 3
+size_flags_vertical = 9
+
+[node name="Control" type="Control" parent="M/Customization/Group/H/ColorSet2"]
+margin_right = 1100.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 0, 32 )
+
+[node name="Label" type="Label" parent="M/Customization/Group/H/ColorSet2/Control"]
+margin_left = -115.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Note Colors"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="ColorSet" type="GridContainer" parent="M/Customization/Group/H/ColorSet2"]
+margin_top = 36.0
+margin_right = 1100.0
+margin_bottom = 36.0
+rect_pivot_offset = Vector2( -180, -271 )
+custom_constants/vseparation = 42
+custom_constants/hseparation = 4
+columns = 8
+script = ExtResource( 29 )
+
+[node name="Color" type="Panel" parent="M/Customization/Group/H/ColorSet2/ColorSet"]
+visible = false
+margin_right = 96.0
+margin_bottom = 96.0
+rect_min_size = Vector2( 96, 96 )
+custom_styles/panel = SubResource( 33 )
+
+[node name="TextureRect" type="TextureRect" parent="M/Customization/Group/H/ColorSet2/ColorSet/Color"]
+modulate = Color( 0.501961, 0.501961, 0.501961, 1 )
+show_behind_parent = true
+material = SubResource( 43 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 3.0
+margin_right = -3.0
+margin_bottom = -3.0
+texture = ExtResource( 26 )
+expand = true
 __meta__ = {
-"_edit_use_anchors_": false
+"_edit_use_anchors_": true
 }
 
+[node name="Select" type="Button" parent="M/Customization/Group/H/ColorSet2/ColorSet/Color"]
+material = SubResource( 44 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+hint_tooltip = "color set"
+custom_styles/hover = SubResource( 36 )
+custom_styles/pressed = SubResource( 37 )
+custom_styles/focus = SubResource( 38 )
+custom_styles/disabled = SubResource( 37 )
+custom_styles/normal = SubResource( 40 )
+action_mode = 0
+group = SubResource( 45 )
+
+[node name="Colors" type="GridContainer" parent="M/Customization/Group/H/ColorSet2/ColorSet/Color"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -4.0
+mouse_filter = 2
+custom_constants/vseparation = 1
+custom_constants/hseparation = 1
+columns = 4
+
+[node name="T" type="ColorRect" parent="M/Customization/Group/H/ColorSet2/ColorSet/Color/Colors"]
+visible = false
+margin_right = 21.0
+margin_bottom = 86.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Name" type="Label" parent="M/Customization/Group/H/ColorSet2/ColorSet/Color"]
+anchor_right = 1.0
+margin_top = -36.0
+margin_bottom = -2.0
+custom_constants/line_spacing = 0
+custom_fonts/font = SubResource( 46 )
+text = "Everybody Votes Channel"
+align = 1
+valign = 2
+autowrap = true
+clip_text = true
+
+[node name="Mirror" type="Label" parent="M/Customization/Group/H/ColorSet2/ColorSet/Color"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -7.0
+margin_bottom = -6.0
+custom_constants/line_spacing = 0
+custom_fonts/font = SubResource( 47 )
+text = "M"
+align = 2
+valign = 2
+autowrap = true
+clip_text = true
+
 [node name="World" type="Control" parent="M/Customization/Group/H"]
-margin_top = 36.0
-margin_right = 658.0
-margin_bottom = 68.0
+margin_top = 76.0
+margin_right = 1100.0
+margin_bottom = 108.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="World" type="MenuButton" parent="M/Customization/Group/H/World"]
@@ -621,9 +807,9 @@ text = "background and environment used in the song player"
 valign = 1
 
 [node name="Mesh" type="Control" parent="M/Customization/Group/H"]
-margin_top = 72.0
-margin_right = 658.0
-margin_bottom = 104.0
+margin_top = 112.0
+margin_right = 1100.0
+margin_bottom = 144.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="Mesh" type="MenuButton" parent="M/Customization/Group/H/Mesh"]
@@ -667,9 +853,9 @@ text = "model used by notes"
 valign = 1
 
 [node name="HitEffect" type="Control" parent="M/Customization/Group/H"]
-margin_top = 108.0
-margin_right = 658.0
-margin_bottom = 140.0
+margin_top = 148.0
+margin_right = 1100.0
+margin_bottom = 180.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="Effect" type="MenuButton" parent="M/Customization/Group/H/HitEffect"]
@@ -713,9 +899,9 @@ text = "effect played when you hit a note"
 valign = 1
 
 [node name="CursorScale" type="Control" parent="M/Customization/Group/H"]
-margin_top = 144.0
-margin_right = 658.0
-margin_bottom = 176.0
+margin_top = 184.0
+margin_right = 1100.0
+margin_bottom = 216.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="CursorScale" type="SpinBox" parent="M/Customization/Group/H/CursorScale"]
@@ -758,9 +944,9 @@ text = "[def. 1] cursor size multiplier (doesn't affect hitboxes)"
 valign = 1
 
 [node name="CursorSpin" type="Control" parent="M/Customization/Group/H"]
-margin_top = 180.0
-margin_right = 658.0
-margin_bottom = 212.0
+margin_top = 220.0
+margin_right = 1100.0
+margin_bottom = 252.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="CursorSpin" type="SpinBox" parent="M/Customization/Group/H/CursorSpin"]
@@ -807,9 +993,9 @@ text = "[def. 0°] makes the cursor image rotate"
 valign = 1
 
 [node name="CustomCursor" type="Control" parent="M/Customization/Group/H"]
-margin_top = 216.0
-margin_right = 658.0
-margin_bottom = 248.0
+margin_top = 256.0
+margin_right = 1100.0
+margin_bottom = 288.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="CustomCursor" type="Button" parent="M/Customization/Group/H/CustomCursor"]
@@ -886,9 +1072,9 @@ expand = true
 stretch_mode = 4
 
 [node name="TouchIndicator" type="Control" parent="M/Customization/Group/H"]
-margin_top = 252.0
-margin_right = 658.0
-margin_bottom = 284.0
+margin_top = 292.0
+margin_right = 1100.0
+margin_bottom = 324.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="TouchIndicator" type="Button" parent="M/Customization/Group/H/TouchIndicator"]
@@ -951,9 +1137,9 @@ text = "this is the image that shows up under your finger on a touchscreen"
 valign = 1
 
 [node name="HitRipple" type="Control" parent="M/Customization/Group/H"]
-margin_top = 288.0
-margin_right = 658.0
-margin_bottom = 320.0
+margin_top = 328.0
+margin_right = 1100.0
+margin_bottom = 360.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="HitEffect" type="Button" parent="M/Customization/Group/H/HitRipple"]
@@ -1016,9 +1202,9 @@ text = "this image is used by hit effects with an asterisk (*) in their name"
 valign = 1
 
 [node name="CustomBg" type="Control" parent="M/Customization/Group/H"]
-margin_top = 324.0
-margin_right = 658.0
-margin_bottom = 356.0
+margin_top = 364.0
+margin_right = 1100.0
+margin_bottom = 396.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="CustomBg" type="Button" parent="M/Customization/Group/H/CustomBg"]
@@ -1081,9 +1267,9 @@ text = "this is the background for the \"Custom Background\" world"
 valign = 1
 
 [node name="ShowHitEffect" type="CheckBox" parent="M/Customization/Group/H"]
-margin_top = 360.0
-margin_right = 658.0
-margin_bottom = 388.0
+margin_top = 400.0
+margin_right = 1100.0
+margin_bottom = 428.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -1114,9 +1300,9 @@ valign = 1
 clip_text = true
 
 [node name="HitEffectCursor" type="CheckBox" parent="M/Customization/Group/H"]
-margin_top = 392.0
-margin_right = 658.0
-margin_bottom = 420.0
+margin_top = 432.0
+margin_right = 1100.0
+margin_bottom = 460.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -1147,9 +1333,9 @@ valign = 1
 clip_text = true
 
 [node name="RainbowCursor" type="CheckBox" parent="M/Customization/Group/H"]
-margin_top = 424.0
-margin_right = 658.0
-margin_bottom = 452.0
+margin_top = 464.0
+margin_right = 1100.0
+margin_bottom = 492.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -1179,9 +1365,9 @@ valign = 1
 clip_text = true
 
 [node name="CursorTrail" type="CheckBox" parent="M/Customization/Group/H"]
-margin_top = 456.0
-margin_right = 658.0
-margin_bottom = 484.0
+margin_top = 496.0
+margin_right = 1100.0
+margin_bottom = 524.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -1211,9 +1397,9 @@ valign = 1
 clip_text = true
 
 [node name="SmartTrail" type="CheckBox" parent="M/Customization/Group/H"]
-margin_top = 488.0
-margin_right = 658.0
-margin_bottom = 516.0
+margin_top = 528.0
+margin_right = 1100.0
+margin_bottom = 556.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -1243,9 +1429,9 @@ valign = 1
 clip_text = true
 
 [node name="TrailDetail" type="Control" parent="M/Customization/Group/H"]
-margin_top = 520.0
-margin_right = 658.0
-margin_bottom = 552.0
+margin_top = 560.0
+margin_right = 1100.0
+margin_bottom = 592.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="TrailDetail" type="SpinBox" parent="M/Customization/Group/H/TrailDetail"]
@@ -1290,9 +1476,9 @@ text = "[def. 10] number of particles in the cursor trail / (smart trail) number
 valign = 1
 
 [node name="TrailTime" type="Control" parent="M/Customization/Group/H"]
-margin_top = 556.0
-margin_right = 658.0
-margin_bottom = 588.0
+margin_top = 596.0
+margin_right = 1100.0
+margin_bottom = 628.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="TrailTime" type="SpinBox" parent="M/Customization/Group/H/TrailTime"]
@@ -1338,19 +1524,19 @@ text = "[def. 0.15] how long the cursor trail lasts in seconds"
 valign = 1
 
 [node name="Audio" type="VBoxContainer" parent="M"]
-margin_top = 776.0
-margin_right = 1150.0
-margin_bottom = 1008.0
+margin_top = 816.0
+margin_right = 1280.0
+margin_bottom = 1048.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Audio"]
-margin_right = 1150.0
+margin_right = 1280.0
 margin_bottom = 32.0
 custom_constants/margin_left = 32
 
 [node name="C" type="CheckBox" parent="M/Audio/Title"]
 margin_left = 32.0
-margin_right = 1150.0
+margin_right = 1280.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 0, 32 )
 custom_colors/font_color_disabled = Color( 1, 1, 1, 1 )
@@ -1367,13 +1553,13 @@ flat = true
 
 [node name="Group" type="MarginContainer" parent="M/Audio"]
 margin_top = 36.0
-margin_right = 1150.0
+margin_right = 1280.0
 margin_bottom = 232.0
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="M/Audio/Group"]
 margin_left = 180.0
-margin_right = 1150.0
+margin_right = 1280.0
 margin_bottom = 196.0
 
 [node name="MusicOffset" type="Control" parent="M/Audio/Group/H"]
@@ -1608,19 +1794,19 @@ __meta__ = {
 }
 
 [node name="Camera" type="VBoxContainer" parent="M"]
-margin_top = 1008.0
-margin_right = 1150.0
-margin_bottom = 1392.0
+margin_top = 1048.0
+margin_right = 1280.0
+margin_bottom = 1432.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Camera"]
-margin_right = 1150.0
+margin_right = 1280.0
 margin_bottom = 32.0
 custom_constants/margin_left = 32
 
 [node name="C" type="CheckBox" parent="M/Camera/Title"]
 margin_left = 32.0
-margin_right = 1150.0
+margin_right = 1280.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 0, 32 )
 custom_colors/font_color_disabled = Color( 1, 1, 1, 1 )
@@ -1637,13 +1823,13 @@ flat = true
 
 [node name="Group" type="MarginContainer" parent="M/Camera"]
 margin_top = 36.0
-margin_right = 1150.0
+margin_right = 1280.0
 margin_bottom = 384.0
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="M/Camera/Group"]
 margin_left = 180.0
-margin_right = 1150.0
+margin_right = 1280.0
 margin_bottom = 348.0
 
 [node name="Presets" type="Control" parent="M/Camera/Group/H"]
@@ -2089,19 +2275,19 @@ valign = 1
 clip_text = true
 
 [node name="Notes" type="VBoxContainer" parent="M"]
-margin_top = 1392.0
-margin_right = 1150.0
-margin_bottom = 1564.0
+margin_top = 1432.0
+margin_right = 1280.0
+margin_bottom = 1604.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Notes"]
-margin_right = 1150.0
+margin_right = 1280.0
 margin_bottom = 32.0
 custom_constants/margin_left = 32
 
 [node name="C" type="CheckBox" parent="M/Notes/Title"]
 margin_left = 32.0
-margin_right = 1150.0
+margin_right = 1280.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 0, 32 )
 custom_colors/font_color_disabled = Color( 1, 1, 1, 1 )
@@ -2118,13 +2304,13 @@ flat = true
 
 [node name="Group" type="MarginContainer" parent="M/Notes"]
 margin_top = 36.0
-margin_right = 1150.0
+margin_right = 1280.0
 margin_bottom = 172.0
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="M/Notes/Group"]
 margin_left = 180.0
-margin_right = 1150.0
+margin_right = 1280.0
 margin_bottom = 136.0
 
 [node name="ApproachRate" type="Control" parent="M/Notes/Group/H"]
@@ -2305,19 +2491,19 @@ valign = 1
 clip_text = true
 
 [node name="UI" type="VBoxContainer" parent="M"]
-margin_top = 1564.0
-margin_right = 1150.0
-margin_bottom = 2076.0
+margin_top = 1604.0
+margin_right = 1280.0
+margin_bottom = 2116.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/UI"]
-margin_right = 1150.0
+margin_right = 1280.0
 margin_bottom = 32.0
 custom_constants/margin_left = 32
 
 [node name="C" type="CheckBox" parent="M/UI/Title"]
 margin_left = 32.0
-margin_right = 1150.0
+margin_right = 1280.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 0, 32 )
 custom_colors/font_color_disabled = Color( 1, 1, 1, 1 )
@@ -2334,13 +2520,13 @@ flat = true
 
 [node name="Group" type="MarginContainer" parent="M/UI"]
 margin_top = 36.0
-margin_right = 1150.0
+margin_right = 1280.0
 margin_bottom = 512.0
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="M/UI/Group"]
 margin_left = 180.0
-margin_right = 1150.0
+margin_right = 1280.0
 margin_bottom = 476.0
 
 [node name="Grid" type="CheckBox" parent="M/UI/Group/H"]
@@ -2860,19 +3046,19 @@ valign = 1
 clip_text = true
 
 [node name="Graphics" type="VBoxContainer" parent="M"]
-margin_top = 2076.0
-margin_right = 1150.0
-margin_bottom = 2300.0
+margin_top = 2116.0
+margin_right = 1280.0
+margin_bottom = 2340.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Graphics"]
-margin_right = 1150.0
+margin_right = 1280.0
 margin_bottom = 32.0
 custom_constants/margin_left = 32
 
 [node name="C" type="CheckBox" parent="M/Graphics/Title"]
 margin_left = 32.0
-margin_right = 1150.0
+margin_right = 1280.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 0, 32 )
 custom_colors/font_color_disabled = Color( 1, 1, 1, 1 )
@@ -2889,13 +3075,13 @@ flat = true
 
 [node name="Group" type="MarginContainer" parent="M/Graphics"]
 margin_top = 36.0
-margin_right = 1150.0
+margin_right = 1280.0
 margin_bottom = 224.0
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="M/Graphics/Group"]
 margin_left = 180.0
-margin_right = 1150.0
+margin_right = 1280.0
 margin_bottom = 188.0
 
 [node name="VSync" type="CheckBox" parent="M/Graphics/Group/H"]
@@ -3136,7 +3322,7 @@ margin_left = 180.0
 margin_right = 800.0
 
 [node name="BottomMargin" type="Control" parent="."]
-margin_top = 2363.0
-margin_right = 1150.0
-margin_bottom = 2459.0
+margin_top = 2403.0
+margin_right = 1280.0
+margin_bottom = 2499.0
 rect_min_size = Vector2( 0, 96 )

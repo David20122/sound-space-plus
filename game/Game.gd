@@ -167,7 +167,7 @@ func update_timer(ms:float,canSkip:bool=false):
 	if canSkip: timelabel.text = "PRESS SPACE TO SKIP"
 	else: timelabel.text = "%d:%02d / %d:%02d" % [m,rs,lm,lrs]
 	SSP.song_end_time_str = "%d:%02d" % [m,rs]
-	if ms >= last_ms:
+	if ms >= last_ms + SSP.hitwindow_ms:
 #		if get_node("Spawn/Music").playing:
 #			yield(get_node("Spawn/Music"),"finished")
 		if !get_node("Spawn/Music").playing:
@@ -230,6 +230,9 @@ func _process(delta):
 	
 	if SSP.replaying and Input.is_action_just_pressed("pause"):
 		get_tree().paused = !get_tree().paused
+	
+	if get_tree().paused:
+		$Spawn.last_usec = OS.get_ticks_usec()
 	
 	if rainbow_letter_grade and !SSP.rainbow_hud:
 		$Grid/LeftVP/Control/LetterGrade.set("custom_colors/font_color",Color.from_hsv(SSP.rainbow_t*0.1,0.4,1))

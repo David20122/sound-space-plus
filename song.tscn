@@ -1,4 +1,4 @@
-[gd_scene load_steps=101 format=2]
+[gd_scene load_steps=100 format=2]
 
 [ext_resource path="res://game/Camera.gd" type="Script" id=1]
 [ext_resource path="res://game/NoteManager.gd" type="Script" id=2]
@@ -33,6 +33,7 @@
 [ext_resource path="res://content/animations/Blink.tres" type="Animation" id=31]
 [ext_resource path="res://content/meshes/Happy.obj" type="ArrayMesh" id=32]
 [ext_resource path="res://ARVRAvatar.tscn" type="PackedScene" id=33]
+[ext_resource path="res://game/PauseHud.gd" type="Script" id=33]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.145098, 0.74902, 0, 1 )
@@ -173,6 +174,12 @@ bg_color = Color( 0.580392, 0.129412, 0.129412, 0.686275 )
 [sub_resource type="DynamicFont" id=17]
 size = 72
 outline_color = Color( 0, 0, 0, 0.333333 )
+use_filter = true
+font_data = ExtResource( 17 )
+
+[sub_resource type="DynamicFont" id=75]
+size = 72
+outline_color = Color( 0.407843, 0.584314, 1, 1 )
 use_filter = true
 font_data = ExtResource( 17 )
 
@@ -1075,11 +1082,9 @@ gui_snap_controls_to_pixels = false
 [node name="Control" type="Control" parent="Game/Grid/PauseVP"]
 margin_right = 600.0
 margin_bottom = 600.0
-script = ExtResource( 21 )
-fill_color = Color( 0.537255, 1, 0.0745098, 1 )
-empty_color = Color( 0.435294, 0.435294, 0.435294, 0 )
+script = ExtResource( 33 )
 
-[node name="Label" type="Label" parent="Game/Grid/PauseVP/Control"]
+[node name="Paused" type="Label" parent="Game/Grid/PauseVP/Control"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -1094,11 +1099,26 @@ text = "PAUSED"
 align = 1
 valign = 1
 clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="Label2" type="Label" parent="Game/Grid/PauseVP/Control"]
+[node name="ProgressBar" type="Control" parent="Game/Grid/PauseVP/Control"]
+margin_left = 160.0
+margin_top = 160.0
+margin_right = 160.0
+margin_bottom = 440.0
+grow_horizontal = 2
+rect_clip_content = true
+
+[node name="Paused" type="Label" parent="Game/Grid/PauseVP/Control/ProgressBar"]
+margin_right = 280.0
+margin_bottom = 280.0
+grow_horizontal = 2
+custom_colors/font_color = Color( 0.501961, 1, 0.952941, 1 )
+custom_fonts/font = SubResource( 75 )
+text = "PAUSED"
+align = 1
+valign = 1
+
+[node name="HoldR" type="Label" parent="Game/Grid/PauseVP/Control"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -1115,20 +1135,6 @@ clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="Spin" type="TextureRect" parent="Game/Grid/PauseVP/Control"]
-material = SubResource( 42 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 50.0
-margin_top = 50.0
-margin_right = -50.0
-margin_bottom = -50.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource( 20 )
-expand = true
-stretch_mode = 6
 
 [node name="ConfigVP" type="Viewport" parent="Game/Grid"]
 size = Vector2( 600, 600 )
