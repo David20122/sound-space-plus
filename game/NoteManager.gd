@@ -225,6 +225,7 @@ var rec_interval:float = 35
 var pause_state:float = 0
 var pause_ms:float = 0
 var replay_unpause:bool = false
+var can_skip:bool = ((next_ms-prev_ms) > 5000) and (next_ms >= max(ms+(3000*speed_multi),1100*speed_multi))
 
 var replay_sig:Array = []
 var last_usec = OS.get_ticks_usec()
@@ -236,8 +237,6 @@ func _process(delta:float):
 	if SSP.cam_unlock: do_spin()
 	else: do_half_lock()
 	if !notes_loaded: return
-	
-	var can_skip:bool = ((next_ms-prev_ms) > 5000) and (next_ms >= max(ms+(3000*speed_multi),1100*speed_multi))
 	
 	if !SSP.rainbow_hud:
 		if can_skip: TimerHud.modulate = Color(0.7,1,1)
@@ -414,5 +413,3 @@ func _process(delta:float):
 		ComboHud.modulate = Color.from_hsv(SSP.rainbow_t*0.1,0.4,1)
 		get_node("../Grid/LeftHud").modulate = Color.from_hsv(SSP.rainbow_t*0.1,0.4,1)
 		get_node("../Grid/RightHud").modulate = Color.from_hsv(SSP.rainbow_t*0.1,0.4,1)
-	
-	
