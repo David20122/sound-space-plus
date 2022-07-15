@@ -155,7 +155,7 @@ func update_timer(ms:float,canSkip:bool=false):
 	if canSkip: timelabel.text = "PRESS SPACE TO SKIP"
 	else: timelabel.text = "%d:%02d / %d:%02d" % [m,rs,lm,lrs]
 	SSP.song_end_time_str = "%d:%02d" % [m,rs]
-	if ms >= last_ms:
+	if ms >= last_ms + SSP.hitwindow_ms:
 #		if get_node("Spawn/Music").playing:
 #			yield(get_node("Spawn/Music"),"finished")
 		if !get_node("Spawn/Music").playing:

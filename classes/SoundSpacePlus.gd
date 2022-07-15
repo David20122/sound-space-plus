@@ -575,7 +575,7 @@ func load_saved_settings():
 		if sv >= 18: note_hitbox_size = float(str(file.get_float())) # fix weirdness with 1.14
 		if sv >= 19: spawn_distance = file.get_float()
 		if sv >= 20:
-			custom_speed = file.get_float()
+			set("custom_speed",file.get_float())
 			note_spawn_effect = bool(file.get_8())
 		if sv >= 21:
 			display_true_combo = bool(file.get_8())
