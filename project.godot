@@ -199,6 +199,7 @@ boot_splash/fullsize=false
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://icon.png"
 config/windows_native_icon="res://icon.ico"
+config/quit_on_go_back=false
 config/version="0.8.6-alpha"
 config/autoload_map_registries="test maps|res://test_assets/test_maps.sspmr;built in|res://content/songs/built_in_maps.sspmr"
 config/enable_new_content_mgr=true
