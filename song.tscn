@@ -33,7 +33,7 @@
 [ext_resource path="res://content/animations/Blink.tres" type="Animation" id=31]
 [ext_resource path="res://content/meshes/Happy.obj" type="ArrayMesh" id=32]
 [ext_resource path="res://ARVRAvatar.tscn" type="PackedScene" id=33]
-[ext_resource path="res://game/PauseHud.gd" type="Script" id=33]
+[ext_resource path="res://game/PauseHud.gd" type="Script" id=34]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.145098, 0.74902, 0, 1 )
@@ -1082,7 +1082,7 @@ gui_snap_controls_to_pixels = false
 [node name="Control" type="Control" parent="Game/Grid/PauseVP"]
 margin_right = 600.0
 margin_bottom = 600.0
-script = ExtResource( 33 )
+script = ExtResource( 34 )
 
 [node name="Paused" type="Label" parent="Game/Grid/PauseVP/Control"]
 anchor_left = 0.5
