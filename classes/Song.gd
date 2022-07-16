@@ -243,7 +243,6 @@ func setup_from_data(mapData:String,songFile:String):
 	if songFile.begins_with("res://"):
 		is_builtin = true
 	loadRawData(mapData)
-	discard_notes()
 	return self
 
 func setup_from_vulnus_json(jsonPath:String,songFile:String):
@@ -355,8 +354,9 @@ func read_notes() -> Array:
 	return notes
 
 func discard_notes():
-	notes = []
-	rawData = "" 
+	if songType != Globals.MAP_RAW:
+		notes = []
+		rawData = "" 
 
 func change_difficulty(to:int):
 	if songType != Globals.MAP_SSPM: 

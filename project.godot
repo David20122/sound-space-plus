@@ -296,7 +296,7 @@ boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://icon.png"
 config/windows_native_icon="res://icon.ico"
 config/quit_on_go_back=false
-config/version="0.8.6-alpha"
+config/version="0.8.7-stable"
 config/autoload_map_registries="test maps|res://test_assets/test_maps.sspmr;built in|res://content/songs/built_in_maps.sspmr"
 config/enable_new_content_mgr=true
 config/default_menu_target="res://menu2.tscn"
@@ -305,7 +305,7 @@ config/default_menu_target.editor="res://menu2.tscn"
 config/7zip_binary_path=""
 config/7zip_binary_path.Windows="install_dir/util/7z.exe"
 config/7zip_binary_path.X11="install_dir/util/7zz"
-config/auto_maximize=false
+config/auto_maximize=true
 config/auto_maximize.editor=false
 config/use_custom_user_dir.Android=false
 config/discord_rpc=true
@@ -318,6 +318,7 @@ config/discord_rpc.mobile=false
 config/replays=true
 config/replays.editor=true
 config/show_trail_debug=false
+config/project_settings_override.editor=""
 
 [audio]
 
