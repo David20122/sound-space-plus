@@ -288,7 +288,6 @@ config/name="Sound Space+"
 run/main_scene="res://init.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="SoundSpacePlus"
-config/project_settings_override="user://override.cfg"
 run/delta_sync_after_draw=true
 boot_splash/image="res://splash.png"
 boot_splash/fullsize=false
@@ -318,7 +317,7 @@ config/discord_rpc.mobile=false
 config/replays=true
 config/replays.editor=true
 config/show_trail_debug=false
-config/project_settings_override.editor=""
+config/project_settings_override.standalone="user://override.cfg"
 
 [audio]
 
