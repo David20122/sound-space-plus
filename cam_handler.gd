@@ -3,6 +3,14 @@ extends Spatial
 var state = (SSP.replaying and SSP.alt_cam)
 
 func _ready():
+	
+	# vr stuff
+	var VR = ARVRServer.find_interface("OpenVR")
+	if VR and VR.initialize() and not state:
+		$Game/ARVRAvatar.visible = true
+		$Game/Avatar.visible = false
+	
+	# alt camera init
 	if state:
 		$Camera.current = false
 		$AltCam.current = true

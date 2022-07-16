@@ -32,6 +32,7 @@
 [ext_resource path="res://game/CameraControl.gd" type="Script" id=30]
 [ext_resource path="res://content/animations/Blink.tres" type="Animation" id=31]
 [ext_resource path="res://content/meshes/Happy.obj" type="ArrayMesh" id=32]
+[ext_resource path="res://ARVRAvatar.tscn" type="PackedScene" id=33]
 [ext_resource path="res://game/PauseHud.gd" type="Script" id=33]
 
 [sub_resource type="StyleBoxFlat" id=1]
@@ -336,7 +337,7 @@ albedo_texture = ExtResource( 25 )
 [sub_resource type="SpatialMaterial" id=60]
 flags_unshaded = true
 
-[sub_resource type="Shader" id=57]
+[sub_resource type="Shader" id=80]
 code = "shader_type spatial;
 render_mode blend_mix,cull_back,diffuse_burley,specular_disabled,unshaded;
 uniform vec4 notecolor : hint_color = vec4(1,1,1,1);
@@ -364,11 +365,37 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id=58]
 render_priority = 2
-shader = SubResource( 57 )
+shader = SubResource( 80 )
 shader_param/notecolor = Color( 1, 1, 1, 1 )
 shader_param/alpha_multi = 1.0
 shader_param/fade = 1.0
 shader_param/use_image = false
+
+[sub_resource type="Shader" id=57]
+code = "shader_type spatial;
+render_mode blend_mix,cull_back,diffuse_burley,specular_disabled,unshaded;
+uniform vec4 notecolor : hint_color = vec4(1,1,1,1);
+
+uniform float alpha_multi = 1;
+uniform float fade = 1;
+
+uniform bool use_image = false;
+uniform sampler2D image;
+
+
+void fragment() {
+	vec2 base_uv = UV;
+	vec4 img = vec4(1.0);
+	if (use_image) {
+		img = texture(image,UV);
+	}
+	ALBEDO = notecolor.rgb * img.rgb;
+//	ALBEDO.r = 1.0 - fade;
+//	ALBEDO.b = 0.0;
+//	ALBEDO.g = fade;
+	ALPHA = notecolor.a*img.a*alpha_multi*fade;
+}
+"
 
 [sub_resource type="ShaderMaterial" id=59]
 render_priority = 2
@@ -480,15 +507,15 @@ vertex_color_use_as_albedo = true
 albedo_color = Color( 1, 1, 1, 0.196078 )
 
 [sub_resource type="Gradient" id=71]
-colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
+colors = PoolColorArray( 1, 1, 1, 0.0196078, 1, 1, 1, 0 )
 
-[sub_resource type="GradientTexture" id=72]
+[sub_resource type="GradientTexture" id=81]
 gradient = SubResource( 71 )
 
 [sub_resource type="ParticlesMaterial" id=73]
 gravity = Vector3( 0, 0, 0 )
 scale = 0.1
-color_ramp = SubResource( 72 )
+color_ramp = SubResource( 81 )
 
 [sub_resource type="ArrayMesh" id=70]
 surfaces/0 = {
@@ -601,6 +628,9 @@ tracks/7/keys = {
 "update": 0,
 "values": [ Vector3( 0, 0, 0 ) ]
 }
+
+[sub_resource type="BoxShape" id=82]
+extents = Vector3( 1.6, 1.6, 0 )
 
 [node name="Song" type="Spatial"]
 script = ExtResource( 23 )
@@ -1536,14 +1566,14 @@ skeleton = NodePath("../..")
 material/0 = SubResource( 59 )
 
 [node name="HappyR" type="MeshInstance" parent="Game/Avatar/Head"]
-transform = Transform( -1, 1.50996e-07, -9.90035e-15, 0, -4.47035e-08, -1.5, -1.50996e-07, -1, 5.96046e-08, 0.35, 0.5, -1.01 )
+transform = Transform( -0.75, 1.50996e-07, -9.90035e-15, 0, -4.37114e-08, -1.5, -1.13247e-07, -1, 6.55671e-08, 0.35, 0.5, -1.01 )
 visible = false
 mesh = ExtResource( 32 )
 skeleton = NodePath("../..")
 material/0 = SubResource( 67 )
 
 [node name="HappyL" type="MeshInstance" parent="Game/Avatar/Head"]
-transform = Transform( -1, 1.50996e-07, -9.90035e-15, 0, -4.37114e-08, -1.5, -1.50996e-07, -1, 6.55671e-08, -0.35, 0.5, -1.01 )
+transform = Transform( -0.75, 1.50996e-07, -9.90035e-15, 0, -4.37114e-08, -1.5, -1.13247e-07, -1, 6.55671e-08, -0.35, 0.5, -1.01 )
 visible = false
 mesh = ExtResource( 32 )
 skeleton = NodePath("../..")
@@ -1577,7 +1607,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, -0.5, 2 )
 script = ExtResource( 27 )
 
 [node name="Pointer" type="MeshInstance" parent="Game/Avatar/ArmL"]
-transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.0490433, -0.475478 )
+transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.0078125, -0.496094 )
 mesh = ExtResource( 29 )
 skeleton = NodePath("../..")
 material/0 = SubResource( 58 )
@@ -1588,7 +1618,7 @@ material/0 = SubResource( 67 )
 
 [node name="Trail" type="Particles" parent="Game/Avatar/ArmL/Pointer"]
 material_override = SubResource( 74 )
-amount = 4
+amount = 100
 lifetime = 0.25
 local_coords = false
 process_material = SubResource( 73 )
@@ -1616,6 +1646,22 @@ anchor_bottom = 1.0
 mouse_filter = 1
 color = Color( 0, 0, 0, 0 )
 
+[node name="body" type="StaticBody" parent="Game"]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 0.1, 0, -0.5, 0 )
+input_capture_on_drag = true
+
+[node name="shape" type="CollisionShape" parent="Game/body"]
+shape = SubResource( 82 )
+
+[node name="ARVRAvatar" parent="Game" instance=ExtResource( 33 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.5, 4.5 )
+
+[node name="mesh" parent="Game/ARVRAvatar/vorigin/vleft" index="0"]
+transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, -0.5 )
+
+[node name="mesh" parent="Game/ARVRAvatar/vorigin/vright" index="0"]
+transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, -0.5 )
+
 [node name="Debug" type="Label" parent="."]
 visible = false
 margin_left = 10.0
@@ -1624,3 +1670,5 @@ margin_right = 106.0
 margin_bottom = 27.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_fonts/font = SubResource( 46 )
+
+[editable path="Game/ARVRAvatar"]

@@ -110,6 +110,11 @@ enum {
 	HP_OLD = 1
 }
 
+enum {
+	GRADE_SSP = 0
+	GRADE_LEGACY = 1
+}
+
 const difficulty_names:Dictionary = {
 	-1: "N/A",
 	0: "EASY",

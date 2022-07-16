@@ -14,6 +14,16 @@ func files_dropped(files:PoolStringArray,_screen:int):
 		get_tree().change_scene("res://songload.tscn")
 
 func _pressed():
+	
+	# vr init
+	var VR = ARVRServer.find_interface("OpenVR")
+	if VR and VR.initialize():
+		get_viewport().arvr = true
+		get_viewport().hdr = false
+		OS.vsync_enabled = false
+		Engine.target_fps = 90
+
+	# button functionality
 	if !SSP.selected_song: return
 	if has_been_pressed: return
 	has_been_pressed = true

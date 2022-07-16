@@ -65,6 +65,15 @@ func cache_trail(part:Spatial):
 	trail_cache.append(part)
 
 func _process(delta):
+	
+	# vr cursor
+	var VR = ARVRServer.find_interface("OpenVR")
+	if VR and VR.initialize():
+		var vrcpoint = get_parent().get_parent().get_node("ARVRAvatar/vorigin/vright/ray").get_collision_point()
+		translation.x = clamp(vrcpoint.x + 1,-0.398,2.398)
+		translation.y = clamp(vrcpoint.y - 1,-2.398,0.398)
+
+	
 	if Input.is_action_just_pressed("debug_enable_mouse"):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	frame = Engine.get_frames_drawn()

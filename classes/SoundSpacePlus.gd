@@ -197,8 +197,11 @@ func _set_custom_speed(v:float):
 	emit_signal("speed_mod_changed")
 
 var health_model:int = Globals.HP_SOUNDSPACE setget _set_health_model
+var grade_system:int = Globals.GRADE_SSP setget _set_health_model
 func _set_health_model(v:int):
 	health_model = v; emit_signal("mods_changed")
+func _set_grade_system(v:int):
+	grade_system = v; emit_signal("mods_changed")
 
 var play_menu_music:bool = false setget _set_menu_music
 func _set_menu_music(v:bool):

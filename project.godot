@@ -39,7 +39,7 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_activity.gdns"
 }, {
-"base": "Reference",
+"base": "",
 "class": "DiscordActivityAssets",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_activity_assets.gdns"
@@ -49,7 +49,7 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_activity_manager.gdns"
 }, {
-"base": "Reference",
+"base": "",
 "class": "DiscordActivityParty",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_activity_party.gdns"
@@ -64,7 +64,7 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_activity_timestamps.gdns"
 }, {
-"base": "Reference",
+"base": "",
 "class": "DiscordCore",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_core.gdns"
@@ -74,7 +74,7 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_lobby.gdns"
 }, {
-"base": "Reference",
+"base": "",
 "class": "DiscordLobbyManager",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_lobby_manager.gdns"
@@ -84,7 +84,7 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_lobby_transaction.gdns"
 }, {
-"base": "Reference",
+"base": "",
 "class": "DiscordOverlayManager",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_overlay_manager.gdns"
@@ -94,7 +94,17 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_party_size.gdns"
 }, {
+"base": "Node",
+"class": "DiscordRPC",
+"language": "GDScript",
+"path": "res://addons/godot_editor_discord_presence/Discord RPC/DiscordRPC.gd"
+}, {
 "base": "Reference",
+"class": "DiscordRPCEnum",
+"language": "GDScript",
+"path": "res://addons/godot_editor_discord_presence/Discord RPC/DiscordRPCEnum.gd"
+}, {
+"base": "",
 "class": "DiscordResult",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_result.gdns"
@@ -108,6 +118,31 @@ _global_script_classes=[ {
 "class": "GameState",
 "language": "GDScript",
 "path": "res://addons/discord_game_sdk/example/lobby/game_state.gd"
+}, {
+"base": "Reference",
+"class": "IPC",
+"language": "GDScript",
+"path": "res://addons/godot_editor_discord_presence/Discord RPC/ipc/IPC.gd"
+}, {
+"base": "Reference",
+"class": "IPCModule",
+"language": "GDScript",
+"path": "res://addons/godot_editor_discord_presence/Discord RPC/ipc/module/IPCModule.gd"
+}, {
+"base": "Reference",
+"class": "IPCPayload",
+"language": "GDScript",
+"path": "res://addons/godot_editor_discord_presence/Discord RPC/ipc/IPCPayload.gd"
+}, {
+"base": "Reference",
+"class": "IPCPipe",
+"language": "GDScript",
+"path": "res://addons/godot_editor_discord_presence/Discord RPC/ipc/pipe/IPCPipe.gd"
+}, {
+"base": "Reference",
+"class": "IPCUtil",
+"language": "GDScript",
+"path": "res://addons/godot_editor_discord_presence/Discord RPC/util/IPCUtil.gd"
 }, {
 "base": "Node",
 "class": "ImageLoader",
@@ -149,10 +184,55 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://classes/Replay.gd"
 }, {
+"base": "Reference",
+"class": "RichPresence",
+"language": "GDScript",
+"path": "res://addons/godot_editor_discord_presence/Discord RPC/ipc/module/rich presence/RichPresence.gd"
+}, {
+"base": "Reference",
+"class": "RichPresenceButton",
+"language": "GDScript",
+"path": "res://addons/godot_editor_discord_presence/Discord RPC/ipc/module/rich presence/RichPresenceButton.gd"
+}, {
+"base": "IPCModule",
+"class": "RichPresenceModule",
+"language": "GDScript",
+"path": "res://addons/godot_editor_discord_presence/Discord RPC/ipc/module/rich presence/RichPresenceModule.gd"
+}, {
 "base": "Resource",
 "class": "Song",
 "language": "GDScript",
 "path": "res://classes/Song.gd"
+}, {
+"base": "",
+"class": "StreamPeerUnix",
+"language": "NativeScript",
+"path": "res://addons/godot_editor_discord_presence/godot-unix-socket/unix-socket.gdns"
+}, {
+"base": "Reference",
+"class": "URLUtil",
+"language": "GDScript",
+"path": "res://addons/godot_editor_discord_presence/Discord RPC/util/URLUtil.gd"
+}, {
+"base": "Reference",
+"class": "UUID",
+"language": "GDScript",
+"path": "res://addons/godot_editor_discord_presence/Discord RPC/util/UUID.gd"
+}, {
+"base": "IPCPipe",
+"class": "UnixPipe",
+"language": "GDScript",
+"path": "res://addons/godot_editor_discord_presence/Discord RPC/ipc/pipe/UnixPipe.gd"
+}, {
+"base": "IPCPayload",
+"class": "UpdateRichPresencePayload",
+"language": "GDScript",
+"path": "res://addons/godot_editor_discord_presence/Discord RPC/ipc/module/rich presence/UpdateRichPresencePayload.gd"
+}, {
+"base": "IPCPipe",
+"class": "WindowsPipe",
+"language": "GDScript",
+"path": "res://addons/godot_editor_discord_presence/Discord RPC/ipc/pipe/WindowsPipe.gd"
 } ]
 _global_script_class_icons={
 "AudioLoader": "",
@@ -172,9 +252,16 @@ _global_script_class_icons={
 "DiscordLobbyTransaction": "",
 "DiscordOverlayManager": "",
 "DiscordPartySize": "",
+"DiscordRPC": "",
+"DiscordRPCEnum": "",
 "DiscordResult": "",
 "DiscordUser": "",
 "GameState": "",
+"IPC": "",
+"IPCModule": "",
+"IPCPayload": "",
+"IPCPipe": "",
+"IPCUtil": "",
 "ImageLoader": "",
 "Member": "",
 "Note": "",
@@ -183,7 +270,16 @@ _global_script_class_icons={
 "ObjParse": "",
 "Registry": "",
 "Replay": "",
-"Song": ""
+"RichPresence": "",
+"RichPresenceButton": "",
+"RichPresenceModule": "",
+"Song": "",
+"StreamPeerUnix": "",
+"URLUtil": "",
+"UUID": "",
+"UnixPipe": "",
+"UpdateRichPresencePayload": "",
+"WindowsPipe": ""
 }
 
 [application]
@@ -241,6 +337,11 @@ gdscript/warnings/unused_argument=false
 gdscript/warnings/unused_signal=false
 gdscript/warnings/return_value_discarded=false
 
+[discord_presence]
+
+first_button/label="go to godot's website lol"
+settings/change_time_per_screen=true
+
 [display]
 
 window/size/width=1280
@@ -252,7 +353,11 @@ window/stretch/aspect.mobile="keep_height"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/discord_game_sdk/plugin.cfg", "res://addons/native_dialogs/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/discord_game_sdk/plugin.cfg", "res://addons/godot_editor_discord_presence/plugin.cfg", "res://addons/native_dialogs/plugin.cfg" )
+
+[gdnative]
+
+singletons=[ "res://addons/godot-openvr/godot_openvr.gdnlib" ]
 
 [gui]
 

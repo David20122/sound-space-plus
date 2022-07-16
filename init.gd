@@ -20,6 +20,12 @@ var black_fade_target:bool = false
 var black_fade:float = 0
 
 func _ready():
+	
+#	init vr (disabled currently)
+#	var VR = ARVRServer.find_interface("OpenVR")
+#	if VR and VR.initialize():
+#		target = "res://vrmenudemo.tscn"
+	
 #	VisualServer.set_debug_generate_wireframes(true)
 #	get_viewport().debug_draw = get_viewport().DEBUG_DRAW_OVERDRAW
 	get_tree().paused = false
