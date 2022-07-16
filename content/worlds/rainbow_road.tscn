@@ -159,18 +159,18 @@ mesh = SubResource( 15 )
 material/0 = null
 script = ExtResource( 4 )
 
-[node name="DirectionalLight" type="DirectionalLight" parent="."]
-transform = Transform( 1, 0, 0, 0, -0.937865, 0.347001, 0, -0.347001, -0.937865, 0, 0, -9.25 )
-light_color = Color( 0.917647, 0.792157, 1, 1 )
-light_energy = 0.1
-
-[node name="Vignette" type="TextureRect" parent="."]
+[node name="Vignette" type="TextureRect" parent="RainbowRoad"]
 material = SubResource( 16 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource( 3 )
 expand = true
 stretch_mode = 1
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 1, 0, 0, 0, -0.937865, 0.347001, 0, -0.347001, -0.937865, 0, 0, -9.25 )
+light_color = Color( 0.917647, 0.792157, 1, 1 )
+light_energy = 0.1
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.09279e-08, -1.69, 1.25 )

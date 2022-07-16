@@ -1,4 +1,4 @@
-[gd_scene load_steps=137 format=2]
+[gd_scene load_steps=139 format=2]
 
 [ext_resource path="res://uitheme.tres" type="Theme" id=1]
 [ext_resource path="res://font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=2]
@@ -59,8 +59,9 @@
 [ext_resource path="res://addons/native_dialogs/bin/native_dialog_save_file.gdns" type="Script" id=57]
 [ext_resource path="res://menuButtons/ExportTxt.gd" type="Script" id=58]
 [ext_resource path="res://menu2/StartOffset.gd" type="Script" id=59]
-[ext_resource path="res://GradeSystem.gd" type="Script" id=60]
 [ext_resource path="res://menuButtons/ModChaos.gd" type="Script" id=60]
+[ext_resource path="res://content/ui/placeholder.jpg" type="Texture" id=61]
+[ext_resource path="res://menu2/GradeSystem.gd" type="Script" id=62]
 
 [sub_resource type="StyleBoxFlat" id=59]
 draw_center = false
@@ -2621,6 +2622,7 @@ __meta__ = {
 }
 
 [node name="GradeSystem" type="MenuButton" parent="Main/Results/ModsHolder/Mods"]
+visible = false
 margin_left = 130.0
 margin_top = 238.0
 margin_right = 314.0
@@ -2633,7 +2635,7 @@ custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
 text = "grade system here"
 flat = false
 align = 0
-script = ExtResource( 60 )
+script = ExtResource( 62 )
 
 [node name="Label" type="Label" parent="Main/Results/ModsHolder/Mods/GradeSystem"]
 margin_left = -149.0
@@ -3809,10 +3811,41 @@ custom_fonts/font = SubResource( 6 )
 text = "Content Manager"
 valign = 1
 
-[node name="OldMenu" type="Button" parent="Sidebar/L"]
+[node name="StartVR" type="Button" parent="Sidebar/L"]
 margin_top = 290.0
 margin_right = 58.0
 margin_bottom = 348.0
+rect_min_size = Vector2( 0, 58 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/focus = SubResource( 3 )
+custom_styles/disabled = SubResource( 4 )
+custom_styles/normal = SubResource( 4 )
+toggle_mode = true
+action_mode = 0
+group = SubResource( 5 )
+
+[node name="Tex" type="TextureRect" parent="Sidebar/L/StartVR"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 48.0
+margin_bottom = 48.0
+texture = ExtResource( 61 )
+expand = true
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="Sidebar/L/StartVR"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 64.0
+custom_fonts/font = SubResource( 6 )
+text = "Play in VR"
+valign = 1
+
+[node name="OldMenu" type="Button" parent="Sidebar/L"]
+margin_top = 348.0
+margin_right = 58.0
+margin_bottom = 406.0
 rect_min_size = Vector2( 0, 58 )
 custom_styles/hover = SubResource( 4 )
 custom_styles/pressed = SubResource( 2 )
@@ -3841,9 +3874,9 @@ text = "Switch to Old Menu"
 valign = 1
 
 [node name="Quit" type="Button" parent="Sidebar/L"]
-margin_top = 348.0
+margin_top = 406.0
 margin_right = 58.0
-margin_bottom = 406.0
+margin_bottom = 464.0
 rect_min_size = Vector2( 0, 58 )
 custom_styles/hover = SubResource( 4 )
 custom_styles/pressed = SubResource( 2 )
@@ -3929,7 +3962,6 @@ expand = true
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-mouse_filter = 2
 color = Color( 0, 0, 0, 0 )
 __meta__ = {
 "_edit_use_anchors_": false

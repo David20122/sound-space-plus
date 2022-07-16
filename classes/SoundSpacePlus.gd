@@ -89,6 +89,7 @@ var errornum:int = 0 # Used by settings file errors
 var errorstr:String = "" # Used by loading errors (ie. errors/songload and errors/menuload)
 var first_init_done = false # Don't reload mods as that can cause problems
 var loaded_world = null # Holds the bg world for transit between songload and song player
+var menu_target:String = ProjectSettings.get_setting("application/config/default_menu_target")
 
 # Song list position/search persistence
 var was_auto_play_switch:bool = true
@@ -105,6 +106,16 @@ var last_difficulty_filter:Array = [
 	Globals.DIFF_AMOGUS,
 	Globals.DIFF_UNKNOWN
 ]
+
+# VR
+var vr:bool = false
+var fake_vr:bool = false
+var vr_available:bool = false
+var vr_interface:ARVRInterface
+var vr_player:VRPlayer
+var vr_left_handed:bool = false
+var vr_controller_type:int = Globals.VR_GENERIC
+
 
 
 
@@ -127,9 +138,136 @@ var def_menu_bgm:AudioStream
 var fail_asp:AudioStreamPlayer = AudioStreamPlayer.new()
 
 
+# VR startup
+func spawn_vr_player():
+	var vr_av:VRPlayer = load("res://vr/VRPlayer.tscn").instance()
+	get_tree().root.add_child(vr_av)
+	vr_av.name = "VRPlayer"
+	vr_player = vr_av
+	
 
+func start_vr():
+	if vr:
+		print("VR already active")
+		return
+	print("VR START")
+	vr = true
+	
+	get_viewport().hdr = false
+	OS.vsync_enabled = false
+	Engine.target_fps = 90
+	
+	if true:#Input.is_key_pressed(KEY_SHIFT):
+		print("enabling fake vr")
+		OS.window_maximized = true
+		fake_vr = true
+		
+		var ev = InputEventKey.new()
+		ev.scancode = KEY_F
+		InputMap.action_add_event("vr_switch_hands",ev)
+		
+		ev = InputEventMouseButton.new()
+		ev.button_index = BUTTON_LEFT
+		InputMap.action_add_event("vr_click",ev)
+	else:
+		vr_interface.initialize()
+		get_viewport().arvr = true
+		
+		# Hand switch binds
+		var ev = InputEventJoypadButton.new()
+		ev.button_index = JOY_OCULUS_MENU
+		InputMap.action_add_event("vr_switch_hands",ev)
+		
+		ev = InputEventJoypadButton.new()
+		ev.button_index = JOY_OPENVR_MENU
+		InputMap.action_add_event("vr_switch_hands",ev)
+		
+		# Give up binds
+		ev = InputEventJoypadButton.new()
+		ev.button_index = JOY_VR_GRIP
+		InputMap.action_add_event("give_up",ev)
+		
+		ev = InputEventJoypadMotion.new()
+		ev.axis = JOY_VR_ANALOG_GRIP
+		InputMap.action_add_event("give_up",ev)
+		
+		# Pause binds
+		ev = InputEventJoypadButton.new()
+		ev.button_index = JOY_VR_TRIGGER
+		InputMap.action_add_event("pause",ev)
+		
+		ev = InputEventJoypadMotion.new()
+		ev.axis = JOY_VR_ANALOG_TRIGGER
+		InputMap.action_add_event("pause",ev)
+		
+		# Click binds
+		ev = InputEventJoypadButton.new()
+		ev.button_index = JOY_VR_TRIGGER
+		InputMap.action_add_event("vr_click",ev)
+		
+		ev = InputEventJoypadMotion.new()
+		ev.axis = JOY_VR_ANALOG_TRIGGER
+		InputMap.action_add_event("vr_click",ev)
+	
+	spawn_vr_player()
+	
+	menu_target = "res://vr/vrmenu.tscn"
+	get_tree().change_scene("res://menuload.tscn")
 
-# TODO: Move this to the AudioLoader
+# Engine node functions
+func _ready():
+	fail_asp.volume_db = -10
+	call_deferred("add_child",fail_asp)
+	pause_mode = PAUSE_MODE_PROCESS
+func _process(delta):
+	# Rainbow sync
+	rainbow_t = fmod(rainbow_t + (delta*0.5),10)
+	# Global hotkeys
+	if Input.is_action_just_pressed("fullscreen"):
+		OS.window_fullscreen = not OS.window_fullscreen
+
+# Utility functions
+func update_rpc_song(): # Discord RPC
+	if !ProjectSettings.get_setting("application/config/discord_rpc") or selected_song == null: return
+	var txt = ""
+	var mods = []
+	if mod_nofail: mods.append("Nofail")
+	if mod_speed_level != Globals.SPEED_NORMAL:
+		match mod_speed_level:
+			Globals.SPEED_MMM: mods.append("Speed---")
+			Globals.SPEED_MM: mods.append("Speed--")
+			Globals.SPEED_M: mods.append("Speed-")
+			Globals.SPEED_P: mods.append("Speed+")
+			Globals.SPEED_PP: mods.append("Speed++")
+			Globals.SPEED_PPP: mods.append("Speed+++")
+			Globals.SPEED_PPPP: mods.append("Speed++++")
+			Globals.SPEED_CUSTOM: mods.append("Speed %s%%" % [Globals.speed_multi[Globals.SPEED_CUSTOM] * 100])
+	if mod_sudden_death: mods.append("SuddenDeath")
+	if mod_extra_energy: mods.append("Energy+")
+	if mod_no_regen: mods.append("NoRegen")
+	if mod_mirror_x or mod_mirror_y:
+		var mirrorst = "Mirror"
+		if SSP.mod_mirror_x: mirrorst += "X"
+		if SSP.mod_mirror_y: mirrorst += "Y"
+		mods.append(mirrorst)
+	if mod_ghost: mods.append("Ghost")
+	if mod_nearsighted: mods.append("Nearsight")
+	
+	if mods.size() == 0: txt = "No modifiers"
+	else:
+		for i in range(mods.size()):
+			if i != 0: txt += ", "
+			txt += mods[i]
+	
+	var activity = Discord.Activity.new()
+	activity.set_type(Discord.ActivityType.Playing)
+	activity.set_state(txt)
+	activity.set_details(selected_song.name)
+
+	var assets = activity.get_assets()
+	assets.set_large_image("icon")
+
+	Discord.activity_manager.update_activity(activity)
 func get_stream_with_default(path:String,default:AudioStream) -> AudioStream:
 	path = Globals.p(path)
 	var file:File = File.new()
@@ -485,64 +623,6 @@ func load_pbs():
 				personal_bests[songid].append(pb)
 				x = file.get_16() # READ 2
 		file.close()
-
-
-
-
-# Engine node functions
-func _ready():
-	fail_asp.volume_db = -10
-	call_deferred("add_child",fail_asp)
-	pause_mode = PAUSE_MODE_PROCESS
-func _process(delta):
-	# Rainbow sync
-	rainbow_t = fmod(rainbow_t + (delta*0.5),10)
-	# Global hotkeys
-	if Input.is_action_just_pressed("fullscreen"):
-		OS.window_fullscreen = not OS.window_fullscreen
-
-# Discord RPC
-func update_rpc_song():
-	if !ProjectSettings.get_setting("application/config/discord_rpc") or selected_song == null: return
-	var txt = ""
-	var mods = []
-	if mod_nofail: mods.append("Nofail")
-	if mod_speed_level != Globals.SPEED_NORMAL:
-		match mod_speed_level:
-			Globals.SPEED_MMM: mods.append("Speed---")
-			Globals.SPEED_MM: mods.append("Speed--")
-			Globals.SPEED_M: mods.append("Speed-")
-			Globals.SPEED_P: mods.append("Speed+")
-			Globals.SPEED_PP: mods.append("Speed++")
-			Globals.SPEED_PPP: mods.append("Speed+++")
-			Globals.SPEED_PPPP: mods.append("Speed++++")
-			Globals.SPEED_CUSTOM: mods.append("Speed %s%%" % [Globals.speed_multi[Globals.SPEED_CUSTOM] * 100])
-	if mod_sudden_death: mods.append("SuddenDeath")
-	if mod_extra_energy: mods.append("Energy+")
-	if mod_no_regen: mods.append("NoRegen")
-	if mod_mirror_x or mod_mirror_y:
-		var mirrorst = "Mirror"
-		if SSP.mod_mirror_x: mirrorst += "X"
-		if SSP.mod_mirror_y: mirrorst += "Y"
-		mods.append(mirrorst)
-	if mod_ghost: mods.append("Ghost")
-	if mod_nearsighted: mods.append("Nearsight")
-	
-	if mods.size() == 0: txt = "No modifiers"
-	else:
-		for i in range(mods.size()):
-			if i != 0: txt += ", "
-			txt += mods[i]
-	
-	var activity = Discord.Activity.new()
-	activity.set_type(Discord.ActivityType.Playing)
-	activity.set_state(txt)
-	activity.set_details(selected_song.name)
-
-	var assets = activity.get_assets()
-	assets.set_large_image("icon")
-
-	Discord.activity_manager.update_activity(activity)
 
 
 
@@ -1035,6 +1115,9 @@ func do_init(_ud=null):
 	var lp:bool = false # load pause
 	var file:File = File.new()
 	var dir:Directory = Directory.new()
+	
+	emit_signal("init_stage_reached","Init filesystem")
+	yield(get_tree(),"idle_frame")
 	if OS.has_feature("Android"): OS.request_permissions()
 	var user_dir = Globals.p("user://")
 	if user_dir == "RETRY":
@@ -1055,8 +1138,6 @@ func do_init(_ud=null):
 	var convert_pb_format:bool = false
 	
 	if !first_init_done:
-		emit_signal("init_stage_reached","Init filesystem")
-		if lp: yield(get_tree(),"idle_frame")
 		if !dir.dir_exists(user_mod_dir): dir.make_dir(user_mod_dir)
 		if !dir.dir_exists(user_pack_dir): dir.make_dir(user_pack_dir)
 		if !dir.dir_exists(user_vmap_dir): dir.make_dir(user_vmap_dir)
@@ -1285,7 +1366,11 @@ func do_init(_ud=null):
 			if fmod(i,max(min(floor(float(allmaps.size())/200),40),5)) == 0: yield(get_tree(),"idle_frame")
 			convert_song_pbs(allmaps[i])
 	
+	# Load favorite songs
+	# Check if VR is available
 	if !first_init_done:
+		
+		# Favorite songs
 		emit_signal("init_stage_reached","Read favorite songs")
 		yield(get_tree(),"idle_frame")
 		if file.file_exists(Globals.p("user://favorites.txt")):
@@ -1293,6 +1378,15 @@ func do_init(_ud=null):
 			var txt = file.get_as_text()
 			file.close()
 			favorite_songs = txt.split("\n",false)
+		
+		# VR
+		emit_signal("init_stage_reached","Check VR status")
+		yield(get_tree(),"idle_frame")
+		
+		var interface = ARVRServer.find_interface("OpenVR")
+		if interface:
+			vr_interface = interface
+			vr_available = true
 	
 	dir.change_dir("res://")
 	first_init_done = true

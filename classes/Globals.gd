@@ -115,6 +115,12 @@ enum {
 	GRADE_LEGACY = 1
 }
 
+enum {
+	VR_GENERIC
+	VR_OCULUS
+	VR_VIVE
+}
+
 const difficulty_names:Dictionary = {
 	-1: "N/A",
 	0: "EASY",

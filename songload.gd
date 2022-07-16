@@ -12,6 +12,8 @@ var black_fade:float = 0
 func _ready():
 	print("song loading")
 	get_tree().paused = false
+	if SSP.vr:
+		SSP.vr_player.transform.origin = Vector3(0,-2.5,4.5)
 	$BlackFade.visible = true
 	black_fade = 1
 	$BlackFade.color = Color(0,0,0,black_fade)

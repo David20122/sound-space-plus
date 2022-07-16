@@ -189,6 +189,30 @@ func do_spin():
 	)
 	get_node("Cursor").transform.origin = centeroff + cursor_offset
 
+func do_vr_cursor():
+	var centeroff = SSP.vr_player.primary_ray.get_collision_point() + cursor_offset
+	
+	var cx = centeroff.x
+	var cy = -centeroff.y
+	cx = clamp(cx, (0 + sh.x + edgec), (3 + sh.x - edgec))
+	cy = clamp(cy, (0 + sh.y + edgec), (3 + sh.y - edgec))
+	centeroff.x = cx - cursor_offset.x
+	centeroff.y = -cy - cursor_offset.y
+	
+	var hlm = 0.35
+	var uim = SSP.ui_parallax * 0.1
+	var grm = SSP.grid_parallax * 0.1
+	cam.transform.origin = Vector3(
+		centeroff.x*hlpower, centeroff.y*hlpower, 3.735
+	)
+	Grid.transform.origin = Vector3(
+		-centeroff.x*hlm*uim, -centeroff.y*hlm*uim, Grid.transform.origin.z
+	)
+	transform.origin = Vector3(
+		-(centeroff.x*hlm*grm)-1, -(centeroff.y*hlm*grm)+1, 0
+	)
+	get_node("Cursor").transform.origin = centeroff + cursor_offset
+
 func comma_sep(number):
 	var string = str(number)
 	var mod = string.length() % 3
@@ -238,7 +262,8 @@ func _process(delta:float):
 	delta = float(u - last_usec) / 1_000_000.0
 	last_usec = u
 #	delta *= Engine.time_scale
-	if SSP.cam_unlock: do_spin()
+	if SSP.vr: do_vr_cursor()
+	elif SSP.cam_unlock: do_spin()
 	else: do_half_lock()
 	if !notes_loaded: return
 	
@@ -400,6 +425,12 @@ func _process(delta:float):
 		replay_sig = SSP.replay.get_signals(rms)
 	
 	emit_signal("timer_update",ms,can_skip)
+	
+	if $Music.playing:
+		var playback_pos:float = $Music.get_playback_position()*1000.0
+		if abs(playback_pos - (ms + SSP.music_offset)) > 60:
+			print("Audio desynced! That's a problem! Fixing...")
+			$Music.play((ms + SSP.music_offset)/1000.0)
 	
 	var rn_res:bool = reposition_notes()
 	if !SSP.replaying and SSP.record_replays:

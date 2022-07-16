@@ -141,18 +141,7 @@ func end(end_type:int):
 		SSP.replay.end_recording()
 	yield(get_tree().create_timer(1),"timeout")
 	
-	var VR = ARVRServer.find_interface("OpenVR")
-	if VR and VR.initialize():
-		
-		# temp stuff just so this works
-		get_viewport().arvr = false
-		get_viewport().hdr = true
-		get_viewport().size = Vector2(1920,1080)
-		VR.uninitialize()
-		
-		get_tree().change_scene("res://menuload.tscn") # change to vrmenudemo.tscn when bugs fixed
-	else:
-		get_tree().change_scene("res://menuload.tscn")
+	get_tree().change_scene("res://menuload.tscn")
 
 func update_timer(ms:float,canSkip:bool=false):
 	var s = clamp(floor(ms/1000),0,last_ms/1000)

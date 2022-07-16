@@ -102,7 +102,7 @@ func update(_s=null):
 		$EndInfo.rect_position.y = 280
 
 func return_to_song_select():
-	get_node("/root/Menu/Sidebar").press(1,false)
+	get_viewport().get_node("Menu/Sidebar").press(1,false)
 
 func _ready():
 	SSP.connect("selected_song_changed",self,"update")

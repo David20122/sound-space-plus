@@ -1,4 +1,4 @@
-[gd_scene load_steps=100 format=2]
+[gd_scene load_steps=101 format=2]
 
 [ext_resource path="res://game/Camera.gd" type="Script" id=1]
 [ext_resource path="res://game/NoteManager.gd" type="Script" id=2]
@@ -32,7 +32,6 @@
 [ext_resource path="res://game/CameraControl.gd" type="Script" id=30]
 [ext_resource path="res://content/animations/Blink.tres" type="Animation" id=31]
 [ext_resource path="res://content/meshes/Happy.obj" type="ArrayMesh" id=32]
-[ext_resource path="res://ARVRAvatar.tscn" type="PackedScene" id=33]
 [ext_resource path="res://game/PauseHud.gd" type="Script" id=34]
 
 [sub_resource type="StyleBoxFlat" id=1]
@@ -628,9 +627,6 @@ tracks/7/keys = {
 "update": 0,
 "values": [ Vector3( 0, 0, 0 ) ]
 }
-
-[sub_resource type="BoxShape" id=82]
-extents = Vector3( 1.6, 1.6, 0 )
 
 [node name="Song" type="Spatial"]
 script = ExtResource( 23 )
@@ -1527,6 +1523,7 @@ material/0 = SubResource( 38 )
 
 [node name="Friend" type="MeshInstance" parent="Game/Spawn"]
 transform = Transform( 1, 4.37114e-08, -1.91069e-15, 0, -4.37114e-08, -1, -4.37114e-08, 1, -4.37114e-08, 2.25, -2.25, -1.09278e-07 )
+cast_shadow = 0
 mesh = SubResource( 44 )
 skeleton = NodePath("../Cursor")
 material/0 = SubResource( 45 )
@@ -1646,22 +1643,6 @@ anchor_bottom = 1.0
 mouse_filter = 1
 color = Color( 0, 0, 0, 0 )
 
-[node name="body" type="StaticBody" parent="Game"]
-transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 0.1, 0, -0.5, 0 )
-input_capture_on_drag = true
-
-[node name="shape" type="CollisionShape" parent="Game/body"]
-shape = SubResource( 82 )
-
-[node name="ARVRAvatar" parent="Game" instance=ExtResource( 33 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.5, 4.5 )
-
-[node name="mesh" parent="Game/ARVRAvatar/vorigin/vleft" index="0"]
-transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, -0.5 )
-
-[node name="mesh" parent="Game/ARVRAvatar/vorigin/vright" index="0"]
-transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, -0.5 )
-
 [node name="Debug" type="Label" parent="."]
 visible = false
 margin_left = 10.0
@@ -1670,5 +1651,3 @@ margin_right = 106.0
 margin_bottom = 27.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_fonts/font = SubResource( 46 )
-
-[editable path="Game/ARVRAvatar"]

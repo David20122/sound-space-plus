@@ -38,7 +38,7 @@ func play_song():
 	if !SSP.selected_song: return
 	if has_been_pressed: return
 	has_been_pressed = true
-	get_node("/root/Menu").black_fade_target = true
+	get_viewport().get_node("Menu").black_fade_target = true
 	yield(get_tree().create_timer(1),"timeout")
 	get_tree().change_scene("res://songload.tscn")
 
@@ -58,10 +58,10 @@ func on_pressed(i):
 var auto_switch_to_play:bool = true
 func switch_to_play_screen():
 	if !auto_switch_to_play: return
-	if SSP.menu_target != "res://menu2.tscn": return
-	get_node("/root/Menu/Main/MapRegistry").visible = false
-	get_node("/root/Menu/Main/Results").visible = true
-	get_node("/root/Menu/Sidebar/L/Results").pressed = true
+	if SSP.menu_target == "res://menu.tscn": return
+	get_viewport().get_node("Menu/Main/MapRegistry").visible = false
+	get_viewport().get_node("Menu/Main/Results").visible = true
+	get_viewport().get_node("Menu/Sidebar/L/Results").pressed = true
 
 var was_maximized = OS.window_maximized
 var was_fullscreen = OS.window_fullscreen
@@ -257,7 +257,7 @@ func firstload():
 	reload_to_current_page()
 	ready = true
 	SSP.connect("favorite_songs_changed",self,"reload_to_current_page")
-	get_tree().root.connect("size_changed",self,"handle_window_resize")
+	get_viewport().connect("size_changed",self,"handle_window_resize")
 	SSP.emit_signal("map_list_ready")
 
 func _ready():
