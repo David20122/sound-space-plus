@@ -14,7 +14,54 @@ signal volume_changed
 signal favorite_songs_changed
 signal menu_music_state_changed
 
-# Song ending
+# Directories
+var user_pack_dir:String = Globals.p("user://packs")
+var user_mod_dir:String = Globals.p("user://mods")
+var user_vmap_dir:String = Globals.p("user://vmaps")
+var user_map_dir:String = Globals.p("user://maps")
+var user_best_dir:String = Globals.p("user://bests")
+var user_colorset_dir:String = Globals.p("user://colorsets")
+
+# Installed content info
+var installed_dlc:Array = ["ssp_basegame"]
+var installed_mods:Array = []
+var installed_packs:Array = []
+
+
+# Registries
+var registry_colorset:Registry
+var registry_song:Registry
+var registry_world:Registry
+var registry_mesh:Registry
+var registry_effect:Registry
+# Selected items
+var selected_space:BackgroundWorld
+var selected_colorset:ColorSet
+var selected_song:Song
+var selected_mesh:NoteMesh
+var selected_hit_effect:NoteEffect
+# Selectors
+func select_colorset(set:ColorSet):
+	if set:
+		selected_colorset = set
+		emit_signal("selected_colorset_changed",set)
+func select_world(world:BackgroundWorld):
+	if world:
+		selected_space = world
+		emit_signal("selected_space_changed",world)
+func select_song(song:Song):
+	selected_song = song
+	emit_signal("selected_song_changed",song)
+func select_mesh(mesh:NoteMesh):
+	selected_mesh = mesh
+	emit_signal("selected_mesh_changed",mesh)
+func select_hit_effect(effect:NoteEffect):
+	if effect:
+		selected_hit_effect = effect
+		emit_signal("selected_hit_effect_changed",effect)
+
+
+# Song ending state data
 var just_ended_song:bool = false
 var song_end_type:int = Globals.END_FAIL
 var song_end_misses:int
@@ -26,12 +73,24 @@ var song_end_accuracy_str:String
 var song_end_time_str:String
 var song_end_length:float
 
-# Selected items
-var selected_space:BackgroundWorld
-var selected_colorset:ColorSet
-var selected_song:Song
-var selected_mesh:NoteMesh
-var selected_hit_effect:NoteEffect
+# Replay data
+var replay:Replay
+var replay_path:String = ""
+var was_replay:bool = false
+var replaying:bool = false
+
+# State/transit data
+var rainbow_t:float = 0 # Keep rainbow effects in perfect sync
+var alert:String = "" # Used for startup
+var should_ask_about_replays:bool = true # Replay setting was not found, ask
+var do_archive_convert:bool = false # Has "Convert SS Archive" been pressed?
+var conmgr_transit = null # Content manager transit data, can vary widely
+var errornum:int = 0 # Used by settings file errors
+var errorstr:String = "" # Used by loading errors (ie. errors/songload and errors/menuload)
+var first_init_done = false # Don't reload mods as that can cause problems
+var loaded_world = null # Holds the bg world for transit between songload and song player
+
+# Song list position/search persistence
 var was_auto_play_switch:bool = true
 var last_search_str:String = ""
 var last_search_incl_broken:bool = false
@@ -47,7 +106,52 @@ var last_difficulty_filter:Array = [
 	Globals.DIFF_UNKNOWN
 ]
 
-# Mods
+
+
+
+# Loaded sounds
+var miss_snd:AudioStream
+var hit_snd:AudioStream
+var fail_snd:AudioStream
+var pb_snd:AudioStream
+var menu_bgm:AudioStream
+# Default sounds - allows for removing custom sounds w/o restarting the game
+var normal_pb_sound
+var def_miss_snd:AudioStream
+var def_hit_snd:AudioStream
+var def_fail_snd:AudioStream
+var def_pb_snd:AudioStream
+var def_menu_bgm:AudioStream
+
+# Keep fail sounds playing on scene switch
+var fail_asp:AudioStreamPlayer = AudioStreamPlayer.new()
+
+
+
+
+# TODO: Move this to the AudioLoader
+func get_stream_with_default(path:String,default:AudioStream) -> AudioStream:
+	path = Globals.p(path)
+	var file:File = File.new()
+	if file.file_exists(path + ".ogg"): path += ".ogg"
+	elif file.file_exists(path + ".mp3"): path += ".mp3"
+	elif file.file_exists(path + ".wav"): path += ".wav"
+	if file.file_exists(path):
+		if !path.begins_with("res://"):
+			var stream = Globals.audioLoader.load_file(path)
+			if stream and stream is AudioStream: return stream
+		else: 
+			var mf:AudioStream = load(path) as AudioStream
+			if mf is AudioStream:
+				if mf is AudioStreamOGGVorbis or mf is AudioStreamMP3: mf.loop = false
+				elif mf is AudioStreamSample: mf.loop_mode = AudioStreamSample.LOOP_DISABLED
+				return mf
+	return default
+
+
+
+
+# Modifiers - Normal
 var mod_extra_energy:bool = false setget set_mod_extra_energy # Easy Mode
 var mod_no_regen:bool = false setget set_mod_no_regen # Hard Mode
 var mod_speed_level:int = Globals.SPEED_NORMAL setget set_mod_speed_level
@@ -58,9 +162,16 @@ var mod_nearsighted:bool = false setget set_mod_nearsighted
 var mod_ghost:bool = false setget set_mod_ghost
 var mod_sudden_death:bool = false setget set_mod_sudden_death
 var mod_chaos:bool = false setget set_mod_chaos
+# Modifiers - Custom values
+var start_offset:float = 0 setget _set_start_offset
+var note_hitbox_size:float = 1.140 setget _set_hitbox_size
+var hitwindow_ms:float = 55 setget _set_hitwindow
+var custom_speed:float = 1 setget _set_custom_speed
+# Modifiers - Special
+var health_model:int = Globals.HP_SOUNDSPACE setget _set_health_model
+var grade_system:int = Globals.GRADE_SSP setget _set_grade_system
 
-var menu_target:String = ProjectSettings.get_setting("application/config/default_menu_target")
-
+# Mod setters - Normal
 func set_mod_extra_energy(v:bool):
 	if v:
 		mod_sudden_death = false
@@ -95,143 +206,102 @@ func set_mod_sudden_death(v:bool):
 	mod_sudden_death = v; emit_signal("mods_changed")
 func set_mod_chaos(v:bool):
 	mod_chaos = v; emit_signal("mods_changed")
-
-# Registries
-var registry_colorset:Registry
-var registry_song:Registry
-var registry_world:Registry
-var registry_mesh:Registry
-var registry_effect:Registry
-
-# Content management
-var user_pack_dir:String = Globals.p("user://packs")
-var user_mod_dir:String = Globals.p("user://mods")
-var user_vmap_dir:String = Globals.p("user://vmaps")
-var user_map_dir:String = Globals.p("user://maps")
-var user_best_dir:String = Globals.p("user://bests")
-var user_colorset_dir:String = Globals.p("user://colorsets")
-var installed_dlc:Array = ["ssp_basegame"]
-var installed_mods:Array = []
-var installed_packs:Array = []
-
-# User settings
-var play_hit_snd:bool = true
-var play_miss_snd:bool = true
-var approach_rate:float = 50
-var sensitivity:float = 1
-var parallax:float = 1
-var ui_parallax:float = 0.2
-var grid_parallax:float = 3
-var camera_mode:int = Globals.CAMERA_HALF_LOCK
-var auto_preview_song:bool = true
-var cam_unlock:bool = false
-var show_config:bool = true
-var enable_grid:bool = true
-var enable_border:bool = true
-var cursor_scale:float = 1
-var edge_drift:float = 0
-var enable_drift_cursor:bool = true
-var cursor_spin:float = 0
-var spawn_distance:float = 100
-var note_spawn_effect:bool = true
-var display_true_combo:bool = true
-var cursor_face_velocity:bool = false
-var show_hit_effect:bool = true
-var hit_effect_at_cursor:bool = true
-var lock_mouse:bool = true
-var show_warnings:bool = true
-var fade_length:float = 0.5
-
-var record_replays:bool = ProjectSettings.get_setting("application/config/replays")
-var replay:Replay
-var replay_path:String = ""
-var was_replay:bool = false
-var replaying:bool = false
-var alt_cam:bool = false
-
-var rainbow_cursor:bool = false
-var cursor_trail:bool = false
-var smart_trail:bool = false
-var trail_detail:int = 10
-var trail_time:float = 0.15
-
-var friend_position:int = Globals.FRIEND_BEHIND_GRID
-
-var show_hp_bar:bool = true
-var show_timer:bool = true
-var show_left_panel:bool = true
-var show_right_panel:bool = true
-var attach_hp_to_grid:bool = false
-var attach_timer_to_grid:bool = false
-
-var show_accuracy_bar:bool = true
-#var show_score:bool = true
-var show_letter_grade:bool = true
-var simple_hud:bool = false
-
-var faraway_hud:bool = false
-
-var rainbow_grid:bool = false
-var rainbow_hud:bool = false
-
-var music_offset:float = 0
-
-var start_offset:float = 0 setget _set_start_offset
+# Mod setters - Custom values
 func _set_start_offset(v:float):
 	start_offset = v; emit_signal("mods_changed")
-
-var note_hitbox_size:float = 1.140 setget _set_hitbox_size
 func _set_hitbox_size(v:float):
 	note_hitbox_size = v; emit_signal("mods_changed")
-
-var hitwindow_ms:float = 55 setget _set_hitwindow
 func _set_hitwindow(v:float):
 	hitwindow_ms = v; emit_signal("mods_changed")
-
-var custom_speed:float = 1 setget _set_custom_speed
 func _set_custom_speed(v:float):
 	print("custom speed changed")
 	custom_speed = v
 	Globals.speed_multi[Globals.SPEED_CUSTOM] = v
 	emit_signal("mods_changed")
 	emit_signal("speed_mod_changed")
-
-var health_model:int = Globals.HP_SOUNDSPACE setget _set_health_model
-var grade_system:int = Globals.GRADE_SSP setget _set_health_model
+# Mod setters - Special
 func _set_health_model(v:int):
 	health_model = v; emit_signal("mods_changed")
 func _set_grade_system(v:int):
 	grade_system = v; emit_signal("mods_changed")
 
+
+
+
+# Settings - Notes
+var approach_rate:float = 50
+var spawn_distance:float = 100
+var note_spawn_effect:bool = true
+var fade_length:float = 0.5
+
+var show_hit_effect:bool = true
+var hit_effect_at_cursor:bool = true
+
+# Settings - Camera/Controls
+var sensitivity:float = 1
+var parallax:float = 1
+var ui_parallax:float = 0.2
+var grid_parallax:float = 3
+var camera_mode:int = Globals.CAMERA_HALF_LOCK
+var cam_unlock:bool = false
+var lock_mouse:bool = true
+var edge_drift:float = 0
+
+# Settings - Replays
+var record_replays:bool = false
+var alt_cam:bool = false
+
+# Settings - Cursor
+var rainbow_cursor:bool = false
+var cursor_trail:bool = false
+var smart_trail:bool = false
+var trail_detail:int = 10
+var trail_time:float = 0.15
+var cursor_scale:float = 1
+var enable_drift_cursor:bool = true
+var cursor_spin:float = 0
+var cursor_face_velocity:bool = false # Disabled
+
+# Settings - HUD
+var display_true_combo:bool = true
+var show_config:bool = true
+var enable_grid:bool = true
+var enable_border:bool = true
+var show_hp_bar:bool = true
+var show_timer:bool = true
+var show_left_panel:bool = true
+var show_right_panel:bool = true
+var show_accuracy_bar:bool = true
+var show_letter_grade:bool = true
+var attach_hp_to_grid:bool = false
+var attach_timer_to_grid:bool = false
+var simple_hud:bool = false
+var faraway_hud:bool = false # Kermeet Mode
+var rainbow_grid:bool = false
+var rainbow_hud:bool = false
+var friend_position:int = Globals.FRIEND_BEHIND_GRID
+
+# Settings - Audio
+var auto_preview_song:bool = true
+var play_hit_snd:bool = true
+var play_miss_snd:bool = true
+var music_offset:float = 0
 var play_menu_music:bool = false setget _set_menu_music
+var music_volume_db:float = 0 setget _set_music_volume
 func _set_menu_music(v:bool):
 	play_menu_music = v; emit_signal("menu_music_state_changed")
-
-var music_volume_db:float = 0 setget _set_music_volume
 func _set_music_volume(v:float):
 	music_volume_db = v; emit_signal("volume_changed")
 
-var miss_snd:AudioStream
-var hit_snd:AudioStream
-var fail_snd:AudioStream
-var pb_snd:AudioStream
-var menu_bgm:AudioStream
+# Settings - Misc
+var show_warnings:bool = true
 
-var def_miss_snd:AudioStream
-var def_hit_snd:AudioStream
-var def_fail_snd:AudioStream
-var def_pb_snd:AudioStream
-var def_menu_bgm:AudioStream
 
-var loaded_world = null
 
-# Other save data
-var personal_bests:Dictionary = {}
+
+
+# Favorited songs
 var favorite_songs:Array = []
-
-var do_archive_convert:bool = false
-var conmgr_transit = null
-
 func save_favorites():
 	var file:File = File.new()
 	file.open(Globals.p("user://favorites.txt"),File.WRITE)
@@ -241,16 +311,13 @@ func save_favorites():
 		txt += s
 	file.store_line(txt)
 	file.close()
-
 func is_favorite(id:String):
 	return favorite_songs.has(id)
-
 func add_favorite(id:String):
 	if !favorite_songs.has(id):
 		favorite_songs.append(id)
 		emit_signal("favorite_songs_changed")
 		save_favorites()
-
 func remove_favorite(id:String):
 	if favorite_songs.has(id):
 		favorite_songs.remove(favorite_songs.find(id))
@@ -258,44 +325,23 @@ func remove_favorite(id:String):
 		save_favorites()
 
 
-func save_pbs():
-	pass
 
-func load_pbs():
-	var file:File = File.new()
-	if file.file_exists(Globals.p("user://pb.json")):
-		file.open(Globals.p("user://pb.json"),File.READ)
-		personal_bests = parse_json(file.get_as_text())
-		file.close()
-	elif file.file_exists(Globals.p("user://pb")):
-		file.open(Globals.p("user://pb"),File.READ)
-		var ver:int = file.get_16() # READ 2
-		var x:int = file.get_16() # READ 2
-		while !file.eof_reached():
-			if x == 16384 or file.eof_reached():
-				file.close()
-				return
-			var songid:String
-			if ver == 2: songid = file.get_pascal_string()
-			else: songid = file.get_line() # READ STRING+1
-			personal_bests[songid] = []
-			x = file.get_16() # READ 2
-			while x == 69:
-				var pb = {}
-				pb.has_passed = bool(file.get_8()) # READ 1
-				pb.mod_extra_energy = bool(file.get_8()) # READ 1
-				pb.mod_no_regen = bool(file.get_8()) # READ 1
-				pb.mod_speed_level = file.get_8() # READ 1
-				pb.position = file.get_64() # READ 8
-				pb.length = file.get_64() # READ 8
-				pb.hit_notes = file.get_32() # READ 4
-				pb.total_notes = file.get_32() # READ 4
-				pb.pauses = file.get_16() # READ 2
-				personal_bests[songid].append(pb)
-				x = file.get_16() # READ 2
-		file.close()
+# Personal bests
+func do_pb_check_and_set() -> bool:
+	if mod_nofail or was_replay or start_offset != 0: return false
+	var has_passed:bool = song_end_type == Globals.END_PASS
+	var pb:Dictionary = {}
+	pb.position = song_end_position
+	pb.length = song_end_length
+	pb.hit_notes = song_end_hits
+	pb.total_notes = song_end_total_notes
+	pb.pauses = song_end_pause_count
+	pb.has_passed = song_end_type == Globals.END_PASS
+	return selected_song.set_pb_if_better(generate_pb_str(true),pb)
+func get_best():
+	return selected_song.get_pb(generate_pb_str(true))
 
-func generate_pb_str(real:bool=false):
+func generate_pb_str(for_pb:bool=false):
 	var pts:Array = []
 	match mod_speed_level:
 		Globals.SPEED_MMM: pts.append("s:---")
@@ -314,7 +360,7 @@ func generate_pb_str(real:bool=false):
 	var hb = note_hitbox_size
 	pts.append("hbox:%.02f" % note_hitbox_size)
 	pts.append("ar:%d" % sign(approach_rate))
-	if !real and start_offset != 0: pts.append("so:%f" % start_offset)
+	if !for_pb and start_offset != 0: pts.append("so:%f" % start_offset)
 	if music_volume_db <= -50: pts.append("silent")
 	
 	if mod_sudden_death: pts.append("m_sd")
@@ -337,6 +383,7 @@ func generate_pb_str(real:bool=false):
 	
 	return s
 
+# PB string state data (for replays)
 func parse_pb_str(txt:String):
 	var data:Dictionary = {}
 	var pts:Array = txt.split(";",false)
@@ -384,22 +431,13 @@ func parse_pb_str(txt:String):
 				"m_chaos": data.mod_chaos = true
 				"m_nofail": data.mod_nofail = true
 	return data
-
 var prev_state:Dictionary = {}
 func save_current_state(): prev_state = parse_pb_str(generate_pb_str())
 func restore_prev_state(): for k in prev_state.keys(): set(k,prev_state.get(k))
 func apply_state(state:Dictionary): for k in state.keys(): set(k,state.get(k))
 
-func set_pb(songid:String,pbtype:int):
-	var pb = personal_bests[songid][pbtype]
-	pb.position = song_end_position
-	pb.length = song_end_length
-	pb.hit_notes = song_end_hits
-	pb.total_notes = song_end_total_notes
-	pb.pauses = song_end_pause_count
-	pb.has_passed = song_end_type == Globals.END_PASS
-	save_pbs()
-
+# Legacy PB conversion
+var personal_bests:Dictionary = {}
 func convert_song_pbs(song:Song):
 	for pb in personal_bests.get(song.id,[]):
 		mod_extra_energy = pb.mod_extra_energy
@@ -414,64 +452,56 @@ func convert_song_pbs(song:Song):
 			"has_passed": pb.has_passed
 		}
 		song.set_pb_if_better(generate_pb_str(true),npb)
+func load_pbs():
+	var file:File = File.new()
+	if file.file_exists(Globals.p("user://pb.json")):
+		file.open(Globals.p("user://pb.json"),File.READ)
+		personal_bests = parse_json(file.get_as_text())
+		file.close()
+	elif file.file_exists(Globals.p("user://pb")):
+		file.open(Globals.p("user://pb"),File.READ)
+		var ver:int = file.get_16() # READ 2
+		var x:int = file.get_16() # READ 2
+		while !file.eof_reached():
+			if x == 16384 or file.eof_reached():
+				file.close()
+				return
+			var songid:String
+			if ver == 2: songid = file.get_pascal_string()
+			else: songid = file.get_line() # READ STRING+1
+			personal_bests[songid] = []
+			x = file.get_16() # READ 2
+			while x == 69:
+				var pb = {}
+				pb.has_passed = bool(file.get_8()) # READ 1
+				pb.mod_extra_energy = bool(file.get_8()) # READ 1
+				pb.mod_no_regen = bool(file.get_8()) # READ 1
+				pb.mod_speed_level = file.get_8() # READ 1
+				pb.position = file.get_64() # READ 8
+				pb.length = file.get_64() # READ 8
+				pb.hit_notes = file.get_32() # READ 4
+				pb.total_notes = file.get_32() # READ 4
+				pb.pauses = file.get_16() # READ 2
+				personal_bests[songid].append(pb)
+				x = file.get_16() # READ 2
+		file.close()
 
-func prepare_new_pb(songid:String):
-	var data = {
-		mod_extra_energy = mod_extra_energy,
-		mod_no_regen = mod_no_regen,
-		mod_speed_level = mod_speed_level
-	}
-	if not personal_bests.has(songid): personal_bests[songid] = []
-	var i = personal_bests[songid].size()
-	personal_bests[songid].append(data)
-	set_pb(songid,i)
-
-func do_pb_check_and_set() -> bool:
-	if mod_nofail or was_replay or start_offset != 0: return false
-	var has_passed:bool = song_end_type == Globals.END_PASS
-	var pb:Dictionary = {}
-	pb.position = song_end_position
-	pb.length = song_end_length
-	pb.hit_notes = song_end_hits
-	pb.total_notes = song_end_total_notes
-	pb.pauses = song_end_pause_count
-	pb.has_passed = song_end_type == Globals.END_PASS
-	return selected_song.set_pb_if_better(generate_pb_str(true),pb)
-
-func get_best():
-	return selected_song.get_pb(generate_pb_str(true))
 
 
-func select_colorset(set:ColorSet):
-	if set:
-		selected_colorset = set
-		emit_signal("selected_colorset_changed",set)
 
-func select_world(world:BackgroundWorld):
-	if world:
-		selected_space = world
-		emit_signal("selected_space_changed",world)
-
-func select_song(song:Song):
-	selected_song = song
-	emit_signal("selected_song_changed",song)
-
-func select_mesh(mesh:NoteMesh):
-	selected_mesh = mesh
-	emit_signal("selected_mesh_changed",mesh)
-
-func select_hit_effect(effect:NoteEffect):
-	if effect:
-		selected_hit_effect = effect
-		emit_signal("selected_hit_effect_changed",effect)
-
-var rainbow_t:float = 0
+# Engine node functions
+func _ready():
+	fail_asp.volume_db = -10
+	call_deferred("add_child",fail_asp)
+	pause_mode = PAUSE_MODE_PROCESS
 func _process(delta):
+	# Rainbow sync
 	rainbow_t = fmod(rainbow_t + (delta*0.5),10)
+	# Global hotkeys
 	if Input.is_action_just_pressed("fullscreen"):
 		OS.window_fullscreen = not OS.window_fullscreen
 
-
+# Discord RPC
 func update_rpc_song():
 	if !ProjectSettings.get_setting("application/config/discord_rpc") or selected_song == null: return
 	var txt = ""
@@ -515,10 +545,10 @@ func update_rpc_song():
 	Discord.activity_manager.update_activity(activity)
 
 
-const current_sf_version = 37
-var alert:String = ""
-var should_ask_about_replays:bool = true
 
+
+# Settings file
+const current_sf_version = 37 # SV
 func load_saved_settings():
 	if Input.is_key_pressed(KEY_CONTROL) and Input.is_key_pressed(KEY_L): 
 		print("force settings read error")
@@ -545,38 +575,65 @@ func load_saved_settings():
 		var cset = registry_colorset.get_item(file.get_line())
 		if cset: select_colorset(cset)
 		
-		if sv >= 5: parallax = file.get_float()
-		if sv >= 6: cam_unlock = bool(file.get_8())
-		if sv >= 17: if file.get_8() != 215:
-			print("integ 2"); return 4
+		if sv >= 5:
+			parallax = file.get_float()
+		if sv >= 6:
+			cam_unlock = bool(file.get_8())
+		
+		if sv >= 17: # Integrity check (added in sv 17)
+			if file.get_8() != 215:
+				print("integ 2"); return 4
+		
 		if sv >= 7: 
 			show_config = bool(file.get_8())
 			enable_grid = bool(file.get_8())
-		if sv >= 8: cursor_scale = file.get_float()
-		if sv >= 17: if file.get_8() != 43:
-			print("integ 3"); return 5
+		if sv >= 8:
+			cursor_scale = file.get_float()
+		
+		if sv >= 17: # Integrity check (added in sv 17)
+			if file.get_8() != 43:
+				print("integ 3"); return 5
+		
 		if sv >= 9:
 			edge_drift = file.get_float()
 			enable_drift_cursor = bool(file.get_8())
-		if sv >= 10: hitwindow_ms = file.get_float()
-		if sv >= 17: if file.get_8() != 117:
-			print("integ 4"); return 6
-		if sv >= 11: cursor_spin = file.get_float()
-		if sv >= 12: music_volume_db = file.get_float()
+		if sv >= 10:
+			hitwindow_ms = file.get_float()
+		
+		if sv >= 17: # Integrity check (added in sv 17)
+			if file.get_8() != 117:
+				print("integ 4"); return 6
+		
+		if sv >= 11:
+			cursor_spin = file.get_float()
+		if sv >= 12:
+			music_volume_db = file.get_float()
 		if sv >= 13:
 			var world = registry_world.get_item(file.get_line())
-			if world: select_world(world)
-		if sv >= 17: if file.get_8() != 89:
-			print("integ 5"); return 7
-		if sv >= 14: enable_border = bool(file.get_8())
+			if world:
+				select_world(world)
+		
+		if sv >= 17: # Integrity check (added in sv 17)
+			if file.get_8() != 89:
+				print("integ 5"); return 7
+		
+		if sv >= 14:
+			enable_border = bool(file.get_8())
 		if sv >= 15:
 			var mesh = registry_mesh.get_item(file.get_line())
-			if mesh: select_mesh(mesh)
-		if sv >= 16: play_menu_music = bool(file.get_8())
-		if sv >= 17: if file.get_8() != 12:
-			print("integ 6"); return 8
-		if sv >= 18: note_hitbox_size = float(str(file.get_float())) # fix weirdness with 1.14
-		if sv >= 19: spawn_distance = file.get_float()
+			if mesh:
+				select_mesh(mesh)
+		if sv >= 16:
+			play_menu_music = bool(file.get_8())
+		
+		if sv >= 17: # Integrity check
+			if file.get_8() != 12:
+				print("integ 6"); return 8
+		
+		if sv >= 18:
+			note_hitbox_size = float(str(file.get_float())) # fix weirdness with 1.14
+		if sv >= 19:
+			spawn_distance = file.get_float()
 		if sv >= 20:
 			set("custom_speed",file.get_float())
 			note_spawn_effect = bool(file.get_8())
@@ -586,23 +643,34 @@ func load_saved_settings():
 			#cursor_face_velocity = bool(
 			file.get_8()#)
 		if sv >= 23:
-			if file.get_8() != 147:
+			
+			if file.get_8() != 147: # Integrity check
 				print("integ 7"); return 9
+			
 			ui_parallax = file.get_float()
+		
 		if sv >= 24:
 			grid_parallax = file.get_float()
 		else:
+			# Keep old camera parallax for existing save files
 			grid_parallax = 0
 			ui_parallax = 0
-		if sv >= 25: fade_length = file.get_float()
+		
+		if sv >= 25:
+			fade_length = file.get_float()
+		
 		if sv < 26 and String(note_hitbox_size) == "1.27":
+			# Default hitbox change (this is when we solved 0.13)
 			print("0.13 :laugh:")
 			note_hitbox_size = 1.140
+		
 		if sv >= 27:
 			show_hit_effect = bool(file.get_8())
 		if sv >= 28:
-			if file.get_8() != 6:
+			
+			if file.get_8() != 6: # Integrity check
 				print("integ 8"); return 10
+			
 			lock_mouse = bool(file.get_8())
 			rainbow_cursor = bool(file.get_8())
 			cursor_trail = bool(file.get_8())
@@ -620,18 +688,20 @@ func load_saved_settings():
 			rainbow_grid = bool(file.get_8())
 			rainbow_hud = bool(file.get_8())
 			var had_smart_trail = bool(file.get_8())
-			if sv >= 32: smart_trail = had_smart_trail
+			if sv >= 32:
+				smart_trail = had_smart_trail
 			else:
+				# New smart trail system
 				alert = "The behavior of the Smart Trail setting has been significantly changed, so it has been turned off. See its description in Settings for the new behavior."
 				save_settings()
 		if sv >= 31:
-			var en = file.get_line()
-			print(en)
-			var eff = registry_effect.get_item(en)
-			print(eff)
-			if eff: select_hit_effect(eff)
-			if file.get_8() != 192:
+			var eff = registry_effect.get_item(file.get_line())
+			if eff:
+				select_hit_effect(eff)
+			
+			if file.get_8() != 192: # Integrity check
 				print("integ 9"); return 11
+			
 			hit_effect_at_cursor = bool(file.get_8())
 		if sv >= 33:
 			show_warnings = bool(file.get_8())
@@ -646,11 +716,12 @@ func load_saved_settings():
 			simple_hud = bool(file.get_8())
 		if sv >= 37:
 			faraway_hud = bool(file.get_8())
-		if sv >= 8:
+		if sv >= 38:
 			music_offset = float(file.get_32())
+		
+		# All done!
 		file.close()
 	return 0
-
 func save_settings():
 	var file:File = File.new()
 	var err:int = file.open(Globals.p("user://settings"),File.WRITE)
@@ -661,42 +732,58 @@ func save_settings():
 		file.store_8(int(play_hit_snd))
 		file.store_8(int(play_miss_snd))
 		file.store_8(int(auto_preview_song))
+		
 		file.store_8(0) # integrity check
+		
 		file.store_8(int(OS.vsync_enabled))
 		file.store_8(int(OS.vsync_via_compositor))
 		file.store_8(int(OS.window_fullscreen))
 		file.store_line(selected_colorset.id)
 		file.store_float(parallax)
 		file.store_8(int(cam_unlock))
+		
 		file.store_8(215) # integrity check
+		
 		file.store_8(int(show_config))
 		file.store_8(int(enable_grid))
 		file.store_float(cursor_scale)
+		
 		file.store_8(43) # integrity check
+		
 		file.store_float(edge_drift)
 		file.store_8(int(enable_drift_cursor))
 		file.store_float(hitwindow_ms)
+		
 		file.store_8(117) # integrity check
+		
 		file.store_float(cursor_spin)
 		file.store_float(music_volume_db)
 		file.store_line(selected_space.id)
+		
 		file.store_8(89) # integrity check
+		
 		file.store_8(int(enable_border))
 		file.store_line(selected_mesh.id)
 		file.store_8(int(play_menu_music))
+		
 		file.store_8(12) # integrity check
+		
 		file.store_float(note_hitbox_size)
 		file.store_float(spawn_distance)
 		file.store_float(custom_speed)
 		file.store_8(int(note_spawn_effect))
 		file.store_8(int(display_true_combo))
 		file.store_8(int(cursor_face_velocity))
+		
 		file.store_8(147) # integrity check
+		
 		file.store_float(ui_parallax)
 		file.store_float(grid_parallax)
 		file.store_float(fade_length)
 		file.store_8(int(show_hit_effect))
+		
 		file.store_8(6) # integrity check
+		
 		file.store_8(int(lock_mouse))
 		file.store_8(int(rainbow_cursor))
 		file.store_8(int(cursor_trail))
@@ -713,7 +800,9 @@ func save_settings():
 		file.store_8(int(rainbow_hud))
 		file.store_8(int(smart_trail))
 		file.store_line(selected_hit_effect.id)
+		
 		file.store_8(192) # integrity check
+		
 		file.store_8(int(hit_effect_at_cursor))
 		file.store_8(int(show_warnings))
 		file.store_8(int(record_replays))
@@ -728,37 +817,10 @@ func save_settings():
 	else:
 		print("error code %s" % err)
 
-func get_stream_with_default(path:String,default:AudioStream) -> AudioStream:
-	path = Globals.p(path)
-	var file:File = File.new()
-	if file.file_exists(path + ".ogg"): path += ".ogg"
-	elif file.file_exists(path + ".mp3"): path += ".mp3"
-	elif file.file_exists(path + ".wav"): path += ".wav"
-	if file.file_exists(path):
-		if !path.begins_with("res://"):
-			var stream = Globals.audioLoader.load_file(path)
-			if stream and stream is AudioStream: return stream
-		else: 
-			var mf:AudioStream = load(path) as AudioStream
-			if mf is AudioStream:
-				if mf is AudioStreamOGGVorbis or mf is AudioStreamMP3: mf.loop = false
-				elif mf is AudioStreamSample: mf.loop_mode = AudioStreamSample.LOOP_DISABLED
-				return mf
-	return default
 
-var first_init_done = false
-var normal_pb_sound
-var fail_asp:AudioStreamPlayer = AudioStreamPlayer.new()
 
-func _ready():
-	fail_asp.volume_db = -10
-	call_deferred("add_child",fail_asp)
-	pause_mode = PAUSE_MODE_PROCESS
 
-var errornum:int = 0
-var errorstr:String = ""
-
-# separated these, should hopefully make them easier to find
+# Built-in content data
 func register_colorsets():
 	registry_colorset.add_item(ColorSet.new(
 		[ Color("#fc94f2"),Color("#96fc94") ],
@@ -808,7 +870,6 @@ func register_colorsets():
 		[ Color("#9a5ef9") ],
 		"ssp_purple", "purple!!!", "Chedski"
 	))
-
 func register_worlds():
 	# idI:String,nameI:String,pathI:String,creatorI:String="Unknown"
 	registry_world.add_item(BackgroundWorld.new(
@@ -856,7 +917,6 @@ func register_worlds():
 		"res://content/worlds/custom.tscn", "Someone",
 		"res://content/worlds/covers/custom.png"
 	))
-
 func register_meshes():
 	registry_mesh.add_item(NoteMesh.new(
 		"ssp_square", "Square",
@@ -878,7 +938,6 @@ func register_meshes():
 		"ssp_plane", "Front of Block",
 		"res://content/blocks/plane.obj", "Chedski"
 	))
-
 func register_effects():
 	registry_effect.add_item(NoteEffect.new(
 		"ssp_ripple", "Ripple* (no color)",
@@ -901,6 +960,11 @@ func register_effects():
 		"res://content/notefx/shards.tscn", "Chedski"
 	))
 
+
+
+
+# User colorsets
+signal colors_done
 func load_color_txt(path:String="",id:String=""):
 	if path == "" and id == "":
 		yield(get_tree(),"idle_frame")
@@ -946,8 +1010,6 @@ func load_color_txt(path:String="",id:String=""):
 		else: print("couldnt open %s because error %s" % [path,err])
 	else: print("no colors.txt")
 	cf.colors = [ Color("#ffffff") ]
-
-signal colors_done
 func load_color_folder():
 	var a = OS.get_ticks_usec()
 	print("(re)load custom colorsets")
@@ -966,6 +1028,7 @@ func load_color_folder():
 	print("colorsets took %s usec" % [Globals.comma_sep(OS.get_ticks_usec() - a)])
 	emit_signal("colors_done")
 
+# Initialization
 func do_init(_ud=null):
 	installed_packs = []
 	yield(get_tree().create_timer(0.05),"timeout") # haha thread safety go brrrr
