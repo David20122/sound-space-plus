@@ -157,7 +157,7 @@ func start_vr():
 	OS.vsync_enabled = false
 	Engine.target_fps = 90
 	
-	if true:#Input.is_key_pressed(KEY_SHIFT):
+	if Input.is_key_pressed(KEY_SHIFT):
 		print("enabling fake vr")
 		OS.window_maximized = true
 		fake_vr = true
