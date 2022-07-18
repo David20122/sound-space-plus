@@ -1,4 +1,4 @@
-[gd_scene load_steps=101 format=2]
+[gd_scene load_steps=100 format=2]
 
 [ext_resource path="res://game/Camera.gd" type="Script" id=1]
 [ext_resource path="res://game/NoteManager.gd" type="Script" id=2]
@@ -10,7 +10,6 @@
 [ext_resource path="res://spawn_effect.png" type="Texture" id=8]
 [ext_resource path="res://grid_outer.png" type="Texture" id=9]
 [ext_resource path="res://content/cursors/square.png" type="Texture" id=10]
-[ext_resource path="res://MusicVolumeSetter.gd" type="Script" id=11]
 [ext_resource path="res://content/blocks/cube.obj" type="ArrayMesh" id=12]
 [ext_resource path="res://content/ui/spinner_thin.png" type="Texture" id=13]
 [ext_resource path="res://game/Cursor.gd" type="Script" id=14]
@@ -1440,7 +1439,6 @@ script = ExtResource( 2 )
 
 [node name="Music" type="AudioStreamPlayer" parent="Game/Spawn"]
 bus = "Music"
-script = ExtResource( 11 )
 
 [node name="Miss" type="AudioStreamPlayer" parent="Game/Spawn"]
 pause_mode = 2
