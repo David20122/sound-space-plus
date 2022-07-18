@@ -33,6 +33,8 @@ func _ready():
 	
 	$AudioStreamPlayer.play()
 	
+	if SSP.queue_active: target = "res://queue_pass.tscn"
+	
 	var res = RQueue.queue_resource(target)
 	if res != OK:
 		SSP.errorstr = "queue_resource returned %s" % res

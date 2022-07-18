@@ -364,7 +364,7 @@ corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 
-[sub_resource type="Shader" id=125]
+[sub_resource type="Shader" id=131]
 code = "shader_type canvas_item;
 
 uniform float amount = 0.0;
@@ -378,7 +378,7 @@ void fragment() {
 }"
 
 [sub_resource type="ShaderMaterial" id=126]
-shader = SubResource( 125 )
+shader = SubResource( 131 )
 shader_param/amount = 0.0
 
 [sub_resource type="DynamicFont" id=127]
@@ -3245,6 +3245,7 @@ margin_left = 15.0
 margin_top = 280.0
 margin_right = 298.0
 margin_bottom = 512.0
+rect_min_size = Vector2( 283, 232 )
 script = ExtResource( 29 )
 __meta__ = {
 "_edit_group_": true

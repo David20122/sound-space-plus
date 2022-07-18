@@ -116,6 +116,20 @@ var vr_player:VRPlayer
 var vr_left_handed:bool = false
 var vr_controller_type:int = Globals.VR_GENERIC
 
+# Song queue
+var queue_active:bool = false
+var queue_pos:int = 0
+var song_queue:Array = []
+var just_ended_queue:bool = false
+var queue_end_type:int = Globals.END_FAIL
+var queue_end_misses:int
+var queue_end_hits:int
+var queue_end_total_notes:int
+var queue_end_position:float
+var queue_end_pause_count:int
+var queue_end_accuracy_str:String
+var queue_end_time_str:String
+var queue_end_length:float
 
 
 
@@ -139,13 +153,6 @@ var fail_asp:AudioStreamPlayer = AudioStreamPlayer.new()
 
 
 # VR startup
-func spawn_vr_player():
-	var vr_av:VRPlayer = load("res://vr/VRPlayer.tscn").instance()
-	get_tree().root.add_child(vr_av)
-	vr_av.name = "VRPlayer"
-	vr_player = vr_av
-	
-
 func start_vr():
 	if vr:
 		print("VR already active")
@@ -209,24 +216,95 @@ func start_vr():
 		ev.axis = JOY_VR_ANALOG_TRIGGER
 		InputMap.action_add_event("vr_click",ev)
 	
-	spawn_vr_player()
+	var vr_av:VRPlayer = load("res://vr/VRPlayer.tscn").instance()
+	get_tree().root.add_child(vr_av)
+	vr_av.name = "VRPlayer"
+	vr_player = vr_av
 	
 	menu_target = "res://vr/vrmenu.tscn"
 	get_tree().change_scene("res://menuload.tscn")
 
-# Engine node functions
+# Song queue
+func prepare_queue():
+	queue_active = true
+	just_ended_queue = false
+	queue_pos = 0
+	
+	queue_end_type = Globals.END_FAIL
+	queue_end_misses = 0
+	queue_end_hits = 0
+	queue_end_total_notes = 0
+	queue_end_position = 0
+	queue_end_pause_count = 0
+	queue_end_length = 0
+	for s in song_queue:
+		queue_end_length += s.last_ms
+
+func get_next():
+	queue_pos += 1
+	print(queue_pos)
+	
+	queue_end_type = song_end_type
+	queue_end_misses += song_end_misses
+	queue_end_hits += song_end_hits
+	queue_end_total_notes += song_end_total_notes
+	queue_end_position += clamp(song_end_position,0,selected_song.last_ms)
+	queue_end_pause_count += song_end_pause_count
+	
+	if song_end_type == Globals.END_GIVEUP or queue_pos == song_queue.size():
+		print("all done!")
+		just_ended_queue = true
+		queue_active = false
+		return null
+	
+	return song_queue[queue_pos]
+
+# Engine node functions + debug command line
 func _ready():
 	fail_asp.volume_db = -10
 	call_deferred("add_child",fail_asp)
 	pause_mode = PAUSE_MODE_PROCESS
+	Globals.connect("console_sent",self,"_console")
 func _process(delta):
 	# Rainbow sync
 	rainbow_t = fmod(rainbow_t + (delta*0.5),10)
 	# Global hotkeys
 	if Input.is_action_just_pressed("fullscreen"):
 		OS.window_fullscreen = not OS.window_fullscreen
+func _console(cmd:String,args:String):
+	if cmd == "queue":
+		var ids = args.split(" ",false)
+		if ids.size() == 0:
+			if song_queue.size() == 0:
+				console_cmd_error("Must specify at least 1 map id")
+				return
+			else:
+				Globals.notify(Globals.NOTIFY_SUCCEED,"reactivated queue")
+				prepare_queue()
+				return
+		else:
+			var maps = []
+			for id in ids:
+				var song = registry_song.get_item(id)
+				if song: maps.append(song)
+				else: Globals.notify(Globals.NOTIFY_ERROR,"No song found with id %s" % [id],"Error")
+			if maps.size() == 0:
+				console_cmd_error("No valid maps specified")
+				return
+			select_song(maps[0])
+			song_queue = maps
+			prepare_queue()
+			Globals.notify(Globals.NOTIFY_SUCCEED,"queue OK")
+	elif cmd == "play":
+		get_tree().change_scene("res://songload.tscn")
 
 # Utility functions
+func console_cmd_error(body:String):
+	Globals.confirm_prompt.s_alert.play()
+	Globals.confirm_prompt.open(body,"Error",[{text="OK"}])
+	yield(Globals.confirm_prompt,"option_selected")
+	Globals.confirm_prompt.s_back.play()
+	Globals.confirm_prompt.close()
 func update_rpc_song(): # Discord RPC
 	if !ProjectSettings.get_setting("application/config/discord_rpc") or selected_song == null: return
 	var txt = ""

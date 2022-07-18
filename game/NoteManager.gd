@@ -428,8 +428,12 @@ func _process(delta:float):
 	
 	if $Music.playing:
 		var playback_pos:float = $Music.get_playback_position()*1000.0
-		if abs(playback_pos - (ms + SSP.music_offset)) > 60:
-			print("Audio desynced! That's a problem! Fixing...")
+		if abs(playback_pos - (ms + SSP.music_offset)) > 65:
+			Globals.notify(
+				Globals.NOTIFY_WARN,
+				"Audio was desynced by %.2f ms, correcting." % [playback_pos - (ms + SSP.music_offset)],
+				"Music Sync Correction"
+			)
 			$Music.play((ms + SSP.music_offset)/1000.0)
 	
 	var rn_res:bool = reposition_notes()

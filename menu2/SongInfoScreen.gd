@@ -92,14 +92,15 @@ func update(_s=null):
 		$Actions/Difficulty.visible = false
 	
 	# give the containers time to update
-	yield(get_tree(),"idle_frame")
-	yield(get_tree(),"idle_frame")
-	if $Info.rect_size.y > 245:
-		$Actions.rect_position.y = $Info.rect_size.y + 35
-		$EndInfo.rect_position.y = $Info.rect_size.y + 35
-	else:
-		$Actions.rect_position.y = 280
-		$EndInfo.rect_position.y = 280
+	if is_inside_tree():
+		yield(get_tree(),"idle_frame")
+		yield(get_tree(),"idle_frame")
+		if $Info.rect_size.y > 245:
+			$Actions.rect_position.y = $Info.rect_size.y + 35
+			$EndInfo.rect_position.y = $Info.rect_size.y + 35
+		else:
+			$Actions.rect_position.y = 280
+			$EndInfo.rect_position.y = 280
 
 func return_to_song_select():
 	get_viewport().get_node("Menu/Sidebar").press(1,false)

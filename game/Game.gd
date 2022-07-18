@@ -91,20 +91,20 @@ func update_hud():
 		grade = "SS"
 		gcol = Color.from_hsv(SSP.rainbow_t*0.1,0.4,1)
 		shine = 1
-	elif acc >= 0.95:
+	elif acc >= 0.98:
 		grade = "S"
 		gcol = Color("#91fffa")
 		shine = 0.5
-	elif acc >= 0.9:
+	elif acc >= 0.95:
 		grade = "A"
 		gcol = Color("#91ff92")
-	elif acc >= 0.8:
+	elif acc >= 0.90:
 		grade = "B"
 		gcol = Color("#e7ffc0")
-	elif acc >= 0.7:
+	elif acc >= 0.85:
 		grade = "C"
 		gcol = Color("#fcf7b3")
-	elif acc >= 0.6:
+	elif acc >= 0.80:
 		grade = "D"
 		gcol = Color("#fcd0b3")
 	else:
