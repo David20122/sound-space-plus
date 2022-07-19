@@ -8,6 +8,7 @@ var notes:Array
 var last_ms:float = 0
 onready var colors:Array = SSP.selected_colorset.colors
 
+var last_combo:int = 0
 var combo:int = 0
 var combo_level:int = 1
 var lvl_progress:int = 0
@@ -79,8 +80,10 @@ func update_hud():
 	combotxt.text = String(combo_level) + "x"
 	comboring._set_percent(float(lvl_progress) / 8)
 	
-	truecombo.text = String(combo)
-	truecombo.rect_position.y = 100
+	if combo != last_combo:
+		truecombo.text = String(combo)
+		truecombo.rect_position.y = 100
+		last_combo = combo
 	
 	var grade:String = "--"
 	var gcol:Color = Color(1,0,1)
@@ -136,33 +139,77 @@ func end(end_type:int):
 	SSP.song_end_position = min($Spawn.ms,last_ms)
 	SSP.song_end_length = last_ms
 	SSP.song_end_type = end_type
-	black_fade_target = true
 	if SSP.record_replays and !SSP.replaying:
 		SSP.replay.end_recording()
+	
+	if SSP.queue_active and end_type == Globals.END_PASS:
+		if SSP.do_pb_check_and_set():
+			Globals.notify(Globals.NOTIFY_SUCCEED,"new best!")
+		var next = SSP.get_next()
+		$Spawn.ms_offset += max($Spawn.ms - (SSP.start_offset - (3000 * $Spawn.speed_multi)), 0)
+		if SSP.queue_active and next:
+			$Spawn.ms = SSP.start_offset - (3000 * $Spawn.speed_multi)
+			SSP.select_song(next)
+			songnametxt.text = SSP.selected_song.name
+			SSP.update_rpc_song()
+			if SSP.record_replays and !SSP.replaying:
+				SSP.replay = Replay.new()
+				SSP.replay.start_recording(SSP.selected_song)
+			
+			$Spawn.notes_loaded = false
+			$Spawn.chaos_rng = RandomNumberGenerator.new()
+			$Spawn.chaos_rng.seed = hash(SSP.selected_song.id)
+			$Spawn.music_started = false
+			$Spawn.out_of_notes = false
+			$Spawn.note_count = 0
+			
+			$Spawn.prev_ms = (SSP.start_offset - (3000 * $Spawn.speed_multi))
+			$Spawn.next_ms = 0
+			get_tree().paused = false
+			$Spawn.emit_signal("ms_change",$Spawn.ms)
+			loadMapFile()
+			ending = false
+			return
+	
+	black_fade_target = true
 	yield(get_tree().create_timer(1),"timeout")
 	
 	get_tree().change_scene("res://menuload.tscn")
 
 func update_timer(ms:float,canSkip:bool=false):
-	var s = clamp(floor(ms/1000),0,last_ms/1000)
+	var qms = ms + $Spawn.ms_offset
+	var lms = last_ms
+	
+	if SSP.queue_active:
+		lms = SSP.queue_end_length + (3000 * (SSP.song_queue.size() - 1))
+	
+	var s = clamp(floor(qms/1000),0,lms/1000)
 	var m = floor(s / 60)
 	var rs = fmod(s,60)
 	
-	var ls = floor(last_ms/1000)
+	var ls = floor(lms/1000)
 	var lm = floor(ls / 60)
 	var lrs = fmod(ls,60)
 	
-	timebar.value = clamp(ms/last_ms,0,1)
+	timebar.value = clamp(qms/lms,0,1)
 	if canSkip: timelabel.text = "PRESS SPACE TO SKIP"
 	else: timelabel.text = "%d:%02d / %d:%02d" % [m,rs,lm,lrs]
 	SSP.song_end_time_str = "%d:%02d" % [m,rs]
+	
+	if SSP.queue_active:
+		if ms >= last_ms + SSP.hitwindow_ms:
+			songnametxt.text = "(Intermission)"
+			get_node("Spawn/Music").volume_db -= (17 * get_process_delta_time())
+		else:
+			get_node("Spawn/Music").volume_db = SSP.music_volume_db
+			songnametxt.text = SSP.selected_song.name
+	
 	if ms >= last_ms + SSP.hitwindow_ms:
-#		if get_node("Spawn/Music").playing:
-#			yield(get_node("Spawn/Music"),"finished")
-		if !get_node("Spawn/Music").playing:
+		if SSP.queue_active and ms >= last_ms + max(SSP.hitwindow_ms,3000):
+			get_node("Spawn/Music").stop()
 			end(Globals.END_PASS)
-#		else:
-#			print("i think i'm doing this wrong")
+		elif !SSP.queue_active and !get_node("Spawn/Music").playing:
+			end(Globals.END_PASS)
 
 
 var loaded = false
@@ -174,12 +221,13 @@ var config_time:float = 2.5
 var passed:bool = false
 
 func _process(delta):
+	
 	if SSP.show_config:
 		config_time = max(config_time-delta,0)
 		if config_time <= 0: $Grid/ConfigHud.visible = false
 		else: $Grid/ConfigHud.opacity = min(1,config_time)
 	
-	if $Spawn.ms > last_ms:
+	if !SSP.queue_active and $Spawn.ms > last_ms:
 		
 		passed = true
 		
@@ -206,7 +254,7 @@ func _process(delta):
 			get_node("Grid/GiveUpVP/Control").percent = giving_up
 			get_node("Grid/GiveUpHud").opacity = min(giving_up*2,1)
 			if giving_up >= 1:
-				if $Spawn.ms > last_ms: end(Globals.END_PASS)
+				if !SSP.queue_active and $Spawn.ms > last_ms: end(Globals.END_PASS)
 				else: end(Globals.END_GIVEUP)
 		else:
 			get_node("Grid/GiveUpHud").visible = false
@@ -267,6 +315,7 @@ func _ready():
 	SSP.song_end_pause_count = 0
 	SSP.song_end_misses = 0
 	get_tree().paused = true
+	get_node("Spawn/Music").volume_db = SSP.music_volume_db
 	if SSP.mod_sudden_death:
 		max_energy = 1
 	elif SSP.health_model == Globals.HP_OLD:

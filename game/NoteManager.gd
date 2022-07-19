@@ -254,9 +254,11 @@ var pause_state:float = 0
 var pause_ms:float = 0
 var replay_unpause:bool = false
 var can_skip:bool = ((next_ms-prev_ms) > 5000) and (next_ms >= max(ms+(3000*speed_multi),1100*speed_multi))
+var ms_offset:float = 0
 
 var replay_sig:Array = []
 var last_usec = OS.get_ticks_usec()
+
 func _process(delta:float):
 	var u = OS.get_ticks_usec()
 	delta = float(u - last_usec) / 1_000_000.0

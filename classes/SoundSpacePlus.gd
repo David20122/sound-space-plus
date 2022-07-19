@@ -226,6 +226,7 @@ func start_vr():
 
 # Song queue
 func prepare_queue():
+	record_replays = false
 	queue_active = true
 	just_ended_queue = false
 	queue_pos = 0
@@ -544,7 +545,7 @@ func remove_favorite(id:String):
 
 # Personal bests
 func do_pb_check_and_set() -> bool:
-	if mod_nofail or was_replay or start_offset != 0: return false
+	if mod_nofail or was_replay or start_offset != 0 or just_ended_queue: return false
 	var has_passed:bool = song_end_type == Globals.END_PASS
 	var pb:Dictionary = {}
 	pb.position = song_end_position
