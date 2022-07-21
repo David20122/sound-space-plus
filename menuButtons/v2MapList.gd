@@ -245,6 +245,13 @@ func pg(dir:int):
 #		last_size = OS.window_size
 #		load_pg()
 
+func _input(ev:InputEvent):
+	if ev is InputEventMouseButton and ev.is_pressed():
+		if ev.button_index == BUTTON_WHEEL_UP:
+			pg(-1)
+		elif ev.button_index == BUTTON_WHEEL_DOWN:
+			pg(1)
+
 func handle_window_resize():
 	if ready: load_pg(true)
 
