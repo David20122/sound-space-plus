@@ -246,7 +246,7 @@ func pg(dir:int):
 #		load_pg()
 
 func _input(ev:InputEvent):
-	if ev is InputEventMouseButton and ev.is_pressed():
+	if is_visible_in_tree() and ev is InputEventMouseButton and ev.is_pressed():
 		if ev.button_index == BUTTON_WHEEL_UP:
 			pg(-1)
 		elif ev.button_index == BUTTON_WHEEL_DOWN:
