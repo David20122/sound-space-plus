@@ -1071,6 +1071,11 @@ func register_worlds():
 		"res://content/worlds/covers/rainbow_road.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
+		"ssp_rainbow_road_nb", "Rainbow Road (no bloom)",
+		"res://content/worlds/rainbow_road.tscn", "Chedski",
+		"res://content/worlds/covers/rainbow_road.png"
+	))
+	registry_world.add_item(BackgroundWorld.new(
 		"ssp_cubic", "Cubic",
 		"res://content/worlds/cubic.tscn", "Chedski",
 		"res://content/worlds/covers/cubic.png"
