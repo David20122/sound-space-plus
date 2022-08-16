@@ -7,7 +7,7 @@ func _process(delta):
 	if !active and rainbow:
 		$Particles.material_override.albedo_color = Color.from_hsv(SSP.rainbow_t*0.1,0.4,1)
 	if active:
-		if $Particles.emitting == false:
+		if !$Particles.emitting:
 			active = false
 			queue_free()
 			return
@@ -28,7 +28,7 @@ func get_color_mat(parent:Node,col:Color,miss:bool):
 	return mat
 
 func spawn(parent:Node,pos:Vector3,col:Color,id:String,miss:bool):
-	if id == "ssp_ripple_n":
+	if id == "ssp_miss_n":
 		$Particles.material_override = get_color_mat(parent,col,miss)
 	
 	transform.origin = pos
@@ -44,4 +44,5 @@ func setup(id:String,miss:bool):
 	var img = Globals.imageLoader.load_if_exists(path)
 	if img: $Particles.material_override.albedo_texture = img
 	
-	if id == "ssp_ripple_r": rainbow = true
+	if id == "ssp_miss_w":
+		$Particles.material_override.albedo_color = Color(1,1,1)

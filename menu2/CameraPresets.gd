@@ -5,8 +5,8 @@ var presets = [
 	{ name = "Full-lock", cam = 0, ui = 0, grid = 0, spin = false, faraway = false },
 	{ name = "Spin", cam = 1, ui = 0, grid = 0, spin = false, faraway = false },
 	{ name = "Spin (no parallax)", cam = 0, ui = 0, grid = 0, spin = false, faraway = false },
-	{ name = "Spin (kermeet mode)", cam = 1, ui = 0, grid = 0, spin = false, faraway = true },
-	{ name = "Half-lock (kermeet mode)", cam = 3, ui = 0, grid = 0, spin = false, faraway = true },
+	{ name = "Spin (faraway hud)", cam = 1, ui = 0, grid = 0, spin = false, faraway = true },
+	{ name = "Half-lock (faraway hud)", cam = 3, ui = 0, grid = 0, spin = false, faraway = true },
 ]
 
 onready var cam = get_node("../../Parallax/Parallax")

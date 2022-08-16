@@ -8,6 +8,7 @@ signal selected_space_changed
 signal selected_colorset_changed
 signal selected_mesh_changed
 signal selected_hit_effect_changed
+signal selected_miss_effect_changed
 signal init_stage_reached
 signal map_list_ready
 signal volume_changed
@@ -40,6 +41,7 @@ var selected_colorset:ColorSet
 var selected_song:Song
 var selected_mesh:NoteMesh
 var selected_hit_effect:NoteEffect
+var selected_miss_effect:NoteEffect
 # Selectors
 func select_colorset(set:ColorSet):
 	if set:
@@ -59,6 +61,10 @@ func select_hit_effect(effect:NoteEffect):
 	if effect:
 		selected_hit_effect = effect
 		emit_signal("selected_hit_effect_changed",effect)
+func select_miss_effect(effect:NoteEffect):
+	if effect:
+		selected_miss_effect = effect
+		emit_signal("selected_miss_effect_changed",effect)
 
 
 # Song ending state data
@@ -454,6 +460,8 @@ var fade_length:float = 0.5
 var show_hit_effect:bool = true
 var hit_effect_at_cursor:bool = true
 
+var show_miss_effect:bool = true
+
 # Settings - Camera/Controls
 var sensitivity:float = 1
 var parallax:float = 1
@@ -707,7 +715,7 @@ func load_pbs():
 
 
 # Settings file
-const current_sf_version = 37 # SV
+const current_sf_version = 39 # SV
 func load_saved_settings():
 	if Input.is_key_pressed(KEY_CONTROL) and Input.is_key_pressed(KEY_L): 
 		print("force settings read error")
@@ -877,8 +885,12 @@ func load_saved_settings():
 			faraway_hud = bool(file.get_8())
 		if sv >= 38:
 			music_offset = float(file.get_32())
-		
-		# All done!
+		if sv >= 39:
+			var eff = registry_effect.get_item(file.get_line())
+			if eff:
+				select_miss_effect(eff)
+			show_miss_effect = bool(file.get_8())
+			
 		file.close()
 	return 0
 func save_settings():
@@ -971,6 +983,8 @@ func save_settings():
 		file.store_8(int(simple_hud))
 		file.store_8(int(faraway_hud))
 		file.store_32(music_offset)
+		file.store_line(selected_miss_effect.id)
+		file.store_8(int(show_miss_effect))
 		file.close()
 		return "OK"
 	else:
@@ -1099,24 +1113,36 @@ func register_meshes():
 	))
 func register_effects():
 	registry_effect.add_item(NoteEffect.new(
-		"ssp_ripple", "Ripple* (no color)",
-		"res://content/notefx/ripple.tscn", "Chedski"
+		"ssp_ripple", "Ripple* (no color)", "res://content/notefx/ripple.tscn", "Chedski"
 	))
 	registry_effect.add_item(NoteEffect.new(
-		"ssp_ripple_n", "Ripple* (note color)",
-		"res://content/notefx/ripple.tscn", "Chedski"
+		"ssp_ripple_n", "Ripple* (note color)", "res://content/notefx/ripple.tscn", "Chedski"
 	))
 	registry_effect.add_item(NoteEffect.new(
-		"ssp_ripple_r", "Ripple* (rainbow)",
-		"res://content/notefx/ripple.tscn", "Chedski"
+		"ssp_ripple_r", "Ripple* (rainbow)", "res://content/notefx/ripple.tscn", "Chedski"
+	))
+	
+	registry_effect.add_item(NoteEffect.new(
+		"ssp_shards", "Shards (note color)", "res://content/notefx/shards.tscn", "Chedski"
 	))
 	registry_effect.add_item(NoteEffect.new(
-		"ssp_shards", "Shards (note color)",
-		"res://content/notefx/shards.tscn", "Chedski"
+		"ssp_shards_r", "Shards (rainbow)", "res://content/notefx/shards.tscn", "Chedski"
 	))
 	registry_effect.add_item(NoteEffect.new(
-		"ssp_shards_r", "Shards (rainbow)",
-		"res://content/notefx/shards.tscn", "Chedski"
+		"ssp_shards_w", "Shards (no color)", "res://content/notefx/shards.tscn", "Chedski"
+	))
+	
+	registry_effect.add_item(NoteEffect.new(
+		"ssp_miss", "Miss* (red)", "res://content/notefx/miss.tscn", "Chedski"
+	))
+	registry_effect.add_item(NoteEffect.new(
+		"ssp_miss_n", "Miss* (note color)", "res://content/notefx/miss.tscn", "Chedski"
+	))
+	registry_effect.add_item(NoteEffect.new(
+		"ssp_miss_r", "Miss* (rainbow)", "res://content/notefx/miss.tscn", "Chedski"
+	))
+	registry_effect.add_item(NoteEffect.new(
+		"ssp_miss_w", "Miss* (no color)", "res://content/notefx/miss.tscn", "Chedski"
 	))
 
 
@@ -1355,11 +1381,13 @@ func do_init(_ud=null):
 	emit_signal("init_stage_reached","Init default assets 1/6")
 	if lp: yield(get_tree(),"idle_frame")
 	selected_hit_effect = registry_effect.get_item("ssp_ripple")
+	selected_miss_effect = registry_effect.get_item("ssp_miss")
 	selected_colorset = registry_colorset.get_item("ssp_everybodyvotes")
 	selected_space = registry_world.get_item("ssp_space_tunnel")
 	selected_mesh = registry_mesh.get_item("ssp_square")
 	
 	assert(selected_hit_effect)
+	assert(selected_miss_effect)
 	assert(selected_colorset)
 	assert(selected_space)
 	assert(selected_mesh)

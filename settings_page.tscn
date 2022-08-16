@@ -34,6 +34,7 @@
 [ext_resource path="res://font/NotoColorEmoji.ttf" type="DynamicFontData" id=32]
 [ext_resource path="res://menuButtons/UIParallax.gd" type="Script" id=33]
 [ext_resource path="res://menuButtons/GridParallax.gd" type="Script" id=34]
+[ext_resource path="res://menuButtons/MissEffect.gd" type="Script" id=35]
 [ext_resource path="res://menuButtons/ArchiveConvert.gd" type="Script" id=36]
 [ext_resource path="res://menuButtons/FadeLength.gd" type="Script" id=37]
 [ext_resource path="res://font/Lato/Lato-Bold.ttf" type="DynamicFontData" id=40]
@@ -43,7 +44,6 @@
 [ext_resource path="res://content/cursors/square.png" type="Texture" id=44]
 [ext_resource path="res://menu2/ReplaceCustomFile.gd" type="Script" id=45]
 [ext_resource path="res://addons/native_dialogs/bin/native_dialog_open_file.gdns" type="Script" id=46]
-[ext_resource path="res://content/notefx/ripple.png" type="Texture" id=47]
 [ext_resource path="res://error.jpg" type="Texture" id=48]
 [ext_resource path="res://menuButtons/TrailTime.gd" type="Script" id=52]
 [ext_resource path="res://menuButtons/TrailDetail.gd" type="Script" id=53]
@@ -186,7 +186,7 @@ script = ExtResource( 36 )
 [node name="M" type="VBoxContainer" parent="."]
 margin_top = 59.0
 margin_right = 1280.0
-margin_bottom = 2399.0
+margin_bottom = 2471.0
 custom_constants/separation = 0
 
 [node name="Modifiers" type="VBoxContainer" parent="M"]
@@ -368,7 +368,7 @@ valign = 1
 [node name="Customization" type="VBoxContainer" parent="M"]
 margin_top = 140.0
 margin_right = 1280.0
-margin_bottom = 816.0
+margin_bottom = 888.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Customization"]
@@ -396,14 +396,14 @@ flat = true
 [node name="Group" type="MarginContainer" parent="M/Customization"]
 margin_top = 36.0
 margin_right = 1280.0
-margin_bottom = 676.0
+margin_bottom = 748.0
 custom_constants/margin_left = 180
 custom_constants/margin_bottom = 12
 
 [node name="H" type="GridContainer" parent="M/Customization/Group"]
 margin_left = 180.0
 margin_right = 1280.0
-margin_bottom = 628.0
+margin_bottom = 700.0
 
 [node name="ColorSet" type="Control" parent="M/Customization/Group/H"]
 visible = false
@@ -898,10 +898,56 @@ custom_fonts/font = SubResource( 4 )
 text = "effect played when you hit a note"
 valign = 1
 
-[node name="CursorScale" type="Control" parent="M/Customization/Group/H"]
+[node name="MissEffect" type="Control" parent="M/Customization/Group/H"]
 margin_top = 184.0
 margin_right = 1100.0
 margin_bottom = 216.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="Effect" type="MenuButton" parent="M/Customization/Group/H/MissEffect"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+text = "effect name here"
+flat = false
+align = 0
+script = ExtResource( 35 )
+
+[node name="Label" type="Label" parent="M/Customization/Group/H/MissEffect/Effect"]
+margin_left = -149.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Miss Effect"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="Desc" type="Label" parent="M/Customization/Group/H/MissEffect/Effect"]
+margin_left = 215.0
+margin_right = 562.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 4 )
+text = "hit effect but when you don't"
+valign = 1
+
+[node name="CursorScale" type="Control" parent="M/Customization/Group/H"]
+margin_top = 220.0
+margin_right = 1100.0
+margin_bottom = 252.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="CursorScale" type="SpinBox" parent="M/Customization/Group/H/CursorScale"]
@@ -944,9 +990,9 @@ text = "[def. 1] cursor size multiplier (doesn't affect hitboxes)"
 valign = 1
 
 [node name="CursorSpin" type="Control" parent="M/Customization/Group/H"]
-margin_top = 220.0
+margin_top = 256.0
 margin_right = 1100.0
-margin_bottom = 252.0
+margin_bottom = 288.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="CursorSpin" type="SpinBox" parent="M/Customization/Group/H/CursorSpin"]
@@ -993,9 +1039,9 @@ text = "[def. 0°] makes the cursor image rotate"
 valign = 1
 
 [node name="CustomCursor" type="Control" parent="M/Customization/Group/H"]
-margin_top = 256.0
+margin_top = 292.0
 margin_right = 1100.0
-margin_bottom = 288.0
+margin_bottom = 324.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="CustomCursor" type="Button" parent="M/Customization/Group/H/CustomCursor"]
@@ -1072,9 +1118,9 @@ expand = true
 stretch_mode = 4
 
 [node name="TouchIndicator" type="Control" parent="M/Customization/Group/H"]
-margin_top = 292.0
+margin_top = 328.0
 margin_right = 1100.0
-margin_bottom = 324.0
+margin_bottom = 360.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="TouchIndicator" type="Button" parent="M/Customization/Group/H/TouchIndicator"]
@@ -1137,9 +1183,9 @@ text = "this is the image that shows up under your finger on a touchscreen"
 valign = 1
 
 [node name="HitRipple" type="Control" parent="M/Customization/Group/H"]
-margin_top = 328.0
+margin_top = 364.0
 margin_right = 1100.0
-margin_bottom = 360.0
+margin_bottom = 396.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="HitEffect" type="Button" parent="M/Customization/Group/H/HitRipple"]
@@ -1154,7 +1200,7 @@ custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
 text = "Click to replace"
 script = ExtResource( 45 )
 target = "hit"
-default_image = ExtResource( 47 )
+default_image = ExtResource( 13 )
 
 [node name="OpenFile" type="Node" parent="M/Customization/Group/H/HitRipple/HitEffect"]
 script = ExtResource( 46 )
@@ -1201,10 +1247,75 @@ custom_fonts/font = SubResource( 4 )
 text = "this image is used by hit effects with an asterisk (*) in their name"
 valign = 1
 
-[node name="CustomBg" type="Control" parent="M/Customization/Group/H"]
-margin_top = 364.0
+[node name="MissRipple" type="Control" parent="M/Customization/Group/H"]
+margin_top = 400.0
 margin_right = 1100.0
-margin_bottom = 396.0
+margin_bottom = 432.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="MissEffect" type="Button" parent="M/Customization/Group/H/MissRipple"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+theme = ExtResource( 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+text = "Click to replace"
+script = ExtResource( 45 )
+target = "miss"
+default_image = ExtResource( 13 )
+
+[node name="OpenFile" type="Node" parent="M/Customization/Group/H/MissRipple/MissEffect"]
+script = ExtResource( 46 )
+title = "Select file"
+initial_path = "~/Downloads"
+filters = PoolStringArray( "*.png, *.jpg, *.jpeg, *.webp, *.bmp ; Image files" )
+
+[node name="SaveFile" type="Node" parent="M/Customization/Group/H/MissRipple/MissEffect"]
+script = ExtResource( 7 )
+title = "Save file..."
+
+[node name="Label" type="Label" parent="M/Customization/Group/H/MissRipple/MissEffect"]
+margin_left = -149.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Miss Effect Image"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="ImgPreview" type="TextureRect" parent="M/Customization/Group/H/MissRipple/MissEffect"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 5.0
+margin_right = 37.0
+margin_bottom = 32.0
+texture = ExtResource( 13 )
+expand = true
+stretch_mode = 1
+
+[node name="Desc" type="Label" parent="M/Customization/Group/H/MissRipple/MissEffect"]
+margin_left = 257.0
+margin_right = 321.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 4 )
+text = "same as above, but applies to your miss effect instead"
+valign = 1
+
+[node name="CustomBg" type="Control" parent="M/Customization/Group/H"]
+margin_top = 436.0
+margin_right = 1100.0
+margin_bottom = 468.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="CustomBg" type="Button" parent="M/Customization/Group/H/CustomBg"]
@@ -1267,9 +1378,9 @@ text = "this is the background for the \"Custom Background\" world"
 valign = 1
 
 [node name="ShowHitEffect" type="CheckBox" parent="M/Customization/Group/H"]
-margin_top = 400.0
+margin_top = 472.0
 margin_right = 1100.0
-margin_bottom = 428.0
+margin_bottom = 500.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -1300,9 +1411,9 @@ valign = 1
 clip_text = true
 
 [node name="HitEffectCursor" type="CheckBox" parent="M/Customization/Group/H"]
-margin_top = 432.0
+margin_top = 504.0
 margin_right = 1100.0
-margin_bottom = 460.0
+margin_bottom = 532.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -1333,9 +1444,9 @@ valign = 1
 clip_text = true
 
 [node name="RainbowCursor" type="CheckBox" parent="M/Customization/Group/H"]
-margin_top = 464.0
+margin_top = 536.0
 margin_right = 1100.0
-margin_bottom = 492.0
+margin_bottom = 564.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -1365,9 +1476,9 @@ valign = 1
 clip_text = true
 
 [node name="CursorTrail" type="CheckBox" parent="M/Customization/Group/H"]
-margin_top = 496.0
+margin_top = 568.0
 margin_right = 1100.0
-margin_bottom = 524.0
+margin_bottom = 596.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -1397,9 +1508,9 @@ valign = 1
 clip_text = true
 
 [node name="SmartTrail" type="CheckBox" parent="M/Customization/Group/H"]
-margin_top = 528.0
+margin_top = 600.0
 margin_right = 1100.0
-margin_bottom = 556.0
+margin_bottom = 628.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -1429,9 +1540,9 @@ valign = 1
 clip_text = true
 
 [node name="TrailDetail" type="Control" parent="M/Customization/Group/H"]
-margin_top = 560.0
+margin_top = 632.0
 margin_right = 1100.0
-margin_bottom = 592.0
+margin_bottom = 664.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="TrailDetail" type="SpinBox" parent="M/Customization/Group/H/TrailDetail"]
@@ -1476,9 +1587,9 @@ text = "[def. 10] number of particles in the cursor trail / (smart trail) number
 valign = 1
 
 [node name="TrailTime" type="Control" parent="M/Customization/Group/H"]
-margin_top = 596.0
+margin_top = 668.0
 margin_right = 1100.0
-margin_bottom = 628.0
+margin_bottom = 700.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="TrailTime" type="SpinBox" parent="M/Customization/Group/H/TrailTime"]
@@ -1524,9 +1635,9 @@ text = "[def. 0.15] how long the cursor trail lasts in seconds"
 valign = 1
 
 [node name="Audio" type="VBoxContainer" parent="M"]
-margin_top = 816.0
+margin_top = 888.0
 margin_right = 1280.0
-margin_bottom = 1048.0
+margin_bottom = 1120.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Audio"]
@@ -1794,9 +1905,9 @@ __meta__ = {
 }
 
 [node name="Camera" type="VBoxContainer" parent="M"]
-margin_top = 1048.0
+margin_top = 1120.0
 margin_right = 1280.0
-margin_bottom = 1432.0
+margin_bottom = 1504.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Camera"]
@@ -2059,7 +2170,7 @@ custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_fonts/font = SubResource( 4 )
 action_mode = 0
-text = "aka kermeet mode - moves the HUD back by 10 grid units (20 studs) and makes it larger"
+text = "moves the HUD back by 10 grid units (20 studs) and makes it larger"
 flat = true
 script = ExtResource( 54 )
 target = "faraway_hud"
@@ -2275,9 +2386,9 @@ valign = 1
 clip_text = true
 
 [node name="Notes" type="VBoxContainer" parent="M"]
-margin_top = 1432.0
+margin_top = 1504.0
 margin_right = 1280.0
-margin_bottom = 1604.0
+margin_bottom = 1676.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Notes"]
@@ -2491,9 +2602,9 @@ valign = 1
 clip_text = true
 
 [node name="UI" type="VBoxContainer" parent="M"]
-margin_top = 1604.0
+margin_top = 1676.0
 margin_right = 1280.0
-margin_bottom = 2116.0
+margin_bottom = 2188.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/UI"]
@@ -3046,9 +3157,9 @@ valign = 1
 clip_text = true
 
 [node name="Graphics" type="VBoxContainer" parent="M"]
-margin_top = 2116.0
+margin_top = 2188.0
 margin_right = 1280.0
-margin_bottom = 2340.0
+margin_bottom = 2412.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Graphics"]
@@ -3322,7 +3433,7 @@ margin_left = 180.0
 margin_right = 800.0
 
 [node name="BottomMargin" type="Control" parent="."]
-margin_top = 2403.0
+margin_top = 2475.0
 margin_right = 1280.0
-margin_bottom = 2499.0
+margin_bottom = 2571.0
 rect_min_size = Vector2( 0, 96 )
