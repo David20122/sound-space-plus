@@ -110,6 +110,24 @@ enum {
 	HP_OLD = 1
 }
 
+enum {
+	GRADE_SSP = 0
+	GRADE_LEGACY = 1
+}
+
+enum {
+	VR_GENERIC
+	VR_OCULUS
+	VR_VIVE
+}
+
+enum {
+	NOTIFY_INFO = 0
+	NOTIFY_WARN = 1
+	NOTIFY_ERROR = 2
+	NOTIFY_SUCCEED = 3
+}
+
 const difficulty_names:Dictionary = {
 	-1: "N/A",
 	0: "EASY",
@@ -480,6 +498,7 @@ var error_sound:AudioStream
 var audioLoader:AudioLoader = AudioLoader.new()
 var imageLoader:ImageLoader = ImageLoader.new()
 var confirm_prompt:ConfirmationPrompt2D
+var notify_gui:Notify2D
 
 func comma_sep(number):
 	var string = str(number)
@@ -569,6 +588,45 @@ func get_files_recursive(
 		emit_signal("recurse_result",{files = files, folders = folders})
 	return {files = files, folders = folders}
 
+func notify(type:int,body:String,title:String="Notification",time:float=5):
+	notify_gui.notify(type,body,title,time)
+
+var console_open:bool = false
+var con:LineEdit
+
+signal console_sent
+func _process(delta):
+	notify_gui.raise()
+	if Input.is_action_just_pressed("debug_notify"):
+		notify(NOTIFY_INFO,"This is a notification!","Debug Notify")
+	if Input.is_action_just_pressed("console"):
+		if !console_open:
+			console_open = true
+			con = LineEdit.new()
+			con.expand_to_text_length = true
+			con.theme = load("res://uitheme.tres")
+			con.set("custom_fonts/font",load("res://font/console.tres"))
+			get_parent().add_child(con)
+			con.rect_position = Vector2(5,5)
+			con.rect_size.x = 400
+			con.raise()
+			con.grab_focus()
+			
+			yield(con,"text_entered")
+			var ctxt = con.text
+			console_open = false
+			con.queue_free()
+			if ctxt.strip_edges() != "":
+				var all = ctxt.split(";",true)
+				for txt in all:
+					txt = txt.strip_edges()
+					var cmd = txt.split(" ",true,1)[0]
+					emit_signal("console_sent",cmd,txt.trim_prefix(cmd).strip_edges())
+	if console_open: con.raise()
+
 func _ready():
 	confirm_prompt = load("res://confirm.tscn").instance()
 	get_tree().root.call_deferred("add_child",confirm_prompt)
+	
+	notify_gui = load("res://notification_gui.tscn").instance()
+	get_tree().root.call_deferred("add_child",notify_gui)

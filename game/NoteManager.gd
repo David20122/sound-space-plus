@@ -189,6 +189,30 @@ func do_spin():
 	)
 	get_node("Cursor").transform.origin = centeroff + cursor_offset
 
+func do_vr_cursor():
+	var centeroff = SSP.vr_player.primary_ray.get_collision_point() + cursor_offset
+	
+	var cx = centeroff.x
+	var cy = -centeroff.y
+	cx = clamp(cx, (0 + sh.x + edgec), (3 + sh.x - edgec))
+	cy = clamp(cy, (0 + sh.y + edgec), (3 + sh.y - edgec))
+	centeroff.x = cx - cursor_offset.x
+	centeroff.y = -cy - cursor_offset.y
+	
+	var hlm = 0.35
+	var uim = SSP.ui_parallax * 0.1
+	var grm = SSP.grid_parallax * 0.1
+	cam.transform.origin = Vector3(
+		centeroff.x*hlpower, centeroff.y*hlpower, 3.735
+	)
+	Grid.transform.origin = Vector3(
+		-centeroff.x*hlm*uim, -centeroff.y*hlm*uim, Grid.transform.origin.z
+	)
+	transform.origin = Vector3(
+		-(centeroff.x*hlm*grm)-1, -(centeroff.y*hlm*grm)+1, 0
+	)
+	get_node("Cursor").transform.origin = centeroff + cursor_offset
+
 func comma_sep(number):
 	var string = str(number)
 	var mod = string.length() % 3
@@ -229,19 +253,21 @@ var rec_interval:float = 35
 var pause_state:float = 0
 var pause_ms:float = 0
 var replay_unpause:bool = false
+var can_skip:bool = ((next_ms-prev_ms) > 5000) and (next_ms >= max(ms+(3000*speed_multi),1100*speed_multi))
+var ms_offset:float = 0
 
 var replay_sig:Array = []
 var last_usec = OS.get_ticks_usec()
+
 func _process(delta:float):
 	var u = OS.get_ticks_usec()
 	delta = float(u - last_usec) / 1_000_000.0
 	last_usec = u
 #	delta *= Engine.time_scale
-	if SSP.cam_unlock: do_spin()
+	if SSP.vr: do_vr_cursor()
+	elif SSP.cam_unlock: do_spin()
 	else: do_half_lock()
 	if !notes_loaded: return
-	
-	var can_skip:bool = ((next_ms-prev_ms) > 5000) and (next_ms >= max(ms+(3000*speed_multi),1100*speed_multi))
 	
 	if !SSP.rainbow_hud:
 		if can_skip: TimerHud.modulate = Color(0.7,1,1)
@@ -402,6 +428,16 @@ func _process(delta:float):
 	
 	emit_signal("timer_update",ms,can_skip)
 	
+	if $Music.playing:
+		var playback_pos:float = $Music.get_playback_position()*1000.0
+		if abs(playback_pos - (ms + SSP.music_offset)) > 65:
+			Globals.notify(
+				Globals.NOTIFY_WARN,
+				"Audio was desynced by %.2f ms, correcting." % [playback_pos - (ms + SSP.music_offset)],
+				"Music Sync Correction"
+			)
+			$Music.play((ms + SSP.music_offset)/1000.0)
+	
 	var rn_res:bool = reposition_notes()
 	if !SSP.replaying and SSP.record_replays:
 		var should_write_pos:bool = rn_res
@@ -422,5 +458,3 @@ func _process(delta:float):
 		ComboHud.modulate = Color.from_hsv(SSP.rainbow_t*0.1,0.4,1)
 		get_node("../Grid/LeftHud").modulate = Color.from_hsv(SSP.rainbow_t*0.1,0.4,1)
 		get_node("../Grid/RightHud").modulate = Color.from_hsv(SSP.rainbow_t*0.1,0.4,1)
-	
-	

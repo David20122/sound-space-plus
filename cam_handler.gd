@@ -3,6 +3,8 @@ extends Spatial
 var state = (SSP.replaying and SSP.alt_cam)
 
 func _ready():
+	
+	# alt camera init
 	if state:
 		$Camera.current = false
 		$AltCam.current = true

@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://vr.gd" type="Script" id=1]
+[ext_resource path="res://ARVRAvatar.tscn" type="PackedScene" id=2]
+[ext_resource path="res://menu2.tscn" type="PackedScene" id=3]
+
+[sub_resource type="ProceduralSky" id=1]
+sky_top_color = Color( 0.211765, 0.211765, 0.211765, 1 )
+ground_horizon_color = Color( 0.227451, 0.227451, 0.227451, 1 )
+sun_latitude = -100.0
+
+[sub_resource type="Environment" id=2]
+background_mode = 2
+background_sky = SubResource( 1 )
+glow_enabled = true
+
+[sub_resource type="ViewportTexture" id=3]
+viewport_path = NodePath("vp")
+
+[node name="vrmenudemo" type="Spatial"]
+script = ExtResource( 1 )
+
+[node name="ARVRAvatar" parent="." instance=ExtResource( 2 )]
+
+[node name="env" type="WorldEnvironment" parent="."]
+environment = SubResource( 2 )
+
+[node name="vp" type="Viewport" parent="."]
+arvr = true
+size = Vector2( 1920, 1080 )
+transparent_bg = true
+msaa = 5
+hdr = false
+
+[node name="Menu" parent="vp" instance=ExtResource( 3 )]
+
+[node name="vpv" type="Sprite3D" parent="."]
+transform = Transform( 0.1, 0, 2.38419e-07, 0, 0.1, 0, -2.38419e-08, 0, 1, 0, 0, -2 )
+double_sided = false
+texture = SubResource( 3 )
+
+[editable path="ARVRAvatar"]

@@ -35,7 +35,7 @@ func move_cursor(mdel:Vector2):
 		else: $Mesh2.visible = false
 
 func _input(event:InputEvent):
-	if !SSP.replaying:
+	if !SSP.replaying and !SSP.vr:
 		if !SSP.cam_unlock:
 			visible = true
 			if (event is InputEventMouseMotion):

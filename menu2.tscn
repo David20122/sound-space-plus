@@ -1,4 +1,4 @@
-[gd_scene load_steps=134 format=2]
+[gd_scene load_steps=139 format=2]
 
 [ext_resource path="res://uitheme.tres" type="Theme" id=1]
 [ext_resource path="res://font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=2]
@@ -60,6 +60,8 @@
 [ext_resource path="res://menuButtons/ExportTxt.gd" type="Script" id=58]
 [ext_resource path="res://menu2/StartOffset.gd" type="Script" id=59]
 [ext_resource path="res://menuButtons/ModChaos.gd" type="Script" id=60]
+[ext_resource path="res://content/ui/placeholder.jpg" type="Texture" id=61]
+[ext_resource path="res://menu2/GradeSystem.gd" type="Script" id=62]
 
 [sub_resource type="StyleBoxFlat" id=59]
 draw_center = false
@@ -352,7 +354,7 @@ corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 
-[sub_resource type="Shader" id=125]
+[sub_resource type="Shader" id=131]
 code = "shader_type canvas_item;
 
 uniform float amount = 0.0;
@@ -366,7 +368,7 @@ void fragment() {
 }"
 
 [sub_resource type="ShaderMaterial" id=126]
-shader = SubResource( 125 )
+shader = SubResource( 131 )
 shader_param/amount = 0.0
 
 [sub_resource type="DynamicFont" id=127]
@@ -1583,9 +1585,6 @@ disabled = true
 toggle_mode = true
 action_mode = 0
 group = SubResource( 67 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Name" type="Label" parent="Main/MapRegistry/S/G/AMOGUS"]
 visible = false
@@ -2611,6 +2610,38 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="GradeSystem" type="MenuButton" parent="Main/Results/ModsHolder/Mods"]
+visible = false
+margin_left = 130.0
+margin_top = 238.0
+margin_right = 314.0
+margin_bottom = 264.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+text = "grade system here"
+flat = false
+align = 0
+script = ExtResource( 62 )
+
+[node name="Label" type="Label" parent="Main/Results/ModsHolder/Mods/GradeSystem"]
+margin_left = -149.0
+margin_right = -10.0
+margin_bottom = 26.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.960784, 1, 0.478431, 1 )
+custom_fonts/font = SubResource( 91 )
+text = "Grade System"
+align = 2
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="NoFail" type="CheckBox" parent="Main/Results/ModsHolder/Mods"]
 margin_left = 130.0
 margin_top = 45.0
@@ -3203,6 +3234,7 @@ margin_left = 15.0
 margin_top = 280.0
 margin_right = 298.0
 margin_bottom = 512.0
+rect_min_size = Vector2( 283, 232 )
 script = ExtResource( 29 )
 __meta__ = {
 "_edit_group_": true
@@ -3769,10 +3801,41 @@ custom_fonts/font = SubResource( 6 )
 text = "Content Manager"
 valign = 1
 
-[node name="OldMenu" type="Button" parent="Sidebar/L"]
+[node name="StartVR" type="Button" parent="Sidebar/L"]
 margin_top = 290.0
 margin_right = 58.0
 margin_bottom = 348.0
+rect_min_size = Vector2( 0, 58 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/focus = SubResource( 3 )
+custom_styles/disabled = SubResource( 4 )
+custom_styles/normal = SubResource( 4 )
+toggle_mode = true
+action_mode = 0
+group = SubResource( 5 )
+
+[node name="Tex" type="TextureRect" parent="Sidebar/L/StartVR"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 48.0
+margin_bottom = 48.0
+texture = ExtResource( 61 )
+expand = true
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="Sidebar/L/StartVR"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 64.0
+custom_fonts/font = SubResource( 6 )
+text = "Play in VR"
+valign = 1
+
+[node name="OldMenu" type="Button" parent="Sidebar/L"]
+margin_top = 348.0
+margin_right = 58.0
+margin_bottom = 406.0
 rect_min_size = Vector2( 0, 58 )
 custom_styles/hover = SubResource( 4 )
 custom_styles/pressed = SubResource( 2 )
@@ -3801,9 +3864,9 @@ text = "Switch to Old Menu"
 valign = 1
 
 [node name="Quit" type="Button" parent="Sidebar/L"]
-margin_top = 348.0
+margin_top = 406.0
 margin_right = 58.0
-margin_bottom = 406.0
+margin_bottom = 464.0
 rect_min_size = Vector2( 0, 58 )
 custom_styles/hover = SubResource( 4 )
 custom_styles/pressed = SubResource( 2 )
@@ -3889,7 +3952,6 @@ expand = true
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-mouse_filter = 2
 color = Color( 0, 0, 0, 0 )
 __meta__ = {
 "_edit_use_anchors_": false

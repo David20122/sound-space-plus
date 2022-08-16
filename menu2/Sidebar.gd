@@ -36,21 +36,27 @@ func press(bi:int,q:bool=false):
 
 func to_old_menu():
 	get_node("../Press").play()
-	get_node("/root/Menu").black_fade_target = true
+	get_viewport().get_node("Menu").black_fade_target = true
 	yield(get_tree().create_timer(1),"timeout")
 	SSP.menu_target = "res://menu.tscn"
 	get_tree().change_scene("res://menuload.tscn")
 
 func to_content_mgr():
 	get_node("../Press").play()
-	get_node("/root/Menu").black_fade_target = true
+	get_viewport().get_node("Menu").black_fade_target = true
 	yield(get_tree().create_timer(1),"timeout")
 	SSP.conmgr_transit = "addsongs"
 	get_tree().change_scene("res://contentmgrload.tscn")
 
+func to_vr():
+	get_node("../Press").play()
+	get_viewport().get_node("Menu").black_fade_target = true
+	yield(get_tree().create_timer(1),"timeout")
+	SSP.start_vr()
+
 func quit():
 	get_node("../Press").play()
-#	get_node("/root/Menu").black_fade_target = true
+#	get_viewport().get_node("Menu").black_fade_target = true
 #	yield(get_tree().create_timer(1),"timeout")
 	get_tree().quit()
 	
@@ -64,9 +70,13 @@ func _ready():
 	
 	$L/OldMenu.connect("pressed",self,"to_old_menu")
 	$L/ContentMgr.connect("pressed",self,"to_content_mgr")
+	$L/StartVR.connect("pressed",self,"to_vr")
 	$L/Quit.connect("pressed",self,"quit")
-	$L/ContentMgr.visible = ProjectSettings.get_setting("application/config/enable_new_content_mgr")
-	$L/Quit.visible = OS.has_feature("pc")
+	
+	$L/ContentMgr.visible = not SSP.vr
+	$L/StartVR.visible = SSP.vr_available and not SSP.vr
+	if SSP.vr or !OS.has_feature("pc"):
+		$L/Quit/Label.text = "Quit to Home" 
 	
 
 func _process(delta:float):

@@ -9,15 +9,16 @@ func files_dropped(files:PoolStringArray,_screen:int):
 		SSP.replay = Replay.new()
 		SSP.replaying = true
 		SSP.replay_path = files[0]
-		get_node("/root/Menu").black_fade_target = true
+		get_viewport().get_node("Menu").black_fade_target = true
 		yield(get_tree().create_timer(1),"timeout")
 		get_tree().change_scene("res://songload.tscn")
 
 func _pressed():
+	# button functionality
 	if !SSP.selected_song: return
 	if has_been_pressed: return
 	has_been_pressed = true
-	get_node("/root/Menu").black_fade_target = true
+	get_viewport().get_node("Menu").black_fade_target = true
 	yield(get_tree().create_timer(1),"timeout")
 	get_tree().change_scene("res://songload.tscn")
 
