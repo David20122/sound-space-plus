@@ -446,7 +446,7 @@ func _process(delta:float):
 	
 	if $Music.playing:
 		var playback_pos:float = $Music.get_playback_position()*1000.0
-		if abs(playback_pos - (ms + SSP.music_offset)) > 65:
+		if abs(playback_pos - (ms + SSP.music_offset)) > 65 and SSP.desync_alerts:
 			Globals.notify(
 				Globals.NOTIFY_WARN,
 				"Audio was desynced by %.2f ms, correcting." % [playback_pos - (ms + SSP.music_offset)],

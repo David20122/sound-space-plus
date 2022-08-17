@@ -278,32 +278,39 @@ func _process(delta):
 	# Global hotkeys
 	if Input.is_action_just_pressed("fullscreen"):
 		OS.window_fullscreen = not OS.window_fullscreen
+
+# Debug
+var desync_alerts:bool = false
 func _console(cmd:String,args:String):
-	if cmd == "queue":
-		var ids = args.split(" ",false)
-		if ids.size() == 0:
-			if song_queue.size() == 0:
-				console_cmd_error("Must specify at least 1 map id")
-				return
+	match cmd:
+		"queue":
+			var ids = args.split(" ",false)
+			if ids.size() == 0:
+				if song_queue.size() == 0:
+					console_cmd_error("Must specify at least 1 map id")
+					return
+				else:
+					Globals.notify(Globals.NOTIFY_SUCCEED,"reactivated queue")
+					prepare_queue()
+					return
 			else:
-				Globals.notify(Globals.NOTIFY_SUCCEED,"reactivated queue")
+				var maps = []
+				for id in ids:
+					var song = registry_song.get_item(id)
+					if song: maps.append(song)
+					else: Globals.notify(Globals.NOTIFY_ERROR,"No song found with id %s" % [id],"Error")
+				if maps.size() == 0:
+					console_cmd_error("No valid maps specified")
+					return
+				select_song(maps[0])
+				song_queue = maps
 				prepare_queue()
-				return
-		else:
-			var maps = []
-			for id in ids:
-				var song = registry_song.get_item(id)
-				if song: maps.append(song)
-				else: Globals.notify(Globals.NOTIFY_ERROR,"No song found with id %s" % [id],"Error")
-			if maps.size() == 0:
-				console_cmd_error("No valid maps specified")
-				return
-			select_song(maps[0])
-			song_queue = maps
-			prepare_queue()
-			Globals.notify(Globals.NOTIFY_SUCCEED,"queue OK")
-	elif cmd == "play":
-		get_tree().change_scene("res://songload.tscn")
+				Globals.notify(Globals.NOTIFY_SUCCEED,"queue OK")
+		"play":
+			get_tree().change_scene("res://songload.tscn")
+		"desyncalerts":
+			Globals.notify(Globals.NOTIFY_SUCCEED,"Enabled desync alerts","Success")
+			desync_alerts = true
 
 # Utility functions
 func console_cmd_error(body:String):
