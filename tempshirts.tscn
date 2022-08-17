@@ -1,0 +1,73 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://content/meshes/LowCube.obj" type="ArrayMesh" id=1]
+
+[sub_resource type="Gradient" id=82]
+colors = PoolColorArray( 0, 0.634521, 0.71875, 1, 1, 1, 1, 1 )
+
+[sub_resource type="GradientTexture" id=83]
+gradient = SubResource( 82 )
+
+[sub_resource type="SpatialMaterial" id=84]
+flags_unshaded = true
+albedo_texture = SubResource( 83 )
+
+[sub_resource type="Animation" id=86]
+resource_name = "Idle"
+length = 2.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:translation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.5, 1.5, 2.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0.4, 0 ), Vector3( 0, 0.49, 0 ), Vector3( 0, 0.4, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rotation_degrees")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 1, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( -5, 0, 0 ), Vector3( 5, 0, 0 ) ]
+}
+
+[sub_resource type="SpatialMaterial" id=85]
+flags_unshaded = true
+albedo_color = Color( 0.803922, 0.803922, 0.803922, 1 )
+
+[node name="Shirts" type="Spatial"]
+
+[node name="CubellaBikini" type="Spatial" parent="."]
+visible = false
+
+[node name="Top" type="MeshInstance" parent="CubellaBikini"]
+transform = Transform( 1.25, 0, 0, 0, 0.399873, -0.0315095, 0, 0.0100831, 1.2496, 0, 0.4, 0 )
+material_override = SubResource( 84 )
+mesh = ExtResource( 1 )
+material/0 = null
+
+[node name="Animations" type="AnimationPlayer" parent="CubellaBikini/Top"]
+pause_mode = 2
+anims/Idle = SubResource( 86 )
+
+[node name="Button" type="MeshInstance" parent="CubellaBikini"]
+transform = Transform( 0.025, 0, 0, 0, 0.1, 0, 0, 0, 0.025, 0, -0.45, -1 )
+material_override = SubResource( 85 )
+mesh = ExtResource( 1 )
+material/0 = null
+
+[node name="Bottom" type="MeshInstance" parent="CubellaBikini"]
+transform = Transform( 1, 0, 0, 0, 0.1, 0, 0, 0, 1, 0, -1, 0 )
+material_override = SubResource( 84 )
+mesh = ExtResource( 1 )
+material/0 = null

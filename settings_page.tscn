@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=2]
+[gd_scene load_steps=65 format=2]
 
 [ext_resource path="res://uitheme.tres" type="Theme" id=1]
 [ext_resource path="res://font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=2]
@@ -34,6 +34,7 @@
 [ext_resource path="res://font/NotoColorEmoji.ttf" type="DynamicFontData" id=32]
 [ext_resource path="res://menuButtons/UIParallax.gd" type="Script" id=33]
 [ext_resource path="res://menuButtons/GridParallax.gd" type="Script" id=34]
+[ext_resource path="res://ToAvEditor.gd" type="Script" id=35]
 [ext_resource path="res://menuButtons/ArchiveConvert.gd" type="Script" id=36]
 [ext_resource path="res://menuButtons/FadeLength.gd" type="Script" id=37]
 [ext_resource path="res://font/Lato/Lato-Bold.ttf" type="DynamicFontData" id=40]
@@ -186,7 +187,7 @@ script = ExtResource( 36 )
 [node name="M" type="VBoxContainer" parent="."]
 margin_top = 59.0
 margin_right = 1280.0
-margin_bottom = 2399.0
+margin_bottom = 2435.0
 custom_constants/separation = 0
 
 [node name="Modifiers" type="VBoxContainer" parent="M"]
@@ -368,7 +369,7 @@ valign = 1
 [node name="Customization" type="VBoxContainer" parent="M"]
 margin_top = 140.0
 margin_right = 1280.0
-margin_bottom = 816.0
+margin_bottom = 852.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Customization"]
@@ -396,14 +397,14 @@ flat = true
 [node name="Group" type="MarginContainer" parent="M/Customization"]
 margin_top = 36.0
 margin_right = 1280.0
-margin_bottom = 676.0
+margin_bottom = 712.0
 custom_constants/margin_left = 180
 custom_constants/margin_bottom = 12
 
 [node name="H" type="GridContainer" parent="M/Customization/Group"]
 margin_left = 180.0
 margin_right = 1280.0
-margin_bottom = 628.0
+margin_bottom = 664.0
 
 [node name="ColorSet" type="Control" parent="M/Customization/Group/H"]
 visible = false
@@ -1266,10 +1267,63 @@ custom_fonts/font = SubResource( 4 )
 text = "this is the background for the \"Custom Background\" world"
 valign = 1
 
-[node name="ShowHitEffect" type="CheckBox" parent="M/Customization/Group/H"]
+[node name="Avatar" type="Control" parent="M/Customization/Group/H"]
 margin_top = 400.0
 margin_right = 1100.0
-margin_bottom = 428.0
+margin_bottom = 432.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="Editor" type="Button" parent="M/Customization/Group/H/Avatar"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+theme = ExtResource( 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+text = "Go to editor [ALPHA]"
+script = ExtResource( 35 )
+
+[node name="OpenFile" type="Node" parent="M/Customization/Group/H/Avatar/Editor"]
+script = ExtResource( 46 )
+title = "Select file"
+initial_path = "~/Downloads"
+filters = PoolStringArray( "*.png, *.jpg, *.jpeg, *.webp, *.bmp ; Image files" )
+
+[node name="SaveFile" type="Node" parent="M/Customization/Group/H/Avatar/Editor"]
+script = ExtResource( 7 )
+title = "Save file..."
+
+[node name="Label" type="Label" parent="M/Customization/Group/H/Avatar/Editor"]
+margin_left = -162.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Player Avatar"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="Desc" type="Label" parent="M/Customization/Group/H/Avatar/Editor"]
+margin_left = 215.0
+margin_right = 578.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 4 )
+text = "literally you | experimental avatar editor. nowhere near done. visible in replays"
+valign = 1
+
+[node name="ShowHitEffect" type="CheckBox" parent="M/Customization/Group/H"]
+margin_top = 436.0
+margin_right = 1100.0
+margin_bottom = 464.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -1300,9 +1354,9 @@ valign = 1
 clip_text = true
 
 [node name="HitEffectCursor" type="CheckBox" parent="M/Customization/Group/H"]
-margin_top = 432.0
+margin_top = 468.0
 margin_right = 1100.0
-margin_bottom = 460.0
+margin_bottom = 496.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -1333,9 +1387,9 @@ valign = 1
 clip_text = true
 
 [node name="RainbowCursor" type="CheckBox" parent="M/Customization/Group/H"]
-margin_top = 464.0
+margin_top = 500.0
 margin_right = 1100.0
-margin_bottom = 492.0
+margin_bottom = 528.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -1365,9 +1419,9 @@ valign = 1
 clip_text = true
 
 [node name="CursorTrail" type="CheckBox" parent="M/Customization/Group/H"]
-margin_top = 496.0
+margin_top = 532.0
 margin_right = 1100.0
-margin_bottom = 524.0
+margin_bottom = 560.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -1397,9 +1451,9 @@ valign = 1
 clip_text = true
 
 [node name="SmartTrail" type="CheckBox" parent="M/Customization/Group/H"]
-margin_top = 528.0
+margin_top = 564.0
 margin_right = 1100.0
-margin_bottom = 556.0
+margin_bottom = 592.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -1429,9 +1483,9 @@ valign = 1
 clip_text = true
 
 [node name="TrailDetail" type="Control" parent="M/Customization/Group/H"]
-margin_top = 560.0
+margin_top = 596.0
 margin_right = 1100.0
-margin_bottom = 592.0
+margin_bottom = 628.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="TrailDetail" type="SpinBox" parent="M/Customization/Group/H/TrailDetail"]
@@ -1476,9 +1530,9 @@ text = "[def. 10] number of particles in the cursor trail / (smart trail) number
 valign = 1
 
 [node name="TrailTime" type="Control" parent="M/Customization/Group/H"]
-margin_top = 596.0
+margin_top = 632.0
 margin_right = 1100.0
-margin_bottom = 628.0
+margin_bottom = 664.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="TrailTime" type="SpinBox" parent="M/Customization/Group/H/TrailTime"]
@@ -1524,9 +1578,9 @@ text = "[def. 0.15] how long the cursor trail lasts in seconds"
 valign = 1
 
 [node name="Audio" type="VBoxContainer" parent="M"]
-margin_top = 816.0
+margin_top = 852.0
 margin_right = 1280.0
-margin_bottom = 1048.0
+margin_bottom = 1084.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Audio"]
@@ -1794,9 +1848,9 @@ __meta__ = {
 }
 
 [node name="Camera" type="VBoxContainer" parent="M"]
-margin_top = 1048.0
+margin_top = 1084.0
 margin_right = 1280.0
-margin_bottom = 1432.0
+margin_bottom = 1468.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Camera"]
@@ -2275,9 +2329,9 @@ valign = 1
 clip_text = true
 
 [node name="Notes" type="VBoxContainer" parent="M"]
-margin_top = 1432.0
+margin_top = 1468.0
 margin_right = 1280.0
-margin_bottom = 1604.0
+margin_bottom = 1640.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Notes"]
@@ -2491,9 +2545,9 @@ valign = 1
 clip_text = true
 
 [node name="UI" type="VBoxContainer" parent="M"]
-margin_top = 1604.0
+margin_top = 1640.0
 margin_right = 1280.0
-margin_bottom = 2116.0
+margin_bottom = 2152.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/UI"]
@@ -3046,9 +3100,9 @@ valign = 1
 clip_text = true
 
 [node name="Graphics" type="VBoxContainer" parent="M"]
-margin_top = 2116.0
+margin_top = 2152.0
 margin_right = 1280.0
-margin_bottom = 2340.0
+margin_bottom = 2376.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Graphics"]
@@ -3322,7 +3376,7 @@ margin_left = 180.0
 margin_right = 800.0
 
 [node name="BottomMargin" type="Control" parent="."]
-margin_top = 2403.0
+margin_top = 2439.0
 margin_right = 1280.0
-margin_bottom = 2499.0
+margin_bottom = 2535.0
 rect_min_size = Vector2( 0, 96 )

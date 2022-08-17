@@ -203,6 +203,10 @@ func start_vr():
 		ev.button_index = JOY_VR_TRIGGER
 		InputMap.action_add_event("pause",ev)
 		
+		ev = InputEventJoypadButton.new()
+		ev.button_index = JOY_OCULUS_BY
+		InputMap.action_add_event("pause",ev)
+		
 		ev = InputEventJoypadMotion.new()
 		ev.axis = JOY_VR_ANALOG_TRIGGER
 		InputMap.action_add_event("pause",ev)
@@ -210,6 +214,10 @@ func start_vr():
 		# Click binds
 		ev = InputEventJoypadButton.new()
 		ev.button_index = JOY_VR_TRIGGER
+		InputMap.action_add_event("vr_click",ev)
+		
+		ev = InputEventJoypadButton.new()
+		ev.button_index = JOY_OCULUS_AX
 		InputMap.action_add_event("vr_click",ev)
 		
 		ev = InputEventJoypadMotion.new()
