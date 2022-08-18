@@ -284,6 +284,8 @@ func _process(delta:float):
 	elif SSP.cam_unlock: do_spin()
 	else: do_half_lock()
 	if !notes_loaded: return
+	
+	can_skip = ((next_ms-prev_ms) > 5000) and (next_ms >= max(ms+(3000*speed_multi),1100*speed_multi))
 
 	if !SSP.rainbow_hud:
 		if can_skip: TimerHud.modulate = Color(0.7,1,1)
