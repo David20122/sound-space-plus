@@ -284,7 +284,7 @@ func _process(delta:float):
 	elif SSP.cam_unlock: do_spin()
 	else: do_half_lock()
 	if !notes_loaded: return
-	
+
 	if !SSP.rainbow_hud:
 		if can_skip: TimerHud.modulate = Color(0.7,1,1)
 		else: TimerHud.modulate = Color(1,1,1)
@@ -446,12 +446,13 @@ func _process(delta:float):
 	
 	if $Music.playing:
 		var playback_pos:float = $Music.get_playback_position()*1000.0
-		if abs(playback_pos - (ms + SSP.music_offset)) > 65 and SSP.desync_alerts:
-			Globals.notify(
-				Globals.NOTIFY_WARN,
-				"Audio was desynced by %.2f ms, correcting." % [playback_pos - (ms + SSP.music_offset)],
-				"Music Sync Correction"
-			)
+		if abs(playback_pos - (ms + SSP.music_offset)) > 65:
+			if SSP.desync_alerts:
+				Globals.notify(
+					Globals.NOTIFY_WARN,
+					"Audio was desynced by %.2f ms, correcting." % [playback_pos - (ms + SSP.music_offset)],
+					"Music Sync Correction"
+				)
 			$Music.play((ms + SSP.music_offset)/1000.0)
 	
 	var rn_res:bool = reposition_notes()
