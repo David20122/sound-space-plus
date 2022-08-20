@@ -8,6 +8,7 @@ signal selected_space_changed
 signal selected_colorset_changed
 signal selected_mesh_changed
 signal selected_hit_effect_changed
+signal selected_miss_effect_changed
 signal init_stage_reached
 signal map_list_ready
 signal volume_changed
@@ -40,6 +41,7 @@ var selected_colorset:ColorSet
 var selected_song:Song
 var selected_mesh:NoteMesh
 var selected_hit_effect:NoteEffect
+var selected_miss_effect:NoteEffect
 # Selectors
 func select_colorset(set:ColorSet):
 	if set:
@@ -59,6 +61,10 @@ func select_hit_effect(effect:NoteEffect):
 	if effect:
 		selected_hit_effect = effect
 		emit_signal("selected_hit_effect_changed",effect)
+func select_miss_effect(effect:NoteEffect):
+	if effect:
+		selected_miss_effect = effect
+		emit_signal("selected_miss_effect_changed",effect)
 
 
 # Song ending state data
@@ -280,32 +286,39 @@ func _process(delta):
 	# Global hotkeys
 	if Input.is_action_just_pressed("fullscreen"):
 		OS.window_fullscreen = not OS.window_fullscreen
+
+# Debug
+var desync_alerts:bool = false
 func _console(cmd:String,args:String):
-	if cmd == "queue":
-		var ids = args.split(" ",false)
-		if ids.size() == 0:
-			if song_queue.size() == 0:
-				console_cmd_error("Must specify at least 1 map id")
-				return
+	match cmd:
+		"queue":
+			var ids = args.split(" ",false)
+			if ids.size() == 0:
+				if song_queue.size() == 0:
+					console_cmd_error("Must specify at least 1 map id")
+					return
+				else:
+					Globals.notify(Globals.NOTIFY_SUCCEED,"reactivated queue")
+					prepare_queue()
+					return
 			else:
-				Globals.notify(Globals.NOTIFY_SUCCEED,"reactivated queue")
+				var maps = []
+				for id in ids:
+					var song = registry_song.get_item(id)
+					if song: maps.append(song)
+					else: Globals.notify(Globals.NOTIFY_ERROR,"No song found with id %s" % [id],"Error")
+				if maps.size() == 0:
+					console_cmd_error("No valid maps specified")
+					return
+				select_song(maps[0])
+				song_queue = maps
 				prepare_queue()
-				return
-		else:
-			var maps = []
-			for id in ids:
-				var song = registry_song.get_item(id)
-				if song: maps.append(song)
-				else: Globals.notify(Globals.NOTIFY_ERROR,"No song found with id %s" % [id],"Error")
-			if maps.size() == 0:
-				console_cmd_error("No valid maps specified")
-				return
-			select_song(maps[0])
-			song_queue = maps
-			prepare_queue()
-			Globals.notify(Globals.NOTIFY_SUCCEED,"queue OK")
-	elif cmd == "play":
-		get_tree().change_scene("res://songload.tscn")
+				Globals.notify(Globals.NOTIFY_SUCCEED,"queue OK")
+		"play":
+			get_tree().change_scene("res://songload.tscn")
+		"desyncalerts":
+			Globals.notify(Globals.NOTIFY_SUCCEED,"Enabled desync alerts","Success")
+			desync_alerts = true
 
 # Utility functions
 func console_cmd_error(body:String):
@@ -461,6 +474,8 @@ var fade_length:float = 0.5
 
 var show_hit_effect:bool = true
 var hit_effect_at_cursor:bool = true
+
+var show_miss_effect:bool = true
 
 # Settings - Camera/Controls
 var sensitivity:float = 1
@@ -715,7 +730,7 @@ func load_pbs():
 
 
 # Settings file
-const current_sf_version = 37 # SV
+const current_sf_version = 39 # SV
 func load_saved_settings():
 	if Input.is_key_pressed(KEY_CONTROL) and Input.is_key_pressed(KEY_L): 
 		print("force settings read error")
@@ -885,8 +900,12 @@ func load_saved_settings():
 			faraway_hud = bool(file.get_8())
 		if sv >= 38:
 			music_offset = float(file.get_32())
-		
-		# All done!
+		if sv >= 39:
+			var eff = registry_effect.get_item(file.get_line())
+			if eff:
+				select_miss_effect(eff)
+			show_miss_effect = bool(file.get_8())
+			
 		file.close()
 	return 0
 func save_settings():
@@ -979,6 +998,8 @@ func save_settings():
 		file.store_8(int(simple_hud))
 		file.store_8(int(faraway_hud))
 		file.store_32(music_offset)
+		file.store_line(selected_miss_effect.id)
+		file.store_8(int(show_miss_effect))
 		file.close()
 		return "OK"
 	else:
@@ -1065,6 +1086,11 @@ func register_worlds():
 		"res://content/worlds/covers/rainbow_road.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
+		"ssp_rainbow_road_nb", "Rainbow Road (no bloom)",
+		"res://content/worlds/rainbow_road.tscn", "Chedski",
+		"res://content/worlds/covers/rainbow_road.png"
+	))
+	registry_world.add_item(BackgroundWorld.new(
 		"ssp_cubic", "Cubic",
 		"res://content/worlds/cubic.tscn", "Chedski",
 		"res://content/worlds/covers/cubic.png"
@@ -1107,24 +1133,36 @@ func register_meshes():
 	))
 func register_effects():
 	registry_effect.add_item(NoteEffect.new(
-		"ssp_ripple", "Ripple* (no color)",
-		"res://content/notefx/ripple.tscn", "Chedski"
+		"ssp_ripple", "Ripple* (no color)", "res://content/notefx/ripple.tscn", "Chedski"
 	))
 	registry_effect.add_item(NoteEffect.new(
-		"ssp_ripple_n", "Ripple* (note color)",
-		"res://content/notefx/ripple.tscn", "Chedski"
+		"ssp_ripple_n", "Ripple* (note color)", "res://content/notefx/ripple.tscn", "Chedski"
 	))
 	registry_effect.add_item(NoteEffect.new(
-		"ssp_ripple_r", "Ripple* (rainbow)",
-		"res://content/notefx/ripple.tscn", "Chedski"
+		"ssp_ripple_r", "Ripple* (rainbow)", "res://content/notefx/ripple.tscn", "Chedski"
+	))
+	
+	registry_effect.add_item(NoteEffect.new(
+		"ssp_shards", "Shards (note color)", "res://content/notefx/shards.tscn", "Chedski"
 	))
 	registry_effect.add_item(NoteEffect.new(
-		"ssp_shards", "Shards (note color)",
-		"res://content/notefx/shards.tscn", "Chedski"
+		"ssp_shards_r", "Shards (rainbow)", "res://content/notefx/shards.tscn", "Chedski"
 	))
 	registry_effect.add_item(NoteEffect.new(
-		"ssp_shards_r", "Shards (rainbow)",
-		"res://content/notefx/shards.tscn", "Chedski"
+		"ssp_shards_w", "Shards (no color)", "res://content/notefx/shards.tscn", "Chedski"
+	))
+	
+	registry_effect.add_item(NoteEffect.new(
+		"ssp_miss", "Miss* (red)", "res://content/notefx/miss.tscn", "Chedski"
+	))
+	registry_effect.add_item(NoteEffect.new(
+		"ssp_miss_n", "Miss* (note color)", "res://content/notefx/miss.tscn", "Chedski"
+	))
+	registry_effect.add_item(NoteEffect.new(
+		"ssp_miss_r", "Miss* (rainbow)", "res://content/notefx/miss.tscn", "Chedski"
+	))
+	registry_effect.add_item(NoteEffect.new(
+		"ssp_miss_w", "Miss* (no color)", "res://content/notefx/miss.tscn", "Chedski"
 	))
 
 
@@ -1363,11 +1401,13 @@ func do_init(_ud=null):
 	emit_signal("init_stage_reached","Init default assets 1/6")
 	if lp: yield(get_tree(),"idle_frame")
 	selected_hit_effect = registry_effect.get_item("ssp_ripple")
+	selected_miss_effect = registry_effect.get_item("ssp_miss")
 	selected_colorset = registry_colorset.get_item("ssp_everybodyvotes")
 	selected_space = registry_world.get_item("ssp_space_tunnel")
 	selected_mesh = registry_mesh.get_item("ssp_square")
 	
 	assert(selected_hit_effect)
+	assert(selected_miss_effect)
 	assert(selected_colorset)
 	assert(selected_space)
 	assert(selected_mesh)

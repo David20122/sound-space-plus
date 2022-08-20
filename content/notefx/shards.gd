@@ -1,33 +1,43 @@
 extends Spatial
 
 var active:bool = false
+var rainbow:bool = false
 
 func _process(delta):
+	if !active and rainbow:
+		$Particles.material_override.albedo_color = Color.from_hsv(SSP.rainbow_t*0.1,0.4,1)
 	if active:
 		if $Particles.emitting == false:
 			active = false
 			queue_free()
 			return
 
-func spawn(parent:Node,pos:Vector3,col:Color):
-	var mesh = $Particles.get("draw_pass_1").duplicate()
-	$Particles.set("draw_pass_1",mesh)
-	mesh.material = mesh.material.duplicate()
+func get_color_mat(parent:Node,col:Color,miss:bool):
+	var cache:Dictionary
+	if miss: cache = parent.matcache_miss
+	else: cache = parent.get_node("Spawn").matcache_hit
 	
-	if SSP.selected_hit_effect.id == "ssp_shards":
-		mesh.material.albedo_color = col
-	elif SSP.selected_hit_effect.id == "ssp_shards_r":
-		mesh.material.albedo_color = Color.from_hsv(SSP.rainbow_t*0.1,0.4,1)
+	var mat:SpatialMaterial
+	if cache.get(col):
+		mat = cache[col]
+	else:
+		mat = $Particles.material_override.duplicate()
+		mat.albedo_color = col
+		cache[col] = mat
+		
+	return mat
+
+func spawn(parent:Node,pos:Vector3,col:Color,id:String,miss:bool):
+	if id == "ssp_shards":
+		$Particles.material_override = get_color_mat(parent,col,miss)
 	
 	transform.origin = pos
 	parent.add_child(self)
+	visible = true
 	$Particles.emitting = true
 	active = true
 
-var is_first:bool = true
-func _ready():
-	if !is_first: return
-	is_first = false
-#	var img = Globals.imageLoader.load_if_exists("user://hit")
-#	if img:
-#		$Mesh.get("material/0").albedo_texture = img
+func setup(id:String,miss:bool):
+	if id == "ssp_shards_r":
+		print("RAINBOW")
+		rainbow = true

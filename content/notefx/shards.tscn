@@ -3,6 +3,17 @@
 [ext_resource path="res://content/notefx/shards.gd" type="Script" id=1]
 [ext_resource path="res://content/notefx/shard.png" type="Texture" id=2]
 
+[sub_resource type="SpatialMaterial" id=8]
+flags_transparent = true
+flags_unshaded = true
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+params_billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+albedo_texture = ExtResource( 2 )
+
 [sub_resource type="Gradient" id=3]
 offsets = PoolRealArray( 0, 0.607004, 1 )
 colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0.333333, 1, 1, 1, 0 )
@@ -30,24 +41,15 @@ angle_random = 1.0
 scale_curve = SubResource( 6 )
 color_ramp = SubResource( 4 )
 
-[sub_resource type="SpatialMaterial" id=8]
-flags_transparent = true
-flags_unshaded = true
-vertex_color_use_as_albedo = true
-params_billboard_mode = 3
-particles_anim_h_frames = 1
-particles_anim_v_frames = 1
-particles_anim_loop = false
-albedo_texture = ExtResource( 2 )
-
 [sub_resource type="QuadMesh" id=9]
-material = SubResource( 8 )
 size = Vector2( 0.16, 0.04 )
 
 [node name="Effect" type="Spatial"]
 script = ExtResource( 1 )
 
 [node name="Particles" type="Particles" parent="."]
+material_override = SubResource( 8 )
+cast_shadow = 0
 emitting = false
 lifetime = 0.4
 one_shot = true

@@ -34,7 +34,7 @@
 [ext_resource path="res://font/NotoColorEmoji.ttf" type="DynamicFontData" id=32]
 [ext_resource path="res://menuButtons/UIParallax.gd" type="Script" id=33]
 [ext_resource path="res://menuButtons/GridParallax.gd" type="Script" id=34]
-[ext_resource path="res://ToAvEditor.gd" type="Script" id=35]
+[ext_resource path="res://menuButtons/MissEffect.gd" type="Script" id=35]
 [ext_resource path="res://menuButtons/ArchiveConvert.gd" type="Script" id=36]
 [ext_resource path="res://menuButtons/FadeLength.gd" type="Script" id=37]
 [ext_resource path="res://font/Lato/Lato-Bold.ttf" type="DynamicFontData" id=40]
@@ -49,6 +49,7 @@
 [ext_resource path="res://menuButtons/TrailTime.gd" type="Script" id=52]
 [ext_resource path="res://menuButtons/TrailDetail.gd" type="Script" id=53]
 [ext_resource path="res://menu2/SettingsCheckbox.gd" type="Script" id=54]
+[ext_resource path="res://ToAvEditor.gd" type="Script" id=55]
 
 [sub_resource type="DynamicFont" id=5]
 size = 18
@@ -899,10 +900,56 @@ custom_fonts/font = SubResource( 4 )
 text = "effect played when you hit a note"
 valign = 1
 
-[node name="CursorScale" type="Control" parent="M/Customization/Group/H"]
+[node name="MissEffect" type="Control" parent="M/Customization/Group/H"]
 margin_top = 184.0
 margin_right = 1100.0
 margin_bottom = 216.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="Effect" type="MenuButton" parent="M/Customization/Group/H/MissEffect"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+text = "effect name here"
+flat = false
+align = 0
+script = ExtResource( 35 )
+
+[node name="Label" type="Label" parent="M/Customization/Group/H/MissEffect/Effect"]
+margin_left = -149.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Miss Effect"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="Desc" type="Label" parent="M/Customization/Group/H/MissEffect/Effect"]
+margin_left = 215.0
+margin_right = 562.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 4 )
+text = "hit effect but when you don't"
+valign = 1
+
+[node name="CursorScale" type="Control" parent="M/Customization/Group/H"]
+margin_top = 220.0
+margin_right = 1100.0
+margin_bottom = 252.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="CursorScale" type="SpinBox" parent="M/Customization/Group/H/CursorScale"]
@@ -945,9 +992,9 @@ text = "[def. 1] cursor size multiplier (doesn't affect hitboxes)"
 valign = 1
 
 [node name="CursorSpin" type="Control" parent="M/Customization/Group/H"]
-margin_top = 220.0
+margin_top = 256.0
 margin_right = 1100.0
-margin_bottom = 252.0
+margin_bottom = 288.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="CursorSpin" type="SpinBox" parent="M/Customization/Group/H/CursorSpin"]
@@ -994,9 +1041,9 @@ text = "[def. 0°] makes the cursor image rotate"
 valign = 1
 
 [node name="CustomCursor" type="Control" parent="M/Customization/Group/H"]
-margin_top = 256.0
+margin_top = 292.0
 margin_right = 1100.0
-margin_bottom = 288.0
+margin_bottom = 324.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="CustomCursor" type="Button" parent="M/Customization/Group/H/CustomCursor"]
@@ -1073,9 +1120,9 @@ expand = true
 stretch_mode = 4
 
 [node name="TouchIndicator" type="Control" parent="M/Customization/Group/H"]
-margin_top = 292.0
+margin_top = 328.0
 margin_right = 1100.0
-margin_bottom = 324.0
+margin_bottom = 360.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="TouchIndicator" type="Button" parent="M/Customization/Group/H/TouchIndicator"]
@@ -1138,9 +1185,9 @@ text = "this is the image that shows up under your finger on a touchscreen"
 valign = 1
 
 [node name="HitRipple" type="Control" parent="M/Customization/Group/H"]
-margin_top = 328.0
+margin_top = 364.0
 margin_right = 1100.0
-margin_bottom = 360.0
+margin_bottom = 396.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="HitEffect" type="Button" parent="M/Customization/Group/H/HitRipple"]
@@ -1155,7 +1202,7 @@ custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
 text = "Click to replace"
 script = ExtResource( 45 )
 target = "hit"
-default_image = ExtResource( 47 )
+default_image = ExtResource( 13 )
 
 [node name="OpenFile" type="Node" parent="M/Customization/Group/H/HitRipple/HitEffect"]
 script = ExtResource( 46 )
@@ -1202,10 +1249,75 @@ custom_fonts/font = SubResource( 4 )
 text = "this image is used by hit effects with an asterisk (*) in their name"
 valign = 1
 
-[node name="CustomBg" type="Control" parent="M/Customization/Group/H"]
-margin_top = 364.0
+[node name="MissRipple" type="Control" parent="M/Customization/Group/H"]
+margin_top = 400.0
 margin_right = 1100.0
-margin_bottom = 396.0
+margin_bottom = 432.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="MissEffect" type="Button" parent="M/Customization/Group/H/MissRipple"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+theme = ExtResource( 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+text = "Click to replace"
+script = ExtResource( 45 )
+target = "miss"
+default_image = ExtResource( 13 )
+
+[node name="OpenFile" type="Node" parent="M/Customization/Group/H/MissRipple/MissEffect"]
+script = ExtResource( 46 )
+title = "Select file"
+initial_path = "~/Downloads"
+filters = PoolStringArray( "*.png, *.jpg, *.jpeg, *.webp, *.bmp ; Image files" )
+
+[node name="SaveFile" type="Node" parent="M/Customization/Group/H/MissRipple/MissEffect"]
+script = ExtResource( 7 )
+title = "Save file..."
+
+[node name="Label" type="Label" parent="M/Customization/Group/H/MissRipple/MissEffect"]
+margin_left = -149.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Miss Effect Image"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="ImgPreview" type="TextureRect" parent="M/Customization/Group/H/MissRipple/MissEffect"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 5.0
+margin_right = 37.0
+margin_bottom = 32.0
+texture = ExtResource( 13 )
+expand = true
+stretch_mode = 1
+
+[node name="Desc" type="Label" parent="M/Customization/Group/H/MissRipple/MissEffect"]
+margin_left = 257.0
+margin_right = 321.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 4 )
+text = "same as above, but applies to your miss effect instead"
+valign = 1
+
+[node name="CustomBg" type="Control" parent="M/Customization/Group/H"]
+margin_top = 436.0
+margin_right = 1100.0
+margin_bottom = 468.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="CustomBg" type="Button" parent="M/Customization/Group/H/CustomBg"]
@@ -1283,7 +1395,7 @@ custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
 custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
 text = "Go to editor [ALPHA]"
-script = ExtResource( 35 )
+script = ExtResource( 55 )
 
 [node name="OpenFile" type="Node" parent="M/Customization/Group/H/Avatar/Editor"]
 script = ExtResource( 46 )
@@ -1349,6 +1461,39 @@ theme = ExtResource( 1 )
 custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
 custom_fonts/font = SubResource( 3 )
 text = "Hit Effect"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="ShowMissEffect" type="CheckBox" parent="M/Customization/Group/H"]
+margin_top = 504.0
+margin_right = 1100.0
+margin_bottom = 532.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_focus = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 4 )
+pressed = true
+action_mode = 0
+text = "replace \"hit\" with \"miss\" in the description of the setting above this one"
+flat = true
+script = ExtResource( 54 )
+target = "show_miss_effect"
+
+[node name="Label" type="Label" parent="M/Customization/Group/H/ShowMissEffect"]
+anchor_bottom = 1.0
+margin_left = -165.0
+margin_right = -10.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Miss Effect"
 align = 2
 valign = 1
 clip_text = true
@@ -2113,7 +2258,7 @@ custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_fonts/font = SubResource( 4 )
 action_mode = 0
-text = "aka kermeet mode - moves the HUD back by 10 grid units (20 studs) and makes it larger"
+text = "moves the HUD back by 10 grid units (20 studs) and makes it larger"
 flat = true
 script = ExtResource( 54 )
 target = "faraway_hud"

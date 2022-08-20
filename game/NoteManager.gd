@@ -14,8 +14,13 @@ var noteNodes:Array = []
 var noteQueue:Array = []
 var colors:Array = SSP.selected_colorset.colors
 var hitEffect:Spatial = load(SSP.selected_hit_effect.path).instance()
+var missEffect:Spatial = load(SSP.selected_miss_effect.path).instance()
+var hit_id:String = SSP.selected_hit_effect.id
+var miss_id:String = SSP.selected_miss_effect.id
 var chaos_rng:RandomNumberGenerator = RandomNumberGenerator.new()
 
+var matcache_hit:Dictionary = {}
+var matcache_miss:Dictionary = {}
 
 const base_position = Vector3(-1,1,0)
 
@@ -42,13 +47,14 @@ func reposition_notes(force:bool=false):
 					SSP.replay.note_miss(note.id)
 				note.state = Globals.NSTATE_MISS
 				if SSP.play_miss_snd: $Miss.play()
-#				$MissEffect.duplicate().spawn(
-#					get_parent(),Vector3(
-#						$Cursor.global_transform.origin.x,
-#						$Cursor.global_transform.origin.y,
-#						0.002
-#					),note.col
-#				)
+				if SSP.show_miss_effect:
+					var pos:Vector3 = Vector3(
+						note.transform.origin.x,
+						note.transform.origin.y,
+						0.002
+					)
+					
+					missEffect.duplicate().spawn(self,pos,note.col,miss_id,true)
 				emit_signal("miss",note.col)
 				prev_ms = note.notems
 			elif result:
@@ -68,7 +74,7 @@ func reposition_notes(force:bool=false):
 						pos.x = note.global_transform.origin.x
 						pos.y = note.global_transform.origin.y
 					
-					hitEffect.duplicate().spawn(get_parent(),pos,note.col)
+					hitEffect.duplicate().spawn(get_parent(),pos,note.col,hit_id,false)
 				emit_signal("hit",note.col)
 				prev_ms = note.notems
 		elif ms > (note.notems + SSP.hitwindow_ms) + 100:
@@ -133,9 +139,19 @@ func _ready():
 	
 	chaos_rng.seed = hash(SSP.selected_song.id)
 	
+	# setup for effects (user://hit and user://miss images)
+	if hitEffect.has_method("setup"): hitEffect.setup(hit_id,false)
+	hitEffect.visible = false
+	add_child(hitEffect)
+	
+	if missEffect.has_method("setup"): missEffect.setup(miss_id,true)
+	missEffect.visible = false
+	add_child(missEffect)
+	
 	# force everything to be loaded now
 	yield(get_tree(),"idle_frame")
-	hitEffect.duplicate().spawn(get_parent(),Vector3(0,0,-400),Color(1,1,1))
+	hitEffect.duplicate().spawn(get_parent(),Vector3(0,0,-400),Color(1,1,1),hit_id,false)
+	missEffect.duplicate().spawn(self,Vector3(0,0,-400),Color(1,1,1),miss_id,true)
 	$Note.visible = true
 	$Note.transform.origin = Vector3(0,0,-400)
 	yield(get_tree(),"idle_frame")
@@ -269,6 +285,8 @@ func _process(delta:float):
 	else: do_half_lock()
 	if !notes_loaded: return
 	
+	can_skip = ((next_ms-prev_ms) > 5000) and (next_ms >= max(ms+(3000*speed_multi),1100*speed_multi))
+
 	if !SSP.rainbow_hud:
 		if can_skip: TimerHud.modulate = Color(0.7,1,1)
 		else: TimerHud.modulate = Color(1,1,1)
@@ -431,11 +449,12 @@ func _process(delta:float):
 	if $Music.playing:
 		var playback_pos:float = $Music.get_playback_position()*1000.0
 		if abs(playback_pos - (ms + SSP.music_offset)) > 65:
-			Globals.notify(
-				Globals.NOTIFY_WARN,
-				"Audio was desynced by %.2f ms, correcting." % [playback_pos - (ms + SSP.music_offset)],
-				"Music Sync Correction"
-			)
+			if SSP.desync_alerts:
+				Globals.notify(
+					Globals.NOTIFY_WARN,
+					"Audio was desynced by %.2f ms, correcting." % [playback_pos - (ms + SSP.music_offset)],
+					"Music Sync Correction"
+				)
 			$Music.play((ms + SSP.music_offset)/1000.0)
 	
 	var rn_res:bool = reposition_notes()

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/ripple_miss.png-4124ad9e4cb90de4c39f717283d4e741.s3tc.stex"
-path.etc2="res://.import/ripple_miss.png-4124ad9e4cb90de4c39f717283d4e741.etc2.stex"
+path.s3tc="res://.import/miss.png-4d7cb469dfb5163ec630c0bd16d5ded7.s3tc.stex"
+path.etc2="res://.import/miss.png-4d7cb469dfb5163ec630c0bd16d5ded7.etc2.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc2" ],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://content/notefx/ripple_miss.png"
-dest_files=[ "res://.import/ripple_miss.png-4124ad9e4cb90de4c39f717283d4e741.s3tc.stex", "res://.import/ripple_miss.png-4124ad9e4cb90de4c39f717283d4e741.etc2.stex" ]
+source_file="res://content/notefx/miss.png"
+dest_files=[ "res://.import/miss.png-4d7cb469dfb5163ec630c0bd16d5ded7.s3tc.stex", "res://.import/miss.png-4d7cb469dfb5163ec630c0bd16d5ded7.etc2.stex" ]
 
 [params]
 
