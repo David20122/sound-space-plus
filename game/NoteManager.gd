@@ -327,7 +327,7 @@ func _process(delta:float):
 					get_parent().get_node("Grid/LeftVP/Control/Pauses").text = comma_sep(SSP.song_end_pause_count)
 					get_parent().get_node("Grid/PauseHud").modulate = Color(1,1,1,1)
 					get_parent().get_node("Grid/PauseVP/Control").percent = 0
-				else:
+				elif pause_state != 0:
 					if SSP.record_replays:
 						SSP.replay.store_sig(rms,Globals.RS_START_UNPAUSE)
 					pause_state = 1
