@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://content/worlds/studs.png" type="Texture" id=1]
-[ext_resource path="res://content/worlds/skybox.png" type="Texture" id=2]
+[ext_resource path="res://content/worlds/space/starmap_4k.png" type="Texture" id=2]
 
 [sub_resource type="PanoramaSky" id=7]
 panorama = ExtResource( 2 )
@@ -9,6 +9,8 @@ panorama = ExtResource( 2 )
 [sub_resource type="Environment" id=2]
 background_mode = 2
 background_sky = SubResource( 7 )
+ambient_light_color = Color( 0.321569, 0.321569, 0.321569, 1 )
+ambient_light_sky_contribution = 0.5
 
 [sub_resource type="Gradient" id=3]
 offsets = PoolRealArray( 0 )

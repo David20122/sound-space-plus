@@ -479,9 +479,9 @@ var show_miss_effect:bool = true
 
 # Settings - Camera/Controls
 var sensitivity:float = 1
-var parallax:float = 1
-var ui_parallax:float = 0.2
-var grid_parallax:float = 3
+var parallax:float = 6.5 # Camera
+var ui_parallax:float = 1.63
+var grid_parallax:float = 0
 var camera_mode:int = Globals.CAMERA_HALF_LOCK
 var cam_unlock:bool = false
 var lock_mouse:bool = true
@@ -1105,6 +1105,27 @@ func register_worlds():
 		"res://content/worlds/covers/classic.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
+		"ssp_reality_dismissed", "Reality Dismissed",
+		"res://content/worlds/reality_dismissed.tscn", "pyrule",
+		"res://content/worlds/covers/custom.png"
+	))
+	registry_world.add_item(BackgroundWorld.new(
+		"ssp_reality_dismissed_dark", "Reality Dismissed (Dark)",
+		"res://content/worlds/reality_dismissed_dark.tscn", "pyrule",
+		"res://content/worlds/covers/custom.png"
+	))
+	registry_world.add_item(BackgroundWorld.new(
+		"ssp_baseplate", "Baseplate (Day)",
+		"res://content/worlds/baseplate.tscn", "pyrule",
+		"res://content/worlds/covers/baseplate.png"
+	))
+	registry_world.add_item(BackgroundWorld.new(
+		"ssp_baseplate_night", "Baseplate (Night)",
+		"res://content/worlds/baseplate_night.tscn", "pyrule",
+		"res://content/worlds/covers/baseplate.png"
+	))
+	
+	registry_world.add_item(BackgroundWorld.new(
 		"ssp_custombg", "Custom Background",
 		"res://content/worlds/custombg.tscn", "Someone",
 		"res://error.jpg"
@@ -1114,16 +1135,7 @@ func register_worlds():
 		"res://content/worlds/custom.tscn", "Someone",
 		"res://content/worlds/covers/custom.png"
 	))
-	registry_world.add_item(BackgroundWorld.new(
-		"ssp_reality_dismissed", "Reality Dismissed",
-		"res://content/worlds/reality_dismissed.tscn", "pyrule",
-		"res://content/worlds/covers/custom.png"
-	))
-	registry_world.add_item(BackgroundWorld.new(
-		"ssp_baseplate", "Baseplate",
-		"res://content/worlds/baseplate.tscn", "pyrule",
-		"res://content/worlds/covers/baseplate.png"
-	))
+
 func register_meshes():
 	registry_mesh.add_item(NoteMesh.new(
 		"ssp_square", "Square",

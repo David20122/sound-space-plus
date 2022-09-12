@@ -2107,7 +2107,7 @@ theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
 custom_fonts/font = SubResource( 4 )
-text = "[def. 1] how much the camera moves with the cursor - affects everything"
+text = "[def. 6.5] how much the camera moves with the cursor - affects everything"
 valign = 1
 
 [node name="UIParallax" type="Control" parent="M/Camera/Group/H"]
@@ -2157,7 +2157,7 @@ theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
 custom_fonts/font = SubResource( 4 )
-text = "[def. 0.2] how much the hud moves with the cursor - added on top of camera parallax"
+text = "[def. 3.25] how much the hud moves with the cursor - added on top of camera parallax"
 valign = 1
 
 [node name="GridParallax" type="Control" parent="M/Camera/Group/H"]
@@ -2204,7 +2204,7 @@ theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
 custom_fonts/font = SubResource( 4 )
-text = "[def. 3] how much the note grid moves with the cursor - added on top of camera parallax"
+text = "[def. 0] how much the note grid moves with the cursor - added on top of camera parallax"
 valign = 1
 
 [node name="Spin" type="CheckBox" parent="M/Camera/Group/H"]
