@@ -1058,6 +1058,10 @@ func register_colorsets():
 		[ Color("#9a5ef9") ],
 		"ssp_purple", "purple!!!", "Chedski"
 	))
+	registry_colorset.add_item(ColorSet.new(
+		[ Color("#000000"), Color("#381e42") ],
+		"ssp_vortex", "Vortex", "pyrule"
+	))
 func register_worlds():
 	# idI:String,nameI:String,pathI:String,creatorI:String="Unknown"
 	registry_world.add_item(BackgroundWorld.new(
@@ -1109,6 +1113,16 @@ func register_worlds():
 		"ssp_custom", "Modworld (info in the discord)",
 		"res://content/worlds/custom.tscn", "Someone",
 		"res://content/worlds/covers/custom.png"
+	))
+	registry_world.add_item(BackgroundWorld.new(
+		"ssp_reality_dismissed", "Reality Dismissed",
+		"res://content/worlds/reality_dismissed.tscn", "pyrule",
+		"res://content/worlds/covers/custom.png"
+	))
+	registry_world.add_item(BackgroundWorld.new(
+		"ssp_baseplate", "Baseplate",
+		"res://content/worlds/baseplate.tscn", "pyrule",
+		"res://content/worlds/covers/baseplate.png"
 	))
 func register_meshes():
 	registry_mesh.add_item(NoteMesh.new(
