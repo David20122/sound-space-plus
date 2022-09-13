@@ -345,7 +345,7 @@ func _process(delta:float):
 				if (prev_state != pause_state) and SSP.record_replays:
 					SSP.replay.store_sig(rms,Globals.RS_FINISH_UNPAUSE)
 				get_parent().get_node("Grid/PauseHud").visible = false
-				$Music.volume_db = 0
+				$Music.volume_db = SSP.music_volume_db
 				pause_state = 0
 	elif SSP.replay.sv != 1:
 		var should_pause:bool = false
@@ -414,7 +414,7 @@ func _process(delta:float):
 			if should_end_unpause:
 	#				print("YEAH baby that's what i've been waiting for")
 				get_parent().get_node("Grid/PauseHud").visible = false
-				$Music.volume_db = 0
+				$Music.volume_db = SSP.music_volume_db
 				pause_state = 0
 		if should_giveup: get_parent().end(Globals.END_GIVEUP)
 
