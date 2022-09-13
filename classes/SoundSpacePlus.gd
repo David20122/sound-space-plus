@@ -1124,6 +1124,11 @@ func register_worlds():
 		"res://content/worlds/baseplate_night.tscn", "pyrule",
 		"res://content/worlds/covers/baseplate.png"
 	))
+	registry_world.add_item(BackgroundWorld.new(
+		"ssp_event_horizon", "Event Horizon",
+		"res://content/worlds/event_horizon.tscn", "Chedski",
+		"res://content/worlds/covers/custom.png"
+	))
 	
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_custombg", "Custom Background",
