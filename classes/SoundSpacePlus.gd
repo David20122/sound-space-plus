@@ -1024,7 +1024,7 @@ func register_colorsets():
 	))
 	registry_colorset.add_item(ColorSet.new(
 		[ Color("#5BCEFA"),Color("#F5A9B8"),Color("#FFFFFF") ],
-		"ssp_transgender", "Trans Pride", "Chedski"
+		"ssp_pastel", "Pastel", "Chedski"
 	))
 	registry_colorset.add_item(ColorSet.new(
 		[
