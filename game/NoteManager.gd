@@ -11,6 +11,7 @@ var ms:float = SSP.start_offset - (3000 * speed_multi) # make waiting time short
 var notes_loaded:bool = false
 
 var noteNodes:Array = []
+var noteCache:Array = []
 var noteQueue:Array = []
 var colors:Array = SSP.selected_colorset.colors
 var hitEffect:Spatial = load(SSP.selected_hit_effect.path).instance()
@@ -27,6 +28,7 @@ const base_position = Vector3(-1,1,0)
 var prev_ms:float = -100000
 var next_ms:float = 0
 
+
 var out_of_notes:bool = false
 func reposition_notes(force:bool=false):
 	if noteNodes.size() == 0: out_of_notes = true
@@ -39,7 +41,7 @@ func reposition_notes(force:bool=false):
 			is_first = false
 			next_ms = note.notems
 		elif ms >= note.notems and note.state == Globals.NSTATE_ACTIVE:
-			var result = note.check($Cursor.transform.origin)
+			var result = SSP.visual_mode or note.check($Cursor.transform.origin)
 			if !result and (ms > note.notems + SSP.hitwindow_ms or pause_state == -1):
 #				note_passed = true
 				# notes should not be in the hitwindow if the game is paused
@@ -64,7 +66,7 @@ func reposition_notes(force:bool=false):
 				note.state = Globals.NSTATE_HIT
 				if SSP.play_hit_snd: $Hit.play()
 					#$Hit.play((ms - note.notems)/1000.0)
-				if SSP.show_hit_effect:
+				if SSP.show_hit_effect and !SSP.visual_mode:
 					var pos:Vector3 = Vector3(
 						$Cursor.global_transform.origin.x,
 						$Cursor.global_transform.origin.y,
@@ -83,7 +85,12 @@ func reposition_notes(force:bool=false):
 			elif noteQueue.size() != 0:
 				next_ms = noteQueue[0][2]
 			noteNodes.remove(noteNodes.find(note))
-			note.queue_free()
+			noteCache.append(note)
+			remove_child(note)
+			note.visible = false
+			note.state = 0
+			note.spawn_effect_t = 0
+			note.was_visible = false
 	return note_passed
 
 var color_index:int = 0
@@ -94,7 +101,11 @@ func spawn_note(n:Array):
 		return
 	if n[2] < next_ms:
 		next_ms = n[2]
-	var note:Note = $Note.duplicate()
+	var note:Note
+	if noteCache.size() != 0: note = noteCache.pop_back()
+	else: note = $Note.duplicate()
+	
+#	if !note.is_inside_tree():
 	add_child(note)
 	note.id = note_count
 	note.transform.origin = Vector3(n[0],-n[1],8)
@@ -148,6 +159,7 @@ func _ready():
 	missEffect.visible = false
 	add_child(missEffect)
 	
+	
 	# force everything to be loaded now
 	yield(get_tree(),"idle_frame")
 	hitEffect.duplicate().spawn(get_parent(),Vector3(0,0,-400),Color(1,1,1),hit_id,false)
@@ -156,6 +168,18 @@ func _ready():
 	$Note.transform.origin = Vector3(0,0,-400)
 	yield(get_tree(),"idle_frame")
 	$Note.visible = false
+	
+	# Precache notes
+	if SSP.visual_mode: # Precache a bunch of notes, because we're probably going to need them
+		for i in range(1500):
+			var n = $Note.duplicate()
+			noteCache.append(n)
+#			add_child(n)
+	else:
+		for i in range(75):
+			var n = $Note.duplicate()
+			noteCache.append(n)
+#			add_child(n)
 
 var music_started:bool = false
 const cursor_offset = Vector3(1,-1,0)

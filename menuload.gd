@@ -8,6 +8,7 @@ var black_fade_target:bool = false
 var black_fade:float = 0
 
 func _ready():
+	PhysicsServer.set_active(true)
 	get_tree().paused = false
 	if SSP.vr:
 		target = "res://vr/vrmenu.tscn"

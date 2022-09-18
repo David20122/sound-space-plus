@@ -3,6 +3,7 @@ extends Spatial
 var state = (SSP.replaying and SSP.alt_cam)
 
 func _ready():
+	PhysicsServer.set_active(!SSP.visual_mode and (SSP.cam_unlock or SSP.vr))
 	
 	# alt camera init
 	if state:

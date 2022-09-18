@@ -187,7 +187,7 @@ script = ExtResource( 36 )
 [node name="M" type="VBoxContainer" parent="."]
 margin_top = 59.0
 margin_right = 1280.0
-margin_bottom = 2539.0
+margin_bottom = 2571.0
 custom_constants/separation = 0
 
 [node name="Modifiers" type="VBoxContainer" parent="M"]
@@ -2688,7 +2688,7 @@ clip_text = true
 [node name="UI" type="VBoxContainer" parent="M"]
 margin_top = 1744.0
 margin_right = 1280.0
-margin_bottom = 2256.0
+margin_bottom = 2288.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/UI"]
@@ -2716,13 +2716,13 @@ flat = true
 [node name="Group" type="MarginContainer" parent="M/UI"]
 margin_top = 36.0
 margin_right = 1280.0
-margin_bottom = 512.0
+margin_bottom = 544.0
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="M/UI/Group"]
 margin_left = 180.0
 margin_right = 1280.0
-margin_bottom = 476.0
+margin_bottom = 508.0
 
 [node name="Grid" type="CheckBox" parent="M/UI/Group/H"]
 margin_right = 582.0
@@ -3112,10 +3112,43 @@ align = 2
 valign = 1
 clip_text = true
 
-[node name="AttachHpToGrid" type="CheckBox" parent="M/UI/Group/H"]
+[node name="ShowCursor" type="CheckBox" parent="M/UI/Group/H"]
 margin_top = 352.0
 margin_right = 582.0
 margin_bottom = 380.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_focus = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 4 )
+pressed = true
+action_mode = 0
+text = "to prevent issues where people forget they turned the cursor off, this doesn't save"
+flat = true
+script = ExtResource( 54 )
+target = "show_cursor"
+
+[node name="Label" type="Label" parent="M/UI/Group/H/ShowCursor"]
+anchor_bottom = 1.0
+margin_left = -165.0
+margin_right = -10.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Show Cursor"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="AttachHpToGrid" type="CheckBox" parent="M/UI/Group/H"]
+margin_top = 384.0
+margin_right = 582.0
+margin_bottom = 412.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -3145,9 +3178,9 @@ valign = 1
 clip_text = true
 
 [node name="AttachTimerToGrid" type="CheckBox" parent="M/UI/Group/H"]
-margin_top = 384.0
+margin_top = 416.0
 margin_right = 582.0
-margin_bottom = 412.0
+margin_bottom = 444.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -3177,9 +3210,9 @@ valign = 1
 clip_text = true
 
 [node name="RainbowGrid" type="CheckBox" parent="M/UI/Group/H"]
-margin_top = 416.0
+margin_top = 448.0
 margin_right = 582.0
-margin_bottom = 444.0
+margin_bottom = 476.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -3209,9 +3242,9 @@ valign = 1
 clip_text = true
 
 [node name="RainbowHUD" type="CheckBox" parent="M/UI/Group/H"]
-margin_top = 448.0
+margin_top = 480.0
 margin_right = 582.0
-margin_bottom = 476.0
+margin_bottom = 508.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -3241,9 +3274,9 @@ valign = 1
 clip_text = true
 
 [node name="Graphics" type="VBoxContainer" parent="M"]
-margin_top = 2256.0
+margin_top = 2288.0
 margin_right = 1280.0
-margin_bottom = 2480.0
+margin_bottom = 2512.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Graphics"]
@@ -3517,7 +3550,7 @@ margin_left = 180.0
 margin_right = 800.0
 
 [node name="BottomMargin" type="Control" parent="."]
-margin_top = 2543.0
+margin_top = 2575.0
 margin_right = 1280.0
-margin_bottom = 2639.0
+margin_bottom = 2671.0
 rect_min_size = Vector2( 0, 96 )

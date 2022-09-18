@@ -342,11 +342,11 @@ func _ready():
 	if !SSP.show_config: $Grid/ConfigHud.visible = false
 	if !SSP.enable_grid: $Spawn/Inner.visible = false
 	if !SSP.enable_border: $Spawn/Outer.visible = false
-	if !SSP.show_left_panel: $Grid/LeftHud.visible = false
-	if !SSP.show_right_panel: $Grid/RightHud.visible = false
+	if SSP.visual_mode or !SSP.show_left_panel: $Grid/LeftHud.visible = false
+	if SSP.visual_mode or !SSP.show_right_panel: $Grid/RightHud.visible = false
 	if !SSP.show_letter_grade: $Grid/LeftHud/Control/LetterGrade.visible = false
 	if !SSP.show_accuracy_bar: $Grid/LeftVP/Control/AccuracyBar.visible = false
-	if !SSP.show_hp_bar:
+	if SSP.visual_mode or !SSP.show_hp_bar:
 		$Grid/EnergyVP/Control/Energy.visible = false
 		$Grid/EnergyVP/Control/Modifiers.margin_top -= 30
 	if !SSP.show_timer: $Grid/TimerHud.visible = false
@@ -373,6 +373,8 @@ func _ready():
 	if SSP.faraway_hud:
 		$Grid.transform.origin = Vector3(0,0,-10)
 		$Grid.scale = Vector3(3.7,3.7,3.7)
+	if SSP.visual_mode:
+		$Grid/EnergyVP/Control/Modifiers.visible = false
 		
 	songnametxt.text = SSP.selected_song.name
 
