@@ -8,11 +8,12 @@ var black_fade_target:bool = false
 var black_fade:float = 0
 
 func _ready():
-	PhysicsServer.set_active(true)
 	get_tree().paused = false
 	if SSP.vr:
 		target = "res://vr/vrmenu.tscn"
 		SSP.vr_player.transform.origin = Vector3(0,0,0)
+	PhysicsServer.set_active(true)
+	Input.set_custom_mouse_cursor(null)
 	Input.set_default_cursor_shape(Input.CURSOR_ARROW)
 	SSP.load_color_txt()
 	SSP.conmgr_transit = null

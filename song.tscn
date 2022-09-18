@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=2]
+[gd_scene load_steps=81 format=2]
 
 [ext_resource path="res://game/Camera.gd" type="Script" id=1]
 [ext_resource path="res://game/NoteManager.gd" type="Script" id=2]
@@ -260,6 +260,9 @@ flags_do_not_receive_shadows = true
 flags_disable_ambient_light = true
 params_depth_draw_mode = 2
 albedo_texture = ExtResource( 10 )
+
+[sub_resource type="CanvasItemMaterial" id=76]
+light_mode = 1
 
 [sub_resource type="DynamicFont" id=46]
 size = 18
@@ -1177,8 +1180,11 @@ material/0 = SubResource( 56 )
 [node name="VisualPos" type="Control" parent="Game/Spawn/Cursor"]
 visible = false
 modulate = Color( 1, 1, 1, 0.313726 )
+light_mask = 0
 
 [node name="T" type="TextureRect" parent="Game/Spawn/Cursor/VisualPos"]
+light_mask = 0
+material = SubResource( 76 )
 margin_left = -16.0
 margin_top = -16.0
 margin_right = 16.0

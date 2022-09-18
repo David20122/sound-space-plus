@@ -127,6 +127,7 @@ func _ready():
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		else:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
+			Input.set_custom_mouse_cursor(load("res://content/ui/blank.png"))
 	else:
 		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	
