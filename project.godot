@@ -94,16 +94,6 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_party_size.gdns"
 }, {
-"base": "Node",
-"class": "DiscordRPC",
-"language": "GDScript",
-"path": "res://addons/godot_editor_discord_presence/Discord RPC/DiscordRPC.gd"
-}, {
-"base": "Reference",
-"class": "DiscordRPCEnum",
-"language": "GDScript",
-"path": "res://addons/godot_editor_discord_presence/Discord RPC/DiscordRPCEnum.gd"
-}, {
 "base": "Reference",
 "class": "DiscordResult",
 "language": "NativeScript",
@@ -118,31 +108,6 @@ _global_script_classes=[ {
 "class": "GameState",
 "language": "GDScript",
 "path": "res://addons/discord_game_sdk/example/lobby/game_state.gd"
-}, {
-"base": "Reference",
-"class": "IPC",
-"language": "GDScript",
-"path": "res://addons/godot_editor_discord_presence/Discord RPC/ipc/IPC.gd"
-}, {
-"base": "Reference",
-"class": "IPCModule",
-"language": "GDScript",
-"path": "res://addons/godot_editor_discord_presence/Discord RPC/ipc/module/IPCModule.gd"
-}, {
-"base": "Reference",
-"class": "IPCPayload",
-"language": "GDScript",
-"path": "res://addons/godot_editor_discord_presence/Discord RPC/ipc/IPCPayload.gd"
-}, {
-"base": "Reference",
-"class": "IPCPipe",
-"language": "GDScript",
-"path": "res://addons/godot_editor_discord_presence/Discord RPC/ipc/pipe/IPCPipe.gd"
-}, {
-"base": "Reference",
-"class": "IPCUtil",
-"language": "GDScript",
-"path": "res://addons/godot_editor_discord_presence/Discord RPC/util/IPCUtil.gd"
 }, {
 "base": "Node",
 "class": "ImageLoader",
@@ -189,60 +154,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://classes/Replay.gd"
 }, {
-"base": "Reference",
-"class": "RichPresence",
-"language": "GDScript",
-"path": "res://addons/godot_editor_discord_presence/Discord RPC/ipc/module/rich presence/RichPresence.gd"
-}, {
-"base": "Reference",
-"class": "RichPresenceButton",
-"language": "GDScript",
-"path": "res://addons/godot_editor_discord_presence/Discord RPC/ipc/module/rich presence/RichPresenceButton.gd"
-}, {
-"base": "IPCModule",
-"class": "RichPresenceModule",
-"language": "GDScript",
-"path": "res://addons/godot_editor_discord_presence/Discord RPC/ipc/module/rich presence/RichPresenceModule.gd"
-}, {
 "base": "Resource",
 "class": "Song",
 "language": "GDScript",
 "path": "res://classes/Song.gd"
 }, {
-"base": "",
-"class": "StreamPeerUnix",
-"language": "NativeScript",
-"path": "res://addons/godot_editor_discord_presence/godot-unix-socket/unix-socket.gdns"
-}, {
-"base": "Reference",
-"class": "URLUtil",
-"language": "GDScript",
-"path": "res://addons/godot_editor_discord_presence/Discord RPC/util/URLUtil.gd"
-}, {
-"base": "Reference",
-"class": "UUID",
-"language": "GDScript",
-"path": "res://addons/godot_editor_discord_presence/Discord RPC/util/UUID.gd"
-}, {
-"base": "IPCPipe",
-"class": "UnixPipe",
-"language": "GDScript",
-"path": "res://addons/godot_editor_discord_presence/Discord RPC/ipc/pipe/UnixPipe.gd"
-}, {
-"base": "IPCPayload",
-"class": "UpdateRichPresencePayload",
-"language": "GDScript",
-"path": "res://addons/godot_editor_discord_presence/Discord RPC/ipc/module/rich presence/UpdateRichPresencePayload.gd"
-}, {
 "base": "Spatial",
 "class": "VRPlayer",
 "language": "GDScript",
 "path": "res://vr/VRPlayer.gd"
-}, {
-"base": "IPCPipe",
-"class": "WindowsPipe",
-"language": "GDScript",
-"path": "res://addons/godot_editor_discord_presence/Discord RPC/ipc/pipe/WindowsPipe.gd"
 } ]
 _global_script_class_icons={
 "AudioLoader": "",
@@ -262,16 +182,9 @@ _global_script_class_icons={
 "DiscordLobbyTransaction": "",
 "DiscordOverlayManager": "",
 "DiscordPartySize": "",
-"DiscordRPC": "",
-"DiscordRPCEnum": "",
 "DiscordResult": "",
 "DiscordUser": "",
 "GameState": "",
-"IPC": "",
-"IPCModule": "",
-"IPCPayload": "",
-"IPCPipe": "",
-"IPCUtil": "",
 "ImageLoader": "",
 "Member": "",
 "Note": "",
@@ -281,17 +194,8 @@ _global_script_class_icons={
 "ObjParse": "",
 "Registry": "",
 "Replay": "",
-"RichPresence": "",
-"RichPresenceButton": "",
-"RichPresenceModule": "",
 "Song": "",
-"StreamPeerUnix": "",
-"URLUtil": "",
-"UUID": "",
-"UnixPipe": "",
-"UpdateRichPresencePayload": "",
-"VRPlayer": "",
-"WindowsPipe": ""
+"VRPlayer": ""
 }
 
 [application]
@@ -365,7 +269,7 @@ window/stretch/aspect.mobile="keep_height"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/discord_game_sdk/plugin.cfg", "res://addons/godot_editor_discord_presence/plugin.cfg", "res://addons/native_dialogs/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/discord_game_sdk/plugin.cfg", "res://addons/native_dialogs/plugin.cfg" )
 
 [gdnative]
 
