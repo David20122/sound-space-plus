@@ -187,7 +187,7 @@ script = ExtResource( 36 )
 [node name="M" type="VBoxContainer" parent="."]
 margin_top = 59.0
 margin_right = 1280.0
-margin_bottom = 2571.0
+margin_bottom = 2603.0
 custom_constants/separation = 0
 
 [node name="Modifiers" type="VBoxContainer" parent="M"]
@@ -3276,7 +3276,7 @@ clip_text = true
 [node name="Graphics" type="VBoxContainer" parent="M"]
 margin_top = 2288.0
 margin_right = 1280.0
-margin_bottom = 2512.0
+margin_bottom = 2544.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Graphics"]
@@ -3304,13 +3304,13 @@ flat = true
 [node name="Group" type="MarginContainer" parent="M/Graphics"]
 margin_top = 36.0
 margin_right = 1280.0
-margin_bottom = 224.0
+margin_bottom = 256.0
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="M/Graphics/Group"]
 margin_left = 180.0
 margin_right = 1280.0
-margin_bottom = 188.0
+margin_bottom = 220.0
 
 [node name="VSync" type="CheckBox" parent="M/Graphics/Group/H"]
 margin_right = 594.0
@@ -3413,10 +3413,43 @@ align = 2
 valign = 1
 clip_text = true
 
-[node name="Replays" type="CheckBox" parent="M/Graphics/Group/H"]
+[node name="AutoMax" type="CheckBox" parent="M/Graphics/Group/H"]
 margin_top = 96.0
 margin_right = 594.0
 margin_bottom = 124.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_focus = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 4 )
+pressed = true
+action_mode = 0
+text = "you might wanna turn this thing off if you're on an ultrawide display"
+flat = true
+script = ExtResource( 54 )
+target = "auto_maximize"
+
+[node name="Label" type="Label" parent="M/Graphics/Group/H/AutoMax"]
+anchor_bottom = 1.0
+margin_left = -122.0
+margin_right = -10.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Auto-Maximize"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="Replays" type="CheckBox" parent="M/Graphics/Group/H"]
+margin_top = 128.0
+margin_right = 594.0
+margin_bottom = 156.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -3446,9 +3479,9 @@ valign = 1
 clip_text = true
 
 [node name="AltCam" type="CheckBox" parent="M/Graphics/Group/H"]
-margin_top = 128.0
+margin_top = 160.0
 margin_right = 594.0
-margin_bottom = 156.0
+margin_bottom = 188.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -3478,9 +3511,9 @@ valign = 1
 clip_text = true
 
 [node name="Warnings" type="CheckBox" parent="M/Graphics/Group/H"]
-margin_top = 160.0
+margin_top = 192.0
 margin_right = 594.0
-margin_bottom = 188.0
+margin_bottom = 220.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -3550,7 +3583,7 @@ margin_left = 180.0
 margin_right = 800.0
 
 [node name="BottomMargin" type="Control" parent="."]
-margin_top = 2575.0
+margin_top = 2607.0
 margin_right = 1280.0
-margin_bottom = 2671.0
+margin_bottom = 2703.0
 rect_min_size = Vector2( 0, 96 )

@@ -543,6 +543,7 @@ func _set_music_volume(v:float):
 
 # Settings - Misc
 var show_warnings:bool = true
+var auto_maximize:bool = true
 
 
 
@@ -738,7 +739,7 @@ func load_pbs():
 
 
 # Settings file
-const current_sf_version = 39 # SV
+const current_sf_version = 40 # SV
 func load_saved_settings():
 	if Input.is_key_pressed(KEY_CONTROL) and Input.is_key_pressed(KEY_L): 
 		print("force settings read error")
@@ -913,7 +914,8 @@ func load_saved_settings():
 			if eff:
 				select_miss_effect(eff)
 			show_miss_effect = bool(file.get_8())
-			
+		if sv >= 40:
+			auto_maximize = bool(file.get_8())
 		file.close()
 	return 0
 func save_settings():
@@ -1008,6 +1010,7 @@ func save_settings():
 		file.store_32(music_offset)
 		file.store_line(selected_miss_effect.id)
 		file.store_8(int(show_miss_effect))
+		file.store_8(int(auto_maximize))
 		file.close()
 		return "OK"
 	else:
