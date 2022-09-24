@@ -211,7 +211,7 @@ boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://icon.png"
 config/windows_native_icon="res://icon.ico"
 config/quit_on_go_back=false
-config/version="0.9.6-stable"
+config/version="0.10.0-nightly"
 config/autoload_map_registries="test maps|res://test_assets/test_maps.sspmr;built in|res://content/songs/built_in_maps.sspmr"
 config/enable_new_content_mgr=true
 config/default_menu_target="res://menu2.tscn"
@@ -382,6 +382,7 @@ common/enable_pause_aware_picking=true
 [rendering]
 
 quality/driver/fallback_to_gles2=true
+vram_compression/import_etc=true
 quality/directional_shadow/size=1024
 quality/directional_shadow/size.mobile=512
 quality/shadow_atlas/size=2048

@@ -4,15 +4,16 @@ importer="texture"
 type="StreamTexture"
 path.s3tc="res://.import/square.png-53215e86c48f8d5bb5cc91a93c12020f.s3tc.stex"
 path.etc2="res://.import/square.png-53215e86c48f8d5bb5cc91a93c12020f.etc2.stex"
+path.etc="res://.import/square.png-53215e86c48f8d5bb5cc91a93c12020f.etc.stex"
 metadata={
-"imported_formats": [ "s3tc", "etc2" ],
+"imported_formats": [ "s3tc", "etc2", "etc" ],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://content/cursors/square.png"
-dest_files=[ "res://.import/square.png-53215e86c48f8d5bb5cc91a93c12020f.s3tc.stex", "res://.import/square.png-53215e86c48f8d5bb5cc91a93c12020f.etc2.stex" ]
+dest_files=[ "res://.import/square.png-53215e86c48f8d5bb5cc91a93c12020f.s3tc.stex", "res://.import/square.png-53215e86c48f8d5bb5cc91a93c12020f.etc2.stex", "res://.import/square.png-53215e86c48f8d5bb5cc91a93c12020f.etc.stex" ]
 
 [params]
 
