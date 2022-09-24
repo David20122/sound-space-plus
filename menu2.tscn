@@ -1,4 +1,4 @@
-[gd_scene load_steps=137 format=2]
+[gd_scene load_steps=143 format=2]
 
 [ext_resource path="res://uitheme.tres" type="Theme" id=1]
 [ext_resource path="res://font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=2]
@@ -63,6 +63,10 @@
 [ext_resource path="res://content/ui/placeholder.jpg" type="Texture" id=61]
 [ext_resource path="res://menu2/GradeSystem.gd" type="Script" id=62]
 [ext_resource path="res://menuButtons/VisualMode.gd" type="Script" id=63]
+[ext_resource path="res://content/sfx/mkwii_load_short.ogg" type="AudioStream" id=64]
+[ext_resource path="res://font/NotoColorEmoji.ttf" type="DynamicFontData" id=65]
+[ext_resource path="res://menu2/DownloadScreen.gd" type="Script" id=66]
+[ext_resource path="res://content/ui/cloud_32.png" type="Texture" id=67]
 
 [sub_resource type="StyleBoxFlat" id=59]
 draw_center = false
@@ -457,6 +461,37 @@ size = 22
 use_filter = true
 font_data = ExtResource( 2 )
 
+[sub_resource type="GDScript" id=132]
+script/source = "extends Control
+
+var switch_time:float = 0.17
+
+var t:float = switch_time
+var i:int = -1
+
+func _process(delta):
+	var up = false
+	t += delta
+	if t >= switch_time:
+		t -= switch_time
+		up = true
+		i += 1
+		if i > 7: i -= 8
+	
+	for n in get_children():
+		var ni = int(n.name)
+		if up and i == ni:
+			n.modulate.a = 1
+		else: n.modulate.a = max(n.modulate.a-(delta*1.35),0)
+"
+
+[sub_resource type="DynamicFont" id=133]
+size = 18
+use_filter = true
+font_data = ExtResource( 2 )
+fallback/0 = ExtResource( 65 )
+fallback/1 = ExtResource( 15 )
+
 [node name="Menu" type="ColorRect"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -477,7 +512,6 @@ margin_left = 60.0
 rect_pivot_offset = Vector2( -398, 64 )
 
 [node name="MapRegistry" type="ReferenceRect" parent="Main"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -1039,6 +1073,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Cloud" type="TextureRect" parent="Main/MapRegistry/S/G/NODIF"]
+visible = false
+modulate = Color( 1, 1, 1, 0.384314 )
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -41.0
+margin_top = -38.0
+margin_right = -9.0
+margin_bottom = -6.0
+texture = ExtResource( 67 )
+expand = true
+stretch_mode = 6
+
 [node name="Select" type="Button" parent="Main/MapRegistry/S/G/NODIF"]
 material = SubResource( 62 )
 anchor_right = 1.0
@@ -1052,9 +1101,6 @@ disabled = true
 toggle_mode = true
 action_mode = 0
 group = SubResource( 67 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Name" type="Label" parent="Main/MapRegistry/S/G/NODIF"]
 visible = false
@@ -1141,6 +1187,21 @@ script = ExtResource( 46 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Cloud" type="TextureRect" parent="Main/MapRegistry/S/G/EASY"]
+visible = false
+modulate = Color( 1, 1, 1, 0.384314 )
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -41.0
+margin_top = -38.0
+margin_right = -9.0
+margin_bottom = -6.0
+texture = ExtResource( 67 )
+expand = true
+stretch_mode = 6
 
 [node name="Select" type="Button" parent="Main/MapRegistry/S/G/EASY"]
 material = SubResource( 62 )
@@ -1251,6 +1312,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Cloud" type="TextureRect" parent="Main/MapRegistry/S/G/MEDIUM"]
+visible = false
+modulate = Color( 1, 1, 1, 0.384314 )
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -41.0
+margin_top = -38.0
+margin_right = -9.0
+margin_bottom = -6.0
+texture = ExtResource( 67 )
+expand = true
+stretch_mode = 6
+
 [node name="Select" type="Button" parent="Main/MapRegistry/S/G/MEDIUM"]
 material = SubResource( 62 )
 anchor_right = 1.0
@@ -1360,6 +1436,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Cloud" type="TextureRect" parent="Main/MapRegistry/S/G/HARD"]
+visible = false
+modulate = Color( 1, 1, 1, 0.384314 )
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -41.0
+margin_top = -38.0
+margin_right = -9.0
+margin_bottom = -6.0
+texture = ExtResource( 67 )
+expand = true
+stretch_mode = 6
+
 [node name="Select" type="Button" parent="Main/MapRegistry/S/G/HARD"]
 material = SubResource( 62 )
 anchor_right = 1.0
@@ -1468,6 +1559,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Cloud" type="TextureRect" parent="Main/MapRegistry/S/G/LOGIC"]
+visible = false
+modulate = Color( 1, 1, 1, 0.384314 )
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -41.0
+margin_top = -38.0
+margin_right = -9.0
+margin_bottom = -6.0
+texture = ExtResource( 67 )
+expand = true
+stretch_mode = 6
+
 [node name="Select" type="Button" parent="Main/MapRegistry/S/G/LOGIC"]
 material = SubResource( 62 )
 anchor_right = 1.0
@@ -1574,6 +1680,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Cloud" type="TextureRect" parent="Main/MapRegistry/S/G/AMOGUS"]
+visible = false
+modulate = Color( 1, 1, 1, 0.384314 )
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -41.0
+margin_top = -38.0
+margin_right = -9.0
+margin_bottom = -6.0
+texture = ExtResource( 67 )
+expand = true
+stretch_mode = 6
+
 [node name="Select" type="Button" parent="Main/MapRegistry/S/G/AMOGUS"]
 material = SubResource( 62 )
 anchor_right = 1.0
@@ -1660,6 +1781,7 @@ __meta__ = {
 }
 
 [node name="Results" type="ReferenceRect" parent="Main"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 12.0
@@ -3250,10 +3372,12 @@ text = "Play Music"
 script = ExtResource( 9 )
 
 [node name="Song" type="AudioStreamPlayer" parent="Main/Results/Info/M/V/Buttons/Control/PreviewMusic"]
+pause_mode = 2
 bus = "Music"
 script = ExtResource( 10 )
 
 [node name="MenuSong" type="AudioStreamPlayer" parent="Main/Results/Info/M/V/Buttons/Control/PreviewMusic"]
+pause_mode = 2
 stream = ExtResource( 11 )
 volume_db = -10.0
 bus = "Music"
@@ -3498,7 +3622,7 @@ scroll_horizontal_enabled = false
 [node name="F" parent="Main/Settings/S" instance=ExtResource( 49 )]
 anchor_right = 0.0
 margin_right = 1210.0
-margin_bottom = 2639.0
+margin_bottom = 2703.0
 rect_clip_content = true
 
 [node name="Credits" type="ReferenceRect" parent="Main"]
@@ -3976,6 +4100,342 @@ margin_right = -10.0
 rect_min_size = Vector2( 30, 30 )
 texture = ExtResource( 4 )
 expand = true
+
+[node name="Download" type="ColorRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.698039 )
+script = ExtResource( 66 )
+
+[node name="Spinner" type="ReferenceRect" parent="Download"]
+pause_mode = 2
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -40.0
+margin_top = -100.0
+margin_right = 40.0
+margin_bottom = -20.0
+script = SubResource( 132 )
+
+[node name="0" type="Control" parent="Download/Spinner"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 25.0
+margin_bottom = 25.0
+
+[node name="ColorRect" type="ColorRect" parent="Download/Spinner/0"]
+margin_right = 10.0
+margin_bottom = 10.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Download/Spinner/0"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 20.0
+margin_bottom = 20.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+
+[node name="ColorRect3" type="ColorRect" parent="Download/Spinner/0"]
+margin_top = 10.0
+margin_right = 10.0
+margin_bottom = 20.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+
+[node name="ColorRect4" type="ColorRect" parent="Download/Spinner/0"]
+margin_left = 10.0
+margin_right = 20.0
+margin_bottom = 10.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="1" type="Control" parent="Download/Spinner"]
+margin_left = 30.0
+margin_top = 5.0
+margin_right = 50.0
+margin_bottom = 25.0
+
+[node name="ColorRect" type="ColorRect" parent="Download/Spinner/1"]
+margin_right = 10.0
+margin_bottom = 10.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Download/Spinner/1"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 20.0
+margin_bottom = 20.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+
+[node name="ColorRect3" type="ColorRect" parent="Download/Spinner/1"]
+margin_top = 10.0
+margin_right = 10.0
+margin_bottom = 20.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+
+[node name="ColorRect4" type="ColorRect" parent="Download/Spinner/1"]
+margin_left = 10.0
+margin_right = 20.0
+margin_bottom = 10.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="2" type="Control" parent="Download/Spinner"]
+margin_left = 55.0
+margin_top = 5.0
+margin_right = 75.0
+margin_bottom = 25.0
+
+[node name="ColorRect" type="ColorRect" parent="Download/Spinner/2"]
+margin_right = 10.0
+margin_bottom = 10.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Download/Spinner/2"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 20.0
+margin_bottom = 20.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+
+[node name="ColorRect3" type="ColorRect" parent="Download/Spinner/2"]
+margin_top = 10.0
+margin_right = 10.0
+margin_bottom = 20.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+
+[node name="ColorRect4" type="ColorRect" parent="Download/Spinner/2"]
+margin_left = 10.0
+margin_right = 20.0
+margin_bottom = 10.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="3" type="Control" parent="Download/Spinner"]
+margin_left = 55.0
+margin_top = 30.0
+margin_right = 75.0
+margin_bottom = 50.0
+
+[node name="ColorRect" type="ColorRect" parent="Download/Spinner/3"]
+margin_right = 10.0
+margin_bottom = 10.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Download/Spinner/3"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 20.0
+margin_bottom = 20.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+
+[node name="ColorRect3" type="ColorRect" parent="Download/Spinner/3"]
+margin_top = 10.0
+margin_right = 10.0
+margin_bottom = 20.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+
+[node name="ColorRect4" type="ColorRect" parent="Download/Spinner/3"]
+margin_left = 10.0
+margin_right = 20.0
+margin_bottom = 10.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="4" type="Control" parent="Download/Spinner"]
+margin_left = 55.0
+margin_top = 55.0
+margin_right = 75.0
+margin_bottom = 75.0
+
+[node name="ColorRect" type="ColorRect" parent="Download/Spinner/4"]
+margin_right = 10.0
+margin_bottom = 10.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Download/Spinner/4"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 20.0
+margin_bottom = 20.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+
+[node name="ColorRect3" type="ColorRect" parent="Download/Spinner/4"]
+margin_top = 10.0
+margin_right = 10.0
+margin_bottom = 20.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+
+[node name="ColorRect4" type="ColorRect" parent="Download/Spinner/4"]
+margin_left = 10.0
+margin_right = 20.0
+margin_bottom = 10.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="5" type="Control" parent="Download/Spinner"]
+margin_left = 30.0
+margin_top = 55.0
+margin_right = 50.0
+margin_bottom = 75.0
+
+[node name="ColorRect" type="ColorRect" parent="Download/Spinner/5"]
+margin_right = 10.0
+margin_bottom = 10.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Download/Spinner/5"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 20.0
+margin_bottom = 20.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+
+[node name="ColorRect3" type="ColorRect" parent="Download/Spinner/5"]
+margin_top = 10.0
+margin_right = 10.0
+margin_bottom = 20.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+
+[node name="ColorRect4" type="ColorRect" parent="Download/Spinner/5"]
+margin_left = 10.0
+margin_right = 20.0
+margin_bottom = 10.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="6" type="Control" parent="Download/Spinner"]
+margin_left = 5.0
+margin_top = 55.0
+margin_right = 25.0
+margin_bottom = 75.0
+
+[node name="ColorRect" type="ColorRect" parent="Download/Spinner/6"]
+margin_right = 10.0
+margin_bottom = 10.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Download/Spinner/6"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 20.0
+margin_bottom = 20.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+
+[node name="ColorRect3" type="ColorRect" parent="Download/Spinner/6"]
+margin_top = 10.0
+margin_right = 10.0
+margin_bottom = 20.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+
+[node name="ColorRect4" type="ColorRect" parent="Download/Spinner/6"]
+margin_left = 10.0
+margin_right = 20.0
+margin_bottom = 10.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="7" type="Control" parent="Download/Spinner"]
+margin_left = 5.0
+margin_top = 30.0
+margin_right = 25.0
+margin_bottom = 50.0
+
+[node name="ColorRect" type="ColorRect" parent="Download/Spinner/7"]
+margin_right = 10.0
+margin_bottom = 10.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Download/Spinner/7"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 20.0
+margin_bottom = 20.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+
+[node name="ColorRect3" type="ColorRect" parent="Download/Spinner/7"]
+margin_top = 10.0
+margin_right = 10.0
+margin_bottom = 20.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+
+[node name="ColorRect4" type="ColorRect" parent="Download/Spinner/7"]
+margin_left = 10.0
+margin_right = 20.0
+margin_bottom = 10.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Download"]
+stream = ExtResource( 64 )
+volume_db = -3.0
+bus = "MenuReverb"
+
+[node name="Label" type="Label" parent="Download"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -60.0
+margin_top = -10.0
+margin_right = 60.0
+margin_bottom = 20.0
+grow_horizontal = 2
+custom_fonts/font = SubResource( 133 )
+text = "Downloading map..."
+align = 1
+
+[node name="Cancel" type="Button" parent="Download"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -80.0
+margin_top = 50.0
+margin_right = 80.0
+margin_bottom = 80.0
+theme = ExtResource( 1 )
+action_mode = 0
+text = "Cancel"
 
 [node name="BlackFade" type="ColorRect" parent="."]
 visible = false

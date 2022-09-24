@@ -14,6 +14,9 @@ signal map_list_ready
 signal volume_changed
 signal favorite_songs_changed
 signal menu_music_state_changed
+signal download_start
+signal download_done
+
 
 # Directories
 var user_pack_dir:String = Globals.p("user://packs")
@@ -51,9 +54,6 @@ func select_world(world:BackgroundWorld):
 	if world:
 		selected_space = world
 		emit_signal("selected_space_changed",world)
-func select_song(song:Song):
-	selected_song = song
-	emit_signal("selected_song_changed",song)
 func select_mesh(mesh:NoteMesh):
 	selected_mesh = mesh
 	emit_signal("selected_mesh_changed",mesh)
@@ -65,6 +65,43 @@ func select_miss_effect(effect:NoteEffect):
 	if effect:
 		selected_miss_effect = effect
 		emit_signal("selected_miss_effect_changed",effect)
+func select_song(song:Song):
+	if song.is_online:
+		emit_signal("download_start")
+		get_tree().paused = true
+		
+		print("[Online Map] Starting download")
+		var id:String = Online.download_map(song)
+		
+		print("[Online Map] Waiting for download to finish")
+		var result:Dictionary = yield(Online,"map_downloaded")
+		while result.id != id:
+			print("[Online Map] Wrong download: %s != %s" % [result.id, id])
+			result = yield(Online,"map_downloaded")
+		print("[Online Map] Download finished")
+		
+		get_tree().paused = false
+		if result.success:
+			emit_signal("download_done")
+			selected_song = song
+			emit_signal("selected_song_changed",song)
+		elif result.error == "010-100":
+			emit_signal("download_done")
+		else:
+			Globals.confirm_prompt.s_alert.play()
+			Globals.confirm_prompt.open(
+				"Failed to download map.\nError code: %s" % result.error,
+				"Error",
+				[{text="OK"}]
+			)
+			yield(Globals.confirm_prompt,"option_selected")
+			Globals.confirm_prompt.s_back.play()
+			Globals.confirm_prompt.close()
+			yield(Globals.confirm_prompt,"done_closing")
+			emit_signal("download_done")
+	else:
+		selected_song = song
+		emit_signal("selected_song_changed",song)
 
 
 # Song ending state data
@@ -1323,6 +1360,8 @@ func do_init(_ud=null):
 	registry_mesh = Registry.new()
 	registry_effect = Registry.new()
 	
+	Online.map_registry = registry_song
+	
 	register_colorsets()
 	register_effects()
 	register_meshes()
@@ -1382,7 +1421,7 @@ func do_init(_ud=null):
 	yield(get_tree(),"idle_frame")
 	
 	var smaps:Array = []
-	emit_signal("init_stage_reached","Register content 1/3\nImport SS+ maps\nLocating files")
+	emit_signal("init_stage_reached","Register content 1/4\nImport SS+ maps\nLocating files")
 	yield(get_tree(),"idle_frame")
 	var sd:Array = []
 	dir.change_dir(user_map_dir)
@@ -1399,7 +1438,7 @@ func do_init(_ud=null):
 	smaps = yield(Globals,"recurse_result").files
 	
 	for i in range(smaps.size()):
-		emit_signal("init_stage_reached","Register content 1/3\nImport SS+ maps\n%.0f%%" % (
+		emit_signal("init_stage_reached","Register content 1/4\nImport SS+ maps\n%.0f%%" % (
 			100*(float(i)/float(smaps.size()))
 		))
 		if fmod(i,max(min(floor(float(smaps.size())/200),40),5)) == 0: yield(get_tree(),"idle_frame")
@@ -1408,7 +1447,7 @@ func do_init(_ud=null):
 	
 	for i in range(mapreg.size()):
 		var amr:Array = mapreg[i]
-		emit_signal("init_stage_reached","Register content 2/3\nLoad map registry %d/%d\n%s" % [i,mapreg.size(),amr[0]])
+		emit_signal("init_stage_reached","Register content 2/4\nLoad map registry %d/%d\n%s" % [i,mapreg.size(),amr[0]])
 		yield(get_tree(),"idle_frame")
 		if lp: yield(get_tree(),"idle_frame")
 		registry_song.load_registry_file(amr[1],Globals.REGISTRY_MAP,amr[0])
@@ -1423,18 +1462,24 @@ func do_init(_ud=null):
 		var list = txt.split("\n",false)
 		vmap_search_folders.append_array(list)
 	
-	emit_signal("init_stage_reached","Register content 3/3\nImport Vulnus maps\nLocating files")
+	emit_signal("init_stage_reached","Register content 3/4\nImport Vulnus maps\nLocating files")
 	yield(get_tree(),"idle_frame")
 	
 	Globals.get_files_recursive(vmap_search_folders,6,"","meta.json",70)
 	vmaps = yield(Globals,"recurse_result").folders
 	
 	for i in range(vmaps.size()):
-		emit_signal("init_stage_reached","Register content 3/3\nImport Vulnus maps\n%.0f%%" % (
+		emit_signal("init_stage_reached","Register content 3/4\nImport Vulnus maps\n%.0f%%" % (
 			100*(float(i)/float(vmaps.size()))
 		))
 		if fmod(i,floor(float(vmaps.size())/100)) == 0: yield(get_tree(),"idle_frame")
 		registry_song.add_vulnus_map(vmaps[i])
+	
+	emit_signal("init_stage_reached","Register content 4/4\nLoad online maps")
+	yield(get_tree(),"idle_frame")
+	
+	Online.load_db_maps()
+	yield(Online,"db_maps_done")
 	
 	# Default 
 	emit_signal("init_stage_reached","Init default assets")

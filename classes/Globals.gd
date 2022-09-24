@@ -103,6 +103,7 @@ enum {
 	MAP_RAW = 1
 	MAP_VULNUS = 2
 	MAP_SSPM = 3
+	MAP_NET = 4
 }
 
 enum {
@@ -591,6 +592,11 @@ func get_files_recursive(
 func notify(type:int,body:String,title:String="Notification",time:float=5):
 	notify_gui.notify(type,body,title,time)
 
+var url_regex:RegEx = RegEx.new()
+func is_valid_url(text:String):
+	if text == "valid": return false
+	return (url_regex.sub(text,"valid") == "valid")
+
 var console_open:bool = false
 var con:LineEdit
 
@@ -625,6 +631,11 @@ func _process(delta):
 	if console_open: con.raise()
 
 func _ready():
+	url_regex.compile(
+		"((http|https)://)(www.)?[a-zA-Z0-9@:%._\\+~#?&//=]{2,256}"+
+		"\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%._\\+~#?&//=]*)"
+	)
+	
 	confirm_prompt = load("res://confirm.tscn").instance()
 	get_tree().root.call_deferred("add_child",confirm_prompt)
 	
