@@ -1,5 +1,5 @@
-extends Resource
-class_name DanceMover # Momentum
+extends DanceMover
+class_name MomentumDanceMover # Momentum
 
 var jmult:float = 1
 var nmult:float = 1
@@ -91,7 +91,7 @@ var t
 var r
 var tme
 
-func update(time:float) -> Vector2:
+func _update(time:float) -> Vector2:
 	var lastNoteNum = noteNum
 	for i in range(noteNum, notes.size() - 2):
 		var o = notes[i+1];

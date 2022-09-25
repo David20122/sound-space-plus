@@ -1,4 +1,4 @@
-extends Resource
+extends DanceMover
 class_name SimpleDanceMover
 
 var jmult:float = 1
@@ -46,7 +46,7 @@ var t
 var r
 var tme
 
-func update(ms:float) -> Vector2:
+func _update(ms:float) -> Vector2:
 	if noteNum != 0 and ms < notes[noteNum].z:
 		for i in range(noteNum, -1):
 			if notes[i].z - ms <= 0:

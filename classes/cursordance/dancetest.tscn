@@ -82,10 +82,9 @@ margin_top = 61.0
 margin_right = -10.0
 margin_bottom = 77.0
 min_value = -1000.0
-step = 0.01
+page = 15.0
 value = -1000.0
 editable = false
-scrollable = false
 
 [node name="Label" type="Label" parent="."]
 visible = false

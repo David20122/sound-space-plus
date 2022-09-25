@@ -15,13 +15,48 @@ func ma(col:Color,m:float) -> Color:
 
 var flash_time:float = 0
 
+func tp(v:Vector2) -> Vector2:
+	return v*100+Vector2(50,50)
+
 func _draw():
 	var nt:float = 1000.0 * Globals.speed_multi[SSP.mod_speed_level]
-	draw_line(Vector2(100,0),Vector2(100,300),Color(0.075,0.075,0.075),1)
-	draw_line(Vector2(200,0),Vector2(200,300),Color(0.075,0.075,0.075),1)
-	draw_line(Vector2(0,100),Vector2(300,100),Color(0.075,0.075,0.075),1)
-	draw_line(Vector2(0,200),Vector2(300,200),Color(0.075,0.075,0.075),1)
+	var gray:Color = Color(0.075,0.075,0.075)
+	draw_line(Vector2(100,0),Vector2(100,300),gray,1)
+	draw_line(Vector2(200,0),Vector2(200,300),gray,1)
+	draw_line(Vector2(0,100),Vector2(300,100),gray,1)
+	draw_line(Vector2(0,200),Vector2(300,200),gray,1)
 	draw_rect(Rect2(0,0,300,300),Color(0.15 + (flash_time * 0.4),0.15,0.15),false,2,false)
+	
+#	var dance = get_parent().dance
+#	var col1:Color = Color(0.8,0.1,0.1)
+#	var col2:Color = Color(0.2,0.8,0.2)
+#	var col3:Color = Color(0.3,0.3,0.8)
+#	var col4:Color = Color(0.8,0.1,0.8)
+#	var bgray:Color = Color(0.15,0.15,0.15)
+#	var v50:Vector2 = Vector2(50,50)
+	
+	
+#
+#	draw_circle(tp(dance.pts[1]),4,gray)
+#	draw_circle(tp(dance.pts[2]),4,gray)
+
+#	draw_line(tp(dance.pts[0]),tp(dance.pts[1]),ma(col1,0.5),1,true)
+#	draw_line(tp(dance.pts[2]),tp(dance.pts[3]),ma(col3,0.5),1,true)
+#	draw_circle(tp(dance.pts[4]),6,col1)
+#	draw_circle(tp(dance.pts[0]),10,col2)
+#	draw_circle(tp(dance.pts[3]),10,col3)
+#	draw_circle(tp(dance.pts[5]),6,col4)
+
+#	for ri in range(20):
+#		var i = floor(float(ri)/2)
+#		var t = float(ri)/19.0
+#		var a = clamp(1.0 - (2*abs(t-dance.t)),0,1)
+#		draw_line(tp(dance.bez[i]),tp(dance.bez[i+1]),ma(bgray,a),2,true)
+	
+#	draw_line(tp(dance.pts[4]),tp(dance.pts[0]),gray,2,true)
+#	draw_line(tp(dance.pts[0]),tp(dance.pts[3]),gray,2,true)
+#	draw_line(tp(dance.pts[3]),tp(dance.pts[5]),gray,2,true)
+	
 	flash_time = max(flash_time - get_process_delta_time(),0)
 	if active:
 		var ms = get_parent().ms

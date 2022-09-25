@@ -1,7 +1,7 @@
 extends ColorRect
 
 var song:Song = SSP.selected_song
-var dance:SimpleDanceMover
+var dance:DanceMover
 
 var ms:float = -1000
 var active:bool = false
@@ -109,7 +109,7 @@ func _ready():
 	$Main.setup(song)
 	
 	$Main.active = true
-	dance = SimpleDanceMover.new(song)
+	dance = DirectionalDanceMover.new(song)
 	update_cursor()
 	
 	yield($Buttons/StartStop/H/Start,"pressed")
