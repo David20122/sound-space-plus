@@ -240,6 +240,7 @@ func stream() -> AudioStream:
 		var buf:PoolByteArray = file.get_buffer(blen) # Actual song data
 		var s = Globals.audioLoader.load_buffer(buf)
 		file.close()
+		if s is AudioStreamOGGVorbis or s is AudioStreamMP3: s.loop = false
 		if s: return s
 		else: return Globals.error_sound
 	elif !musicFile.begins_with("res://"):

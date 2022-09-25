@@ -47,7 +47,15 @@ var r
 var tme
 
 func update(ms:float) -> Vector2:
-	for i in range(noteNum, notes.size() - 2):
+	if noteNum != 0 and ms < notes[noteNum].z:
+		for i in range(noteNum, -1):
+			if notes[i].z - ms <= 0:
+				noteNum = i
+				break
+		if ms < notes[noteNum].z: # if it hasn't changed
+			noteNum = 0
+	
+	for i in range(noteNum, notes.size()):
 		var o = notes[i];
 		if (o.z > ms):
 			noteNum = max(i-1,0)
@@ -62,8 +70,7 @@ func update(ms:float) -> Vector2:
 	
 	var a2 = Vector2(Start.x,Start.y)
 	var b2 = Vector2(End.x,End.y)
-	t = clamp(smoothstep(Start.z,End.z,ms),0,1)
 	
-	t = (ms - Start.z) / (End.z - Start.z)
+	t = clamp((ms - Start.z) / (End.z - Start.z),0,1)
 	
-	return lerp(StartPos,EndPos,Dance.InOutCirc(t))#Dance.Linear(t))
+	return lerp(StartPos,EndPos,Dance.InOutQuad(t))#Dance.Linear(t))

@@ -9,3 +9,8 @@ func _draw():
 
 func _process(delta):
 	update()
+
+
+func _ready():
+	var img = Globals.imageLoader.load_if_exists("user://cursor")
+	if img: $TextureRect.texture = img
