@@ -1,14 +1,14 @@
 extends ReferenceRect
 
-onready var mmm:CheckBox = $MMM
-onready var mm:CheckBox = $MM
-onready var m:CheckBox = $M
-onready var normal:CheckBox = $Normal
-onready var p:CheckBox = $P
-onready var pp:CheckBox = $PP
-onready var ppp:CheckBox = $PPP
-onready var pppp:CheckBox = $PPPP
-onready var custom:CheckBox = $Custom
+onready var mmm:Button = $C/MMM
+onready var mm:Button = $C/MM
+onready var m:Button = $C/M
+onready var normal:Button = $C/Normal
+onready var p:Button = $C/P
+onready var pp:Button = $C/PP
+onready var ppp:Button = $C/PPP
+onready var pppp:Button = $C/PPPP
+onready var custom:Button = $C/Custom
 
 func on_button_changed(state:bool,selectedSpeed:int):
 	if state: SSP.mod_speed_level = selectedSpeed
