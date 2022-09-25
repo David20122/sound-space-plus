@@ -34,6 +34,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://classes/ConfirmationPrompt2D.gd"
 }, {
+"base": "Resource",
+"class": "DanceMover",
+"language": "GDScript",
+"path": "res://classes/cursordance/Momentum.gd"
+}, {
 "base": "",
 "class": "DiscordActivity",
 "language": "NativeScript",
@@ -155,6 +160,11 @@ _global_script_classes=[ {
 "path": "res://classes/Replay.gd"
 }, {
 "base": "Resource",
+"class": "SimpleDanceMover",
+"language": "GDScript",
+"path": "res://classes/cursordance/Simple.gd"
+}, {
+"base": "Resource",
 "class": "Song",
 "language": "GDScript",
 "path": "res://classes/Song.gd"
@@ -170,6 +180,7 @@ _global_script_class_icons={
 "ChatMessage": "",
 "ColorSet": "",
 "ConfirmationPrompt2D": "",
+"DanceMover": "",
 "DiscordActivity": "",
 "DiscordActivityAssets": "",
 "DiscordActivityManager": "",
@@ -194,6 +205,7 @@ _global_script_class_icons={
 "ObjParse": "",
 "Registry": "",
 "Replay": "",
+"SimpleDanceMover": "",
 "Song": "",
 "VRPlayer": ""
 }
@@ -250,6 +262,7 @@ Online="*res://classes/Online.gd"
 SSP="*res://classes/SoundSpacePlus.gd"
 RQueue="*res://classes/ResourceQueue.gd"
 Discord="*res://addons/discord_game_sdk/discord.gd"
+Dance="*res://classes/Dance.gd"
 
 [debug]
 

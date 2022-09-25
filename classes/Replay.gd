@@ -318,16 +318,21 @@ func get_cursor_position(ms:float):
 	if autoplayer:
 		var dist = bp.z - ap.z
 		var pdist = (b2 - a2).length()
-		var curve = clamp((dist-300)/150,-clamp(((pdist-0.75)*0.5)/(dist/400),0.5,1.2),1.2)
-		v = ease(v,curve) # -2
+		
+		v = Dance.InOutCubic(v)
 		debug_txt.v2 = v
 		debug_txt.tdist = dist
 		debug_txt.pdist = pdist
-		debug_txt.curve = curve
-	var res:Vector2 = lerp(a2,b2,v)
-	debug_txt.result = res
-	update_debug_text() 
-	return res
+		
+		var res:Vector2 = lerp(a2,b2,v)
+		debug_txt.result = res
+		update_debug_text() 
+		return res
+	else:
+		var res:Vector2 = lerp(a2,b2,v)
+		debug_txt.result = res
+		update_debug_text() 
+		return res
 
 var last_sig_ms:float = -100000000000
 var last_sig_offset:int = -1
