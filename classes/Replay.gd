@@ -5,6 +5,7 @@ const file_sig:PoolByteArray = PoolByteArray([0x53,0x73,0x2A,0x52])
 const current_sv:int = 2
 const debug:bool = false
 
+var dance:DanceMover
 var song:Song
 var past_cursor_positions:Array = []
 var cursor_positions:Array = []
@@ -218,40 +219,41 @@ func read_data(from_path:String=""):
 			debug_txt.autoplayer = true
 			update_debug_text()
 			song = SSP.selected_song
-			var notes = song.read_notes()
-			var prev = Vector3(1,-1,-1)
-			var cursor_unrev = []
-			var i = 0
-			for n in notes:
-				i += 1
-				if fmod(i,250) == 0:
-					emit_signal("progress",(float(i)/float(notes.size())) * 0.6)
-					yield(SSP.get_tree(),"idle_frame")
-				var p:Vector3 = Vector3(n[0],-n[1],float(n[2]))
-				if SSP.mod_mirror_x: p.x = 2 - p.x
-				if SSP.mod_mirror_y: p.y = (-p.y) - 2
-				if p.z != prev.z:
-					prev = p
-					cursor_unrev.append(p)
-				else:
-					prev.x = lerp(p.x,prev.x,0.5)
-					prev.y = lerp(p.y,prev.y,0.5)
-			
-			var curcount = cursor_unrev.size()
-			debug_txt.c_r_mismatch = 0
-			for num in range(cursor_unrev.size()):
-				debug_txt.i = num
-				update_debug_text()
-				if fmod(num,250) == 0:
-					emit_signal("progress",0.6 + ((float(num)/float(curcount)) * 0.4))
-					yield(SSP.get_tree(),"idle_frame")
-				var c:Vector3 = cursor_unrev.pop_back()
-				var r:Vector3 = Vector3(clamp(c.x,-0.5,2.5),clamp(c.y,-2.5,0.5),c.z)
-				if c != r:
-					print("c/r mismatch! %s != %s" % [String(c),String(r)])
-					debug_txt.c_r_mismatch += 1
-				cursor_positions.append(r)
-			
+			dance = DirectionalDanceMover.new(song)
+#			var notes = song.read_notes()
+#			var prev = Vector3(1,-1,-1)
+#			var cursor_unrev = []
+#			var i = 0
+#			for n in notes:
+#				i += 1
+#				if fmod(i,250) == 0:
+#					emit_signal("progress",(float(i)/float(notes.size())) * 0.6)
+#					yield(SSP.get_tree(),"idle_frame")
+#				var p:Vector3 = Vector3(n[0],-n[1],float(n[2]))
+#				if SSP.mod_mirror_x: p.x = 2 - p.x
+#				if SSP.mod_mirror_y: p.y = (-p.y) - 2
+#				if p.z != prev.z:
+#					prev = p
+#					cursor_unrev.append(p)
+#				else:
+#					prev.x = lerp(p.x,prev.x,0.5)
+#					prev.y = lerp(p.y,prev.y,0.5)
+#
+#			var curcount = cursor_unrev.size()
+#			debug_txt.c_r_mismatch = 0
+#			for num in range(cursor_unrev.size()):
+#				debug_txt.i = num
+#				update_debug_text()
+#				if fmod(num,250) == 0:
+#					emit_signal("progress",0.6 + ((float(num)/float(curcount)) * 0.4))
+#					yield(SSP.get_tree(),"idle_frame")
+#				var c:Vector3 = cursor_unrev.pop_back()
+#				var r:Vector3 = Vector3(clamp(c.x,-0.5,2.5),clamp(c.y,-2.5,0.5),c.z)
+#				if c != r:
+#					print("c/r mismatch! %s != %s" % [String(c),String(r)])
+#					debug_txt.c_r_mismatch += 1
+#				cursor_positions.append(r)
+#
 			end_ms = SSP.selected_song.last_ms
 			yield(SSP.get_tree(),"idle_frame")
 			emit_signal("done_loading")
@@ -262,72 +264,65 @@ var last_ms:float = -100000000000
 var last_pos_offset:int = 0
 
 func get_cursor_position(ms:float):
-	var start_off:int = last_pos_offset
-	debug_txt.ms = ms
-	debug_txt.start_off = last_pos_offset
-	update_debug_text()
-#	if ms >= last_ms:
-#		start_off = last_pos_offset
-#		last_ms = ms
-	var ap:Vector3
-	var bp:Vector3
-	var rem = 0
-	if ms >= end_ms:
-		ap = cursor_positions[cursor_positions.size()-1]
-		bp = Vector3(1,-1,end_ms+3000)
-	else:
-		for i in range(cursor_positions.size()-2,0,-1):
-			var p:Vector3 = cursor_positions[i]
-			if p.z >= ms:
-#				breakpoint
-				if i != cursor_positions.size(): ap = cursor_positions[i+1]
-				else: ap = Vector3(1,-1,-3000*Globals.speed_multi[SSP.mod_speed_level])
-				bp = p
-				last_pos_offset = i
-				break
-			else:
-				rem += 1
-	
-	if !ap or !bp:
-		ap = cursor_positions[last_pos_offset]
-		bp = Vector3(ap.x,ap.y,ap.z+10)
-	
-	var i = last_pos_offset
-	rem = max(rem-1,0)
-	var rc = 0
-	for _n in range(rem):
-		cursor_positions.remove(cursor_positions.size()-1)
-		rc += 1
-		rem += 1
-		i -= 1
-	last_pos_offset -= i
-	
-	
-	var a2 = Vector2(ap.x,ap.y)
-	var b2 = Vector2(bp.x,bp.y)
-	var v = clamp(smoothstep(ap.z,bp.z,ms),0,1)
-	debug_txt.rc = rc
-	debug_txt.rem = rem
-	debug_txt.i = i
-	debug_txt.cpos_size = cursor_positions.size()
-	debug_txt.a = ap
-	debug_txt.b = bp
-	debug_txt.v = v
-	update_debug_text()
-	
 	if autoplayer:
-		var dist = bp.z - ap.z
-		var pdist = (b2 - a2).length()
-		var curve = clamp((dist-300)/150,-clamp(((pdist-0.75)*0.5)/(dist/400),0.5,1.2),1.2)
-		v = ease(v,curve) # -2
-		debug_txt.v2 = v
-		debug_txt.tdist = dist
-		debug_txt.pdist = pdist
-		debug_txt.curve = curve
-	var res:Vector2 = lerp(a2,b2,v)
-	debug_txt.result = res
-	update_debug_text() 
-	return res
+		return Vector2(1,-1)*dance.update(ms)
+	else:
+		var start_off:int = last_pos_offset
+		debug_txt.ms = ms
+		debug_txt.start_off = last_pos_offset
+		update_debug_text()
+	#	if ms >= last_ms:
+	#		start_off = last_pos_offset
+	#		last_ms = ms
+		var ap:Vector3
+		var bp:Vector3
+		var rem = 0
+		if ms >= end_ms:
+			ap = cursor_positions[cursor_positions.size()-1]
+			bp = Vector3(1,-1,end_ms+3000)
+		else:
+			for i in range(cursor_positions.size()-2,0,-1):
+				var p:Vector3 = cursor_positions[i]
+				if p.z >= ms:
+	#				breakpoint
+					if i != cursor_positions.size(): ap = cursor_positions[i+1]
+					else: ap = Vector3(1,-1,-3000*Globals.speed_multi[SSP.mod_speed_level])
+					bp = p
+					last_pos_offset = i
+					break
+				else:
+					rem += 1
+		
+		if !ap or !bp:
+			ap = cursor_positions[last_pos_offset]
+			bp = Vector3(ap.x,ap.y,ap.z+10)
+		
+		var i = last_pos_offset
+		rem = max(rem-1,0)
+		var rc = 0
+		for _n in range(rem):
+			cursor_positions.remove(cursor_positions.size()-1)
+			rc += 1
+			rem += 1
+			i -= 1
+		last_pos_offset -= i
+		
+		
+		var a2 = Vector2(ap.x,ap.y)
+		var b2 = Vector2(bp.x,bp.y)
+		var v = clamp(smoothstep(ap.z,bp.z,ms),0,1)
+		debug_txt.rc = rc
+		debug_txt.rem = rem
+		debug_txt.i = i
+		debug_txt.cpos_size = cursor_positions.size()
+		debug_txt.a = ap
+		debug_txt.b = bp
+		debug_txt.v = v
+		
+		var res:Vector2 = lerp(a2,b2,v)
+		debug_txt.result = res
+		update_debug_text() 
+		return res
 
 var last_sig_ms:float = -100000000000
 var last_sig_offset:int = -1

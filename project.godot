@@ -19,6 +19,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://classes/BackgroundWorld.gd"
 }, {
+"base": "DanceMover",
+"class": "BouncyDanceMover",
+"language": "GDScript",
+"path": "res://classes/cursordance/Bouncy.gd"
+}, {
 "base": "Resource",
 "class": "ChatMessage",
 "language": "GDScript",
@@ -33,6 +38,16 @@ _global_script_classes=[ {
 "class": "ConfirmationPrompt2D",
 "language": "GDScript",
 "path": "res://classes/ConfirmationPrompt2D.gd"
+}, {
+"base": "Resource",
+"class": "DanceMover",
+"language": "GDScript",
+"path": "res://classes/cursordance/DanceMover.gd"
+}, {
+"base": "DanceMover",
+"class": "DirectionalDanceMover",
+"language": "GDScript",
+"path": "res://classes/cursordance/Directional.gd"
 }, {
 "base": "",
 "class": "DiscordActivity",
@@ -119,6 +134,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/discord_game_sdk/example/lobby/member.gd"
 }, {
+"base": "DanceMover",
+"class": "MomentumDanceMover",
+"language": "GDScript",
+"path": "res://classes/cursordance/Momentum.gd"
+}, {
 "base": "Spatial",
 "class": "Note",
 "language": "GDScript",
@@ -154,6 +174,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://classes/Replay.gd"
 }, {
+"base": "DanceMover",
+"class": "SimpleDanceMover",
+"language": "GDScript",
+"path": "res://classes/cursordance/Simple.gd"
+}, {
 "base": "Resource",
 "class": "Song",
 "language": "GDScript",
@@ -167,9 +192,12 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "AudioLoader": "",
 "BackgroundWorld": "",
+"BouncyDanceMover": "",
 "ChatMessage": "",
 "ColorSet": "",
 "ConfirmationPrompt2D": "",
+"DanceMover": "",
+"DirectionalDanceMover": "",
 "DiscordActivity": "",
 "DiscordActivityAssets": "",
 "DiscordActivityManager": "",
@@ -187,6 +215,7 @@ _global_script_class_icons={
 "GameState": "",
 "ImageLoader": "",
 "Member": "",
+"MomentumDanceMover": "",
 "Note": "",
 "NoteEffect": "",
 "NoteMesh": "",
@@ -194,6 +223,7 @@ _global_script_class_icons={
 "ObjParse": "",
 "Registry": "",
 "Replay": "",
+"SimpleDanceMover": "",
 "Song": "",
 "VRPlayer": ""
 }
@@ -211,7 +241,7 @@ boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://icon.png"
 config/windows_native_icon="res://icon.ico"
 config/quit_on_go_back=false
-config/version="0.10.0-nightly"
+config/version="0.10.1-cursordance"
 config/autoload_map_registries="test maps|res://test_assets/test_maps.sspmr;built in|res://content/songs/built_in_maps.sspmr"
 config/enable_new_content_mgr=true
 config/default_menu_target="res://menu2.tscn"
@@ -250,6 +280,7 @@ Online="*res://classes/Online.gd"
 SSP="*res://classes/SoundSpacePlus.gd"
 RQueue="*res://classes/ResourceQueue.gd"
 Discord="*res://addons/discord_game_sdk/discord.gd"
+Dance="*res://classes/Dance.gd"
 
 [debug]
 
