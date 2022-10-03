@@ -190,7 +190,7 @@ onready var Grid = get_node("../Grid")
 func do_half_lock():
 	var cursorpos = $Cursor.transform.origin
 	var centeroff = cursorpos - cursor_offset
-	var hlm = 0.25
+	var hlm = 0.35
 	var uim = SSP.ui_parallax * 0.1
 	var grm = SSP.grid_parallax * 0.1
 	cam.transform.origin = Vector3(
@@ -215,7 +215,7 @@ func do_spin():
 	centeroff.x = cx - cursor_offset.x
 	centeroff.y = -cy - cursor_offset.y
 	
-	var hlm = 0.25
+	var hlm = 0.35
 	var uim = SSP.ui_parallax * 0.1
 	var grm = SSP.grid_parallax * 0.1
 	cam.transform.origin = Vector3(
@@ -239,7 +239,7 @@ func do_vr_cursor():
 	centeroff.x = cx - cursor_offset.x
 	centeroff.y = -cy - cursor_offset.y
 	
-	var hlm = 0.25
+	var hlm = 0.35
 	var uim = SSP.ui_parallax * 0.1
 	var grm = SSP.grid_parallax * 0.1
 	cam.transform.origin = Vector3(
