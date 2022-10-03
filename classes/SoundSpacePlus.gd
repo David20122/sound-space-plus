@@ -511,9 +511,9 @@ func _set_grade_system(v:int):
 
 
 # Settings - Notes
-var approach_rate:float = 50
-var spawn_distance:float = 100
-var note_spawn_effect:bool = true
+var approach_rate:float = 40
+var spawn_distance:float = 20
+var note_spawn_effect:bool = false
 var fade_length:float = 0.5
 
 var show_hit_effect:bool = true
@@ -522,7 +522,7 @@ var hit_effect_at_cursor:bool = true
 var show_miss_effect:bool = true
 
 # Settings - Camera/Controls
-var sensitivity:float = 1
+var sensitivity:float = 0.5
 var parallax:float = 6.5 # Camera
 var ui_parallax:float = 1.63
 var grid_parallax:float = 0
@@ -533,7 +533,7 @@ var edge_drift:float = 0
 
 # Settings - Replays
 var record_replays:bool = false
-var alt_cam:bool = false
+var alt_cam:bool = true
 
 # Settings - Cursor
 var rainbow_cursor:bool = false
@@ -549,7 +549,7 @@ var cursor_face_velocity:bool = false # Disabled
 # Settings - HUD
 var display_true_combo:bool = true
 var show_config:bool = true
-var enable_grid:bool = true
+var enable_grid:bool = false
 var enable_border:bool = true
 var show_hp_bar:bool = true
 var show_timer:bool = true
@@ -1491,7 +1491,7 @@ func do_init(_ud=null):
 	selected_miss_effect = registry_effect.get_item("ssp_miss")
 	selected_colorset = registry_colorset.get_item("ssp_everybodyvotes")
 	selected_space = registry_world.get_item("ssp_space_tunnel")
-	selected_mesh = registry_mesh.get_item("ssp_square")
+	selected_mesh = registry_mesh.get_item("ssp_rounded")
 	
 	assert(selected_hit_effect)
 	assert(selected_miss_effect)
