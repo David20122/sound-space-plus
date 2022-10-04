@@ -8,6 +8,8 @@ var notes:Array
 var last_ms:float = 0
 onready var colors:Array = SSP.selected_colorset.colors
 
+var score:int = 0
+
 var last_combo:int = 0
 var combo:int = 0
 var combo_level:int = 1
@@ -78,7 +80,7 @@ func update_hud():
 	energybar.max_value = max_energy
 	energybar.value = energy
 	combotxt.text = String(combo_level) + "x"
-	comboring._set_percent(float(lvl_progress) / 8)
+	comboring._set_percent(float(lvl_progress) / 10)
 	
 	if combo != last_combo:
 		truecombo.text = String(combo)
@@ -283,6 +285,25 @@ func _process(delta):
 	
 	$BlackFade.visible = (black_fade != 0)
 
+func linstep(a:float,b:float,x:float):
+	if a == b: return float(x >= a)
+	return clamp(abs((x - a) / (b - a)),0,1)
+
+func get_point_amt() -> int:
+	var speed_multi = Globals.speed_multi[SSP.custom_speed]
+	var spd = clamp(((speed_multi - 1) * 1.5) + 1, 0, 1.9)
+	
+	var hitbox_diff = SSP.note_hitbox_size - 1.140
+	var hbo = clamp(linstep(1.140,0,hitbox_diff), 0, 1)
+	
+	var hitwin_diff = SSP.note_hitbox_size - 55
+	var hwi = clamp(linstep(55,0,hitwin_diff), 0, 1)
+	
+	
+	var mod = 1
+	
+	return int(floor((20 * combo_level * spd * min(hbo,hwi) * mod) + 0.5))
+
 
 func hit(col):
 	emit_signal("hit",col)
@@ -290,13 +311,17 @@ func hit(col):
 	total_notes += 1
 	if !SSP.mod_no_regen: energy = clamp(energy+energy_per_hit,0,max_energy)
 	combo += 1
-	if combo_level != 8 or (combo_level == 8 and lvl_progress != 8):
+	var points = get_point_amt()
+	if combo_level != 8:
 		lvl_progress += 1
-	if combo_level != 8 and lvl_progress == 8:
+	if combo_level != 8 and lvl_progress == 10:
 		lvl_progress = 0
 		combo_level += 1
-		if combo_level == 8: lvl_progress = 8
+		if combo_level == 8: lvl_progress = 10
 	update_hud()
+	
+	score += points
+	return points
 
 func miss(col):
 	misseslabel.modulate = Color(1,0,0)
@@ -336,7 +361,7 @@ func _ready():
 	$BlackFade.color = Color(0,0,0,black_fade)
 	get_tree().paused = false
 	$Spawn.connect("timer_update",self,"update_timer")
-	$Spawn.connect("hit",self,"hit")
+#	$Spawn.connect("hit",self,"hit")
 	$Spawn.connect("miss",self,"miss")
 	loadMapFile()
 	if !SSP.show_config: $Grid/ConfigHud.visible = false

@@ -16,6 +16,7 @@ var noteQueue:Array = []
 var colors:Array = SSP.selected_colorset.colors
 var hitEffect:Spatial = load(SSP.selected_hit_effect.path).instance()
 var missEffect:Spatial = load(SSP.selected_miss_effect.path).instance()
+var scoreEffect:Spatial = load("res://content/notefx/score.tscn").instance()
 var hit_id:String = SSP.selected_hit_effect.id
 var miss_id:String = SSP.selected_miss_effect.id
 var chaos_rng:RandomNumberGenerator = RandomNumberGenerator.new()
@@ -26,8 +27,10 @@ var matcache_miss:Dictionary = {}
 const base_position = Vector3(-1,1,0)
 
 var prev_ms:float = -100000
+
 var next_ms:float = 0
 
+var last_cursor_position:Vector3 = Vector3(-1,1,0)
 
 var out_of_notes:bool = false
 func reposition_notes(force:bool=false):
@@ -41,7 +44,7 @@ func reposition_notes(force:bool=false):
 			is_first = false
 			next_ms = note.notems
 		elif ms >= note.notems and note.state == Globals.NSTATE_ACTIVE:
-			var result = SSP.visual_mode or note.check($Cursor.transform.origin)
+			var result = SSP.visual_mode or note.check($Cursor.transform.origin,last_cursor_position)
 			if !result and (ms > note.notems + SSP.hitwindow_ms or pause_state == -1):
 #				note_passed = true
 				# notes should not be in the hitwindow if the game is paused
@@ -65,19 +68,21 @@ func reposition_notes(force:bool=false):
 					SSP.replay.note_hit(note.id)
 				note.state = Globals.NSTATE_HIT
 				if SSP.play_hit_snd: $Hit.play()
-					#$Hit.play((ms - note.notems)/1000.0)
+				var pos:Vector3 = Vector3(
+					$Cursor.global_transform.origin.x,
+					$Cursor.global_transform.origin.y,
+					0.002
+				)
 				if SSP.show_hit_effect and !SSP.visual_mode:
-					var pos:Vector3 = Vector3(
-						$Cursor.global_transform.origin.x,
-						$Cursor.global_transform.origin.y,
-						0.002
-					)
 					if !SSP.hit_effect_at_cursor:
 						pos.x = note.global_transform.origin.x
 						pos.y = note.global_transform.origin.y
 					
 					hitEffect.duplicate().spawn(get_parent(),pos,note.col,hit_id,false)
 				emit_signal("hit",note.col)
+				var score:int = get_parent().hit(note.col)
+				scoreEffect.duplicate().spawn(get_parent(),pos,note.col,score)
+				
 				prev_ms = note.notems
 		elif ms > (note.notems + SSP.hitwindow_ms) + 100:
 			if noteNodes.size() > 1:

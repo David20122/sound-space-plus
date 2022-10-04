@@ -512,7 +512,7 @@ func _set_grade_system(v:int):
 
 # Settings - Notes
 var approach_rate:float = 40
-var spawn_distance:float = 20
+var spawn_distance:float = 40
 var note_spawn_effect:bool = false
 var fade_length:float = 0.5
 

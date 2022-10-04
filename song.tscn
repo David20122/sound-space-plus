@@ -236,8 +236,10 @@ size = Vector2( 3.1, 3.1 )
 
 [sub_resource type="SpatialMaterial" id=31]
 resource_local_to_scene = true
+render_priority = 99
 flags_transparent = true
 flags_unshaded = true
+flags_no_depth_test = true
 albedo_color = Color( 1, 1, 1, 0.588235 )
 albedo_texture = ExtResource( 9 )
 
@@ -246,16 +248,19 @@ size = Vector2( 3, 3 )
 
 [sub_resource type="SpatialMaterial" id=33]
 resource_local_to_scene = true
+render_priority = 98
 flags_transparent = true
 flags_unshaded = true
+flags_no_depth_test = true
 albedo_color = Color( 1, 1, 1, 0.352941 )
 albedo_texture = ExtResource( 7 )
 
 [sub_resource type="SpatialMaterial" id=56]
 resource_local_to_scene = true
-render_priority = 2
+render_priority = 100
 flags_transparent = true
 flags_unshaded = true
+flags_no_depth_test = true
 flags_do_not_receive_shadows = true
 flags_disable_ambient_light = true
 params_depth_draw_mode = 2
@@ -326,8 +331,10 @@ size = Vector2( 0.5, 0.5 )
 
 [sub_resource type="SpatialMaterial" id=45]
 resource_local_to_scene = true
+render_priority = 100
 flags_transparent = true
 flags_unshaded = true
+flags_no_depth_test = true
 albedo_color = Color( 1, 1, 1, 0.705882 )
 albedo_texture = ExtResource( 25 )
 
@@ -451,7 +458,7 @@ gui_snap_controls_to_pixels = false
 [node name="Control" type="ColorRect" parent="Game/Grid/LeftVP"]
 margin_right = 300.0
 margin_bottom = 900.0
-color = Color( 0, 0, 0, 0.45098 )
+color = Color( 0, 0, 0, 0.607843 )
 
 [node name="SimpleBg" type="Panel" parent="Game/Grid/LeftVP/Control"]
 visible = false
@@ -634,7 +641,7 @@ gui_snap_controls_to_pixels = false
 [node name="Control" type="ColorRect" parent="Game/Grid/RightVP"]
 margin_right = 300.0
 margin_bottom = 900.0
-color = Color( 0, 0, 0, 0.45098 )
+color = Color( 0, 0, 0, 0.607843 )
 
 [node name="SimpleBg" type="Panel" parent="Game/Grid/RightVP/Control"]
 visible = false
@@ -1076,6 +1083,8 @@ flip_h = true
 pixel_size = 0.0033
 axis = 1
 double_sided = false
+no_depth_test = true
+render_priority = 102
 texture = SubResource( 21 )
 
 [node name="LeftHud" type="Sprite3D" parent="Game/Grid"]
@@ -1085,6 +1094,8 @@ flip_h = true
 pixel_size = 0.0033
 axis = 1
 double_sided = false
+no_depth_test = true
+render_priority = 101
 texture = SubResource( 22 )
 
 [node name="GiveUpHud" type="Sprite3D" parent="Game/Grid"]
@@ -1093,6 +1104,8 @@ visible = false
 cast_shadow = 0
 pixel_size = 0.0033
 axis = 1
+no_depth_test = true
+render_priority = 105
 texture = SubResource( 23 )
 
 [node name="PauseHud" type="Sprite3D" parent="Game/Grid"]
@@ -1101,6 +1114,8 @@ visible = false
 cast_shadow = 0
 pixel_size = 0.0044
 axis = 1
+no_depth_test = true
+render_priority = 104
 texture = SubResource( 24 )
 
 [node name="RightHud" type="Sprite3D" parent="Game/Grid"]
@@ -1110,6 +1125,8 @@ flip_h = true
 pixel_size = 0.0033
 axis = 1
 double_sided = false
+no_depth_test = true
+render_priority = 101
 texture = SubResource( 25 )
 
 [node name="EnergyHud" type="Sprite3D" parent="Game/Grid"]
@@ -1119,6 +1136,8 @@ flip_h = true
 pixel_size = 0.0033
 axis = 1
 double_sided = false
+no_depth_test = true
+render_priority = 102
 texture = SubResource( 26 )
 
 [node name="ConfigHud" type="Sprite3D" parent="Game/Grid"]
@@ -1127,6 +1146,8 @@ visible = false
 cast_shadow = 0
 pixel_size = 0.0033
 axis = 1
+no_depth_test = true
+render_priority = 103
 texture = SubResource( 27 )
 
 [node name="ComboHud" type="Sprite3D" parent="Game/Grid"]
@@ -1134,6 +1155,8 @@ transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1, -
 cast_shadow = 0
 pixel_size = 0.0033
 axis = 1
+no_depth_test = true
+render_priority = 100
 texture = SubResource( 28 )
 
 [node name="Spawn" type="Spatial" parent="Game"]

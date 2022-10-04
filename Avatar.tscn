@@ -15,7 +15,7 @@ flags_unshaded = true
 
 [sub_resource type="Shader" id=80]
 code = "shader_type spatial;
-render_mode blend_mix,cull_back,diffuse_burley,specular_disabled,unshaded;
+render_mode blend_mix,cull_back,diffuse_burley,specular_disabled,unshaded,depth_test_disable;
 uniform vec4 notecolor : hint_color = vec4(1,1,1,1);
 
 uniform float alpha_multi = 1;
@@ -40,7 +40,7 @@ void fragment() {
 "
 
 [sub_resource type="ShaderMaterial" id=58]
-render_priority = 2
+render_priority = 112
 shader = SubResource( 80 )
 shader_param/notecolor = Color( 1, 1, 1, 1 )
 shader_param/alpha_multi = 1.0
@@ -74,7 +74,7 @@ void fragment() {
 "
 
 [sub_resource type="ShaderMaterial" id=59]
-render_priority = 2
+render_priority = 110
 shader = SubResource( 57 )
 shader_param/notecolor = Color( 0, 0, 0, 1 )
 shader_param/alpha_multi = 1.0
@@ -82,6 +82,7 @@ shader_param/fade = 1.0
 shader_param/use_image = false
 
 [sub_resource type="SpatialMaterial" id=67]
+render_priority = 111
 flags_unshaded = true
 albedo_color = Color( 0, 0, 0, 1 )
 

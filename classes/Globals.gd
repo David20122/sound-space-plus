@@ -477,21 +477,10 @@ const official_map_difficulties:Dictionary = {
 
 var errornum:int = 0
 func p(path:String) -> String:
-	var base_path = ProjectSettings.get_setting("application/config/save_dir")
+	var base_path = "user://"
 	var dir:Directory = Directory.new()
-	if not dir.dir_exists(base_path):
-		if OS.has_feature("Android"):
-			var err:int = dir.open("/sdcard/Android/data")
-			if err != OK:
-				print("error opening android/data")
-				errornum = err
-				if get_tree(): get_tree().change_scene("res://errors/userfolder.tscn")
-			err = dir.make_dir("net.chedski.soundspaceplus")
-			if err != OK:
-				print("error making android/data/net.chedski.soundspaceplus")
-				errornum = err
-				if get_tree():
-					get_tree().change_scene("res://errors/userfolder.tscn")
+	if OS.has_feature("Android"):
+		base_path = OS.get_system_dir(OS.SYSTEM_DIR_DESKTOP,true).plus_file("Android/data/net.chedski.soundspaceplus/files") + "/"
 	return path.replace("user://",base_path)
 
 var error_sound:AudioStream
