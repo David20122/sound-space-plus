@@ -58,6 +58,7 @@ var init_done:bool = false
 func init():
 	if init_done: return
 	var mat:SpatialMaterial = $Mesh.get("material/0").duplicate()
+	$Mesh.scale = Vector3(0,1,0)
 	$Mesh.set("material/0",mat)
 
 func start():

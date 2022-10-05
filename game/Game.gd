@@ -49,8 +49,10 @@ onready var acclabel:Label = get_node("Grid/LeftVP/Control/Accuracy")
 onready var accbar:ProgressBar = get_node("Grid/LeftVP/Control/AccuracyBar")
 onready var noteslabel:Label = get_node("Grid/RightVP/Control/Notes")
 onready var misseslabel:Label = get_node("Grid/RightVP/Control/Misses")
+onready var scorelabel:Label = get_node("Grid/RightVP/Control/Score")
 onready var energybar:ProgressBar = get_node("Grid/EnergyVP/Control/Energy")
-onready var modtxt:Label = get_node("Grid/EnergyVP/Control/Modifiers")
+onready var modicons:HBoxContainer = get_node("Grid/EnergyVP/Control/Modifiers/Icons/H")
+onready var modtxt:Label = get_node("Grid/EnergyVP/Control/Modifiers/Text")
 
 onready var comboring:Control = get_node("Grid/LeftVP/Control/Combo")
 onready var combotxt:Label = get_node("Grid/LeftVP/Control/Combo/Label")
@@ -86,6 +88,10 @@ func update_hud():
 		truecombo.text = String(combo)
 		truecombo.rect_position.y = 100
 		last_combo = combo
+	
+	
+	scorelabel.text = comma_sep(score)
+	
 	
 	var grade:String = "--"
 	var gcol:Color = Color(1,0,1)
@@ -407,8 +413,8 @@ func _ready():
 	var ms = ""
 	
 	if SSP.replaying:
-		if SSP.replay.autoplayer: ms += "[ AUTOPLAYING ]\n"
-		else: ms += "[ REPLAYING ]\n"
+		if SSP.replay.autoplayer: modicons.get_node("Autoplay").visible = true
+		else: modicons.get_node("Replaying").visible = true
 	
 	if SSP.mod_nofail: ms += "[ NOFAIL ACTIVE ]\n"
 	elif SSP.health_model == Globals.HP_OLD: ms += "Using old hp model (more hp + fast regen)\n"
@@ -416,13 +422,13 @@ func _ready():
 	var mods = []
 	if SSP.mod_speed_level != Globals.SPEED_NORMAL:
 		match SSP.mod_speed_level:
-			Globals.SPEED_MMM: mods.append("Speed---")
-			Globals.SPEED_MM: mods.append("Speed--")
-			Globals.SPEED_M: mods.append("Speed-")
-			Globals.SPEED_P: mods.append("Speed+")
-			Globals.SPEED_PP: mods.append("Speed++")
-			Globals.SPEED_PPP: mods.append("Speed+++")
-			Globals.SPEED_PPPP: mods.append("Speed++++")
+			Globals.SPEED_MMM: modicons.get_node("SpeedMMM").visible = true
+			Globals.SPEED_MM: modicons.get_node("SpeedMM").visible = true
+			Globals.SPEED_M: modicons.get_node("SpeedM").visible = true
+			Globals.SPEED_P: modicons.get_node("SpeedP").visible = true
+			Globals.SPEED_PP: modicons.get_node("SpeedPP").visible = true
+			Globals.SPEED_PPP: modicons.get_node("SpeedPPP").visible = true
+			Globals.SPEED_PPPP: modicons.get_node("SpeedPPPP").visible = true
 			Globals.SPEED_CUSTOM: mods.append("Speed%s%%" % [Globals.speed_multi[Globals.SPEED_CUSTOM] * 100])
 	if SSP.mod_sudden_death: mods.append("SuddenDeath")
 	if SSP.mod_extra_energy: mods.append("Energy+")
@@ -434,13 +440,14 @@ func _ready():
 		mods.append(mirrorst)
 	if SSP.mod_ghost: mods.append("Ghost")
 	if SSP.mod_nearsighted: mods.append("Nearsight")
+	if SSP.mod_chaos: mods.append("Chaos")
 	for i in range(mods.size()):
 		if i != 0: ms += " "
 		ms += mods[i]
 	if mods.size() != 0 and !SSP.mod_nofail: ms += '\n'
 	
 	if SSP.hitwindow_ms != 55 or SSP.note_hitbox_size != 1.140:
-		ms += "Hitwindow: %.0f ms | Hitboxes: %.02f m" % [SSP.hitwindow_ms,SSP.note_hitbox_size]
+		ms += "HW: %.0f ms | HB: %.02f m" % [SSP.hitwindow_ms,SSP.note_hitbox_size]
 	
 	modtxt.text = ms
 	

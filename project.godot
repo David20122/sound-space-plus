@@ -267,6 +267,8 @@ config/project_settings_override.standalone="user://override.cfg"
 networking/enabled=true
 networking/mapdb_api="https://chedski.net/ssp/mapdb/api/"
 networking/test_url="http://example.com/"
+config/discord_rpc.HTML5=false
+config/enable_new_content_mgr.HTML5=false
 
 [audio]
 

@@ -317,7 +317,7 @@ theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
 custom_fonts/font = SubResource( 4 )
-text = "[def. 1.14] the size of note hitboxes in grid units (note: hit checking is done at the center of the cursor)"
+text = "[def. 1.14] the size of note hitboxes in grid units (hit checking is done at the center of the cursor)   [1.5x = 1.71; 2x = 2.28]"
 valign = 1
 
 [node name="HitWindow" type="Control" parent="M/Modifiers/Group/H"]
@@ -363,7 +363,7 @@ theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
 custom_fonts/font = SubResource( 4 )
-text = "[def. 55ms] the length of time notes can be hit after reaching the grid"
+text = "[def. 55ms] the length of time notes can be hit after reaching the grid   [1.5x = 83; 2x = 110]"
 valign = 1
 
 [node name="Customization" type="VBoxContainer" parent="M"]

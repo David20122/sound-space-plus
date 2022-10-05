@@ -2588,7 +2588,6 @@ custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_fonts/font = SubResource( 92 )
-pressed = true
 action_mode = 0
 group = SubResource( 93 )
 flat = true

@@ -1,4 +1,4 @@
-[gd_scene load_steps=81 format=2]
+[gd_scene load_steps=91 format=2]
 
 [ext_resource path="res://game/Camera.gd" type="Script" id=1]
 [ext_resource path="res://game/NoteManager.gd" type="Script" id=2]
@@ -26,8 +26,17 @@
 [ext_resource path="res://game/CursorTrail.gd" type="Script" id=24]
 [ext_resource path="res://error.jpg" type="Texture" id=25]
 [ext_resource path="res://game/Friend.gd" type="Script" id=26]
+[ext_resource path="res://content/modifiers/64/speed_mmm_colored.png" type="Texture" id=27]
+[ext_resource path="res://content/modifiers/64/speed_m_colored.png" type="Texture" id=28]
+[ext_resource path="res://content/modifiers/64/speed_p_colored.png" type="Texture" id=29]
 [ext_resource path="res://game/CameraControl.gd" type="Script" id=30]
+[ext_resource path="res://content/modifiers/64/speed_mm_colored.png" type="Texture" id=31]
+[ext_resource path="res://content/modifiers/64/speed_ppp_colored.png" type="Texture" id=32]
+[ext_resource path="res://content/modifiers/64/speed_pppp_colored.png" type="Texture" id=33]
 [ext_resource path="res://game/PauseHud.gd" type="Script" id=34]
+[ext_resource path="res://content/modifiers/64/speed_pp_colored.png" type="Texture" id=35]
+[ext_resource path="res://content/modifiers/64/autoplayer.png" type="Texture" id=36]
+[ext_resource path="res://content/modifiers/64/replaying.png" type="Texture" id=37]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.145098, 0.74902, 0, 1 )
@@ -49,6 +58,9 @@ params_depth_draw_mode = 2
 albedo_texture = ExtResource( 10 )
 
 [sub_resource type="Environment" id=2]
+background_energy = 0.0
+adjustment_enabled = true
+adjustment_brightness = 0.6
 
 [sub_resource type="World" id=3]
 environment = SubResource( 2 )
@@ -159,6 +171,11 @@ outline_color = Color( 0, 0, 0, 0.333333 )
 use_filter = true
 font_data = ExtResource( 15 )
 
+[sub_resource type="DynamicFont" id=77]
+size = 52
+use_filter = true
+font_data = ExtResource( 18 )
+
 [sub_resource type="StyleBoxFlat" id=15]
 bg_color = Color( 0.227451, 0.647059, 0.0823529, 1 )
 
@@ -220,7 +237,7 @@ flags = 4
 viewport_path = NodePath("Game/Grid/RightVP")
 
 [sub_resource type="ViewportTexture" id=26]
-flags = 4
+flags = 68
 viewport_path = NodePath("Game/Grid/EnergyVP")
 
 [sub_resource type="ViewportTexture" id=27]
@@ -708,6 +725,7 @@ __meta__ = {
 }
 
 [node name="FPS" type="Label" parent="Game/Grid/RightVP/Control"]
+visible = false
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -723,6 +741,7 @@ __meta__ = {
 }
 
 [node name="FPSTitle" type="Label" parent="Game/Grid/RightVP/Control"]
+visible = false
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -730,6 +749,35 @@ margin_top = -850.0
 margin_bottom = -775.0
 custom_fonts/font = SubResource( 9 )
 text = "FPS"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Score" type="Label" parent="Game/Grid/RightVP/Control"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -809.0
+margin_bottom = -734.0
+custom_fonts/font = SubResource( 77 )
+text = "0"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScoreTitle" type="Label" parent="Game/Grid/RightVP/Control"]
+visible = false
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -874.0
+margin_bottom = -799.0
+custom_fonts/font = SubResource( 9 )
+text = "SCORE"
 align = 1
 valign = 1
 __meta__ = {
@@ -763,11 +811,113 @@ step = 0.0
 value = 1.0
 percent_visible = false
 
-[node name="Modifiers" type="Label" parent="Game/Grid/EnergyVP/Control"]
+[node name="Modifiers" type="VBoxContainer" parent="Game/Grid/EnergyVP/Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = 50.0
 margin_top = 50.0
-margin_bottom = -125.0
+margin_right = -50.0
+grow_horizontal = 2
+
+[node name="Icons" type="MarginContainer" parent="Game/Grid/EnergyVP/Control/Modifiers"]
+margin_right = 800.0
+grow_horizontal = 2
+custom_constants/margin_right = 28
+custom_constants/margin_left = 28
+
+[node name="H" type="HBoxContainer" parent="Game/Grid/EnergyVP/Control/Modifiers/Icons"]
+margin_left = 28.0
+margin_right = 772.0
+rect_min_size = Vector2( 744, 0 )
+custom_constants/separation = 6
+alignment = 1
+
+[node name="Replaying" type="TextureRect" parent="Game/Grid/EnergyVP/Control/Modifiers/Icons/H"]
+visible = false
+margin_left = 60.0
+margin_right = 124.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+texture = ExtResource( 37 )
+stretch_mode = 1
+
+[node name="Autoplay" type="TextureRect" parent="Game/Grid/EnergyVP/Control/Modifiers/Icons/H"]
+visible = false
+margin_left = 130.0
+margin_right = 194.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+texture = ExtResource( 36 )
+stretch_mode = 1
+
+[node name="SpeedMMM" type="TextureRect" parent="Game/Grid/EnergyVP/Control/Modifiers/Icons/H"]
+visible = false
+margin_left = 200.0
+margin_right = 264.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+texture = ExtResource( 27 )
+stretch_mode = 1
+
+[node name="SpeedMM" type="TextureRect" parent="Game/Grid/EnergyVP/Control/Modifiers/Icons/H"]
+visible = false
+margin_left = 270.0
+margin_right = 334.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+texture = ExtResource( 31 )
+stretch_mode = 1
+
+[node name="SpeedM" type="TextureRect" parent="Game/Grid/EnergyVP/Control/Modifiers/Icons/H"]
+visible = false
+margin_left = 340.0
+margin_right = 404.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+texture = ExtResource( 28 )
+stretch_mode = 1
+
+[node name="SpeedP" type="TextureRect" parent="Game/Grid/EnergyVP/Control/Modifiers/Icons/H"]
+visible = false
+margin_left = 410.0
+margin_right = 474.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+texture = ExtResource( 29 )
+stretch_mode = 1
+
+[node name="SpeedPP" type="TextureRect" parent="Game/Grid/EnergyVP/Control/Modifiers/Icons/H"]
+visible = false
+margin_left = 480.0
+margin_right = 544.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+texture = ExtResource( 35 )
+stretch_mode = 1
+
+[node name="SpeedPPP" type="TextureRect" parent="Game/Grid/EnergyVP/Control/Modifiers/Icons/H"]
+visible = false
+margin_left = 550.0
+margin_right = 614.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+texture = ExtResource( 32 )
+stretch_mode = 1
+
+[node name="SpeedPPPP" type="TextureRect" parent="Game/Grid/EnergyVP/Control/Modifiers/Icons/H"]
+visible = false
+margin_left = 620.0
+margin_right = 684.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+texture = ExtResource( 33 )
+stretch_mode = 1
+
+[node name="Text" type="Label" parent="Game/Grid/EnergyVP/Control/Modifiers"]
+margin_top = 4.0
+margin_right = 800.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 800, 0 )
 custom_colors/font_color = Color( 1, 0.929412, 0.658824, 1 )
 custom_fonts/font = SubResource( 7 )
 align = 1
@@ -1276,8 +1426,10 @@ transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 1, -2.1
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.25, 0.25, 0 )
 
 [node name="Avatar" parent="Game" instance=ExtResource( 11 )]
+visible = false
 
 [node name="BlackFade" type="ColorRect" parent="Game"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 1

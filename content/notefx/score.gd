@@ -8,7 +8,7 @@ var t:float = 1
 func _process(delta):
 	if active:
 		t -= delta * 3
-		transform.origin.y = -0.8 + (clamp(smoothstep(0.6,0.0,t), 0, 1) * -0.4)
+		transform.origin.y = -0.8 + clamp((2*pow((1.0 - t)-0.25,2))-0.125,-1,1) * -0.4
 		$Label.modulate = Color(col.r, col.g, col.b, col.a*t)
 		$Label.outline_modulate = Color(0, 0, 0, 0.6*t)
 		if t <= 0:
