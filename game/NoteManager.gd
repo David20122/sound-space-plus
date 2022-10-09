@@ -141,6 +141,7 @@ func _ready():
 	$Miss.stream = SSP.miss_snd
 	$Hit.stream = SSP.hit_snd
 	$Note/Mesh.mesh = load(SSP.selected_mesh.path)
+	
 	var m:ShaderMaterial = $Note.solid_mat
 	var mt:ShaderMaterial = $Note.transparent_mat
 	
@@ -163,9 +164,6 @@ func _ready():
 	if missEffect.has_method("setup"): missEffect.setup(miss_id,true)
 	missEffect.visible = false
 	add_child(missEffect)
-	
-	if !SSP.note_visual_approach:
-		$Note/Approach.queue_free()
 	
 	# force everything to be loaded now
 	yield(get_tree(),"idle_frame")

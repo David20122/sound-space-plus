@@ -129,6 +129,10 @@ func setup(color:Color):
 			fade_in_start = SSP.spawn_distance
 			fade_in_end = SSP.spawn_distance*(1.0 - SSP.fade_length)
 
+func _ready():
+	if !SSP.note_visual_approach && has_node("Approach"):
+		$Approach.queue_free()
+
 func _process(delta):
 	if visible:
 		spawn_effect_t = max(0, spawn_effect_t - (4*delta))
