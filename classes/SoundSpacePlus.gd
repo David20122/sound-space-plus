@@ -581,9 +581,8 @@ func _set_music_volume(v:float):
 # Settings - Misc
 var show_warnings:bool = true
 var auto_maximize:bool = true
-var enable_experiments:bool = false # NOT ADDED TO SETTINGS YET
 
-# Settings - Experimental (only accessible if SSP.enable_experiments is true)
+# Settings - Experimental
 var note_visual_approach:bool = true # NOT ADDED TO SETTINGS YET | default: false, only true for testing
 
 
@@ -778,7 +777,7 @@ func load_pbs():
 
 
 # Settings file
-const current_sf_version = 40 # SV
+const current_sf_version = 41 # SV
 func load_saved_settings():
 	if Input.is_key_pressed(KEY_CONTROL) and Input.is_key_pressed(KEY_L): 
 		print("force settings read error")
@@ -947,7 +946,10 @@ func load_saved_settings():
 		if sv >= 37:
 			faraway_hud = bool(file.get_8())
 		if sv >= 38:
-			music_offset = float(file.get_32())
+			if sv >= 41:
+				music_offset = float(file.get_float())
+			else:
+				music_offset = float(file.get_32())
 		if sv >= 39:
 			var eff = registry_effect.get_item(file.get_line())
 			if eff:
@@ -1046,7 +1048,7 @@ func save_settings():
 		file.store_8(int(show_letter_grade))
 		file.store_8(int(simple_hud))
 		file.store_8(int(faraway_hud))
-		file.store_32(music_offset)
+		file.store_float(music_offset)
 		file.store_line(selected_miss_effect.id)
 		file.store_8(int(show_miss_effect))
 		file.store_8(int(auto_maximize))
