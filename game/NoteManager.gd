@@ -164,6 +164,8 @@ func _ready():
 	missEffect.visible = false
 	add_child(missEffect)
 	
+	if !SSP.note_visual_approach:
+		$Note/Approach.queue_free()
 	
 	# force everything to be loaded now
 	yield(get_tree(),"idle_frame")

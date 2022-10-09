@@ -561,10 +561,11 @@ var show_letter_grade:bool = true
 var attach_hp_to_grid:bool = false
 var attach_timer_to_grid:bool = false
 var simple_hud:bool = false
-var faraway_hud:bool = false # Kermeet Mode
+var faraway_hud:bool = false
 var rainbow_grid:bool = false
 var rainbow_hud:bool = false
-var friend_position:int = Globals.FRIEND_BEHIND_GRID
+var friend_position:int = Globals.FRIEND_BEHIND_GRID # Hidden
+var note_visual_approach:bool = false # Experimental
 
 # Settings - Audio
 var auto_preview_song:bool = true
@@ -583,7 +584,6 @@ var show_warnings:bool = true
 var auto_maximize:bool = true
 
 # Settings - Experimental
-var note_visual_approach:bool = true # NOT ADDED TO SETTINGS YET | default: false, only true for testing
 
 
 
@@ -777,7 +777,7 @@ func load_pbs():
 
 
 # Settings file
-const current_sf_version = 41 # SV
+const current_sf_version = 42 # SV
 func load_saved_settings():
 	if Input.is_key_pressed(KEY_CONTROL) and Input.is_key_pressed(KEY_L): 
 		print("force settings read error")
@@ -957,6 +957,8 @@ func load_saved_settings():
 			show_miss_effect = bool(file.get_8())
 		if sv >= 40:
 			auto_maximize = bool(file.get_8())
+		if sv >= 42:
+			note_visual_approach = bool(file.get_8())
 		file.close()
 	return 0
 func save_settings():
@@ -1052,6 +1054,8 @@ func save_settings():
 		file.store_line(selected_miss_effect.id)
 		file.store_8(int(show_miss_effect))
 		file.store_8(int(auto_maximize))
+		file.store_8(int(note_visual_approach))
+		
 		file.close()
 		return "OK"
 	else:

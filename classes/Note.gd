@@ -55,7 +55,6 @@ func reposition(ms:float,approachSpeed:float):
 			transform.origin.y = real_position.y + (chaos_offset.y * v)
 		
 		if SSP.note_visual_approach:
-			
 			$Approach.opacity = 1 - (current_dist / SSP.spawn_distance)
 			
 			$Approach.scale.x = 0.4 * ((current_dist / SSP.spawn_distance) + 0.3)
