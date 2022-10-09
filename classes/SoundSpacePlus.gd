@@ -581,8 +581,10 @@ func _set_music_volume(v:float):
 # Settings - Misc
 var show_warnings:bool = true
 var auto_maximize:bool = true
+var enable_experiments:bool = false # NOT ADDED TO SETTINGS YET
 
-
+# Settings - Experimental (only accessible if SSP.enable_experiments is true)
+var note_visual_approach:bool = true # NOT ADDED TO SETTINGS YET | default: false, only true for testing
 
 
 

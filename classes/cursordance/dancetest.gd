@@ -1,4 +1,4 @@
-extends ColorRect
+extends Control
 
 var song:Song = SSP.selected_song
 var dance:DanceMover
@@ -85,7 +85,7 @@ func set_playing(v:bool):
 	else: $Main/Music.stop()
 
 func seek(to:float):
-	if active: set_playing(false)
+	if active: set_playing(true)
 	ms = to
 	update_cursor()
 	$Buttons/Current/M/L.text = "%s / %s (%s / %s)" % [
@@ -118,6 +118,6 @@ func _ready():
 	active = true
 	
 	$Buttons/StartStop/H/Start.connect("pressed",self,"set_playing",[true])
-	$Buttons/StartStop/H/Stop.connect("pressed",self,"set_playing",[false])
+	$Buttons/StartStop/H/Stop.connect("pressed",self,"set_playing",[true])
 	$Buttons/Seek/H/Seek.connect("pressed",self,"direct_seek")
 	$Time.connect("value_changed",self,"timebar_seek")

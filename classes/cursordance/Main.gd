@@ -5,7 +5,7 @@ var noten:int = 0
 
 var colors = SSP.selected_colorset.colors
 
-var active:bool = false
+var active:bool = true
 
 func mc(col:Color,m:float) -> Color:
 	return Color(col.r*m,col.g*m,col.b*m,col.a) 

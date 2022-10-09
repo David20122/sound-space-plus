@@ -1,4 +1,4 @@
-[gd_scene load_steps=91 format=2]
+[gd_scene load_steps=104 format=2]
 
 [ext_resource path="res://game/Camera.gd" type="Script" id=1]
 [ext_resource path="res://game/NoteManager.gd" type="Script" id=2]
@@ -37,6 +37,13 @@
 [ext_resource path="res://content/modifiers/64/speed_pp_colored.png" type="Texture" id=35]
 [ext_resource path="res://content/modifiers/64/autoplayer.png" type="Texture" id=36]
 [ext_resource path="res://content/modifiers/64/replaying.png" type="Texture" id=37]
+[ext_resource path="res://font/debug.tres" type="DynamicFont" id=38]
+[ext_resource path="res://classes/cursordance/dancetest.gd" type="Script" id=39]
+[ext_resource path="res://content/sfx/hit.wav" type="AudioStream" id=40]
+[ext_resource path="res://classes/cursordance/Cursor.gd" type="Script" id=41]
+[ext_resource path="res://classes/cursordance/Main.gd" type="Script" id=42]
+[ext_resource path="res://classes/cursordance/Stop.gd" type="Script" id=43]
+[ext_resource path="res://approach.svg" type="Texture" id=44]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.145098, 0.74902, 0, 1 )
@@ -247,6 +254,34 @@ viewport_path = NodePath("Game/Grid/ConfigVP")
 [sub_resource type="ViewportTexture" id=28]
 flags = 4
 viewport_path = NodePath("Game/Grid/ComboVP")
+
+[sub_resource type="StyleBoxFlat" id=78]
+bg_color = Color( 0, 0, 0, 1 )
+border_color = Color( 0.254902, 0.254902, 0.254902, 1 )
+
+[sub_resource type="DynamicFont" id=79]
+outline_color = Color( 0, 0, 0, 1 )
+use_filter = true
+font_data = ExtResource( 22 )
+
+[sub_resource type="DynamicFont" id=80]
+use_filter = true
+font_data = ExtResource( 22 )
+
+[sub_resource type="Theme" id=81]
+default_font = SubResource( 80 )
+
+[sub_resource type="GDScript" id=82]
+script/source = "extends Button
+
+func _pressed():
+	SSP.menu_target = \"res://menu2.tscn\"
+	get_tree().change_scene(\"res://menuload.tscn\")
+"
+
+[sub_resource type="ViewportTexture" id=83]
+flags = 4
+viewport_path = NodePath("Game/Grid/ApproachVP")
 
 [sub_resource type="PlaneMesh" id=30]
 size = Vector2( 3.1, 3.1 )
@@ -1309,6 +1344,188 @@ no_depth_test = true
 render_priority = 100
 texture = SubResource( 28 )
 
+[node name="ApproachVP" type="Viewport" parent="Game/Grid"]
+size = Vector2( 300, 300 )
+transparent_bg = true
+msaa = 1
+fxaa = true
+hdr = false
+usage = 0
+gui_snap_controls_to_pixels = false
+
+[node name="Control" type="ColorRect" parent="Game/Grid/ApproachVP"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0 )
+script = ExtResource( 39 )
+
+[node name="Main" type="Panel" parent="Game/Grid/ApproachVP/Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -150.0
+margin_top = -150.0
+margin_right = 150.0
+margin_bottom = 150.0
+custom_styles/panel = SubResource( 78 )
+script = ExtResource( 42 )
+
+[node name="Control" type="Control" parent="Game/Grid/ApproachVP/Control/Main"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+
+[node name="Cursor" type="Node2D" parent="Game/Grid/ApproachVP/Control/Main/Control"]
+visible = false
+script = ExtResource( 41 )
+font = ExtResource( 38 )
+
+[node name="TextureRect" type="TextureRect" parent="Game/Grid/ApproachVP/Control/Main/Control/Cursor"]
+margin_left = -16.0
+margin_top = -16.0
+margin_right = 16.0
+margin_bottom = 16.0
+texture = ExtResource( 10 )
+expand = true
+stretch_mode = 1
+
+[node name="Hit" type="AudioStreamPlayer" parent="Game/Grid/ApproachVP/Control/Main"]
+stream = ExtResource( 40 )
+volume_db = -80.0
+
+[node name="Music" type="AudioStreamPlayer" parent="Game/Grid/ApproachVP/Control/Main"]
+volume_db = -80.0
+
+[node name="Time" type="HSlider" parent="Game/Grid/ApproachVP/Control"]
+visible = false
+anchor_right = 1.0
+margin_left = 10.0
+margin_top = 61.0
+margin_right = -10.0
+margin_bottom = 77.0
+min_value = -1000.0
+page = 15.0
+value = -1000.0
+editable = false
+
+[node name="Label" type="Label" parent="Game/Grid/ApproachVP/Control"]
+visible = false
+margin_left = 24.0
+margin_top = 85.0
+margin_right = 184.0
+margin_bottom = 102.0
+custom_fonts/font = SubResource( 79 )
+text = "debug text goes here"
+
+[node name="Buttons" type="HBoxContainer" parent="Game/Grid/ApproachVP/Control"]
+visible = false
+anchor_right = 1.0
+margin_left = 10.0
+margin_top = 10.0
+margin_right = -10.0
+margin_bottom = 55.0
+theme = SubResource( 81 )
+
+[node name="StartStop" type="PanelContainer" parent="Game/Grid/ApproachVP/Control/Buttons"]
+margin_right = 114.0
+margin_bottom = 45.0
+
+[node name="H" type="HBoxContainer" parent="Game/Grid/ApproachVP/Control/Buttons/StartStop"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 107.0
+margin_bottom = 38.0
+
+[node name="Start" type="Button" parent="Game/Grid/ApproachVP/Control/Buttons/StartStop/H"]
+margin_right = 52.0
+margin_bottom = 31.0
+text = "start"
+
+[node name="Stop" type="Button" parent="Game/Grid/ApproachVP/Control/Buttons/StartStop/H"]
+margin_left = 56.0
+margin_right = 100.0
+margin_bottom = 31.0
+disabled = true
+text = "stop"
+
+[node name="Seek" type="PanelContainer" parent="Game/Grid/ApproachVP/Control/Buttons"]
+margin_left = 118.0
+margin_right = 286.0
+margin_bottom = 45.0
+rect_min_size = Vector2( 0, 45 )
+
+[node name="H" type="HBoxContainer" parent="Game/Grid/ApproachVP/Control/Buttons/Seek"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 161.0
+margin_bottom = 38.0
+
+[node name="Seek" type="Button" parent="Game/Grid/ApproachVP/Control/Buttons/Seek/H"]
+margin_right = 44.0
+margin_bottom = 31.0
+text = "seek"
+
+[node name="LineEdit" type="LineEdit" parent="Game/Grid/ApproachVP/Control/Buttons/Seek/H"]
+margin_left = 48.0
+margin_right = 154.0
+margin_bottom = 31.0
+rect_min_size = Vector2( 96, 0 )
+expand_to_text_length = true
+placeholder_text = "position ms"
+
+[node name="Current" type="PanelContainer" parent="Game/Grid/ApproachVP/Control/Buttons"]
+margin_left = 290.0
+margin_right = 474.0
+margin_bottom = 45.0
+
+[node name="M" type="MarginContainer" parent="Game/Grid/ApproachVP/Control/Buttons/Current"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 177.0
+margin_bottom = 38.0
+custom_constants/margin_right = 5
+custom_constants/margin_left = 5
+
+[node name="L" type="Label" parent="Game/Grid/ApproachVP/Control/Buttons/Current/M"]
+margin_left = 5.0
+margin_top = 7.0
+margin_right = 165.0
+margin_bottom = 24.0
+text = "0:00 / 0:00  (0 / 0)"
+valign = 1
+
+[node name="Exit" type="PanelContainer" parent="Game/Grid/ApproachVP/Control/Buttons"]
+margin_left = 478.0
+margin_right = 584.0
+margin_bottom = 45.0
+
+[node name="H" type="HBoxContainer" parent="Game/Grid/ApproachVP/Control/Buttons/Exit"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 99.0
+margin_bottom = 38.0
+
+[node name="Menu" type="Button" parent="Game/Grid/ApproachVP/Control/Buttons/Exit/H"]
+margin_right = 44.0
+margin_bottom = 31.0
+text = "Menu"
+script = SubResource( 82 )
+
+[node name="Stop" type="Button" parent="Game/Grid/ApproachVP/Control/Buttons/Exit/H"]
+margin_left = 48.0
+margin_right = 92.0
+margin_bottom = 31.0
+text = "Quit"
+script = ExtResource( 43 )
+
+[node name="ApproachHud" type="Sprite3D" parent="Game/Grid"]
+transform = Transform( 1, 0, 4.37114e-08, -4.37114e-08, 1.91069e-15, 1, 0, -1, 1.91069e-15, 0.00100005, 0, -0.006 )
+visible = false
+axis = 1
+texture = SubResource( 83 )
+
 [node name="Spawn" type="Spatial" parent="Game"]
 pause_mode = 1
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, 0 )
@@ -1399,6 +1616,11 @@ cast_shadow = 0
 mesh = SubResource( 37 )
 material/0 = SubResource( 38 )
 
+[node name="Approach" type="Sprite3D" parent="Game/Spawn/Note"]
+transform = Transform( 0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.05, 0.0182791, -0.058707, -0.0731821 )
+opacity = 0.25
+texture = ExtResource( 44 )
+
 [node name="Friend" type="MeshInstance" parent="Game/Spawn"]
 transform = Transform( 1, 4.37114e-08, -1.91069e-15, 0, -4.37114e-08, -1, -4.37114e-08, 1, -4.37114e-08, 2.25, -2.25, -1.09278e-07 )
 cast_shadow = 0
@@ -1428,6 +1650,15 @@ transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.25, 
 [node name="Avatar" parent="Game" instance=ExtResource( 11 )]
 visible = false
 
+[node name="Head" parent="Game/Avatar" index="0"]
+transform = Transform( 0.225, 0, 0, 0, 0.224144, 0.0196101, 0, -0.0196101, 0.224144, 0, -0.125, 1.975 )
+
+[node name="Outline" parent="Game/Avatar/Torso" index="0"]
+visible = true
+
+[node name="Mesh" parent="Game/Avatar/ArmR" index="0"]
+transform = Transform( 0.0991445, -0.0130526, 0, 0.0130526, 0.0991445, 0, 0, 0, 0.1, 0.5, -0.75, 2 )
+
 [node name="BlackFade" type="ColorRect" parent="Game"]
 visible = false
 anchor_right = 1.0
@@ -1443,3 +1674,7 @@ margin_right = 106.0
 margin_bottom = 27.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_fonts/font = SubResource( 46 )
+
+[editable path="Game/Avatar"]
+[editable path="Game/Avatar/Head/Accessories"]
+[editable path="Game/Avatar/Torso/Shirts"]

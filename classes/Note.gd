@@ -54,6 +54,15 @@ func reposition(ms:float,approachSpeed:float):
 			transform.origin.x = real_position.x + (chaos_offset.x * v)	
 			transform.origin.y = real_position.y + (chaos_offset.y * v)
 		
+		if SSP.note_visual_approach:
+			
+			$Approach.opacity = 1 - (current_dist / SSP.spawn_distance)
+			
+			$Approach.scale.x = 0.4 * ((current_dist / SSP.spawn_distance) + 0.3)
+			$Approach.scale.y = 0.4 * ((current_dist / SSP.spawn_distance) + 0.3)
+			
+			$Approach.global_translation.z = 0
+		
 		if fade_in_enabled or fade_out_enabled:
 			var fade_in:float = 1
 			var fade_out:float = 1
