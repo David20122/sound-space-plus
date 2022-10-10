@@ -15,7 +15,7 @@ flags_unshaded = true
 
 [sub_resource type="Shader" id=80]
 code = "shader_type spatial;
-render_mode blend_mix,cull_back,diffuse_burley,specular_disabled,unshaded,depth_test_disable;
+render_mode blend_mix,cull_back,diffuse_burley,specular_disabled,unshaded;
 uniform vec4 notecolor : hint_color = vec4(1,1,1,1);
 
 uniform float alpha_multi = 1;

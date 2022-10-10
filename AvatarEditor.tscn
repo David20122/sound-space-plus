@@ -16,14 +16,16 @@ font_path = "res://font/main.ttf"
 size = 28
 font_data = SubResource( 2 )
 
-[node name="AvatarEditor" type="Control"]
+[node name="AvatarEditor" type="ColorRect"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
 script = ExtResource( 2 )
 
 [node name="VPContainer" type="ViewportContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+stretch = true
 
 [node name="VP" type="Viewport" parent="VPContainer"]
 size = Vector2( 1280, 720 )
@@ -36,6 +38,9 @@ audio_listener_enable_2d = true
 
 [node name="Head" parent="VPContainer/VP/Avatar" index="0"]
 transform = Transform( 0.225, 0, 0, 0, 0.224144, 0.0196101, 0, -0.0196101, 0.224144, 0, -0.125, 1.975 )
+
+[node name="Mesh" parent="VPContainer/VP/Avatar/ArmR" index="0"]
+transform = Transform( 0.0991445, -0.0130526, 0, 0.0130526, 0.0991445, 0, 0, 0, 0.1, 0.5, -0.75, 2 )
 
 [node name="Camera" type="Camera" parent="VPContainer/VP"]
 transform = Transform( -0.50334, -0.0593912, 0.862045, 0.111619, 0.984808, 0.133022, -0.856849, 0.163176, -0.489064, 1.46402, 0.498293, -0.484755 )
@@ -56,6 +61,8 @@ margin_left = -360.0
 margin_bottom = 38.0
 custom_fonts/font = SubResource( 3 )
 placeholder_text = "Head Accessory"
+caret_blink = true
+caret_blink_speed = 0.5
 
 [node name="Button" type="Button" parent="Head"]
 anchor_left = 0.5
@@ -93,6 +100,8 @@ margin_left = -360.0
 margin_bottom = 38.0
 custom_fonts/font = SubResource( 3 )
 placeholder_text = "Torso Accessory"
+caret_blink = true
+caret_blink_speed = 0.5
 
 [node name="Button" type="Button" parent="Torso"]
 anchor_left = 0.5
