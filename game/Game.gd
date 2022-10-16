@@ -448,6 +448,10 @@ func _ready():
 	
 	if SSP.hitwindow_ms != 55 or SSP.note_hitbox_size != 1.140:
 		ms += "HW: %.0f ms | HB: %.02f m" % [SSP.hitwindow_ms,SSP.note_hitbox_size]
+	if SSP.hitwindow_ms == 83 and SSP.note_hitbox_size == 1.710:
+		ms = "py's nerf"
+	if SSP.hitwindow_ms == 82 and SSP.note_hitbox_size == 1.700:
+		ms = ""
 	
 	modtxt.text = ms
 	

@@ -26,7 +26,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0.5, 1.5, 2.5 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector3( 0, 0.4, 0 ), Vector3( 0, 0.49, 0 ), Vector3( 0, 0.4, 0 ) ]
+"values": [ Vector3( 0, 0.4, -0.75 ), Vector3( 0, 0.49, -0.75 ), Vector3( 0, 0.4, -0.75 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath(".:rotation_degrees")
@@ -38,7 +38,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 1, 2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector3( -5, 0, 0 ), Vector3( 5, 0, 0 ) ]
+"values": [ Vector3( -5, 0, -0.75 ), Vector3( 5, 0, -0.75 ) ]
 }
 
 [sub_resource type="SpatialMaterial" id=85]
@@ -54,20 +54,22 @@ visible = false
 transform = Transform( 1.25, 0, 0, 0, 0.399873, -0.0315095, 0, 0.0100831, 1.2496, 0, 0.4, 0 )
 material_override = SubResource( 84 )
 mesh = ExtResource( 1 )
-material/0 = null
 
 [node name="Animations" type="AnimationPlayer" parent="CubellaBikini/Top"]
 pause_mode = 2
 anims/Idle = SubResource( 86 )
 
+[node name="Strap" type="MeshInstance" parent="CubellaBikini"]
+transform = Transform( 1.24989, 0.00523584, 0, -0.0163476, 0.399613, -0.0525059, -0.000687283, 0.0168005, 1.24889, 0, 0.4, -0.75 )
+material_override = SubResource( 84 )
+mesh = ExtResource( 1 )
+
 [node name="Button" type="MeshInstance" parent="CubellaBikini"]
 transform = Transform( 0.025, 0, 0, 0, 0.1, 0, 0, 0, 0.025, 0, -0.45, -1 )
 material_override = SubResource( 85 )
 mesh = ExtResource( 1 )
-material/0 = null
 
 [node name="Bottom" type="MeshInstance" parent="CubellaBikini"]
 transform = Transform( 1, 0, 0, 0, 0.1, 0, 0, 0, 1, 0, -1, 0 )
 material_override = SubResource( 84 )
 mesh = ExtResource( 1 )
-material/0 = null
