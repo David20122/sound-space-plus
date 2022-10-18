@@ -16,7 +16,7 @@ script = ExtResource( 1 )
 
 [node name="Label" type="Label3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0.067 )
-billboard = 2
+billboard = 1
 no_depth_test = true
 alpha_scissor_threshold = 0.0
 render_priority = 102
