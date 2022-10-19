@@ -1387,11 +1387,11 @@ texture = ExtResource( 10 )
 expand = true
 stretch_mode = 1
 
-[node name="Hit" type="AudioStreamPlayer" parent="Game/Grid/ApproachVP/Control/Main"]
-stream = ExtResource( 40 )
+[node name="Music" type="AudioStreamPlayer" parent="Game/Grid/ApproachVP/Control/Main"]
 volume_db = -80.0
 
-[node name="Music" type="AudioStreamPlayer" parent="Game/Grid/ApproachVP/Control/Main"]
+[node name="Hit" type="AudioStreamPlayer" parent="Game/Grid/ApproachVP/Control/Main"]
+stream = ExtResource( 40 )
 volume_db = -80.0
 
 [node name="Time" type="HSlider" parent="Game/Grid/ApproachVP/Control"]
@@ -1530,13 +1530,14 @@ script = ExtResource( 2 )
 [node name="Music" type="AudioStreamPlayer" parent="Game/Spawn"]
 bus = "Music"
 
-[node name="Miss" type="AudioStreamPlayer" parent="Game/Spawn"]
+[node name="Miss" type="AudioStreamPlayer3D" parent="Game/Spawn"]
 pause_mode = 2
-volume_db = -8.0
+attenuation_model = 3
+attenuation_filter_cutoff_hz = 1.0
 
-[node name="Hit" type="AudioStreamPlayer" parent="Game/Spawn"]
+[node name="Hit" type="AudioStreamPlayer3D" parent="Game/Spawn"]
 pause_mode = 2
-volume_db = -22.0
+attenuation_model = 3
 
 [node name="Outer" type="MeshInstance" parent="Game/Spawn"]
 transform = Transform( -4.37114e-08, -4.37114e-08, -1, -1, 1.91069e-15, 4.37114e-08, 0, 1, -4.37114e-08, 1, -1, 0 )

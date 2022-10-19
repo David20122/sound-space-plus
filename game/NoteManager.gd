@@ -51,7 +51,9 @@ func reposition_notes(force:bool=false):
 				if !SSP.replaying and SSP.record_replays:
 					SSP.replay.note_miss(note.id)
 				note.state = Globals.NSTATE_MISS
-				if SSP.play_miss_snd: $Miss.play()
+				if SSP.play_miss_snd: 
+					$Miss.transform = note.transform
+					$Miss.play()
 				if SSP.show_miss_effect:
 					var pos:Vector3 = Vector3(
 						note.transform.origin.x,
@@ -67,7 +69,9 @@ func reposition_notes(force:bool=false):
 				if !SSP.replaying and SSP.record_replays:
 					SSP.replay.note_hit(note.id)
 				note.state = Globals.NSTATE_HIT
-				if SSP.play_hit_snd: $Hit.play()
+				if SSP.play_hit_snd: 
+					$Hit.transform = note.transform
+					$Hit.play()
 				var pos:Vector3 = Vector3(
 					$Cursor.global_transform.origin.x,
 					$Cursor.global_transform.origin.y,
