@@ -14,6 +14,7 @@ var last_combo:int = 0
 var combo:int = 0
 var combo_level:int = 1
 var lvl_progress:int = 0
+var song_has_failed:bool = false
 
 export(StyleBox) var timer_fg_done
 
@@ -129,7 +130,7 @@ func update_hud():
 var ending:bool = false
 func end(end_type:int):
 	if ending: return
-	print("My god, what are you doing?!")
+	print("My god, what are you doing!?")
 	ending = true
 	if end_type == Globals.END_GIVEUP and SSP.record_replays and !SSP.replaying:
 		SSP.replay.store_sig($Spawn.rms,Globals.RS_GIVEUP)
@@ -334,12 +335,18 @@ func miss(col):
 	emit_signal("miss",col)
 	misses += 1
 	total_notes += 1
-	if !SSP.mod_nofail: energy = clamp(energy-1,0,max_energy)
+	energy = clamp(energy-1,0,max_energy)
 	combo = 0
 	lvl_progress = 0
 	if combo_level != 1: combo_level -= 1
 	update_hud()
-	if energy == 0: end(Globals.END_FAIL)
+	if energy == 0: 
+		if SSP.mod_nofail:
+			if not song_has_failed:
+				song_has_failed = true
+				SSP.fail_asp.play()
+		else:
+			end(Globals.END_FAIL)
 
 
 func _ready():
