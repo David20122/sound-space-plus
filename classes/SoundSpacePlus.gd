@@ -728,7 +728,150 @@ func load_saved_settings():
 		print("force settings read error")
 		return -1
 	var file:File = File.new()
-	if file.file_exists(Globals.p("user://settings")):
+	
+	if file.file_exists(Globals.p("user://settings.json")):
+		var err = file.open(Globals.p("user://settings.json"),File.READ)
+		if err != OK:
+			print("file.open failed"); return -2
+		var decode = JSON.parse(file.get_as_text())
+		file.close()
+		
+		if decode.error:
+			print(decode.error_string)
+			return ((-100) - decode.error)
+		
+		var data:Dictionary = decode.result
+		
+		if data.has("approach_rate"): 
+			approach_rate = data.approach_rate
+		if data.has("sensitivity"): 
+			sensitivity = data.sensitivity
+		if data.has("play_hit_snd"): 
+			play_hit_snd = data.play_hit_snd
+		if data.has("play_miss_snd"): 
+			play_miss_snd = data.play_miss_snd
+		if data.has("auto_preview_song"): 
+			auto_preview_song = data.auto_preview_song
+		if data.has("vsync_enabled"): 
+			OS.vsync_enabled = data.vsync_enabled
+		if data.has("vsync_via_compositor"): 
+			OS.vsync_via_compositor = data.vsync_via_compositor
+		if data.has("window_fullscreen"): 
+			OS.window_fullscreen = data.window_fullscreen
+		if data.has("selected_colorset"): 
+			var cset = registry_colorset.get_item(data.selected_colorset)
+			if cset: select_colorset(cset)
+		if data.has("parallax"): 
+			parallax = data.parallax
+		if data.has("cam_unlock"): 
+			cam_unlock = data.cam_unlock
+		if data.has("show_config"): 
+			show_config = data.show_config
+		if data.has("enable_grid"): 
+			enable_grid = data.enable_grid
+		if data.has("cursor_scale"): 
+			cursor_scale = data.cursor_scale
+		if data.has("edge_drift"): 
+			edge_drift = data.edge_drift
+		if data.has("enable_drift_cursor"): 
+			enable_drift_cursor = data.enable_drift_cursor
+		if data.has("hitwindow_ms"): 
+			hitwindow_ms = data.hitwindow_ms
+		if data.has("cursor_spin"): 
+			cursor_spin = data.cursor_spin
+		if data.has("music_volume_db"): 
+			music_volume_db = data.music_volume_db
+		if data.has("selected_space"): 
+			var world = registry_world.get_item(data.selected_space)
+			if world:
+				select_world(world)
+		if data.has("enable_border"): 
+			enable_border = data.enable_border
+		if data.has("selected_mesh"): 
+			var mesh = registry_mesh.get_item(data.selected_mesh)
+			if mesh:
+				select_mesh(mesh)
+		if data.has("play_menu_music"): 
+			play_menu_music = data.play_menu_music
+		if data.has("note_hitbox_size"): 
+			note_hitbox_size = data.note_hitbox_size
+		if data.has("spawn_distance"): 
+			spawn_distance = data.spawn_distance
+		if data.has("custom_speed"): 
+			set("custom_speed",data.custom_speed)
+		if data.has("note_spawn_effect"): 
+			note_spawn_effect = data.note_spawn_effect
+		if data.has("display_true_combo"): 
+			display_true_combo = data.display_true_combo
+		if data.has("ui_parallax"): 
+			ui_parallax = data.ui_parallax
+		if data.has("grid_parallax"): 
+			grid_parallax = data.grid_parallax
+		if data.has("fade_length"): 
+			fade_length = data.fade_length
+		if data.has("show_hit_effect"): 
+			show_hit_effect = data.show_hit_effect
+		if data.has("lock_mouse"): 
+			lock_mouse = data.lock_mouse
+		if data.has("rainbow_cursor"): 
+			rainbow_cursor = data.rainbow_cursor
+		if data.has("cursor_trail"): 
+			cursor_trail = data.cursor_trail
+		if data.has("trail_detail"): 
+			trail_detail = data.trail_detail
+		if data.has("trail_time"): 
+			trail_time = data.trail_time
+		if data.has("friend_position"): 
+			friend_position = data.friend_position
+		if data.has("show_hp_bar"): 
+			show_hp_bar = data.show_hp_bar
+		if data.has("show_timer"): 
+			show_timer = data.show_timer
+		if data.has("show_left_panel"): 
+			show_left_panel = data.show_left_panel
+		if data.has("show_right_panel"): 
+			show_right_panel = data.show_right_panel
+		if data.has("attach_hp_to_grid"): 
+			attach_hp_to_grid = data.attach_hp_to_grid
+		if data.has("attach_timer_to_grid"): 
+			attach_timer_to_grid = data.attach_timer_to_grid
+		if data.has("rainbow_grid"): 
+			rainbow_grid = data.rainbow_grid
+		if data.has("rainbow_hud"): 
+			rainbow_hud = data.rainbow_hud
+		if data.has("selected_hit_effect"): 
+			var eff = registry_effect.get_item(data.selected_hit_effect)
+			if eff:
+				select_hit_effect(eff)
+			
+		if data.has("hit_effect_at_cursor"): 
+			hit_effect_at_cursor = data.hit_effect_at_cursor
+		if data.has("show_warnings"): 
+			show_warnings = data.show_warnings
+		if data.has("record_replays"): 
+			should_ask_about_replays = false
+			record_replays = data.record_replays
+		if data.has("alt_cam"): 
+			alt_cam = data.alt_cam
+		if data.has("show_accuracy_bar"): 
+			show_accuracy_bar = data.show_accuracy_bar
+		if data.has("show_letter_grade"): 
+			show_letter_grade = data.show_letter_grade
+		if data.has("simple_hud"): 
+			simple_hud = data.simple_hud
+		if data.has("faraway_hud"): 
+			faraway_hud = data.faraway_hud
+		if data.has("music_offset"): 
+			music_offset = data.music_offset
+		if data.has("selected_miss_effect"): 
+			var eff = registry_effect.get_item(data.selected_miss_effect)
+			if eff:
+				select_miss_effect(eff)
+		if data.has("show_miss_effect"): 
+			show_miss_effect = data.show_miss_effect
+			
+	
+	elif file.file_exists(Globals.p("user://settings")):
 		var err = file.open(Globals.p("user://settings"),File.READ)
 		if err != OK:
 			print("file.open failed"); return 1
@@ -899,99 +1042,75 @@ func load_saved_settings():
 			show_miss_effect = bool(file.get_8())
 			
 		file.close()
+		save_settings()
 	return 0
 func save_settings():
 	var file:File = File.new()
-	var err:int = file.open(Globals.p("user://settings"),File.WRITE)
+	var err:int = file.open(Globals.p("user://settings.json"),File.WRITE)
 	if err == OK:
-		file.store_16(current_sf_version)
-		file.store_float(approach_rate)
-		file.store_float(sensitivity)
-		file.store_8(int(play_hit_snd))
-		file.store_8(int(play_miss_snd))
-		file.store_8(int(auto_preview_song))
+		var data = {
+			approach_rate = approach_rate,
+			sensitivity = sensitivity,
+			play_hit_snd = play_hit_snd,
+			play_miss_snd = play_miss_snd,
+			auto_preview_song = auto_preview_song,
+			vsync_enabled = OS.vsync_enabled,
+			vsync_via_compositor = OS.vsync_via_compositor,
+			window_fullscreen = OS.window_fullscreen,
+			selected_colorset = selected_colorset.id,
+			selected_space = selected_space.id,
+			selected_mesh = selected_mesh.id,
+			selected_hit_effect = selected_hit_effect.id,
+			parallax = parallax,
+			cam_unlock = cam_unlock,
+			show_config = show_config,
+			enable_grid = enable_grid,
+			cursor_scale = cursor_scale,
+			edge_drift = edge_drift,
+			enable_drift_cursor = enable_drift_cursor,
+			hitwindow_ms = hitwindow_ms,
+			cursor_spin = cursor_spin,
+			music_volume_db = music_volume_db,
+			enable_border = enable_border,
+			play_menu_music = play_menu_music,
+			note_hitbox_size = note_hitbox_size,
+			spawn_distance = spawn_distance,
+			custom_speed = custom_speed,
+			display_true_combo = display_true_combo,
+			cursor_face_velocity = cursor_face_velocity,
+			ui_parallax = ui_parallax,
+			grid_parallax = grid_parallax,
+			fade_length = fade_length,
+			show_hit_effect = show_hit_effect,
+			lock_mouse = lock_mouse,
+			rainbow_cursor = rainbow_cursor,
+			cursor_trail = cursor_trail,
+			trail_detail = trail_detail,
+			trail_time = trail_time,
+			friend_position = friend_position,
+			show_hp_bar = show_hp_bar,
+			show_timer = show_timer,
+			show_left_panel = show_left_panel,
+			show_right_panel = show_right_panel,
+			attach_hp_to_grid = attach_hp_to_grid,
+			attach_timer_to_grid = attach_timer_to_grid,
+			rainbow_grid = rainbow_grid,
+			rainbow_hud = rainbow_hud,
+			smart_trail = smart_trail,
+			hit_effect_at_cursor = hit_effect_at_cursor,
+			show_warnings = show_warnings,
+			record_replays = record_replays,
+			alt_cam = alt_cam,
+			show_accuracy_bar = show_accuracy_bar,
+			show_letter_grade = show_letter_grade,
+			simple_hud = simple_hud,
+			faraway_hud = faraway_hud,
+			music_offset = music_offset,
+			selected_miss_effect = selected_miss_effect.id,
+			show_miss_effect = show_miss_effect,
+		}
 		
-		file.store_8(0) # integrity check
-		
-		file.store_8(int(OS.vsync_enabled))
-		file.store_8(int(OS.vsync_via_compositor))
-		file.store_8(int(OS.window_fullscreen))
-		file.store_line(selected_colorset.id)
-		file.store_float(parallax)
-		file.store_8(int(cam_unlock))
-		
-		file.store_8(215) # integrity check
-		
-		file.store_8(int(show_config))
-		file.store_8(int(enable_grid))
-		file.store_float(cursor_scale)
-		
-		file.store_8(43) # integrity check
-		
-		file.store_float(edge_drift)
-		file.store_8(int(enable_drift_cursor))
-		file.store_float(hitwindow_ms)
-		
-		file.store_8(117) # integrity check
-		
-		file.store_float(cursor_spin)
-		file.store_float(music_volume_db)
-		file.store_line(selected_space.id)
-		
-		file.store_8(89) # integrity check
-		
-		file.store_8(int(enable_border))
-		file.store_line(selected_mesh.id)
-		file.store_8(int(play_menu_music))
-		
-		file.store_8(12) # integrity check
-		
-		file.store_float(note_hitbox_size)
-		file.store_float(spawn_distance)
-		file.store_float(custom_speed)
-		file.store_8(int(note_spawn_effect))
-		file.store_8(int(display_true_combo))
-		file.store_8(int(cursor_face_velocity))
-		
-		file.store_8(147) # integrity check
-		
-		file.store_float(ui_parallax)
-		file.store_float(grid_parallax)
-		file.store_float(fade_length)
-		file.store_8(int(show_hit_effect))
-		
-		file.store_8(6) # integrity check
-		
-		file.store_8(int(lock_mouse))
-		file.store_8(int(rainbow_cursor))
-		file.store_8(int(cursor_trail))
-		file.store_32(trail_detail)
-		file.store_real(trail_time)
-		file.store_8(friend_position)
-		file.store_8(int(show_hp_bar))
-		file.store_8(int(show_timer))
-		file.store_8(int(show_left_panel))
-		file.store_8(int(show_right_panel))
-		file.store_8(int(attach_hp_to_grid))
-		file.store_8(int(attach_timer_to_grid))
-		file.store_8(int(rainbow_grid))
-		file.store_8(int(rainbow_hud))
-		file.store_8(int(smart_trail))
-		file.store_line(selected_hit_effect.id)
-		
-		file.store_8(192) # integrity check
-		
-		file.store_8(int(hit_effect_at_cursor))
-		file.store_8(int(show_warnings))
-		file.store_8(int(record_replays))
-		file.store_8(int(alt_cam))
-		file.store_8(int(show_accuracy_bar))
-		file.store_8(int(show_letter_grade))
-		file.store_8(int(simple_hud))
-		file.store_8(int(faraway_hud))
-		file.store_32(music_offset)
-		file.store_line(selected_miss_effect.id)
-		file.store_8(int(show_miss_effect))
+		file.store_string(data.to_json())
 		file.close()
 		return "OK"
 	else:
