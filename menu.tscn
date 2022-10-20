@@ -1849,7 +1849,7 @@ scroll_horizontal_enabled = false
 [node name="F" parent="PageMgr/Settings" instance=ExtResource( 3 )]
 anchor_right = 0.0
 margin_right = 1150.0
-margin_bottom = 2703.0
+margin_bottom = 2876.0
 rect_clip_content = true
 
 [node name="MapRegistry" type="ReferenceRect" parent="PageMgr"]

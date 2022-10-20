@@ -85,7 +85,8 @@ func reposition_notes(force:bool=false):
 					hitEffect.duplicate().spawn(get_parent(),pos,note.col,hit_id,false)
 				emit_signal("hit",note.col)
 				var score:int = get_parent().hit(note.col)
-				scoreEffect.duplicate().spawn(get_parent(),pos,note.col,score)
+				if SSP.score_popup:
+					scoreEffect.duplicate().spawn(get_parent(),pos,note.col,score)
 				
 				prev_ms = note.notems
 		elif ms > (note.notems + SSP.hitwindow_ms) + 100:

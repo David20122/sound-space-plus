@@ -566,6 +566,8 @@ var rainbow_grid:bool = false
 var rainbow_hud:bool = false
 var friend_position:int = Globals.FRIEND_BEHIND_GRID # Hidden
 var note_visual_approach:bool = false # Experimental
+var billboard_score:bool = false
+var score_popup:bool = true
 
 # Settings - Audio
 var auto_preview_song:bool = true
@@ -777,7 +779,7 @@ func load_pbs():
 
 
 # Settings file
-const current_sf_version = 42 # SV
+const current_sf_version = 43 # SV
 func load_saved_settings():
 	if Input.is_key_pressed(KEY_CONTROL) and Input.is_key_pressed(KEY_L): 
 		print("force settings read error")
@@ -959,6 +961,9 @@ func load_saved_settings():
 			auto_maximize = bool(file.get_8())
 		if sv >= 42:
 			note_visual_approach = bool(file.get_8())
+		if sv >= 43:
+			score_popup = bool(file.get_8())
+			billboard_score = bool(file.get_8())
 		file.close()
 	return 0
 func save_settings():
@@ -1055,7 +1060,9 @@ func save_settings():
 		file.store_8(int(show_miss_effect))
 		file.store_8(int(auto_maximize))
 		file.store_8(int(note_visual_approach))
-		
+		file.store_8(int(score_popup))
+		file.store_8(int(billboard_score))
+				
 		file.close()
 		return "OK"
 	else:

@@ -5,6 +5,9 @@ var rainbow:bool = false
 var col:Color = Color(1,1,1,1)
 var t:float = 1
 
+func _ready():
+	$Label.billboard = SSP.billboard_score
+
 func _process(delta):
 	if active:
 		t -= delta * 3
