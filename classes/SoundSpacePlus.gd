@@ -926,6 +926,14 @@ func load_saved_settings():
 				select_miss_effect(eff)
 		if data.has("show_miss_effect"): 
 			show_miss_effect = data.show_miss_effect
+		if data.has("auto_maximize"): 
+			auto_maximize = data.auto_maximize
+		if data.has("note_visual_approach"): 
+			note_visual_approach = data.note_visual_approach
+		if data.has("score_popup"): 
+			score_popup = data.score_popup
+		if data.has("billboard_score"): 
+			billboard_score = data.billboard_score
 			
 	
 	elif file.file_exists(Globals.p("user://settings")):
@@ -1174,25 +1182,14 @@ func save_settings():
 			music_offset = music_offset,
 			selected_miss_effect = selected_miss_effect.id,
 			show_miss_effect = show_miss_effect,
+			auto_maximize = auto_maximize,
+			note_visual_approach = note_visual_approach,
+			score_popup = score_popup,
+			billboard_score = billboard_score,
 		}
 		
-		file.store_string(data.to_json())
-		file.store_8(int(hit_effect_at_cursor))
-		file.store_8(int(show_warnings))
-		file.store_8(int(record_replays))
-		file.store_8(int(alt_cam))
-		file.store_8(int(show_accuracy_bar))
-		file.store_8(int(show_letter_grade))
-		file.store_8(int(simple_hud))
-		file.store_8(int(faraway_hud))
-		file.store_float(music_offset)
-		file.store_line(selected_miss_effect.id)
-		file.store_8(int(show_miss_effect))
-		file.store_8(int(auto_maximize))
-		file.store_8(int(note_visual_approach))
-		file.store_8(int(score_popup))
-		file.store_8(int(billboard_score))
-				
+		file.store_string(to_json(data))
+		
 		file.close()
 		return "OK"
 	else:

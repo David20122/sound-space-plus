@@ -11,7 +11,7 @@ func confirm(v:int):
 			Globals.confirm_prompt.s_next.play()
 			Globals.confirm_prompt.close()
 			var dir:Directory = Directory.new()
-			var res:int = dir.remove(Globals.p("user://settings"))
+			var res:int = dir.remove(Globals.p("user://settings.json"))
 			yield(Globals.confirm_prompt,"done_closing")
 			if res != OK and res != ERR_FILE_NOT_FOUND:
 				Globals.confirm_prompt.open(
