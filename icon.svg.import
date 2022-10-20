@@ -2,9 +2,9 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/icon.png-487276ed1e3a0c39cad0279d744ee560.s3tc.stex"
-path.etc2="res://.import/icon.png-487276ed1e3a0c39cad0279d744ee560.etc2.stex"
-path.etc="res://.import/icon.png-487276ed1e3a0c39cad0279d744ee560.etc.stex"
+path.s3tc="res://.import/icon.svg-218a8f2b3041327d8a5756f3a245f83b.s3tc.stex"
+path.etc2="res://.import/icon.svg-218a8f2b3041327d8a5756f3a245f83b.etc2.stex"
+path.etc="res://.import/icon.svg-218a8f2b3041327d8a5756f3a245f83b.etc.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc2", "etc" ],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://icon.png"
-dest_files=[ "res://.import/icon.png-487276ed1e3a0c39cad0279d744ee560.s3tc.stex", "res://.import/icon.png-487276ed1e3a0c39cad0279d744ee560.etc2.stex", "res://.import/icon.png-487276ed1e3a0c39cad0279d744ee560.etc.stex" ]
+source_file="res://icon.svg"
+dest_files=[ "res://.import/icon.svg-218a8f2b3041327d8a5756f3a245f83b.s3tc.stex", "res://.import/icon.svg-218a8f2b3041327d8a5756f3a245f83b.etc2.stex", "res://.import/icon.svg-218a8f2b3041327d8a5756f3a245f83b.etc.stex" ]
 
 [params]
 
@@ -26,7 +26,7 @@ flags/repeat=true
 flags/filter=true
 flags/mipmaps=true
 flags/anisotropic=false
-flags/srgb=2
+flags/srgb=0
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
