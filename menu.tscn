@@ -11,7 +11,7 @@
 [ext_resource path="res://menuButtons/EndInfo.gd" type="Script" id=9]
 [ext_resource path="res://font/Lato/Lato-Bold.ttf" type="DynamicFontData" id=10]
 [ext_resource path="res://menu.gd" type="Script" id=11]
-[ext_resource path="res://icon.png" type="Texture" id=12]
+[ext_resource path="res://icon.svg" type="Texture" id=12]
 [ext_resource path="res://content/sfx/mkwii_load_short.ogg" type="AudioStream" id=13]
 [ext_resource path="res://menu2/DownloadScreen.gd" type="Script" id=14]
 [ext_resource path="res://menuButtons/OldMenuSpeedMod.gd" type="Script" id=15]
@@ -1739,9 +1739,6 @@ margin_right = -10.0
 rect_min_size = Vector2( 30, 30 )
 texture = ExtResource( 12 )
 expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="PageMgr" type="ColorRect" parent="."]
 anchor_right = 1.0
@@ -1849,7 +1846,7 @@ scroll_horizontal_enabled = false
 [node name="F" parent="PageMgr/Settings" instance=ExtResource( 3 )]
 anchor_right = 0.0
 margin_right = 1150.0
-margin_bottom = 2703.0
+margin_bottom = 2876.0
 rect_clip_content = true
 
 [node name="MapRegistry" type="ReferenceRect" parent="PageMgr"]

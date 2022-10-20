@@ -11,9 +11,9 @@
 [ext_resource path="res://font/Lato/Lato-Bold.ttf" type="DynamicFontData" id=9]
 [ext_resource path="res://MusicVolumeSetter.gd" type="Script" id=10]
 [ext_resource path="res://contentmgr.gd" type="Script" id=11]
-[ext_resource path="res://icon.png" type="Texture" id=12]
 [ext_resource path="res://addons/native_dialogs/bin/native_dialog_open_file.gdns" type="Script" id=13]
 [ext_resource path="res://addons/native_dialogs/bin/native_dialog_select_folder.gdns" type="Script" id=14]
+[ext_resource path="res://icon.svg" type="Texture" id=15]
 [ext_resource path="res://VersionNumber.gd" type="Script" id=17]
 [ext_resource path="res://menuButtons/CMgrExit.gd" type="Script" id=59]
 [ext_resource path="res://content/sfx/menu_full.mp3" type="AudioStream" id=70]
@@ -226,7 +226,7 @@ margin_left = 8.0
 margin_top = 8.0
 margin_right = 52.0
 margin_bottom = 52.0
-texture = ExtResource( 12 )
+texture = ExtResource( 15 )
 expand = true
 stretch_mode = 6
 
@@ -1259,7 +1259,7 @@ anchor_bottom = 1.0
 margin_left = -40.0
 margin_right = -10.0
 rect_min_size = Vector2( 30, 30 )
-texture = ExtResource( 12 )
+texture = ExtResource( 15 )
 expand = true
 __meta__ = {
 "_edit_use_anchors_": false

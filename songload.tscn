@@ -2,7 +2,7 @@
 
 [ext_resource path="res://font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://VersionNumber.gd" type="Script" id=2]
-[ext_resource path="res://icon.png" type="Texture" id=3]
+[ext_resource path="res://icon.svg" type="Texture" id=3]
 [ext_resource path="res://uitheme.tres" type="Theme" id=4]
 [ext_resource path="res://songload.gd" type="Script" id=5]
 [ext_resource path="res://content/sfx/mkwii_load_short.ogg" type="AudioStream" id=6]
