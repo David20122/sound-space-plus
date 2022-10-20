@@ -4,15 +4,16 @@ importer="texture"
 type="StreamTexture"
 path.s3tc="res://.import/r_road01.png-6a346150cf1727c458d0e35a9f31da9c.s3tc.stex"
 path.etc2="res://.import/r_road01.png-6a346150cf1727c458d0e35a9f31da9c.etc2.stex"
+path.etc="res://.import/r_road01.png-6a346150cf1727c458d0e35a9f31da9c.etc.stex"
 metadata={
-"imported_formats": [ "s3tc", "etc2" ],
+"imported_formats": [ "s3tc", "etc2", "etc" ],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://content/worlds/space/r_road01.png"
-dest_files=[ "res://.import/r_road01.png-6a346150cf1727c458d0e35a9f31da9c.s3tc.stex", "res://.import/r_road01.png-6a346150cf1727c458d0e35a9f31da9c.etc2.stex" ]
+dest_files=[ "res://.import/r_road01.png-6a346150cf1727c458d0e35a9f31da9c.s3tc.stex", "res://.import/r_road01.png-6a346150cf1727c458d0e35a9f31da9c.etc2.stex", "res://.import/r_road01.png-6a346150cf1727c458d0e35a9f31da9c.etc.stex" ]
 
 [params]
 

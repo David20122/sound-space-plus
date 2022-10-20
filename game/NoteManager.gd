@@ -11,10 +11,12 @@ var ms:float = SSP.start_offset - (3000 * speed_multi) # make waiting time short
 var notes_loaded:bool = false
 
 var noteNodes:Array = []
+var noteCache:Array = []
 var noteQueue:Array = []
 var colors:Array = SSP.selected_colorset.colors
 var hitEffect:Spatial = load(SSP.selected_hit_effect.path).instance()
 var missEffect:Spatial = load(SSP.selected_miss_effect.path).instance()
+var scoreEffect:Spatial = load("res://content/notefx/score.tscn").instance()
 var hit_id:String = SSP.selected_hit_effect.id
 var miss_id:String = SSP.selected_miss_effect.id
 var chaos_rng:RandomNumberGenerator = RandomNumberGenerator.new()
@@ -25,7 +27,10 @@ var matcache_miss:Dictionary = {}
 const base_position = Vector3(-1,1,0)
 
 var prev_ms:float = -100000
+
 var next_ms:float = 0
+
+var last_cursor_position:Vector3 = Vector3(-1,1,0)
 
 var out_of_notes:bool = false
 func reposition_notes(force:bool=false):
@@ -39,14 +44,16 @@ func reposition_notes(force:bool=false):
 			is_first = false
 			next_ms = note.notems
 		elif ms >= note.notems and note.state == Globals.NSTATE_ACTIVE:
-			var result = note.check($Cursor.transform.origin)
+			var result = SSP.visual_mode or note.check($Cursor.transform.origin,last_cursor_position)
 			if !result and (ms > note.notems + SSP.hitwindow_ms or pause_state == -1):
 #				note_passed = true
 				# notes should not be in the hitwindow if the game is paused
 				if !SSP.replaying and SSP.record_replays:
 					SSP.replay.note_miss(note.id)
 				note.state = Globals.NSTATE_MISS
-				if SSP.play_miss_snd: $Miss.play()
+				if SSP.play_miss_snd: 
+					$Miss.transform = note.transform
+					$Miss.play()
 				if SSP.show_miss_effect:
 					var pos:Vector3 = Vector3(
 						note.transform.origin.x,
@@ -62,20 +69,25 @@ func reposition_notes(force:bool=false):
 				if !SSP.replaying and SSP.record_replays:
 					SSP.replay.note_hit(note.id)
 				note.state = Globals.NSTATE_HIT
-				if SSP.play_hit_snd: $Hit.play()
-					#$Hit.play((ms - note.notems)/1000.0)
-				if SSP.show_hit_effect:
-					var pos:Vector3 = Vector3(
-						$Cursor.global_transform.origin.x,
-						$Cursor.global_transform.origin.y,
-						0.002
-					)
+				if SSP.play_hit_snd: 
+					$Hit.transform = note.transform
+					$Hit.play()
+				var pos:Vector3 = Vector3(
+					$Cursor.global_transform.origin.x,
+					$Cursor.global_transform.origin.y,
+					0.002
+				)
+				if SSP.show_hit_effect and !SSP.visual_mode:
 					if !SSP.hit_effect_at_cursor:
 						pos.x = note.global_transform.origin.x
 						pos.y = note.global_transform.origin.y
 					
 					hitEffect.duplicate().spawn(get_parent(),pos,note.col,hit_id,false)
 				emit_signal("hit",note.col)
+				var score:int = get_parent().hit(note.col)
+				if SSP.score_popup:
+					scoreEffect.duplicate().spawn(get_parent(),pos,note.col,score)
+				
 				prev_ms = note.notems
 		elif ms > (note.notems + SSP.hitwindow_ms) + 100:
 			if noteNodes.size() > 1:
@@ -83,7 +95,12 @@ func reposition_notes(force:bool=false):
 			elif noteQueue.size() != 0:
 				next_ms = noteQueue[0][2]
 			noteNodes.remove(noteNodes.find(note))
-			note.queue_free()
+			noteCache.append(note)
+			remove_child(note)
+			note.visible = false
+			note.state = 0
+			note.spawn_effect_t = 0
+			note.was_visible = false
 	return note_passed
 
 var color_index:int = 0
@@ -94,7 +111,11 @@ func spawn_note(n:Array):
 		return
 	if n[2] < next_ms:
 		next_ms = n[2]
-	var note:Note = $Note.duplicate()
+	var note:Note
+	if noteCache.size() != 0: note = noteCache.pop_back()
+	else: note = $Note.duplicate()
+	
+#	if !note.is_inside_tree():
 	add_child(note)
 	note.id = note_count
 	note.transform.origin = Vector3(n[0],-n[1],8)
@@ -125,6 +146,7 @@ func _ready():
 	$Miss.stream = SSP.miss_snd
 	$Hit.stream = SSP.hit_snd
 	$Note/Mesh.mesh = load(SSP.selected_mesh.path)
+	
 	var m:ShaderMaterial = $Note.solid_mat
 	var mt:ShaderMaterial = $Note.transparent_mat
 	
@@ -156,6 +178,18 @@ func _ready():
 	$Note.transform.origin = Vector3(0,0,-400)
 	yield(get_tree(),"idle_frame")
 	$Note.visible = false
+	
+	# Precache notes
+	if SSP.visual_mode: # Precache a bunch of notes, because we're probably going to need them
+		for i in range(1500):
+			var n = $Note.duplicate()
+			noteCache.append(n)
+#			add_child(n)
+	else:
+		for i in range(75):
+			var n = $Note.duplicate()
+			noteCache.append(n)
+#			add_child(n)
 
 var music_started:bool = false
 const cursor_offset = Vector3(1,-1,0)
@@ -327,7 +361,7 @@ func _process(delta:float):
 					get_parent().get_node("Grid/LeftVP/Control/Pauses").text = comma_sep(SSP.song_end_pause_count)
 					get_parent().get_node("Grid/PauseHud").modulate = Color(1,1,1,1)
 					get_parent().get_node("Grid/PauseVP/Control").percent = 0
-				else:
+				elif pause_state != 0:
 					if SSP.record_replays:
 						SSP.replay.store_sig(rms,Globals.RS_START_UNPAUSE)
 					pause_state = 1
@@ -345,7 +379,7 @@ func _process(delta:float):
 				if (prev_state != pause_state) and SSP.record_replays:
 					SSP.replay.store_sig(rms,Globals.RS_FINISH_UNPAUSE)
 				get_parent().get_node("Grid/PauseHud").visible = false
-				$Music.volume_db = 0
+				$Music.volume_db = SSP.music_volume_db
 				pause_state = 0
 	elif SSP.replay.sv != 1:
 		var should_pause:bool = false
@@ -414,7 +448,7 @@ func _process(delta:float):
 			if should_end_unpause:
 	#				print("YEAH baby that's what i've been waiting for")
 				get_parent().get_node("Grid/PauseHud").visible = false
-				$Music.volume_db = 0
+				$Music.volume_db = SSP.music_volume_db
 				pause_state = 0
 		if should_giveup: get_parent().end(Globals.END_GIVEUP)
 

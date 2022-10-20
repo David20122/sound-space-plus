@@ -182,6 +182,7 @@ material/0 = SubResource( 92 )
 
 [node name="FakeOrigin" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
+visible = false
 
 [node name="Head" type="Camera" parent="FakeOrigin"]
 script = ExtResource( 2 )

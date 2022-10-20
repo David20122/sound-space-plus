@@ -1,0 +1,42 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://content/worlds/studs.png" type="Texture" id=1]
+[ext_resource path="res://content/worlds/skybox.png" type="Texture" id=2]
+
+[sub_resource type="PanoramaSky" id=7]
+panorama = ExtResource( 2 )
+
+[sub_resource type="Environment" id=2]
+background_mode = 2
+background_sky = SubResource( 7 )
+
+[sub_resource type="Gradient" id=3]
+offsets = PoolRealArray( 0 )
+colors = PoolColorArray( 0.118652, 0.118652, 0.118652, 1 )
+
+[sub_resource type="GradientTexture" id=4]
+gradient = SubResource( 3 )
+
+[sub_resource type="SpatialMaterial" id=5]
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+albedo_texture = ExtResource( 1 )
+detail_enabled = true
+detail_mask = SubResource( 4 )
+detail_blend_mode = 1
+detail_uv_layer = 0
+uv1_scale = Vector3( 512, 336, 512 )
+
+[sub_resource type="CubeMesh" id=6]
+size = Vector3( 512, 20, 512 )
+
+[node name="baseplate" type="Spatial"]
+
+[node name="env" type="WorldEnvironment" parent="."]
+environment = SubResource( 2 )
+
+[node name="plate" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -32, 0 )
+material_override = SubResource( 5 )
+mesh = SubResource( 6 )
+material/0 = null

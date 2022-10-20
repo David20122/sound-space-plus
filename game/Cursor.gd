@@ -65,6 +65,7 @@ func cache_trail(part:Spatial):
 	trail_cache.append(part)
 
 func _process(delta):
+	
 	if Input.is_action_just_pressed("debug_enable_mouse"):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	frame = Engine.get_frames_drawn()
@@ -86,7 +87,7 @@ func _process(delta):
 		transform.origin.x = p.x
 		transform.origin.y = p.y
 	
-	if SSP.smart_trail and trail_started:
+	if SSP.show_cursor and SSP.cursor_trail and SSP.smart_trail and trail_started:
 		var start_p = global_transform.origin
 		var end_p = prev_end
 		var amt = min(ceil(SSP.trail_detail*(start_p-end_p).length()),120)
@@ -119,11 +120,14 @@ func _process(delta):
 		prev_end = global_transform.origin
 
 func _ready():
+	if !SSP.show_cursor: visible = false
+	
 	if !SSP.replaying:
 		if SSP.lock_mouse:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		else:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
+			Input.set_custom_mouse_cursor(load("res://content/ui/blank.png"))
 	else:
 		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	

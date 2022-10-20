@@ -1,0 +1,146 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://content/notefx/shard.png" type="Texture" id=1]
+[ext_resource path="res://content/worlds/space/starmap_4k.png" type="Texture" id=2]
+
+[sub_resource type="PanoramaSky" id=6]
+panorama = ExtResource( 2 )
+
+[sub_resource type="Environment" id=1]
+background_mode = 2
+background_sky = SubResource( 6 )
+background_sky_orientation = Basis( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08 )
+background_color = Color( 0.0392157, 0.0392157, 0.0392157, 1 )
+background_canvas_max_layer = -128
+ambient_light_color = Color( 0.0784314, 0.0784314, 0.0784314, 1 )
+fog_color = Color( 0, 0, 0, 1 )
+fog_sun_color = Color( 0.0573333, 0.0256, 0.08, 1 )
+fog_sun_amount = 1.0
+fog_depth_begin = 20.0
+fog_depth_end = 58.3
+fog_depth_curve = 0.353553
+fog_height_enabled = true
+fog_height_min = 10.4
+fog_height_max = -18.5
+fog_height_curve = 0.68302
+
+[sub_resource type="SpatialMaterial" id=23]
+render_priority = -7
+flags_unshaded = true
+flags_no_depth_test = true
+albedo_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="SphereMesh" id=11]
+radius = 2.0
+height = 4.0
+
+[sub_resource type="SpatialMaterial" id=12]
+render_priority = -7
+flags_transparent = true
+flags_unshaded = true
+albedo_color = Color( 0, 0.00392157, 0.0666667, 0.745098 )
+
+[sub_resource type="SphereMesh" id=13]
+flip_faces = true
+radius = 3.0
+height = 6.0
+
+[sub_resource type="GDScript" id=14]
+script/source = "extends MeshInstance
+
+var t = 0
+
+func _process(delta):
+	t += delta * 0.2
+	var v = 0.85 + (0.15 * sin(t))
+	scale = Vector3(v,v,v)
+"
+
+[sub_resource type="SpatialMaterial" id=15]
+render_priority = -8
+flags_transparent = true
+flags_unshaded = true
+flags_no_depth_test = true
+flags_do_not_receive_shadows = true
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+albedo_texture = ExtResource( 1 )
+
+[sub_resource type="Gradient" id=16]
+offsets = PoolRealArray( 0, 0.575, 0.796875, 0.94375 )
+colors = PoolColorArray( 0, 0, 0, 0, 0, 0, 0, 0.501961, 0.0487141, 0.0321121, 0.0673828, 0.430594, 0.0489622, 0.0406952, 0.0820313, 0 )
+
+[sub_resource type="GradientTexture" id=17]
+gradient = SubResource( 16 )
+
+[sub_resource type="Curve" id=8]
+_data = [ Vector2( 0, 0.625 ), 0.0, -0.173232, 0, 0, Vector2( 0.836735, 0.706818 ), -1.45515, -4.49264, 0, 0, Vector2( 0.930029, 0 ), -8.26318, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=9]
+curve = SubResource( 8 )
+
+[sub_resource type="Curve" id=20]
+max_value = 15.0
+_data = [ Vector2( 0, 10.4148 ), 0.0, -36.0818, 0, 0, Vector2( 1, 0 ), -5.15876, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=21]
+curve = SubResource( 20 )
+
+[sub_resource type="ParticlesMaterial" id=10]
+emission_shape = 5
+emission_ring_radius = 22.0
+emission_ring_inner_radius = 19.0
+emission_ring_height = 0.1
+emission_ring_axis = Vector3( 0, 1, 0 )
+flag_rotate_y = true
+spread = 180.0
+flatness = 1.0
+gravity = Vector3( 0, 0, 0 )
+angular_velocity = 360.0
+angular_velocity_random = 1.0
+radial_accel = -19.57
+tangential_accel_curve = SubResource( 21 )
+angle = 360.0
+angle_random = 1.0
+scale = 6.44
+scale_random = 0.08
+scale_curve = SubResource( 9 )
+color_ramp = SubResource( 17 )
+
+[sub_resource type="PlaneMesh" id=22]
+size = Vector2( 3, 2 )
+
+[node name="event_horizon" type="Spatial"]
+
+[node name="env" type="WorldEnvironment" parent="."]
+environment = SubResource( 1 )
+
+[node name="sphere" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -19.25 )
+material_override = SubResource( 23 )
+mesh = SubResource( 11 )
+skeleton = NodePath("../env")
+material/0 = null
+
+[node name="sphere2" type="MeshInstance" parent="sphere"]
+visible = false
+material_override = SubResource( 12 )
+cast_shadow = 0
+mesh = SubResource( 13 )
+skeleton = NodePath("../../env")
+material/0 = null
+script = SubResource( 14 )
+
+[node name="particles" type="Particles" parent="sphere"]
+transform = Transform( 1, -8.35187e-23, 3.65072e-30, 0, -4.37114e-08, -1, 8.35187e-23, 1, -4.37114e-08, 0, 0, 0 )
+material_override = SubResource( 15 )
+cast_shadow = 0
+amount = 300
+lifetime = 1.7
+preprocess = 12.0
+speed_scale = 0.15
+fract_delta = false
+visibility_aabb = AABB( -20.3323, -2.04999, -20.102, 40.8651, 4.09991, 40.0142 )
+draw_order = 1
+process_material = SubResource( 10 )
+draw_pass_1 = SubResource( 22 )

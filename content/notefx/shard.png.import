@@ -4,15 +4,16 @@ importer="texture"
 type="StreamTexture"
 path.s3tc="res://.import/shard.png-ed8b73383d942bcd5028c0f2280ccedd.s3tc.stex"
 path.etc2="res://.import/shard.png-ed8b73383d942bcd5028c0f2280ccedd.etc2.stex"
+path.etc="res://.import/shard.png-ed8b73383d942bcd5028c0f2280ccedd.etc.stex"
 metadata={
-"imported_formats": [ "s3tc", "etc2" ],
+"imported_formats": [ "s3tc", "etc2", "etc" ],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://content/notefx/shard.png"
-dest_files=[ "res://.import/shard.png-ed8b73383d942bcd5028c0f2280ccedd.s3tc.stex", "res://.import/shard.png-ed8b73383d942bcd5028c0f2280ccedd.etc2.stex" ]
+dest_files=[ "res://.import/shard.png-ed8b73383d942bcd5028c0f2280ccedd.s3tc.stex", "res://.import/shard.png-ed8b73383d942bcd5028c0f2280ccedd.etc2.stex", "res://.import/shard.png-ed8b73383d942bcd5028c0f2280ccedd.etc.stex" ]
 
 [params]
 

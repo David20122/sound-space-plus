@@ -4,15 +4,16 @@ importer="texture"
 type="StreamTexture"
 path.s3tc="res://.import/miss.png-4d7cb469dfb5163ec630c0bd16d5ded7.s3tc.stex"
 path.etc2="res://.import/miss.png-4d7cb469dfb5163ec630c0bd16d5ded7.etc2.stex"
+path.etc="res://.import/miss.png-4d7cb469dfb5163ec630c0bd16d5ded7.etc.stex"
 metadata={
-"imported_formats": [ "s3tc", "etc2" ],
+"imported_formats": [ "s3tc", "etc2", "etc" ],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://content/notefx/miss.png"
-dest_files=[ "res://.import/miss.png-4d7cb469dfb5163ec630c0bd16d5ded7.s3tc.stex", "res://.import/miss.png-4d7cb469dfb5163ec630c0bd16d5ded7.etc2.stex" ]
+dest_files=[ "res://.import/miss.png-4d7cb469dfb5163ec630c0bd16d5ded7.s3tc.stex", "res://.import/miss.png-4d7cb469dfb5163ec630c0bd16d5ded7.etc2.stex", "res://.import/miss.png-4d7cb469dfb5163ec630c0bd16d5ded7.etc.stex" ]
 
 [params]
 

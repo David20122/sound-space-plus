@@ -14,6 +14,9 @@ signal map_list_ready
 signal volume_changed
 signal favorite_songs_changed
 signal menu_music_state_changed
+signal download_start
+signal download_done
+
 
 # Directories
 var user_pack_dir:String = Globals.p("user://packs")
@@ -51,9 +54,6 @@ func select_world(world:BackgroundWorld):
 	if world:
 		selected_space = world
 		emit_signal("selected_space_changed",world)
-func select_song(song:Song):
-	selected_song = song
-	emit_signal("selected_song_changed",song)
 func select_mesh(mesh:NoteMesh):
 	selected_mesh = mesh
 	emit_signal("selected_mesh_changed",mesh)
@@ -65,6 +65,43 @@ func select_miss_effect(effect:NoteEffect):
 	if effect:
 		selected_miss_effect = effect
 		emit_signal("selected_miss_effect_changed",effect)
+func select_song(song:Song):
+	if song.is_online:
+		emit_signal("download_start")
+		get_tree().paused = true
+		
+		print("[Online Map] Starting download")
+		var id:String = Online.download_map(song)
+		
+		print("[Online Map] Waiting for download to finish")
+		var result:Dictionary = yield(Online,"map_downloaded")
+		while result.id != id:
+			print("[Online Map] Wrong download: %s != %s" % [result.id, id])
+			result = yield(Online,"map_downloaded")
+		print("[Online Map] Download finished")
+		
+		get_tree().paused = false
+		if result.success:
+			emit_signal("download_done")
+			selected_song = song
+			emit_signal("selected_song_changed",song)
+		elif result.error == "010-100":
+			emit_signal("download_done")
+		else:
+			Globals.confirm_prompt.s_alert.play()
+			Globals.confirm_prompt.open(
+				"Failed to download map.\nError code: %s" % result.error,
+				"Error",
+				[{text="OK"}]
+			)
+			yield(Globals.confirm_prompt,"option_selected")
+			Globals.confirm_prompt.s_back.play()
+			Globals.confirm_prompt.close()
+			yield(Globals.confirm_prompt,"done_closing")
+			emit_signal("download_done")
+	else:
+		selected_song = song
+		emit_signal("selected_song_changed",song)
 
 
 # Song ending state data
@@ -209,6 +246,10 @@ func start_vr():
 		ev.button_index = JOY_VR_TRIGGER
 		InputMap.action_add_event("pause",ev)
 		
+		ev = InputEventJoypadButton.new()
+		ev.button_index = JOY_OCULUS_BY
+		InputMap.action_add_event("pause",ev)
+		
 		ev = InputEventJoypadMotion.new()
 		ev.axis = JOY_VR_ANALOG_TRIGGER
 		InputMap.action_add_event("pause",ev)
@@ -216,6 +257,10 @@ func start_vr():
 		# Click binds
 		ev = InputEventJoypadButton.new()
 		ev.button_index = JOY_VR_TRIGGER
+		InputMap.action_add_event("vr_click",ev)
+		
+		ev = InputEventJoypadButton.new()
+		ev.button_index = JOY_OCULUS_AX
 		InputMap.action_add_event("vr_click",ev)
 		
 		ev = InputEventJoypadMotion.new()
@@ -400,6 +445,7 @@ var custom_speed:float = 1 setget _set_custom_speed
 # Modifiers - Special
 var health_model:int = Globals.HP_SOUNDSPACE setget _set_health_model
 var grade_system:int = Globals.GRADE_SSP setget _set_grade_system
+var visual_mode:bool = false setget set_visual_mode
 
 # Mod setters - Normal
 func set_mod_extra_energy(v:bool):
@@ -419,6 +465,8 @@ func set_mod_nofail(v:bool):
 		mod_extra_energy = false
 		mod_no_regen = false
 		mod_sudden_death = false
+	else:
+		visual_mode = false
 	mod_nofail = v; emit_signal("mods_changed")
 func set_mod_mirror_x(v:bool):
 	mod_mirror_x = v; emit_signal("mods_changed")
@@ -450,6 +498,10 @@ func _set_custom_speed(v:float):
 	emit_signal("mods_changed")
 	emit_signal("speed_mod_changed")
 # Mod setters - Special
+func set_visual_mode(v:bool):
+	if v:
+		set_mod_nofail(true)
+	visual_mode = v; emit_signal("mods_changed")
 func _set_health_model(v:int):
 	health_model = v; emit_signal("mods_changed")
 func _set_grade_system(v:int):
@@ -459,9 +511,9 @@ func _set_grade_system(v:int):
 
 
 # Settings - Notes
-var approach_rate:float = 50
-var spawn_distance:float = 100
-var note_spawn_effect:bool = true
+var approach_rate:float = 40
+var spawn_distance:float = 40
+var note_spawn_effect:bool = false
 var fade_length:float = 0.5
 
 var show_hit_effect:bool = true
@@ -470,10 +522,10 @@ var hit_effect_at_cursor:bool = true
 var show_miss_effect:bool = true
 
 # Settings - Camera/Controls
-var sensitivity:float = 1
-var parallax:float = 1
-var ui_parallax:float = 0.2
-var grid_parallax:float = 3
+var sensitivity:float = 0.5
+var parallax:float = 6.5 # Camera
+var ui_parallax:float = 1.63
+var grid_parallax:float = 0
 var camera_mode:int = Globals.CAMERA_HALF_LOCK
 var cam_unlock:bool = false
 var lock_mouse:bool = true
@@ -481,7 +533,7 @@ var edge_drift:float = 0
 
 # Settings - Replays
 var record_replays:bool = false
-var alt_cam:bool = false
+var alt_cam:bool = true
 
 # Settings - Cursor
 var rainbow_cursor:bool = false
@@ -497,21 +549,25 @@ var cursor_face_velocity:bool = false # Disabled
 # Settings - HUD
 var display_true_combo:bool = true
 var show_config:bool = true
-var enable_grid:bool = true
+var enable_grid:bool = false
 var enable_border:bool = true
 var show_hp_bar:bool = true
 var show_timer:bool = true
 var show_left_panel:bool = true
 var show_right_panel:bool = true
+var show_cursor:bool = true
 var show_accuracy_bar:bool = true
 var show_letter_grade:bool = true
 var attach_hp_to_grid:bool = false
 var attach_timer_to_grid:bool = false
 var simple_hud:bool = false
-var faraway_hud:bool = false # Kermeet Mode
+var faraway_hud:bool = false
 var rainbow_grid:bool = false
 var rainbow_hud:bool = false
-var friend_position:int = Globals.FRIEND_BEHIND_GRID
+var friend_position:int = Globals.FRIEND_BEHIND_GRID # Hidden
+var note_visual_approach:bool = false # Experimental
+var billboard_score:bool = false
+var score_popup:bool = true
 
 # Settings - Audio
 var auto_preview_song:bool = true
@@ -527,8 +583,9 @@ func _set_music_volume(v:float):
 
 # Settings - Misc
 var show_warnings:bool = true
+var auto_maximize:bool = true
 
-
+# Settings - Experimental
 
 
 
@@ -722,7 +779,7 @@ func load_pbs():
 
 
 # Settings file
-const current_sf_version = 39 # SV
+const current_sf_version = 43 # SV
 func load_saved_settings():
 	if Input.is_key_pressed(KEY_CONTROL) and Input.is_key_pressed(KEY_L): 
 		print("force settings read error")
@@ -1034,13 +1091,22 @@ func load_saved_settings():
 		if sv >= 37:
 			faraway_hud = bool(file.get_8())
 		if sv >= 38:
-			music_offset = float(file.get_32())
+			if sv >= 41:
+				music_offset = float(file.get_float())
+			else:
+				music_offset = float(file.get_32())
 		if sv >= 39:
 			var eff = registry_effect.get_item(file.get_line())
 			if eff:
 				select_miss_effect(eff)
 			show_miss_effect = bool(file.get_8())
-			
+		if sv >= 40:
+			auto_maximize = bool(file.get_8())
+		if sv >= 42:
+			note_visual_approach = bool(file.get_8())
+		if sv >= 43:
+			score_popup = bool(file.get_8())
+			billboard_score = bool(file.get_8())
 		file.close()
 		save_settings()
 	return 0
@@ -1111,6 +1177,22 @@ func save_settings():
 		}
 		
 		file.store_string(data.to_json())
+		file.store_8(int(hit_effect_at_cursor))
+		file.store_8(int(show_warnings))
+		file.store_8(int(record_replays))
+		file.store_8(int(alt_cam))
+		file.store_8(int(show_accuracy_bar))
+		file.store_8(int(show_letter_grade))
+		file.store_8(int(simple_hud))
+		file.store_8(int(faraway_hud))
+		file.store_float(music_offset)
+		file.store_line(selected_miss_effect.id)
+		file.store_8(int(show_miss_effect))
+		file.store_8(int(auto_maximize))
+		file.store_8(int(note_visual_approach))
+		file.store_8(int(score_popup))
+		file.store_8(int(billboard_score))
+				
 		file.close()
 		return "OK"
 	else:
@@ -1135,7 +1217,7 @@ func register_colorsets():
 	))
 	registry_colorset.add_item(ColorSet.new(
 		[ Color("#5BCEFA"),Color("#F5A9B8"),Color("#FFFFFF") ],
-		"ssp_transgender", "Trans Pride", "Chedski"
+		"ssp_pastel", "Pastel", "Chedski"
 	))
 	registry_colorset.add_item(ColorSet.new(
 		[
@@ -1168,6 +1250,10 @@ func register_colorsets():
 	registry_colorset.add_item(ColorSet.new(
 		[ Color("#9a5ef9") ],
 		"ssp_purple", "purple!!!", "Chedski"
+	))
+	registry_colorset.add_item(ColorSet.new(
+		[ Color("#000000"), Color("#381e42") ],
+		"ssp_vortex", "Vortex", "pyrule"
 	))
 func register_worlds():
 	# idI:String,nameI:String,pathI:String,creatorI:String="Unknown"
@@ -1212,6 +1298,32 @@ func register_worlds():
 		"res://content/worlds/covers/classic.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
+		"ssp_reality_dismissed", "Reality Dismissed",
+		"res://content/worlds/reality_dismissed.tscn", "pyrule",
+		"res://content/worlds/covers/custom.png"
+	))
+	registry_world.add_item(BackgroundWorld.new(
+		"ssp_reality_dismissed_dark", "Reality Dismissed (Dark)",
+		"res://content/worlds/reality_dismissed_dark.tscn", "pyrule",
+		"res://content/worlds/covers/custom.png"
+	))
+	registry_world.add_item(BackgroundWorld.new(
+		"ssp_baseplate", "Baseplate (Day)",
+		"res://content/worlds/baseplate.tscn", "pyrule",
+		"res://content/worlds/covers/baseplate.png"
+	))
+	registry_world.add_item(BackgroundWorld.new(
+		"ssp_baseplate_night", "Baseplate (Night)",
+		"res://content/worlds/baseplate_night.tscn", "pyrule",
+		"res://content/worlds/covers/baseplate.png"
+	))
+	registry_world.add_item(BackgroundWorld.new(
+		"ssp_event_horizon", "Event Horizon",
+		"res://content/worlds/event_horizon.tscn", "Chedski",
+		"res://content/worlds/covers/custom.png"
+	))
+	
+	registry_world.add_item(BackgroundWorld.new(
 		"ssp_custombg", "Custom Background",
 		"res://content/worlds/custombg.tscn", "Someone",
 		"res://error.jpg"
@@ -1221,6 +1333,7 @@ func register_worlds():
 		"res://content/worlds/custom.tscn", "Someone",
 		"res://content/worlds/covers/custom.png"
 	))
+
 func register_meshes():
 	registry_mesh.add_item(NoteMesh.new(
 		"ssp_square", "Square",
@@ -1392,6 +1505,8 @@ func do_init(_ud=null):
 	registry_mesh = Registry.new()
 	registry_effect = Registry.new()
 	
+	Online.map_registry = registry_song
+	
 	register_colorsets()
 	register_effects()
 	register_meshes()
@@ -1451,7 +1566,7 @@ func do_init(_ud=null):
 	yield(get_tree(),"idle_frame")
 	
 	var smaps:Array = []
-	emit_signal("init_stage_reached","Register content 1/3\nImport SS+ maps\nLocating files")
+	emit_signal("init_stage_reached","Register content 1/4\nImport SS+ maps\nLocating files")
 	yield(get_tree(),"idle_frame")
 	var sd:Array = []
 	dir.change_dir(user_map_dir)
@@ -1468,7 +1583,7 @@ func do_init(_ud=null):
 	smaps = yield(Globals,"recurse_result").files
 	
 	for i in range(smaps.size()):
-		emit_signal("init_stage_reached","Register content 1/3\nImport SS+ maps\n%.0f%%" % (
+		emit_signal("init_stage_reached","Register content 1/4\nImport SS+ maps\n%.0f%%" % (
 			100*(float(i)/float(smaps.size()))
 		))
 		if fmod(i,max(min(floor(float(smaps.size())/200),40),5)) == 0: yield(get_tree(),"idle_frame")
@@ -1477,7 +1592,7 @@ func do_init(_ud=null):
 	
 	for i in range(mapreg.size()):
 		var amr:Array = mapreg[i]
-		emit_signal("init_stage_reached","Register content 2/3\nLoad map registry %d/%d\n%s" % [i,mapreg.size(),amr[0]])
+		emit_signal("init_stage_reached","Register content 2/4\nLoad map registry %d/%d\n%s" % [i,mapreg.size(),amr[0]])
 		yield(get_tree(),"idle_frame")
 		if lp: yield(get_tree(),"idle_frame")
 		registry_song.load_registry_file(amr[1],Globals.REGISTRY_MAP,amr[0])
@@ -1492,18 +1607,24 @@ func do_init(_ud=null):
 		var list = txt.split("\n",false)
 		vmap_search_folders.append_array(list)
 	
-	emit_signal("init_stage_reached","Register content 3/3\nImport Vulnus maps\nLocating files")
+	emit_signal("init_stage_reached","Register content 3/4\nImport Vulnus maps\nLocating files")
 	yield(get_tree(),"idle_frame")
 	
 	Globals.get_files_recursive(vmap_search_folders,6,"","meta.json",70)
 	vmaps = yield(Globals,"recurse_result").folders
 	
 	for i in range(vmaps.size()):
-		emit_signal("init_stage_reached","Register content 3/3\nImport Vulnus maps\n%.0f%%" % (
+		emit_signal("init_stage_reached","Register content 3/4\nImport Vulnus maps\n%.0f%%" % (
 			100*(float(i)/float(vmaps.size()))
 		))
 		if fmod(i,floor(float(vmaps.size())/100)) == 0: yield(get_tree(),"idle_frame")
 		registry_song.add_vulnus_map(vmaps[i])
+	
+	emit_signal("init_stage_reached","Register content 4/4\nLoad online maps")
+	yield(get_tree(),"idle_frame")
+	
+	Online.load_db_maps()
+	yield(Online,"db_maps_done")
 	
 	# Default 
 	emit_signal("init_stage_reached","Init default assets")
@@ -1515,7 +1636,7 @@ func do_init(_ud=null):
 	selected_miss_effect = registry_effect.get_item("ssp_miss")
 	selected_colorset = registry_colorset.get_item("ssp_everybodyvotes")
 	selected_space = registry_world.get_item("ssp_space_tunnel")
-	selected_mesh = registry_mesh.get_item("ssp_square")
+	selected_mesh = registry_mesh.get_item("ssp_rounded")
 	
 	assert(selected_hit_effect)
 	assert(selected_miss_effect)

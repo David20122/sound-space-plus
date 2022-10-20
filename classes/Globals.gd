@@ -103,6 +103,7 @@ enum {
 	MAP_RAW = 1
 	MAP_VULNUS = 2
 	MAP_SSPM = 3
+	MAP_NET = 4
 }
 
 enum {
@@ -476,21 +477,10 @@ const official_map_difficulties:Dictionary = {
 
 var errornum:int = 0
 func p(path:String) -> String:
-	var base_path = ProjectSettings.get_setting("application/config/save_dir")
+	var base_path = "user://"
 	var dir:Directory = Directory.new()
-	if not dir.dir_exists(base_path):
-		if OS.has_feature("Android"):
-			var err:int = dir.open("/sdcard/Android/data")
-			if err != OK:
-				print("error opening android/data")
-				errornum = err
-				if get_tree(): get_tree().change_scene("res://errors/userfolder.tscn")
-			err = dir.make_dir("net.chedski.soundspaceplus")
-			if err != OK:
-				print("error making android/data/net.chedski.soundspaceplus")
-				errornum = err
-				if get_tree():
-					get_tree().change_scene("res://errors/userfolder.tscn")
+	if OS.has_feature("Android"):
+		base_path = OS.get_system_dir(OS.SYSTEM_DIR_DESKTOP,true).plus_file("Android/data/net.chedski.soundspaceplus/files") + "/"
 	return path.replace("user://",base_path)
 
 var error_sound:AudioStream
@@ -591,6 +581,11 @@ func get_files_recursive(
 func notify(type:int,body:String,title:String="Notification",time:float=5):
 	notify_gui.notify(type,body,title,time)
 
+var url_regex:RegEx = RegEx.new()
+func is_valid_url(text:String):
+	if text == "valid": return false
+	return (url_regex.sub(text,"valid") == "valid")
+
 var console_open:bool = false
 var con:LineEdit
 
@@ -625,6 +620,11 @@ func _process(delta):
 	if console_open: con.raise()
 
 func _ready():
+	url_regex.compile(
+		"((http|https)://)(www.)?[a-zA-Z0-9@:%._\\+~#?&//=]{2,256}"+
+		"\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%._\\+~#?&//=]*)"
+	)
+	
 	confirm_prompt = load("res://confirm.tscn").instance()
 	get_tree().root.call_deferred("add_child",confirm_prompt)
 	

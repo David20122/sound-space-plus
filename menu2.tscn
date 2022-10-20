@@ -1,9 +1,9 @@
-[gd_scene load_steps=139 format=2]
+[gd_scene load_steps=186 format=2]
 
 [ext_resource path="res://uitheme.tres" type="Theme" id=1]
 [ext_resource path="res://font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://VersionNumber.gd" type="Script" id=3]
-[ext_resource path="res://icon.png" type="Texture" id=4]
+[ext_resource path="res://icon.svg" type="Texture" id=4]
 [ext_resource path="res://content/sfx/hit.wav" type="AudioStream" id=5]
 [ext_resource path="res://menuButtons/Quit.gd" type="Script" id=6]
 [ext_resource path="res://content/ui/potted_plant.png" type="Texture" id=7]
@@ -62,6 +62,32 @@
 [ext_resource path="res://menuButtons/ModChaos.gd" type="Script" id=60]
 [ext_resource path="res://content/ui/placeholder.jpg" type="Texture" id=61]
 [ext_resource path="res://menu2/GradeSystem.gd" type="Script" id=62]
+[ext_resource path="res://menuButtons/VisualMode.gd" type="Script" id=63]
+[ext_resource path="res://content/sfx/mkwii_load_short.ogg" type="AudioStream" id=64]
+[ext_resource path="res://font/NotoColorEmoji.ttf" type="DynamicFontData" id=65]
+[ext_resource path="res://menu2/DownloadScreen.gd" type="Script" id=66]
+[ext_resource path="res://content/ui/cloud_32.png" type="Texture" id=67]
+[ext_resource path="res://content/modifiers/128/speed_mmm_dark.png" type="Texture" id=68]
+[ext_resource path="res://content/modifiers/128/speed_mm_colored.png" type="Texture" id=69]
+[ext_resource path="res://content/modifiers/128/speed_mmm_colored.png" type="Texture" id=70]
+[ext_resource path="res://content/modifiers/128/speed_p_dark.png" type="Texture" id=71]
+[ext_resource path="res://content/modifiers/128/speed_pppp_dark.png" type="Texture" id=72]
+[ext_resource path="res://content/modifiers/128/speed_ppp_colored.png" type="Texture" id=73]
+[ext_resource path="res://content/modifiers/128/speed_ppp_dark.png" type="Texture" id=74]
+[ext_resource path="res://content/modifiers/128/speed_m_dark.png" type="Texture" id=75]
+[ext_resource path="res://content/modifiers/128/speed_pp_colored.png" type="Texture" id=76]
+[ext_resource path="res://content/modifiers/128/speed_p_colored.png" type="Texture" id=77]
+[ext_resource path="res://content/modifiers/128/speed_m_colored.png" type="Texture" id=78]
+[ext_resource path="res://content/modifiers/128/speed_pppp_colored.png" type="Texture" id=79]
+[ext_resource path="res://content/modifiers/128/speed_mm_dark.png" type="Texture" id=80]
+[ext_resource path="res://content/modifiers/128/speed_pp_dark.png" type="Texture" id=81]
+[ext_resource path="res://content/modifiers/128/speed_mm.png" type="Texture" id=82]
+[ext_resource path="res://content/modifiers/128/speed_pppp.png" type="Texture" id=83]
+[ext_resource path="res://content/modifiers/128/speed_mmm.png" type="Texture" id=84]
+[ext_resource path="res://content/modifiers/128/speed_p.png" type="Texture" id=85]
+[ext_resource path="res://content/modifiers/128/speed_ppp.png" type="Texture" id=86]
+[ext_resource path="res://content/modifiers/128/speed_m.png" type="Texture" id=87]
+[ext_resource path="res://content/modifiers/128/speed_pp.png" type="Texture" id=88]
 
 [sub_resource type="StyleBoxFlat" id=59]
 draw_center = false
@@ -245,6 +271,20 @@ fallback/0 = ExtResource( 15 )
 size = 14
 font_data = ExtResource( 2 )
 
+[sub_resource type="StyleBoxTexture" id=148]
+texture = ExtResource( 84 )
+region_rect = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="StyleBoxTexture" id=134]
+texture = ExtResource( 70 )
+region_rect = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="StyleBoxEmpty" id=155]
+
+[sub_resource type="StyleBoxTexture" id=135]
+texture = ExtResource( 68 )
+region_rect = Rect2( 0, 0, 128, 128 )
+
 [sub_resource type="ButtonGroup" id=93]
 
 [sub_resource type="DynamicFont" id=94]
@@ -252,6 +292,78 @@ size = 14
 use_filter = true
 extra_spacing_char = -3
 font_data = ExtResource( 2 )
+
+[sub_resource type="StyleBoxTexture" id=149]
+texture = ExtResource( 82 )
+region_rect = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="StyleBoxTexture" id=136]
+texture = ExtResource( 69 )
+region_rect = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="StyleBoxTexture" id=137]
+texture = ExtResource( 80 )
+region_rect = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="StyleBoxTexture" id=150]
+texture = ExtResource( 87 )
+region_rect = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="StyleBoxTexture" id=138]
+texture = ExtResource( 78 )
+region_rect = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="StyleBoxTexture" id=139]
+texture = ExtResource( 75 )
+region_rect = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="StyleBoxTexture" id=151]
+texture = ExtResource( 85 )
+region_rect = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="StyleBoxTexture" id=140]
+texture = ExtResource( 77 )
+region_rect = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="StyleBoxTexture" id=141]
+texture = ExtResource( 71 )
+region_rect = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="StyleBoxTexture" id=152]
+texture = ExtResource( 88 )
+region_rect = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="StyleBoxTexture" id=142]
+texture = ExtResource( 76 )
+region_rect = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="StyleBoxTexture" id=143]
+texture = ExtResource( 81 )
+region_rect = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="StyleBoxTexture" id=153]
+texture = ExtResource( 86 )
+region_rect = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="StyleBoxTexture" id=144]
+texture = ExtResource( 73 )
+region_rect = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="StyleBoxTexture" id=145]
+texture = ExtResource( 74 )
+region_rect = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="StyleBoxTexture" id=154]
+texture = ExtResource( 83 )
+region_rect = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="StyleBoxTexture" id=146]
+texture = ExtResource( 79 )
+region_rect = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="StyleBoxTexture" id=147]
+texture = ExtResource( 72 )
+region_rect = Rect2( 0, 0, 128, 128 )
 
 [sub_resource type="DynamicFont" id=95]
 size = 14
@@ -456,6 +568,37 @@ size = 22
 use_filter = true
 font_data = ExtResource( 2 )
 
+[sub_resource type="GDScript" id=132]
+script/source = "extends Control
+
+var switch_time:float = 0.17
+
+var t:float = switch_time
+var i:int = -1
+
+func _process(delta):
+	var up = false
+	t += delta
+	if t >= switch_time:
+		t -= switch_time
+		up = true
+		i += 1
+		if i > 7: i -= 8
+	
+	for n in get_children():
+		var ni = int(n.name)
+		if up and i == ni:
+			n.modulate.a = 1
+		else: n.modulate.a = max(n.modulate.a-(delta*1.35),0)
+"
+
+[sub_resource type="DynamicFont" id=133]
+size = 18
+use_filter = true
+font_data = ExtResource( 2 )
+fallback/0 = ExtResource( 65 )
+fallback/1 = ExtResource( 15 )
+
 [node name="Menu" type="ColorRect"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -476,6 +619,7 @@ margin_left = 60.0
 rect_pivot_offset = Vector2( -398, 64 )
 
 [node name="MapRegistry" type="ReferenceRect" parent="Main"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -1037,6 +1181,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Cloud" type="TextureRect" parent="Main/MapRegistry/S/G/NODIF"]
+visible = false
+modulate = Color( 1, 1, 1, 0.384314 )
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -41.0
+margin_top = -38.0
+margin_right = -9.0
+margin_bottom = -6.0
+texture = ExtResource( 67 )
+expand = true
+stretch_mode = 6
+
 [node name="Select" type="Button" parent="Main/MapRegistry/S/G/NODIF"]
 material = SubResource( 62 )
 anchor_right = 1.0
@@ -1050,9 +1209,6 @@ disabled = true
 toggle_mode = true
 action_mode = 0
 group = SubResource( 67 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Name" type="Label" parent="Main/MapRegistry/S/G/NODIF"]
 visible = false
@@ -1139,6 +1295,21 @@ script = ExtResource( 46 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Cloud" type="TextureRect" parent="Main/MapRegistry/S/G/EASY"]
+visible = false
+modulate = Color( 1, 1, 1, 0.384314 )
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -41.0
+margin_top = -38.0
+margin_right = -9.0
+margin_bottom = -6.0
+texture = ExtResource( 67 )
+expand = true
+stretch_mode = 6
 
 [node name="Select" type="Button" parent="Main/MapRegistry/S/G/EASY"]
 material = SubResource( 62 )
@@ -1249,6 +1420,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Cloud" type="TextureRect" parent="Main/MapRegistry/S/G/MEDIUM"]
+visible = false
+modulate = Color( 1, 1, 1, 0.384314 )
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -41.0
+margin_top = -38.0
+margin_right = -9.0
+margin_bottom = -6.0
+texture = ExtResource( 67 )
+expand = true
+stretch_mode = 6
+
 [node name="Select" type="Button" parent="Main/MapRegistry/S/G/MEDIUM"]
 material = SubResource( 62 )
 anchor_right = 1.0
@@ -1358,6 +1544,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Cloud" type="TextureRect" parent="Main/MapRegistry/S/G/HARD"]
+visible = false
+modulate = Color( 1, 1, 1, 0.384314 )
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -41.0
+margin_top = -38.0
+margin_right = -9.0
+margin_bottom = -6.0
+texture = ExtResource( 67 )
+expand = true
+stretch_mode = 6
+
 [node name="Select" type="Button" parent="Main/MapRegistry/S/G/HARD"]
 material = SubResource( 62 )
 anchor_right = 1.0
@@ -1466,6 +1667,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Cloud" type="TextureRect" parent="Main/MapRegistry/S/G/LOGIC"]
+visible = false
+modulate = Color( 1, 1, 1, 0.384314 )
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -41.0
+margin_top = -38.0
+margin_right = -9.0
+margin_bottom = -6.0
+texture = ExtResource( 67 )
+expand = true
+stretch_mode = 6
+
 [node name="Select" type="Button" parent="Main/MapRegistry/S/G/LOGIC"]
 material = SubResource( 62 )
 anchor_right = 1.0
@@ -1572,6 +1788,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Cloud" type="TextureRect" parent="Main/MapRegistry/S/G/AMOGUS"]
+visible = false
+modulate = Color( 1, 1, 1, 0.384314 )
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -41.0
+margin_top = -38.0
+margin_right = -9.0
+margin_bottom = -6.0
+texture = ExtResource( 67 )
+expand = true
+stretch_mode = 6
+
 [node name="Select" type="Button" parent="Main/MapRegistry/S/G/AMOGUS"]
 material = SubResource( 62 )
 anchor_right = 1.0
@@ -1658,7 +1889,6 @@ __meta__ = {
 }
 
 [node name="Results" type="ReferenceRect" parent="Main"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 12.0
@@ -2200,8 +2430,8 @@ __meta__ = {
 }
 
 [node name="SpeedMod" type="ReferenceRect" parent="Main/Results/ModsHolder/Mods"]
-margin_left = 130.0
-margin_right = 344.0
+margin_left = 80.0
+margin_right = 370.0
 margin_bottom = 32.0
 theme = ExtResource( 1 )
 border_color = Color( 0, 1, 1, 0 )
@@ -2215,31 +2445,38 @@ focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.960784, 1, 0.478431, 1 )
 custom_fonts/font = SubResource( 91 )
-text = "Speed Mod"
+text = "Speed"
 align = 2
 valign = 1
 clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="MMM" type="CheckBox" parent="Main/Results/ModsHolder/Mods/SpeedMod"]
-margin_right = 16.0
+[node name="C" type="HBoxContainer" parent="Main/Results/ModsHolder/Mods/SpeedMod"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+alignment = 1
+
+[node name="MMM" type="Button" parent="Main/Results/ModsHolder/Mods/SpeedMod/C"]
+margin_right = 32.0
 margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+focus_mode = 1
 theme = ExtResource( 1 )
-custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_fonts/font = SubResource( 92 )
+custom_styles/hover = SubResource( 148 )
+custom_styles/pressed = SubResource( 134 )
+custom_styles/focus = SubResource( 155 )
+custom_styles/normal = SubResource( 135 )
+toggle_mode = true
+shortcut_in_tooltip = false
 action_mode = 0
 group = SubResource( 93 )
-flat = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
+expand_icon = true
 
-[node name="Label2" type="Label" parent="Main/Results/ModsHolder/Mods/SpeedMod/MMM"]
+[node name="Label2" type="Label" parent="Main/Results/ModsHolder/Mods/SpeedMod/C/MMM"]
+visible = false
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -50.0
@@ -2260,24 +2497,29 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MM" type="CheckBox" parent="Main/Results/ModsHolder/Mods/SpeedMod"]
-margin_left = 20.0
-margin_right = 36.0
+[node name="MM" type="Button" parent="Main/Results/ModsHolder/Mods/SpeedMod/C"]
+margin_left = 36.0
+margin_right = 68.0
 margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+focus_mode = 1
 theme = ExtResource( 1 )
-custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_fonts/font = SubResource( 92 )
+custom_styles/hover = SubResource( 149 )
+custom_styles/pressed = SubResource( 136 )
+custom_styles/focus = SubResource( 155 )
+custom_styles/normal = SubResource( 137 )
+toggle_mode = true
+shortcut_in_tooltip = false
 action_mode = 0
 group = SubResource( 93 )
-flat = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
+expand_icon = true
 
-[node name="Label2" type="Label" parent="Main/Results/ModsHolder/Mods/SpeedMod/MM"]
+[node name="Label2" type="Label" parent="Main/Results/ModsHolder/Mods/SpeedMod/C/MM"]
+visible = false
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -50.0
@@ -2294,28 +2536,30 @@ custom_fonts/font = SubResource( 94 )
 text = "<<"
 align = 1
 clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="M" type="CheckBox" parent="Main/Results/ModsHolder/Mods/SpeedMod"]
-margin_left = 40.0
-margin_right = 56.0
+[node name="M" type="Button" parent="Main/Results/ModsHolder/Mods/SpeedMod/C"]
+margin_left = 72.0
+margin_right = 104.0
 margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+focus_mode = 1
 theme = ExtResource( 1 )
-custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_fonts/font = SubResource( 92 )
+custom_styles/hover = SubResource( 150 )
+custom_styles/pressed = SubResource( 138 )
+custom_styles/focus = SubResource( 155 )
+custom_styles/normal = SubResource( 139 )
+toggle_mode = true
+shortcut_in_tooltip = false
 action_mode = 0
 group = SubResource( 93 )
-flat = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
+expand_icon = true
 
-[node name="Label2" type="Label" parent="Main/Results/ModsHolder/Mods/SpeedMod/M"]
+[node name="Label2" type="Label" parent="Main/Results/ModsHolder/Mods/SpeedMod/C/M"]
+visible = false
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -50.0
@@ -2332,29 +2576,27 @@ custom_fonts/font = SubResource( 94 )
 text = "<"
 align = 1
 clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="Normal" type="CheckBox" parent="Main/Results/ModsHolder/Mods/SpeedMod"]
-margin_left = 60.0
-margin_right = 76.0
+[node name="Normal" type="CheckBox" parent="Main/Results/ModsHolder/Mods/SpeedMod/C"]
+margin_left = 108.0
+margin_right = 124.0
 margin_bottom = 32.0
+rect_min_size = Vector2( 16, 0 )
 theme = ExtResource( 1 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_fonts/font = SubResource( 92 )
-pressed = true
 action_mode = 0
 group = SubResource( 93 )
 flat = true
+expand_icon = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label2" type="Label" parent="Main/Results/ModsHolder/Mods/SpeedMod/Normal"]
+[node name="Label2" type="Label" parent="Main/Results/ModsHolder/Mods/SpeedMod/C/Normal"]
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -50.0
@@ -2375,24 +2617,29 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="P" type="CheckBox" parent="Main/Results/ModsHolder/Mods/SpeedMod"]
-margin_left = 80.0
-margin_right = 96.0
+[node name="P" type="Button" parent="Main/Results/ModsHolder/Mods/SpeedMod/C"]
+margin_left = 128.0
+margin_right = 160.0
 margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+focus_mode = 1
 theme = ExtResource( 1 )
-custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_fonts/font = SubResource( 92 )
+custom_styles/hover = SubResource( 151 )
+custom_styles/pressed = SubResource( 140 )
+custom_styles/focus = SubResource( 155 )
+custom_styles/normal = SubResource( 141 )
+toggle_mode = true
+shortcut_in_tooltip = false
 action_mode = 0
 group = SubResource( 93 )
-flat = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
+expand_icon = true
 
-[node name="Label2" type="Label" parent="Main/Results/ModsHolder/Mods/SpeedMod/P"]
+[node name="Label2" type="Label" parent="Main/Results/ModsHolder/Mods/SpeedMod/C/P"]
+visible = false
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -50.0
@@ -2413,24 +2660,29 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PP" type="CheckBox" parent="Main/Results/ModsHolder/Mods/SpeedMod"]
-margin_left = 100.0
-margin_right = 116.0
+[node name="PP" type="Button" parent="Main/Results/ModsHolder/Mods/SpeedMod/C"]
+margin_left = 164.0
+margin_right = 196.0
 margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+focus_mode = 1
 theme = ExtResource( 1 )
-custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_fonts/font = SubResource( 92 )
+custom_styles/hover = SubResource( 152 )
+custom_styles/pressed = SubResource( 142 )
+custom_styles/focus = SubResource( 155 )
+custom_styles/normal = SubResource( 143 )
+toggle_mode = true
+shortcut_in_tooltip = false
 action_mode = 0
 group = SubResource( 93 )
-flat = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
+expand_icon = true
 
-[node name="Label2" type="Label" parent="Main/Results/ModsHolder/Mods/SpeedMod/PP"]
+[node name="Label2" type="Label" parent="Main/Results/ModsHolder/Mods/SpeedMod/C/PP"]
+visible = false
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -50.0
@@ -2451,24 +2703,29 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PPP" type="CheckBox" parent="Main/Results/ModsHolder/Mods/SpeedMod"]
-margin_left = 120.0
-margin_right = 136.0
+[node name="PPP" type="Button" parent="Main/Results/ModsHolder/Mods/SpeedMod/C"]
+margin_left = 200.0
+margin_right = 232.0
 margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+focus_mode = 1
 theme = ExtResource( 1 )
-custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_fonts/font = SubResource( 92 )
+custom_styles/hover = SubResource( 153 )
+custom_styles/pressed = SubResource( 144 )
+custom_styles/focus = SubResource( 155 )
+custom_styles/normal = SubResource( 145 )
+toggle_mode = true
+shortcut_in_tooltip = false
 action_mode = 0
 group = SubResource( 93 )
-flat = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
+expand_icon = true
 
-[node name="Label2" type="Label" parent="Main/Results/ModsHolder/Mods/SpeedMod/PPP"]
+[node name="Label2" type="Label" parent="Main/Results/ModsHolder/Mods/SpeedMod/C/PPP"]
+visible = false
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -50.0
@@ -2489,21 +2746,29 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PPPP" type="CheckBox" parent="Main/Results/ModsHolder/Mods/SpeedMod"]
-margin_left = 142.0
-margin_right = 158.0
+[node name="PPPP" type="Button" parent="Main/Results/ModsHolder/Mods/SpeedMod/C"]
+margin_left = 236.0
+margin_right = 268.0
 margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+focus_mode = 1
 theme = ExtResource( 1 )
-custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_fonts/font = SubResource( 92 )
+custom_styles/hover = SubResource( 154 )
+custom_styles/pressed = SubResource( 146 )
+custom_styles/focus = SubResource( 155 )
+custom_styles/normal = SubResource( 147 )
+toggle_mode = true
+shortcut_in_tooltip = false
 action_mode = 0
 group = SubResource( 93 )
-flat = true
+expand_icon = true
 
-[node name="Label2" type="Label" parent="Main/Results/ModsHolder/Mods/SpeedMod/PPPP"]
+[node name="Label2" type="Label" parent="Main/Results/ModsHolder/Mods/SpeedMod/C/PPPP"]
+visible = false
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -50.0
@@ -2521,10 +2786,11 @@ text = ">>>>"
 align = 1
 clip_text = true
 
-[node name="Custom" type="CheckBox" parent="Main/Results/ModsHolder/Mods/SpeedMod"]
-margin_left = 164.0
-margin_right = 180.0
+[node name="Custom" type="CheckBox" parent="Main/Results/ModsHolder/Mods/SpeedMod/C"]
+margin_left = 272.0
+margin_right = 296.0
 margin_bottom = 32.0
+rect_min_size = Vector2( 24, 0 )
 theme = ExtResource( 1 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -2534,14 +2800,14 @@ custom_fonts/font = SubResource( 92 )
 action_mode = 0
 group = SubResource( 93 )
 flat = true
+expand_icon = true
 
-[node name="CSpeedLabel" type="Label" parent="Main/Results/ModsHolder/Mods/SpeedMod/Custom"]
+[node name="CSpeedLabel" type="Label" parent="Main/Results/ModsHolder/Mods/SpeedMod/C/Custom"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -5.0
-margin_top = 24.0
-margin_right = 50.0
-margin_bottom = 41.0
+margin_left = 8.0
+margin_right = 64.0
+margin_bottom = 32.0
 rect_pivot_offset = Vector2( 0, 16 )
 focus_mode = 2
 theme = ExtResource( 1 )
@@ -2550,10 +2816,8 @@ custom_constants/shadow_offset_x = 0
 custom_constants/shadow_offset_y = 0
 custom_fonts/font = SubResource( 95 )
 text = "C (100%)"
+valign = 1
 script = ExtResource( 42 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="StartOffset" type="SpinBox" parent="Main/Results/ModsHolder/Mods"]
 margin_left = 130.0
@@ -2947,6 +3211,34 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="VisualMode" type="CheckBox" parent="Main/Results/ModsHolder/Mods"]
+margin_left = 310.0
+margin_top = 165.0
+margin_right = 370.0
+margin_bottom = 197.0
+theme = ExtResource( 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 92 )
+action_mode = 0
+flat = true
+script = ExtResource( 63 )
+
+[node name="Label" type="Label" parent="Main/Results/ModsHolder/Mods/VisualMode"]
+margin_left = -138.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.960784, 1, 0.478431, 1 )
+custom_fonts/font = SubResource( 91 )
+text = "Visual Map Mode"
+align = 2
+valign = 1
+clip_text = true
+
 [node name="Info" type="VBoxContainer" parent="Main/Results"]
 margin_left = 138.0
 margin_top = 15.0
@@ -3221,10 +3513,12 @@ text = "Play Music"
 script = ExtResource( 9 )
 
 [node name="Song" type="AudioStreamPlayer" parent="Main/Results/Info/M/V/Buttons/Control/PreviewMusic"]
+pause_mode = 2
 bus = "Music"
 script = ExtResource( 10 )
 
 [node name="MenuSong" type="AudioStreamPlayer" parent="Main/Results/Info/M/V/Buttons/Control/PreviewMusic"]
+pause_mode = 2
 stream = ExtResource( 11 )
 volume_db = -10.0
 bus = "Music"
@@ -3469,7 +3763,7 @@ scroll_horizontal_enabled = false
 [node name="F" parent="Main/Settings/S" instance=ExtResource( 49 )]
 anchor_right = 0.0
 margin_right = 1210.0
-margin_bottom = 2499.0
+margin_bottom = 2940.0
 rect_clip_content = true
 
 [node name="Credits" type="ReferenceRect" parent="Main"]
@@ -3947,6 +4241,342 @@ margin_right = -10.0
 rect_min_size = Vector2( 30, 30 )
 texture = ExtResource( 4 )
 expand = true
+
+[node name="Download" type="ColorRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.698039 )
+script = ExtResource( 66 )
+
+[node name="Spinner" type="ReferenceRect" parent="Download"]
+pause_mode = 2
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -40.0
+margin_top = -100.0
+margin_right = 40.0
+margin_bottom = -20.0
+script = SubResource( 132 )
+
+[node name="0" type="Control" parent="Download/Spinner"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 25.0
+margin_bottom = 25.0
+
+[node name="ColorRect" type="ColorRect" parent="Download/Spinner/0"]
+margin_right = 10.0
+margin_bottom = 10.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Download/Spinner/0"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 20.0
+margin_bottom = 20.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+
+[node name="ColorRect3" type="ColorRect" parent="Download/Spinner/0"]
+margin_top = 10.0
+margin_right = 10.0
+margin_bottom = 20.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+
+[node name="ColorRect4" type="ColorRect" parent="Download/Spinner/0"]
+margin_left = 10.0
+margin_right = 20.0
+margin_bottom = 10.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="1" type="Control" parent="Download/Spinner"]
+margin_left = 30.0
+margin_top = 5.0
+margin_right = 50.0
+margin_bottom = 25.0
+
+[node name="ColorRect" type="ColorRect" parent="Download/Spinner/1"]
+margin_right = 10.0
+margin_bottom = 10.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Download/Spinner/1"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 20.0
+margin_bottom = 20.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+
+[node name="ColorRect3" type="ColorRect" parent="Download/Spinner/1"]
+margin_top = 10.0
+margin_right = 10.0
+margin_bottom = 20.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+
+[node name="ColorRect4" type="ColorRect" parent="Download/Spinner/1"]
+margin_left = 10.0
+margin_right = 20.0
+margin_bottom = 10.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="2" type="Control" parent="Download/Spinner"]
+margin_left = 55.0
+margin_top = 5.0
+margin_right = 75.0
+margin_bottom = 25.0
+
+[node name="ColorRect" type="ColorRect" parent="Download/Spinner/2"]
+margin_right = 10.0
+margin_bottom = 10.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Download/Spinner/2"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 20.0
+margin_bottom = 20.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+
+[node name="ColorRect3" type="ColorRect" parent="Download/Spinner/2"]
+margin_top = 10.0
+margin_right = 10.0
+margin_bottom = 20.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+
+[node name="ColorRect4" type="ColorRect" parent="Download/Spinner/2"]
+margin_left = 10.0
+margin_right = 20.0
+margin_bottom = 10.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="3" type="Control" parent="Download/Spinner"]
+margin_left = 55.0
+margin_top = 30.0
+margin_right = 75.0
+margin_bottom = 50.0
+
+[node name="ColorRect" type="ColorRect" parent="Download/Spinner/3"]
+margin_right = 10.0
+margin_bottom = 10.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Download/Spinner/3"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 20.0
+margin_bottom = 20.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+
+[node name="ColorRect3" type="ColorRect" parent="Download/Spinner/3"]
+margin_top = 10.0
+margin_right = 10.0
+margin_bottom = 20.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+
+[node name="ColorRect4" type="ColorRect" parent="Download/Spinner/3"]
+margin_left = 10.0
+margin_right = 20.0
+margin_bottom = 10.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="4" type="Control" parent="Download/Spinner"]
+margin_left = 55.0
+margin_top = 55.0
+margin_right = 75.0
+margin_bottom = 75.0
+
+[node name="ColorRect" type="ColorRect" parent="Download/Spinner/4"]
+margin_right = 10.0
+margin_bottom = 10.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Download/Spinner/4"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 20.0
+margin_bottom = 20.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+
+[node name="ColorRect3" type="ColorRect" parent="Download/Spinner/4"]
+margin_top = 10.0
+margin_right = 10.0
+margin_bottom = 20.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+
+[node name="ColorRect4" type="ColorRect" parent="Download/Spinner/4"]
+margin_left = 10.0
+margin_right = 20.0
+margin_bottom = 10.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="5" type="Control" parent="Download/Spinner"]
+margin_left = 30.0
+margin_top = 55.0
+margin_right = 50.0
+margin_bottom = 75.0
+
+[node name="ColorRect" type="ColorRect" parent="Download/Spinner/5"]
+margin_right = 10.0
+margin_bottom = 10.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Download/Spinner/5"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 20.0
+margin_bottom = 20.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+
+[node name="ColorRect3" type="ColorRect" parent="Download/Spinner/5"]
+margin_top = 10.0
+margin_right = 10.0
+margin_bottom = 20.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+
+[node name="ColorRect4" type="ColorRect" parent="Download/Spinner/5"]
+margin_left = 10.0
+margin_right = 20.0
+margin_bottom = 10.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="6" type="Control" parent="Download/Spinner"]
+margin_left = 5.0
+margin_top = 55.0
+margin_right = 25.0
+margin_bottom = 75.0
+
+[node name="ColorRect" type="ColorRect" parent="Download/Spinner/6"]
+margin_right = 10.0
+margin_bottom = 10.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Download/Spinner/6"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 20.0
+margin_bottom = 20.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+
+[node name="ColorRect3" type="ColorRect" parent="Download/Spinner/6"]
+margin_top = 10.0
+margin_right = 10.0
+margin_bottom = 20.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+
+[node name="ColorRect4" type="ColorRect" parent="Download/Spinner/6"]
+margin_left = 10.0
+margin_right = 20.0
+margin_bottom = 10.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="7" type="Control" parent="Download/Spinner"]
+margin_left = 5.0
+margin_top = 30.0
+margin_right = 25.0
+margin_bottom = 50.0
+
+[node name="ColorRect" type="ColorRect" parent="Download/Spinner/7"]
+margin_right = 10.0
+margin_bottom = 10.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Download/Spinner/7"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 20.0
+margin_bottom = 20.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+
+[node name="ColorRect3" type="ColorRect" parent="Download/Spinner/7"]
+margin_top = 10.0
+margin_right = 10.0
+margin_bottom = 20.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+
+[node name="ColorRect4" type="ColorRect" parent="Download/Spinner/7"]
+margin_left = 10.0
+margin_right = 20.0
+margin_bottom = 10.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Download"]
+stream = ExtResource( 64 )
+volume_db = -3.0
+bus = "MenuReverb"
+
+[node name="Label" type="Label" parent="Download"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -60.0
+margin_top = -10.0
+margin_right = 60.0
+margin_bottom = 20.0
+grow_horizontal = 2
+custom_fonts/font = SubResource( 133 )
+text = "Downloading map..."
+align = 1
+
+[node name="Cancel" type="Button" parent="Download"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -80.0
+margin_top = 50.0
+margin_right = 80.0
+margin_bottom = 80.0
+theme = ExtResource( 1 )
+action_mode = 0
+text = "Cancel"
 
 [node name="BlackFade" type="ColorRect" parent="."]
 visible = false

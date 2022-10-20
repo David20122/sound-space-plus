@@ -1,11 +1,14 @@
 extends Resource
 class_name Song
 
+signal downloaded
+
 var id:String
 var name:String
 var creator:String
 
 var difficulty:int = Globals.DIFF_UNKNOWN
+
 
 var rawData:String = ""
 var notes:Array
@@ -21,17 +24,96 @@ var initFile:String = ""
 
 var filePath:String
 
-var cover:Texture
+var cover:Texture setget , _get_cover
 var has_cover:bool = false
 var is_broken:bool = false
 var converted:bool = false
 
 var is_builtin:bool = false
 
+var is_online:bool = false
+var download_url:String = ""
+
 var sspm_song_stored:bool = false
 
 var pbs_loaded:bool = false
 var pb_data:Dictionary = {}
+
+func _get_cover():
+	return cover
+	# I'll eventually add handling for online maps with covers
+
+func is_valid_id(txt:String):
+	return !(
+		(txt.to_lower() != txt) or 
+		(txt.length() == 0) or 
+		txt.begins_with("_") or 
+		!(("n" + txt).replace("-","")).is_valid_identifier()
+	)
+
+func load_from_db_data(data:Dictionary={
+		"id":"INVALID_id_that_doesnt_exist",
+		"download":"http://chedski.test/ssp/mapdb/api/download/INVALID_id_that_doesnt_exist",
+		"audio":"http://chedski.test/ssp/mapdb/api/audio/INVALID_id_that_doesnt_exist",
+#		"id":"ss_archive_waterflame_-_geometrical_dominator",
+#		"download":"http://chedski.test/ssp/mapdb/api/download/ss_archive_waterflame_-_geometrical_dominator",
+#		"audio":"http://chedski.test/ssp/mapdb/api/audio/ss_archive_waterflame_-_geometrical_dominator",
+		"cover":null,
+		"version":1,
+		"name":"000000 net test map",
+		"song":"Waterflame - Geometrical Dominator",
+		"author":["Azurlexx"],
+		"difficulty":3,
+		"difficulty_name":"LOGIC?",
+		"stars":-1,
+		"length_ms":96846,
+		"note_count":384,
+		"has_cover":false,
+		"broken":false,
+		"tags":["ss_archive"],
+		"content_warnings":[],
+		"note_data_offset":1594212,
+		"note_data_length":2688,
+		"music_format":"mp3",
+		"music_offset":117,
+		"music_length":1594095
+	}):
+	
+	if !data.has("id"): return {success=false,error="014-421"}
+	if !data.has("name"): return {success=false,error="014-422"}
+	if !data.has("author"): return {success=false,error="014-423"}
+	if !data.has("version"): return {success=false,error="014-594"}
+	if !data.has("difficulty"): return {success=false,error="014-424"}
+	if !data.has("length_ms"): return {success=false,error="014-425"}
+	if !data.has("note_count"): return {success=false,error="014-426"}
+	if !data.has("download"): return {success=false,error="014-415"}
+	
+	if typeof(data.id) != TYPE_STRING: return {success=false,error="014-462"}
+	if typeof(data.name) != TYPE_STRING: return {success=false,error="014-463"}
+	if typeof(data.author) != TYPE_ARRAY: return {success=false,error="014-464"}
+	if typeof(data.difficulty) != TYPE_INT and typeof(data.difficulty) != TYPE_REAL: return {success=false,error="014-465"}
+	if typeof(data.version) != TYPE_INT and typeof(data.version) != TYPE_REAL: return {success=false,error="014-595"}
+	if typeof(data.length_ms) != TYPE_INT and typeof(data.length_ms) != TYPE_REAL: return {success=false,error="014-466"}
+	if typeof(data.note_count) != TYPE_INT and typeof(data.note_count) != TYPE_REAL: return {success=false,error="014-467"}
+	if typeof(data.download) != TYPE_STRING or !Globals.is_valid_url(data.download): return {success=false,error="014-418"}
+	
+	if !is_valid_id(data.id): return {success=false,error="014-461"}
+	if data.difficulty < -1 or data.difficulty > 4: return {success=false,error="014-465"}
+	
+	id = data.id
+	name = data.name
+	var authorstr = ""
+	for a in data.author:
+		if a != data.author[0]: authorstr += " & "
+		authorstr += a
+	creator = authorstr
+	difficulty = int(data.difficulty)
+	last_ms = float(data.length_ms)
+	note_count = int(data.note_count)
+	download_url = data.download
+	is_online = true
+	
+	return {success=true}
 
 func load_pbs():
 	var file:File = File.new()
@@ -158,6 +240,7 @@ func stream() -> AudioStream:
 		var buf:PoolByteArray = file.get_buffer(blen) # Actual song data
 		var s = Globals.audioLoader.load_buffer(buf)
 		file.close()
+		if s is AudioStreamOGGVorbis or s is AudioStreamMP3: s.loop = false
 		if s: return s
 		else: return Globals.error_sound
 	elif !musicFile.begins_with("res://"):
@@ -499,6 +582,7 @@ func convert_to_sspm():
 	return "Converted!"
 
 func load_from_sspm(path:String):
+	is_online = false
 	songType = Globals.MAP_SSPM
 	filePath = path
 	musicFile = path

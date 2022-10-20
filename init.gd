@@ -41,7 +41,7 @@ func _ready():
 #		$Music.play()
 	OS.request_permissions()
 	yield(get_tree().create_timer(0.5),"timeout")
-	if ProjectSettings.get_setting("application/config/auto_maximize"): OS.window_maximized = true
+	if ProjectSettings.get_setting("application/config/auto_maximize") and SSP.auto_maximize: OS.window_maximized = true
 	yield(get_tree().create_timer(0.5),"timeout")
 	$AudioStreamPlayer.play()
 	

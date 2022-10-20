@@ -120,6 +120,7 @@ func load_pg(is_resize:bool=false):
 				else: btn.get_node("Name").modulate = Color(1,1,0.2)
 			var rbtn:Button = btn.get_node("Select")
 			if is_fav(map): btn.get_node("F").visible = true
+			btn.get_node("Cloud").visible = map.is_online
 			rbtn.disabled = false
 			rbtn.connect("pressed",self,"on_pressed",[i])
 			if map == SSP.selected_song:
@@ -161,7 +162,7 @@ func build_list():
 		append_filtering_favorites(disp,amogus)
 		append_filtering_favorites(disp,unknown)
 
-func reload_to_current_page():
+func reload_to_current_page(_a=null):
 	build_list()
 	if ready: SSP.last_page_num = page
 	load_pg()
@@ -264,6 +265,7 @@ func firstload():
 	reload_to_current_page()
 	ready = true
 	SSP.connect("favorite_songs_changed",self,"reload_to_current_page")
+	SSP.connect("download_done",self,"reload_to_current_page")
 	get_viewport().connect("size_changed",self,"handle_window_resize")
 	SSP.emit_signal("map_list_ready")
 

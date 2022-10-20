@@ -26,6 +26,10 @@ var fade_out_end:float = 1
 var mat_s:ShaderMaterial
 var mat_t:ShaderMaterial
 
+func linstep(a:float,b:float,x:float):
+	if a == b: return float(x >= a)
+	return clamp(abs((x - a) / (b - a)),0,1)
+
 func reposition(ms:float,approachSpeed:float):
 	approachSpeed /= speed_multi
 	var current_offset_ms = notems-ms
@@ -50,14 +54,22 @@ func reposition(ms:float,approachSpeed:float):
 			transform.origin.x = real_position.x + (chaos_offset.x * v)	
 			transform.origin.y = real_position.y + (chaos_offset.y * v)
 		
+		if SSP.note_visual_approach:
+			$Approach.opacity = 1 - (current_dist / SSP.spawn_distance)
+			
+			$Approach.scale.x = 0.4 * ((current_dist / SSP.spawn_distance) + 0.3)
+			$Approach.scale.y = 0.4 * ((current_dist / SSP.spawn_distance) + 0.3)
+			
+			$Approach.global_translation.z = 0
+		
 		if fade_in_enabled or fade_out_enabled:
 			var fade_in:float = 1
 			var fade_out:float = 1
 			
 			if fade_in_enabled: 
-				fade_in = smoothstep(fade_in_start,fade_in_end,current_dist)
+				fade_in = linstep(fade_in_start,fade_in_end,current_dist)
 			if fade_out_enabled:
-				fade_out = smoothstep(fade_out_end,fade_out_start,current_dist)
+				fade_out = linstep(fade_out_end,fade_out_start,current_dist)
 			
 			var alpha:float = min(fade_in,fade_out)
 			
@@ -72,7 +84,7 @@ func reposition(ms:float,approachSpeed:float):
 		visible = false
 		return !(state == Globals.NSTATE_ACTIVE and sign(approachSpeed) == 1 and current_dist > 100)
 
-func check(cpos:Vector3):
+func check(cpos:Vector3,prevpos:Vector3=Vector3.ZERO):
 	if SSP.replaying and SSP.replay.sv != 1:
 		return SSP.replay.should_hit(id)
 	else:
@@ -116,6 +128,10 @@ func setup(color:Color):
 		if SSP.fade_length != 0: 
 			fade_in_start = SSP.spawn_distance
 			fade_in_end = SSP.spawn_distance*(1.0 - SSP.fade_length)
+
+func _ready():
+	if !SSP.note_visual_approach && has_node("Approach"):
+		$Approach.queue_free()
 
 func _process(delta):
 	if visible:

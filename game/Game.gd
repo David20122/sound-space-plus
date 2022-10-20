@@ -8,10 +8,13 @@ var notes:Array
 var last_ms:float = 0
 onready var colors:Array = SSP.selected_colorset.colors
 
+var score:int = 0
+
 var last_combo:int = 0
 var combo:int = 0
 var combo_level:int = 1
 var lvl_progress:int = 0
+var song_has_failed:bool = false
 
 export(StyleBox) var timer_fg_done
 
@@ -47,8 +50,10 @@ onready var acclabel:Label = get_node("Grid/LeftVP/Control/Accuracy")
 onready var accbar:ProgressBar = get_node("Grid/LeftVP/Control/AccuracyBar")
 onready var noteslabel:Label = get_node("Grid/RightVP/Control/Notes")
 onready var misseslabel:Label = get_node("Grid/RightVP/Control/Misses")
+onready var scorelabel:Label = get_node("Grid/RightVP/Control/Score")
 onready var energybar:ProgressBar = get_node("Grid/EnergyVP/Control/Energy")
-onready var modtxt:Label = get_node("Grid/EnergyVP/Control/Modifiers")
+onready var modicons:HBoxContainer = get_node("Grid/EnergyVP/Control/Modifiers/Icons/H")
+onready var modtxt:Label = get_node("Grid/EnergyVP/Control/Modifiers/Text")
 
 onready var comboring:Control = get_node("Grid/LeftVP/Control/Combo")
 onready var combotxt:Label = get_node("Grid/LeftVP/Control/Combo/Label")
@@ -78,12 +83,16 @@ func update_hud():
 	energybar.max_value = max_energy
 	energybar.value = energy
 	combotxt.text = String(combo_level) + "x"
-	comboring._set_percent(float(lvl_progress) / 8)
+	comboring._set_percent(float(lvl_progress) / 10)
 	
 	if combo != last_combo:
 		truecombo.text = String(combo)
 		truecombo.rect_position.y = 100
 		last_combo = combo
+	
+	
+	scorelabel.text = comma_sep(score)
+	
 	
 	var grade:String = "--"
 	var gcol:Color = Color(1,0,1)
@@ -121,7 +130,7 @@ func update_hud():
 var ending:bool = false
 func end(end_type:int):
 	if ending: return
-	print("My god, what are you doing?!")
+	print("My god, what are you doing!?")
 	ending = true
 	if end_type == Globals.END_GIVEUP and SSP.record_replays and !SSP.replaying:
 		SSP.replay.store_sig($Spawn.rms,Globals.RS_GIVEUP)
@@ -283,6 +292,25 @@ func _process(delta):
 	
 	$BlackFade.visible = (black_fade != 0)
 
+func linstep(a:float,b:float,x:float):
+	if a == b: return float(x >= a)
+	return clamp(abs((x - a) / (b - a)),0,1)
+
+func get_point_amt() -> int:
+	var speed_multi = Globals.speed_multi[SSP.custom_speed]
+	var spd = clamp(((speed_multi - 1) * 1.5) + 1, 0, 1.9)
+	
+	var hitbox_diff = SSP.note_hitbox_size - 1.140
+	var hbo = clamp(linstep(1.140,0,hitbox_diff), 0, 1)
+	
+	var hitwin_diff = SSP.note_hitbox_size - 55
+	var hwi = clamp(linstep(55,0,hitwin_diff), 0, 1)
+	
+	
+	var mod = 1
+	
+	return int(floor((20 * combo_level * spd * min(hbo,hwi) * mod) + 0.5))
+
 
 func hit(col):
 	emit_signal("hit",col)
@@ -290,25 +318,35 @@ func hit(col):
 	total_notes += 1
 	if !SSP.mod_no_regen: energy = clamp(energy+energy_per_hit,0,max_energy)
 	combo += 1
-	if combo_level != 8 or (combo_level == 8 and lvl_progress != 8):
+	var points = get_point_amt()
+	if combo_level != 8:
 		lvl_progress += 1
-	if combo_level != 8 and lvl_progress == 8:
+	if combo_level != 8 and lvl_progress == 10:
 		lvl_progress = 0
 		combo_level += 1
-		if combo_level == 8: lvl_progress = 8
+		if combo_level == 8: lvl_progress = 10
 	update_hud()
+	
+	score += points
+	return points
 
 func miss(col):
 	misseslabel.modulate = Color(1,0,0)
 	emit_signal("miss",col)
 	misses += 1
 	total_notes += 1
-	if !SSP.mod_nofail: energy = clamp(energy-1,0,max_energy)
+	energy = clamp(energy-1,0,max_energy)
 	combo = 0
 	lvl_progress = 0
 	if combo_level != 1: combo_level -= 1
 	update_hud()
-	if energy == 0: end(Globals.END_FAIL)
+	if energy == 0: 
+		if SSP.mod_nofail:
+			if not song_has_failed:
+				song_has_failed = true
+				SSP.fail_asp.play()
+		else:
+			end(Globals.END_FAIL)
 
 
 func _ready():
@@ -336,17 +374,17 @@ func _ready():
 	$BlackFade.color = Color(0,0,0,black_fade)
 	get_tree().paused = false
 	$Spawn.connect("timer_update",self,"update_timer")
-	$Spawn.connect("hit",self,"hit")
+#	$Spawn.connect("hit",self,"hit")
 	$Spawn.connect("miss",self,"miss")
 	loadMapFile()
 	if !SSP.show_config: $Grid/ConfigHud.visible = false
 	if !SSP.enable_grid: $Spawn/Inner.visible = false
 	if !SSP.enable_border: $Spawn/Outer.visible = false
-	if !SSP.show_left_panel: $Grid/LeftHud.visible = false
-	if !SSP.show_right_panel: $Grid/RightHud.visible = false
+	if SSP.visual_mode or !SSP.show_left_panel: $Grid/LeftHud.visible = false
+	if SSP.visual_mode or !SSP.show_right_panel: $Grid/RightHud.visible = false
 	if !SSP.show_letter_grade: $Grid/LeftHud/Control/LetterGrade.visible = false
 	if !SSP.show_accuracy_bar: $Grid/LeftVP/Control/AccuracyBar.visible = false
-	if !SSP.show_hp_bar:
+	if SSP.visual_mode or !SSP.show_hp_bar:
 		$Grid/EnergyVP/Control/Energy.visible = false
 		$Grid/EnergyVP/Control/Modifiers.margin_top -= 30
 	if !SSP.show_timer: $Grid/TimerHud.visible = false
@@ -373,6 +411,8 @@ func _ready():
 	if SSP.faraway_hud:
 		$Grid.transform.origin = Vector3(0,0,-10)
 		$Grid.scale = Vector3(3.7,3.7,3.7)
+	if SSP.visual_mode:
+		$Grid/EnergyVP/Control/Modifiers.visible = false
 		
 	songnametxt.text = SSP.selected_song.name
 
@@ -380,8 +420,8 @@ func _ready():
 	var ms = ""
 	
 	if SSP.replaying:
-		if SSP.replay.autoplayer: ms += "[ AUTOPLAYING ]\n"
-		else: ms += "[ REPLAYING ]\n"
+		if SSP.replay.autoplayer: modicons.get_node("Autoplay").visible = true
+		else: modicons.get_node("Replaying").visible = true
 	
 	if SSP.mod_nofail: ms += "[ NOFAIL ACTIVE ]\n"
 	elif SSP.health_model == Globals.HP_OLD: ms += "Using old hp model (more hp + fast regen)\n"
@@ -389,13 +429,13 @@ func _ready():
 	var mods = []
 	if SSP.mod_speed_level != Globals.SPEED_NORMAL:
 		match SSP.mod_speed_level:
-			Globals.SPEED_MMM: mods.append("Speed---")
-			Globals.SPEED_MM: mods.append("Speed--")
-			Globals.SPEED_M: mods.append("Speed-")
-			Globals.SPEED_P: mods.append("Speed+")
-			Globals.SPEED_PP: mods.append("Speed++")
-			Globals.SPEED_PPP: mods.append("Speed+++")
-			Globals.SPEED_PPPP: mods.append("Speed++++")
+			Globals.SPEED_MMM: modicons.get_node("SpeedMMM").visible = true
+			Globals.SPEED_MM: modicons.get_node("SpeedMM").visible = true
+			Globals.SPEED_M: modicons.get_node("SpeedM").visible = true
+			Globals.SPEED_P: modicons.get_node("SpeedP").visible = true
+			Globals.SPEED_PP: modicons.get_node("SpeedPP").visible = true
+			Globals.SPEED_PPP: modicons.get_node("SpeedPPP").visible = true
+			Globals.SPEED_PPPP: modicons.get_node("SpeedPPPP").visible = true
 			Globals.SPEED_CUSTOM: mods.append("Speed%s%%" % [Globals.speed_multi[Globals.SPEED_CUSTOM] * 100])
 	if SSP.mod_sudden_death: mods.append("SuddenDeath")
 	if SSP.mod_extra_energy: mods.append("Energy+")
@@ -407,13 +447,20 @@ func _ready():
 		mods.append(mirrorst)
 	if SSP.mod_ghost: mods.append("Ghost")
 	if SSP.mod_nearsighted: mods.append("Nearsight")
+	if SSP.mod_chaos: mods.append("Chaos")
 	for i in range(mods.size()):
 		if i != 0: ms += " "
 		ms += mods[i]
 	if mods.size() != 0 and !SSP.mod_nofail: ms += '\n'
 	
 	if SSP.hitwindow_ms != 55 or SSP.note_hitbox_size != 1.140:
-		ms += "Hitwindow: %.0f ms | Hitboxes: %.02f m" % [SSP.hitwindow_ms,SSP.note_hitbox_size]
+		ms += "HW: %.0f ms | HB: %.02f m" % [SSP.hitwindow_ms,SSP.note_hitbox_size]
+	if SSP.hitwindow_ms == 83 and SSP.note_hitbox_size == 1.710:
+		ms = "py's nerf"
+	if SSP.hitwindow_ms == 58 and SSP.note_hitbox_size == 1.140:
+		ms = "Vulnus Judgement"
+	if SSP.hitwindow_ms == 82 and SSP.note_hitbox_size == 1.700:
+		ms = ""
 	
 	modtxt.text = ms
 	
