@@ -1539,6 +1539,12 @@ attenuation_filter_cutoff_hz = 1.0
 pause_mode = 2
 attenuation_model = 3
 
+[node name="Miss2D" type="AudioStreamPlayer" parent="Game/Spawn"]
+pause_mode = 2
+
+[node name="Hit2D" type="AudioStreamPlayer" parent="Game/Spawn"]
+pause_mode = 2
+
 [node name="Outer" type="MeshInstance" parent="Game/Spawn"]
 transform = Transform( -4.37114e-08, -4.37114e-08, -1, -1, 1.91069e-15, 4.37114e-08, 0, 1, -4.37114e-08, 1, -1, 0 )
 mesh = SubResource( 30 )

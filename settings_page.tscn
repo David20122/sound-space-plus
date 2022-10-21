@@ -209,7 +209,7 @@ script = ExtResource( 36 )
 [node name="M" type="VBoxContainer" parent="."]
 margin_top = 59.0
 margin_right = 1280.0
-margin_bottom = 2840.0
+margin_bottom = 2872.0
 custom_constants/separation = 0
 
 [node name="Modifiers" type="VBoxContainer" parent="M"]
@@ -1693,7 +1693,7 @@ valign = 1
 [node name="Audio" type="VBoxContainer" parent="M"]
 margin_top = 920.0
 margin_right = 1280.0
-margin_bottom = 1152.0
+margin_bottom = 1184.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Audio"]
@@ -1721,13 +1721,13 @@ flat = true
 [node name="Group" type="MarginContainer" parent="M/Audio"]
 margin_top = 36.0
 margin_right = 1280.0
-margin_bottom = 232.0
+margin_bottom = 264.0
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="M/Audio/Group"]
 margin_left = 180.0
 margin_right = 1280.0
-margin_bottom = 196.0
+margin_bottom = 228.0
 
 [node name="MusicOffset" type="Control" parent="M/Audio/Group/H"]
 margin_right = 540.0
@@ -1960,10 +1960,43 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="SFX2d" type="CheckBox" parent="M/Audio/Group/H"]
+margin_top = 200.0
+margin_right = 540.0
+margin_bottom = 228.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_fonts/font = SubResource( 4 )
+pressed = true
+action_mode = 0
+text = "makes the hit/miss sounds non-directional"
+flat = true
+script = ExtResource( 54 )
+target = "sfx_2d"
+
+[node name="Label" type="Label" parent="M/Audio/Group/H/SFX2d"]
+anchor_bottom = 1.0
+margin_left = -173.0
+margin_right = -10.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Disable Directional"
+align = 2
+valign = 1
+clip_text = true
+
 [node name="Camera" type="VBoxContainer" parent="M"]
-margin_top = 1152.0
+margin_top = 1184.0
 margin_right = 1280.0
-margin_bottom = 1536.0
+margin_bottom = 1568.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Camera"]
@@ -2439,9 +2472,9 @@ valign = 1
 clip_text = true
 
 [node name="Notes" type="VBoxContainer" parent="M"]
-margin_top = 1536.0
+margin_top = 1568.0
 margin_right = 1280.0
-margin_bottom = 1708.0
+margin_bottom = 1740.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Notes"]
@@ -2655,9 +2688,9 @@ valign = 1
 clip_text = true
 
 [node name="UI" type="VBoxContainer" parent="M"]
-margin_top = 1708.0
+margin_top = 1740.0
 margin_right = 1280.0
-margin_bottom = 2316.0
+margin_bottom = 2348.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/UI"]
@@ -3308,9 +3341,9 @@ valign = 1
 clip_text = true
 
 [node name="Graphics" type="VBoxContainer" parent="M"]
-margin_top = 2316.0
+margin_top = 2348.0
 margin_right = 1280.0
-margin_bottom = 2572.0
+margin_bottom = 2604.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Graphics"]
@@ -3571,9 +3604,9 @@ valign = 1
 clip_text = true
 
 [node name="Experimental" type="VBoxContainer" parent="M"]
-margin_top = 2572.0
+margin_top = 2604.0
 margin_right = 1280.0
-margin_bottom = 2781.0
+margin_bottom = 2813.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Experimental"]
@@ -3764,7 +3797,7 @@ valign = 1
 clip_text = true
 
 [node name="BottomMargin" type="Control" parent="."]
-margin_top = 2844.0
+margin_top = 2876.0
 margin_right = 1280.0
-margin_bottom = 2940.0
+margin_bottom = 2972.0
 rect_min_size = Vector2( 0, 96 )
