@@ -326,6 +326,7 @@ func _process(delta):
 
 # Debug
 var desync_alerts:bool = false
+var disable_desync:bool = false
 func _console(cmd:String,args:String):
 	match cmd:
 		"queue":
@@ -356,6 +357,9 @@ func _console(cmd:String,args:String):
 		"desyncalerts":
 			Globals.notify(Globals.NOTIFY_SUCCEED,"Enabled desync alerts","Success")
 			desync_alerts = true
+		"disablesync":
+			Globals.notify(Globals.NOTIFY_SUCCEED,"Disabled desync checks","Success")
+			disable_desync = true
 
 # Utility functions
 func console_cmd_error(body:String):
@@ -573,6 +577,7 @@ var score_popup:bool = true
 var auto_preview_song:bool = true
 var play_hit_snd:bool = true
 var play_miss_snd:bool = true
+var sfx_2d:bool = false
 var music_offset:float = 0
 var play_menu_music:bool = false setget _set_menu_music
 var music_volume_db:float = 0 setget _set_music_volume
@@ -934,6 +939,10 @@ func load_saved_settings():
 			score_popup = data.score_popup
 		if data.has("billboard_score"): 
 			billboard_score = data.billboard_score
+		if data.has("smart_trail"): 
+			smart_trail = data.smart_trail
+		if data.has("sfx_2d"): 
+			sfx_2d = data.sfx_2d
 			
 	
 	elif file.file_exists(Globals.p("user://settings")):
@@ -1186,6 +1195,7 @@ func save_settings():
 			note_visual_approach = note_visual_approach,
 			score_popup = score_popup,
 			billboard_score = billboard_score,
+			sfx_2d = sfx_2d,
 		}
 		
 		file.store_string(to_json(data))

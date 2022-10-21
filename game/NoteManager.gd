@@ -52,8 +52,11 @@ func reposition_notes(force:bool=false):
 					SSP.replay.note_miss(note.id)
 				note.state = Globals.NSTATE_MISS
 				if SSP.play_miss_snd: 
-					$Miss.transform = note.transform
-					$Miss.play()
+					if SSP.sfx_2d:
+						$Miss2D.play()
+					else:
+						$Miss.transform = note.transform
+						$Miss.play()
 				if SSP.show_miss_effect:
 					var pos:Vector3 = Vector3(
 						note.transform.origin.x,
@@ -70,8 +73,11 @@ func reposition_notes(force:bool=false):
 					SSP.replay.note_hit(note.id)
 				note.state = Globals.NSTATE_HIT
 				if SSP.play_hit_snd: 
-					$Hit.transform = note.transform
-					$Hit.play()
+					if SSP.sfx_2d:
+						$Hit2D.play()
+					else:
+						$Hit.transform = note.transform
+						$Hit.play()
 				var pos:Vector3 = Vector3(
 					$Cursor.global_transform.origin.x,
 					$Cursor.global_transform.origin.y,
@@ -145,6 +151,8 @@ func _ready():
 	$Music.pitch_scale = speed_multi
 	$Miss.stream = SSP.miss_snd
 	$Hit.stream = SSP.hit_snd
+	$Miss2D.stream = SSP.miss_snd
+	$Hit2D.stream = SSP.hit_snd
 	$Note/Mesh.mesh = load(SSP.selected_mesh.path)
 	
 	var m:ShaderMaterial = $Note.solid_mat
@@ -480,7 +488,7 @@ func _process(delta:float):
 	
 	emit_signal("timer_update",ms,can_skip)
 	
-	if $Music.playing:
+	if $Music.playing and !SSP.disable_desync:
 		var playback_pos:float = $Music.get_playback_position()*1000.0
 		if abs(playback_pos - (ms + SSP.music_offset)) > 65:
 			if SSP.desync_alerts:
