@@ -488,7 +488,7 @@ func _process(delta:float):
 	
 	emit_signal("timer_update",ms,can_skip)
 	
-	if $Music.playing:
+	if $Music.playing and !SSP.disable_desync:
 		var playback_pos:float = $Music.get_playback_position()*1000.0
 		if abs(playback_pos - (ms + SSP.music_offset)) > 65:
 			if SSP.desync_alerts:

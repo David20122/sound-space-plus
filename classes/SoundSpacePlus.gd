@@ -326,6 +326,7 @@ func _process(delta):
 
 # Debug
 var desync_alerts:bool = false
+var disable_desync:bool = false
 func _console(cmd:String,args:String):
 	match cmd:
 		"queue":
@@ -356,6 +357,9 @@ func _console(cmd:String,args:String):
 		"desyncalerts":
 			Globals.notify(Globals.NOTIFY_SUCCEED,"Enabled desync alerts","Success")
 			desync_alerts = true
+		"disablesync":
+			Globals.notify(Globals.NOTIFY_SUCCEED,"Disabled desync checks","Success")
+			disable_desync = true
 
 # Utility functions
 func console_cmd_error(body:String):
