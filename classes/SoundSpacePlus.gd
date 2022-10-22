@@ -834,7 +834,7 @@ func load_saved_settings():
 		if data.has("cursor_scale"): 
 			cursor_scale = data.cursor_scale
 		if data.has("edge_drift"): 
-			if data.edge_drift == "nan":
+			if typeof(data.edge_drift) == TYPE_STRING:
 				edge_drift = NAN
 			else:
 				edge_drift = data.edge_drift
