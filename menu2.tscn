@@ -3762,8 +3762,8 @@ scroll_horizontal_enabled = false
 
 [node name="F" parent="Main/Settings/S" instance=ExtResource( 49 )]
 anchor_right = 0.0
-margin_right = 1210.0
-margin_bottom = 2940.0
+margin_right = 1150.0
+margin_bottom = 2972.0
 rect_clip_content = true
 
 [node name="Credits" type="ReferenceRect" parent="Main"]

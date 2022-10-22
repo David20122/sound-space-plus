@@ -1,0 +1,89 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://content/worlds/vaporwave/shaders/VHS.shader" type="Shader" id=1]
+[ext_resource path="res://content/worlds/vaporwave/shaders/vertex_shader.gdshader" type="Shader" id=4]
+[ext_resource path="res://content/worlds/vaporwave/scripts/time_setter.gd" type="Script" id=5]
+[ext_resource path="res://content/worlds/vaporwave/shaders/sun.gdshader" type="Shader" id=6]
+
+[sub_resource type="Environment" id=6]
+background_mode = 2
+ambient_light_color = Color( 0.3, 0.3, 0.3, 1 )
+ambient_light_sky_contribution = 0.0
+glow_enabled = true
+glow_intensity = 1.21
+glow_strength = 1.11
+glow_bloom = 0.12
+glow_blend_mode = 0
+glow_hdr_threshold = 1.11
+glow_bicubic_upscale = true
+glow_high_quality = true
+
+[sub_resource type="OpenSimplexNoise" id=7]
+seed = 43
+octaves = 5
+period = 256.0
+persistence = 0.294
+lacunarity = 1.52
+
+[sub_resource type="NoiseTexture" id=8]
+flags = 23
+seamless = true
+noise = SubResource( 7 )
+
+[sub_resource type="ShaderMaterial" id=9]
+render_priority = -100
+shader = ExtResource( 4 )
+shader_param/time_float = null
+shader_param/note_color_front = Vector3( 1, 0, 0.2 )
+shader_param/note_color_back = Vector3( 0, 0, 1 )
+shader_param/noise = SubResource( 8 )
+
+[sub_resource type="PlaneMesh" id=5]
+material = SubResource( 9 )
+subdivide_width = 49
+subdivide_depth = 49
+
+[sub_resource type="ShaderMaterial" id=10]
+render_priority = -128
+shader = ExtResource( 6 )
+shader_param/time_float = null
+
+[sub_resource type="PlaneMesh" id=11]
+material = SubResource( 10 )
+
+[sub_resource type="ShaderMaterial" id=15]
+shader = ExtResource( 1 )
+shader_param/colored = false
+shader_param/color_amount = 0.0
+shader_param/grain_amount = 0.07
+shader_param/grain_size = 1.0
+shader_param/lum_amount = 1.3
+shader_param/tape_wave_amount = 0.003
+shader_param/tape_crease_amount = 2.5
+shader_param/color_displacement = 1.0
+shader_param/lines_velocity = 0.1
+
+[node name="vaporwave" type="Spatial"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 6 )
+
+[node name="MeshInstance" type="MeshInstance" parent="WorldEnvironment"]
+transform = Transform( -100, 0, -1.50996e-05, 0, 20, 0, 1.50996e-05, 0, -100, 0.001, -10.8, -110 )
+mesh = SubResource( 5 )
+skeleton = NodePath("../..")
+script = ExtResource( 5 )
+
+[node name="MeshInstance2" type="MeshInstance" parent="WorldEnvironment"]
+transform = Transform( 80, 0.00254105, -1.11073e-10, 0, -3.49691e-06, -80, -0.00254105, 80, -3.49691e-06, 0, 100, -200 )
+mesh = SubResource( 11 )
+skeleton = NodePath("../../../../..")
+script = ExtResource( 5 )
+
+[node name="Camera" type="Camera" parent="WorldEnvironment"]
+far = 8192.0
+
+[node name="ColorRect" type="ColorRect" parent="WorldEnvironment/Camera"]
+material = SubResource( 15 )
+anchor_right = 1.0
+anchor_bottom = 1.0
