@@ -834,7 +834,10 @@ func load_saved_settings():
 		if data.has("cursor_scale"): 
 			cursor_scale = data.cursor_scale
 		if data.has("edge_drift"): 
-			edge_drift = data.edge_drift
+			if data.edge_drift == "nan":
+				edge_drift = NAN
+			else:
+				edge_drift = data.edge_drift
 		if data.has("enable_drift_cursor"): 
 			enable_drift_cursor = data.enable_drift_cursor
 		if data.has("hitwindow_ms"): 
@@ -1149,7 +1152,6 @@ func save_settings():
 			show_config = show_config,
 			enable_grid = enable_grid,
 			cursor_scale = cursor_scale,
-			edge_drift = edge_drift,
 			enable_drift_cursor = enable_drift_cursor,
 			hitwindow_ms = hitwindow_ms,
 			cursor_spin = cursor_spin,
@@ -1197,6 +1199,11 @@ func save_settings():
 			billboard_score = billboard_score,
 			sfx_2d = sfx_2d,
 		}
+		
+		if is_nan(edge_drift):
+			data.edge_drift = "nan"
+		else:
+			data.edge_drift = edge_drift
 		
 		file.store_string(to_json(data))
 		
