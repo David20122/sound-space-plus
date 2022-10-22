@@ -1534,12 +1534,15 @@ bus = "Music"
 pause_mode = 2
 attenuation_model = 3
 unit_db = -11.0
-attenuation_filter_cutoff_hz = 1.0
+attenuation_filter_cutoff_hz = 20500.0
+attenuation_filter_db = 0.0
 
 [node name="Hit" type="AudioStreamPlayer3D" parent="Game/Spawn"]
 pause_mode = 2
 attenuation_model = 3
 unit_db = -21.0
+attenuation_filter_cutoff_hz = 20500.0
+attenuation_filter_db = 0.0
 
 [node name="Miss2D" type="AudioStreamPlayer" parent="Game/Spawn"]
 pause_mode = 2
