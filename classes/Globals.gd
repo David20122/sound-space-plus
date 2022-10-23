@@ -104,6 +104,7 @@ enum {
 	MAP_VULNUS = 2
 	MAP_SSPM = 3
 	MAP_NET = 4
+	MAP_SSPM2 = 5
 }
 
 enum {
