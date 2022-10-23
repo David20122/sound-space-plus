@@ -578,6 +578,58 @@ var note_visual_approach:bool = false # Experimental
 var billboard_score:bool = false
 var score_popup:bool = true
 
+# Settings - HUD Colors
+var panel_bg:Color = Color("#9b000000") #9bcecece
+var panel_text:Color = Color("#ffffff") #000000
+
+var unpause_fill_color:Color = Color("#80fff3") #fd00ff
+var unpause_empty_color:Color = Color("#68ff00") #8500ff
+var how_to_quit:Color = Color("#ffdb00") #be0000
+
+var combo_fill_color:Color = Color("#7bfff3") #ff00c5
+var combo_empty_color:Color = Color("#b94b4b4b") #d64b4b4b
+
+var acc_fill_color:Color = Color("#8cff00") #8cff00
+var acc_empty_color:Color = Color("#b08f8f8f") #b08f8f8f
+
+var giveup_text:Color = Color("#ffffff") #000000
+var giveup_fill_color:Color = Color("#ff8f2c") #ff8f2c
+var giveup_fill_color_end_skip:Color = Color("#81ff75") #81ff75
+
+var timer_text:Color = Color("#ffffff") #000000
+var timer_text_done:Color = Color("#77ff77") #000000
+var timer_text_canskip:Color = Color("#b3ffff") #60005c
+
+var timer_fg:Color = Color("#ffffff") #000000
+var timer_bg:Color = Color("#af8f8f8f") #af000000
+var timer_fg_done:Color = Color("#25bf00") #25bf00
+var timer_bg_done:Color = Color("#af008f00") #af008f00
+var timer_fg_canskip:Color = Color("#b3ffff") #760070
+var timer_bg_canskip:Color = Color("#b0638f8f") #b02b172a
+
+var miss_flash_color:Color = Color("#ff0000") #ff0000
+var pause_used_color:Color = Color("#ff66ff") #2600c2
+
+var miss_text_color:Color = Color("#ffffff") #000000
+var pause_text_color:Color = Color("#ffffff") #000000
+var score_text_color:Color = Color("#ffffff") #000000
+
+var pause_ui_opacity:float = 0.75 # 0.75
+
+var grade_ss_saturation:float = 0.4 # 0.5
+var grade_ss_value:float = 1 # 0.5
+var grade_ss_shine:float = 1 # 1
+
+var grade_s_color:Color = Color("#91fffa") #143dff
+var grade_s_shine:float = 0.5 # 0.5
+
+var grade_a_color:Color = Color("#91ff92") #20c523
+var grade_b_color:Color = Color("#e7ffc0") #8a9530
+var grade_c_color:Color = Color("#fcf7b3") #ffb500
+var grade_d_color:Color = Color("#fcd0b3") #ff6600
+var grade_f_color:Color = Color("#ff8282") #d14747
+
+
 # Settings - Audio
 var auto_preview_song:bool = true
 var play_hit_snd:bool = true
@@ -786,7 +838,12 @@ func load_pbs():
 		file.close()
 
 
-
+# Settings save/load helpers
+func scol(c:Color) -> String:
+	return c.to_html(c.a != 1)
+func lcol(data:Dictionary,target:String) -> void:
+	if data.has(target) and Color(data[target]):
+		set(target, Color(data[target]))
 
 # Settings file
 const current_sf_version = 44 # SV
@@ -961,7 +1018,50 @@ func load_saved_settings():
 			smart_trail = data.smart_trail
 		if data.has("sfx_2d"): 
 			sfx_2d = data.sfx_2d
-			
+		
+		if data.has("pause_ui_opacity"):
+			pause_ui_opacity = data.pause_ui_opacity
+		if data.has("grade_ss_saturation"):
+			grade_ss_saturation = data.grade_ss_saturation
+		if data.has("grade_ss_value"):
+			grade_ss_value = data.grade_ss_value
+		if data.has("grade_ss_shine"):
+			grade_ss_shine = data.grade_ss_shine
+		if data.has("grade_s_shine"):
+			grade_s_shine = data.grade_s_shine
+		
+		lcol(data,"grade_s_color")
+		lcol(data,"panel_bg")
+		lcol(data,"panel_text")
+		lcol(data,"unpause_fill_color")
+		lcol(data,"unpause_empty_color")
+		lcol(data,"how_to_quit")
+		lcol(data,"combo_fill_color")
+		lcol(data,"combo_empty_color")
+		lcol(data,"acc_fill_color")
+		lcol(data,"acc_empty_color")
+		lcol(data,"giveup_text")
+		lcol(data,"giveup_fill_color")
+		lcol(data,"giveup_fill_color_end_skip")
+		lcol(data,"timer_text")
+		lcol(data,"timer_text_done")
+		lcol(data,"timer_text_canskip")
+		lcol(data,"timer_fg")
+		lcol(data,"timer_bg")
+		lcol(data,"timer_fg_done")
+		lcol(data,"timer_bg_done")
+		lcol(data,"timer_fg_canskip")
+		lcol(data,"timer_bg_canskip")
+		lcol(data,"miss_flash_color")
+		lcol(data,"pause_used_color")
+		lcol(data,"miss_text_color")
+		lcol(data,"pause_text_color")
+		lcol(data,"score_text_color")
+		lcol(data,"grade_a_color")
+		lcol(data,"grade_b_color")
+		lcol(data,"grade_c_color")
+		lcol(data,"grade_d_color")
+		lcol(data,"grade_f_color")
 	
 	elif file.file_exists(Globals.p("user://settings")):
 		var err = file.open(Globals.p("user://settings"),File.READ)
@@ -1224,6 +1324,44 @@ func save_settings():
 			score_popup = score_popup,
 			billboard_score = billboard_score,
 			sfx_2d = sfx_2d,
+			
+			panel_bg = scol(panel_bg),
+			panel_text = scol(panel_text),
+			unpause_fill_color = scol(unpause_fill_color),
+			unpause_empty_color = scol(unpause_empty_color),
+			how_to_quit = scol(how_to_quit),
+			combo_fill_color = scol(combo_fill_color),
+			combo_empty_color = scol(combo_empty_color),
+			acc_fill_color = scol(acc_fill_color),
+			acc_empty_color = scol(acc_empty_color),
+			giveup_text = scol(giveup_text),
+			giveup_fill_color = scol(giveup_fill_color),
+			giveup_fill_color_end_skip = scol(giveup_fill_color_end_skip),
+			timer_text = scol(timer_text),
+			timer_text_done = scol(timer_text_done),
+			timer_text_canskip = scol(timer_text_canskip),
+			timer_fg = scol(timer_fg),
+			timer_bg = scol(timer_bg),
+			timer_fg_done = scol(timer_fg_done),
+			timer_bg_done = scol(timer_bg_done),
+			timer_fg_canskip = scol(timer_fg_canskip),
+			timer_bg_canskip = scol(timer_bg_canskip),
+			miss_flash_color = scol(miss_flash_color),
+			pause_used_color = scol(pause_used_color),
+			miss_text_color = scol(miss_text_color),
+			pause_text_color = scol(pause_text_color),
+			score_text_color = scol(score_text_color),
+			pause_ui_opacity = pause_ui_opacity,
+			grade_ss_saturation = grade_ss_saturation,
+			grade_ss_value = grade_ss_value,
+			grade_ss_shine = grade_ss_shine,
+			grade_s_color = scol(grade_s_color),
+			grade_s_shine = grade_s_shine,
+			grade_a_color = scol(grade_a_color),
+			grade_b_color = scol(grade_b_color),
+			grade_c_color = scol(grade_c_color),
+			grade_d_color = scol(grade_d_color),
+			grade_f_color = scol(grade_f_color),
 		}
 		
 		if is_nan(edge_drift):
