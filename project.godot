@@ -49,7 +49,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://classes/cursordance/Directional.gd"
 }, {
-"base": "Reference",
+"base": "",
 "class": "DiscordActivity",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_activity.gdns"
@@ -59,7 +59,7 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_activity_assets.gdns"
 }, {
-"base": "Reference",
+"base": "",
 "class": "DiscordActivityManager",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_activity_manager.gdns"
@@ -69,12 +69,12 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_activity_party.gdns"
 }, {
-"base": "Reference",
+"base": "",
 "class": "DiscordActivitySecrets",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_activity_secrets.gdns"
 }, {
-"base": "Reference",
+"base": "",
 "class": "DiscordActivityTimestamps",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_activity_timestamps.gdns"
@@ -84,7 +84,7 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_core.gdns"
 }, {
-"base": "Reference",
+"base": "",
 "class": "DiscordLobby",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_lobby.gdns"
@@ -94,7 +94,7 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_lobby_manager.gdns"
 }, {
-"base": "Reference",
+"base": "",
 "class": "DiscordLobbyTransaction",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_lobby_transaction.gdns"
@@ -104,7 +104,7 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_overlay_manager.gdns"
 }, {
-"base": "Reference",
+"base": "",
 "class": "DiscordPartySize",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_party_size.gdns"
@@ -114,7 +114,7 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_result.gdns"
 }, {
-"base": "Reference",
+"base": "",
 "class": "DiscordUser",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_user.gdns"
@@ -148,6 +148,11 @@ _global_script_classes=[ {
 "class": "NoteEffect",
 "language": "GDScript",
 "path": "res://classes/NoteEffect.gd"
+}, {
+"base": "Spatial",
+"class": "NoteManager",
+"language": "GDScript",
+"path": "res://game/NoteManager.gd"
 }, {
 "base": "Resource",
 "class": "NoteMesh",
@@ -185,6 +190,11 @@ _global_script_classes=[ {
 "path": "res://classes/Song.gd"
 }, {
 "base": "Spatial",
+"class": "SongPlayerManager",
+"language": "GDScript",
+"path": "res://game/Game.gd"
+}, {
+"base": "Spatial",
 "class": "VRPlayer",
 "language": "GDScript",
 "path": "res://vr/VRPlayer.gd"
@@ -218,6 +228,7 @@ _global_script_class_icons={
 "MomentumDanceMover": "",
 "Note": "",
 "NoteEffect": "",
+"NoteManager": "",
 "NoteMesh": "",
 "Notify2D": "",
 "ObjParse": "",
@@ -225,6 +236,7 @@ _global_script_class_icons={
 "Replay": "",
 "SimpleDanceMover": "",
 "Song": "",
+"SongPlayerManager": "",
 "VRPlayer": ""
 }
 
@@ -287,6 +299,7 @@ Dance="*res://classes/Dance.gd"
 [debug]
 
 gdscript/warnings/unused_argument=false
+gdscript/warnings/narrowing_conversion=false
 gdscript/warnings/unused_signal=false
 gdscript/warnings/return_value_discarded=false
 
