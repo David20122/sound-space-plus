@@ -257,6 +257,7 @@ msaa = 2
 debanding = true
 hdr = false
 usage = 0
+render_target_update_mode = 3
 
 [node name="Control" type="Control" parent="TimerVP"]
 margin_right = 900.0
@@ -312,6 +313,7 @@ transparent_bg = true
 msaa = 2
 hdr = false
 usage = 0
+render_target_update_mode = 3
 gui_snap_controls_to_pixels = false
 
 [node name="Control" type="ColorRect" parent="LeftVP" groups=["panel_bg"]]
@@ -449,6 +451,7 @@ msaa = 2
 debanding = true
 hdr = false
 usage = 0
+render_target_update_mode = 3
 gui_snap_controls_to_pixels = false
 
 [node name="Control" type="Control" parent="GiveUpVP"]
@@ -496,6 +499,7 @@ transparent_bg = true
 msaa = 2
 hdr = false
 usage = 0
+render_target_update_mode = 3
 gui_snap_controls_to_pixels = false
 
 [node name="Control" type="ColorRect" parent="RightVP" groups=["panel_bg"]]
@@ -634,6 +638,7 @@ msaa = 2
 debanding = true
 hdr = false
 usage = 0
+render_target_update_mode = 3
 
 [node name="Control" type="Control" parent="EnergyVP"]
 margin_right = 900.0
@@ -775,6 +780,7 @@ msaa = 2
 debanding = true
 hdr = false
 usage = 0
+render_target_update_mode = 3
 gui_snap_controls_to_pixels = false
 
 [node name="Control" type="Control" parent="PauseVP"]
@@ -841,6 +847,7 @@ msaa = 1
 fxaa = true
 hdr = false
 usage = 0
+render_target_update_mode = 3
 gui_snap_controls_to_pixels = false
 
 [node name="Control" type="ColorRect" parent="ConfigVP"]
@@ -1048,6 +1055,7 @@ msaa = 1
 fxaa = true
 hdr = false
 usage = 0
+render_target_update_mode = 3
 gui_snap_controls_to_pixels = false
 
 [node name="Value" type="Label" parent="ComboVP"]
@@ -1075,6 +1083,7 @@ msaa = 1
 fxaa = true
 hdr = false
 usage = 0
+render_target_update_mode = 3
 gui_snap_controls_to_pixels = false
 
 [node name="Control" type="ColorRect" parent="ApproachVP"]
