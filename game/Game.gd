@@ -89,6 +89,12 @@ func update_hud():
 		truecombo.text = String(combo)
 		truecombo.rect_position.y = 100
 		last_combo = combo
+		
+		if SSP.hit_fov:
+			if SSP.hit_fov_additive:
+				$"../Camera".fov += SSP.hit_fov_amplifier
+			else:
+				$"../Camera".fov = SSP.fov - SSP.hit_fov_amplifier
 	
 	
 	scorelabel.text = comma_sep(score)

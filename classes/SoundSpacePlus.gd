@@ -530,6 +530,11 @@ var sensitivity:float = 0.5
 var parallax:float = 6.5 # Camera
 var ui_parallax:float = 1.63
 var grid_parallax:float = 0
+var fov:float = 70
+var hit_fov:bool = true
+var hit_fov_additive:bool = true
+var hit_fov_amplifier:float = 2
+var hit_fov_decay:float = 20
 var camera_mode:int = Globals.CAMERA_HALF_LOCK
 var cam_unlock:bool = false
 var lock_mouse:bool = true
@@ -784,7 +789,7 @@ func load_pbs():
 
 
 # Settings file
-const current_sf_version = 43 # SV
+const current_sf_version = 44 # SV
 func load_saved_settings():
 	if Input.is_key_pressed(KEY_CONTROL) and Input.is_key_pressed(KEY_L): 
 		print("force settings read error")
@@ -872,6 +877,16 @@ func load_saved_settings():
 			ui_parallax = data.ui_parallax
 		if data.has("grid_parallax"): 
 			grid_parallax = data.grid_parallax
+		if data.has("fov"):
+			fov = data.fov
+		if data.has("hit_fov"):
+			hit_fov = data.hit_fov
+		if data.has("hit_fov_additive"):
+			hit_fov_additive = data.hit_fov_additive
+		if data.has("hit_fov_amplifier"):
+			hit_fov_amplifier = data.hit_fov_amplifier
+		if data.has("hit_fov_decay"):
+			hit_fov_decay = data.hit_fov_decay
 		if data.has("fade_length"): 
 			fade_length = data.fade_length
 		if data.has("show_hit_effect"): 
@@ -1127,6 +1142,12 @@ func load_saved_settings():
 		if sv >= 43:
 			score_popup = bool(file.get_8())
 			billboard_score = bool(file.get_8())
+		if sv >= 44:
+			fov = float(file.get_32())
+			hit_fov = bool(file.get_8())
+			hit_fov_additive = bool(file.get_8())
+			hit_fov_amplifier = float(file.get_32())
+			hit_fov_decay = float(file.get_32())
 		file.close()
 		save_settings()
 	return 0
@@ -1148,6 +1169,11 @@ func save_settings():
 			selected_mesh = selected_mesh.id,
 			selected_hit_effect = selected_hit_effect.id,
 			parallax = parallax,
+			fov = fov,
+			hit_fov = hit_fov,
+			hit_fov_additive = hit_fov_additive,
+			hit_fov_amplifier = hit_fov_amplifier,
+			hit_fov_decay = hit_fov_decay,
 			cam_unlock = cam_unlock,
 			show_config = show_config,
 			enable_grid = enable_grid,
