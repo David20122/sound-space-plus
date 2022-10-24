@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=2]
+[gd_scene load_steps=81 format=2]
 
 [ext_resource path="res://uitheme.tres" type="Theme" id=1]
 [ext_resource path="res://font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=2]
@@ -56,6 +56,7 @@
 [ext_resource path="res://menu2/SettingsCheckbox.gd" type="Script" id=54]
 [ext_resource path="res://ToAvEditor.gd" type="Script" id=55]
 [ext_resource path="res://menu2/ColorPresets.gd" type="Script" id=56]
+[ext_resource path="res://HitFOVModes.gd" type="Script" id=57]
 
 [sub_resource type="DynamicFont" id=5]
 size = 18
@@ -237,7 +238,7 @@ script = ExtResource( 36 )
 [node name="M" type="VBoxContainer" parent="."]
 margin_top = 59.0
 margin_right = 1280.0
-margin_bottom = 4648.0
+margin_bottom = 4660.0
 custom_constants/separation = 0
 
 [node name="Modifiers" type="VBoxContainer" parent="M"]
@@ -2024,7 +2025,7 @@ clip_text = true
 [node name="Camera" type="VBoxContainer" parent="M"]
 margin_top = 1184.0
 margin_right = 1280.0
-margin_bottom = 1740.0
+margin_bottom = 1752.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Camera"]
@@ -2052,13 +2053,13 @@ flat = true
 [node name="Group" type="MarginContainer" parent="M/Camera"]
 margin_top = 36.0
 margin_right = 1280.0
-margin_bottom = 556.0
+margin_bottom = 568.0
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="M/Camera/Group"]
 margin_left = 180.0
 margin_right = 1280.0
-margin_bottom = 520.0
+margin_bottom = 532.0
 
 [node name="Presets" type="Control" parent="M/Camera/Group/H"]
 margin_right = 608.0
@@ -2069,6 +2070,7 @@ rect_min_size = Vector2( 200, 40 )
 margin_left = -10.0
 margin_right = 194.0
 margin_bottom = 32.0
+rect_pivot_offset = Vector2( -604, -160 )
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
@@ -2317,43 +2319,56 @@ align = 2
 valign = 1
 clip_text = true
 
-[node name="HitFOVAdditive" type="CheckBox" parent="M/Camera/Group/H"]
+[node name="HitFOVMode" type="Control" parent="M/Camera/Group/H"]
 margin_top = 220.0
 margin_right = 608.0
-margin_bottom = 248.0
-rect_min_size = Vector2( 0, 28 )
-theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_fonts/font = SubResource( 4 )
-action_mode = 0
-text = "makes it so hit FOV pulses add onto each other instead of resetting when you hit a note"
-flat = true
-script = ExtResource( 54 )
-target = "hit_fov_additive"
+margin_bottom = 260.0
+rect_min_size = Vector2( 200, 40 )
 
-[node name="Label" type="Label" parent="M/Camera/Group/H/HitFOVAdditive"]
-anchor_bottom = 1.0
-margin_left = -150.0
-margin_right = -10.0
-grow_horizontal = 0
+[node name="Presets" type="MenuButton" parent="M/Camera/Group/H/HitFOVMode"]
+margin_left = -10.0
+margin_right = 194.0
+margin_bottom = 32.0
 focus_mode = 2
 theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+text = "Hit FOV Modes"
+flat = false
+script = ExtResource( 57 )
+
+[node name="Label" type="Label" parent="M/Camera/Group/H/HitFOVMode/Presets"]
+visible = false
+margin_left = -142.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
 custom_fonts/font = SubResource( 3 )
-text = "Hit FOV Additive"
+text = "Modes"
 align = 2
 valign = 1
 clip_text = true
 
+[node name="Desc" type="Label" parent="M/Camera/Group/H/HitFOVMode/Presets"]
+margin_left = 215.0
+margin_right = 562.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 4 )
+text = "Mode: Additive"
+valign = 1
+
 [node name="HitFOVAmplifier" type="SpinBox" parent="M/Camera/Group/H"]
-margin_top = 252.0
+margin_top = 264.0
 margin_right = 200.0
-margin_bottom = 284.0
+margin_bottom = 296.0
 rect_min_size = Vector2( 200, 32 )
 rect_pivot_offset = Vector2( 286, -108 )
 focus_mode = 2
@@ -2392,9 +2407,9 @@ text = "[def. 2] how intense is the hit FOV pulsing is"
 valign = 1
 
 [node name="HitFOVDecay" type="SpinBox" parent="M/Camera/Group/H"]
-margin_top = 288.0
+margin_top = 300.0
 margin_right = 200.0
-margin_bottom = 320.0
+margin_bottom = 332.0
 rect_min_size = Vector2( 200, 32 )
 rect_pivot_offset = Vector2( 286, -108 )
 focus_mode = 2
@@ -2433,9 +2448,9 @@ text = "[def. 20] how long it takes for hit FOV pulsing to wear-off"
 valign = 1
 
 [node name="Spin" type="CheckBox" parent="M/Camera/Group/H"]
-margin_top = 324.0
+margin_top = 336.0
 margin_right = 608.0
-margin_bottom = 352.0
+margin_bottom = 364.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
@@ -2466,9 +2481,9 @@ valign = 1
 clip_text = true
 
 [node name="FarawayHud" type="CheckBox" parent="M/Camera/Group/H"]
-margin_top = 356.0
+margin_top = 368.0
 margin_right = 608.0
-margin_bottom = 384.0
+margin_bottom = 396.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
@@ -2499,9 +2514,9 @@ valign = 1
 clip_text = true
 
 [node name="Sensitivity" type="Control" parent="M/Camera/Group/H"]
-margin_top = 388.0
+margin_top = 400.0
 margin_right = 608.0
-margin_bottom = 420.0
+margin_bottom = 432.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="Sensitivity" type="SpinBox" parent="M/Camera/Group/H/Sensitivity"]
@@ -2546,9 +2561,9 @@ text = "[def. 1] changes how much the cursor/camera move with mouse/touch input"
 valign = 1
 
 [node name="EdgeBuffer" type="Control" parent="M/Camera/Group/H"]
-margin_top = 424.0
+margin_top = 436.0
 margin_right = 608.0
-margin_bottom = 456.0
+margin_bottom = 468.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="EdgeBuffer" type="SpinBox" parent="M/Camera/Group/H/EdgeBuffer"]
@@ -2592,9 +2607,9 @@ text = "[def. 0] aka cursor drift; makes the cursor \"stick\" to the edges by le
 valign = 1
 
 [node name="BufferCursor" type="CheckBox" parent="M/Camera/Group/H"]
-margin_top = 460.0
+margin_top = 472.0
 margin_right = 608.0
-margin_bottom = 488.0
+margin_bottom = 500.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
@@ -2629,9 +2644,9 @@ __meta__ = {
 }
 
 [node name="LockMouse" type="CheckBox" parent="M/Camera/Group/H"]
-margin_top = 492.0
+margin_top = 504.0
 margin_right = 608.0
-margin_bottom = 520.0
+margin_bottom = 532.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
@@ -2695,9 +2710,9 @@ valign = 1
 clip_text = true
 
 [node name="Notes" type="VBoxContainer" parent="M"]
-margin_top = 1740.0
+margin_top = 1752.0
 margin_right = 1280.0
-margin_bottom = 1912.0
+margin_bottom = 1924.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Notes"]
@@ -2911,9 +2926,9 @@ valign = 1
 clip_text = true
 
 [node name="UI" type="VBoxContainer" parent="M"]
-margin_top = 1912.0
+margin_top = 1924.0
 margin_right = 1280.0
-margin_bottom = 2456.0
+margin_bottom = 2468.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/UI"]
@@ -3500,9 +3515,9 @@ valign = 1
 clip_text = true
 
 [node name="UIColor" type="VBoxContainer" parent="M"]
-margin_top = 2456.0
+margin_top = 2468.0
 margin_right = 1280.0
-margin_bottom = 4124.0
+margin_bottom = 4136.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/UIColor"]
@@ -5394,9 +5409,9 @@ text = "[def. ##DEFAULT##] color of text when grade is F"
 valign = 1
 
 [node name="Graphics" type="VBoxContainer" parent="M"]
-margin_top = 4124.0
+margin_top = 4136.0
 margin_right = 1280.0
-margin_bottom = 4380.0
+margin_bottom = 4392.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Graphics"]
@@ -5657,9 +5672,9 @@ valign = 1
 clip_text = true
 
 [node name="Experimental" type="VBoxContainer" parent="M"]
-margin_top = 4380.0
+margin_top = 4392.0
 margin_right = 1280.0
-margin_bottom = 4589.0
+margin_bottom = 4601.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Experimental"]
@@ -5850,7 +5865,7 @@ valign = 1
 clip_text = true
 
 [node name="BottomMargin" type="Control" parent="."]
-margin_top = 4652.0
+margin_top = 4664.0
 margin_right = 1280.0
-margin_bottom = 4748.0
+margin_bottom = 4760.0
 rect_min_size = Vector2( 0, 96 )

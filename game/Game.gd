@@ -226,6 +226,8 @@ func hit(col):
 	if SSP.hit_fov:
 		if SSP.hit_fov_additive:
 			$"../Camera".fov += SSP.hit_fov_amplifier
+		elif SSP.hit_fov_exponential:
+			$"../Camera".fov *= SSP.hit_fov_amplifier
 		else:
 			$"../Camera".fov = SSP.fov - SSP.hit_fov_amplifier
 	

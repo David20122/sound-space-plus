@@ -533,6 +533,7 @@ var grid_parallax:float = 0
 var fov:float = 70
 var hit_fov:bool = false
 var hit_fov_additive:bool = true
+var hit_fov_exponential:bool = false
 var hit_fov_amplifier:float = 2
 var hit_fov_decay:float = 20
 var camera_mode:int = Globals.CAMERA_HALF_LOCK
@@ -846,7 +847,7 @@ func lcol(data:Dictionary,target:String) -> void:
 		set(target, Color(data[target]))
 
 # Settings file
-const current_sf_version = 44 # SV
+const current_sf_version = 45 # SV
 func load_saved_settings():
 	if Input.is_key_pressed(KEY_CONTROL) and Input.is_key_pressed(KEY_L): 
 		print("force settings read error")
@@ -940,6 +941,8 @@ func load_saved_settings():
 			hit_fov = data.hit_fov
 		if data.has("hit_fov_additive"):
 			hit_fov_additive = data.hit_fov_additive
+		if data.has("hit_fov_exponential"):
+			hit_fov_exponential = data.hit_fov_exponential
 		if data.has("hit_fov_amplifier"):
 			hit_fov_amplifier = data.hit_fov_amplifier
 		if data.has("hit_fov_decay"):
@@ -1248,6 +1251,8 @@ func load_saved_settings():
 			hit_fov_additive = bool(file.get_8())
 			hit_fov_amplifier = float(file.get_32())
 			hit_fov_decay = float(file.get_32())
+		if sv >= 45:
+			hit_fov_exponential = bool(file.get_8())
 		file.close()
 		save_settings()
 	return 0

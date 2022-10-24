@@ -27,11 +27,8 @@ var mat_s:ShaderMaterial
 var mat_t:ShaderMaterial
 
 func linstep(a:float,b:float,x:float):
-	if a == b:
-		return float(x >= a)
-	
-	return clamp((x - b) / (a - b),0,1)
-	
+	if a == b: return float(x >= a)
+	return clamp(abs((x - a) / (b - a)),0,1)
 
 func reposition(ms:float,approachSpeed:float):
 	approachSpeed /= speed_multi
@@ -57,7 +54,7 @@ func reposition(ms:float,approachSpeed:float):
 			transform.origin.x = real_position.x + (chaos_offset.x * v)	
 			transform.origin.y = real_position.y + (chaos_offset.y * v)
 		
-		if SSP.note_visual_approach and !SSP.mod_ghost:
+		if SSP.note_visual_approach:
 			$Approach.opacity = 1 - (current_dist / SSP.spawn_distance)
 			
 			$Approach.scale.x = 0.4 * ((current_dist / SSP.spawn_distance) + 0.3)
@@ -70,9 +67,9 @@ func reposition(ms:float,approachSpeed:float):
 			var fade_out:float = 1
 			
 			if fade_in_enabled: 
-				fade_in = linstep(fade_in_end,fade_in_start,current_dist)
+				fade_in = linstep(fade_in_start,fade_in_end,current_dist)
 			if fade_out_enabled:
-				fade_out = linstep(fade_out_start,fade_out_end,current_dist)
+				fade_out = linstep(fade_out_end,fade_out_start,current_dist)
 			
 			var alpha:float = min(fade_in,fade_out)
 			
@@ -119,7 +116,7 @@ func setup(color:Color):
 	
 	if SSP.mod_ghost:
 		fade_out_enabled = true
-		fade_out_start = ((18.0/50.0)*SSP.approach_rate)
+		fade_out_start = ((18.0/50)*SSP.approach_rate)
 		fade_out_end = ((6.0/50.0)*SSP.approach_rate)
 	
 	if SSP.mod_nearsighted:
