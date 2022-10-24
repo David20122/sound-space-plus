@@ -1,6 +1,7 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://content/worlds/vaporwave/shaders/VHS.shader" type="Shader" id=1]
+[ext_resource path="res://content/worlds/vaporwave.gd" type="Script" id=2]
 [ext_resource path="res://content/worlds/vaporwave/shaders/vertex_shader.gdshader" type="Shader" id=4]
 [ext_resource path="res://content/worlds/vaporwave/scripts/time_setter.gd" type="Script" id=5]
 [ext_resource path="res://content/worlds/vaporwave/shaders/sun.gdshader" type="Shader" id=6]
@@ -64,6 +65,7 @@ shader_param/color_displacement = 1.0
 shader_param/lines_velocity = 0.1
 
 [node name="vaporwave" type="Spatial"]
+script = ExtResource( 2 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 6 )

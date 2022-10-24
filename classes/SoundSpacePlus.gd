@@ -1353,11 +1353,13 @@ func register_worlds():
 		"res://content/worlds/vaporwave.tscn", "balt",
 		"res://content/worlds/covers/vaporwave.png"
 	))
-	registry_world.add_item(BackgroundWorld.new(
-		"ssp_security_room", "Security Room",
-		"res://content/worlds/security_room.tscn", "balt",
-		"res://content/worlds/covers/vaporwave.png"
-	))
+	# doesn't work :(
+	# registry_world.add_item(BackgroundWorld.new(
+	# 	"ssp_security_room", "Security Room",
+	# 	"res://content/worlds/security_room.tscn", "balt",
+	# 	"res://content/worlds/covers/vaporwave.png"
+	# ))
+	# ----------------------------------------------------
 	# Custom content
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_custombg", "Custom Background",
