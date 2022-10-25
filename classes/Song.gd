@@ -290,6 +290,7 @@ func loadRawData(data:String):
 	else:
 		warning = ""
 		is_broken = false
+	notes.sort_custom(self,"notesort")
 	note_count = notes.size()
 
 func loadVulnusNoteArray(vNotes:Array):
@@ -308,6 +309,7 @@ func loadVulnusNoteArray(vNotes:Array):
 		warning = "[vulnus map] Audio file doesn't exist!"
 		is_broken = true
 	elif invalid != 0: warning = "[vulnus map] Song has %s invalid note(s)" % String(invalid)
+	notes.sort_custom(self,"notesort")
 	note_count = notes.size()
 
 func setup_from_file(mapFile:String,songFile:String):
@@ -431,6 +433,7 @@ func read_notes() -> Array:
 					n[0] = float(file.get_8())
 					n[1] = float(file.get_8())
 				notes.append(n)
+			notes.sort_custom(self,"notesort")
 				
 			file.close()
 	
