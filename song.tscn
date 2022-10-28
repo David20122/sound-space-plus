@@ -341,18 +341,6 @@ speed_multi = 0.05
 [node name="Outline" parent="Game/Avatar/Torso" index="0"]
 visible = true
 
-[node name="Top" parent="Game/Avatar/Torso/Shirts/CubellaBikini" index="0"]
-material/0 = null
-
-[node name="Strap" parent="Game/Avatar/Torso/Shirts/CubellaBikini" index="1"]
-material/0 = null
-
-[node name="Button" parent="Game/Avatar/Torso/Shirts/CubellaBikini" index="2"]
-material/0 = null
-
-[node name="Bottom" parent="Game/Avatar/Torso/Shirts/CubellaBikini" index="3"]
-material/0 = null
-
 [node name="Mesh" parent="Game/Avatar/ArmR" index="0"]
 transform = Transform( 0.0991445, -0.0130526, 0, 0.0130526, 0.0991445, 0, 0, 0, 0.1, 0.5, -0.75, 2 )
 

@@ -357,6 +357,8 @@ func _process(delta:float):
 					emit_signal("ms_change",ms)
 					pause_ms = ms# + (750 * speed_multi)
 					$Music.stop()
+					get_parent().combo_level = 1
+					get_parent().lvl_progress = 0
 					get_parent().update_hud()
 				elif pause_state != 0:
 					if SSP.record_replays:
@@ -423,6 +425,8 @@ func _process(delta:float):
 			emit_signal("ms_change",ms)
 			pause_ms = ms# + (750 * speed_multi)
 			$Music.stop()
+			get_parent().combo_level = 1
+			get_parent().lvl_progress = 0
 			get_parent().update_hud()
 		elif just_started_unpause:
 #				print("YEAH baby that's what i've been waiting for")
