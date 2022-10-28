@@ -44,6 +44,12 @@ enum {
 }
 
 enum {
+	CURSOR_CUSTOM_COLOR = 0
+	CURSOR_RAINBOW = 1
+	CURSOR_NOTE_COLOR = 2
+}
+
+enum {
 	SPEED_NORMAL = 0
 	SPEED_MMM = 1
 	SPEED_MM = 2

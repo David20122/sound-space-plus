@@ -64,6 +64,9 @@ onready var trail_base = get_node("../../CursorTrail")
 func cache_trail(part:Spatial):
 	trail_cache.append(part)
 
+func recolor(col:Color):
+	$Mesh.get("material/0").albedo_color = Color(col.r,col.g,col.b,1)
+
 func _process(delta):
 	
 	if Input.is_action_just_pressed("debug_enable_mouse"):
@@ -74,7 +77,7 @@ func _process(delta):
 		$Mesh2.rotate_z(deg2rad(-delta*SSP.cursor_spin))
 	if SSP.cursor_face_velocity:
 		$Mesh.rotation_degrees.x += ((rad2deg(face.angle()) + 180) - $Mesh.rotation_degrees.x) * 0.025
-	if SSP.rainbow_cursor:
+	if SSP.cursor_color_type == Globals.CURSOR_RAINBOW:
 		$Mesh.get("material/0").albedo_color = Color.from_hsv(SSP.rainbow_t*0.1,0.65,1)
 	if Input.is_key_pressed(KEY_C):
 		ct = fmod(ct+delta,3)
@@ -150,6 +153,12 @@ func _ready():
 	$L.visible = ProjectSettings.get_setting("application/config/show_trail_debug")
 	
 	prev_end = global_transform.origin
+	
+	if SSP.cursor_color_type == Globals.CURSOR_NOTE_COLOR:
+		recolor(SSP.selected_colorset.colors[-1])
+		get_parent().connect("hit",self,"recolor")
+	elif SSP.cursor_color_type == Globals.CURSOR_CUSTOM_COLOR:
+		recolor(SSP.cursor_color)
 	
 	if SSP.cursor_trail and !SSP.smart_trail:
 		for i in range(SSP.trail_detail):

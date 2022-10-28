@@ -546,7 +546,9 @@ var record_replays:bool = false
 var alt_cam:bool = true
 
 # Settings - Cursor
-var rainbow_cursor:bool = false
+var cursor_color_type:int = Globals.CURSOR_CUSTOM_COLOR
+var cursor_color:Color = Color(1,1,1)
+
 var cursor_trail:bool = false
 var smart_trail:bool = false
 var trail_detail:int = 10
@@ -953,8 +955,6 @@ func load_saved_settings():
 			show_hit_effect = data.show_hit_effect
 		if data.has("lock_mouse"): 
 			lock_mouse = data.lock_mouse
-		if data.has("rainbow_cursor"): 
-			rainbow_cursor = data.rainbow_cursor
 		if data.has("cursor_trail"): 
 			cursor_trail = data.cursor_trail
 		if data.has("trail_detail"): 
@@ -1032,6 +1032,11 @@ func load_saved_settings():
 			grade_ss_shine = data.grade_ss_shine
 		if data.has("grade_s_shine"):
 			grade_s_shine = data.grade_s_shine
+		
+		if data.has("cursor_color_type"): 
+			cursor_color_type = data.cursor_color_type
+		elif data.has("rainbow_cursor"):
+			cursor_color_type = Globals.CURSOR_RAINBOW
 		
 		lcol(data,"grade_s_color")
 		lcol(data,"panel_bg")
@@ -1184,7 +1189,8 @@ func load_saved_settings():
 				print("integ 8"); return 10
 			
 			lock_mouse = bool(file.get_8())
-			rainbow_cursor = bool(file.get_8())
+			if bool(file.get_8()): # rainbow cursor
+				cursor_color_type = Globals.CURSOR_RAINBOW
 			cursor_trail = bool(file.get_8())
 		if sv >= 29:
 			trail_detail = file.get_32() # some people are insane
@@ -1299,7 +1305,6 @@ func save_settings():
 			fade_length = fade_length,
 			show_hit_effect = show_hit_effect,
 			lock_mouse = lock_mouse,
-			rainbow_cursor = rainbow_cursor,
 			cursor_trail = cursor_trail,
 			trail_detail = trail_detail,
 			trail_time = trail_time,
@@ -1329,7 +1334,9 @@ func save_settings():
 			score_popup = score_popup,
 			billboard_score = billboard_score,
 			sfx_2d = sfx_2d,
+			cursor_color_type = cursor_color_type,
 			
+			cursor_color = scol(cursor_color),
 			panel_bg = scol(panel_bg),
 			panel_text = scol(panel_text),
 			unpause_fill_color = scol(unpause_fill_color),
@@ -1722,16 +1729,23 @@ func do_init(_ud=null):
 	
 	var n
 	if !first_init_done: # mods can't be reloaded
-		emit_signal("init_stage_reached","Loading content 2/3\nMods")
-		yield(get_tree(),"idle_frame")
-		dir.change_dir(user_mod_dir)
-		dir.list_dir_begin(true)
-		n = dir.get_next()
-		while n:
-			if ProjectSettings.load_resource_pack(user_mod_dir + "/" + n):
-				installed_mods.append(n.get_file().replace(n.get_extension(),""))
+		if OS.has_feature("debug"):
+			emit_signal("init_stage_reached","Loading content 2/3\nMods")
+			yield(get_tree(),"idle_frame")
+			dir.change_dir(user_mod_dir)
+			dir.list_dir_begin(true)
 			n = dir.get_next()
-		dir.list_dir_end()
+			while n:
+				if ProjectSettings.load_resource_pack(user_mod_dir + "/" + n):
+					installed_mods.append(n.get_file().replace(n.get_extension(),""))
+				n = dir.get_next()
+			dir.list_dir_end()
+		else:
+			Globals.notify(
+				Globals.NOTIFY_INFO,
+				"This is a development environment, mods will not be loaded.",
+				"Not loading mods"
+			)
 	
 	emit_signal("init_stage_reached","Loading content 3/3\nContent packs")
 	yield(get_tree(),"idle_frame")
