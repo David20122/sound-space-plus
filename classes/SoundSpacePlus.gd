@@ -1445,6 +1445,18 @@ func register_colorsets():
 		[ Color("#000000"), Color("#381e42") ],
 		"ssp_vortex", "Vortex", "pyrule"
 	))
+	registry_colorset.add_item(ColorSet.new(
+		[ Color("#008cff"), Color("#ed3434"), Color("#10bd0d"), Color("#ffb300") ],
+		"ssp_wii", "Wii Players", "balt"
+	))
+	registry_colorset.add_item(ColorSet.new(
+		[ 
+			Color("#00aa66"), Color("#bb2200"), Color("#ffdd00"), 
+			Color("#2233ff") , Color("#ee5500") 
+		],
+		"ssp_guitarhero", "Guitar Hero", "balt"
+	))
+	
 func register_worlds():
 	# idI:String,nameI:String,pathI:String,creatorI:String="Unknown"
 	registry_world.add_item(BackgroundWorld.new(
@@ -1512,7 +1524,19 @@ func register_worlds():
 		"res://content/worlds/event_horizon.tscn", "Chedski",
 		"res://content/worlds/covers/custom.png"
 	))
-	
+	registry_world.add_item(BackgroundWorld.new(
+		"ssp_vaporwave", "v a p o r w a v e",
+		"res://content/worlds/vaporwave.tscn", "balt",
+		"res://content/worlds/covers/vaporwave.png"
+	))
+	# doesn't work :(
+	# registry_world.add_item(BackgroundWorld.new(
+	# 	"ssp_security_room", "Security Room",
+	# 	"res://content/worlds/security_room.tscn", "balt",
+	# 	"res://content/worlds/covers/vaporwave.png"
+	# ))
+	# ----------------------------------------------------
+	# Custom content
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_custombg", "Custom Background",
 		"res://content/worlds/custombg.tscn", "Someone",
