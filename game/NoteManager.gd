@@ -213,7 +213,7 @@ func do_half_lock():
 	var uim = SSP.ui_parallax * 0.1
 	var grm = SSP.grid_parallax * 0.1
 	cam.transform.origin = Vector3(
-		centeroff.x*hlpower*hlm, centeroff.y*hlpower*hlm, 3.735
+		centeroff.x*hlpower*hlm, centeroff.y*hlpower*hlm, 3.75
 	)
 	Grid.transform.origin = Vector3(
 		-centeroff.x*hlm*uim, -centeroff.y*hlm*uim, Grid.transform.origin.z
@@ -238,8 +238,8 @@ func do_spin():
 	var uim = SSP.ui_parallax * 0.1
 	var grm = SSP.grid_parallax * 0.1
 	cam.transform.origin = Vector3(
-		centeroff.x*hlpower, centeroff.y*hlpower, 3.735
-	)
+		centeroff.x*hlpower*hlm, centeroff.y*hlpower*hlm, 3.5
+	) + cam.transform.basis.z / 4
 	Grid.transform.origin = Vector3(
 		-centeroff.x*hlm*uim, -centeroff.y*hlm*uim, Grid.transform.origin.z
 	)
