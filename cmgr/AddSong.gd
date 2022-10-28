@@ -2,8 +2,6 @@ extends Panel
 
 var dir:Directory = Directory.new()
 var file:File = File.new()
-onready var openFile = $FileDialog
-onready var openFolder = $FolderDialog
 
 export(Texture) var cover_placeholder
 
@@ -159,12 +157,13 @@ func select_type(type:int):
 	elif type == T_SSPM:
 		print("opening sspm")
 		opening = FO_SSPM
-		openFile.clear_filters()
-		openFile.add_filter("*.sspm ; Sound Space+ map")
-		openFile.initial_path = "~/Downloads"
-		openFile.title = "Select SS+ map..."
-		openFile.multiselect = false
-		openFile.show()
+		Globals.file_sel.open_file(
+			self,
+			"file_selected",
+			PoolStringArray(["*.sspm ; Sound Space+ map"]),
+			false,
+			"~/Downloads"
+		)
 	elif type == T_TXT:
 		reset_text_edit_screen()
 		maptype = T_TXT
@@ -179,35 +178,41 @@ func sel_filetype(type:int):
 		if type == F_ZIP:
 			print("opening vulnus zip")
 			opening = FO_VZIP
-			openFile.clear_filters()
-			openFile.add_filter("*.zip, *.rar, *.7z, *.gz, *.vmap ; archive files")
-			openFile.initial_path = "~/Downloads"
-			openFile.title = "Select Vulnus map..."
-			openFile.multiselect = false
-			openFile.show()
+			Globals.file_sel.open_file(
+				self,
+				"file_selected",
+				PoolStringArray(["*.zip, *.rar, *.7z, *.gz, *.vmap ; archive files"]),
+				false,
+				"~/Downloads"
+			)
 		elif type == F_DIR:
 			print("opening vulnus folder")
 			opening = FO_VDIR
-			openFolder.initial_path = "~/Downloads"
-			openFolder.title = "Select Vulnus map..."
-			openFolder.show()
+			
+			Globals.file_sel.open_folder(
+				self,
+				"file_selected",
+				"~/Downloads"
+			)
 	elif maptype == T_TXT:
 		if type == FO_TXT:
 			opening = FO_TXT
-			openFile.clear_filters()
-			openFile.add_filter("*.txt ; Text files")
-			openFile.initial_path = "~/Downloads"
-			openFile.title = "Select map data..."
-			openFile.multiselect = false
-			openFile.show()
+			Globals.file_sel.open_file(
+				self,
+				"file_selected",
+				PoolStringArray(["*.txt ; Text files"]),
+				false,
+				"~/Downloads"
+			)
 		elif type == FO_SONG:
 			opening = FO_SONG
-			openFile.clear_filters()
-			openFile.add_filter("*.mp3, *.ogg ; Audio files")
-			openFile.initial_path = "~/Downloads"
-			openFile.title = "Select music..."
-			openFile.multiselect = false
-			openFile.show()
+			Globals.file_sel.open_file(
+				self,
+				"file_selected",
+				PoolStringArray(["*.mp3, *.ogg ; Audio files"]),
+				false,
+				"~/Downloads"
+			)
 
 const valid_chars = "0123456789abcdefghijklmnopqrstuvwxyz_-"
 
@@ -606,14 +611,14 @@ func set_use_cover(v:bool):
 	song.has_cover = v
 
 func do_coversel():
-	openFile.hide()
 	opening = FO_COVER
-	openFile.clear_filters()
-	openFile.add_filter("*.png, *.jpg, *.jpeg, *.webp, *.bmp ; Image files")
-	openFile.initial_path = "~/Downloads"
-	openFile.title = "Select cover image"
-	openFile.multiselect = false
-	openFile.show()
+	Globals.file_sel.open_file(
+		self,
+		"file_selected",
+		PoolStringArray(["*.png, *.jpg, *.jpeg, *.webp, *.bmp ; Image files"]),
+		false,
+		"~/Downloads"
+	)
 
 func finish_map():
 	$TxtFile/H/audio/player.stop()
@@ -708,9 +713,6 @@ func _ready():
 	$TxtFile/cancel.connect("pressed",self,"onopen")
 	$VulnusFile/cancel.connect("pressed",self,"onopen")
 	$Finish/ok.connect("pressed",self,"onopen")
-	
-	openFile.connect("files_selected",self,"file_selected")
-	openFolder.connect("folder_selected",self,"folder_selected")
 	
 #	call_deferred("add_child",openFile)
 #	call_deferred("add_child",openFolder)

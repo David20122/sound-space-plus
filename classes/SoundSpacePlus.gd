@@ -1729,7 +1729,7 @@ func do_init(_ud=null):
 	
 	var n
 	if !first_init_done: # mods can't be reloaded
-		if OS.has_feature("debug"):
+		if !OS.has_feature("debug"):
 			emit_signal("init_stage_reached","Loading content 2/3\nMods")
 			yield(get_tree(),"idle_frame")
 			dir.change_dir(user_mod_dir)

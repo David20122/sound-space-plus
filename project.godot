@@ -49,7 +49,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://classes/cursordance/Directional.gd"
 }, {
-"base": "Reference",
+"base": "",
 "class": "DiscordActivity",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_activity.gdns"
@@ -59,7 +59,7 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_activity_assets.gdns"
 }, {
-"base": "Reference",
+"base": "",
 "class": "DiscordActivityManager",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_activity_manager.gdns"
@@ -69,12 +69,12 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_activity_party.gdns"
 }, {
-"base": "Reference",
+"base": "",
 "class": "DiscordActivitySecrets",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_activity_secrets.gdns"
 }, {
-"base": "Reference",
+"base": "",
 "class": "DiscordActivityTimestamps",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_activity_timestamps.gdns"
@@ -84,7 +84,7 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_core.gdns"
 }, {
-"base": "Reference",
+"base": "",
 "class": "DiscordLobby",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_lobby.gdns"
@@ -94,7 +94,7 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_lobby_manager.gdns"
 }, {
-"base": "Reference",
+"base": "",
 "class": "DiscordLobbyTransaction",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_lobby_transaction.gdns"
@@ -104,7 +104,7 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_overlay_manager.gdns"
 }, {
-"base": "Reference",
+"base": "",
 "class": "DiscordPartySize",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_party_size.gdns"
@@ -114,10 +114,15 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_result.gdns"
 }, {
-"base": "Reference",
+"base": "",
 "class": "DiscordUser",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_user.gdns"
+}, {
+"base": "ColorRect",
+"class": "FileSelector2D",
+"language": "GDScript",
+"path": "res://classes/FileSelector.gd"
 }, {
 "base": "Resource",
 "class": "GameState",
@@ -222,6 +227,7 @@ _global_script_class_icons={
 "DiscordPartySize": "",
 "DiscordResult": "",
 "DiscordUser": "",
+"FileSelector2D": "",
 "GameState": "",
 "ImageLoader": "",
 "Member": "",
@@ -270,7 +276,7 @@ config/discord_rpc.OSX=false
 config/save_dir="user://"
 config/save_dir.Android="user://"
 config/fov=70.0
-config/enable_new_content_mgr.mobile=false
+config/enable_new_content_mgr.mobile=true
 config/discord_rpc.mobile=false
 config/replays=true
 config/replays.editor=true
@@ -281,6 +287,10 @@ networking/mapdb_api="https://chedski.net/ssp/mapdb/api/"
 networking/test_url="http://example.com/"
 config/discord_rpc.HTML5=false
 config/enable_new_content_mgr.HTML5=false
+config/disable_native_file_dialogs=false
+config/disable_native_file_dialogs.Android=true
+config/disable_native_file_dialogs.web=true
+config/disable_native_file_dialogs.OSX=true
 
 [audio]
 
