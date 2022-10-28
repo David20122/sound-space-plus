@@ -1595,7 +1595,7 @@ custom_styles/focus = SubResource( 52 )
 custom_styles/disabled = SubResource( 53 )
 custom_styles/normal = SubResource( 54 )
 script = ExtResource( 51 )
-target = "panel_bg"
+target = "cursor_color"
 
 [node name="Label" type="Label" parent="M/Customization/Group/H/cursor_color/Color"]
 margin_left = -151.0
