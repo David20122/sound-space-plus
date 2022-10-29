@@ -1,4 +1,5 @@
 extends Spatial
+class_name NoteManager
 
 signal ms_change
 signal timer_update
@@ -203,7 +204,7 @@ var music_started:bool = false
 const cursor_offset = Vector3(1,-1,0)
 onready var cam:Camera = get_node("../..").get_node("Camera")
 var hlpower = (0.1 * SSP.parallax)
-onready var Grid = get_node("../Grid")
+onready var Grid = get_node("../HUD")
 
 func do_half_lock():
 	var cursorpos = $Cursor.transform.origin
@@ -212,7 +213,7 @@ func do_half_lock():
 	var uim = SSP.ui_parallax * 0.1
 	var grm = SSP.grid_parallax * 0.1
 	cam.transform.origin = Vector3(
-		centeroff.x*hlpower*hlm, centeroff.y*hlpower*hlm, 3.735
+		centeroff.x*hlpower*hlm, centeroff.y*hlpower*hlm, 3.75
 	)
 	Grid.transform.origin = Vector3(
 		-centeroff.x*hlm*uim, -centeroff.y*hlm*uim, Grid.transform.origin.z
@@ -237,8 +238,8 @@ func do_spin():
 	var uim = SSP.ui_parallax * 0.1
 	var grm = SSP.grid_parallax * 0.1
 	cam.transform.origin = Vector3(
-		centeroff.x*hlpower, centeroff.y*hlpower, 3.735
-	)
+		centeroff.x*hlpower*hlm, centeroff.y*hlpower*hlm, 3.5
+	) + cam.transform.basis.z / 4
 	Grid.transform.origin = Vector3(
 		-centeroff.x*hlm*uim, -centeroff.y*hlm*uim, Grid.transform.origin.z
 	)
@@ -300,10 +301,6 @@ func do_note_queue():
 	
 	for _i in range(rem): noteQueue.pop_front()
 
-onready var TimerHud = get_node("../Grid/TimerHud")
-onready var ComboHud = get_node("../Grid/ComboHud")
-onready var Energy = get_node("../Grid/EnergyVP/Control/Energy")
-
 
 var rec_t:float = 0
 var rms:float = 0
@@ -328,17 +325,11 @@ func _process(delta:float):
 	if !notes_loaded: return
 	
 	can_skip = ((next_ms-prev_ms) > 5000) and (next_ms >= max(ms+(3000*speed_multi),1100*speed_multi))
-
-	if !SSP.rainbow_hud:
-		if can_skip: TimerHud.modulate = Color(0.7,1,1)
-		else: TimerHud.modulate = Color(1,1,1)
 	
 	if !SSP.replaying:
 		if Input.is_action_just_released("pause"):
 			if pause_state > 0:
 				pause_state = -1
-				get_parent().get_node("Grid/PauseHud").modulate = Color(1,1,1,1)
-				get_parent().get_node("Grid/PauseVP/Control").percent = 0
 				ms = pause_ms# - (750 * speed_multi)
 				if SSP.record_replays:
 					SSP.replay.store_sig(rms,Globals.RS_CANCEL_UNPAUSE)
@@ -366,14 +357,13 @@ func _process(delta:float):
 					emit_signal("ms_change",ms)
 					pause_ms = ms# + (750 * speed_multi)
 					$Music.stop()
-					get_parent().get_node("Grid/LeftVP/Control/Pauses").text = comma_sep(SSP.song_end_pause_count)
-					get_parent().get_node("Grid/PauseHud").modulate = Color(1,1,1,1)
-					get_parent().get_node("Grid/PauseVP/Control").percent = 0
+					get_parent().combo_level = 1
+					get_parent().lvl_progress = 0
+					get_parent().update_hud()
 				elif pause_state != 0:
 					if SSP.record_replays:
 						SSP.replay.store_sig(rms,Globals.RS_START_UNPAUSE)
 					pause_state = 1
-					get_parent().get_node("Grid/PauseHud").modulate = Color(1,1,1,pause_state)
 					ms = pause_ms - (pause_state * (750 * speed_multi))
 					emit_signal("ms_change",ms)
 					$Music.volume_db = SSP.music_volume_db - 30
@@ -386,7 +376,6 @@ func _process(delta:float):
 	#				print("YEAH baby that's what i've been waiting for")
 				if (prev_state != pause_state) and SSP.record_replays:
 					SSP.replay.store_sig(rms,Globals.RS_FINISH_UNPAUSE)
-				get_parent().get_node("Grid/PauseHud").visible = false
 				$Music.volume_db = SSP.music_volume_db
 				pause_state = 0
 	elif SSP.replay.sv != 1:
@@ -422,8 +411,6 @@ func _process(delta:float):
 				music_started = true
 		if just_cancelled_unpause:
 			pause_state = -1
-			get_parent().get_node("Grid/PauseHud").modulate = Color(1,1,1,1)
-			get_parent().get_node("Grid/PauseVP/Control").percent = 0
 			ms = pause_ms# - (750 * speed_multi)
 			SSP.replay.store_sig(rms,Globals.RS_CANCEL_UNPAUSE)
 			emit_signal("ms_change",ms)
@@ -438,14 +425,13 @@ func _process(delta:float):
 			emit_signal("ms_change",ms)
 			pause_ms = ms# + (750 * speed_multi)
 			$Music.stop()
-			get_parent().get_node("Grid/LeftVP/Control/Pauses").text = comma_sep(SSP.song_end_pause_count)
-			get_parent().get_node("Grid/PauseHud").modulate = Color(1,1,1,1)
-			get_parent().get_node("Grid/PauseVP/Control").percent = 0
+			get_parent().combo_level = 1
+			get_parent().lvl_progress = 0
+			get_parent().update_hud()
 		elif just_started_unpause:
 #				print("YEAH baby that's what i've been waiting for")
 #				print(pause_ms)
 			pause_state = 1
-			get_parent().get_node("Grid/PauseHud").modulate = Color(1,1,1,pause_state)
 			ms = pause_ms - (pause_state * (750 * speed_multi))
 			emit_signal("ms_change",ms)
 			$Music.volume_db = SSP.music_volume_db - 30
@@ -455,23 +441,9 @@ func _process(delta:float):
 			$Music.volume_db = min($Music.volume_db + (delta * 30), SSP.music_volume_db)
 			if should_end_unpause:
 	#				print("YEAH baby that's what i've been waiting for")
-				get_parent().get_node("Grid/PauseHud").visible = false
 				$Music.volume_db = SSP.music_volume_db
 				pause_state = 0
 		if should_giveup: get_parent().end(Globals.END_GIVEUP)
-
-
-	# Ensure pause screen is always visible when paused
-	if pause_state != 0:
-		get_parent().get_node("Grid/PauseHud").visible = !Input.is_key_pressed(KEY_C)
-		get_parent().get_node("Grid/PauseVP/Control").percent = clamp(
-			1 - (pause_state),
-			0,
-			float(pause_state != -1)
-		)
-		get_parent().get_node("Grid/PauseHud").modulate = Color(1,1,1,abs(pause_state))
-	else:
-		get_parent().get_node("Grid/PauseHud").visible = false
 	
 	rms += delta * 1000
 	rec_t += delta * 1000
@@ -512,10 +484,3 @@ func _process(delta:float):
 	if SSP.rainbow_grid:
 		$Inner.get("material/0").albedo_color = Color.from_hsv(SSP.rainbow_t*0.1,0.65,1)
 		$Outer.get("material/0").albedo_color = Color.from_hsv(SSP.rainbow_t*0.1,0.65,1)
-	if SSP.rainbow_hud:
-		Energy.get("custom_styles/fg").bg_color = Color.from_hsv(SSP.rainbow_t*0.1,0.4,1)
-		Energy.get("custom_styles/bg").bg_color = Color.from_hsv(SSP.rainbow_t*0.1,0.4,0.2,0.65)
-		TimerHud.modulate = Color.from_hsv(SSP.rainbow_t*0.1,0.4,1)
-		ComboHud.modulate = Color.from_hsv(SSP.rainbow_t*0.1,0.4,1)
-		get_node("../Grid/LeftHud").modulate = Color.from_hsv(SSP.rainbow_t*0.1,0.4,1)
-		get_node("../Grid/RightHud").modulate = Color.from_hsv(SSP.rainbow_t*0.1,0.4,1)

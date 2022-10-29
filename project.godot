@@ -119,6 +119,11 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_user.gdns"
 }, {
+"base": "ColorRect",
+"class": "FileSelector2D",
+"language": "GDScript",
+"path": "res://classes/FileSelector.gd"
+}, {
 "base": "Resource",
 "class": "GameState",
 "language": "GDScript",
@@ -148,6 +153,11 @@ _global_script_classes=[ {
 "class": "NoteEffect",
 "language": "GDScript",
 "path": "res://classes/NoteEffect.gd"
+}, {
+"base": "Spatial",
+"class": "NoteManager",
+"language": "GDScript",
+"path": "res://game/NoteManager.gd"
 }, {
 "base": "Resource",
 "class": "NoteMesh",
@@ -185,6 +195,11 @@ _global_script_classes=[ {
 "path": "res://classes/Song.gd"
 }, {
 "base": "Spatial",
+"class": "SongPlayerManager",
+"language": "GDScript",
+"path": "res://game/Game.gd"
+}, {
+"base": "Spatial",
 "class": "VRPlayer",
 "language": "GDScript",
 "path": "res://vr/VRPlayer.gd"
@@ -212,12 +227,14 @@ _global_script_class_icons={
 "DiscordPartySize": "",
 "DiscordResult": "",
 "DiscordUser": "",
+"FileSelector2D": "",
 "GameState": "",
 "ImageLoader": "",
 "Member": "",
 "MomentumDanceMover": "",
 "Note": "",
 "NoteEffect": "",
+"NoteManager": "",
 "NoteMesh": "",
 "Notify2D": "",
 "ObjParse": "",
@@ -225,6 +242,7 @@ _global_script_class_icons={
 "Replay": "",
 "SimpleDanceMover": "",
 "Song": "",
+"SongPlayerManager": "",
 "VRPlayer": ""
 }
 
@@ -241,7 +259,7 @@ boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://icon.svg"
 config/windows_native_icon="res://icon.ico"
 config/quit_on_go_back=false
-config/version="0.11.2-nightly"
+config/version="0.11.4-nightly"
 config/autoload_map_registries="test maps|res://test_assets/test_maps.sspmr;built in|res://content/songs/built_in_maps.sspmr"
 config/enable_new_content_mgr=true
 config/default_menu_target="res://menu2.tscn"
@@ -258,7 +276,7 @@ config/discord_rpc.OSX=false
 config/save_dir="user://"
 config/save_dir.Android="user://"
 config/fov=70.0
-config/enable_new_content_mgr.mobile=false
+config/enable_new_content_mgr.mobile=true
 config/discord_rpc.mobile=false
 config/replays=true
 config/replays.editor=true
@@ -269,6 +287,10 @@ networking/mapdb_api="https://chedski.net/ssp/mapdb/api/"
 networking/test_url="http://example.com/"
 config/discord_rpc.HTML5=false
 config/enable_new_content_mgr.HTML5=false
+config/disable_native_file_dialogs=false
+config/disable_native_file_dialogs.Android=true
+config/disable_native_file_dialogs.web=true
+config/disable_native_file_dialogs.OSX=true
 
 [audio]
 
@@ -287,6 +309,7 @@ Dance="*res://classes/Dance.gd"
 [debug]
 
 gdscript/warnings/unused_argument=false
+gdscript/warnings/narrowing_conversion=false
 gdscript/warnings/unused_signal=false
 gdscript/warnings/return_value_discarded=false
 

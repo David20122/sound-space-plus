@@ -120,7 +120,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -19.25 )
 material_override = SubResource( 23 )
 mesh = SubResource( 11 )
 skeleton = NodePath("../env")
-material/0 = null
 
 [node name="sphere2" type="MeshInstance" parent="sphere"]
 visible = false
@@ -128,7 +127,6 @@ material_override = SubResource( 12 )
 cast_shadow = 0
 mesh = SubResource( 13 )
 skeleton = NodePath("../../env")
-material/0 = null
 script = SubResource( 14 )
 
 [node name="particles" type="Particles" parent="sphere"]

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/error2.jpg-318e9dbe959ce51aa1d3eec111341c42.stex"
+path="res://.import/vaporwave.png-95e3f85a9ca57b8f829d720b8a43b07f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://error2.jpg"
-dest_files=[ "res://.import/error2.jpg-318e9dbe959ce51aa1d3eec111341c42.stex" ]
+source_file="res://content/worlds/covers/vaporwave.png"
+dest_files=[ "res://.import/vaporwave.png-95e3f85a9ca57b8f829d720b8a43b07f.stex" ]
 
 [params]
 

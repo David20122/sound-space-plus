@@ -44,6 +44,12 @@ enum {
 }
 
 enum {
+	CURSOR_CUSTOM_COLOR = 0
+	CURSOR_RAINBOW = 1
+	CURSOR_NOTE_COLOR = 2
+}
+
+enum {
 	SPEED_NORMAL = 0
 	SPEED_MMM = 1
 	SPEED_MM = 2
@@ -489,6 +495,7 @@ var error_sound:AudioStream
 var audioLoader:AudioLoader = AudioLoader.new()
 var imageLoader:ImageLoader = ImageLoader.new()
 var confirm_prompt:ConfirmationPrompt2D
+var file_sel:FileSelector2D
 var notify_gui:Notify2D
 
 func comma_sep(number):
@@ -628,6 +635,9 @@ func _ready():
 	
 	confirm_prompt = load("res://confirm.tscn").instance()
 	get_tree().root.call_deferred("add_child",confirm_prompt)
+	
+	file_sel = load("res://filesel.tscn").instance()
+	get_tree().root.call_deferred("add_child",file_sel)
 	
 	notify_gui = load("res://notification_gui.tscn").instance()
 	get_tree().root.call_deferred("add_child",notify_gui)

@@ -57,15 +57,12 @@ func sel(files:Array):
 			pass
 
 func _pressed():
-	$OpenFile.show()
+	if kind == KIND.IMAGE:
+		Globals.file_sel.open_file(self,"sel",PoolStringArray(["*.png, *.jpg, *.jpeg, *.webp, *.bmp ; Image files"]))
 
 func _ready():
 	$OpenFile.connect("files_selected",self,"sel")
 	$SaveFile.connect("file_selected",self,"save_sel")
-	if OS.has_feature("mobile"):
-		disabled = true
-		text = "Not supported yet"
-		# We currently don't have a way to open file dialogs on mobile
 	if kind == KIND.IMAGE:
 		$ImgPreview.visible = true
 		var tex = Globals.imageLoader.load_if_exists("user://"+target)
