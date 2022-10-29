@@ -79,17 +79,31 @@ func update(_s=null):
 	
 	$Actions/Convert.disabled = (
 		$Actions/Convert.debounce or
-		SSP.selected_song.converted or
 		SSP.selected_song.is_broken or
-		SSP.selected_song.is_builtin or
-		SSP.selected_song.songType == Globals.MAP_SSPM
+#		SSP.selected_song.is_builtin or
+		SSP.selected_song.converted or
+		SSP.selected_song.songType == Globals.MAP_SSPM2 or
+		SSP.selected_song.is_online
 	)
-	if !SSP.selected_song.is_builtin and SSP.selected_song.songType == Globals.MAP_SSPM:
-		$Actions/Convert.visible = false
-		$Actions/Difficulty.visible = true
+	
+	$Actions/Convert.visible = (
+#		!SSP.selected_song.is_builtin and
+		!SSP.selected_song.is_online and
+		SSP.selected_song.songType != Globals.MAP_SSPM2
+	)
+	
+	$Actions/Difficulty.visible = (
+#		!SSP.selected_song.is_builtin and
+		!SSP.selected_song.is_online and (
+			SSP.selected_song.songType == Globals.MAP_SSPM or
+			SSP.selected_song.songType == Globals.MAP_SSPM2
+		)
+	)
+	
+	if SSP.selected_song.songType == Globals.MAP_SSPM:
+		$Actions/Convert.text = "Upgrade map to SSPM v2"
 	else:
-		$Actions/Convert.visible = true
-		$Actions/Difficulty.visible = false
+		$Actions/Convert.text = "Convert map to .sspm"
 	
 	# give the containers time to update
 	if is_inside_tree():
