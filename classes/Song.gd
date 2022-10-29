@@ -872,11 +872,17 @@ func read_data_type(
 			return file.get_real()
 		
 		DT_POSITION:
-			var value:Vector2 = Vector2()
+			var value:Vector2 = Vector2(5,3)
 			if file.get_8() == 0:
-				value = Vector2(file.get_8(),file.get_8())
+				var x = file.get_8()
+				var y = file.get_8()
+				print(file.get_position() - 2, " [i]: (", x, ", ", y, ")")
+				value = Vector2(x,y)
 			else:
-				value = Vector2(file.get_float(),file.get_float())
+				var x = file.get_float()
+				var y = file.get_float()
+				print(file.get_position() - 8, " [f]: (", x, ", ", y, ")")
+				value = Vector2(x,y)
 			return value
 		
 		DT_BUFFER:
@@ -917,8 +923,14 @@ func convert_to_sspm(upgrade:bool=false):
 	var path:String = Globals.p("user://maps/%s.sspm") % id
 	if !dir.dir_exists(Globals.p("user://maps")): dir.make_dir(Globals.p("user://maps"))
 	
+	var oldPath = filePath
 	if upgrade:
-		path = initFile
+		if songType == Globals.MAP_SSPM or songType == Globals.MAP_SSPM2:
+			var res = dir.copy(filePath,Globals.p("user://upgrade_temp.sspm"))
+			if res != OK:
+				return "copy failed - err %s" % res
+			path = filePath
+			filePath = Globals.p("user://upgrade_temp.sspm")
 	elif file.file_exists(path):
 		return "File already exists!"
 	
@@ -952,8 +964,6 @@ func convert_to_sspm(upgrade:bool=false):
 	if err != OK: return "file.open errored - code " + String(err)
 	
 	
-#	file.close()
-#	return "Huh?"
 	
 	
 	
@@ -1151,7 +1161,6 @@ func convert_to_sspm(upgrade:bool=false):
 			marker_td[t[0]][1].append(t[j])
 			file.store_8(t[j])
 		file.store_8(0)
-	print(marker_types)
 	
 	end = file.get_position()
 	
@@ -1169,7 +1178,7 @@ func convert_to_sspm(upgrade:bool=false):
 			var v = [ms, t, []]
 			
 			for i in range(d.size() - 1):
-				v[2].append(i)
+				v[2].append(d[i])
 			
 			if allmarkers.size() == 0 or ms > allmarkers[-1][0]:
 				allmarkers.append(v)
@@ -1223,8 +1232,11 @@ func convert_to_sspm(upgrade:bool=false):
 	file.seek(0x0a)
 	file.store_buffer(marker_hash)
 	
+	songType = Globals.MAP_SSPM2
+	filePath = path
+	dir.remove(Globals.p("user://upgrade_temp.sspm"))
 	
-	return "waugh"
+	return "OK"
 
 func load_from_sspm(path:String):
 	is_online = false
@@ -1335,12 +1347,6 @@ func load_from_sspm(path:String):
 		
 		# Pointers
 		# We will to return to these values later.
-#		cdb: 48
-#		ab: 64
-#		cb: 80
-#		mdb: 96
-#		mb: 112
-
 		# Position: 0x30
 		print("cdb")
 		var cdb_offset = file.get_64() # Byte offset of the custom data block

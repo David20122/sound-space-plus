@@ -5,7 +5,7 @@ var debounce = false
 func _pressed():
 	if debounce or !SSP.selected_song: return
 	debounce = true
-	text = SSP.selected_song.convert_to_sspm()
+	text = SSP.selected_song.convert_to_sspm(true)
 	disabled = true
 	yield(get_tree().create_timer(0.75),"timeout")
 	visible = !(
