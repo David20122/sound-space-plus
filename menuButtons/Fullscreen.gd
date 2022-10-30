@@ -6,5 +6,4 @@ func _pressed():
 
 func _ready():
 	visible = OS.has_feature("pc")
-	OS.window_fullscreen = true
-	pressed = true
+	pressed = OS.window_fullscreen
