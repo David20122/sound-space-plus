@@ -2579,7 +2579,7 @@ clip_text = true
 
 [node name="Normal" type="CheckBox" parent="Main/Results/ModsHolder/Mods/SpeedMod/C"]
 margin_left = 108.0
-margin_right = 124.0
+margin_right = 136.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 16, 0 )
 theme = ExtResource( 1 )
@@ -2618,8 +2618,8 @@ __meta__ = {
 }
 
 [node name="P" type="Button" parent="Main/Results/ModsHolder/Mods/SpeedMod/C"]
-margin_left = 128.0
-margin_right = 160.0
+margin_left = 140.0
+margin_right = 172.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 32, 32 )
 focus_mode = 1
@@ -2661,8 +2661,8 @@ __meta__ = {
 }
 
 [node name="PP" type="Button" parent="Main/Results/ModsHolder/Mods/SpeedMod/C"]
-margin_left = 164.0
-margin_right = 196.0
+margin_left = 176.0
+margin_right = 208.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 32, 32 )
 focus_mode = 1
@@ -2704,8 +2704,8 @@ __meta__ = {
 }
 
 [node name="PPP" type="Button" parent="Main/Results/ModsHolder/Mods/SpeedMod/C"]
-margin_left = 200.0
-margin_right = 232.0
+margin_left = 212.0
+margin_right = 244.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 32, 32 )
 focus_mode = 1
@@ -2747,8 +2747,8 @@ __meta__ = {
 }
 
 [node name="PPPP" type="Button" parent="Main/Results/ModsHolder/Mods/SpeedMod/C"]
-margin_left = 236.0
-margin_right = 268.0
+margin_left = 248.0
+margin_right = 280.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 32, 32 )
 focus_mode = 1
@@ -2787,8 +2787,8 @@ align = 1
 clip_text = true
 
 [node name="Custom" type="CheckBox" parent="Main/Results/ModsHolder/Mods/SpeedMod/C"]
-margin_left = 272.0
-margin_right = 296.0
+margin_left = 284.0
+margin_right = 312.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 24, 0 )
 theme = ExtResource( 1 )
@@ -3763,7 +3763,7 @@ scroll_horizontal_enabled = false
 [node name="F" parent="Main/Settings/S" instance=ExtResource( 49 )]
 anchor_right = 0.0
 margin_right = 1210.0
-margin_bottom = 2972.0
+margin_bottom = 4800.0
 rect_clip_content = true
 
 [node name="Credits" type="ReferenceRect" parent="Main"]
