@@ -82,14 +82,10 @@ func select_song(song:Song):
 		
 		get_tree().paused = false
 		if result.success:
-			if song.songType != Globals.MAP_SSPM2:
-				song.convert_to_sspm(true)
 			emit_signal("download_done")
 			selected_song = song
 			emit_signal("selected_song_changed",song)
 		elif result.error == "010-100":
-			if song.songType != Globals.MAP_SSPM2:
-				song.convert_to_sspm(true)
 			emit_signal("download_done")
 		else:
 			Globals.confirm_prompt.s_alert.play()

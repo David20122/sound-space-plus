@@ -113,6 +113,9 @@ func reposition_notes(force:bool=false):
 var color_index:int = 0
 var note_count:int = 0
 
+func sort_note_nodes(a,b):
+	return a.notems < b.notems
+
 func spawn_note(n:Array):
 	if n[2] < SSP.start_offset:
 		return
@@ -135,6 +138,12 @@ func spawn_note(n:Array):
 	color_index += 1
 	note_count += 1
 	if color_index == colors.size(): color_index = 0
+	
+	if noteNodes.size() != 0 and n[2] < noteNodes[0].notems:
+		print("noteNodes is out of order, sorting")
+		if OS.has_feature("debug"):
+			Globals.notify(Globals.NOTIFY_WARN,"noteNodes is out of order, sorting","Note order enforcement")
+		noteNodes.sort_custom(self,"sort_note_nodes")
 
 func spawn_notes(notes:Array):
 	next_ms = notes[0][2]
@@ -462,7 +471,7 @@ func _process(delta:float):
 	
 	if $Music.playing and !SSP.disable_desync:
 		var playback_pos:float = $Music.get_playback_position()*1000.0
-		if abs(playback_pos - (ms + SSP.music_offset)) > 65:
+		if abs(playback_pos - (ms + SSP.music_offset)) > (100 * max(speed_multi, 1.0)):
 			if SSP.desync_alerts:
 				Globals.notify(
 					Globals.NOTIFY_WARN,
