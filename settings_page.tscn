@@ -1,4 +1,4 @@
-[gd_scene load_steps=82 format=2]
+[gd_scene load_steps=83 format=2]
 
 [ext_resource path="res://uitheme.tres" type="Theme" id=1]
 [ext_resource path="res://font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=2]
@@ -58,6 +58,7 @@
 [ext_resource path="res://menu2/ColorPresets.gd" type="Script" id=56]
 [ext_resource path="res://HitFOVModes.gd" type="Script" id=57]
 [ext_resource path="res://menu2/EnumDropdownMenu.gd" type="Script" id=58]
+[ext_resource path="res://IntroButton.gd" type="Script" id=59]
 
 [sub_resource type="DynamicFont" id=5]
 size = 18
@@ -239,7 +240,7 @@ script = ExtResource( 36 )
 [node name="M" type="VBoxContainer" parent="."]
 margin_top = 59.0
 margin_right = 1280.0
-margin_bottom = 4700.0
+margin_bottom = 4736.0
 custom_constants/separation = 0
 
 [node name="Modifiers" type="VBoxContainer" parent="M"]
@@ -1821,7 +1822,7 @@ margin_right = 1280.0
 margin_bottom = 228.0
 
 [node name="MusicOffset" type="Control" parent="M/Audio/Group/H"]
-margin_right = 552.0
+margin_right = 540.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 200, 32 )
 
@@ -1866,7 +1867,7 @@ valign = 1
 
 [node name="MusicVolume2" type="Control" parent="M/Audio/Group/H"]
 margin_top = 36.0
-margin_right = 552.0
+margin_right = 540.0
 margin_bottom = 68.0
 rect_min_size = Vector2( 200, 32 )
 
@@ -1910,7 +1911,7 @@ valign = 1
 
 [node name="MenuMusic" type="CheckBox" parent="M/Audio/Group/H"]
 margin_top = 72.0
-margin_right = 552.0
+margin_right = 540.0
 margin_bottom = 100.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -1945,7 +1946,7 @@ __meta__ = {
 
 [node name="AutoPreview" type="CheckBox" parent="M/Audio/Group/H"]
 margin_top = 104.0
-margin_right = 552.0
+margin_right = 540.0
 margin_bottom = 132.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -1981,7 +1982,7 @@ __meta__ = {
 
 [node name="HitSound" type="CheckBox" parent="M/Audio/Group/H"]
 margin_top = 136.0
-margin_right = 552.0
+margin_right = 540.0
 margin_bottom = 164.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -2017,7 +2018,7 @@ __meta__ = {
 
 [node name="MissSound" type="CheckBox" parent="M/Audio/Group/H"]
 margin_top = 168.0
-margin_right = 552.0
+margin_right = 540.0
 margin_bottom = 196.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -2053,7 +2054,7 @@ __meta__ = {
 
 [node name="SFX2d" type="CheckBox" parent="M/Audio/Group/H"]
 margin_top = 200.0
-margin_right = 552.0
+margin_right = 540.0
 margin_bottom = 228.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -2124,7 +2125,7 @@ margin_right = 1280.0
 margin_bottom = 532.0
 
 [node name="Presets" type="Control" parent="M/Camera/Group/H"]
-margin_right = 620.0
+margin_right = 608.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 200, 40 )
 
@@ -2159,7 +2160,7 @@ clip_text = true
 
 [node name="Parallax" type="Control" parent="M/Camera/Group/H"]
 margin_top = 44.0
-margin_right = 620.0
+margin_right = 608.0
 margin_bottom = 76.0
 rect_min_size = Vector2( 200, 32 )
 
@@ -2206,7 +2207,7 @@ valign = 1
 
 [node name="UIParallax" type="Control" parent="M/Camera/Group/H"]
 margin_top = 80.0
-margin_right = 620.0
+margin_right = 608.0
 margin_bottom = 112.0
 rect_min_size = Vector2( 200, 32 )
 
@@ -2256,7 +2257,7 @@ valign = 1
 
 [node name="GridParallax" type="Control" parent="M/Camera/Group/H"]
 margin_top = 116.0
-margin_right = 620.0
+margin_right = 608.0
 margin_bottom = 148.0
 rect_min_size = Vector2( 200, 32 )
 
@@ -2303,7 +2304,7 @@ valign = 1
 
 [node name="FOV" type="Control" parent="M/Camera/Group/H"]
 margin_top = 152.0
-margin_right = 620.0
+margin_right = 608.0
 margin_bottom = 184.0
 rect_min_size = Vector2( 200, 32 )
 
@@ -2350,7 +2351,7 @@ valign = 1
 
 [node name="HitFOV" type="CheckBox" parent="M/Camera/Group/H"]
 margin_top = 188.0
-margin_right = 620.0
+margin_right = 608.0
 margin_bottom = 216.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -2383,7 +2384,7 @@ clip_text = true
 
 [node name="HitFOVMode" type="Control" parent="M/Camera/Group/H"]
 margin_top = 220.0
-margin_right = 620.0
+margin_right = 608.0
 margin_bottom = 260.0
 rect_min_size = Vector2( 200, 40 )
 
@@ -2511,7 +2512,7 @@ valign = 1
 
 [node name="Spin" type="CheckBox" parent="M/Camera/Group/H"]
 margin_top = 336.0
-margin_right = 620.0
+margin_right = 608.0
 margin_bottom = 364.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -2544,7 +2545,7 @@ clip_text = true
 
 [node name="FarawayHud" type="CheckBox" parent="M/Camera/Group/H"]
 margin_top = 368.0
-margin_right = 620.0
+margin_right = 608.0
 margin_bottom = 396.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -2577,7 +2578,7 @@ clip_text = true
 
 [node name="Sensitivity" type="Control" parent="M/Camera/Group/H"]
 margin_top = 400.0
-margin_right = 620.0
+margin_right = 608.0
 margin_bottom = 432.0
 rect_min_size = Vector2( 200, 32 )
 
@@ -2624,7 +2625,7 @@ valign = 1
 
 [node name="EdgeBuffer" type="Control" parent="M/Camera/Group/H"]
 margin_top = 436.0
-margin_right = 620.0
+margin_right = 608.0
 margin_bottom = 468.0
 rect_min_size = Vector2( 200, 32 )
 
@@ -2670,7 +2671,7 @@ valign = 1
 
 [node name="BufferCursor" type="CheckBox" parent="M/Camera/Group/H"]
 margin_top = 472.0
-margin_right = 620.0
+margin_right = 608.0
 margin_bottom = 500.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -2707,7 +2708,7 @@ __meta__ = {
 
 [node name="LockMouse" type="CheckBox" parent="M/Camera/Group/H"]
 margin_top = 504.0
-margin_right = 620.0
+margin_right = 608.0
 margin_bottom = 532.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -2811,7 +2812,7 @@ margin_right = 1280.0
 margin_bottom = 136.0
 
 [node name="ApproachRate" type="Control" parent="M/Notes/Group/H"]
-margin_right = 253.0
+margin_right = 241.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 200, 32 )
 
@@ -2861,7 +2862,7 @@ valign = 1
 
 [node name="SpawnDist" type="Control" parent="M/Notes/Group/H"]
 margin_top = 36.0
-margin_right = 253.0
+margin_right = 241.0
 margin_bottom = 68.0
 rect_min_size = Vector2( 200, 32 )
 
@@ -2910,7 +2911,7 @@ valign = 1
 
 [node name="FadeLength" type="Control" parent="M/Notes/Group/H"]
 margin_top = 72.0
-margin_right = 253.0
+margin_right = 241.0
 margin_bottom = 104.0
 rect_min_size = Vector2( 200, 32 )
 
@@ -2956,7 +2957,7 @@ valign = 1
 
 [node name="NoteSpawnEffect" type="CheckBox" parent="M/Notes/Group/H"]
 margin_top = 108.0
-margin_right = 253.0
+margin_right = 241.0
 margin_bottom = 136.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -3027,7 +3028,7 @@ margin_right = 1280.0
 margin_bottom = 508.0
 
 [node name="Grid" type="CheckBox" parent="M/UI/Group/H"]
-margin_right = 594.0
+margin_right = 582.0
 margin_bottom = 28.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -3064,7 +3065,7 @@ clip_text = true
 
 [node name="Border" type="CheckBox" parent="M/UI/Group/H"]
 margin_top = 32.0
-margin_right = 594.0
+margin_right = 582.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -3104,7 +3105,7 @@ __meta__ = {
 
 [node name="SimpleHud" type="CheckBox" parent="M/UI/Group/H"]
 margin_top = 64.0
-margin_right = 594.0
+margin_right = 582.0
 margin_bottom = 92.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -3141,7 +3142,7 @@ clip_text = true
 
 [node name="LetterGrade" type="CheckBox" parent="M/UI/Group/H"]
 margin_top = 96.0
-margin_right = 594.0
+margin_right = 582.0
 margin_bottom = 124.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -3178,7 +3179,7 @@ clip_text = true
 
 [node name="Config" type="CheckBox" parent="M/UI/Group/H"]
 margin_top = 128.0
-margin_right = 594.0
+margin_right = 582.0
 margin_bottom = 156.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -3218,7 +3219,7 @@ __meta__ = {
 
 [node name="DisplayTrueCombo" type="CheckBox" parent="M/UI/Group/H"]
 margin_top = 160.0
-margin_right = 594.0
+margin_right = 582.0
 margin_bottom = 188.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -3251,7 +3252,7 @@ clip_text = true
 
 [node name="ShowHealth" type="CheckBox" parent="M/UI/Group/H"]
 margin_top = 192.0
-margin_right = 594.0
+margin_right = 582.0
 margin_bottom = 220.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -3284,7 +3285,7 @@ clip_text = true
 
 [node name="ShowTimer" type="CheckBox" parent="M/UI/Group/H"]
 margin_top = 224.0
-margin_right = 594.0
+margin_right = 582.0
 margin_bottom = 252.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -3317,7 +3318,7 @@ clip_text = true
 
 [node name="AccuracyBar" type="CheckBox" parent="M/UI/Group/H"]
 margin_top = 256.0
-margin_right = 594.0
+margin_right = 582.0
 margin_bottom = 284.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -3350,7 +3351,7 @@ clip_text = true
 
 [node name="ShowLeftPanel" type="CheckBox" parent="M/UI/Group/H"]
 margin_top = 288.0
-margin_right = 594.0
+margin_right = 582.0
 margin_bottom = 316.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -3383,7 +3384,7 @@ clip_text = true
 
 [node name="ShowRightPanel" type="CheckBox" parent="M/UI/Group/H"]
 margin_top = 320.0
-margin_right = 594.0
+margin_right = 582.0
 margin_bottom = 348.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -3416,7 +3417,7 @@ clip_text = true
 
 [node name="ShowCursor" type="CheckBox" parent="M/UI/Group/H"]
 margin_top = 352.0
-margin_right = 594.0
+margin_right = 582.0
 margin_bottom = 380.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -3449,7 +3450,7 @@ clip_text = true
 
 [node name="AttachHpToGrid" type="CheckBox" parent="M/UI/Group/H"]
 margin_top = 384.0
-margin_right = 594.0
+margin_right = 582.0
 margin_bottom = 412.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -3481,7 +3482,7 @@ clip_text = true
 
 [node name="AttachTimerToGrid" type="CheckBox" parent="M/UI/Group/H"]
 margin_top = 416.0
-margin_right = 594.0
+margin_right = 582.0
 margin_bottom = 444.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -3513,7 +3514,7 @@ clip_text = true
 
 [node name="Score Popup" type="CheckBox" parent="M/UI/Group/H"]
 margin_top = 448.0
-margin_right = 594.0
+margin_right = 582.0
 margin_bottom = 476.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -3546,7 +3547,7 @@ clip_text = true
 
 [node name="BillboardScore2" type="CheckBox" parent="M/UI/Group/H"]
 margin_top = 480.0
-margin_right = 594.0
+margin_right = 582.0
 margin_bottom = 508.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -5510,7 +5511,7 @@ margin_right = 1280.0
 margin_bottom = 220.0
 
 [node name="VSync" type="CheckBox" parent="M/Graphics/Group/H"]
-margin_right = 606.0
+margin_right = 594.0
 margin_bottom = 28.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -5541,7 +5542,7 @@ clip_text = true
 
 [node name="VSyncCompositor" type="CheckBox" parent="M/Graphics/Group/H"]
 margin_top = 32.0
-margin_right = 606.0
+margin_right = 594.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -5575,7 +5576,7 @@ valign = 1
 
 [node name="Fullscreen" type="CheckBox" parent="M/Graphics/Group/H"]
 margin_top = 64.0
-margin_right = 606.0
+margin_right = 594.0
 margin_bottom = 92.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -5606,7 +5607,7 @@ clip_text = true
 
 [node name="AutoMax" type="CheckBox" parent="M/Graphics/Group/H"]
 margin_top = 96.0
-margin_right = 606.0
+margin_right = 594.0
 margin_bottom = 124.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -5639,7 +5640,7 @@ clip_text = true
 
 [node name="Replays" type="CheckBox" parent="M/Graphics/Group/H"]
 margin_top = 128.0
-margin_right = 606.0
+margin_right = 594.0
 margin_bottom = 156.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -5671,7 +5672,7 @@ clip_text = true
 
 [node name="AltCam" type="CheckBox" parent="M/Graphics/Group/H"]
 margin_top = 160.0
-margin_right = 606.0
+margin_right = 594.0
 margin_bottom = 188.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -5703,7 +5704,7 @@ clip_text = true
 
 [node name="Warnings" type="CheckBox" parent="M/Graphics/Group/H"]
 margin_top = 192.0
-margin_right = 606.0
+margin_right = 594.0
 margin_bottom = 220.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -5736,7 +5737,7 @@ clip_text = true
 [node name="Experimental" type="VBoxContainer" parent="M"]
 margin_top = 4432.0
 margin_right = 1280.0
-margin_bottom = 4641.0
+margin_bottom = 4677.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Experimental"]
@@ -5765,13 +5766,13 @@ flat = true
 [node name="Group" type="MarginContainer" parent="M/Experimental"]
 margin_top = 36.0
 margin_right = 1280.0
-margin_bottom = 209.0
+margin_bottom = 245.0
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="M/Experimental/Group"]
 margin_left = 180.0
 margin_right = 1280.0
-margin_bottom = 173.0
+margin_bottom = 209.0
 
 [node name="ExpWarning" type="MarginContainer" parent="M/Experimental/Group/H"]
 margin_right = 702.0
@@ -5894,10 +5895,63 @@ custom_fonts/font = SubResource( 4 )
 text = "literally you | experimental avatar editor. nowhere near done. visible in replays"
 valign = 1
 
-[node name="ApproachSquares" type="CheckBox" parent="M/Experimental/Group/H"]
+[node name="Intro" type="Control" parent="M/Experimental/Group/H"]
 margin_top = 145.0
 margin_right = 702.0
-margin_bottom = 173.0
+margin_bottom = 177.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="Play" type="Button" parent="M/Experimental/Group/H/Intro"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+theme = ExtResource( 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+text = "Replay"
+script = ExtResource( 59 )
+
+[node name="OpenFile" type="Node" parent="M/Experimental/Group/H/Intro/Play"]
+script = ExtResource( 46 )
+title = "Select file"
+initial_path = "~/Downloads"
+filters = PoolStringArray( "*.png, *.jpg, *.jpeg, *.webp, *.bmp ; Image files" )
+
+[node name="SaveFile" type="Node" parent="M/Experimental/Group/H/Intro/Play"]
+script = ExtResource( 7 )
+title = "Save file..."
+
+[node name="Label" type="Label" parent="M/Experimental/Group/H/Intro/Play"]
+margin_left = -162.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Play Intro Cutscene"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="Desc" type="Label" parent="M/Experimental/Group/H/Intro/Play"]
+margin_left = 215.0
+margin_right = 578.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 4 )
+text = "replays the intro cutscene"
+valign = 1
+
+[node name="ApproachSquares" type="CheckBox" parent="M/Experimental/Group/H"]
+margin_top = 181.0
+margin_right = 702.0
+margin_bottom = 209.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
@@ -5927,7 +5981,7 @@ valign = 1
 clip_text = true
 
 [node name="BottomMargin" type="Control" parent="."]
-margin_top = 4704.0
+margin_top = 4740.0
 margin_right = 1280.0
-margin_bottom = 4800.0
+margin_bottom = 4836.0
 rect_min_size = Vector2( 0, 96 )
