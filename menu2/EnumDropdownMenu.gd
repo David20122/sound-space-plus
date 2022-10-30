@@ -6,6 +6,10 @@ var current_sel:int
 
 func on_pressed(i):
 	SSP.set(target,i)
+	get_popup().set_item_checked(current_sel,false)
+	get_popup().set_item_checked(i,true)
+	current_sel = i
+	text = options[i]
 
 
 func _ready():
@@ -14,4 +18,5 @@ func _ready():
 		get_popup().add_check_item(options[i],i)
 		if current_sel == i:
 			get_popup().set_item_checked(i,true)
+			text = options[i]
 	get_popup().connect("id_pressed",self,"on_pressed")

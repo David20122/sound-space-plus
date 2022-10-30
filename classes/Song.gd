@@ -267,7 +267,7 @@ func get_music_buffer():
 				var blen:int = file2.get_64()
 				var buf:PoolByteArray = file2.get_buffer(blen) # Actual song data
 				file2.close()
-				print("[sspm] %s: music ok")
+				print("[sspm] %s: music ok" % id)
 				return buf
 		else:
 			print("[sspm] %s: Error while loading music! err was %s" % [id, err])
@@ -292,7 +292,7 @@ func get_music_buffer():
 				print("[sspm2] %s: music ok" % id)
 				return buf
 		else:
-			print("Error while loading music! err was %s" % [id, err])
+			print("[sspm2] %s: Error while loading music! err was %s" % [id, err])
 			return null
 	else:
 		var err = file2.open(musicFile,File.READ)
@@ -527,8 +527,6 @@ func read_markers() -> Dictionary:
 	if songType == Globals.MAP_SSPM2:
 		markers = {}
 		
-		print(marker_types)
-		
 		var mt_name:Array = []
 		mt_name.resize(marker_types.size())
 		
@@ -554,10 +552,6 @@ func read_markers() -> Dictionary:
 					mt_size[i] += 2
 				else:
 					mt_size[i] += 1
-		
-		print(mt_name)
-		print(mt_type)
-		print(mt_size)
 		
 		var file:File = File.new()
 		var err = file.open(filePath,File.READ)
@@ -598,7 +592,6 @@ func read_markers() -> Dictionary:
 					m[ti + offset] = v
 			
 			markers[name].append(m)
-			print(m)
 		
 		
 		return markers
@@ -876,12 +869,10 @@ func read_data_type(
 			if file.get_8() == 0:
 				var x = file.get_8()
 				var y = file.get_8()
-				print(file.get_position() - 2, " [i]: (", x, ", ", y, ")")
 				value = Vector2(x,y)
 			else:
 				var x = file.get_float()
 				var y = file.get_float()
-				print(file.get_position() - 8, " [f]: (", x, ", ", y, ")")
 				value = Vector2(x,y)
 			return value
 		
@@ -1426,9 +1417,9 @@ func load_from_sspm(path:String):
 		
 		# Cover
 		if has_cover:
-			file.seek(cdb_offset)
+			file.seek(cb_offset)
 			var img:Image = Image.new()
-			var cbuf:PoolByteArray = file.get_buffer(cdb_length)
+			var cbuf:PoolByteArray = file.get_buffer(cb_length)
 			img.load_png_from_buffer(cbuf)
 			
 			var imgtex:ImageTexture = ImageTexture.new()
