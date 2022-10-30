@@ -54,7 +54,7 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_activity.gdns"
 }, {
-"base": "",
+"base": "Reference",
 "class": "DiscordActivityAssets",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_activity_assets.gdns"
@@ -64,7 +64,7 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_activity_manager.gdns"
 }, {
-"base": "",
+"base": "Reference",
 "class": "DiscordActivityParty",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_activity_party.gdns"
@@ -79,7 +79,7 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_activity_timestamps.gdns"
 }, {
-"base": "",
+"base": "Reference",
 "class": "DiscordCore",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_core.gdns"
@@ -89,7 +89,7 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_lobby.gdns"
 }, {
-"base": "",
+"base": "Reference",
 "class": "DiscordLobbyManager",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_lobby_manager.gdns"
@@ -99,7 +99,7 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_lobby_transaction.gdns"
 }, {
-"base": "",
+"base": "Reference",
 "class": "DiscordOverlayManager",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_overlay_manager.gdns"
@@ -109,7 +109,7 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_party_size.gdns"
 }, {
-"base": "",
+"base": "Reference",
 "class": "DiscordResult",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_result.gdns"
@@ -287,6 +287,10 @@ networking/mapdb_api="https://chedski.net/ssp/mapdb/api/"
 networking/test_url="http://example.com/"
 config/discord_rpc.HTML5=false
 config/enable_new_content_mgr.HTML5=false
+config/disable_native_file_dialogs=false
+config/disable_native_file_dialogs.Android=true
+config/disable_native_file_dialogs.web=true
+config/disable_native_file_dialogs.OSX=true
 <<<<<<<HEADconfig/version="0.11.3-nightly"
 
 [audio]
