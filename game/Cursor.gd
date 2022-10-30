@@ -3,7 +3,7 @@ extends Spatial
 var rpos:Vector2 = Vector2(transform.origin.x,-transform.origin.y)
 
 var sh:Vector2 = Vector2(-0.5,-0.5)
-var edgec:float = 0
+var edgec:float = 0.13125
 var edger:float = -SSP.edge_drift
 var face:Vector2
 
