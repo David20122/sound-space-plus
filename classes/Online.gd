@@ -1,5 +1,7 @@
 extends Node
 
+# https://chedski.net/ssp/mapdb
+
 var mapdb_api:String = ""
 
 var map_registry:Registry

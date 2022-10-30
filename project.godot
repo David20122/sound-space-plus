@@ -54,7 +54,7 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_activity.gdns"
 }, {
-"base": "Reference",
+"base": "",
 "class": "DiscordActivityAssets",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_activity_assets.gdns"
@@ -64,7 +64,7 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_activity_manager.gdns"
 }, {
-"base": "Reference",
+"base": "",
 "class": "DiscordActivityParty",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_activity_party.gdns"
@@ -79,7 +79,7 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_activity_timestamps.gdns"
 }, {
-"base": "Reference",
+"base": "",
 "class": "DiscordCore",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_core.gdns"
@@ -89,7 +89,7 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_lobby.gdns"
 }, {
-"base": "Reference",
+"base": "",
 "class": "DiscordLobbyManager",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_lobby_manager.gdns"
@@ -99,7 +99,7 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_lobby_transaction.gdns"
 }, {
-"base": "Reference",
+"base": "",
 "class": "DiscordOverlayManager",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_overlay_manager.gdns"
@@ -109,7 +109,7 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_party_size.gdns"
 }, {
-"base": "Reference",
+"base": "",
 "class": "DiscordResult",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_result.gdns"
@@ -249,7 +249,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Sound Space+"
-run/main_scene="res://init.tscn"
+run/main_scene="res://astroroomlibrary.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="SoundSpacePlus"
 run/delta_sync_after_draw=true
@@ -259,7 +259,7 @@ boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://icon.svg"
 config/windows_native_icon="res://icon.ico"
 config/quit_on_go_back=false
-config/version="0.12.0-nightly"
+config/version="0.11.3-nightly"
 config/autoload_map_registries="test maps|res://test_assets/test_maps.sspmr;built in|res://content/songs/built_in_maps.sspmr"
 config/enable_new_content_mgr=true
 config/default_menu_target="res://menu2.tscn"
@@ -276,7 +276,7 @@ config/discord_rpc.OSX=false
 config/save_dir="user://"
 config/save_dir.Android="user://"
 config/fov=70.0
-config/enable_new_content_mgr.mobile=true
+config/enable_new_content_mgr.mobile=false
 config/discord_rpc.mobile=false
 config/replays=true
 config/replays.editor=true
@@ -287,10 +287,6 @@ networking/mapdb_api="https://chedski.net/ssp/mapdb/api/"
 networking/test_url="http://example.com/"
 config/discord_rpc.HTML5=false
 config/enable_new_content_mgr.HTML5=false
-config/disable_native_file_dialogs=false
-config/disable_native_file_dialogs.Android=true
-config/disable_native_file_dialogs.web=true
-config/disable_native_file_dialogs.OSX=true
 
 [audio]
 
