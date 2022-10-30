@@ -287,6 +287,7 @@ networking/mapdb_api="https://chedski.net/ssp/mapdb/api/"
 networking/test_url="http://example.com/"
 config/discord_rpc.HTML5=false
 config/enable_new_content_mgr.HTML5=false
+<<<<<<<HEADconfig/version="0.11.3-nightly"
 
 [audio]
 
