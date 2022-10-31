@@ -57,8 +57,8 @@ func reposition(ms:float,approachSpeed:float):
 		if SSP.note_visual_approach:
 			$Approach.opacity = 1 - (current_dist / SSP.spawn_distance)
 			
-			$Approach.scale.x = 0.4 * ((current_dist / SSP.spawn_distance) + 0.3)
-			$Approach.scale.y = 0.4 * ((current_dist / SSP.spawn_distance) + 0.3)
+			$Approach.scale.x = 0.4 * ((current_dist / SSP.spawn_distance) + 0.7)
+			$Approach.scale.y = 0.4 * ((current_dist / SSP.spawn_distance) + 0.7)
 			
 			$Approach.global_translation.z = 0
 		

@@ -1,4 +1,4 @@
 extends Button
 
-func _on_Intro_pressed():
+func _pressed():
 	get_tree().change_scene("res://astroroomlibrary.tscn")
