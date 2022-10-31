@@ -1227,7 +1227,9 @@ func convert_to_sspm(upgrade:bool=false):
 	filePath = path
 	dir.remove(Globals.p("user://upgrade_temp.sspm"))
 	
-	return "OK"
+	load_from_sspm(path)
+	
+	return "Converted!"
 
 func load_from_sspm(path:String):
 	is_online = false
