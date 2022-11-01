@@ -1,5 +1,6 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=34 format=2]
 
+[ext_resource path="res://content/blocks/cube.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://content/meshes/LowCube.obj" type="ArrayMesh" id=15]
 [ext_resource path="res://content/meshes/Happy.obj" type="ArrayMesh" id=16]
 [ext_resource path="res://icon.svg" type="Texture" id=25]
@@ -149,7 +150,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 2, 4 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector3( 0, -0.75, 2.05 ), Vector3( 0, -0.75, 2 ), Vector3( 0, -0.75, 2.05 ) ]
+"values": [ Vector3( 0, -0.75, 2.1 ), Vector3( 0, -0.75, 1.95 ), Vector3( 0, -0.75, 2.1 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Torso:rotation_degrees")
@@ -161,7 +162,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0.5, 2.5 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector3( -5, 0, 0 ), Vector3( 5, 0, 0 ) ]
+"values": [ Vector3( -15, 0, 0 ), Vector3( 15, 0, 0 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("Head:translation")
@@ -173,7 +174,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0, 2, 4 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector3( 0, -0.125, 2 ), Vector3( 0, -0.125, 1.975 ), Vector3( 0, -0.125, 2 ) ]
+"values": [ Vector3( 0, -0.125, 2.1 ), Vector3( 0, -0.125, 1.95 ), Vector3( 0, -0.125, 2.1 ) ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("Head:rotation_degrees")
@@ -185,7 +186,7 @@ tracks/3/keys = {
 "times": PoolRealArray( 0.5, 2.5 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector3( 5, 0, 0 ), Vector3( -5, 0, 0 ) ]
+"values": [ Vector3( 15, 0, 0 ), Vector3( -15, 0, 0 ) ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("ArmL:translation")
@@ -197,7 +198,7 @@ tracks/4/keys = {
 "times": PoolRealArray( 0, 2, 4 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector3( 0.5, -0.5, 2.25 ), Vector3( 0.5, -0.5, 2.15 ), Vector3( 0.5, -0.5, 2.25 ) ]
+"values": [ Vector3( 0.5, -0.5, 2.25 ), Vector3( 0.5, -0.4, 2.15 ), Vector3( 0.5, -0.5, 2.25 ) ]
 }
 tracks/5/type = "value"
 tracks/5/path = NodePath("ArmL:rotation_degrees")
@@ -209,7 +210,7 @@ tracks/5/keys = {
 "times": PoolRealArray( 0.5, 2.5 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector3( 15, 0, 0 ), Vector3( -15, 0, 0 ) ]
+"values": [ Vector3( 15, 0, 0 ), Vector3( -25, 0, 0 ) ]
 }
 tracks/6/type = "value"
 tracks/6/path = NodePath("ArmR:translation")
@@ -221,7 +222,7 @@ tracks/6/keys = {
 "times": PoolRealArray( 0, 2, 4 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector3( -0.5, -0.5, 2.25 ), Vector3( -0.5, -0.5, 2.15 ), Vector3( -0.5, -0.5, 2.25 ) ]
+"values": [ Vector3( -0.5, -0.5, 2.25 ), Vector3( -0.5, -0.4, 2.15 ), Vector3( -0.5, -0.5, 2.25 ) ]
 }
 tracks/7/type = "value"
 tracks/7/path = NodePath("ArmR:rotation_degrees")
@@ -233,7 +234,19 @@ tracks/7/keys = {
 "times": PoolRealArray( 0.5, 2.5 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector3( 15, 0, 0 ), Vector3( -15, 0, 0 ) ]
+"values": [ Vector3( 15, 0, 0 ), Vector3( -25, 0, 0 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath(".:translation")
+tracks/8/interp = 2
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0.5, 2.3, 4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 3.95, 1 ), Vector3( 0, 4.05, 1 ), Vector3( 0, 3.95, 1 ) ]
 }
 
 [sub_resource type="Animation" id=66]
@@ -412,6 +425,35 @@ tracks/5/keys = {
 "values": [ Vector3( 0.6, 0.7, -0.5 ), Vector3( 0.6, 0.7, -0.475 ) ]
 }
 
+[sub_resource type="Gradient" id=94]
+offsets = PoolRealArray( 0, 0.503226, 1 )
+colors = PoolColorArray( 0, 0.705882, 1, 0, 0.465705, 0.34611, 1, 1, 0.913725, 0, 1, 0 )
+
+[sub_resource type="GradientTexture" id=95]
+gradient = SubResource( 94 )
+
+[sub_resource type="ParticlesMaterial" id=96]
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 0.15
+scale = 0.25
+color = Color( 1, 1, 1, 0.00784314 )
+color_ramp = SubResource( 95 )
+
+[sub_resource type="SpatialMaterial" id=97]
+flags_transparent = true
+flags_unshaded = true
+vertex_color_use_as_albedo = true
+params_blend_mode = 1
+params_billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+albedo_color = Color( 1, 1, 1, 0.196078 )
+
+[sub_resource type="SphereMesh" id=98]
+material = SubResource( 97 )
+
 [sub_resource type="CanvasItemMaterial" id=86]
 render_priority = 100
 
@@ -432,6 +474,38 @@ glow_bicubic_upscale = true
 glow_high_quality = true
 adjustment_enabled = true
 
+[sub_resource type="SpatialMaterial" id=91]
+flags_transparent = true
+flags_unshaded = true
+vertex_color_use_as_albedo = true
+params_billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+albedo_color = Color( 1, 1, 1, 0.0392157 )
+distance_fade_mode = 1
+distance_fade_min_distance = 0.0
+distance_fade_max_distance = 10.0
+
+[sub_resource type="Gradient" id=92]
+offsets = PoolRealArray( 0, 0.503226, 1 )
+colors = PoolColorArray( 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=93]
+gradient = SubResource( 92 )
+
+[sub_resource type="ParticlesMaterial" id=90]
+emission_shape = 1
+emission_sphere_radius = 16.0
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 2.0
+angular_velocity = 80.0
+angular_velocity_random = 1.0
+scale = 0.5
+scale_random = 1.0
+color_ramp = SubResource( 93 )
+
 [node name="astroroomlibrary" type="Spatial"]
 script = ExtResource( 27 )
 
@@ -450,7 +524,7 @@ transform = Transform( 2, 0.00112053, -2.44899e-11, 0, -8.74228e-08, -1, -0.0011
 texture = ExtResource( 25 )
 
 [node name="Avatar" type="Spatial" parent="."]
-transform = Transform( 2, 0, 8.74228e-08, 8.74228e-08, 3.82137e-15, -2, 0, 2, 3.82137e-15, 0, 3.94366, 0.81442 )
+transform = Transform( 2, 0, 8.74228e-08, 8.74228e-08, 3.82137e-15, -2, 0, 2, 3.82137e-15, 0, 3.95, 1 )
 
 [node name="Head" type="MeshInstance" parent="Avatar"]
 transform = Transform( 0.225, 0, 0, 0, 0.224144, 0.0196101, 0, -0.0196101, 0.224144, 0, -0.125, 1.975 )
@@ -496,6 +570,7 @@ mesh = ExtResource( 15 )
 material/0 = SubResource( 58 )
 
 [node name="Outline" type="MeshInstance" parent="Avatar/Torso"]
+transform = Transform( 1, -1.36249e-16, -1.10948e-17, 0, 1, 0, 3.55271e-15, 0, 1, 0, 0, 0 )
 mesh = SubResource( 68 )
 material/0 = SubResource( 67 )
 
@@ -514,7 +589,7 @@ mesh = SubResource( 69 )
 material/0 = SubResource( 67 )
 
 [node name="ArmR" type="Spatial" parent="Avatar"]
-transform = Transform( 1, -8.21696e-23, 1.49513e-23, 0, 0.983846, -0.179017, 0, 0.179017, 0.983846, -0.5, -0.5, 2.25 )
+transform = Transform( 1, 0, 0, 0, 0.988362, -0.152123, 0, 0.152123, 0.988362, -0.5, -0.5, 2.25 )
 
 [node name="Mesh" type="MeshInstance" parent="Avatar/ArmR"]
 transform = Transform( 0.0991445, -0.0130526, 0, 0.0130526, 0.0991445, 0, 0, 0, 0.1, 0.5, -0.75, 2 )
@@ -532,6 +607,13 @@ anims/Float = SubResource( 88 )
 anims/Idle = ExtResource( 26 )
 anims/RESET = SubResource( 66 )
 anims/Sleepy = SubResource( 83 )
+
+[node name="Aura" type="Particles" parent="Avatar"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 2 )
+amount = 512
+lifetime = 4.0
+process_material = SubResource( 96 )
+draw_pass_1 = SubResource( 98 )
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( -0.849232, -0.365279, 0.381283, -0.11695, 0.834285, 0.538786, -0.514906, 0.412963, -0.751221, 1.73735, 2.85, -3.5011 )
@@ -560,3 +642,11 @@ text = "Press space to skip"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 87 )
+
+[node name="Particles" type="Particles" parent="."]
+material_override = SubResource( 91 )
+cast_shadow = 0
+amount = 256
+lifetime = 4.0
+process_material = SubResource( 90 )
+draw_pass_1 = ExtResource( 1 )

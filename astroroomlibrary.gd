@@ -8,12 +8,18 @@ var can_skip = false
 var can_skip2 = false
 
 func _ready():
+	
+	# fix hands
+	$Avatar/ArmL/Pointer.translation = Vector3(0,0,0)
+	$Avatar/ArmR/Mesh.translation = Vector3(0,0,0)
+	
 	$ColorRect.modulate.a = 1
 	OS.window_fullscreen = true
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
-	yield(get_tree().create_timer(2),"timeout")
+	yield(get_tree().create_timer(4),"timeout")
 	running = true
 	$Avatar/Animations.play("Float")
+	$Avatar/Animations.playback_speed = 1
 	$Camera2.rotation_degrees.y = 0
 	yield(get_tree().create_timer(1),"timeout")
 	$AudioStreamPlayer.play()
@@ -39,12 +45,12 @@ func _process(delta):
 	$Sprite3D3.rotation_degrees.z += 4 * delta
 	
 	if running and not fading:
-		$ColorRect.modulate.a += (0 - $ColorRect.modulate.a) * 0.0005
+		$ColorRect.modulate.a += (0 - $ColorRect.modulate.a) * 0.4 * delta
 	if panning:
-		$Camera2.translation.y += (12 - $Camera2.translation.y) * 0.00035
-		$Camera2.rotation_degrees.y += (180 - $Camera2.rotation_degrees.y) * 0.0004
+		$Camera2.translation.y += (12 - $Camera2.translation.y) * 0.3 * delta
+		$Camera2.rotation_degrees.y += (180 - $Camera2.rotation_degrees.y) * 0.4 * delta
 	if fading:
-		$ColorRect.modulate.a += (1 - $ColorRect.modulate.a) * 0.005
-		$Skip.modulate.a += (0 - $Skip.modulate.a) * 0.005
+		$ColorRect.modulate.a += (1 - $ColorRect.modulate.a) * 2 * delta
+		$Skip.modulate.a += (0 - $Skip.modulate.a) * 2 * delta
 	if can_skip2 and not fading:
-		$Skip.modulate.a += (0.5 - $Skip.modulate.a) * 0.0005
+		$Skip.modulate.a += (0.5 - $Skip.modulate.a) * 1 * delta
