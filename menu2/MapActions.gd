@@ -70,6 +70,22 @@ func item_selected(idx:int):
 				SSP.selected_song.delete()
 			else:
 				Globals.confirm_prompt.s_back.play()
+		1:
+			if !(
+				SSP.selected_song.is_broken or
+				SSP.selected_song.is_builtin or
+				SSP.selected_song.converted or
+				SSP.selected_song.songType == Globals.MAP_SSPM2 or
+				SSP.selected_song.is_online
+			):
+				var res = SSP.selected_song.convert_to_sspm(true)
+				if SSP.selected_song.converted:
+					if fmod(randf(),1) > 0.97:
+						Globals.notify(Globals.NOTIFY_SUCCEED,"Map converted successfully! you have earned one lacuna thumbs up emoji","Converted")
+					else:
+						Globals.notify(Globals.NOTIFY_SUCCEED,"Map converted successfully!","Converted")
+				else:
+					Globals.notify(Globals.NOTIFY_ERROR,res,"Failed to convert")
 
 
 

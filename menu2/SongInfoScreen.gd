@@ -32,6 +32,7 @@ func update(_s=null):
 	var map:Song = SSP.selected_song
 	$Deleted.visible = (map.id == "!DELETED")
 	$EndInfo.visible = true
+	$Info/M/V/Buttons/Control/Actions.visible = true
 #	$Actions.visible = true
 	$Info/M/V/Id/L.text = map.id
 	$Info/M/V/Name/L.text = map.name
@@ -129,7 +130,6 @@ func _ready():
 	if SSP.selected_song: update()
 	else:
 		$EndInfo.visible = false
-#		$Actions.visible = false
 		$Info/M/V/Run/Run.disabled = true
 		$Info/M/V/Buttons/Control/Favorite.disabled = true
 		$Info/M/V/Buttons/Control/Actions.disabled = true

@@ -1,4 +1,4 @@
-[gd_scene load_steps=190 format=2]
+[gd_scene load_steps=193 format=2]
 
 [ext_resource path="res://uitheme.tres" type="Theme" id=1]
 [ext_resource path="res://font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=2]
@@ -92,6 +92,7 @@
 [ext_resource path="res://content/ui/settings_dark.png" type="Texture" id=90]
 [ext_resource path="res://menu2/AuthorSearch.gd" type="Script" id=91]
 [ext_resource path="res://menu2/SearchOnline.gd" type="Script" id=92]
+[ext_resource path="res://menu2/ResultsHolder.gd" type="Script" id=93]
 
 [sub_resource type="StyleBoxFlat" id=59]
 draw_center = false
@@ -256,6 +257,15 @@ bg_color = Color( 0.503906, 0.503906, 0.503906, 0.509804 )
 size = 18
 use_filter = true
 font_data = ExtResource( 2 )
+
+[sub_resource type="StyleBoxFlat" id=156]
+content_margin_left = 6.0
+content_margin_right = 6.0
+bg_color = Color( 0, 0, 0, 0.313726 )
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
 
 [sub_resource type="DynamicFont" id=89]
 size = 24
@@ -509,6 +519,12 @@ font_data = ExtResource( 2 )
 size = 24
 use_filter = true
 font_data = ExtResource( 2 )
+
+[sub_resource type="StyleBoxFlat" id=157]
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
 
 [sub_resource type="DynamicFont" id=109]
 size = 28
@@ -1919,7 +1935,6 @@ __meta__ = {
 }
 
 [node name="Results" type="HBoxContainer" parent="Main"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 12.0
@@ -1927,12 +1942,14 @@ margin_top = 4.0
 margin_bottom = -35.0
 custom_constants/separation = 15
 alignment = 1
+script = ExtResource( 93 )
 
-[node name="CenterPush" type="CenterContainer" parent="Main/Results"]
+[node name="CenterPush" type="VBoxContainer" parent="Main/Results"]
 visible = false
 margin_right = 640.0
 margin_bottom = 1041.0
 size_flags_horizontal = 3
+alignment = 2
 
 [node name="Button" type="Button" parent="Main/Results/CenterPush"]
 margin_left = 257.0
@@ -1941,6 +1958,15 @@ margin_right = 382.0
 margin_bottom = 534.0
 rect_min_size = Vector2( 125, 27 )
 theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.729412, 0.729412, 0.729412, 1 )
+custom_colors/font_color_focus = Color( 0.729412, 0.729412, 0.729412, 1 )
+custom_colors/font_color = Color( 0.729412, 0.729412, 0.729412, 1 )
+custom_colors/font_color_hover = Color( 0.729412, 0.729412, 0.729412, 1 )
+custom_colors/font_color_pressed = Color( 0.729412, 0.729412, 0.729412, 1 )
+custom_styles/hover = SubResource( 156 )
+custom_styles/pressed = SubResource( 156 )
+custom_styles/disabled = SubResource( 156 )
+custom_styles/normal = SubResource( 156 )
 action_mode = 0
 text = "Move to side"
 clip_text = true
@@ -3834,6 +3860,7 @@ margin_top = 204.0
 margin_right = 893.0
 margin_bottom = 477.0
 custom_colors/font_color = Color( 0.956863, 0.729412, 0.537255, 1 )
+custom_styles/normal = SubResource( 157 )
 text = "The selected map has been deleted.
 
 ----
@@ -3865,17 +3892,27 @@ margin_right = 1344.0
 margin_bottom = 681.0
 size_flags_horizontal = 3
 
-[node name="CenterContainer" type="CenterContainer" parent="Main/Results/LeftPush"]
+[node name="CenterContainer" type="VBoxContainer" parent="Main/Results/LeftPush"]
 margin_right = 125.0
 margin_bottom = 681.0
 size_flags_horizontal = 3
+alignment = 2
 
 [node name="Button" type="Button" parent="Main/Results/LeftPush/CenterContainer"]
-margin_top = 327.0
+margin_top = 654.0
 margin_right = 125.0
-margin_bottom = 354.0
+margin_bottom = 681.0
 rect_min_size = Vector2( 125, 27 )
 theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.729412, 0.729412, 0.729412, 1 )
+custom_colors/font_color_focus = Color( 0.729412, 0.729412, 0.729412, 1 )
+custom_colors/font_color = Color( 0.729412, 0.729412, 0.729412, 1 )
+custom_colors/font_color_hover = Color( 0.729412, 0.729412, 0.729412, 1 )
+custom_colors/font_color_pressed = Color( 0.729412, 0.729412, 0.729412, 1 )
+custom_styles/hover = SubResource( 156 )
+custom_styles/pressed = SubResource( 156 )
+custom_styles/disabled = SubResource( 156 )
+custom_styles/normal = SubResource( 156 )
 action_mode = 0
 text = "Move to center"
 clip_text = true

@@ -50,7 +50,7 @@ func check_txt_requirements():
 		$TxtFile/done.disabled = true
 		$TxtFile/done/Title.text = "Mapper required"
 	else:
-		if SSP.registry_song.idx_id.has(song.id):
+		if SSP.registry_song.idx_id.has(song.id) and !SSP.registry_song.get_item(song.id).is_online:
 			$TxtFile/done.disabled = true
 			$TxtFile/done/Title.text = "ID in use"
 		else:
@@ -634,6 +634,7 @@ func finish_map():
 	if (maptype == T_TXT and $TxtFile/H/Temp.pressed):
 		song.discard_notes()
 		song.read_notes()
+		SSP.registry_song.check_and_remove_id(song.id)
 		SSP.registry_song.add_item(song)
 		$Finish/Wait.visible = false
 		$Finish/Success.visible = true
@@ -643,6 +644,7 @@ func finish_map():
 	
 		$Finish/Wait.visible = false
 		if result == "Converted!":
+			SSP.registry_song.check_and_remove_id(song.id)
 			SSP.registry_song.add_sspm_map("user://maps/%s.sspm" % song.id)
 			$Finish/Success.visible = true
 		else:
