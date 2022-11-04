@@ -1171,13 +1171,13 @@ func convert_to_sspm(upgrade:bool=false):
 			for i in range(d.size() - 1):
 				v[2].append(d[i])
 			
-			if allmarkers.size() == 0 or ms > allmarkers[-1][0]:
-				allmarkers.append(v)
-			else:
-				for ii in range(0, allmarkers.size()):
-					var i = allmarkers.size() - ii - 1
-					if ms > allmarkers[i][0]:
-						allmarkers.insert(i,v)
+#			if allmarkers.size() == 0 or ms >= allmarkers[-1][0]:
+			allmarkers.append(v)
+#			else:
+#				for ii in range(0, allmarkers.size()):
+#					var i = allmarkers.size() - ii - 1
+#					if ms >= allmarkers[i][0]:
+#						allmarkers.insert(i,v)
 	
 	start = file.get_position()
 	for m in allmarkers:
@@ -1456,11 +1456,35 @@ func export_text(path:String):
 	file.close()
 	return "OK"
 
+func delete():
+	if songType == Globals.MAP_SSPM or songType == Globals.MAP_SSPM2:
+		var dir:Directory = Directory.new()
+		var err = dir.remove(Globals.p(filePath))
+		if err == OK:
+			songType = -1
+			difficulty = -1
+			is_broken = true
+			name = ""
+			song = ""
+			creator = ""
+			SSP.registry_song.check_and_remove_id(id)
+			id = "!DELETED"
+			
+			filePath = ""
+			musicFile = ""
+			initFile = ""
+			SSP.emit_signal("selected_song_changed")
+			SSP.emit_signal("favorite_songs_changed")
+		else:
+			Globals.notify(Globals.NOTIFY_ERROR,"Failed to delete map (error code %s)" % err,"Error")
+		
+
 func _init(idI:String="SOMETHING IS VERY BROKEN",nameI:String="SOMETHING IS VERY BROKEN",creatorI:String="Unknown"):
 	id = idI
 	name = nameI
 	song = nameI
 	creator = creatorI
+
 
 
 

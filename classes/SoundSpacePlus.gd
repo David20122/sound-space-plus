@@ -137,7 +137,9 @@ var menu_target:String = ProjectSettings.get_setting("application/config/default
 # Song list position/search persistence
 var was_auto_play_switch:bool = true
 var last_search_str:String = ""
+var last_author_search_str:String = ""
 var last_search_incl_broken:bool = false
+var last_search_incl_online:bool = true
 var last_search_flip_sort:bool = false
 var last_search_flip_name_sort:bool = false
 var last_page_num:int = 0

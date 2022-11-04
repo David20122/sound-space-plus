@@ -6,8 +6,10 @@ var songs:Array = SSP.registry_song.get_items()
 var btns:Array = []
 
 var search_text:String = ""
+var author_search_text:String = ""
 var difficulty_filter:Array = SSP.last_difficulty_filter
 var show_broken_maps:bool = false
+var show_online_maps:bool = true
 var flip_display:bool = false
 var flip_name:bool = false
 
@@ -30,7 +32,8 @@ func search_matches(s:Song):
 	return (
 		difficulty_filter.has(s.difficulty) and
 		(!s.is_broken or show_broken_maps) and
-		(search_text == "" or s.name.to_lower().find(search_text.to_lower()) != -1)
+		(search_text == "" or s.name.to_lower().find(search_text.to_lower()) != -1) and
+		(author_search_text == "" or s.creator.to_lower().find(author_search_text.to_lower()) != -1)
 	)
 
 var has_been_pressed = false
@@ -172,6 +175,11 @@ func update_search_text(txt:String):
 	if ready: reload_to_current_page()
 	emit_signal("search_updated")
 
+func update_author_search_text(txt:String):
+	author_search_text = txt
+	if ready: reload_to_current_page()
+	emit_signal("search_updated")
+
 func update_search_dfil(dfil:Array):
 	difficulty_filter = dfil
 	SSP.last_difficulty_filter = dfil
@@ -180,6 +188,10 @@ func update_search_dfil(dfil:Array):
 
 func update_search_showbroken(show:bool):
 	show_broken_maps = show
+	if ready: reload_to_current_page()
+
+func update_search_showonline(show:bool):
+	show_online_maps = show
 	if ready: reload_to_current_page()
 
 func update_search_flipped(flip:bool):
