@@ -7,7 +7,7 @@ func _pressed():
 	SSP.last_search_incl_online = pressed
 
 func _ready():
-	pressed = SSP.last_search_incl_broken
+	pressed = SSP.last_search_incl_online
 	get_parent().get_parent().get_node("S/G").update_search_showonline(
 		SSP.last_search_incl_online
 	)

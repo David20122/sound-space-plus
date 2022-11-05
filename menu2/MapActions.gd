@@ -78,8 +78,8 @@ func item_selected(idx:int):
 				SSP.selected_song.songType == Globals.MAP_SSPM2 or
 				SSP.selected_song.is_online
 			):
-				var res = SSP.selected_song.convert_to_sspm(true)
-				if SSP.selected_song.converted:
+				var res = SSP.selected_song.convert_to_sspm(SSP.selected_song.songType == Globals.MAP_SSPM)
+				if res == "Converted!":
 					if fmod(randf(),1) > 0.97:
 						Globals.notify(Globals.NOTIFY_SUCCEED,"Map converted successfully! you have earned one lacuna thumbs up emoji","Converted")
 					else:

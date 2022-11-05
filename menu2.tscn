@@ -1,4 +1,4 @@
-[gd_scene load_steps=193 format=2]
+[gd_scene load_steps=192 format=2]
 
 [ext_resource path="res://uitheme.tres" type="Theme" id=1]
 [ext_resource path="res://font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=2]
@@ -519,12 +519,6 @@ font_data = ExtResource( 2 )
 size = 24
 use_filter = true
 font_data = ExtResource( 2 )
-
-[sub_resource type="StyleBoxFlat" id=157]
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
 
 [sub_resource type="DynamicFont" id=109]
 size = 28
@@ -3860,7 +3854,6 @@ margin_top = 204.0
 margin_right = 893.0
 margin_bottom = 477.0
 custom_colors/font_color = Color( 0.956863, 0.729412, 0.537255, 1 )
-custom_styles/normal = SubResource( 157 )
 text = "The selected map has been deleted.
 
 ----
