@@ -594,12 +594,16 @@ func is_valid_url(text:String):
 	if text == "valid": return false
 	return (url_regex.sub(text,"valid") == "valid")
 
+var fps_visible:bool = false
+var fps_disp:Label = Label.new()
+
 var console_open:bool = false
 var con:LineEdit
 
 signal console_sent
 func _process(delta):
 	notify_gui.raise()
+	
 	if Input.is_action_just_pressed("debug_notify"):
 		notify(NOTIFY_INFO,"This is a notification!","Debug Notify")
 	if Input.is_action_just_pressed("console"):
@@ -625,7 +629,17 @@ func _process(delta):
 					txt = txt.strip_edges()
 					var cmd = txt.split(" ",true,1)[0]
 					emit_signal("console_sent",cmd,txt.trim_prefix(cmd).strip_edges())
-	if console_open: con.raise()
+	if console_open:
+		con.raise()
+	elif fps_visible:
+		fps_disp.text = "%s fps" % Engine.get_frames_per_second()
+		fps_disp.raise()
+	
+	if Input.is_action_just_pressed("fps"):
+		if !fps_disp.is_inside_tree():
+			get_tree().root.add_child(fps_disp)
+		fps_visible = !fps_visible
+		fps_disp.visible = fps_visible
 
 func _ready():
 	url_regex.compile(
@@ -641,3 +655,13 @@ func _ready():
 	
 	notify_gui = load("res://notification_gui.tscn").instance()
 	get_tree().root.call_deferred("add_child",notify_gui)
+	
+	fps_disp.margin_left = 15
+	fps_disp.margin_top = 15
+	fps_disp.margin_right = 0
+	fps_disp.margin_bottom = 0
+	fps_disp.set("custom_fonts/font",load("res://font/debug2.tres"))
+	
+	if OS.has_feature("debug"):
+		get_tree().root.call_deferred("add_child",fps_disp)
+		fps_visible = true

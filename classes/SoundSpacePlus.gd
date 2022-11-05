@@ -651,7 +651,7 @@ func _set_music_volume(v:float):
 
 # Settings - Misc
 var show_warnings:bool = true
-var auto_maximize:bool = true
+var auto_maximize:bool = false
 
 # Settings - Experimental
 
@@ -1014,6 +1014,11 @@ func load_saved_settings():
 			show_miss_effect = data.show_miss_effect
 		if data.has("auto_maximize"): 
 			auto_maximize = data.auto_maximize
+			if auto_maximize: OS.window_maximized = true
+		if data.has("window_fullscreen"): 
+			OS.window_fullscreen = data.window_fullscreen
+		if data.has("window_borderless"): 
+			OS.window_borderless = data.window_borderless
 		if data.has("note_visual_approach"): 
 			note_visual_approach = data.note_visual_approach
 		if data.has("score_popup"): 
@@ -1041,6 +1046,9 @@ func load_saved_settings():
 		elif data.has("rainbow_cursor"):
 			cursor_color_type = Globals.CURSOR_RAINBOW
 		
+		if data.has("target_fps"):
+			Engine.target_fps = data.target_fps
+			
 		lcol(data,"grade_s_color")
 		lcol(data,"panel_bg")
 		lcol(data,"panel_text")
@@ -1278,6 +1286,7 @@ func save_settings():
 			vsync_enabled = OS.vsync_enabled,
 			vsync_via_compositor = OS.vsync_via_compositor,
 			window_fullscreen = OS.window_fullscreen,
+			window_borderless = OS.window_borderless,
 			selected_colorset = selected_colorset.id,
 			selected_space = selected_space.id,
 			selected_mesh = selected_mesh.id,
@@ -1338,6 +1347,7 @@ func save_settings():
 			billboard_score = billboard_score,
 			sfx_2d = sfx_2d,
 			cursor_color_type = cursor_color_type,
+			target_fps = Engine.target_fps,
 			
 			cursor_color = scol(cursor_color),
 			panel_bg = scol(panel_bg),

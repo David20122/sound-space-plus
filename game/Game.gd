@@ -139,7 +139,7 @@ func update_timer(ms:float,canSkip:bool=false):
 			end(Globals.END_PASS)
 		elif !SSP.queue_active and !get_node("Spawn/Music").playing:
 			end(Globals.END_PASS)
-			
+
 
 
 var loaded = false
@@ -205,7 +205,7 @@ func get_point_amt() -> int:
 	
 	var mod = 1
 	
-	return int(floor((20 * combo_level * spd * min(hbo,hwi) * mod) + 0.5))
+	return int(floor((50 * spd * min(hbo,hwi) * mod) + 0.5) * combo_level)
 
 
 func hit(col):
