@@ -1416,7 +1416,7 @@ func register_colorsets():
 	))
 	registry_colorset.add_item(ColorSet.new(
 		[ Color("#00ffed"), Color("#ff8ff9") ],
-		"ssp_cottoncandy", "Cotton Candy", "TODO: figure out who made this"
+		"ssp_cottoncandy", "Cotton Candy", "Unknown"
 	))
 	registry_colorset.add_item(ColorSet.new(
 		[ Color("#ffcc4d"),Color("#ff7892"),Color("#e5dd80") ],
