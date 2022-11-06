@@ -160,16 +160,24 @@ func _ready():
 	elif SSP.cursor_color_type == Globals.CURSOR_CUSTOM_COLOR:
 		recolor(SSP.cursor_color)
 	
-	if SSP.cursor_trail and !SSP.smart_trail:
-		for i in range(SSP.trail_detail):
-			var trail:Spatial = trail_base
-			if i != 0:
-				trail = trail.duplicate()
-				get_node("../..").call_deferred("add_child",trail)
-			trail.offset = (i) / float(SSP.trail_detail-1)
-			trail.start()
+	if SSP.cursor_trail:
+		if SSP.smart_trail:
+			yield(get_tree(),"idle_frame")
+			for i in range(SSP.trail_detail * 3.5):
+				var trail = trail_base.duplicate()
+				get_node("../..").add_child(trail)
+				trail.connect("cache_me",self,"cache_trail",[trail])
+				trail_cache.append(trail)
+				trail.start_smart(1,Vector3(0,0,-4))
+		else:
+			for i in range(SSP.trail_detail):
+				var trail:Spatial = trail_base
+				if i != 0:
+					trail = trail.duplicate()
+					get_node("../..").call_deferred("add_child",trail)
+				trail.offset = (i) / float(SSP.trail_detail-1)
+				trail.start()
 	trail_started = true
-
 func _exit_tree():
 	for n in trail_cache:
 		n.queue_free()

@@ -316,10 +316,18 @@ func get_next():
 
 # Engine node functions + debug command line
 func _ready():
-	fail_asp.volume_db = -10
+	fail_asp.bus = "OtherSound"
 	call_deferred("add_child",fail_asp)
 	pause_mode = PAUSE_MODE_PROCESS
 	Globals.connect("console_sent",self,"_console")
+	
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear2db(0.5))
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), linear2db(0.5))
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("HitSound"), linear2db(0.3))
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("MissSound"), linear2db(0.6))
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("FailSound"), linear2db(0.6))
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("PBSound"), linear2db(0.6))
+
 func _process(delta):
 	# Rainbow sync
 	rainbow_t = fmod(rainbow_t + (delta*0.5),10)
@@ -912,8 +920,6 @@ func load_saved_settings():
 			hitwindow_ms = data.hitwindow_ms
 		if data.has("cursor_spin"): 
 			cursor_spin = data.cursor_spin
-		if data.has("music_volume_db"): 
-			music_volume_db = data.music_volume_db
 		if data.has("selected_space"): 
 			var world = registry_world.get_item(data.selected_space)
 			if world:
@@ -1048,7 +1054,21 @@ func load_saved_settings():
 		
 		if data.has("target_fps"):
 			Engine.target_fps = data.target_fps
-			
+		
+		
+		if data.has("master_volume"):
+			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), data.master_volume)
+		if data.has("music_volume"):
+			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), data.music_volume)
+		if data.has("hit_volume"):
+			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("HitSound"), data.hit_volume)
+		if data.has("miss_volume"):
+			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("MissSound"), data.miss_volume)
+		if data.has("fail_volume"):
+			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("FailSound"), data.fail_volume)
+		if data.has("pb_volume"):
+			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("PBSound"), data.pb_volume)
+		
 		lcol(data,"grade_s_color")
 		lcol(data,"panel_bg")
 		lcol(data,"panel_text")
@@ -1304,7 +1324,6 @@ func save_settings():
 			enable_drift_cursor = enable_drift_cursor,
 			hitwindow_ms = hitwindow_ms,
 			cursor_spin = cursor_spin,
-			music_volume_db = music_volume_db,
 			enable_border = enable_border,
 			play_menu_music = play_menu_music,
 			note_hitbox_size = note_hitbox_size,
@@ -1348,6 +1367,13 @@ func save_settings():
 			sfx_2d = sfx_2d,
 			cursor_color_type = cursor_color_type,
 			target_fps = Engine.target_fps,
+			
+			master_volume = AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Master")),
+			music_volume = AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Music")),
+			hit_volume = AudioServer.get_bus_volume_db(AudioServer.get_bus_index("HitSound")),
+			miss_volume = AudioServer.get_bus_volume_db(AudioServer.get_bus_index("MissSound")),
+			fail_volume = AudioServer.get_bus_volume_db(AudioServer.get_bus_index("FailSound")),
+			pb_volume = AudioServer.get_bus_volume_db(AudioServer.get_bus_index("PBSound")),
 			
 			cursor_color = scol(cursor_color),
 			panel_bg = scol(panel_bg),

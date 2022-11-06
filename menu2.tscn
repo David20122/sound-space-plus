@@ -3631,8 +3631,8 @@ __meta__ = {
 
 [node name="NewBest" type="AudioStreamPlayer" parent="Main/Results/Results/EndInfo"]
 stream = ExtResource( 31 )
-volume_db = -25.0
 pitch_scale = 0.8
+bus = "PBSound"
 
 [node name="Result" type="Label" parent="Main/Results/Results/EndInfo"]
 margin_left = 5.0
@@ -3643,9 +3643,6 @@ theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.917647, 0.52549, 0.290196, 1 )
 custom_fonts/font = SubResource( 89 )
 valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="LetterGrade" type="Label" parent="Main/Results/Results/EndInfo"]
 material = SubResource( 126 )

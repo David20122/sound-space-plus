@@ -376,17 +376,17 @@ func _process(delta:float):
 					pause_state = 1
 					ms = pause_ms - (pause_state * (750 * speed_multi))
 					emit_signal("ms_change",ms)
-					$Music.volume_db = SSP.music_volume_db - 30
+					$Music.volume_db = -30
 					$Music.play(ms/1000)
 		if Input.is_action_pressed("pause") and pause_state > 0:
 			var prev_state = pause_state
 			pause_state = max(pause_state - (delta/0.75), 0)
-			$Music.volume_db = min($Music.volume_db + (delta * 30), SSP.music_volume_db)
+			$Music.volume_db = min($Music.volume_db + (delta * 30), 0)
 			if pause_state == 0:
 	#				print("YEAH baby that's what i've been waiting for")
 				if (prev_state != pause_state) and SSP.record_replays:
 					SSP.replay.store_sig(rms,Globals.RS_FINISH_UNPAUSE)
-				$Music.volume_db = SSP.music_volume_db
+				$Music.volume_db = 0
 				pause_state = 0
 	elif SSP.replay.sv != 1:
 		var should_pause:bool = false
@@ -444,11 +444,11 @@ func _process(delta:float):
 			pause_state = 1
 			ms = pause_ms - (pause_state * (750 * speed_multi))
 			emit_signal("ms_change",ms)
-			$Music.volume_db = SSP.music_volume_db - 30
+			$Music.volume_db = -30
 			$Music.play((ms + SSP.music_offset)/1000)
 		if replay_unpause and pause_state >= 0:
 			pause_state = max(pause_state - (delta/0.75), 0)
-			$Music.volume_db = min($Music.volume_db + (delta * 30), SSP.music_volume_db)
+			$Music.volume_db = min($Music.volume_db + (delta * 30), 0)
 			if should_end_unpause:
 	#				print("YEAH baby that's what i've been waiting for")
 				$Music.volume_db = SSP.music_volume_db
