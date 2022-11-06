@@ -447,6 +447,7 @@ func read_notes() -> Array:
 			else: print("Reading: RAW")
 			loadRawData(rawData)
 			print(notes.size())
+			notes.sort_custom(self,"notesort")
 			markers.ssp_note = notes
 			return notes
 		elif songType == Globals.MAP_VULNUS:
@@ -461,6 +462,7 @@ func read_notes() -> Array:
 			var n:Array = data.get("_notes",[])
 #			print(n.size())
 			loadVulnusNoteArray(n)
+			notes.sort_custom(self,"notesort")
 			markers.ssp_note = notes
 			return notes
 		elif songType == Globals.MAP_SSPM:
@@ -508,7 +510,7 @@ func read_notes() -> Array:
 					n[0] = float(file.get_8())
 					n[1] = float(file.get_8())
 				notes.append(n)
-#			notes.sort_custom(self,"notesort")
+			notes.sort_custom(self,"notesort")
 				
 			file.close()
 		elif songType == Globals.MAP_SSPM2:
@@ -590,8 +592,8 @@ func read_markers() -> Dictionary:
 			
 			markers[name].append(m)
 		
-#		for arr in markers.values():
-#			arr.sort_custom(self,"markersort")
+		for arr in markers.values():
+			arr.sort_custom(self,"markersort")
 #			print(String(arr.slice(0,35)).replace("], ","],\n "))
 		
 		return markers
@@ -866,14 +868,18 @@ func read_data_type(
 		
 		DT_POSITION:
 			var value:Vector2 = Vector2(5,3)
-			if file.get_8() == 0:
+			var t = file.get_8()
+			if t == 0:
 				var x = file.get_8()
 				var y = file.get_8()
 				value = Vector2(x,y)
-			else:
+			elif t == 1:
 				var x = file.get_float()
 				var y = file.get_float()
 				value = Vector2(x,y)
+			else:
+				# Something has gone wrong
+				assert(false)
 			return value
 		
 		DT_BUFFER:
@@ -1171,13 +1177,9 @@ func convert_to_sspm(upgrade:bool=false):
 			for i in range(d.size() - 1):
 				v[2].append(d[i])
 			
-#			if allmarkers.size() == 0 or ms >= allmarkers[-1][0]:
 			allmarkers.append(v)
-#			else:
-#				for ii in range(0, allmarkers.size()):
-#					var i = allmarkers.size() - ii - 1
-#					if ms >= allmarkers[i][0]:
-#						allmarkers.insert(i,v)
+	
+	allmarkers.sort_custom(self,"marker_sort")
 	
 	start = file.get_position()
 	for m in allmarkers:

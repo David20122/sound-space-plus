@@ -89,7 +89,14 @@ func _mapdl_handler(id:String,map:Song):
 				dir.rename(Globals.p("user://mapdl.sspm.part"),Globals.p("user://maps/%s.sspm" % map.id))
 				map.load_from_sspm(Globals.p("user://maps/%s.sspm" % map.id))
 				if map.songType != Globals.MAP_SSPM2:
-					map.convert_to_sspm(true)
+					if Input.is_action_pressed("skip_convert"):
+						Globals.notify(
+							Globals.NOTIFY_WARN,
+							"Not converting to SSPMv2 as Ctrl+M was held.",
+							"Skip Conversion"
+						)
+					else:
+						map.convert_to_sspm(true)
 				map.load_from_sspm(Globals.p("user://maps/%s.sspm" % map.id))
 				emit_signal("map_downloaded",{id=id, success=true})
 			else:

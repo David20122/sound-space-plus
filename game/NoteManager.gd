@@ -116,6 +116,9 @@ var note_count:int = 0
 func sort_note_nodes(a,b):
 	return a.notems < b.notems
 
+func sort_note_queue(a,b):
+	return a[2] < b[2]
+
 func spawn_note(n:Array):
 	if n[2] < SSP.start_offset:
 		return
@@ -146,6 +149,8 @@ func spawn_note(n:Array):
 		noteNodes.sort_custom(self,"sort_note_nodes")
 
 func spawn_notes(notes:Array):
+	notes.sort_custom(self,"sort_note_queue")
+	
 	next_ms = notes[0][2]
 	for n in notes:
 		if n[2] > SSP.start_offset and n[2] <= SSP.start_offset + 5000: # load the first 5 seconds immediately
@@ -199,15 +204,14 @@ func _ready():
 	
 	# Precache notes
 	if SSP.visual_mode: # Precache a bunch of notes, because we're probably going to need them
-		for i in range(1500):
+		for i in range(800):
 			var n = $Note.duplicate()
 			noteCache.append(n)
 #			add_child(n)
 	else:
-		for i in range(75):
+		for i in range(25):
 			var n = $Note.duplicate()
 			noteCache.append(n)
-#			add_child(n)
 
 var music_started:bool = false
 const cursor_offset = Vector3(1,-1,0)
@@ -296,19 +300,16 @@ func comma_sep(number):
 var spawn_ms_dist:float = ((max(SSP.spawn_distance / SSP.approach_rate,0.6) * 1000) + 500)
 
 func do_note_queue():
+	
 	var rem:int = 0
-#	var amt:int = 0
 	for n in noteQueue:
 		if n[2] <= (ms + (spawn_ms_dist * speed_multi)):
 			rem += 1
-#			amt += 1
-#			if amt > 10:
-#				print("TOO MANY NOTES SPAWNED THIS FRAME!")
-#				break
+			
 			spawn_note(n)
-		else: break
-	
-	for _i in range(rem): noteQueue.pop_front()
+			noteQueue.remove(noteQueue.find(n))
+		else:
+			break
 
 
 var rec_t:float = 0
@@ -493,3 +494,10 @@ func _process(delta:float):
 	if SSP.rainbow_grid:
 		$Inner.get("material/0").albedo_color = Color.from_hsv(SSP.rainbow_t*0.1,0.65,1)
 		$Outer.get("material/0").albedo_color = Color.from_hsv(SSP.rainbow_t*0.1,0.65,1)
+
+
+func _exit_tree():
+	# Remove anything sitting outside of the tree
+	scoreEffect.queue_free()
+	for n in noteCache:
+		n.queue_free()

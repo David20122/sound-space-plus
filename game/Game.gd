@@ -38,6 +38,9 @@ func loadMapFile():
 	notes = map.read_notes()
 	var file:File = File.new()
 	var song:AudioStream = map.stream()
+	
+	
+	
 	$Spawn.spawn_notes(notes)
 	
 	get_node("Spawn/Music").stream = song

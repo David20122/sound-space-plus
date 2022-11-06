@@ -169,3 +169,7 @@ func _ready():
 			trail.offset = (i) / float(SSP.trail_detail-1)
 			trail.start()
 	trail_started = true
+
+func _exit_tree():
+	for n in trail_cache:
+		n.queue_free()
