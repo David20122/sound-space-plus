@@ -86,6 +86,8 @@ func item_selected(idx:int):
 						Globals.notify(Globals.NOTIFY_SUCCEED,"Map converted successfully!","Converted")
 				else:
 					Globals.notify(Globals.NOTIFY_ERROR,res,"Failed to convert")
+		4:
+			Globals.file_sel.save_file(SSP.selected_song,"export_text")
 
 
 
