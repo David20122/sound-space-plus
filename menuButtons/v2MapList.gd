@@ -87,9 +87,9 @@ func select_random():
 var page_size = Vector2(-1,-1)
 func load_pg(is_resize:bool=false):
 	
-	var col = clamp(floor((get_parent().rect_size.x-124)/132),1,14)
+	var col = max(floor((get_parent().rect_size.x-124)/132),1)
 	if columns != col: columns = col
-	var spp = clamp(col*floor((get_parent().rect_size.y-74)/132),1,6*col)
+	var spp = max(col*floor((get_parent().rect_size.y-74)/132),1)
 	if is_resize and Vector2(col,spp) == page_size: return
 	else: page_size = Vector2(col,spp)
 	

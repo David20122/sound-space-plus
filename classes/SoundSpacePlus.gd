@@ -1748,6 +1748,7 @@ func do_init(_ud=null):
 		if !dir.dir_exists(user_pack_dir): dir.make_dir(user_pack_dir)
 		if !dir.dir_exists(user_vmap_dir): dir.make_dir(user_vmap_dir)
 		if !dir.dir_exists(user_map_dir): dir.make_dir(user_map_dir)
+		if !dir.dir_exists(user_colorset_dir): dir.make_dir(user_colorset_dir)
 		if !dir.dir_exists(Globals.p("user://replays")): dir.make_dir(Globals.p("user://replays"))
 		if !dir.dir_exists(user_best_dir):
 			convert_pb_format = true
