@@ -2,9 +2,9 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/square.png-53215e86c48f8d5bb5cc91a93c12020f.s3tc.stex"
-path.etc2="res://.import/square.png-53215e86c48f8d5bb5cc91a93c12020f.etc2.stex"
-path.etc="res://.import/square.png-53215e86c48f8d5bb5cc91a93c12020f.etc.stex"
+path.s3tc="res://.import/circle.png-96603a3b16911e343f95fe135ccff967.s3tc.stex"
+path.etc2="res://.import/circle.png-96603a3b16911e343f95fe135ccff967.etc2.stex"
+path.etc="res://.import/circle.png-96603a3b16911e343f95fe135ccff967.etc.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc2", "etc" ],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://content/cursors/square.png"
-dest_files=[ "res://.import/square.png-53215e86c48f8d5bb5cc91a93c12020f.s3tc.stex", "res://.import/square.png-53215e86c48f8d5bb5cc91a93c12020f.etc2.stex", "res://.import/square.png-53215e86c48f8d5bb5cc91a93c12020f.etc.stex" ]
+source_file="res://content/cursors/circle.png"
+dest_files=[ "res://.import/circle.png-96603a3b16911e343f95fe135ccff967.s3tc.stex", "res://.import/circle.png-96603a3b16911e343f95fe135ccff967.etc2.stex", "res://.import/circle.png-96603a3b16911e343f95fe135ccff967.etc.stex" ]
 
 [params]
 

@@ -2,7 +2,7 @@
 
 [ext_resource path="res://font/debug.tres" type="DynamicFont" id=1]
 [ext_resource path="res://content/sfx/hit.wav" type="AudioStream" id=2]
-[ext_resource path="res://content/cursors/square.png" type="Texture" id=3]
+[ext_resource path="res://content/cursors/circle.png" type="Texture" id=3]
 [ext_resource path="res://classes/cursordance/Cursor.gd" type="Script" id=4]
 [ext_resource path="res://classes/cursordance/Main.gd" type="Script" id=5]
 

@@ -14,6 +14,7 @@
 [ext_resource path="res://menuButtons/EdgeBuffer.gd" type="Script" id=12]
 [ext_resource path="res://content/ui/placeholder_dark.jpg" type="Texture" id=13]
 [ext_resource path="res://ReplayDir.gd" type="Script" id=14]
+[ext_resource path="res://content/cursors/circle.png" type="Texture" id=15]
 [ext_resource path="res://menuButtons/NoteMesh.gd" type="Script" id=16]
 [ext_resource path="res://menuButtons/CursorScale.gd" type="Script" id=17]
 [ext_resource path="res://menuButtons/VSyncCompositor.gd" type="Script" id=18]
@@ -42,7 +43,6 @@
 [ext_resource path="res://content/ui/arrow_up_white.png" type="Texture" id=41]
 [ext_resource path="res://content/ui/arrow_down_white.png" type="Texture" id=42]
 [ext_resource path="res://menu2/SettingsGroup.gd" type="Script" id=43]
-[ext_resource path="res://content/cursors/square.png" type="Texture" id=44]
 [ext_resource path="res://menu2/ReplaceCustomFile.gd" type="Script" id=45]
 [ext_resource path="res://addons/native_dialogs/bin/native_dialog_open_file.gdns" type="Script" id=46]
 [ext_resource path="res://HitFOVAmplifier.gd" type="Script" id=47]
@@ -2102,7 +2102,7 @@ custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
 custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
 text = "Click to replace"
 script = ExtResource( 45 )
-default_image = ExtResource( 44 )
+default_image = ExtResource( 15 )
 
 [node name="OpenFile" type="Node" parent="M/Customization/Group/H/CustomCursor/CustomCursor"]
 script = ExtResource( 46 )
@@ -2145,7 +2145,7 @@ anchor_right = 1.0
 margin_left = 5.0
 margin_right = 37.0
 margin_bottom = 32.0
-texture = ExtResource( 44 )
+texture = ExtResource( 15 )
 expand = true
 stretch_mode = 1
 
@@ -2542,7 +2542,7 @@ custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
 text = "Click to replace"
 script = ExtResource( 45 )
 target = "touch"
-default_image = ExtResource( 44 )
+default_image = ExtResource( 15 )
 
 [node name="OpenFile" type="Node" parent="M/Customization/Group/H/TouchIndicator/TouchIndicator"]
 script = ExtResource( 46 )
@@ -2573,7 +2573,7 @@ anchor_right = 1.0
 margin_left = 5.0
 margin_right = 37.0
 margin_bottom = 32.0
-texture = ExtResource( 44 )
+texture = ExtResource( 15 )
 expand = true
 stretch_mode = 1
 

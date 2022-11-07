@@ -25,6 +25,7 @@ var user_vmap_dir:String = Globals.p("user://vmaps")
 var user_map_dir:String = Globals.p("user://maps")
 var user_best_dir:String = Globals.p("user://bests")
 var user_colorset_dir:String = Globals.p("user://colorsets")
+var user_friend_dir:String = Globals.p("user://friend")
 
 # Installed content info
 var installed_dlc:Array = ["ssp_basegame"]
@@ -1749,6 +1750,7 @@ func do_init(_ud=null):
 		if !dir.dir_exists(user_vmap_dir): dir.make_dir(user_vmap_dir)
 		if !dir.dir_exists(user_map_dir): dir.make_dir(user_map_dir)
 		if !dir.dir_exists(user_colorset_dir): dir.make_dir(user_colorset_dir)
+		if !dir.dir_exists(user_friend_dir): dir.make_dir(user_friend_dir)
 		if !dir.dir_exists(Globals.p("user://replays")): dir.make_dir(Globals.p("user://replays"))
 		if !dir.dir_exists(user_best_dir):
 			convert_pb_format = true
