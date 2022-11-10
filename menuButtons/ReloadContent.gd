@@ -17,7 +17,7 @@ func _pressed():
 		Globals.confirm_prompt.s_next.play()
 		yield(Globals.confirm_prompt,"done_closing")
 		get_viewport().get_node("Menu").black_fade_target = true
-		yield(get_tree().create_timer(1),"timeout")
+		yield(get_tree().create_timer(0.35),"timeout")
 		get_tree().change_scene("res://init.tscn")
 	else:
 		Globals.confirm_prompt.s_back.play()

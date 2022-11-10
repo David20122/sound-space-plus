@@ -36,9 +36,9 @@ var black_fade:float = 1
 
 func _process(delta):
 	if black_fade_target && black_fade != 1:
-		black_fade = min(black_fade + (delta/0.75),1)
+		black_fade = min(black_fade + (delta/0.3),1)
 		$BlackFade.color = Color(0,0,0,black_fade)
 	elif !black_fade_target && black_fade != 0:
-		black_fade = max(black_fade - (delta/0.75),0)
+		black_fade = max(black_fade - (delta/0.3),0)
 		$BlackFade.color = Color(0,0,0,black_fade)
 	$BlackFade.visible = (black_fade != 0)

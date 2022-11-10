@@ -175,8 +175,8 @@ func _ready():
 	
 	var img = Globals.imageLoader.load_if_exists("user://note")
 	if img:
-		m.albedo_texture = img
-		mt.albedo_texture = img
+		m.set_shader_param("image",img)
+		mt.set_shader_param("image",img)
 	
 	if !SSP.replaying and SSP.record_replays:
 		SSP.replay = Replay.new()

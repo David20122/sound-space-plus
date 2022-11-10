@@ -43,26 +43,26 @@ func to_old_menu():
 			SSP.select_song(SSP.registry_song.items[0])
 		SSP.menu_target = "res://classes/cursordance/dancetest.tscn"
 	else: SSP.menu_target = "res://menu.tscn"
-	yield(get_tree().create_timer(1),"timeout")
+	yield(get_tree().create_timer(0.35),"timeout")
 	get_tree().change_scene("res://menuload.tscn")
 
 func to_content_mgr():
 	get_node("../Press").play()
 	get_viewport().get_node("Menu").black_fade_target = true
-	yield(get_tree().create_timer(1),"timeout")
+	yield(get_tree().create_timer(0.35),"timeout")
 	SSP.conmgr_transit = "addsongs"
 	get_tree().change_scene("res://contentmgrload.tscn")
 
 func to_vr():
 	get_node("../Press").play()
 	get_viewport().get_node("Menu").black_fade_target = true
-	yield(get_tree().create_timer(1),"timeout")
+	yield(get_tree().create_timer(0.35),"timeout")
 	SSP.start_vr()
 
 func quit():
 	get_node("../Press").play()
-#	get_viewport().get_node("Menu").black_fade_target = true
-#	yield(get_tree().create_timer(1),"timeout")
+	get_viewport().get_node("Menu").black_fade_target = true
+	yield(get_tree().create_timer(0.35),"timeout")
 	get_tree().quit()
 	
 

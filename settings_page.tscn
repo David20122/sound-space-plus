@@ -213,6 +213,7 @@ rect_min_size = Vector2( 0, 33 )
 custom_constants/separation = 10
 
 [node name="Save" type="Button" parent="TopButtons/HBoxContainer"]
+modulate = Color( 1, 0.984314, 0, 1 )
 margin_right = 100.0
 margin_bottom = 33.0
 rect_min_size = Vector2( 100, 0 )
@@ -1666,16 +1667,6 @@ script = ExtResource( 45 )
 target = "custombg"
 default_image = ExtResource( 48 )
 
-[node name="OpenFile" type="Node" parent="M/Customization/Group/H/CustomBg/CustomBg"]
-script = ExtResource( 46 )
-title = "Select file"
-initial_path = "~/Downloads"
-filters = PoolStringArray( "*.png, *.jpg, *.jpeg, *.webp, *.bmp ; Image files" )
-
-[node name="SaveFile" type="Node" parent="M/Customization/Group/H/CustomBg/CustomBg"]
-script = ExtResource( 7 )
-title = "Save file..."
-
 [node name="Label" type="Label" parent="M/Customization/Group/H/CustomBg/CustomBg"]
 margin_left = -162.0
 margin_right = -10.0
@@ -1700,8 +1691,8 @@ expand = true
 stretch_mode = 1
 
 [node name="Desc" type="Label" parent="M/Customization/Group/H/CustomBg/CustomBg"]
-margin_left = 257.0
-margin_right = 321.0
+margin_left = 294.0
+margin_right = 657.0
 margin_bottom = 32.0
 focus_mode = 2
 theme = ExtResource( 1 )
@@ -1710,6 +1701,21 @@ custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
 custom_fonts/font = SubResource( 4 )
 text = "this is the background for the \"Custom Background\" world"
 valign = 1
+
+[node name="Clear" type="Button" parent="M/Customization/Group/H/CustomBg/CustomBg"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 42.0
+margin_right = 74.0
+margin_bottom = 32.0
+theme = ExtResource( 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+disabled = true
+icon = ExtResource( 4 )
+expand_icon = true
 
 [node name="SEPARATOR2" type="HSeparator" parent="M/Customization/Group/H"]
 margin_top = 86.0
@@ -1728,6 +1734,7 @@ rect_min_size = Vector2( 200, 32 )
 margin_right = 200.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 200, 32 )
+rect_pivot_offset = Vector2( 115, 16 )
 theme = ExtResource( 1 )
 custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
@@ -1737,16 +1744,6 @@ text = "Click to replace"
 script = ExtResource( 45 )
 target = "hit"
 default_image = ExtResource( 13 )
-
-[node name="OpenFile" type="Node" parent="M/Customization/Group/H/HitRipple/HitEffect"]
-script = ExtResource( 46 )
-title = "Select file"
-initial_path = "~/Downloads"
-filters = PoolStringArray( "*.png, *.jpg, *.jpeg, *.webp, *.bmp ; Image files" )
-
-[node name="SaveFile" type="Node" parent="M/Customization/Group/H/HitRipple/HitEffect"]
-script = ExtResource( 7 )
-title = "Save file..."
 
 [node name="Label" type="Label" parent="M/Customization/Group/H/HitRipple/HitEffect"]
 margin_left = -149.0
@@ -1772,8 +1769,8 @@ expand = true
 stretch_mode = 1
 
 [node name="Desc" type="Label" parent="M/Customization/Group/H/HitRipple/HitEffect"]
-margin_left = 257.0
-margin_right = 321.0
+margin_left = 294.0
+margin_right = 687.0
 margin_bottom = 32.0
 focus_mode = 2
 theme = ExtResource( 1 )
@@ -1782,6 +1779,21 @@ custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
 custom_fonts/font = SubResource( 4 )
 text = "this image is used by hit effects with an asterisk (*) in their name"
 valign = 1
+
+[node name="Clear" type="Button" parent="M/Customization/Group/H/HitRipple/HitEffect"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 42.0
+margin_right = 74.0
+margin_bottom = 32.0
+theme = ExtResource( 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+disabled = true
+icon = ExtResource( 4 )
+expand_icon = true
 
 [node name="HitEffect" type="Control" parent="M/Customization/Group/H"]
 margin_top = 136.0
@@ -1944,6 +1956,7 @@ rect_min_size = Vector2( 200, 32 )
 margin_right = 200.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 200, 32 )
+rect_pivot_offset = Vector2( -432, 222 )
 theme = ExtResource( 1 )
 custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
@@ -1953,16 +1966,6 @@ text = "Click to replace"
 script = ExtResource( 45 )
 target = "miss"
 default_image = ExtResource( 13 )
-
-[node name="OpenFile" type="Node" parent="M/Customization/Group/H/MissRipple/MissEffect"]
-script = ExtResource( 46 )
-title = "Select file"
-initial_path = "~/Downloads"
-filters = PoolStringArray( "*.png, *.jpg, *.jpeg, *.webp, *.bmp ; Image files" )
-
-[node name="SaveFile" type="Node" parent="M/Customization/Group/H/MissRipple/MissEffect"]
-script = ExtResource( 7 )
-title = "Save file..."
 
 [node name="Label" type="Label" parent="M/Customization/Group/H/MissRipple/MissEffect"]
 margin_left = -149.0
@@ -1988,8 +1991,8 @@ expand = true
 stretch_mode = 1
 
 [node name="Desc" type="Label" parent="M/Customization/Group/H/MissRipple/MissEffect"]
-margin_left = 257.0
-margin_right = 321.0
+margin_left = 294.0
+margin_right = 622.0
 margin_bottom = 32.0
 focus_mode = 2
 theme = ExtResource( 1 )
@@ -1998,6 +2001,21 @@ custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
 custom_fonts/font = SubResource( 4 )
 text = "same as above, but applies to your miss effect instead"
 valign = 1
+
+[node name="Clear" type="Button" parent="M/Customization/Group/H/MissRipple/MissEffect"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 42.0
+margin_right = 74.0
+margin_bottom = 32.0
+theme = ExtResource( 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+disabled = true
+icon = ExtResource( 4 )
+expand_icon = true
 
 [node name="MissEffect" type="Control" parent="M/Customization/Group/H"]
 margin_top = 318.0
@@ -2095,6 +2113,7 @@ rect_min_size = Vector2( 200, 32 )
 margin_right = 200.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 200, 32 )
+rect_pivot_offset = Vector2( -432, 104 )
 theme = ExtResource( 1 )
 custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
@@ -2103,16 +2122,6 @@ custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
 text = "Click to replace"
 script = ExtResource( 45 )
 default_image = ExtResource( 15 )
-
-[node name="OpenFile" type="Node" parent="M/Customization/Group/H/CustomCursor/CustomCursor"]
-script = ExtResource( 46 )
-title = "Select file"
-initial_path = "~/Downloads"
-filters = PoolStringArray( "*.png, *.jpg, *.jpeg, *.webp, *.bmp ; Image files" )
-
-[node name="SaveFile" type="Node" parent="M/Customization/Group/H/CustomCursor/CustomCursor"]
-script = ExtResource( 7 )
-title = "Save file..."
 
 [node name="Label" type="Label" parent="M/Customization/Group/H/CustomCursor/CustomCursor"]
 margin_left = -149.0
@@ -2128,8 +2137,8 @@ valign = 1
 clip_text = true
 
 [node name="Desc" type="Label" parent="M/Customization/Group/H/CustomCursor/CustomCursor"]
-margin_left = 257.0
-margin_right = 321.0
+margin_left = 294.0
+margin_right = 672.0
 margin_bottom = 32.0
 focus_mode = 2
 theme = ExtResource( 1 )
@@ -2163,6 +2172,21 @@ anchor_bottom = 1.0
 texture = ExtResource( 4 )
 expand = true
 stretch_mode = 4
+
+[node name="Clear" type="Button" parent="M/Customization/Group/H/CustomCursor/CustomCursor"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 42.0
+margin_right = 74.0
+margin_bottom = 32.0
+theme = ExtResource( 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+disabled = true
+icon = ExtResource( 4 )
+expand_icon = true
 
 [node name="CursorColorType" type="Control" parent="M/Customization/Group/H"]
 margin_top = 436.0
@@ -2534,6 +2558,7 @@ rect_min_size = Vector2( 200, 32 )
 margin_right = 200.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 200, 32 )
+rect_pivot_offset = Vector2( 89, 16 )
 theme = ExtResource( 1 )
 custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
@@ -2543,16 +2568,6 @@ text = "Click to replace"
 script = ExtResource( 45 )
 target = "touch"
 default_image = ExtResource( 15 )
-
-[node name="OpenFile" type="Node" parent="M/Customization/Group/H/TouchIndicator/TouchIndicator"]
-script = ExtResource( 46 )
-title = "Select file"
-initial_path = "~/Downloads"
-filters = PoolStringArray( "*.png, *.jpg, *.jpeg, *.webp, *.bmp ; Image files" )
-
-[node name="SaveFile" type="Node" parent="M/Customization/Group/H/TouchIndicator/TouchIndicator"]
-script = ExtResource( 7 )
-title = "Save file..."
 
 [node name="Label" type="Label" parent="M/Customization/Group/H/TouchIndicator/TouchIndicator"]
 margin_left = -149.0
@@ -2578,8 +2593,8 @@ expand = true
 stretch_mode = 1
 
 [node name="Desc" type="Label" parent="M/Customization/Group/H/TouchIndicator/TouchIndicator"]
-margin_left = 257.0
-margin_right = 321.0
+margin_left = 294.0
+margin_right = 703.0
 margin_bottom = 32.0
 focus_mode = 2
 theme = ExtResource( 1 )
@@ -2588,6 +2603,21 @@ custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
 custom_fonts/font = SubResource( 4 )
 text = "this is the image that shows up under your finger on a touchscreen"
 valign = 1
+
+[node name="Clear" type="Button" parent="M/Customization/Group/H/TouchIndicator/TouchIndicator"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 42.0
+margin_right = 74.0
+margin_bottom = 32.0
+theme = ExtResource( 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+disabled = true
+icon = ExtResource( 4 )
+expand_icon = true
 
 [node name="Audio" type="VBoxContainer" parent="M"]
 margin_top = 1914.0

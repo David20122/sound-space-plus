@@ -109,7 +109,7 @@ func end(end_type:int):
 			return
 	
 	black_fade_target = true
-	yield(get_tree().create_timer(1),"timeout")
+	yield(get_tree().create_timer(0.35),"timeout")
 	
 	get_tree().change_scene("res://menuload.tscn")
 
@@ -148,7 +148,7 @@ func update_timer(ms:float,canSkip:bool=false):
 var loaded = false
 
 var giving_up:float = 0
-var black_fade_target:bool = false
+var black_fade_target:bool = true
 var black_fade:float = 1
 var passed:bool = false
 
@@ -183,20 +183,20 @@ func _process(delta):
 	
 	
 	if black_fade_target && black_fade != 1:
-		black_fade = min(black_fade + (delta/0.75),1)
+		black_fade = min(black_fade + (delta/0.3),1)
 		$BlackFade.color = Color(0,0,0,black_fade)
 	elif !black_fade_target && black_fade != 0:
-		black_fade = max(black_fade - (delta/0.75),0)
+		black_fade = max(black_fade - (delta/1),0)
 		$BlackFade.color = Color(0,0,0,black_fade)
-	
 	$BlackFade.visible = (black_fade != 0)
+	
 
 func linstep(a:float,b:float,x:float):
 	if a == b: return float(x >= a)
 	return clamp(abs((x - a) / (b - a)),0,1)
 
 func get_point_amt() -> int:
-	var speed_multi = Globals.speed_multi[SSP.custom_speed]
+	var speed_multi = Globals.speed_multi[SSP.mod_speed_level]
 	var spd = clamp(((speed_multi - 1) * 1.5) + 1, 0, 1.9)
 	
 	var hitbox_diff = SSP.note_hitbox_size - 1.140
@@ -204,7 +204,6 @@ func get_point_amt() -> int:
 	
 	var hitwin_diff = SSP.note_hitbox_size - 55
 	var hwi = clamp(linstep(55,0,hitwin_diff), 0, 1)
-	
 	
 	var mod = 1
 	
@@ -277,6 +276,7 @@ func _ready():
 	get_parent().call_deferred("add_child",spinst)
 	spinst.name = "Space"
 #	call_deferred("raise")
+	$BlackFade.visible = true
 	$BlackFade.color = Color(0,0,0,black_fade)
 	get_tree().paused = false
 	$Spawn.connect("timer_update",self,"update_timer")
@@ -286,4 +286,7 @@ func _ready():
 	
 	
 	SSP.update_rpc_song()
+	
+	yield(get_tree(),"idle_frame")
+	black_fade_target = false
 

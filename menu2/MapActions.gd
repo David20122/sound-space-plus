@@ -24,8 +24,22 @@ var difficulty_submenu = PopupMenu.new()
 #			get_popup().set_item_checked(i,true)
 #			text = options[i]
 #	get_popup().connect("id_pressed",self,"on_pressed")
+var audio_data:PoolByteArray
 
+func save_song_txt(path:String):
+	if path:
+		SSP.selected_song.export_text(path)
 
+func save_song_audio(path:String):
+	if path:
+		var file:File = File.new()
+		var err:int = file.open(path,File.WRITE)
+		if err == OK:
+			file.store_buffer(audio_data)
+			file.close()
+			Globals.notify(Globals.NOTIFY_SUCCEED,"Succesfully saved audio data!","Success")
+		else:
+			Globals.notify(Globals.NOTIFY_ERROR,"Failed to save file (error code %s)" % err,"Error")
 
 func diff_item_selected(idx:int):
 	if !sd:
@@ -87,7 +101,36 @@ func item_selected(idx:int):
 				else:
 					Globals.notify(Globals.NOTIFY_ERROR,res,"Failed to convert")
 		4:
-			Globals.file_sel.save_file(SSP.selected_song,"export_text")
+			Globals.file_sel.save_file(
+				self,
+				"save_song_txt",
+				["*.txt ; Text map data"],
+				"~/Downloads/%s.txt" % [SSP.selected_song.id]
+			)
+		5:
+			if !(
+				SSP.selected_song.is_broken or
+				SSP.selected_song.is_builtin or
+				SSP.selected_song.is_online
+			):
+				audio_data = SSP.selected_song.get_music_buffer()
+				var format = Globals.audioLoader.get_format(audio_data)
+				if format == "mp3":
+					Globals.file_sel.save_file(
+						self,
+						"save_song_audio",
+						["*.mp3 ; mp3 audio file"],
+						"~/Downloads/%s.mp3" % [SSP.selected_song.id]
+					)
+				elif format == "ogg":
+					Globals.file_sel.save_file(
+						self,
+						"save_song_audio",
+						["*.ogg ; ogg audio file"],
+						"~/Downloads/%s.off" % [SSP.selected_song.id]
+					)
+				else:
+					Globals.notify(Globals.NOTIFY_ERROR,"Unable to determine audio format","Error")
 
 
 
@@ -116,6 +159,11 @@ func upd(_s=null):
 		)
 	))
 	
+	get_popup().set_item_disabled(5,(
+		SSP.selected_song.is_broken or
+		SSP.selected_song.is_builtin or
+		SSP.selected_song.is_online
+	))
 	
 	copy_submenu.set_item_disabled(1,(
 		SSP.selected_song.is_builtin or
@@ -139,6 +187,7 @@ func _ready():
 	get_popup().add_submenu_item("Copy...","Copy",2)
 	get_popup().add_submenu_item("Set difficulty","Difficulty",3)
 	get_popup().add_item("Export .txt map data",4)
+	get_popup().add_item("Export audio data",5)
 	
 	copy_submenu.add_item("ID",0)
 	copy_submenu.add_item("Path",1)

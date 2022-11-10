@@ -633,6 +633,7 @@ margin_left = 60.0
 rect_pivot_offset = Vector2( -398, 64 )
 
 [node name="MapRegistry" type="ReferenceRect" parent="Main"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -1926,7 +1927,6 @@ __meta__ = {
 }
 
 [node name="Results" type="HBoxContainer" parent="Main"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 12.0
@@ -3201,9 +3201,6 @@ custom_fonts/font = SubResource( 92 )
 action_mode = 0
 flat = true
 script = ExtResource( 43 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Label" type="Label" parent="Main/Results/Results/ModsHolder/Mods/Nearsight"]
 margin_left = -115.0
