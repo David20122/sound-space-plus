@@ -31,6 +31,7 @@ func is_fav(s:Song): return favorite.has(s)
 func search_matches(s:Song):
 	return (
 		difficulty_filter.has(s.difficulty) and
+		(!s.is_online or show_online_maps) and
 		(!s.is_broken or show_broken_maps) and
 		(search_text == "" or s.name.to_lower().find(search_text.to_lower()) != -1) and
 		(author_search_text == "" or s.creator.to_lower().find(author_search_text.to_lower()) != -1)
