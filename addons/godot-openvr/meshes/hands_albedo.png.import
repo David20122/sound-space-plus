@@ -4,15 +4,16 @@ importer="texture"
 type="StreamTexture"
 path.s3tc="res://.import/hands_albedo.png-149a10baba7906560a9f9eab8fadf1d8.s3tc.stex"
 path.etc2="res://.import/hands_albedo.png-149a10baba7906560a9f9eab8fadf1d8.etc2.stex"
+path.etc="res://.import/hands_albedo.png-149a10baba7906560a9f9eab8fadf1d8.etc.stex"
 metadata={
-"imported_formats": [ "s3tc", "etc2" ],
+"imported_formats": [ "s3tc", "etc2", "etc" ],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://addons/godot-openvr/meshes/hands_albedo.png"
-dest_files=[ "res://.import/hands_albedo.png-149a10baba7906560a9f9eab8fadf1d8.s3tc.stex", "res://.import/hands_albedo.png-149a10baba7906560a9f9eab8fadf1d8.etc2.stex" ]
+dest_files=[ "res://.import/hands_albedo.png-149a10baba7906560a9f9eab8fadf1d8.s3tc.stex", "res://.import/hands_albedo.png-149a10baba7906560a9f9eab8fadf1d8.etc2.stex", "res://.import/hands_albedo.png-149a10baba7906560a9f9eab8fadf1d8.etc.stex" ]
 
 [params]
 

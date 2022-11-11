@@ -73,7 +73,7 @@ script = ExtResource( 4 )
 environment = SubResource( 5 )
 
 [node name="PointerScreen" type="Area" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, -2 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.75, -2 )
 script = ExtResource( 3 )
 size = Vector2( 3.2, 1.8 )
 

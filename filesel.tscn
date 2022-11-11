@@ -1,0 +1,412 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://uitheme.tres" type="Theme" id=1]
+[ext_resource path="res://font/Noto_Sans_JP/NotoSansJP-Medium.otf" type="DynamicFontData" id=2]
+[ext_resource path="res://font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://classes/FileSelector.gd" type="Script" id=4]
+[ext_resource path="res://addons/native_dialogs/bin/native_dialog_select_folder.gdns" type="Script" id=5]
+[ext_resource path="res://font/NotoColorEmoji.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://addons/native_dialogs/bin/native_dialog_open_file.gdns" type="Script" id=7]
+[ext_resource path="res://addons/native_dialogs/bin/native_dialog_save_file.gdns" type="Script" id=8]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Control
+
+var switch_time:float = 0.17
+
+var t:float = switch_time
+var i:int = -1
+
+func _process(delta):
+	if visible and get_parent().visible:
+		var up = false
+		t += delta
+		if t >= switch_time:
+			t -= switch_time
+			up = true
+			i += 1
+			if i > 7: i -= 8
+		
+		for n in get_children():
+			var ni = int(n.name)
+			if up and i == ni:
+				n.modulate.a = 1
+			else: n.modulate.a = max(n.modulate.a-(delta*1.35),0)
+"
+
+[sub_resource type="DynamicFont" id=2]
+size = 18
+use_filter = true
+font_data = ExtResource( 3 )
+fallback/0 = ExtResource( 6 )
+fallback/1 = ExtResource( 2 )
+
+[node name="FileSelect" type="ColorRect"]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 428, -140 )
+theme = ExtResource( 1 )
+color = Color( 0.0980392, 0.0980392, 0.0980392, 0.705882 )
+script = ExtResource( 4 )
+
+[node name="OpenFile" type="Node" parent="."]
+script = ExtResource( 7 )
+title = "Select file"
+initial_path = "~/Downloads"
+filters = PoolStringArray( "*.png, *.jpg, *.jpeg, *.webp, *.bmp ; Image files" )
+
+[node name="SaveFile" type="Node" parent="."]
+script = ExtResource( 8 )
+title = "Save file..."
+
+[node name="Folder" type="Node" parent="."]
+script = ExtResource( 5 )
+
+[node name="Spinner" type="ReferenceRect" parent="."]
+pause_mode = 2
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -40.0
+margin_top = -50.0
+margin_right = 40.0
+margin_bottom = 30.0
+script = SubResource( 1 )
+
+[node name="0" type="Control" parent="Spinner"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 25.0
+margin_bottom = 25.0
+
+[node name="ColorRect" type="ColorRect" parent="Spinner/0"]
+margin_right = 10.0
+margin_bottom = 10.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Spinner/0"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 20.0
+margin_bottom = 20.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+
+[node name="ColorRect3" type="ColorRect" parent="Spinner/0"]
+margin_top = 10.0
+margin_right = 10.0
+margin_bottom = 20.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+
+[node name="ColorRect4" type="ColorRect" parent="Spinner/0"]
+margin_left = 10.0
+margin_right = 20.0
+margin_bottom = 10.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="1" type="Control" parent="Spinner"]
+margin_left = 30.0
+margin_top = 5.0
+margin_right = 50.0
+margin_bottom = 25.0
+
+[node name="ColorRect" type="ColorRect" parent="Spinner/1"]
+margin_right = 10.0
+margin_bottom = 10.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Spinner/1"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 20.0
+margin_bottom = 20.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+
+[node name="ColorRect3" type="ColorRect" parent="Spinner/1"]
+margin_top = 10.0
+margin_right = 10.0
+margin_bottom = 20.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+
+[node name="ColorRect4" type="ColorRect" parent="Spinner/1"]
+margin_left = 10.0
+margin_right = 20.0
+margin_bottom = 10.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="2" type="Control" parent="Spinner"]
+margin_left = 55.0
+margin_top = 5.0
+margin_right = 75.0
+margin_bottom = 25.0
+
+[node name="ColorRect" type="ColorRect" parent="Spinner/2"]
+margin_right = 10.0
+margin_bottom = 10.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Spinner/2"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 20.0
+margin_bottom = 20.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+
+[node name="ColorRect3" type="ColorRect" parent="Spinner/2"]
+margin_top = 10.0
+margin_right = 10.0
+margin_bottom = 20.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+
+[node name="ColorRect4" type="ColorRect" parent="Spinner/2"]
+margin_left = 10.0
+margin_right = 20.0
+margin_bottom = 10.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="3" type="Control" parent="Spinner"]
+margin_left = 55.0
+margin_top = 30.0
+margin_right = 75.0
+margin_bottom = 50.0
+
+[node name="ColorRect" type="ColorRect" parent="Spinner/3"]
+margin_right = 10.0
+margin_bottom = 10.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Spinner/3"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 20.0
+margin_bottom = 20.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+
+[node name="ColorRect3" type="ColorRect" parent="Spinner/3"]
+margin_top = 10.0
+margin_right = 10.0
+margin_bottom = 20.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+
+[node name="ColorRect4" type="ColorRect" parent="Spinner/3"]
+margin_left = 10.0
+margin_right = 20.0
+margin_bottom = 10.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="4" type="Control" parent="Spinner"]
+margin_left = 55.0
+margin_top = 55.0
+margin_right = 75.0
+margin_bottom = 75.0
+
+[node name="ColorRect" type="ColorRect" parent="Spinner/4"]
+margin_right = 10.0
+margin_bottom = 10.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Spinner/4"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 20.0
+margin_bottom = 20.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+
+[node name="ColorRect3" type="ColorRect" parent="Spinner/4"]
+margin_top = 10.0
+margin_right = 10.0
+margin_bottom = 20.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+
+[node name="ColorRect4" type="ColorRect" parent="Spinner/4"]
+margin_left = 10.0
+margin_right = 20.0
+margin_bottom = 10.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="5" type="Control" parent="Spinner"]
+margin_left = 30.0
+margin_top = 55.0
+margin_right = 50.0
+margin_bottom = 75.0
+
+[node name="ColorRect" type="ColorRect" parent="Spinner/5"]
+margin_right = 10.0
+margin_bottom = 10.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Spinner/5"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 20.0
+margin_bottom = 20.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+
+[node name="ColorRect3" type="ColorRect" parent="Spinner/5"]
+margin_top = 10.0
+margin_right = 10.0
+margin_bottom = 20.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+
+[node name="ColorRect4" type="ColorRect" parent="Spinner/5"]
+margin_left = 10.0
+margin_right = 20.0
+margin_bottom = 10.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="6" type="Control" parent="Spinner"]
+margin_left = 5.0
+margin_top = 55.0
+margin_right = 25.0
+margin_bottom = 75.0
+
+[node name="ColorRect" type="ColorRect" parent="Spinner/6"]
+margin_right = 10.0
+margin_bottom = 10.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Spinner/6"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 20.0
+margin_bottom = 20.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+
+[node name="ColorRect3" type="ColorRect" parent="Spinner/6"]
+margin_top = 10.0
+margin_right = 10.0
+margin_bottom = 20.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+
+[node name="ColorRect4" type="ColorRect" parent="Spinner/6"]
+margin_left = 10.0
+margin_right = 20.0
+margin_bottom = 10.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="7" type="Control" parent="Spinner"]
+margin_left = 5.0
+margin_top = 30.0
+margin_right = 25.0
+margin_bottom = 50.0
+
+[node name="ColorRect" type="ColorRect" parent="Spinner/7"]
+margin_right = 10.0
+margin_bottom = 10.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Spinner/7"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 20.0
+margin_bottom = 20.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+
+[node name="ColorRect3" type="ColorRect" parent="Spinner/7"]
+margin_top = 10.0
+margin_right = 10.0
+margin_bottom = 20.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+
+[node name="ColorRect4" type="ColorRect" parent="Spinner/7"]
+margin_left = 10.0
+margin_right = 20.0
+margin_bottom = 10.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+
+[node name="Label" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -90.0
+margin_top = 40.0
+margin_right = 90.0
+margin_bottom = 70.0
+grow_horizontal = 2
+custom_fonts/font = SubResource( 2 )
+text = "Waiting for file dialog..."
+align = 1
+
+[node name="C" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="SaveFile" type="FileDialog" parent="C"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 1280, 720 )
+popup_exclusive = true
+window_title = "Save file..."
+mode_overrides_title = false
+access = 2
+show_hidden_files = true
+
+[node name="OpenFile" type="FileDialog" parent="C"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 1280, 720 )
+popup_exclusive = true
+window_title = "Open a File"
+mode_overrides_title = false
+mode = 0
+access = 2
+show_hidden_files = true
+
+[node name="Folder" type="FileDialog" parent="C"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 1280, 720 )
+popup_exclusive = true
+window_title = "Select folder..."
+mode_overrides_title = false
+mode = 2
+access = 2
+show_hidden_files = true

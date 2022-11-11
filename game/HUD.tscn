@@ -1,0 +1,1339 @@
+[gd_scene load_steps=70 format=2]
+
+[ext_resource path="res://game/TrueComboHandler.gd" type="Script" id=1]
+[ext_resource path="res://game/FPS.gd" type="Script" id=2]
+[ext_resource path="res://game/configDisp.gd" type="Script" id=3]
+[ext_resource path="res://font/debug.tres" type="DynamicFont" id=4]
+[ext_resource path="res://font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://font/Lato/Lato-Bold.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://content/cursors/circle.png" type="Texture" id=7]
+[ext_resource path="res://content/modifiers/64/speed_mmm_colored.png" type="Texture" id=8]
+[ext_resource path="res://content/ui/spinner_thin.png" type="Texture" id=9]
+[ext_resource path="res://content/modifiers/64/speed_m_colored.png" type="Texture" id=10]
+[ext_resource path="res://content/modifiers/64/speed_p_colored.png" type="Texture" id=11]
+[ext_resource path="res://content/ui/spinner_thick.png" type="Texture" id=12]
+[ext_resource path="res://font/Roboto/Regular.ttf" type="DynamicFontData" id=13]
+[ext_resource path="res://font/UbuntuMono/Regular.ttf" type="DynamicFontData" id=14]
+[ext_resource path="res://font/Lato/Lato-Light.ttf" type="DynamicFontData" id=15]
+[ext_resource path="res://content/modifiers/64/speed_pp_colored.png" type="Texture" id=16]
+[ext_resource path="res://content/modifiers/64/speed_mm_colored.png" type="Texture" id=17]
+[ext_resource path="res://content/modifiers/64/replaying.png" type="Texture" id=18]
+[ext_resource path="res://content/sfx/hit.wav" type="AudioStream" id=19]
+[ext_resource path="res://content/modifiers/64/speed_ppp_colored.png" type="Texture" id=20]
+[ext_resource path="res://content/modifiers/64/speed_pppp_colored.png" type="Texture" id=21]
+[ext_resource path="res://content/modifiers/64/autoplayer.png" type="Texture" id=22]
+[ext_resource path="res://classes/cursordance/Cursor.gd" type="Script" id=23]
+[ext_resource path="res://classes/cursordance/Stop.gd" type="Script" id=24]
+[ext_resource path="res://CircularProgress2.gd" type="Script" id=25]
+[ext_resource path="res://game/PauseHud.gd" type="Script" id=26]
+[ext_resource path="res://classes/cursordance/Main.gd" type="Script" id=27]
+[ext_resource path="res://classes/cursordance/dancetest.gd" type="Script" id=28]
+[ext_resource path="res://game/HUD.gd" type="Script" id=29]
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.560784, 0.560784, 0.560784, 0.690196 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 48
+use_filter = true
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=7]
+size = 36
+use_filter = true
+font_data = ExtResource( 5 )
+
+[sub_resource type="StyleBoxFlat" id=84]
+bg_color = Color( 0, 0, 0, 0.45098 )
+corner_radius_top_left = 125
+corner_radius_top_right = 125
+corner_radius_bottom_right = 125
+corner_radius_bottom_left = 125
+
+[sub_resource type="StyleBoxFlat" id=8]
+bg_color = Color( 0.54902, 1, 0, 1 )
+
+[sub_resource type="DynamicFont" id=9]
+size = 36
+use_filter = true
+font_data = ExtResource( 5 )
+
+[sub_resource type="DynamicFont" id=10]
+size = 48
+use_filter = true
+font_data = ExtResource( 13 )
+
+[sub_resource type="Shader" id=52]
+code = "shader_type canvas_item;
+
+uniform float amount = 0.0;
+
+void fragment() {
+	vec2 uv = UV + vec2(TIME * -0.07);
+	float mult = ( 0.75 + (( 1.0 - amount ) * 0.25) + (amount * 0.25 * sin(length( uv*38.0) )) );
+	COLOR.rgb *= texture(TEXTURE,UV).rgb * mult;
+	COLOR.a *= texture(TEXTURE,UV).a;
+	
+}"
+
+[sub_resource type="ShaderMaterial" id=53]
+shader = SubResource( 52 )
+shader_param/amount = 0.0
+
+[sub_resource type="DynamicFont" id=51]
+size = 64
+use_filter = true
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=11]
+size = 96
+use_filter = true
+font_data = ExtResource( 15 )
+
+[sub_resource type="Shader" id=41]
+code = "shader_type canvas_item;
+
+uniform float value:hint_range(0.0,1.0) = 0.5;
+uniform vec4 fill_color:hint_color = vec4(1,1,1,1);
+uniform vec4 empty_color:hint_color = vec4(0.2,0.2,0.2,0.5);
+uniform float sml:hint_range(0.0,1.0) = 0.0;
+
+void fragment() {
+	vec4 col = texture(TEXTURE,UV);
+	vec2 p = (UV - vec2(0.5)) * 2.0;
+	float ang = -(degrees(atan(p.x,p.y)) - 180.0);
+	float pos = ang/360.0;
+	
+	float v = 0.5;
+	if (sml != 0.0) {
+		v = 1.0 - clamp((pos - (value + (sml * ((value*2.0)-1.0)))) / max(sml * 2.0,0.0001),0.0,1.0);
+	} else {
+		v = float(pos <= value);
+	}
+	vec4 final = mix(empty_color,fill_color,v);
+	COLOR = vec4(final.rgb,final.a*col.a);
+}"
+
+[sub_resource type="ShaderMaterial" id=42]
+shader = SubResource( 41 )
+shader_param/value = 0.5
+shader_param/fill_color = Color( 0.482353, 1, 0.952941, 1 )
+shader_param/empty_color = Color( 0.294118, 0.294118, 0.294118, 0.72549 )
+shader_param/sml = 0.0
+
+[sub_resource type="DynamicFont" id=13]
+size = 52
+use_filter = true
+font_data = ExtResource( 5 )
+
+[sub_resource type="DynamicFont" id=14]
+size = 72
+use_filter = true
+font_data = ExtResource( 15 )
+
+[sub_resource type="StyleBoxFlat" id=50]
+bg_color = Color( 0, 0, 0, 0.45098 )
+corner_radius_top_left = 125
+corner_radius_top_right = 125
+corner_radius_bottom_right = 125
+corner_radius_bottom_left = 125
+
+[sub_resource type="DynamicFont" id=77]
+size = 52
+use_filter = true
+font_data = ExtResource( 6 )
+
+[sub_resource type="StyleBoxFlat" id=15]
+bg_color = Color( 0.227451, 0.647059, 0.0823529, 1 )
+
+[sub_resource type="StyleBoxFlat" id=16]
+bg_color = Color( 0.580392, 0.129412, 0.129412, 0.686275 )
+
+[sub_resource type="DynamicFont" id=17]
+size = 72
+outline_color = Color( 0, 0, 0, 0.333333 )
+use_filter = true
+font_data = ExtResource( 5 )
+
+[sub_resource type="DynamicFont" id=75]
+size = 72
+outline_color = Color( 0.407843, 0.584314, 1, 1 )
+use_filter = true
+font_data = ExtResource( 5 )
+
+[sub_resource type="DynamicFont" id=43]
+size = 28
+outline_color = Color( 0, 0, 0, 0.333333 )
+use_filter = true
+extra_spacing_space = 3
+font_data = ExtResource( 5 )
+
+[sub_resource type="DynamicFont" id=18]
+size = 44
+use_filter = true
+font_data = ExtResource( 5 )
+
+[sub_resource type="DynamicFont" id=19]
+size = 28
+use_filter = true
+font_data = ExtResource( 5 )
+
+[sub_resource type="DynamicFont" id=20]
+size = 128
+use_filter = true
+font_data = ExtResource( 5 )
+
+[sub_resource type="StyleBoxFlat" id=78]
+bg_color = Color( 0, 0, 0, 1 )
+border_color = Color( 0.254902, 0.254902, 0.254902, 1 )
+
+[sub_resource type="DynamicFont" id=79]
+outline_color = Color( 0, 0, 0, 1 )
+use_filter = true
+font_data = ExtResource( 14 )
+
+[sub_resource type="DynamicFont" id=80]
+use_filter = true
+font_data = ExtResource( 14 )
+
+[sub_resource type="Theme" id=81]
+default_font = SubResource( 80 )
+
+[sub_resource type="GDScript" id=82]
+script/source = "extends Button
+
+func _pressed():
+	SSP.menu_target = \"res://menu2.tscn\"
+	get_tree().change_scene(\"res://menuload.tscn\")
+"
+
+[sub_resource type="ViewportTexture" id=21]
+flags = 4
+viewport_path = NodePath("TimerVP")
+
+[sub_resource type="ViewportTexture" id=22]
+flags = 20
+viewport_path = NodePath("LeftVP")
+
+[sub_resource type="ViewportTexture" id=23]
+flags = 4
+viewport_path = NodePath("GiveUpVP")
+
+[sub_resource type="ViewportTexture" id=24]
+flags = 4
+viewport_path = NodePath("PauseVP")
+
+[sub_resource type="ViewportTexture" id=25]
+flags = 4
+viewport_path = NodePath("RightVP")
+
+[sub_resource type="ViewportTexture" id=26]
+flags = 68
+viewport_path = NodePath("EnergyVP")
+
+[sub_resource type="ViewportTexture" id=27]
+flags = 4
+viewport_path = NodePath("ConfigVP")
+
+[sub_resource type="ViewportTexture" id=28]
+flags = 4
+viewport_path = NodePath("ComboVP")
+
+[sub_resource type="ViewportTexture" id=83]
+flags = 4
+viewport_path = NodePath("ApproachVP")
+
+[node name="HUD" type="Spatial"]
+pause_mode = 1
+script = ExtResource( 29 )
+
+[node name="TimerVP" type="Viewport" parent="."]
+size = Vector2( 900, 300 )
+transparent_bg = true
+msaa = 2
+debanding = true
+hdr = false
+usage = 0
+render_target_update_mode = 3
+
+[node name="Control" type="Control" parent="TimerVP"]
+margin_right = 900.0
+margin_bottom = 300.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Time" type="ProgressBar" parent="TimerVP/Control"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -400.0
+margin_top = -50.0
+margin_right = 400.0
+margin_bottom = -25.0
+custom_styles/fg = SubResource( 4 )
+custom_styles/bg = SubResource( 5 )
+max_value = 1.0
+step = 0.0
+value = 0.5
+percent_visible = false
+
+[node name="Label" type="Label" parent="TimerVP/Control" groups=["timer_text"]]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = -60.0
+custom_fonts/font = SubResource( 6 )
+text = "CLICK TO START"
+align = 1
+valign = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SongName" type="Label" parent="TimerVP/Control" groups=["timer_text"]]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = -125.0
+custom_fonts/font = SubResource( 7 )
+text = "Artist Name - Song Name"
+align = 1
+valign = 2
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LeftVP" type="Viewport" parent="."]
+size = Vector2( 300, 900 )
+transparent_bg = true
+msaa = 2
+hdr = false
+usage = 0
+render_target_update_mode = 3
+gui_snap_controls_to_pixels = false
+
+[node name="Control" type="ColorRect" parent="LeftVP" groups=["panel_bg"]]
+margin_right = 300.0
+margin_bottom = 900.0
+color = Color( 0, 0, 0, 0.607843 )
+
+[node name="SimpleBg" type="Panel" parent="LeftVP/Control" groups=["panel_bg"]]
+visible = false
+margin_left = 25.0
+margin_top = 225.0
+margin_right = 275.0
+margin_bottom = 475.0
+custom_styles/panel = SubResource( 84 )
+
+[node name="AccuracyBar" type="ProgressBar" parent="LeftVP/Control"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -1.18921
+margin_top = -50.0
+margin_right = -1.18921
+margin_bottom = -25.0
+custom_styles/fg = SubResource( 8 )
+custom_styles/bg = SubResource( 5 )
+max_value = 1.0
+step = 0.0
+value = 1.0
+percent_visible = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AccuracyTitle" type="Label" parent="LeftVP/Control" groups=["panel_text"]]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -231.908
+margin_bottom = -156.908
+custom_fonts/font = SubResource( 9 )
+text = "ACCURACY"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Accuracy" type="Label" parent="LeftVP/Control" groups=["panel_text"]]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -167.0
+margin_bottom = -92.0003
+custom_fonts/font = SubResource( 10 )
+text = "-"
+align = 1
+valign = 1
+
+[node name="LetterGrade" type="Label" parent="LeftVP/Control"]
+material = SubResource( 53 )
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -343.0
+margin_bottom = -265.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 51 )
+text = "--"
+align = 1
+valign = 1
+
+[node name="Combo" type="Control" parent="LeftVP/Control"]
+anchor_right = 1.0
+margin_left = 25.0
+margin_top = 25.0
+margin_right = -25.0
+margin_bottom = 275.0
+script = ExtResource( 25 )
+fill_color = Color( 0.482353, 1, 0.952941, 1 )
+empty_color = Color( 0.294118, 0.294118, 0.294118, 0.72549 )
+
+[node name="Label" type="Label" parent="LeftVP/Control/Combo" groups=["panel_text"]]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 11 )
+text = "1x"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Spin" type="TextureRect" parent="LeftVP/Control/Combo"]
+material = SubResource( 42 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource( 9 )
+expand = true
+stretch_mode = 6
+
+[node name="Pauses" type="Label" parent="LeftVP/Control" groups=["pause_text"]]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -552.0
+margin_bottom = -477.0
+custom_fonts/font = SubResource( 13 )
+text = "0"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PausesTitle" type="Label" parent="LeftVP/Control" groups=["pause_text"]]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -616.776
+margin_bottom = -541.776
+custom_fonts/font = SubResource( 9 )
+text = "PAUSES"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GiveUpVP" type="Viewport" parent="."]
+size = Vector2( 600, 600 )
+transparent_bg = true
+msaa = 2
+debanding = true
+hdr = false
+usage = 0
+render_target_update_mode = 3
+gui_snap_controls_to_pixels = false
+
+[node name="Control" type="Control" parent="GiveUpVP"]
+margin_right = 600.0
+margin_bottom = 600.0
+script = ExtResource( 25 )
+fill_color = Color( 1, 0.560784, 0.172549, 1 )
+empty_color = Color( 0.435294, 0.435294, 0.435294, 0 )
+
+[node name="Label" type="Label" parent="GiveUpVP/Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -300.0
+margin_top = -300.0
+margin_right = 300.0
+margin_bottom = 300.0
+custom_fonts/font = SubResource( 14 )
+text = "Giving up..."
+align = 1
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Spin" type="TextureRect" parent="GiveUpVP/Control"]
+material = SubResource( 42 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 50.0
+margin_top = 50.0
+margin_right = -50.0
+margin_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource( 12 )
+expand = true
+stretch_mode = 6
+
+[node name="RightVP" type="Viewport" parent="."]
+size = Vector2( 300, 900 )
+transparent_bg = true
+msaa = 2
+hdr = false
+usage = 0
+render_target_update_mode = 3
+gui_snap_controls_to_pixels = false
+
+[node name="Control" type="ColorRect" parent="RightVP" groups=["panel_bg"]]
+margin_right = 300.0
+margin_bottom = 900.0
+color = Color( 0, 0, 0, 0.607843 )
+
+[node name="SimpleBg" type="Panel" parent="RightVP/Control" groups=["panel_bg"]]
+visible = false
+margin_left = 25.0
+margin_top = 225.0
+margin_right = 275.0
+margin_bottom = 475.0
+custom_styles/panel = SubResource( 50 )
+
+[node name="Notes" type="Label" parent="RightVP/Control" groups=["panel_text"]]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -168.0
+margin_bottom = -93.0002
+custom_fonts/font = SubResource( 13 )
+text = "0/0"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NoteTitle" type="Label" parent="RightVP/Control" groups=["panel_text"]]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -232.0
+margin_bottom = -157.0
+custom_fonts/font = SubResource( 9 )
+text = "NOTES"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Misses" type="Label" parent="RightVP/Control" groups=["miss_text"]]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -552.0
+margin_bottom = -477.0
+custom_fonts/font = SubResource( 13 )
+text = "0"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MissesTitle" type="Label" parent="RightVP/Control" groups=["miss_text"]]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -617.0
+margin_bottom = -542.0
+custom_fonts/font = SubResource( 9 )
+text = "MISSES"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FPS" type="Label" parent="RightVP/Control" groups=["panel_text"]]
+visible = false
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -785.0
+margin_bottom = -710.0
+custom_fonts/font = SubResource( 13 )
+text = "0"
+align = 1
+valign = 1
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FPSTitle" type="Label" parent="RightVP/Control" groups=["panel_text"]]
+visible = false
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -850.0
+margin_bottom = -775.0
+custom_fonts/font = SubResource( 9 )
+text = "FPS"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Score" type="Label" parent="RightVP/Control" groups=["score_text"]]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -809.0
+margin_bottom = -734.0
+custom_fonts/font = SubResource( 77 )
+text = "0"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScoreTitle" type="Label" parent="RightVP/Control" groups=["score_text"]]
+visible = false
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -874.0
+margin_bottom = -799.0
+custom_fonts/font = SubResource( 9 )
+text = "SCORE"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EnergyVP" type="Viewport" parent="."]
+size = Vector2( 900, 300 )
+transparent_bg = true
+msaa = 2
+debanding = true
+hdr = false
+usage = 0
+render_target_update_mode = 3
+
+[node name="Control" type="Control" parent="EnergyVP"]
+margin_right = 900.0
+margin_bottom = 300.0
+
+[node name="Energy" type="ProgressBar" parent="EnergyVP/Control"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -400.0
+margin_top = 15.0
+margin_right = 400.0
+margin_bottom = 30.0
+custom_styles/fg = SubResource( 15 )
+custom_styles/bg = SubResource( 16 )
+max_value = 1.0
+step = 0.0
+value = 1.0
+percent_visible = false
+
+[node name="Modifiers" type="VBoxContainer" parent="EnergyVP/Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 50.0
+margin_top = 50.0
+margin_right = -50.0
+grow_horizontal = 2
+
+[node name="Icons" type="MarginContainer" parent="EnergyVP/Control/Modifiers"]
+margin_right = 800.0
+grow_horizontal = 2
+custom_constants/margin_right = 28
+custom_constants/margin_left = 28
+
+[node name="H" type="HBoxContainer" parent="EnergyVP/Control/Modifiers/Icons"]
+margin_left = 28.0
+margin_right = 772.0
+rect_min_size = Vector2( 744, 0 )
+custom_constants/separation = 6
+alignment = 1
+
+[node name="Replaying" type="TextureRect" parent="EnergyVP/Control/Modifiers/Icons/H"]
+visible = false
+margin_left = 60.0
+margin_right = 124.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+texture = ExtResource( 18 )
+stretch_mode = 1
+
+[node name="Autoplay" type="TextureRect" parent="EnergyVP/Control/Modifiers/Icons/H"]
+visible = false
+margin_left = 130.0
+margin_right = 194.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+texture = ExtResource( 22 )
+stretch_mode = 1
+
+[node name="SpeedMMM" type="TextureRect" parent="EnergyVP/Control/Modifiers/Icons/H"]
+visible = false
+margin_left = 200.0
+margin_right = 264.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+texture = ExtResource( 8 )
+stretch_mode = 1
+
+[node name="SpeedMM" type="TextureRect" parent="EnergyVP/Control/Modifiers/Icons/H"]
+visible = false
+margin_left = 270.0
+margin_right = 334.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+texture = ExtResource( 17 )
+stretch_mode = 1
+
+[node name="SpeedM" type="TextureRect" parent="EnergyVP/Control/Modifiers/Icons/H"]
+visible = false
+margin_left = 340.0
+margin_right = 404.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+texture = ExtResource( 10 )
+stretch_mode = 1
+
+[node name="SpeedP" type="TextureRect" parent="EnergyVP/Control/Modifiers/Icons/H"]
+visible = false
+margin_left = 410.0
+margin_right = 474.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+texture = ExtResource( 11 )
+stretch_mode = 1
+
+[node name="SpeedPP" type="TextureRect" parent="EnergyVP/Control/Modifiers/Icons/H"]
+visible = false
+margin_left = 480.0
+margin_right = 544.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+texture = ExtResource( 16 )
+stretch_mode = 1
+
+[node name="SpeedPPP" type="TextureRect" parent="EnergyVP/Control/Modifiers/Icons/H"]
+visible = false
+margin_left = 550.0
+margin_right = 614.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+texture = ExtResource( 20 )
+stretch_mode = 1
+
+[node name="SpeedPPPP" type="TextureRect" parent="EnergyVP/Control/Modifiers/Icons/H"]
+visible = false
+margin_left = 620.0
+margin_right = 684.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+texture = ExtResource( 21 )
+stretch_mode = 1
+
+[node name="Text" type="Label" parent="EnergyVP/Control/Modifiers"]
+margin_top = 4.0
+margin_right = 800.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 800, 0 )
+custom_colors/font_color = Color( 1, 0.929412, 0.658824, 1 )
+custom_fonts/font = SubResource( 7 )
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PauseVP" type="Viewport" parent="."]
+size = Vector2( 600, 600 )
+transparent_bg = true
+msaa = 2
+debanding = true
+hdr = false
+usage = 0
+render_target_update_mode = 3
+gui_snap_controls_to_pixels = false
+
+[node name="Control" type="Control" parent="PauseVP"]
+margin_right = 600.0
+margin_bottom = 600.0
+script = ExtResource( 26 )
+
+[node name="Paused" type="Label" parent="PauseVP/Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -300.0
+margin_top = -300.0
+margin_right = 300.0
+margin_bottom = 300.0
+custom_colors/font_color = Color( 0.407843, 1, 0, 1 )
+custom_fonts/font = SubResource( 17 )
+text = "PAUSED"
+align = 1
+valign = 1
+clip_text = true
+
+[node name="ProgressBar" type="Control" parent="PauseVP/Control"]
+margin_left = 160.0
+margin_top = 160.0
+margin_right = 160.0
+margin_bottom = 440.0
+grow_horizontal = 2
+rect_clip_content = true
+
+[node name="Paused" type="Label" parent="PauseVP/Control/ProgressBar"]
+margin_right = 280.0
+margin_bottom = 280.0
+grow_horizontal = 2
+custom_colors/font_color = Color( 0.501961, 1, 0.952941, 1 )
+custom_fonts/font = SubResource( 75 )
+text = "PAUSED"
+align = 1
+valign = 1
+
+[node name="HoldR" type="Label" parent="PauseVP/Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -300.0
+margin_top = 40.0
+margin_right = 300.0
+margin_bottom = 300.0
+custom_colors/font_color = Color( 1, 0.858824, 0, 1 )
+custom_fonts/font = SubResource( 43 )
+text = "HOLD R TO EXIT"
+align = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ConfigVP" type="Viewport" parent="."]
+size = Vector2( 600, 600 )
+transparent_bg = true
+msaa = 1
+fxaa = true
+hdr = false
+usage = 0
+render_target_update_mode = 3
+gui_snap_controls_to_pixels = false
+
+[node name="Control" type="ColorRect" parent="ConfigVP"]
+margin_right = 600.0
+margin_bottom = 600.0
+color = Color( 0, 0, 0, 0.831373 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HitWindow" type="Label" parent="ConfigVP/Control"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 30.0
+margin_top = -525.0
+margin_right = -315.0
+margin_bottom = -460.0
+custom_fonts/font = SubResource( 18 )
+text = "35 ms"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="ConfigVP/Control/HitWindow"]
+anchor_right = 1.0
+margin_top = -40.0
+custom_fonts/font = SubResource( 19 )
+text = "HIT WINDOW"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Approach" type="Label" parent="ConfigVP/Control"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 315.0
+margin_top = -525.0
+margin_right = -30.0
+margin_bottom = -460.0
+custom_fonts/font = SubResource( 18 )
+text = "50"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="ConfigVP/Control/Approach"]
+anchor_right = 1.0
+margin_top = -40.0
+custom_fonts/font = SubResource( 19 )
+text = "APPROACH RATE"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Camera" type="Label" parent="ConfigVP/Control"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 30.0
+margin_top = -400.0
+margin_right = -315.0
+margin_bottom = -335.0
+custom_fonts/font = SubResource( 18 )
+text = "LOCK"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="ConfigVP/Control/Camera"]
+anchor_right = 1.0
+margin_top = -40.0
+custom_fonts/font = SubResource( 19 )
+text = "CAMERA TYPE"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Parallax" type="Label" parent="ConfigVP/Control"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 315.0
+margin_top = -400.0
+margin_right = -30.0
+margin_bottom = -335.0
+custom_fonts/font = SubResource( 18 )
+text = "1.00"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="ConfigVP/Control/Parallax"]
+anchor_right = 1.0
+margin_top = -40.0
+custom_fonts/font = SubResource( 19 )
+text = "PARALLAX"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EdgeBuffer" type="Label" parent="ConfigVP/Control"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 30.0
+margin_top = -275.0
+margin_right = -315.0
+margin_bottom = -210.0
+custom_fonts/font = SubResource( 18 )
+text = "NO"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="ConfigVP/Control/EdgeBuffer"]
+anchor_right = 1.0
+margin_top = -40.0
+custom_fonts/font = SubResource( 19 )
+text = "EDGE BUFFER"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Hitbox" type="Label" parent="ConfigVP/Control"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 30.0
+margin_top = -150.0
+margin_right = -315.0
+margin_bottom = -85.0
+custom_fonts/font = SubResource( 18 )
+text = "1.27 (+0)"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="ConfigVP/Control/Hitbox"]
+anchor_right = 1.0
+margin_top = -40.0
+custom_fonts/font = SubResource( 19 )
+text = "HITBOX SIZE"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sensitivity" type="Label" parent="ConfigVP/Control"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 315.0
+margin_top = -275.0
+margin_right = -30.0
+margin_bottom = -210.0
+custom_fonts/font = SubResource( 18 )
+text = "1.00"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="ConfigVP/Control/Sensitivity"]
+anchor_right = 1.0
+margin_top = -40.0
+custom_fonts/font = SubResource( 19 )
+text = "SENSITIVITY"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ComboVP" type="Viewport" parent="."]
+size = Vector2( 600, 600 )
+transparent_bg = true
+msaa = 1
+fxaa = true
+hdr = false
+usage = 0
+render_target_update_mode = 3
+gui_snap_controls_to_pixels = false
+
+[node name="Value" type="Label" parent="ComboVP"]
+visible = false
+anchor_top = 0.25
+anchor_right = 1.0
+anchor_bottom = 0.25
+margin_bottom = 236.0
+grow_horizontal = 2
+grow_vertical = 0
+custom_colors/font_color = Color( 1, 1, 1, 0.196078 )
+custom_fonts/font = SubResource( 20 )
+text = "0"
+align = 1
+valign = 1
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ApproachVP" type="Viewport" parent="."]
+size = Vector2( 300, 300 )
+transparent_bg = true
+msaa = 1
+fxaa = true
+hdr = false
+usage = 0
+render_target_update_mode = 3
+gui_snap_controls_to_pixels = false
+
+[node name="Control" type="ColorRect" parent="ApproachVP"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0 )
+script = ExtResource( 28 )
+
+[node name="Main" type="Panel" parent="ApproachVP/Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -150.0
+margin_top = -150.0
+margin_right = 150.0
+margin_bottom = 150.0
+custom_styles/panel = SubResource( 78 )
+script = ExtResource( 27 )
+
+[node name="Control" type="Control" parent="ApproachVP/Control/Main"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+
+[node name="Cursor" type="Node2D" parent="ApproachVP/Control/Main/Control"]
+visible = false
+script = ExtResource( 23 )
+font = ExtResource( 4 )
+
+[node name="TextureRect" type="TextureRect" parent="ApproachVP/Control/Main/Control/Cursor"]
+margin_left = -16.0
+margin_top = -16.0
+margin_right = 16.0
+margin_bottom = 16.0
+texture = ExtResource( 7 )
+expand = true
+stretch_mode = 1
+
+[node name="Music" type="AudioStreamPlayer" parent="ApproachVP/Control/Main"]
+volume_db = -80.0
+
+[node name="Hit" type="AudioStreamPlayer" parent="ApproachVP/Control/Main"]
+stream = ExtResource( 19 )
+volume_db = -80.0
+
+[node name="Time" type="HSlider" parent="ApproachVP/Control"]
+visible = false
+anchor_right = 1.0
+margin_left = 10.0
+margin_top = 61.0
+margin_right = -10.0
+margin_bottom = 77.0
+min_value = -1000.0
+page = 15.0
+value = -1000.0
+editable = false
+
+[node name="Label" type="Label" parent="ApproachVP/Control"]
+visible = false
+margin_left = 24.0
+margin_top = 85.0
+margin_right = 184.0
+margin_bottom = 102.0
+custom_fonts/font = SubResource( 79 )
+text = "debug text goes here"
+
+[node name="Buttons" type="HBoxContainer" parent="ApproachVP/Control"]
+visible = false
+anchor_right = 1.0
+margin_left = 10.0
+margin_top = 10.0
+margin_right = -10.0
+margin_bottom = 55.0
+theme = SubResource( 81 )
+
+[node name="StartStop" type="PanelContainer" parent="ApproachVP/Control/Buttons"]
+margin_right = 114.0
+margin_bottom = 45.0
+
+[node name="H" type="HBoxContainer" parent="ApproachVP/Control/Buttons/StartStop"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 107.0
+margin_bottom = 38.0
+
+[node name="Start" type="Button" parent="ApproachVP/Control/Buttons/StartStop/H"]
+margin_right = 52.0
+margin_bottom = 31.0
+text = "start"
+
+[node name="Stop" type="Button" parent="ApproachVP/Control/Buttons/StartStop/H"]
+margin_left = 56.0
+margin_right = 100.0
+margin_bottom = 31.0
+disabled = true
+text = "stop"
+
+[node name="Seek" type="PanelContainer" parent="ApproachVP/Control/Buttons"]
+margin_left = 118.0
+margin_right = 286.0
+margin_bottom = 45.0
+rect_min_size = Vector2( 0, 45 )
+
+[node name="H" type="HBoxContainer" parent="ApproachVP/Control/Buttons/Seek"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 161.0
+margin_bottom = 38.0
+
+[node name="Seek" type="Button" parent="ApproachVP/Control/Buttons/Seek/H"]
+margin_right = 44.0
+margin_bottom = 31.0
+text = "seek"
+
+[node name="LineEdit" type="LineEdit" parent="ApproachVP/Control/Buttons/Seek/H"]
+margin_left = 48.0
+margin_right = 154.0
+margin_bottom = 31.0
+rect_min_size = Vector2( 96, 0 )
+expand_to_text_length = true
+placeholder_text = "position ms"
+
+[node name="Current" type="PanelContainer" parent="ApproachVP/Control/Buttons"]
+margin_left = 290.0
+margin_right = 474.0
+margin_bottom = 45.0
+
+[node name="M" type="MarginContainer" parent="ApproachVP/Control/Buttons/Current"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 177.0
+margin_bottom = 38.0
+custom_constants/margin_right = 5
+custom_constants/margin_left = 5
+
+[node name="L" type="Label" parent="ApproachVP/Control/Buttons/Current/M"]
+margin_left = 5.0
+margin_top = 7.0
+margin_right = 165.0
+margin_bottom = 24.0
+text = "0:00 / 0:00  (0 / 0)"
+valign = 1
+
+[node name="Exit" type="PanelContainer" parent="ApproachVP/Control/Buttons"]
+margin_left = 478.0
+margin_right = 584.0
+margin_bottom = 45.0
+
+[node name="H" type="HBoxContainer" parent="ApproachVP/Control/Buttons/Exit"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 99.0
+margin_bottom = 38.0
+
+[node name="Menu" type="Button" parent="ApproachVP/Control/Buttons/Exit/H"]
+margin_right = 44.0
+margin_bottom = 31.0
+text = "Menu"
+script = SubResource( 82 )
+
+[node name="Stop" type="Button" parent="ApproachVP/Control/Buttons/Exit/H"]
+margin_left = 48.0
+margin_right = 92.0
+margin_bottom = 31.0
+text = "Quit"
+script = ExtResource( 24 )
+
+[node name="TimerHud" type="Sprite3D" parent="."]
+transform = Transform( -1, 2.9595e-08, -1.50892e-07, -1.50597e-07, -0.386727, 0.922195, -3.10616e-08, 0.922195, 0.386727, -3.7723e-08, 1.97899, 0.208945 )
+cast_shadow = 0
+flip_h = true
+pixel_size = 0.0033
+axis = 1
+double_sided = false
+render_priority = 102
+texture = SubResource( 21 )
+
+[node name="LeftHud" type="Sprite3D" parent="."]
+transform = Transform( -0.996195, 0.0871559, 3.8097e-09, 0, -4.37114e-08, 1, 0.0871559, 0.996195, 4.35451e-08, -1.95702, 2.18557e-08, 0.280393 )
+cast_shadow = 0
+flip_h = true
+pixel_size = 0.0033
+axis = 1
+double_sided = false
+render_priority = 101
+texture = SubResource( 22 )
+
+[node name="GiveUpHud" type="Sprite3D" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2.23827e-08, 0.512057 )
+visible = false
+cast_shadow = 0
+pixel_size = 0.0033
+axis = 1
+no_depth_test = true
+render_priority = 105
+texture = SubResource( 23 )
+
+[node name="PauseHud" type="Sprite3D" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.89666e-08, 0.433905 )
+visible = false
+cast_shadow = 0
+pixel_size = 0.0044
+axis = 1
+no_depth_test = true
+render_priority = 104
+texture = SubResource( 24 )
+
+[node name="RightHud" type="Sprite3D" parent="."]
+transform = Transform( -0.996195, -0.0871557, -3.80969e-09, 0, -4.37114e-08, 1, -0.0871557, 0.996195, 4.35451e-08, 1.957, 0, 0.28 )
+cast_shadow = 0
+flip_h = true
+pixel_size = 0.0033
+axis = 1
+double_sided = false
+render_priority = 101
+texture = SubResource( 25 )
+
+[node name="EnergyHud" type="Sprite3D" parent="."]
+transform = Transform( -1, 6.50888e-09, 3.31011e-08, 3.31011e-08, 0.378633, 0.925547, -6.5089e-09, 0.925547, -0.378633, 0, -2.02147, 0.148402 )
+cast_shadow = 0
+flip_h = true
+pixel_size = 0.0033
+axis = 1
+double_sided = false
+render_priority = 102
+texture = SubResource( 26 )
+
+[node name="ConfigHud" type="Sprite3D" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2.35546e-08, 0.538867 )
+visible = false
+cast_shadow = 0
+pixel_size = 0.0033
+axis = 1
+no_depth_test = true
+render_priority = 103
+texture = SubResource( 27 )
+
+[node name="ComboHud" type="Sprite3D" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1, -0.461133 )
+cast_shadow = 0
+pixel_size = 0.0033
+axis = 1
+no_depth_test = true
+render_priority = 100
+texture = SubResource( 28 )
+
+[node name="ApproachHud" type="Sprite3D" parent="."]
+transform = Transform( 1, 0, 4.37114e-08, -4.37114e-08, 1.91069e-15, 1, 0, -1, 1.91069e-15, 0.00100005, 0, -0.006 )
+visible = false
+axis = 1
+texture = SubResource( 83 )

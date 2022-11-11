@@ -19,6 +19,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://classes/BackgroundWorld.gd"
 }, {
+"base": "DanceMover",
+"class": "BouncyDanceMover",
+"language": "GDScript",
+"path": "res://classes/cursordance/Bouncy.gd"
+}, {
 "base": "Resource",
 "class": "ChatMessage",
 "language": "GDScript",
@@ -34,7 +39,17 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://classes/ConfirmationPrompt2D.gd"
 }, {
-"base": "",
+"base": "Resource",
+"class": "DanceMover",
+"language": "GDScript",
+"path": "res://classes/cursordance/DanceMover.gd"
+}, {
+"base": "DanceMover",
+"class": "DirectionalDanceMover",
+"language": "GDScript",
+"path": "res://classes/cursordance/Directional.gd"
+}, {
+"base": "Reference",
 "class": "DiscordActivity",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_activity.gdns"
@@ -44,7 +59,7 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_activity_assets.gdns"
 }, {
-"base": "",
+"base": "Reference",
 "class": "DiscordActivityManager",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_activity_manager.gdns"
@@ -54,12 +69,12 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_activity_party.gdns"
 }, {
-"base": "",
+"base": "Reference",
 "class": "DiscordActivitySecrets",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_activity_secrets.gdns"
 }, {
-"base": "",
+"base": "Reference",
 "class": "DiscordActivityTimestamps",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_activity_timestamps.gdns"
@@ -69,7 +84,7 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_core.gdns"
 }, {
-"base": "",
+"base": "Reference",
 "class": "DiscordLobby",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_lobby.gdns"
@@ -79,7 +94,7 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_lobby_manager.gdns"
 }, {
-"base": "",
+"base": "Reference",
 "class": "DiscordLobbyTransaction",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_lobby_transaction.gdns"
@@ -89,60 +104,30 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_overlay_manager.gdns"
 }, {
-"base": "",
+"base": "Reference",
 "class": "DiscordPartySize",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_party_size.gdns"
-}, {
-"base": "Node",
-"class": "DiscordRPC",
-"language": "GDScript",
-"path": "res://addons/godot_editor_discord_presence/Discord RPC/DiscordRPC.gd"
-}, {
-"base": "Reference",
-"class": "DiscordRPCEnum",
-"language": "GDScript",
-"path": "res://addons/godot_editor_discord_presence/Discord RPC/DiscordRPCEnum.gd"
 }, {
 "base": "Reference",
 "class": "DiscordResult",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_result.gdns"
 }, {
-"base": "",
+"base": "Reference",
 "class": "DiscordUser",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_user.gdns"
+}, {
+"base": "ColorRect",
+"class": "FileSelector2D",
+"language": "GDScript",
+"path": "res://classes/FileSelector.gd"
 }, {
 "base": "Resource",
 "class": "GameState",
 "language": "GDScript",
 "path": "res://addons/discord_game_sdk/example/lobby/game_state.gd"
-}, {
-"base": "Reference",
-"class": "IPC",
-"language": "GDScript",
-"path": "res://addons/godot_editor_discord_presence/Discord RPC/ipc/IPC.gd"
-}, {
-"base": "Reference",
-"class": "IPCModule",
-"language": "GDScript",
-"path": "res://addons/godot_editor_discord_presence/Discord RPC/ipc/module/IPCModule.gd"
-}, {
-"base": "Reference",
-"class": "IPCPayload",
-"language": "GDScript",
-"path": "res://addons/godot_editor_discord_presence/Discord RPC/ipc/IPCPayload.gd"
-}, {
-"base": "Reference",
-"class": "IPCPipe",
-"language": "GDScript",
-"path": "res://addons/godot_editor_discord_presence/Discord RPC/ipc/pipe/IPCPipe.gd"
-}, {
-"base": "Reference",
-"class": "IPCUtil",
-"language": "GDScript",
-"path": "res://addons/godot_editor_discord_presence/Discord RPC/util/IPCUtil.gd"
 }, {
 "base": "Node",
 "class": "ImageLoader",
@@ -154,6 +139,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/discord_game_sdk/example/lobby/member.gd"
 }, {
+"base": "DanceMover",
+"class": "MomentumDanceMover",
+"language": "GDScript",
+"path": "res://classes/cursordance/Momentum.gd"
+}, {
 "base": "Spatial",
 "class": "Note",
 "language": "GDScript",
@@ -163,6 +153,11 @@ _global_script_classes=[ {
 "class": "NoteEffect",
 "language": "GDScript",
 "path": "res://classes/NoteEffect.gd"
+}, {
+"base": "Spatial",
+"class": "NoteManager",
+"language": "GDScript",
+"path": "res://game/NoteManager.gd"
 }, {
 "base": "Resource",
 "class": "NoteMesh",
@@ -189,67 +184,35 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://classes/Replay.gd"
 }, {
-"base": "Reference",
-"class": "RichPresence",
+"base": "DanceMover",
+"class": "SimpleDanceMover",
 "language": "GDScript",
-"path": "res://addons/godot_editor_discord_presence/Discord RPC/ipc/module/rich presence/RichPresence.gd"
-}, {
-"base": "Reference",
-"class": "RichPresenceButton",
-"language": "GDScript",
-"path": "res://addons/godot_editor_discord_presence/Discord RPC/ipc/module/rich presence/RichPresenceButton.gd"
-}, {
-"base": "IPCModule",
-"class": "RichPresenceModule",
-"language": "GDScript",
-"path": "res://addons/godot_editor_discord_presence/Discord RPC/ipc/module/rich presence/RichPresenceModule.gd"
+"path": "res://classes/cursordance/Simple.gd"
 }, {
 "base": "Resource",
 "class": "Song",
 "language": "GDScript",
 "path": "res://classes/Song.gd"
 }, {
-"base": "",
-"class": "StreamPeerUnix",
-"language": "NativeScript",
-"path": "res://addons/godot_editor_discord_presence/godot-unix-socket/unix-socket.gdns"
-}, {
-"base": "Reference",
-"class": "URLUtil",
+"base": "Spatial",
+"class": "SongPlayerManager",
 "language": "GDScript",
-"path": "res://addons/godot_editor_discord_presence/Discord RPC/util/URLUtil.gd"
-}, {
-"base": "Reference",
-"class": "UUID",
-"language": "GDScript",
-"path": "res://addons/godot_editor_discord_presence/Discord RPC/util/UUID.gd"
-}, {
-"base": "IPCPipe",
-"class": "UnixPipe",
-"language": "GDScript",
-"path": "res://addons/godot_editor_discord_presence/Discord RPC/ipc/pipe/UnixPipe.gd"
-}, {
-"base": "IPCPayload",
-"class": "UpdateRichPresencePayload",
-"language": "GDScript",
-"path": "res://addons/godot_editor_discord_presence/Discord RPC/ipc/module/rich presence/UpdateRichPresencePayload.gd"
+"path": "res://game/Game.gd"
 }, {
 "base": "Spatial",
 "class": "VRPlayer",
 "language": "GDScript",
 "path": "res://vr/VRPlayer.gd"
-}, {
-"base": "IPCPipe",
-"class": "WindowsPipe",
-"language": "GDScript",
-"path": "res://addons/godot_editor_discord_presence/Discord RPC/ipc/pipe/WindowsPipe.gd"
 } ]
 _global_script_class_icons={
 "AudioLoader": "",
 "BackgroundWorld": "",
+"BouncyDanceMover": "",
 "ChatMessage": "",
 "ColorSet": "",
 "ConfirmationPrompt2D": "",
+"DanceMover": "",
+"DirectionalDanceMover": "",
 "DiscordActivity": "",
 "DiscordActivityAssets": "",
 "DiscordActivityManager": "",
@@ -262,36 +225,25 @@ _global_script_class_icons={
 "DiscordLobbyTransaction": "",
 "DiscordOverlayManager": "",
 "DiscordPartySize": "",
-"DiscordRPC": "",
-"DiscordRPCEnum": "",
 "DiscordResult": "",
 "DiscordUser": "",
+"FileSelector2D": "",
 "GameState": "",
-"IPC": "",
-"IPCModule": "",
-"IPCPayload": "",
-"IPCPipe": "",
-"IPCUtil": "",
 "ImageLoader": "",
 "Member": "",
+"MomentumDanceMover": "",
 "Note": "",
 "NoteEffect": "",
+"NoteManager": "",
 "NoteMesh": "",
 "Notify2D": "",
 "ObjParse": "",
 "Registry": "",
 "Replay": "",
-"RichPresence": "",
-"RichPresenceButton": "",
-"RichPresenceModule": "",
+"SimpleDanceMover": "",
 "Song": "",
-"StreamPeerUnix": "",
-"URLUtil": "",
-"UUID": "",
-"UnixPipe": "",
-"UpdateRichPresencePayload": "",
-"VRPlayer": "",
-"WindowsPipe": ""
+"SongPlayerManager": "",
+"VRPlayer": ""
 }
 
 [application]
@@ -304,10 +256,10 @@ run/delta_sync_after_draw=true
 boot_splash/image="res://splash.png"
 boot_splash/fullsize=false
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
-config/icon="res://icon.png"
+config/icon="res://icon.svg"
 config/windows_native_icon="res://icon.ico"
 config/quit_on_go_back=false
-config/version="0.9.3-stable"
+config/version="0.12.6-stable"
 config/autoload_map_registries="test maps|res://test_assets/test_maps.sspmr;built in|res://content/songs/built_in_maps.sspmr"
 config/enable_new_content_mgr=true
 config/default_menu_target="res://menu2.tscn"
@@ -322,14 +274,23 @@ config/use_custom_user_dir.Android=false
 config/discord_rpc=true
 config/discord_rpc.OSX=false
 config/save_dir="user://"
-config/save_dir.Android="/sdcard/Android/data/net.chedski.soundspaceplus/"
+config/save_dir.Android="user://"
 config/fov=70.0
-config/enable_new_content_mgr.mobile=false
+config/enable_new_content_mgr.mobile=true
 config/discord_rpc.mobile=false
 config/replays=true
 config/replays.editor=true
 config/show_trail_debug=false
 config/project_settings_override.standalone="user://override.cfg"
+networking/enabled=true
+networking/mapdb_api="https://chedski.net/ssp/mapdb/api/"
+networking/test_url="http://example.com/"
+config/discord_rpc.HTML5=false
+config/enable_new_content_mgr.HTML5=false
+config/disable_native_file_dialogs=false
+config/disable_native_file_dialogs.Android=true
+config/disable_native_file_dialogs.web=true
+config/disable_native_file_dialogs.OSX=true
 
 [audio]
 
@@ -339,13 +300,16 @@ channel_disable_time=15.0
 [autoload]
 
 Globals="*res://classes/Globals.gd"
+Online="*res://classes/Online.gd"
 SSP="*res://classes/SoundSpacePlus.gd"
 RQueue="*res://classes/ResourceQueue.gd"
 Discord="*res://addons/discord_game_sdk/discord.gd"
+Dance="*res://classes/Dance.gd"
 
 [debug]
 
 gdscript/warnings/unused_argument=false
+gdscript/warnings/narrowing_conversion=false
 gdscript/warnings/unused_signal=false
 gdscript/warnings/return_value_discarded=false
 
@@ -365,7 +329,7 @@ window/stretch/aspect.mobile="keep_height"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/discord_game_sdk/plugin.cfg", "res://addons/godot_editor_discord_presence/plugin.cfg", "res://addons/native_dialogs/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/discord_game_sdk/plugin.cfg", "res://addons/native_dialogs/plugin.cfg" )
 
 [gdnative]
 
@@ -462,6 +426,16 @@ console={
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":true,"control":false,"meta":false,"command":false,"pressed":false,"scancode":92,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]
 }
+fps={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777246,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+skip_convert={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":true,"meta":false,"command":true,"pressed":false,"scancode":77,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
 
 [logging]
 
@@ -473,6 +447,9 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
+quality/driver/fallback_to_gles2=true
+threads/thread_model=2
+vram_compression/import_etc=true
 quality/directional_shadow/size=1024
 quality/directional_shadow/size.mobile=512
 quality/shadow_atlas/size=2048

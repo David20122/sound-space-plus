@@ -30,8 +30,10 @@ onready var difficulty_btns:Array = [
 func update(_s=null):
 	if !SSP.selected_song: return
 	var map:Song = SSP.selected_song
+	$Deleted.visible = (map.id == "!DELETED")
 	$EndInfo.visible = true
-	$Actions.visible = true
+	$Info/M/V/Buttons/Control/Actions.visible = true
+#	$Actions.visible = true
 	$Info/M/V/Id/L.text = map.id
 	$Info/M/V/Name/L.text = map.name
 	$Info/M/V/Mapper/L.text = map.creator
@@ -75,21 +77,36 @@ func update(_s=null):
 	else: $Info/M/V/Warning.visible = false
 	$Info/M/V/Run/Run.disabled = false
 	$Info/M/V/Buttons/Control/Favorite.disabled = false
+	$Info/M/V/Buttons/Control/Actions.disabled = false
 	$Info/M/V/Buttons/Control/PreviewMusic.disabled = false
 	
 	$Actions/Convert.disabled = (
 		$Actions/Convert.debounce or
-		SSP.selected_song.converted or
 		SSP.selected_song.is_broken or
 		SSP.selected_song.is_builtin or
-		SSP.selected_song.songType == Globals.MAP_SSPM
+		SSP.selected_song.converted or
+		SSP.selected_song.songType == Globals.MAP_SSPM2 or
+		SSP.selected_song.is_online
 	)
-	if !SSP.selected_song.is_builtin and SSP.selected_song.songType == Globals.MAP_SSPM:
-		$Actions/Convert.visible = false
-		$Actions/Difficulty.visible = true
+	
+	$Actions/Convert.visible = (
+		!SSP.selected_song.is_builtin and
+		!SSP.selected_song.is_online and
+		SSP.selected_song.songType != Globals.MAP_SSPM2
+	)
+	
+	$Actions/Difficulty.visible = (
+		!SSP.selected_song.is_builtin and
+		!SSP.selected_song.is_online and (
+			SSP.selected_song.songType == Globals.MAP_SSPM or
+			SSP.selected_song.songType == Globals.MAP_SSPM2
+		)
+	)
+	
+	if SSP.selected_song.songType == Globals.MAP_SSPM:
+		$Actions/Convert.text = "Upgrade map to SSPM v2"
 	else:
-		$Actions/Convert.visible = true
-		$Actions/Difficulty.visible = false
+		$Actions/Convert.text = "Convert map to .sspm"
 	
 	# give the containers time to update
 	if is_inside_tree():
@@ -113,7 +130,7 @@ func _ready():
 	if SSP.selected_song: update()
 	else:
 		$EndInfo.visible = false
-		$Actions.visible = false
 		$Info/M/V/Run/Run.disabled = true
 		$Info/M/V/Buttons/Control/Favorite.disabled = true
+		$Info/M/V/Buttons/Control/Actions.disabled = true
 		$Info/M/V/Buttons/Control/PreviewMusic.disabled = true

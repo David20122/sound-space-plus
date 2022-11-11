@@ -156,7 +156,6 @@ draw_pass_1 = ExtResource( 8 )
 [node name="RainbowRoad" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, -1.06581e-14, 0, 1, 0, 1.06581e-14, 0, 1, 0, -1.7, 0 )
 mesh = SubResource( 15 )
-material/0 = null
 script = ExtResource( 4 )
 
 [node name="Vignette" type="TextureRect" parent="RainbowRoad"]
@@ -175,4 +174,3 @@ light_energy = 0.1
 [node name="MeshInstance" type="MeshInstance" parent="."]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.09279e-08, -1.69, 1.25 )
 mesh = SubResource( 18 )
-material/0 = null

@@ -23,7 +23,7 @@ func _ready():
 		var color_count = set.real_colors.size()
 		var sel = btn.get_node("Select")
 		btn.get_node("Mirror").visible = set.mirror
-		sel.hint_tooltip = set.name
+		sel.hint_tooltip = set.name + "\nby " + set.creator
 		
 		var color_grid = btn.get_node("Colors")
 		var col_template = btn.get_node("Colors/T")

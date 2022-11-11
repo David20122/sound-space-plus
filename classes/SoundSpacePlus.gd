@@ -14,6 +14,9 @@ signal map_list_ready
 signal volume_changed
 signal favorite_songs_changed
 signal menu_music_state_changed
+signal download_start
+signal download_done
+
 
 # Directories
 var user_pack_dir:String = Globals.p("user://packs")
@@ -22,6 +25,7 @@ var user_vmap_dir:String = Globals.p("user://vmaps")
 var user_map_dir:String = Globals.p("user://maps")
 var user_best_dir:String = Globals.p("user://bests")
 var user_colorset_dir:String = Globals.p("user://colorsets")
+var user_friend_dir:String = Globals.p("user://friend")
 
 # Installed content info
 var installed_dlc:Array = ["ssp_basegame"]
@@ -51,9 +55,6 @@ func select_world(world:BackgroundWorld):
 	if world:
 		selected_space = world
 		emit_signal("selected_space_changed",world)
-func select_song(song:Song):
-	selected_song = song
-	emit_signal("selected_song_changed",song)
 func select_mesh(mesh:NoteMesh):
 	selected_mesh = mesh
 	emit_signal("selected_mesh_changed",mesh)
@@ -65,6 +66,43 @@ func select_miss_effect(effect:NoteEffect):
 	if effect:
 		selected_miss_effect = effect
 		emit_signal("selected_miss_effect_changed",effect)
+func select_song(song:Song):
+	if song.is_online:
+		emit_signal("download_start")
+		get_tree().paused = true
+		
+		print("[Online Map] Starting download")
+		var id:String = Online.download_map(song)
+		
+		print("[Online Map] Waiting for download to finish")
+		var result:Dictionary = yield(Online,"map_downloaded")
+		while result.id != id:
+			print("[Online Map] Wrong download: %s != %s" % [result.id, id])
+			result = yield(Online,"map_downloaded")
+		print("[Online Map] Download finished")
+		
+		get_tree().paused = false
+		if result.success:
+			emit_signal("download_done")
+			selected_song = song
+			emit_signal("selected_song_changed",song)
+		elif result.error == "010-100":
+			emit_signal("download_done")
+		else:
+			Globals.confirm_prompt.s_alert.play()
+			Globals.confirm_prompt.open(
+				"Failed to download map.\nError code: %s" % result.error,
+				"Error",
+				[{text="OK"}]
+			)
+			yield(Globals.confirm_prompt,"option_selected")
+			Globals.confirm_prompt.s_back.play()
+			Globals.confirm_prompt.close()
+			yield(Globals.confirm_prompt,"done_closing")
+			emit_signal("download_done")
+	else:
+		selected_song = song
+		emit_signal("selected_song_changed",song)
 
 
 # Song ending state data
@@ -95,12 +133,15 @@ var errornum:int = 0 # Used by settings file errors
 var errorstr:String = "" # Used by loading errors (ie. errors/songload and errors/menuload)
 var first_init_done = false # Don't reload mods as that can cause problems
 var loaded_world = null # Holds the bg world for transit between songload and song player
+var was_map_screen_centered:bool = false
 var menu_target:String = ProjectSettings.get_setting("application/config/default_menu_target")
 
 # Song list position/search persistence
 var was_auto_play_switch:bool = true
 var last_search_str:String = ""
+var last_author_search_str:String = ""
 var last_search_incl_broken:bool = false
+var last_search_incl_online:bool = true
 var last_search_flip_sort:bool = false
 var last_search_flip_name_sort:bool = false
 var last_page_num:int = 0
@@ -209,6 +250,10 @@ func start_vr():
 		ev.button_index = JOY_VR_TRIGGER
 		InputMap.action_add_event("pause",ev)
 		
+		ev = InputEventJoypadButton.new()
+		ev.button_index = JOY_OCULUS_BY
+		InputMap.action_add_event("pause",ev)
+		
 		ev = InputEventJoypadMotion.new()
 		ev.axis = JOY_VR_ANALOG_TRIGGER
 		InputMap.action_add_event("pause",ev)
@@ -216,6 +261,10 @@ func start_vr():
 		# Click binds
 		ev = InputEventJoypadButton.new()
 		ev.button_index = JOY_VR_TRIGGER
+		InputMap.action_add_event("vr_click",ev)
+		
+		ev = InputEventJoypadButton.new()
+		ev.button_index = JOY_OCULUS_AX
 		InputMap.action_add_event("vr_click",ev)
 		
 		ev = InputEventJoypadMotion.new()
@@ -268,10 +317,18 @@ func get_next():
 
 # Engine node functions + debug command line
 func _ready():
-	fail_asp.volume_db = -10
+	fail_asp.bus = "OtherSound"
 	call_deferred("add_child",fail_asp)
 	pause_mode = PAUSE_MODE_PROCESS
 	Globals.connect("console_sent",self,"_console")
+	
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear2db(0.5))
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), linear2db(0.5))
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("HitSound"), linear2db(0.3))
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("MissSound"), linear2db(0.6))
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("FailSound"), linear2db(0.6))
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("PBSound"), linear2db(0.6))
+
 func _process(delta):
 	# Rainbow sync
 	rainbow_t = fmod(rainbow_t + (delta*0.5),10)
@@ -281,6 +338,7 @@ func _process(delta):
 
 # Debug
 var desync_alerts:bool = false
+var disable_desync:bool = false
 func _console(cmd:String,args:String):
 	match cmd:
 		"queue":
@@ -311,6 +369,9 @@ func _console(cmd:String,args:String):
 		"desyncalerts":
 			Globals.notify(Globals.NOTIFY_SUCCEED,"Enabled desync alerts","Success")
 			desync_alerts = true
+		"disablesync":
+			Globals.notify(Globals.NOTIFY_SUCCEED,"Disabled desync checks","Success")
+			disable_desync = true
 
 # Utility functions
 func console_cmd_error(body:String):
@@ -400,6 +461,7 @@ var custom_speed:float = 1 setget _set_custom_speed
 # Modifiers - Special
 var health_model:int = Globals.HP_SOUNDSPACE setget _set_health_model
 var grade_system:int = Globals.GRADE_SSP setget _set_grade_system
+var visual_mode:bool = false setget set_visual_mode
 
 # Mod setters - Normal
 func set_mod_extra_energy(v:bool):
@@ -419,6 +481,8 @@ func set_mod_nofail(v:bool):
 		mod_extra_energy = false
 		mod_no_regen = false
 		mod_sudden_death = false
+	else:
+		visual_mode = false
 	mod_nofail = v; emit_signal("mods_changed")
 func set_mod_mirror_x(v:bool):
 	mod_mirror_x = v; emit_signal("mods_changed")
@@ -450,6 +514,10 @@ func _set_custom_speed(v:float):
 	emit_signal("mods_changed")
 	emit_signal("speed_mod_changed")
 # Mod setters - Special
+func set_visual_mode(v:bool):
+	if v:
+		set_mod_nofail(true)
+	visual_mode = v; emit_signal("mods_changed")
 func _set_health_model(v:int):
 	health_model = v; emit_signal("mods_changed")
 func _set_grade_system(v:int):
@@ -459,9 +527,9 @@ func _set_grade_system(v:int):
 
 
 # Settings - Notes
-var approach_rate:float = 50
-var spawn_distance:float = 100
-var note_spawn_effect:bool = true
+var approach_rate:float = 40
+var spawn_distance:float = 40
+var note_spawn_effect:bool = false
 var fade_length:float = 0.5
 
 var show_hit_effect:bool = true
@@ -470,10 +538,16 @@ var hit_effect_at_cursor:bool = true
 var show_miss_effect:bool = true
 
 # Settings - Camera/Controls
-var sensitivity:float = 1
-var parallax:float = 1
-var ui_parallax:float = 0.2
-var grid_parallax:float = 3
+var sensitivity:float = 0.5
+var parallax:float = 6.5 # Camera
+var ui_parallax:float = 1.63
+var grid_parallax:float = 0
+var fov:float = 70
+var hit_fov:bool = false
+var hit_fov_additive:bool = true
+var hit_fov_exponential:bool = false
+var hit_fov_amplifier:float = 2
+var hit_fov_decay:float = 20
 var camera_mode:int = Globals.CAMERA_HALF_LOCK
 var cam_unlock:bool = false
 var lock_mouse:bool = true
@@ -481,10 +555,12 @@ var edge_drift:float = 0
 
 # Settings - Replays
 var record_replays:bool = false
-var alt_cam:bool = false
+var alt_cam:bool = true
 
 # Settings - Cursor
-var rainbow_cursor:bool = false
+var cursor_color_type:int = Globals.CURSOR_CUSTOM_COLOR
+var cursor_color:Color = Color(1,1,1)
+
 var cursor_trail:bool = false
 var smart_trail:bool = false
 var trail_detail:int = 10
@@ -497,26 +573,83 @@ var cursor_face_velocity:bool = false # Disabled
 # Settings - HUD
 var display_true_combo:bool = true
 var show_config:bool = true
-var enable_grid:bool = true
+var enable_grid:bool = false
 var enable_border:bool = true
 var show_hp_bar:bool = true
 var show_timer:bool = true
 var show_left_panel:bool = true
 var show_right_panel:bool = true
+var show_cursor:bool = true
 var show_accuracy_bar:bool = true
 var show_letter_grade:bool = true
 var attach_hp_to_grid:bool = false
 var attach_timer_to_grid:bool = false
 var simple_hud:bool = false
-var faraway_hud:bool = false # Kermeet Mode
+var faraway_hud:bool = false
 var rainbow_grid:bool = false
 var rainbow_hud:bool = false
-var friend_position:int = Globals.FRIEND_BEHIND_GRID
+var friend_position:int = Globals.FRIEND_BEHIND_GRID # Hidden
+var note_visual_approach:bool = false # Experimental
+var billboard_score:bool = false
+var score_popup:bool = true
+
+# Settings - HUD Colors
+var panel_bg:Color = Color("#9b000000") #9bcecece
+var panel_text:Color = Color("#ffffff") #000000
+
+var unpause_fill_color:Color = Color("#80fff3") #fd00ff
+var unpause_empty_color:Color = Color("#68ff00") #8500ff
+var how_to_quit:Color = Color("#ffdb00") #be0000
+
+var combo_fill_color:Color = Color("#7bfff3") #ff00c5
+var combo_empty_color:Color = Color("#b94b4b4b") #d64b4b4b
+
+var acc_fill_color:Color = Color("#8cff00") #8cff00
+var acc_empty_color:Color = Color("#b08f8f8f") #b08f8f8f
+
+var giveup_text:Color = Color("#ffffff") #000000
+var giveup_fill_color:Color = Color("#ff8f2c") #ff8f2c
+var giveup_fill_color_end_skip:Color = Color("#81ff75") #81ff75
+
+var timer_text:Color = Color("#ffffff") #000000
+var timer_text_done:Color = Color("#77ff77") #000000
+var timer_text_canskip:Color = Color("#b3ffff") #60005c
+
+var timer_fg:Color = Color("#ffffff") #000000
+var timer_bg:Color = Color("#af8f8f8f") #af000000
+var timer_fg_done:Color = Color("#25bf00") #25bf00
+var timer_bg_done:Color = Color("#af008f00") #af008f00
+var timer_fg_canskip:Color = Color("#b3ffff") #760070
+var timer_bg_canskip:Color = Color("#b0638f8f") #b02b172a
+
+var miss_flash_color:Color = Color("#ff0000") #ff0000
+var pause_used_color:Color = Color("#ff66ff") #2600c2
+
+var miss_text_color:Color = Color("#ffffff") #000000
+var pause_text_color:Color = Color("#ffffff") #000000
+var score_text_color:Color = Color("#ffffff") #000000
+
+var pause_ui_opacity:float = 0.75 # 0.75
+
+var grade_ss_saturation:float = 0.4 # 0.5
+var grade_ss_value:float = 1 # 0.5
+var grade_ss_shine:float = 1 # 1
+
+var grade_s_color:Color = Color("#91fffa") #143dff
+var grade_s_shine:float = 0.5 # 0.5
+
+var grade_a_color:Color = Color("#91ff92") #20c523
+var grade_b_color:Color = Color("#e7ffc0") #8a9530
+var grade_c_color:Color = Color("#fcf7b3") #ffb500
+var grade_d_color:Color = Color("#fcd0b3") #ff6600
+var grade_f_color:Color = Color("#ff8282") #d14747
+
 
 # Settings - Audio
 var auto_preview_song:bool = true
 var play_hit_snd:bool = true
 var play_miss_snd:bool = true
+var sfx_2d:bool = false
 var music_offset:float = 0
 var play_menu_music:bool = false setget _set_menu_music
 var music_volume_db:float = 0 setget _set_music_volume
@@ -527,8 +660,9 @@ func _set_music_volume(v:float):
 
 # Settings - Misc
 var show_warnings:bool = true
+var auto_maximize:bool = false
 
-
+# Settings - Experimental
 
 
 
@@ -719,16 +853,257 @@ func load_pbs():
 		file.close()
 
 
-
+# Settings save/load helpers
+func scol(c:Color) -> String:
+	return c.to_html(c.a != 1)
+func lcol(data:Dictionary,target:String) -> void:
+	if data.has(target) and Color(data[target]):
+		set(target, Color(data[target]))
 
 # Settings file
-const current_sf_version = 39 # SV
+const current_sf_version = 45 # SV
 func load_saved_settings():
 	if Input.is_key_pressed(KEY_CONTROL) and Input.is_key_pressed(KEY_L): 
 		print("force settings read error")
 		return -1
 	var file:File = File.new()
-	if file.file_exists(Globals.p("user://settings")):
+	
+	if file.file_exists(Globals.p("user://settings.json")):
+		var err = file.open(Globals.p("user://settings.json"),File.READ)
+		if err != OK:
+			print("file.open failed"); return -2
+		var decode = JSON.parse(file.get_as_text())
+		file.close()
+		
+		if decode.error:
+			print(decode.error_string)
+			return ((-100) - decode.error)
+		
+		var data:Dictionary = decode.result
+		
+		if data.has("approach_rate"): 
+			approach_rate = data.approach_rate
+		if data.has("sensitivity"): 
+			sensitivity = data.sensitivity
+		if data.has("play_hit_snd"): 
+			play_hit_snd = data.play_hit_snd
+		if data.has("play_miss_snd"): 
+			play_miss_snd = data.play_miss_snd
+		if data.has("auto_preview_song"): 
+			auto_preview_song = data.auto_preview_song
+		if data.has("vsync_enabled"): 
+			OS.vsync_enabled = data.vsync_enabled
+		if data.has("vsync_via_compositor"): 
+			OS.vsync_via_compositor = data.vsync_via_compositor
+		if data.has("window_fullscreen"): 
+			OS.window_fullscreen = data.window_fullscreen
+		if data.has("selected_colorset"): 
+			var cset = registry_colorset.get_item(data.selected_colorset)
+			if cset: select_colorset(cset)
+		if data.has("parallax"): 
+			parallax = data.parallax
+		if data.has("cam_unlock"): 
+			cam_unlock = data.cam_unlock
+		if data.has("show_config"): 
+			show_config = data.show_config
+		if data.has("enable_grid"): 
+			enable_grid = data.enable_grid
+		if data.has("cursor_scale"): 
+			cursor_scale = data.cursor_scale
+		if data.has("edge_drift"): 
+			if typeof(data.edge_drift) == TYPE_STRING:
+				edge_drift = NAN
+			else:
+				edge_drift = data.edge_drift
+		if data.has("enable_drift_cursor"): 
+			enable_drift_cursor = data.enable_drift_cursor
+		if data.has("hitwindow_ms"): 
+			hitwindow_ms = data.hitwindow_ms
+		if data.has("cursor_spin"): 
+			cursor_spin = data.cursor_spin
+		if data.has("selected_space"): 
+			var world = registry_world.get_item(data.selected_space)
+			if world:
+				select_world(world)
+		if data.has("enable_border"): 
+			enable_border = data.enable_border
+		if data.has("selected_mesh"): 
+			var mesh = registry_mesh.get_item(data.selected_mesh)
+			if mesh:
+				select_mesh(mesh)
+		if data.has("play_menu_music"): 
+			play_menu_music = data.play_menu_music
+		if data.has("note_hitbox_size"): 
+			note_hitbox_size = data.note_hitbox_size
+		if data.has("spawn_distance"): 
+			spawn_distance = data.spawn_distance
+		if data.has("custom_speed"): 
+			set("custom_speed",data.custom_speed)
+		if data.has("note_spawn_effect"): 
+			note_spawn_effect = data.note_spawn_effect
+		if data.has("display_true_combo"): 
+			display_true_combo = data.display_true_combo
+		if data.has("ui_parallax"): 
+			ui_parallax = data.ui_parallax
+		if data.has("grid_parallax"): 
+			grid_parallax = data.grid_parallax
+		if data.has("fov"):
+			fov = data.fov
+		if data.has("hit_fov"):
+			hit_fov = data.hit_fov
+		if data.has("hit_fov_additive"):
+			hit_fov_additive = data.hit_fov_additive
+		if data.has("hit_fov_exponential"):
+			hit_fov_exponential = data.hit_fov_exponential
+		if data.has("hit_fov_amplifier"):
+			hit_fov_amplifier = data.hit_fov_amplifier
+		if data.has("hit_fov_decay"):
+			hit_fov_decay = data.hit_fov_decay
+		if data.has("fade_length"): 
+			fade_length = data.fade_length
+		if data.has("show_hit_effect"): 
+			show_hit_effect = data.show_hit_effect
+		if data.has("lock_mouse"): 
+			lock_mouse = data.lock_mouse
+		if data.has("cursor_trail"): 
+			cursor_trail = data.cursor_trail
+		if data.has("trail_detail"): 
+			trail_detail = data.trail_detail
+		if data.has("trail_time"): 
+			trail_time = data.trail_time
+		if data.has("friend_position"): 
+			friend_position = data.friend_position
+		if data.has("show_hp_bar"): 
+			show_hp_bar = data.show_hp_bar
+		if data.has("show_timer"): 
+			show_timer = data.show_timer
+		if data.has("show_left_panel"): 
+			show_left_panel = data.show_left_panel
+		if data.has("show_right_panel"): 
+			show_right_panel = data.show_right_panel
+		if data.has("attach_hp_to_grid"): 
+			attach_hp_to_grid = data.attach_hp_to_grid
+		if data.has("attach_timer_to_grid"): 
+			attach_timer_to_grid = data.attach_timer_to_grid
+		if data.has("rainbow_grid"): 
+			rainbow_grid = data.rainbow_grid
+		if data.has("rainbow_hud"): 
+			rainbow_hud = data.rainbow_hud
+		if data.has("selected_hit_effect"): 
+			var eff = registry_effect.get_item(data.selected_hit_effect)
+			if eff:
+				select_hit_effect(eff)
+			
+		if data.has("hit_effect_at_cursor"): 
+			hit_effect_at_cursor = data.hit_effect_at_cursor
+		if data.has("show_warnings"): 
+			show_warnings = data.show_warnings
+		if data.has("record_replays"): 
+			should_ask_about_replays = false
+			record_replays = data.record_replays
+		if data.has("alt_cam"): 
+			alt_cam = data.alt_cam
+		if data.has("show_accuracy_bar"): 
+			show_accuracy_bar = data.show_accuracy_bar
+		if data.has("show_letter_grade"): 
+			show_letter_grade = data.show_letter_grade
+		if data.has("simple_hud"): 
+			simple_hud = data.simple_hud
+		if data.has("faraway_hud"): 
+			faraway_hud = data.faraway_hud
+		if data.has("music_offset"): 
+			music_offset = data.music_offset
+		if data.has("selected_miss_effect"): 
+			var eff = registry_effect.get_item(data.selected_miss_effect)
+			if eff:
+				select_miss_effect(eff)
+		if data.has("show_miss_effect"): 
+			show_miss_effect = data.show_miss_effect
+		if data.has("auto_maximize"): 
+			auto_maximize = data.auto_maximize
+			if auto_maximize: OS.window_maximized = true
+		if data.has("window_fullscreen"): 
+			OS.window_fullscreen = data.window_fullscreen
+		if data.has("window_borderless"): 
+			OS.window_borderless = data.window_borderless
+		if data.has("note_visual_approach"): 
+			note_visual_approach = data.note_visual_approach
+		if data.has("score_popup"): 
+			score_popup = data.score_popup
+		if data.has("billboard_score"): 
+			billboard_score = data.billboard_score
+		if data.has("smart_trail"): 
+			smart_trail = data.smart_trail
+		if data.has("sfx_2d"): 
+			sfx_2d = data.sfx_2d
+		
+		if data.has("pause_ui_opacity"):
+			pause_ui_opacity = data.pause_ui_opacity
+		if data.has("grade_ss_saturation"):
+			grade_ss_saturation = data.grade_ss_saturation
+		if data.has("grade_ss_value"):
+			grade_ss_value = data.grade_ss_value
+		if data.has("grade_ss_shine"):
+			grade_ss_shine = data.grade_ss_shine
+		if data.has("grade_s_shine"):
+			grade_s_shine = data.grade_s_shine
+		
+		if data.has("cursor_color_type"): 
+			cursor_color_type = data.cursor_color_type
+		elif data.has("rainbow_cursor"):
+			cursor_color_type = Globals.CURSOR_RAINBOW
+		
+		if data.has("target_fps"):
+			Engine.target_fps = data.target_fps
+		
+		
+		if data.has("master_volume"):
+			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), data.master_volume)
+		if data.has("music_volume"):
+			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), data.music_volume)
+		if data.has("hit_volume"):
+			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("HitSound"), data.hit_volume)
+		if data.has("miss_volume"):
+			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("MissSound"), data.miss_volume)
+		if data.has("fail_volume"):
+			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("FailSound"), data.fail_volume)
+		if data.has("pb_volume"):
+			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("PBSound"), data.pb_volume)
+		
+		lcol(data,"grade_s_color")
+		lcol(data,"panel_bg")
+		lcol(data,"panel_text")
+		lcol(data,"unpause_fill_color")
+		lcol(data,"unpause_empty_color")
+		lcol(data,"how_to_quit")
+		lcol(data,"combo_fill_color")
+		lcol(data,"combo_empty_color")
+		lcol(data,"acc_fill_color")
+		lcol(data,"acc_empty_color")
+		lcol(data,"giveup_text")
+		lcol(data,"giveup_fill_color")
+		lcol(data,"giveup_fill_color_end_skip")
+		lcol(data,"timer_text")
+		lcol(data,"timer_text_done")
+		lcol(data,"timer_text_canskip")
+		lcol(data,"timer_fg")
+		lcol(data,"timer_bg")
+		lcol(data,"timer_fg_done")
+		lcol(data,"timer_bg_done")
+		lcol(data,"timer_fg_canskip")
+		lcol(data,"timer_bg_canskip")
+		lcol(data,"miss_flash_color")
+		lcol(data,"pause_used_color")
+		lcol(data,"miss_text_color")
+		lcol(data,"pause_text_color")
+		lcol(data,"score_text_color")
+		lcol(data,"grade_a_color")
+		lcol(data,"grade_b_color")
+		lcol(data,"grade_c_color")
+		lcol(data,"grade_d_color")
+		lcol(data,"grade_f_color")
+	
+	elif file.file_exists(Globals.p("user://settings")):
 		var err = file.open(Globals.p("user://settings"),File.READ)
 		if err != OK:
 			print("file.open failed"); return 1
@@ -846,7 +1221,8 @@ func load_saved_settings():
 				print("integ 8"); return 10
 			
 			lock_mouse = bool(file.get_8())
-			rainbow_cursor = bool(file.get_8())
+			if bool(file.get_8()): # rainbow cursor
+				cursor_color_type = Globals.CURSOR_RAINBOW
 			cursor_trail = bool(file.get_8())
 		if sv >= 29:
 			trail_detail = file.get_32() # some people are insane
@@ -891,107 +1267,162 @@ func load_saved_settings():
 		if sv >= 37:
 			faraway_hud = bool(file.get_8())
 		if sv >= 38:
-			music_offset = float(file.get_32())
+			if sv >= 41:
+				music_offset = float(file.get_float())
+			else:
+				music_offset = float(file.get_32())
 		if sv >= 39:
 			var eff = registry_effect.get_item(file.get_line())
 			if eff:
 				select_miss_effect(eff)
 			show_miss_effect = bool(file.get_8())
-			
+		if sv >= 40:
+			auto_maximize = bool(file.get_8())
+		if sv >= 42:
+			note_visual_approach = bool(file.get_8())
+		if sv >= 43:
+			score_popup = bool(file.get_8())
+			billboard_score = bool(file.get_8())
+		if sv >= 44:
+			fov = float(file.get_32())
+			hit_fov = bool(file.get_8())
+			hit_fov_additive = bool(file.get_8())
+			hit_fov_amplifier = float(file.get_32())
+			hit_fov_decay = float(file.get_32())
+		if sv >= 45:
+			hit_fov_exponential = bool(file.get_8())
 		file.close()
+		save_settings()
 	return 0
 func save_settings():
 	var file:File = File.new()
-	var err:int = file.open(Globals.p("user://settings"),File.WRITE)
+	var err:int = file.open(Globals.p("user://settings.json"),File.WRITE)
 	if err == OK:
-		file.store_16(current_sf_version)
-		file.store_float(approach_rate)
-		file.store_float(sensitivity)
-		file.store_8(int(play_hit_snd))
-		file.store_8(int(play_miss_snd))
-		file.store_8(int(auto_preview_song))
+		var data = {
+			approach_rate = approach_rate,
+			sensitivity = sensitivity,
+			play_hit_snd = play_hit_snd,
+			play_miss_snd = play_miss_snd,
+			auto_preview_song = auto_preview_song,
+			vsync_enabled = OS.vsync_enabled,
+			vsync_via_compositor = OS.vsync_via_compositor,
+			window_fullscreen = OS.window_fullscreen,
+			window_borderless = OS.window_borderless,
+			selected_colorset = selected_colorset.id,
+			selected_space = selected_space.id,
+			selected_mesh = selected_mesh.id,
+			selected_hit_effect = selected_hit_effect.id,
+			parallax = parallax,
+			fov = fov,
+			hit_fov = hit_fov,
+			hit_fov_additive = hit_fov_additive,
+			hit_fov_amplifier = hit_fov_amplifier,
+			hit_fov_decay = hit_fov_decay,
+			cam_unlock = cam_unlock,
+			show_config = show_config,
+			enable_grid = enable_grid,
+			cursor_scale = cursor_scale,
+			enable_drift_cursor = enable_drift_cursor,
+			hitwindow_ms = hitwindow_ms,
+			cursor_spin = cursor_spin,
+			enable_border = enable_border,
+			play_menu_music = play_menu_music,
+			note_hitbox_size = note_hitbox_size,
+			spawn_distance = spawn_distance,
+			custom_speed = custom_speed,
+			display_true_combo = display_true_combo,
+			cursor_face_velocity = cursor_face_velocity,
+			ui_parallax = ui_parallax,
+			grid_parallax = grid_parallax,
+			fade_length = fade_length,
+			show_hit_effect = show_hit_effect,
+			lock_mouse = lock_mouse,
+			cursor_trail = cursor_trail,
+			trail_detail = trail_detail,
+			trail_time = trail_time,
+			friend_position = friend_position,
+			show_hp_bar = show_hp_bar,
+			show_timer = show_timer,
+			show_left_panel = show_left_panel,
+			show_right_panel = show_right_panel,
+			attach_hp_to_grid = attach_hp_to_grid,
+			attach_timer_to_grid = attach_timer_to_grid,
+			rainbow_grid = rainbow_grid,
+			rainbow_hud = rainbow_hud,
+			smart_trail = smart_trail,
+			hit_effect_at_cursor = hit_effect_at_cursor,
+			show_warnings = show_warnings,
+			record_replays = record_replays,
+			alt_cam = alt_cam,
+			show_accuracy_bar = show_accuracy_bar,
+			show_letter_grade = show_letter_grade,
+			simple_hud = simple_hud,
+			faraway_hud = faraway_hud,
+			music_offset = music_offset,
+			selected_miss_effect = selected_miss_effect.id,
+			show_miss_effect = show_miss_effect,
+			auto_maximize = auto_maximize,
+			note_visual_approach = note_visual_approach,
+			score_popup = score_popup,
+			billboard_score = billboard_score,
+			sfx_2d = sfx_2d,
+			cursor_color_type = cursor_color_type,
+			target_fps = Engine.target_fps,
+			
+			master_volume = AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Master")),
+			music_volume = AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Music")),
+			hit_volume = AudioServer.get_bus_volume_db(AudioServer.get_bus_index("HitSound")),
+			miss_volume = AudioServer.get_bus_volume_db(AudioServer.get_bus_index("MissSound")),
+			fail_volume = AudioServer.get_bus_volume_db(AudioServer.get_bus_index("FailSound")),
+			pb_volume = AudioServer.get_bus_volume_db(AudioServer.get_bus_index("PBSound")),
+			
+			cursor_color = scol(cursor_color),
+			panel_bg = scol(panel_bg),
+			panel_text = scol(panel_text),
+			unpause_fill_color = scol(unpause_fill_color),
+			unpause_empty_color = scol(unpause_empty_color),
+			how_to_quit = scol(how_to_quit),
+			combo_fill_color = scol(combo_fill_color),
+			combo_empty_color = scol(combo_empty_color),
+			acc_fill_color = scol(acc_fill_color),
+			acc_empty_color = scol(acc_empty_color),
+			giveup_text = scol(giveup_text),
+			giveup_fill_color = scol(giveup_fill_color),
+			giveup_fill_color_end_skip = scol(giveup_fill_color_end_skip),
+			timer_text = scol(timer_text),
+			timer_text_done = scol(timer_text_done),
+			timer_text_canskip = scol(timer_text_canskip),
+			timer_fg = scol(timer_fg),
+			timer_bg = scol(timer_bg),
+			timer_fg_done = scol(timer_fg_done),
+			timer_bg_done = scol(timer_bg_done),
+			timer_fg_canskip = scol(timer_fg_canskip),
+			timer_bg_canskip = scol(timer_bg_canskip),
+			miss_flash_color = scol(miss_flash_color),
+			pause_used_color = scol(pause_used_color),
+			miss_text_color = scol(miss_text_color),
+			pause_text_color = scol(pause_text_color),
+			score_text_color = scol(score_text_color),
+			pause_ui_opacity = pause_ui_opacity,
+			grade_ss_saturation = grade_ss_saturation,
+			grade_ss_value = grade_ss_value,
+			grade_ss_shine = grade_ss_shine,
+			grade_s_color = scol(grade_s_color),
+			grade_s_shine = grade_s_shine,
+			grade_a_color = scol(grade_a_color),
+			grade_b_color = scol(grade_b_color),
+			grade_c_color = scol(grade_c_color),
+			grade_d_color = scol(grade_d_color),
+			grade_f_color = scol(grade_f_color),
+		}
 		
-		file.store_8(0) # integrity check
+		if is_nan(edge_drift):
+			data.edge_drift = "nan"
+		else:
+			data.edge_drift = edge_drift
 		
-		file.store_8(int(OS.vsync_enabled))
-		file.store_8(int(OS.vsync_via_compositor))
-		file.store_8(int(OS.window_fullscreen))
-		file.store_line(selected_colorset.id)
-		file.store_float(parallax)
-		file.store_8(int(cam_unlock))
+		file.store_string(to_json(data))
 		
-		file.store_8(215) # integrity check
-		
-		file.store_8(int(show_config))
-		file.store_8(int(enable_grid))
-		file.store_float(cursor_scale)
-		
-		file.store_8(43) # integrity check
-		
-		file.store_float(edge_drift)
-		file.store_8(int(enable_drift_cursor))
-		file.store_float(hitwindow_ms)
-		
-		file.store_8(117) # integrity check
-		
-		file.store_float(cursor_spin)
-		file.store_float(music_volume_db)
-		file.store_line(selected_space.id)
-		
-		file.store_8(89) # integrity check
-		
-		file.store_8(int(enable_border))
-		file.store_line(selected_mesh.id)
-		file.store_8(int(play_menu_music))
-		
-		file.store_8(12) # integrity check
-		
-		file.store_float(note_hitbox_size)
-		file.store_float(spawn_distance)
-		file.store_float(custom_speed)
-		file.store_8(int(note_spawn_effect))
-		file.store_8(int(display_true_combo))
-		file.store_8(int(cursor_face_velocity))
-		
-		file.store_8(147) # integrity check
-		
-		file.store_float(ui_parallax)
-		file.store_float(grid_parallax)
-		file.store_float(fade_length)
-		file.store_8(int(show_hit_effect))
-		
-		file.store_8(6) # integrity check
-		
-		file.store_8(int(lock_mouse))
-		file.store_8(int(rainbow_cursor))
-		file.store_8(int(cursor_trail))
-		file.store_32(trail_detail)
-		file.store_real(trail_time)
-		file.store_8(friend_position)
-		file.store_8(int(show_hp_bar))
-		file.store_8(int(show_timer))
-		file.store_8(int(show_left_panel))
-		file.store_8(int(show_right_panel))
-		file.store_8(int(attach_hp_to_grid))
-		file.store_8(int(attach_timer_to_grid))
-		file.store_8(int(rainbow_grid))
-		file.store_8(int(rainbow_hud))
-		file.store_8(int(smart_trail))
-		file.store_line(selected_hit_effect.id)
-		
-		file.store_8(192) # integrity check
-		
-		file.store_8(int(hit_effect_at_cursor))
-		file.store_8(int(show_warnings))
-		file.store_8(int(record_replays))
-		file.store_8(int(alt_cam))
-		file.store_8(int(show_accuracy_bar))
-		file.store_8(int(show_letter_grade))
-		file.store_8(int(simple_hud))
-		file.store_8(int(faraway_hud))
-		file.store_32(music_offset)
-		file.store_line(selected_miss_effect.id)
-		file.store_8(int(show_miss_effect))
 		file.close()
 		return "OK"
 	else:
@@ -1011,12 +1442,16 @@ func register_colorsets():
 		"ssp_redblue", "Red & Blue", "Chedski"
 	))
 	registry_colorset.add_item(ColorSet.new(
+		[ Color("#00ffed"), Color("#ff8ff9") ],
+		"ssp_cottoncandy", "Cotton Candy", "Unknown"
+	))
+	registry_colorset.add_item(ColorSet.new(
 		[ Color("#ffcc4d"),Color("#ff7892"),Color("#e5dd80") ],
 		"ssp_veggiestraws", "Veggie Straws", "Chedski"
 	))
 	registry_colorset.add_item(ColorSet.new(
 		[ Color("#5BCEFA"),Color("#F5A9B8"),Color("#FFFFFF") ],
-		"ssp_transgender", "Trans Pride", "Chedski"
+		"ssp_pastel", "Pastel", "Chedski"
 	))
 	registry_colorset.add_item(ColorSet.new(
 		[
@@ -1050,6 +1485,22 @@ func register_colorsets():
 		[ Color("#9a5ef9") ],
 		"ssp_purple", "purple!!!", "Chedski"
 	))
+	registry_colorset.add_item(ColorSet.new(
+		[ Color("#000000"), Color("#381e42") ],
+		"ssp_vortex", "Vortex", "pyrule"
+	))
+	registry_colorset.add_item(ColorSet.new(
+		[ Color("#008cff"), Color("#ed3434"), Color("#10bd0d"), Color("#ffb300") ],
+		"ssp_wii", "Wii Players", "balt"
+	))
+	registry_colorset.add_item(ColorSet.new(
+		[ 
+			Color("#00aa66"), Color("#bb2200"), Color("#ffdd00"), 
+			Color("#2233ff") , Color("#ee5500") 
+		],
+		"ssp_guitarhero", "Guitar Hero", "balt"
+	))
+	
 func register_worlds():
 	# idI:String,nameI:String,pathI:String,creatorI:String="Unknown"
 	registry_world.add_item(BackgroundWorld.new(
@@ -1093,6 +1544,44 @@ func register_worlds():
 		"res://content/worlds/covers/classic.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
+		"ssp_reality_dismissed", "Reality Dismissed",
+		"res://content/worlds/reality_dismissed.tscn", "pyrule",
+		"res://content/worlds/covers/custom.png"
+	))
+	registry_world.add_item(BackgroundWorld.new(
+		"ssp_reality_dismissed_dark", "Reality Dismissed (Dark)",
+		"res://content/worlds/reality_dismissed_dark.tscn", "pyrule",
+		"res://content/worlds/covers/custom.png"
+	))
+	registry_world.add_item(BackgroundWorld.new(
+		"ssp_baseplate", "Baseplate (Day)",
+		"res://content/worlds/baseplate.tscn", "pyrule",
+		"res://content/worlds/covers/baseplate.png"
+	))
+	registry_world.add_item(BackgroundWorld.new(
+		"ssp_baseplate_night", "Baseplate (Night)",
+		"res://content/worlds/baseplate_night.tscn", "pyrule",
+		"res://content/worlds/covers/baseplate.png"
+	))
+	registry_world.add_item(BackgroundWorld.new(
+		"ssp_event_horizon", "Event Horizon",
+		"res://content/worlds/event_horizon.tscn", "Chedski",
+		"res://content/worlds/covers/custom.png"
+	))
+	registry_world.add_item(BackgroundWorld.new(
+		"ssp_vaporwave", "v a p o r w a v e",
+		"res://content/worlds/vaporwave.tscn", "balt",
+		"res://content/worlds/covers/vaporwave.png"
+	))
+	# doesn't work :(
+	# registry_world.add_item(BackgroundWorld.new(
+	# 	"ssp_security_room", "Security Room",
+	# 	"res://content/worlds/security_room.tscn", "balt",
+	# 	"res://content/worlds/covers/vaporwave.png"
+	# ))
+	# ----------------------------------------------------
+	# Custom content
+	registry_world.add_item(BackgroundWorld.new(
 		"ssp_custombg", "Custom Background",
 		"res://content/worlds/custombg.tscn", "Someone",
 		"res://error.jpg"
@@ -1102,6 +1591,7 @@ func register_worlds():
 		"res://content/worlds/custom.tscn", "Someone",
 		"res://content/worlds/covers/custom.png"
 	))
+
 func register_meshes():
 	registry_mesh.add_item(NoteMesh.new(
 		"ssp_square", "Square",
@@ -1259,6 +1749,8 @@ func do_init(_ud=null):
 		if !dir.dir_exists(user_pack_dir): dir.make_dir(user_pack_dir)
 		if !dir.dir_exists(user_vmap_dir): dir.make_dir(user_vmap_dir)
 		if !dir.dir_exists(user_map_dir): dir.make_dir(user_map_dir)
+		if !dir.dir_exists(user_colorset_dir): dir.make_dir(user_colorset_dir)
+		if !dir.dir_exists(user_friend_dir): dir.make_dir(user_friend_dir)
 		if !dir.dir_exists(Globals.p("user://replays")): dir.make_dir(Globals.p("user://replays"))
 		if !dir.dir_exists(user_best_dir):
 			convert_pb_format = true
@@ -1272,6 +1764,8 @@ func do_init(_ud=null):
 	registry_world = Registry.new()
 	registry_mesh = Registry.new()
 	registry_effect = Registry.new()
+	
+	Online.map_registry = registry_song
 	
 	register_colorsets()
 	register_effects()
@@ -1305,16 +1799,23 @@ func do_init(_ud=null):
 	
 	var n
 	if !first_init_done: # mods can't be reloaded
-		emit_signal("init_stage_reached","Loading content 2/3\nMods")
-		yield(get_tree(),"idle_frame")
-		dir.change_dir(user_mod_dir)
-		dir.list_dir_begin(true)
-		n = dir.get_next()
-		while n:
-			if ProjectSettings.load_resource_pack(user_mod_dir + "/" + n):
-				installed_mods.append(n.get_file().replace(n.get_extension(),""))
+		if !OS.has_feature("debug"):
+			emit_signal("init_stage_reached","Loading content 2/3\nMods")
+			yield(get_tree(),"idle_frame")
+			dir.change_dir(user_mod_dir)
+			dir.list_dir_begin(true)
 			n = dir.get_next()
-		dir.list_dir_end()
+			while n:
+				if ProjectSettings.load_resource_pack(user_mod_dir + "/" + n):
+					installed_mods.append(n.get_file().replace(n.get_extension(),""))
+				n = dir.get_next()
+			dir.list_dir_end()
+		else:
+			Globals.notify(
+				Globals.NOTIFY_INFO,
+				"This is a development environment, mods will not be loaded.",
+				"Not loading mods"
+			)
 	
 	emit_signal("init_stage_reached","Loading content 3/3\nContent packs")
 	yield(get_tree(),"idle_frame")
@@ -1332,7 +1833,7 @@ func do_init(_ud=null):
 	yield(get_tree(),"idle_frame")
 	
 	var smaps:Array = []
-	emit_signal("init_stage_reached","Register content 1/3\nImport SS+ maps\nLocating files")
+	emit_signal("init_stage_reached","Register content 1/4\nImport SS+ maps\nLocating files")
 	yield(get_tree(),"idle_frame")
 	var sd:Array = []
 	dir.change_dir(user_map_dir)
@@ -1349,7 +1850,7 @@ func do_init(_ud=null):
 	smaps = yield(Globals,"recurse_result").files
 	
 	for i in range(smaps.size()):
-		emit_signal("init_stage_reached","Register content 1/3\nImport SS+ maps\n%.0f%%" % (
+		emit_signal("init_stage_reached","Register content 1/4\nImport SS+ maps\n%.0f%%" % (
 			100*(float(i)/float(smaps.size()))
 		))
 		if fmod(i,max(min(floor(float(smaps.size())/200),40),5)) == 0: yield(get_tree(),"idle_frame")
@@ -1358,7 +1859,7 @@ func do_init(_ud=null):
 	
 	for i in range(mapreg.size()):
 		var amr:Array = mapreg[i]
-		emit_signal("init_stage_reached","Register content 2/3\nLoad map registry %d/%d\n%s" % [i,mapreg.size(),amr[0]])
+		emit_signal("init_stage_reached","Register content 2/4\nLoad map registry %d/%d\n%s" % [i,mapreg.size(),amr[0]])
 		yield(get_tree(),"idle_frame")
 		if lp: yield(get_tree(),"idle_frame")
 		registry_song.load_registry_file(amr[1],Globals.REGISTRY_MAP,amr[0])
@@ -1373,18 +1874,24 @@ func do_init(_ud=null):
 		var list = txt.split("\n",false)
 		vmap_search_folders.append_array(list)
 	
-	emit_signal("init_stage_reached","Register content 3/3\nImport Vulnus maps\nLocating files")
+	emit_signal("init_stage_reached","Register content 3/4\nImport Vulnus maps\nLocating files")
 	yield(get_tree(),"idle_frame")
 	
 	Globals.get_files_recursive(vmap_search_folders,6,"","meta.json",70)
 	vmaps = yield(Globals,"recurse_result").folders
 	
 	for i in range(vmaps.size()):
-		emit_signal("init_stage_reached","Register content 3/3\nImport Vulnus maps\n%.0f%%" % (
+		emit_signal("init_stage_reached","Register content 3/4\nImport Vulnus maps\n%.0f%%" % (
 			100*(float(i)/float(vmaps.size()))
 		))
 		if fmod(i,floor(float(vmaps.size())/100)) == 0: yield(get_tree(),"idle_frame")
 		registry_song.add_vulnus_map(vmaps[i])
+	
+	emit_signal("init_stage_reached","Register content 4/4\nLoad online maps")
+	yield(get_tree(),"idle_frame")
+	
+	Online.load_db_maps()
+	yield(Online,"db_maps_done")
 	
 	# Default 
 	emit_signal("init_stage_reached","Init default assets")
@@ -1396,7 +1903,7 @@ func do_init(_ud=null):
 	selected_miss_effect = registry_effect.get_item("ssp_miss")
 	selected_colorset = registry_colorset.get_item("ssp_everybodyvotes")
 	selected_space = registry_world.get_item("ssp_space_tunnel")
-	selected_mesh = registry_mesh.get_item("ssp_square")
+	selected_mesh = registry_mesh.get_item("ssp_rounded")
 	
 	assert(selected_hit_effect)
 	assert(selected_miss_effect)

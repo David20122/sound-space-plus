@@ -32,7 +32,7 @@ func respawn(t_override=null):
 func upd_dumb(delta):
 	if !SSP.smart_trail:
 		t += (delta/SSP.trail_time)
-	var a = clamp((1-t),0,1)
+	var a = clamp((t - 0.2),0,1)
 	$Mesh.get("material/0").albedo_color.a = a * 0.6 * transp_multi
 	$Mesh.scale = Vector3(a*SSP.cursor_scale,1,a*SSP.cursor_scale)
 	if !SSP.smart_trail and t >= 1:
@@ -58,6 +58,7 @@ var init_done:bool = false
 func init():
 	if init_done: return
 	var mat:SpatialMaterial = $Mesh.get("material/0").duplicate()
+	$Mesh.scale = Vector3(0,1,0)
 	$Mesh.set("material/0",mat)
 
 func start():

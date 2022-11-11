@@ -5,7 +5,7 @@ func _pressed():
 	if has_been_pressed: return
 	has_been_pressed = true
 	get_parent().black_fade_target = true
-	yield(get_tree().create_timer(1),"timeout")
+	yield(get_tree().create_timer(0.35),"timeout")
 	SSP.conmgr_transit = "addsongs"
 	get_tree().change_scene("res://contentmgrload.tscn")
 

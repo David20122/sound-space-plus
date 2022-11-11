@@ -1,19 +1,30 @@
 extends Resource
 class_name Song
 
+signal downloaded
+
 var id:String
 var name:String
+var song:String
 var creator:String
 
 var difficulty:int = Globals.DIFF_UNKNOWN
+var rating:int = 0 # Star rating
+
+var markers:Dictionary = {}
+var marker_types:Array = []
+var custom_data:Dictionary = {}
 
 var rawData:String = ""
 var notes:Array
 var note_count:int
+var marker_count:int
 var musicFile:String = ""
 var last_ms:float = 0
 var source_registry:String = "[unknown]"
 var warning:String = ""
+
+var marker_hash:PoolByteArray
 
 var should_reload_on_play:bool = false
 var songType:int = -1
@@ -21,24 +32,121 @@ var initFile:String = ""
 
 var filePath:String
 
-var cover:Texture
+var cover:Texture setget , _get_cover
 var has_cover:bool = false
 var is_broken:bool = false
 var converted:bool = false
 
 var is_builtin:bool = false
 
+var is_online:bool = false
+var download_url:String = ""
+
 var sspm_song_stored:bool = false
 
 var pbs_loaded:bool = false
 var pb_data:Dictionary = {}
+
+const hash_chunk_size = 1024
+
+enum {
+	DT_UNKNOWN = 0x00
+	DT_INT_8 = 0x01 # Unsigned
+	DT_INT_16 = 0x02 # Unsigned
+	DT_INT_32 = 0x03 # Unsigned
+	DT_INT_64 = 0x04 # Unsigned
+	DT_FLOAT_32 = 0x05
+	DT_FLOAT_64 = 0x06
+	DT_POSITION = 0x07
+	DT_BUFFER = 0x08
+	DT_STRING = 0x09
+	DT_BUFFER_LONG = 0x0a
+	DT_STRING_LONG = 0x0b
+	DT_ARRAY = 0x0c
+}
+
+func _get_cover():
+	return cover
+	# I'll eventually add handling for online maps with covers
+
+func is_valid_id(txt:String):
+	return !(
+		(txt.to_lower() != txt) or 
+		(txt.length() == 0) or 
+		txt.begins_with("_") or 
+		!(("n" + txt).replace("-","")).is_valid_identifier()
+	)
+
+func load_from_db_data(data:Dictionary={
+		"id":"INVALID_id_that_doesnt_exist",
+		"download":"http://chedski.test/ssp/mapdb/api/download/INVALID_id_that_doesnt_exist",
+		"audio":"http://chedski.test/ssp/mapdb/api/audio/INVALID_id_that_doesnt_exist",
+#		"id":"ss_archive_waterflame_-_geometrical_dominator",
+#		"download":"http://chedski.test/ssp/mapdb/api/download/ss_archive_waterflame_-_geometrical_dominator",
+#		"audio":"http://chedski.test/ssp/mapdb/api/audio/ss_archive_waterflame_-_geometrical_dominator",
+		"cover":null,
+		"version":1,
+		"name":"000000 net test map",
+		"song":"Waterflame - Geometrical Dominator",
+		"author":["Azurlexx"],
+		"difficulty":3,
+		"difficulty_name":"LOGIC?",
+		"stars":-1,
+		"length_ms":96846,
+		"note_count":384,
+		"has_cover":false,
+		"broken":false,
+		"tags":["ss_archive"],
+		"content_warnings":[],
+		"note_data_offset":1594212,
+		"note_data_length":2688,
+		"music_format":"mp3",
+		"music_offset":117,
+		"music_length":1594095
+	}):
+	
+	if !data.has("id"): return {success=false,error="014-421"}
+	if !data.has("name"): return {success=false,error="014-422"}
+	if !data.has("author"): return {success=false,error="014-423"}
+	if !data.has("version"): return {success=false,error="014-594"}
+	if !data.has("difficulty"): return {success=false,error="014-424"}
+	if !data.has("length_ms"): return {success=false,error="014-425"}
+	if !data.has("note_count"): return {success=false,error="014-426"}
+	if !data.has("download"): return {success=false,error="014-415"}
+	
+	if typeof(data.id) != TYPE_STRING: return {success=false,error="014-462"}
+	if typeof(data.name) != TYPE_STRING: return {success=false,error="014-463"}
+	if typeof(data.author) != TYPE_ARRAY: return {success=false,error="014-464"}
+	if typeof(data.difficulty) != TYPE_INT and typeof(data.difficulty) != TYPE_REAL: return {success=false,error="014-465"}
+	if typeof(data.version) != TYPE_INT and typeof(data.version) != TYPE_REAL: return {success=false,error="014-595"}
+	if typeof(data.length_ms) != TYPE_INT and typeof(data.length_ms) != TYPE_REAL: return {success=false,error="014-466"}
+	if typeof(data.note_count) != TYPE_INT and typeof(data.note_count) != TYPE_REAL: return {success=false,error="014-467"}
+	if typeof(data.download) != TYPE_STRING or !Globals.is_valid_url(data.download): return {success=false,error="014-418"}
+	
+	if !is_valid_id(data.id): return {success=false,error="014-461"}
+	if data.difficulty < -1 or data.difficulty > 4: return {success=false,error="014-465"}
+	
+	id = data.id
+	name = data.name
+	song = data.name
+	var authorstr = ""
+	for a in data.author:
+		if a != data.author[0]: authorstr += " & "
+		authorstr += a
+	creator = authorstr
+	difficulty = int(data.difficulty)
+	last_ms = float(data.length_ms)
+	note_count = int(data.note_count)
+	download_url = data.download
+	is_online = true
+	
+	return {success=true}
 
 func load_pbs():
 	var file:File = File.new()
 	if file.file_exists(Globals.p("user://bests/%s" % id)):
 		var err:int = file.open(Globals.p("user://bests/%s" % id),File.READ)
 		if err != OK:
-#			print("error reading pb file for %s: %s" % [id, String(err)])
 			return
 		
 		if file.get_buffer(5) != PoolByteArray([0x53,0x53,0x2B,0x70,0x42]):
@@ -129,37 +237,83 @@ func set_pb_if_better(pb_str:String,pb:Dictionary):
 		return true
 	else: return false
 
+func get_music_buffer():
+	var file2:File = File.new()
+	if songType == Globals.MAP_SSPM:
+		print("[sspm] %s: reading audio buffer" % id)
+		var err = file2.open(filePath,File.READ)
+		if err == OK:
+			file2.seek(8) # Skip over header data
+			file2.get_line() # Skip over metadata
+			file2.get_line()
+			file2.get_line()
+			file2.seek(file2.get_position() + 9)
+			
+			var ct = file2.get_8()
+			if ct == 1: # Skip over cover
+				file2.seek(file2.get_position() + 6)
+				var clen = file2.get_64()
+				file2.seek(file2.get_position() + clen)
+			elif ct == 2:
+				var clen = file2.get_64()
+				file2.seek(file2.get_position() + clen)
+			
+			if file2.get_8() != 1:
+				file2.close()
+				print("[sspm] %s: No music present!" % id)
+				return null
+			else:
+				var blen:int = file2.get_64()
+				var buf:PoolByteArray = file2.get_buffer(blen) # Actual song data
+				file2.close()
+				print("[sspm] %s: music ok" % id)
+				return buf
+		else:
+			print("[sspm] %s: Error while loading music! err was %s" % [id, err])
+			return null
+	elif songType == Globals.MAP_SSPM2:
+		print("[sspm2] %s: reading audio buffer" % id)
+		var err = file2.open(filePath,File.READ)
+		if err == OK:
+			file2.seek(0x2d) # Skip over header data
+			
+			if file2.get_8() != 1:
+				file2.close()
+				print("[sspm2] %s: No music present!" % id)
+				return null
+			else:
+				file2.seek(0x40)
+				var bpos:int = file2.get_64()
+				var blen:int = file2.get_64()
+				file2.seek(bpos)
+				var buf:PoolByteArray = file2.get_buffer(blen) # Actual song data
+				file2.close()
+				print("[sspm2] %s: music ok" % id)
+				return buf
+		else:
+			print("[sspm2] %s: Error while loading music! err was %s" % [id, err])
+			return null
+	else:
+		var err = file2.open(musicFile,File.READ)
+		if err != OK:
+			print("[file] %s: Failed to open music file!" % id)
+			return null
+		else:
+			var mdata:PoolByteArray = file2.get_buffer(file2.get_len())
+			file2.close()
+			print("[file] %s: music ok" % id)
+			return mdata
+
 func stream() -> AudioStream:
 	if sspm_song_stored:
-		var file:File = File.new()
-		var err = file.open(filePath,File.READ)
-		if err != OK: return Globals.error_sound
-		
-		file.seek(8) # Skip over header data
-		file.get_line() # Skip over metadata
-		file.get_line()
-		file.get_line()
-		file.seek(file.get_position() + 9)
-		
-		var ct = file.get_8()
-		if ct == 1: # Skip over cover
-			file.seek(file.get_position() + 6)
-			var clen = file.get_64()
-			file.seek(file.get_position() + clen)
-		elif ct == 2:
-			var clen = file.get_64()
-			file.seek(file.get_position() + clen)
-		
-		if file.get_8() != 1:
-			file.close()
+		var buf = get_music_buffer()
+		if buf:
+			var s = Globals.audioLoader.load_buffer(buf)
+			if s is AudioStreamOGGVorbis or s is AudioStreamMP3: s.loop = false
+			if s: return s
+			else: return Globals.error_sound
+		else:
 			return Globals.error_sound
-		
-		var blen:int = file.get_64()
-		var buf:PoolByteArray = file.get_buffer(blen) # Actual song data
-		var s = Globals.audioLoader.load_buffer(buf)
-		file.close()
-		if s: return s
-		else: return Globals.error_sound
 	elif !musicFile.begins_with("res://"):
 		var stream = Globals.audioLoader.load_file(musicFile)
 		if stream: return stream
@@ -207,6 +361,7 @@ func loadRawData(data:String):
 	else:
 		warning = ""
 		is_broken = false
+#	notes.sort_custom(self,"notesort")
 	note_count = notes.size()
 
 func loadVulnusNoteArray(vNotes:Array):
@@ -225,6 +380,7 @@ func loadVulnusNoteArray(vNotes:Array):
 		warning = "[vulnus map] Audio file doesn't exist!"
 		is_broken = true
 	elif invalid != 0: warning = "[vulnus map] Song has %s invalid note(s)" % String(invalid)
+#	notes.sort_custom(self,"notesort")
 	note_count = notes.size()
 
 func setup_from_file(mapFile:String,songFile:String):
@@ -277,21 +433,25 @@ func notesort(a,b):
 		return a[1] < b[1]
 	return a[2] < b[2]
 
+func markersort(a,b):
+	return a[-1] < b[-1]
+
 func read_notes() -> Array:
 	if songType == Globals.MAP_TXT:
 		discard_notes()
 	if notes.size() == 0:
 		if (songType == Globals.MAP_RAW or songType == Globals.MAP_TXT):
-			print("RAW/TXT")
 			if songType == Globals.MAP_TXT:
-				print("TXT")
+				print("Reading: TXT")
 				loadFromFile(initFile)
-			else: print(rawData)
+			else: print("Reading: RAW")
 			loadRawData(rawData)
 			print(notes.size())
+			notes.sort_custom(self,"notesort")
+			markers.ssp_note = notes
 			return notes
 		elif songType == Globals.MAP_VULNUS:
-#			print("VULNUS")
+			print("Reading: VULNUS")
 			var file = File.new()
 			file.open(filePath,File.READ)
 #			print(filePath)
@@ -302,9 +462,11 @@ func read_notes() -> Array:
 			var n:Array = data.get("_notes",[])
 #			print(n.size())
 			loadVulnusNoteArray(n)
+			notes.sort_custom(self,"notesort")
+			markers.ssp_note = notes
 			return notes
 		elif songType == Globals.MAP_SSPM:
-#			print("SSPM")
+			print("Reading: SSPM")
 			var file:File = File.new()
 			var err = file.open(filePath,File.READ)
 			if err != OK:
@@ -348,21 +510,110 @@ func read_notes() -> Array:
 					n[0] = float(file.get_8())
 					n[1] = float(file.get_8())
 				notes.append(n)
+			notes.sort_custom(self,"notesort")
 				
 			file.close()
-	
+		elif songType == Globals.MAP_SSPM2:
+			print("Reading: SSPM2")
+			var markers = read_markers()
+			notes = markers.get("ssp_note",[])
+			return notes
+			
+	markers.ssp_note = notes
 	return notes
+
+func read_markers() -> Dictionary:
+	if songType == Globals.MAP_SSPM2:
+		markers = {}
+		
+		var mt_name:Array = []
+		mt_name.resize(marker_types.size())
+		
+		var mt_type:Array = []
+		mt_type.resize(marker_types.size())
+		
+		var mt_size:Array = []
+		mt_size.resize(marker_types.size())
+		
+		for i in range(marker_types.size()):
+			var mt:Array = marker_types[i]
+			mt_name[i] = mt[0]
+			mt_size[i] = 0
+			markers[mt[0]] = []
+			
+			var mtt = []
+			mtt.resize(mt.size() - 1)
+			mt_type[i] = mtt
+			for j in range(1,mt.size()):
+				mtt[j-1] = mt[j]
+				
+				if mt[j] == DT_POSITION:
+					mt_size[i] += 2
+				else:
+					mt_size[i] += 1
+		
+		var file:File = File.new()
+		var err = file.open(filePath,File.READ)
+		if err != OK:
+			print("error opening file")
+			return markers
+		
+		file.seek(0x70)
+		file.seek(file.get_64())
+		
+		for i in range(marker_count):
+			var m:Array = []
+			var ms = file.get_32()
+			
+			var type_id = file.get_8()
+			var name:String = mt_name[type_id]
+			var data:Array = mt_type[type_id]
+			m.resize(mt_size[type_id] + 1)
+			
+			
+			var offset = 0
+			offset = 0
+			m[mt_size[type_id]] = ms # ms timestamp
+			
+			for ti in range(data.size()):
+				var v = read_data_type(
+					file,
+					true,
+					false,
+					data[ti] # type
+				)
+				
+				if data[ti] == DT_POSITION:
+					m[ti + offset] = v.x
+					offset += 1
+					m[ti + offset] = v.y
+				else:
+					m[ti + offset] = v
+			
+			markers[name].append(m)
+		
+		for arr in markers.values():
+			arr.sort_custom(self,"markersort")
+#			print(String(arr.slice(0,35)).replace("], ","],\n "))
+		
+		return markers
+	else:
+		markers = {
+			ssp_note = read_notes()
+		}
+		marker_types = [
+			["ssp_note", DT_POSITION]
+		]
+		return markers
 
 func discard_notes():
 	if songType != Globals.MAP_RAW:
+		markers = {}
 		notes = []
 		rawData = "" 
 
 func change_difficulty(to:int):
-	if songType != Globals.MAP_SSPM: 
-		print("tried to change difficulty of a non .sspm map")
-		return ERR_UNAVAILABLE
-	else:
+	if songType == Globals.MAP_SSPM:
 		if Globals.difficulty_names.get(to,null) == null:
 			print("invalid difficulty")
 			return ERR_INVALID_PARAMETER
@@ -377,7 +628,7 @@ func change_difficulty(to:int):
 			print("invalid sspm file")
 			return ERR_INVALID_DATA
 		
-		if file.get_16() > 2 or file.get_16() != 0: # version, reserved header
+		if file.get_16() != 1 or file.get_16() != 0: # version, reserved header
 			print("invalid version or reserved header")
 			return ERR_INVALID_DECLARATION
 		
@@ -390,8 +641,37 @@ func change_difficulty(to:int):
 		file.store_8(difficulty + 1)
 		file.close()
 		return OK
+	
+	elif songType == Globals.MAP_SSPM2:
+		if Globals.difficulty_names.get(to,null) == null:
+			print("invalid difficulty")
+			return ERR_INVALID_PARAMETER
+		
+		var file:File = File.new()
+		var err = file.open(filePath,File.READ_WRITE)
+		if err != OK:
+			print("file open failed: ",err)
+			return err
+		
+		if file.get_buffer(4) != PoolByteArray([0x53,0x53,0x2b,0x6d]): # signature
+			print("invalid sspm file")
+			return ERR_INVALID_DATA
+		
+		if file.get_16() != 2 or file.get_32() != 0: # version, reserved header
+			print("invalid version or reserved header")
+			return ERR_INVALID_DECLARATION
+		
+		file.seek(0x2a)
+		difficulty = to
+		file.store_8(difficulty + 1)
+		file.close()
+		return OK
+	
+	else: 
+		print("tried to change difficulty of a non .sspm map")
+		return ERR_UNAVAILABLE
 
-func convert_to_sspm():
+func convert_to_sspm_v1():
 	var file:File = File.new()
 	var dir:Directory = Directory.new()
 	# Figure out the path and make sure it's usable
@@ -427,60 +707,20 @@ func convert_to_sspm():
 	if has_cover and cover and (cover.get_height() + cover.get_width()) >= 9:
 		file.store_8(2)
 		var img:Image = cover.get_data()
-#		file.store_16(img.get_height()) # Height
-#		file.store_16(img.get_width()) # Width
-#		file.store_8(int(img.has_mipmaps())) # Has mipmaps
-#		file.store_8(img.get_format()) # Image format
 		var data:PoolByteArray = img.save_png_to_buffer()
 		file.store_64(data.size()) # Buffer length in bytes
 		file.store_buffer(data) # Actual cover data
 	else: file.store_8(0)
 	
 	# Audio
-	if songType == Globals.MAP_SSPM:
-		err = file2.open(filePath,File.READ)
-		if err == OK:
-			file2.seek(8) # Skip over header data
-			file2.get_line() # Skip over metadata
-			file2.get_line()
-			file2.get_line()
-			file2.seek(file2.get_position() + 9)
-			
-			var ct = file2.get_8()
-			if ct == 1: # Skip over cover
-				file.seek(file2.get_position() + 6)
-				var clen = file2.get_64()
-				file2.seek(file2.get_position() + clen)
-			elif ct == 2:
-				var clen = file2.get_64()
-				file2.seek(file2.get_position() + clen)
-			
-			if file2.get_8() != 1:
-				file2.close()
-				file.store_8(0)
-				push_warning("no music present")
-			else:
-				var blen:int = file2.get_64()
-				var buf:PoolByteArray = file2.get_buffer(blen) # Actual song data
-				
-				file.store_8(1)
-				file2.close()
-				file.store_64(buf.size())
-				file.store_buffer(buf)
-		else:
-			file.store_8(0)
-			push_warning("err was %s" % err)
+	var musicBuffer = get_music_buffer()
+	if !musicBuffer:
+		file.store_8(0)
 	else:
-		err = file2.open(musicFile,File.READ)
-		if err != OK:
-			file.store_8(0)
-			push_warning("Failed to open music file while converting map!")
-		else:
-			var mdata:PoolByteArray = file2.get_buffer(file2.get_len())
-			file.store_8(1)
-			file2.close()
-			file.store_64(mdata.size())
-			file.store_buffer(mdata)
+		file.store_8(1)
+		file2.close()
+		file.store_64(musicBuffer.size())
+		file.store_buffer(musicBuffer)
 	
 	# Note data
 	for n in notes:
@@ -498,7 +738,503 @@ func convert_to_sspm():
 	converted = true
 	return "Converted!"
 
+func check_if_modded():
+	# Mod developers need to override this themselves if they're handling map stuff
+	return false
+
+func auto_data_type(value) -> int:
+	if typeof(value) == TYPE_INT:
+		if value < 0: return DT_FLOAT_64
+		elif value < 2^8: return DT_INT_8
+		elif value < 2^16: return DT_INT_16
+		elif value < 2^32: return DT_INT_32
+		else: return DT_INT_64
+		
+	elif typeof(value) == TYPE_REAL:
+		return DT_FLOAT_64
+		
+	elif typeof(value) == TYPE_STRING:
+		if value.to_utf8().size() < 2^16: return DT_STRING
+		else: return DT_STRING_LONG
+		
+	elif typeof(value) == TYPE_RAW_ARRAY:
+		if value.size() < 2^16: return DT_BUFFER
+		else: return DT_BUFFER_LONG
+		
+	elif typeof(value) == TYPE_VECTOR2:
+		return DT_POSITION
+		
+	elif typeof(value) == TYPE_ARRAY:
+		return DT_ARRAY
+		
+	return DT_UNKNOWN
+
+func store_data_type(file:File, type:int, value, skip_type:bool = false, array_type:int = DT_UNKNOWN, skip_array_type:bool = true):
+	match type:
+		DT_INT_8:
+			if !skip_type:
+				file.store_8(type)
+			file.store_8(value)
+		DT_INT_16:
+			if !skip_type:
+				file.store_8(type)
+			file.store_16(value)
+		DT_INT_32:
+			if !skip_type:
+				file.store_8(type)
+			file.store_32(value)
+		DT_INT_64:
+			if !skip_type:
+				file.store_8(type)
+			file.store_64(value)
+		DT_FLOAT_32:
+			if !skip_type:
+				file.store_8(type)
+			file.store_float(value)
+		DT_FLOAT_64:
+			if !skip_type:
+				file.store_8(type)
+			file.store_real(value)
+		DT_POSITION:
+			if !skip_type: file.store_8(type)
+			if floor(abs(value.x)) == value.x and floor(abs(value.y)) == value.y and value.x < 256 and value.y < 256:
+				file.store_8(0)
+				file.store_8(value.x)
+				file.store_8(value.y)
+			else:
+				file.store_8(1)
+				file.store_float(value.x)
+				file.store_float(value.y)
+		DT_BUFFER:
+			if !skip_type:
+				file.store_8(type)
+			file.store_16(value.size())
+			file.store_buffer(value)
+		DT_STRING:
+			if !skip_type: file.store_8(type)
+			var buf:PoolByteArray = value.to_utf8()
+			file.store_16(buf.size())
+			file.store_buffer(buf)
+		DT_BUFFER_LONG:
+			if !skip_type:
+				file.store_8(type)
+			file.store_32(value.size())
+			file.store_buffer(value)
+		DT_STRING_LONG:
+			if !skip_type:
+				file.store_8(type)
+			var buf:PoolByteArray = value.to_utf8()
+			file.store_32(buf.size())
+			file.store_buffer(buf)
+		DT_ARRAY:
+			if !skip_type:
+				file.store_8(type)
+			if !skip_array_type:
+				file.store_8(array_type)
+			var p = file.get_position()
+			file.store_32(0)
+			file.store_16(value.size())
+			for v in value:
+				store_data_type(file,array_type,v,true)
+
+func read_data_type(
+	file:File,
+	skip_type:bool = false,
+	skip_array_type:bool = false,
+	type:int = DT_UNKNOWN, # Will be auto-detected if skip_type is false
+	array_type:int = DT_UNKNOWN # Will be auto-detected if skip_array_type is false
+):
+	if !skip_type:
+		type = file.get_8()
+	
+	match type:
+		DT_INT_8:
+			return file.get_8()
+		
+		DT_INT_16:
+			return file.get_16()
+		
+		DT_INT_32:
+			return file.get_32()
+		
+		DT_INT_64:
+			return file.get_64()
+		
+		DT_FLOAT_32:
+			return file.get_float()
+		
+		DT_FLOAT_64:
+			return file.get_real()
+		
+		DT_POSITION:
+			var value:Vector2 = Vector2(5,3)
+			var t = file.get_8()
+			if t == 0:
+				var x = file.get_8()
+				var y = file.get_8()
+				value = Vector2(x,y)
+			elif t == 1:
+				var x = file.get_float()
+				var y = file.get_float()
+				value = Vector2(x,y)
+			else:
+				# Something has gone wrong
+				assert(false)
+			return value
+		
+		DT_BUFFER:
+			var size = file.get_16()
+			return file.get_buffer(size)
+		
+		DT_STRING:
+			var size = file.get_16()
+			var buf = file.get_buffer(size)
+			return buf.get_string_from_utf8()
+		
+		DT_BUFFER_LONG:
+			var size = file.get_32()
+			return file.get_buffer(size)
+		
+		DT_STRING_LONG:
+			var size = file.get_32()
+			var buf = file.get_buffer(size)
+			return buf.get_string_from_utf8()
+		
+		DT_ARRAY:
+			if !skip_array_type:
+				array_type = file.get_8()
+			
+			var arr = []
+			var size = file.get_16()
+			arr.resize(size)
+			for i in range(size):
+				arr[i] = read_data_type(file,true,false,array_type)
+			
+			return arr
+
+func convert_to_sspm(upgrade:bool=false):
+	var file:File = File.new()
+	var file2:File = File.new()
+	var dir:Directory = Directory.new()
+	# Figure out the path and make sure it's usable
+	var path:String = Globals.p("user://maps/%s.sspm") % id
+	if !dir.dir_exists(Globals.p("user://maps")): dir.make_dir(Globals.p("user://maps"))
+	
+	var oldPath = filePath
+	if upgrade:
+		if songType == Globals.MAP_SSPM or songType == Globals.MAP_SSPM2:
+			var res = dir.copy(filePath,Globals.p("user://upgrade_temp.sspm"))
+			if res != OK:
+				return "copy failed - err %s" % res
+			path = filePath
+			filePath = Globals.p("user://upgrade_temp.sspm")
+	elif file.file_exists(path):
+		return "File already exists!"
+	
+	var err:int
+	var markers = read_markers()
+	
+	
+	var map_has_cover = (has_cover and cover and (cover.get_height() + cover.get_width()) >= 9)
+	
+	var map_has_music:bool = false
+	var music_buffer:PoolByteArray = get_music_buffer()
+	var music_buffer_length:int = 0
+	
+	# Get music buffer
+	if music_buffer:
+		map_has_music = true
+		music_buffer_length = music_buffer.size()
+	
+	
+	var author_regex = RegEx.new()
+	author_regex.compile("(?:^|\\g'2')(.*?)(?=$|\\g'2')(?(DEFINE)([,\\s]*(?>(?<=[,\\s])&(?=\\s)|(?<=[,\\s])and(?=\\s)|\\+)\\s*|,\\s*+))")
+	var author_matches = author_regex.search_all(creator)
+	var authors = []
+	for m in author_matches:
+		authors.append(m.get_string(1))
+	
+	read_markers()
+	
+	# Open the file for writing
+	err = file.open(path,File.WRITE_READ)
+	if err != OK: return "file.open errored - code " + String(err)
+	
+	
+	
+	
+	
+	
+	# This format has documentation:
+	# https://github.com/basils-garden/types/blob/sspm-v2-draft/sspm/v2.md
+	
+	# Header
+	file.store_buffer(PoolByteArray([0x53,0x53,0x2b,0x6d])) # File signature
+	file.store_16(2) # File type version
+	file.store_buffer(PoolByteArray([0x00,0x00,0x00,0x00])) # Reserved space
+	
+	# Static metadata
+	# Position: 0x0a
+	file.store_buffer(PoolByteArray([
+		0x00, 0x00, 0x00, 0x00, 0x00,
+		0x00, 0x00, 0x00, 0x00, 0x00,
+		0x00, 0x00, 0x00, 0x00, 0x00,
+		0x00, 0x00, 0x00, 0x00, 0x00,
+	])) # Save 20 bytes for the marker block hash, we'll come back here later
+	
+	# Position: 0x1e
+	file.store_32(last_ms) # Millisecond position of the last marker (32 bit uint)
+	
+	# Position: 0x22
+	file.store_32(note_count) # Number of notes in the map (32 bit uint).
+	
+	var marker_count:int = 0
+	for array in read_markers().values():
+		marker_count += array.size()
+	
+	# Position: 0x26
+	file.store_32(marker_count)
+	
+	# Position: 0x2a
+	file.store_8(difficulty + 1)
+	
+	# Position: 0x2b
+	file.store_16(rating)
+	
+	# Position: 0x2d
+	file.store_8(int(map_has_music)) # Does this map have audio? 
+	# Position: 0x2e
+	file.store_8(int(map_has_cover)) # Does this map have a cover? 
+	# Position: 0x2f
+	file.store_8(0) # Does this map require at least one mod?
+	
+	
+	# Pointers
+	# We will to return to these values later.
+	
+	var point_cdb = file.get_position()
+	print("cdb: %s" % String(point_cdb))
+	
+	# Position: 0x30
+	file.store_64(0) # Byte offset of the custom data block
+	
+	# Position: 0x38
+	file.store_64(0) # Byte length of the custom data block
+	
+	
+	var point_ab = file.get_position()
+	print("ab: %s" % String(point_ab))
+	
+	# Position: 0x40
+	file.store_64(0) # Byte offset of the audio block (0 if not present)
+	
+	# Position: 0x48
+	file.store_64(0) # Byte length of the audio block (0 if not present)
+	
+	
+	var point_cb = file.get_position()
+	print("cb: %s" % String(point_cb))
+	
+	# Position: 0x50
+	file.store_64(0) # Byte offset of the cover block (0 if not present)
+	
+	# Position: 0x58
+	file.store_64(0) # Byte length of the cover block (0 if not present)
+	
+	
+	var point_mdb = file.get_position()
+	print("mdb: %s" % String(point_mdb))
+	
+	# Position: 0x60
+	file.store_64(0) # Byte offset of the marker definitions block
+	
+	# Position: 0x68
+	file.store_64(0) # Byte length of the marker definitions block
+	
+	
+	var point_mb = file.get_position()
+	print("mb: %s" % String(point_mb))
+	
+	# Position: 0x70
+	file.store_64(0) # Byte offset of the marker block
+	
+	# Position: 0x78
+	file.store_64(0) # Byte length of the marker block
+	
+	
+	# Strings
+	var start:int = file.get_position()
+	
+	# Map ID
+	var buf:PoolByteArray = id.to_utf8()
+	file.store_16(buf.size())
+	file.store_buffer(buf)
+	
+	# Map name
+	buf = name.to_utf8()
+	file.store_16(buf.size())
+	file.store_buffer(buf)
+	
+	# Song name
+	buf = song.to_utf8()
+	file.store_16(buf.size())
+	file.store_buffer(buf)
+	
+	# Mapper list
+	file.store_16(authors.size())
+	for n in authors:
+		buf = n.to_utf8()
+		file.store_16(buf.size())
+		file.store_buffer(buf)
+	
+	
+	# Custom Data
+	start = file.get_position()
+	
+	file.store_16(custom_data.size()) # Number of fields
+	
+	for n in custom_data.keys():
+		buf = n.to_utf8()
+		file.store_16(buf.size())
+		file.store_buffer(buf)
+		var v = custom_data[n]
+		var t = auto_data_type(v)
+		var at = DT_UNKNOWN
+		if t == DT_ARRAY and t.size() != 0:
+			at = auto_data_type(t[0])
+		store_data_type(file,t,false,at,false)
+	
+	
+	var end = file.get_position()
+	file.seek(point_cdb)
+	file.store_64(start)
+	file.store_64(end - start)
+	file.seek(end)
+	
+	
+	# Audio
+	print(map_has_music)
+	if map_has_music:
+		start = file.get_position()
+		file.store_buffer(music_buffer)
+		end = file.get_position()
+		
+		file.seek(point_ab)
+		print("music block:")
+		print(start)
+		print(end - start, ", should equal ", music_buffer_length)
+		file.store_64(start)
+		file.store_64(end - start)
+		file.seek(end)
+	
+	# Cover
+	print(map_has_cover)
+	if map_has_cover:
+		start = file.get_position()
+		file.store_buffer(cover.get_data().save_png_to_buffer())
+		end = file.get_position()
+		
+		file.seek(point_cb)
+		file.store_64(start)
+		file.store_64(end - start)
+		file.seek(end)
+	
+	var marker_td:Dictionary = {}
+	
+	# Marker definitions
+	var markers_start = file.get_position()
+	start = file.get_position()
+	file.store_8(marker_types.size())
+	for i in range(marker_types.size()):
+		var t = marker_types[i]
+		buf = t[0].to_utf8()
+		file.store_16(buf.size())
+		file.store_buffer(buf)
+		file.store_8(t.size() - 1)
+		
+		# t[0] = name
+		marker_td[t[0]] = [i, []]
+		for j in range(1, t.size()):
+			marker_td[t[0]][1].append(t[j])
+			file.store_8(t[j])
+		file.store_8(0)
+	
+	end = file.get_position()
+	
+	file.seek(point_mdb)
+	file.store_64(start)
+	file.store_64(end - start)
+	file.seek(end)
+	
+	# Markers
+	var allmarkers = []
+	
+	for t in markers.keys():
+		for d in markers[t]:
+			var ms = d[-1]
+			var v = [ms, t, []]
+			
+			for i in range(d.size() - 1):
+				v[2].append(d[i])
+			
+			allmarkers.append(v)
+	
+	allmarkers.sort_custom(self,"marker_sort")
+	
+	start = file.get_position()
+	for m in allmarkers:
+		var ms = m[0]
+		var type = marker_td[ m[1] ]
+		var type_id = type[0]
+		var type_data = type[1]
+		
+		file.store_32(floor(m[0]))
+		file.store_8(type_id)
+		
+		var offset = 0
+		for i in range(type_data.size()):
+			var dt = type_data[i]
+			var v = m[2][i + offset]
+			
+			if dt == DT_POSITION:
+				offset += 1
+				v = Vector2(v, m[2][i + offset])
+			
+			store_data_type(
+				file, 
+				type_data[i], # type
+				v, # value
+				true
+			)
+	end = file.get_position()
+	
+	file.seek(point_mb)
+	file.store_64(start)
+	file.store_64(end - start)
+	file.seek(end)
+	
+	file.seek(markers_start)
+	var ctx = HashingContext.new()
+	ctx.start(HashingContext.HASH_SHA1)
+	
+	while !file.eof_reached():
+		ctx.update(file.get_buffer(hash_chunk_size))
+	
+	marker_hash = ctx.finish()
+	
+	file.seek(0x0a)
+	file.store_buffer(marker_hash)
+	
+	songType = Globals.MAP_SSPM2
+	filePath = path
+	dir.remove(Globals.p("user://upgrade_temp.sspm"))
+	
+	load_from_sspm(path)
+	
+	return "Converted!"
+
 func load_from_sspm(path:String):
+	is_online = false
 	songType = Globals.MAP_SSPM
 	filePath = path
 	musicFile = path
@@ -511,58 +1247,200 @@ func load_from_sspm(path:String):
 	
 	# Header
 	if file.get_buffer(4) != PoolByteArray([0x53,0x53,0x2b,0x6d]): return "File is not a valid .sspm (or header is borked)"
-	if file.get_16() != 1: return "Unknown .sspm version (update your game?)"
-	if file.get_16() != 0: return "Header reserved space is invalid (modded map?)"
 	
-	id = file.get_line()
-	name = file.get_line()
-	creator = file.get_line()
-	
-	# Map metadata
-	last_ms = file.get_32()
-	note_count = file.get_32()
-	difficulty = file.get_8() - 1
-	
-	# Cover
-	var ct = file.get_8()
-	if ct == 1 or ct == 2:
-		var img:Image = Image.new()
-		if ct == 1:
-			var h:int = file.get_16()
-			var w:int = file.get_16()
-			var mip:bool = bool(file.get_8())
-			var format:int = file.get_8()
-			var clen:int = file.get_64()
-			var cbuf:PoolByteArray = file.get_buffer(clen)
-			img.create_from_data(w,h,mip,format,cbuf)
-		elif ct == 2:
-			var clen:int = file.get_64()
-			var cbuf:PoolByteArray = file.get_buffer(clen)
-			img.load_png_from_buffer(cbuf)
+	var version:int = file.get_16()
+	if version == 1:
+		if file.get_16() != 0: return "Header reserved space is invalid (modded map?)"
 		
-		var imgtex:ImageTexture = ImageTexture.new()
-		imgtex.create_from_image(img)
-		cover = imgtex
-		has_cover = true
-	
-	if file.get_8() != 1:
-		warning = "[sspm] Invalid music storage type!"
-		is_broken = true
-		file.close()
-		return
-	else:
-		file.get_64()
-		var buf:PoolByteArray = file.get_buffer(12)
-		if Globals.audioLoader.get_format(buf) == "unknown":
-			warning = "[sspm] Invalid music data!"
+		id = file.get_line()
+		name = file.get_line()
+		song = name
+		creator = file.get_line()
+		
+		# Map metadata
+		last_ms = file.get_32()
+		note_count = file.get_32()
+		difficulty = file.get_8() - 1
+		
+		# Cover
+		var ct = file.get_8()
+		if ct == 1 or ct == 2:
+			var img:Image = Image.new()
+			if ct == 1:
+				var h:int = file.get_16()
+				var w:int = file.get_16()
+				var mip:bool = bool(file.get_8())
+				var format:int = file.get_8()
+				var clen:int = file.get_64()
+				var cbuf:PoolByteArray = file.get_buffer(clen)
+				img.create_from_data(w,h,mip,format,cbuf)
+			elif ct == 2:
+				var clen:int = file.get_64()
+				var cbuf:PoolByteArray = file.get_buffer(clen)
+				img.load_png_from_buffer(cbuf)
+			
+			var imgtex:ImageTexture = ImageTexture.new()
+			imgtex.create_from_image(img)
+			cover = imgtex
+			has_cover = true
+		
+		if file.get_8() != 1:
+			warning = "[sspm] Invalid music storage type!"
 			is_broken = true
 			file.close()
 			return
+		else:
+			file.get_64()
+			var buf:PoolByteArray = file.get_buffer(12)
+			if Globals.audioLoader.get_format(buf) == "unknown":
+				warning = "[sspm] Invalid music data!"
+				is_broken = true
+				file.close()
+				return
+		
+		sspm_song_stored = true
+		
+		file.close() # All done!
+		return self
 	
-	sspm_song_stored = true
+	elif version == 2:
+		songType = Globals.MAP_SSPM2
+		if file.get_buffer(4) != PoolByteArray([0x00,0x00,0x00,0x00]):
+			return "Header reserved space is invalid"
+		
+		# Static metadata
+		# Position: 0x0a
+		marker_hash = file.get_buffer(20)
+		
+		# Position: 0x1e
+		last_ms = file.get_32() # Millisecond position of the last marker (32 bit uint)
+		
+		# Position: 0x22
+		note_count = file.get_32() # Number of notes in the map (32 bit uint).
+		
+		# Position: 0x26
+		marker_count = file.get_32()
+		
+		# Position: 0x2a
+		difficulty = file.get_8() - 1
+		
+		# Position: 0x2b
+		rating = file.get_16()
+		
+		# Position: 0x2d
+		var map_has_music = bool(file.get_8()) # Does this map have audio?
+		if !map_has_music:
+			is_broken = true
+		else:
+			sspm_song_stored = true
+		# Position: 0x2e
+		has_cover = bool(file.get_8()) # Does this map have a cover? 
+		# Position: 0x2f
+		var mods_required = file.get_8() # Does this map require at least one mod?
+		if mods_required and !check_if_modded():
+			return "Map requires mods"
+		
+		# Pointers
+		# We will to return to these values later.
+		# Position: 0x30
+		var cdb_offset = file.get_64() # Byte offset of the custom data block
+		
+		# Position: 0x38
+		var cdb_length = file.get_64() # Byte length of the custom data block
+		
+		# Position: 0x40
+		var ab_offset = file.get_64() # Byte offset of the audio block (0 if not present)
+		
+		# Position: 0x48
+		var ab_length = file.get_64() # Byte length of the audio block (0 if not present)
+		
+		# Position: 0x50
+		var cb_offset = file.get_64() # Byte offset of the cover block (0 if not present)
+		
+		# Position: 0x58
+		var cb_length = file.get_64() # Byte length of the cover block (0 if not present)
+		
+		# Position: 0x60
+		var mdb_offset = file.get_64() # Byte offset of the marker definitions block
+		
+		# Position: 0x68
+		var mdb_length = file.get_64() # Byte length of the marker definitions block
+		
+		# Position: 0x70
+		var mb_offset = file.get_64() # Byte offset of the marker block
+		
+		# Position: 0x78
+		var mb_length = file.get_64() # Byte length of the marker block
+		
+		
+		# Map ID
+		id = file.get_buffer(file.get_16()).get_string_from_utf8()
+		
+		# Map name
+		name = file.get_buffer(file.get_16()).get_string_from_utf8()
+		
+		# Song name
+		song = file.get_buffer(file.get_16()).get_string_from_utf8()
+		
+		# Mapper list
+		var authors = []
+		authors.resize(file.get_16())
+		for i in range(authors.size()):
+			authors[i] = file.get_buffer(file.get_16()).get_string_from_utf8()
+		
+		creator = ""
+		for i in range(authors.size()):
+			if i != 0:
+				creator += " & "
+			creator += authors[i]
+		
+		# Custom Data
+		file.seek(cdb_offset)
+		var field_count = file.get_16()
+		
+		for i in range(field_count):
+			var n = file.get_buffer(file.get_16()).get_string_from_utf8()
+			custom_data[n] = read_data_type(file,false,false)
+		
+		
+		
+		# Cover
+		if has_cover:
+			file.seek(cb_offset)
+			var img:Image = Image.new()
+			var cbuf:PoolByteArray = file.get_buffer(cb_length)
+			img.load_png_from_buffer(cbuf)
+			
+			var imgtex:ImageTexture = ImageTexture.new()
+			imgtex.create_from_image(img)
+			cover = imgtex
+		
+		# Marker definitions
+		file.seek(mdb_offset)
+		marker_types = []
+		var marker_type_count = file.get_8()
+		marker_types.resize(marker_type_count)
+		
+		for i in range(marker_types.size()):
+			var t = []
+			marker_types[i] = t
+			var buf = file.get_buffer(file.get_16())
+			var name = buf.get_string_from_utf8()
+			t.append(name)
+			
+			var typecount = file.get_8()
+			
+			# t[0] = name
+			for j in range(1, typecount+1):
+				var type = file.get_8()
+				t.append(type)
+				
+			file.get_8()
+		
+		return self
 	
-	file.close() # All done!
-	return self
+	else:
+		return "Unknown .sspm version (update your game?)"
 
 func export_text(path:String):
 	var txt = id + ","
@@ -580,10 +1458,35 @@ func export_text(path:String):
 	file.close()
 	return "OK"
 
+func delete():
+	if songType == Globals.MAP_SSPM or songType == Globals.MAP_SSPM2:
+		var dir:Directory = Directory.new()
+		var err = dir.remove(Globals.p(filePath))
+		if err == OK:
+			songType = -1
+			difficulty = -1
+			is_broken = true
+			name = ""
+			song = ""
+			creator = ""
+			SSP.registry_song.check_and_remove_id(id)
+			id = "!DELETED"
+			
+			filePath = ""
+			musicFile = ""
+			initFile = ""
+			SSP.emit_signal("selected_song_changed")
+			SSP.emit_signal("favorite_songs_changed")
+		else:
+			Globals.notify(Globals.NOTIFY_ERROR,"Failed to delete map (error code %s)" % err,"Error")
+		
+
 func _init(idI:String="SOMETHING IS VERY BROKEN",nameI:String="SOMETHING IS VERY BROKEN",creatorI:String="Unknown"):
 	id = idI
 	name = nameI
+	song = nameI
 	creator = creatorI
+
 
 
 

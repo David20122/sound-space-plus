@@ -6,8 +6,10 @@ var songs:Array = SSP.registry_song.get_items()
 var btns:Array = []
 
 var search_text:String = ""
+var author_search_text:String = ""
 var difficulty_filter:Array = SSP.last_difficulty_filter
 var show_broken_maps:bool = false
+var show_online_maps:bool = true
 var flip_display:bool = false
 var flip_name:bool = false
 
@@ -29,8 +31,10 @@ func is_fav(s:Song): return favorite.has(s)
 func search_matches(s:Song):
 	return (
 		difficulty_filter.has(s.difficulty) and
+		(!s.is_online or show_online_maps) and
 		(!s.is_broken or show_broken_maps) and
-		(search_text == "" or s.name.to_lower().find(search_text.to_lower()) != -1)
+		(search_text == "" or s.name.to_lower().find(search_text.to_lower()) != -1) and
+		(author_search_text == "" or s.creator.to_lower().find(author_search_text.to_lower()) != -1)
 	)
 
 var has_been_pressed = false
@@ -39,7 +43,7 @@ func play_song():
 	if has_been_pressed: return
 	has_been_pressed = true
 	get_viewport().get_node("Menu").black_fade_target = true
-	yield(get_tree().create_timer(1),"timeout")
+	yield(get_tree().create_timer(0.35),"timeout")
 	get_tree().change_scene("res://songload.tscn")
 
 var pt = 1
@@ -84,9 +88,9 @@ func select_random():
 var page_size = Vector2(-1,-1)
 func load_pg(is_resize:bool=false):
 	
-	var col = clamp(floor((get_parent().rect_size.x-124)/132),1,14)
+	var col = max(floor((get_parent().rect_size.x-124)/132),1)
 	if columns != col: columns = col
-	var spp = clamp(col*floor((get_parent().rect_size.y-74)/132),1,6*col)
+	var spp = max(col*floor((get_parent().rect_size.y-74)/132),1)
 	if is_resize and Vector2(col,spp) == page_size: return
 	else: page_size = Vector2(col,spp)
 	
@@ -120,6 +124,7 @@ func load_pg(is_resize:bool=false):
 				else: btn.get_node("Name").modulate = Color(1,1,0.2)
 			var rbtn:Button = btn.get_node("Select")
 			if is_fav(map): btn.get_node("F").visible = true
+			btn.get_node("Cloud").visible = map.is_online
 			rbtn.disabled = false
 			rbtn.connect("pressed",self,"on_pressed",[i])
 			if map == SSP.selected_song:
@@ -161,13 +166,18 @@ func build_list():
 		append_filtering_favorites(disp,amogus)
 		append_filtering_favorites(disp,unknown)
 
-func reload_to_current_page():
+func reload_to_current_page(_a=null):
 	build_list()
 	if ready: SSP.last_page_num = page
 	load_pg()
 
 func update_search_text(txt:String):
 	search_text = txt
+	if ready: reload_to_current_page()
+	emit_signal("search_updated")
+
+func update_author_search_text(txt:String):
+	author_search_text = txt
 	if ready: reload_to_current_page()
 	emit_signal("search_updated")
 
@@ -179,6 +189,10 @@ func update_search_dfil(dfil:Array):
 
 func update_search_showbroken(show:bool):
 	show_broken_maps = show
+	if ready: reload_to_current_page()
+
+func update_search_showonline(show:bool):
+	show_online_maps = show
 	if ready: reload_to_current_page()
 
 func update_search_flipped(flip:bool):
@@ -264,6 +278,7 @@ func firstload():
 	reload_to_current_page()
 	ready = true
 	SSP.connect("favorite_songs_changed",self,"reload_to_current_page")
+	SSP.connect("download_done",self,"reload_to_current_page")
 	get_viewport().connect("size_changed",self,"handle_window_resize")
 	SSP.emit_signal("map_list_ready")
 

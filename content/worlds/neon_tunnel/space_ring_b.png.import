@@ -4,15 +4,16 @@ importer="texture"
 type="StreamTexture"
 path.s3tc="res://.import/space_ring_b.png-872346515b70275082223c4459fd43a8.s3tc.stex"
 path.etc2="res://.import/space_ring_b.png-872346515b70275082223c4459fd43a8.etc2.stex"
+path.etc="res://.import/space_ring_b.png-872346515b70275082223c4459fd43a8.etc.stex"
 metadata={
-"imported_formats": [ "s3tc", "etc2" ],
+"imported_formats": [ "s3tc", "etc2", "etc" ],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://content/worlds/neon_tunnel/space_ring_b.png"
-dest_files=[ "res://.import/space_ring_b.png-872346515b70275082223c4459fd43a8.s3tc.stex", "res://.import/space_ring_b.png-872346515b70275082223c4459fd43a8.etc2.stex" ]
+dest_files=[ "res://.import/space_ring_b.png-872346515b70275082223c4459fd43a8.s3tc.stex", "res://.import/space_ring_b.png-872346515b70275082223c4459fd43a8.etc2.stex", "res://.import/space_ring_b.png-872346515b70275082223c4459fd43a8.etc.stex" ]
 
 [params]
 

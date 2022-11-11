@@ -1,13 +1,23 @@
 extends Button
 
-export(String,FILE,"*.tscn") var target_scene
-
 var has_been_pressed:bool = false
 func _pressed():
-	var runBtn = get_viewport().get_node("Menu/MapSelect/Run")
-	if has_been_pressed or runBtn.has_been_pressed: return
-	runBtn.has_been_pressed = true
-	has_been_pressed = true
-	get_viewport().get_node("Menu").black_fade_target = true
-	yield(get_tree().create_timer(1),"timeout")
-	get_tree().change_scene(target_scene)
+	Globals.confirm_prompt.open(
+		"Are you sure? This will clear temporary maps!",
+		"Reload All Content",
+		[
+			{ text = "Cancel" },
+			{ text = "OK" }
+		]
+	)
+	Globals.confirm_prompt.s_alert.play()
+	var response:int = yield(Globals.confirm_prompt,"option_selected")
+	Globals.confirm_prompt.close()
+	if response == 1:
+		Globals.confirm_prompt.s_next.play()
+		yield(Globals.confirm_prompt,"done_closing")
+		get_viewport().get_node("Menu").black_fade_target = true
+		yield(get_tree().create_timer(0.35),"timeout")
+		get_tree().change_scene("res://init.tscn")
+	else:
+		Globals.confirm_prompt.s_back.play()

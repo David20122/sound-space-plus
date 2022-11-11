@@ -64,7 +64,11 @@ onready var trail_base = get_node("../../CursorTrail")
 func cache_trail(part:Spatial):
 	trail_cache.append(part)
 
+func recolor(col:Color):
+	$Mesh.get("material/0").albedo_color = Color(col.r,col.g,col.b,1)
+
 func _process(delta):
+	
 	if Input.is_action_just_pressed("debug_enable_mouse"):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	frame = Engine.get_frames_drawn()
@@ -73,7 +77,7 @@ func _process(delta):
 		$Mesh2.rotate_z(deg2rad(-delta*SSP.cursor_spin))
 	if SSP.cursor_face_velocity:
 		$Mesh.rotation_degrees.x += ((rad2deg(face.angle()) + 180) - $Mesh.rotation_degrees.x) * 0.025
-	if SSP.rainbow_cursor:
+	if SSP.cursor_color_type == Globals.CURSOR_RAINBOW:
 		$Mesh.get("material/0").albedo_color = Color.from_hsv(SSP.rainbow_t*0.1,0.65,1)
 	if Input.is_key_pressed(KEY_C):
 		ct = fmod(ct+delta,3)
@@ -86,7 +90,7 @@ func _process(delta):
 		transform.origin.x = p.x
 		transform.origin.y = p.y
 	
-	if SSP.smart_trail and trail_started:
+	if SSP.show_cursor and SSP.cursor_trail and SSP.smart_trail and trail_started:
 		var start_p = global_transform.origin
 		var end_p = prev_end
 		var amt = min(ceil(SSP.trail_detail*(start_p-end_p).length()),120)
@@ -119,11 +123,14 @@ func _process(delta):
 		prev_end = global_transform.origin
 
 func _ready():
+	if !SSP.show_cursor: visible = false
+	
 	if !SSP.replaying:
 		if SSP.lock_mouse:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		else:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
+			Input.set_custom_mouse_cursor(load("res://content/ui/blank.png"))
 	else:
 		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	
@@ -147,12 +154,30 @@ func _ready():
 	
 	prev_end = global_transform.origin
 	
-	if SSP.cursor_trail and !SSP.smart_trail:
-		for i in range(SSP.trail_detail):
-			var trail:Spatial = trail_base
-			if i != 0:
-				trail = trail.duplicate()
-				get_node("../..").call_deferred("add_child",trail)
-			trail.offset = (i) / float(SSP.trail_detail-1)
-			trail.start()
+	if SSP.cursor_color_type == Globals.CURSOR_NOTE_COLOR:
+		recolor(SSP.selected_colorset.colors[-1])
+		get_parent().connect("hit",self,"recolor")
+	elif SSP.cursor_color_type == Globals.CURSOR_CUSTOM_COLOR:
+		recolor(SSP.cursor_color)
+	
+	if SSP.cursor_trail:
+		if SSP.smart_trail:
+			yield(get_tree(),"idle_frame")
+			for i in range(SSP.trail_detail * 3.5):
+				var trail = trail_base.duplicate()
+				get_node("../..").add_child(trail)
+				trail.connect("cache_me",self,"cache_trail",[trail])
+				trail_cache.append(trail)
+				trail.start_smart(1,Vector3(0,0,-4))
+		else:
+			for i in range(SSP.trail_detail):
+				var trail:Spatial = trail_base
+				if i != 0:
+					trail = trail.duplicate()
+					get_node("../..").call_deferred("add_child",trail)
+				trail.offset = (i) / float(SSP.trail_detail-1)
+				trail.start()
 	trail_started = true
+func _exit_tree():
+	for n in trail_cache:
+		n.queue_free()
