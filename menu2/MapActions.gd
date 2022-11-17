@@ -127,7 +127,7 @@ func item_selected(idx:int):
 						self,
 						"save_song_audio",
 						["*.ogg ; ogg audio file"],
-						"~/Downloads/%s.off" % [SSP.selected_song.id]
+						"~/Downloads/%s.ogg" % [SSP.selected_song.id]
 					)
 				else:
 					Globals.notify(Globals.NOTIFY_ERROR,"Unable to determine audio format","Error")

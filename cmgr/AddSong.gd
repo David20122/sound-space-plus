@@ -191,7 +191,7 @@ func sel_filetype(type:int):
 			
 			Globals.file_sel.open_folder(
 				self,
-				"file_selected",
+				"folder_selected",
 				"~/Downloads"
 			)
 	elif maptype == T_TXT:
@@ -269,27 +269,34 @@ func import_vulnus_folder():
 	
 	dir.open(path)
 	if !dir.file_exists("meta.json"):
-		print("Possible nested folder - searching for meta.json")
+		print("Possible nested folder - searching for meta.json AAAAAAAAAAAAAAAAAAAA")
 		yield(get_tree(),"idle_frame")
+		print('list_dir_begin before')
+		dir.list_dir_begin()
 		var n = dir.get_next()
 		while n:
+			n = dir.get_next()
+			print(n)
 			if dir.file_exists(n.plus_file("meta.json")):
 				print("Found meta.json in '%s'" % n)
 				yield(get_tree(),"idle_frame")
 				path = path.plus_file(n)
 				break
-		if path == "user://temp": # Meta.json wasn't found anywhere
+		dir.list_dir_end()
+		if path == Globals.p("user://temp"): # Meta.json wasn't found anywhere
 			print("couldn't find meta.json")
 			$VulnusFile/Error.text = "Missing meta.json (check if the zip file contains a folder, and, if it does, extract it)"
 			$VulnusFile/Error.visible = true
 			return
+		else:
+			print("found meta.json at %s" % path)
 	
 	print("Located! Loading meta.json...")
 	yield(get_tree(),"idle_frame")
 	var res = file.open(path.plus_file("meta.json"),File.READ)
 	if res != OK:
 		print("meta.json: file open error %s" % res)
-		$VulnusFile/Error.text = "meta.json: error opening file (file error %s) % res"
+		$VulnusFile/Error.text = "meta.json: error opening file (file error %s)" % res
 		$VulnusFile/Error.visible = true
 		return
 	
@@ -389,12 +396,35 @@ func file_selected(files:PoolStringArray):
 			
 			print("Making temp dir")
 			yield(get_tree(),"idle_frame")
-			dir.open("user://")
-			if dir.dir_exists("user://temp"):
+			dir.open(Globals.p("user://"))
+			if dir.dir_exists(Globals.p("user://temp")):
 				print("Removing old temp dir")
 				yield(get_tree(),"idle_frame")
-				dir.remove("user://temp")
-			dir.make_dir("user://temp")
+				var found = Globals.get_files_recursive(
+					[Globals.p("user://temp")]
+				)
+				for p in found.files:
+					var res:int = dir.remove(p)
+					if res != OK:
+						print("file delete returned error %s for file '%s'" % [res,p])
+						$VulnusFile/Error.text = "failed to delete temp folder, file remove error %s" % [res]
+						$VulnusFile/Error.visible = true
+						return
+				found.folders.invert()
+				for p in found.folders:
+					var res:int = dir.remove(p)
+					if res != OK:
+						print("file delete returned error %s for folder '%s'" % [res,p])
+						$VulnusFile/Error.text = "failed to delete temp folder, folder remove error %s" % [res]
+						$VulnusFile/Error.visible = true
+						return
+				var res:int = dir.remove(Globals.p("user://temp"))
+				if res != OK:
+					print("file delete returned error %s for temp dir" % [res])
+					$VulnusFile/Error.text = "failed to delete temp folder, folder remove error %s" % [res]
+					$VulnusFile/Error.visible = true
+					return
+			dir.make_dir(Globals.p("user://temp"))
 			
 			print("Extracting zip file...")
 			yield(get_tree(),"idle_frame")
@@ -405,7 +435,7 @@ func file_selected(files:PoolStringArray):
 				if binarypath.begins_with("install_dir/"):
 					binarypath = OS.get_executable_path().get_base_dir().plus_file(binarypath.trim_prefix("install_dir/"))
 				
-				var outpath:String = ProjectSettings.globalize_path("user://temp")
+				var outpath:String = ProjectSettings.globalize_path(Globals.p("user://temp"))
 				var inpath:String = ProjectSettings.globalize_path(files[0])
 				
 				if inpath.ends_with(".vmap"):
@@ -420,18 +450,26 @@ func file_selected(files:PoolStringArray):
 				
 				
 				var args = [
-					# x -bb0 -y -bd ./Dimrain47_-_at_the_speed_of_light.zip *
 					'x',
 					'-bb0',
 					'-y',
 					'-bd',
-					'-o"%s"' % [ProjectSettings.globalize_path("user://temp")],
+					'-o"%s"' % [ProjectSettings.globalize_path(Globals.p("user://temp"))],
 					'"%s"' % [files[0].replace("\\","/")],
 					'*'
 				]
-				var exit_code = OS.execute(binarypath, args, true, output)
+				print(binarypath)
+				var exit_code = OS.execute(binarypath, args, true, output, true, OS.has_feature("debug"))
 				
-				if exit_code != 0:
+				for o in output:
+					print(o)
+				
+				if exit_code == -1:
+					print("nonzero exit code of -1 indicateds engine error")
+					$VulnusFile/Error.text = "engine error while extracting zip"
+					$VulnusFile/Error.visible = true
+					return
+				elif exit_code != 0:
 					print("nonzero exit code of %s" % [exit_code])
 					$VulnusFile/Error.text = "error occurred while extracting zip (exit code %s)" % [exit_code]
 					$VulnusFile/Error.visible = true
@@ -442,7 +480,7 @@ func file_selected(files:PoolStringArray):
 				$VulnusFile/Error.visible = true
 				return
 			
-			path = "user://temp"
+			path = Globals.p("user://temp")
 			import_vulnus_folder()
 		FO_VDIR:
 			$VulnusFile/Success.visible = false
