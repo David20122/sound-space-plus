@@ -1369,12 +1369,12 @@ func save_settings():
 			cursor_color_type = cursor_color_type,
 			target_fps = Engine.target_fps,
 			
-			master_volume = AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Master")),
-			music_volume = AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Music")),
-			hit_volume = AudioServer.get_bus_volume_db(AudioServer.get_bus_index("HitSound")),
-			miss_volume = AudioServer.get_bus_volume_db(AudioServer.get_bus_index("MissSound")),
-			fail_volume = AudioServer.get_bus_volume_db(AudioServer.get_bus_index("FailSound")),
-			pb_volume = AudioServer.get_bus_volume_db(AudioServer.get_bus_index("PBSound")),
+			master_volume = clamp(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Master")),-80,1000000),
+			music_volume = clamp(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Music")),-80,1000000),
+			hit_volume = clamp(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("HitSound")),-80,1000000),
+			miss_volume = clamp(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("MissSound")),-80,1000000),
+			fail_volume = clamp(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("FailSound")),-80,1000000),
+			pb_volume = clamp(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("PBSound")),-80,1000000),
 			
 			cursor_color = scol(cursor_color),
 			panel_bg = scol(panel_bg),

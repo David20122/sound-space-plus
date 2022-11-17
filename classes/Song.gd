@@ -305,7 +305,7 @@ func get_music_buffer():
 			return mdata
 
 func stream() -> AudioStream:
-	if sspm_song_stored:
+	if sspm_song_stored || !musicFile.begins_with("res://"):
 		var buf = get_music_buffer()
 		if buf:
 			var s = Globals.audioLoader.load_buffer(buf)
@@ -314,10 +314,10 @@ func stream() -> AudioStream:
 			else: return Globals.error_sound
 		else:
 			return Globals.error_sound
-	elif !musicFile.begins_with("res://"):
-		var stream = Globals.audioLoader.load_file(musicFile)
-		if stream: return stream
-		else: return Globals.error_sound
+#	elif !musicFile.begins_with("res://"):
+#		var stream = Globals.audioLoader.load_file(musicFile)
+#		if stream: return stream
+#		else: return Globals.error_sound
 	else: 
 		var mf:AudioStream = load(musicFile) as AudioStream
 		if mf is AudioStreamOGGVorbis or mf is AudioStreamMP3: mf.loop = false
