@@ -1,4 +1,4 @@
-[gd_scene load_steps=83 format=2]
+[gd_scene load_steps=84 format=2]
 
 [ext_resource path="res://uitheme.tres" type="Theme" id=1]
 [ext_resource path="res://font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=2]
@@ -43,6 +43,7 @@
 [ext_resource path="res://content/ui/arrow_up_white.png" type="Texture" id=41]
 [ext_resource path="res://content/ui/arrow_down_white.png" type="Texture" id=42]
 [ext_resource path="res://menu2/SettingsGroup.gd" type="Script" id=43]
+[ext_resource path="res://HitsyncOffset.gd" type="Script" id=44]
 [ext_resource path="res://menu2/ReplaceCustomFile.gd" type="Script" id=45]
 [ext_resource path="res://addons/native_dialogs/bin/native_dialog_open_file.gdns" type="Script" id=46]
 [ext_resource path="res://HitFOVAmplifier.gd" type="Script" id=47]
@@ -260,7 +261,7 @@ script = ExtResource( 59 )
 [node name="M" type="VBoxContainer" parent="."]
 margin_top = 59.0
 margin_right = 1280.0
-margin_bottom = 5126.0
+margin_bottom = 5158.0
 custom_constants/separation = 0
 
 [node name="Modifiers" type="VBoxContainer" parent="M"]
@@ -6009,9 +6010,6 @@ text = "FPS Limit"
 align = 2
 valign = 1
 clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Desc" type="Label" parent="M/Graphics/Group/H/TargetFPS/Sensitivity"]
 margin_left = 215.0
@@ -6028,7 +6026,7 @@ valign = 1
 [node name="Experimental" type="VBoxContainer" parent="M"]
 margin_top = 4890.0
 margin_right = 1280.0
-margin_bottom = 5067.0
+margin_bottom = 5099.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Experimental"]
@@ -6057,13 +6055,13 @@ flat = true
 [node name="Group" type="MarginContainer" parent="M/Experimental"]
 margin_top = 36.0
 margin_right = 1280.0
-margin_bottom = 177.0
+margin_bottom = 209.0
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="M/Experimental/Group"]
 margin_left = 180.0
 margin_right = 1280.0
-margin_bottom = 141.0
+margin_bottom = 173.0
 
 [node name="ExpWarning" type="MarginContainer" parent="M/Experimental/Group/H"]
 margin_right = 827.0
@@ -6133,10 +6131,84 @@ custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
 custom_fonts/font = SubResource( 49 )
 text = "These features aren't completely ready yet, and could be very buggy, unstable, or just not work at all. Use them at your own risk."
 
-[node name="Avatar" type="Control" parent="M/Experimental/Group/H"]
+[node name="HitSync" type="CheckBox" parent="M/Experimental/Group/H"]
 margin_top = 109.0
 margin_right = 827.0
-margin_bottom = 141.0
+margin_bottom = 137.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_fonts/font = SubResource( 4 )
+action_mode = 0
+text = "ensure that hitsounds are always (near-perfectly) synced to the map"
+flat = true
+script = ExtResource( 54 )
+target = "ensure_hitsync"
+
+[node name="Label" type="Label" parent="M/Experimental/Group/H/HitSync"]
+anchor_bottom = 1.0
+margin_left = -165.0
+margin_right = -10.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Ensure Hitsync"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="HitsyncOffset" type="SpinBox" parent="M/Experimental/Group/H"]
+visible = false
+margin_top = 141.0
+margin_right = 200.0
+margin_bottom = 173.0
+rect_min_size = Vector2( 200, 32 )
+rect_pivot_offset = Vector2( 286, 160 )
+focus_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource( 1 )
+max_value = 300.0
+allow_greater = true
+allow_lesser = true
+suffix = "ms"
+script = ExtResource( 44 )
+
+[node name="Label" type="Label" parent="M/Experimental/Group/H/HitsyncOffset"]
+margin_left = -146.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Hitsync Offset"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="Desc" type="Label" parent="M/Experimental/Group/H/HitsyncOffset"]
+margin_left = 215.0
+margin_right = 562.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 4 )
+text = "[def. 0 ms] offsets the synced hitsound (ensure hitsync must be enabled; positive only)"
+valign = 1
+
+[node name="Avatar" type="Control" parent="M/Experimental/Group/H"]
+margin_top = 141.0
+margin_right = 827.0
+margin_bottom = 173.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="Editor" type="Button" parent="M/Experimental/Group/H/Avatar"]
@@ -6187,7 +6259,7 @@ text = "literally you | experimental avatar editor. nowhere near done. visible i
 valign = 1
 
 [node name="BottomMargin" type="Control" parent="."]
-margin_top = 5130.0
+margin_top = 5162.0
 margin_right = 1280.0
-margin_bottom = 5226.0
+margin_bottom = 5258.0
 rect_min_size = Vector2( 0, 96 )

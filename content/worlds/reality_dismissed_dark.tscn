@@ -67,14 +67,12 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0 )
 material_override = SubResource( 3 )
 mesh = SubResource( 4 )
 skeleton = NodePath("../env")
-material/0 = null
 
 [node name="prism" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1, -9 )
 material_override = SubResource( 3 )
 mesh = SubResource( 5 )
 skeleton = NodePath("../env")
-material/0 = null
 
 [node name="particles" type="Particles" parent="prism"]
 material_override = SubResource( 7 )
@@ -89,7 +87,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1, -9 )
 material_override = SubResource( 3 )
 mesh = SubResource( 6 )
 skeleton = NodePath("../env")
-material/0 = null
 
 [node name="particles" type="Particles" parent="cube"]
 material_override = SubResource( 7 )

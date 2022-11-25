@@ -663,6 +663,8 @@ var show_warnings:bool = true
 var auto_maximize:bool = false
 
 # Settings - Experimental
+var ensure_hitsync:bool = false
+var hitsync_offset:float = 0 # don't save this yet; probably not even a necessary setting
 
 
 
@@ -861,7 +863,7 @@ func lcol(data:Dictionary,target:String) -> void:
 		set(target, Color(data[target]))
 
 # Settings file
-const current_sf_version = 45 # SV
+const current_sf_version = 46 # SV
 func load_saved_settings():
 	if Input.is_key_pressed(KEY_CONTROL) and Input.is_key_pressed(KEY_L): 
 		print("force settings read error")
@@ -1069,6 +1071,9 @@ func load_saved_settings():
 			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("FailSound"), data.fail_volume)
 		if data.has("pb_volume"):
 			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("PBSound"), data.pb_volume)
+		
+		if data.has("ensure_hitsync"):
+			ensure_hitsync = data.ensure_hitsync
 		
 		lcol(data,"grade_s_color")
 		lcol(data,"panel_bg")
@@ -1291,6 +1296,8 @@ func load_saved_settings():
 			hit_fov_decay = float(file.get_32())
 		if sv >= 45:
 			hit_fov_exponential = bool(file.get_8())
+		if sv >= 46:
+			ensure_hitsync = bool(file.get_8())
 		file.close()
 		save_settings()
 	return 0
@@ -1414,6 +1421,8 @@ func save_settings():
 			grade_c_color = scol(grade_c_color),
 			grade_d_color = scol(grade_d_color),
 			grade_f_color = scol(grade_f_color),
+			
+			ensure_hitsync = ensure_hitsync,
 		}
 		
 		if is_nan(edge_drift):
@@ -1572,6 +1581,16 @@ func register_worlds():
 		"ssp_vaporwave", "v a p o r w a v e",
 		"res://content/worlds/vaporwave.tscn", "balt",
 		"res://content/worlds/covers/vaporwave.png"
+	))
+	registry_world.add_item(BackgroundWorld.new(
+		"ssp_seifuku", "Seifuku (TW: Gore)",
+		"res://content/worlds/seifuku.tscn", "pyrule",
+		"res://content/worlds/seifuku/scum.png"
+	))
+	registry_world.add_item(BackgroundWorld.new(
+		"ssp_seifuku_blurred", "Seifuku Blurred",
+		"res://content/worlds/seifukub.tscn", "pyrule",
+		"res://content/worlds/seifuku/scumb.png"
 	))
 	# doesn't work :(
 	# registry_world.add_item(BackgroundWorld.new(
