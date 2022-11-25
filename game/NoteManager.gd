@@ -46,6 +46,12 @@ func reposition_notes(force:bool=false):
 			next_ms = note.notems
 		elif ms >= note.notems and note.state == Globals.NSTATE_ACTIVE:
 			var result = SSP.visual_mode or note.check($Cursor.transform.origin,last_cursor_position)
+			if SSP.play_hit_snd and SSP.ensure_hitsync: 
+				if SSP.sfx_2d:
+					$Hit2D.play()
+				else:
+					$Hit.transform = note.transform
+					$Hit.play()
 			if !result and (ms > note.notems + SSP.hitwindow_ms or pause_state == -1):
 #				note_passed = true
 				# notes should not be in the hitwindow if the game is paused
@@ -73,7 +79,7 @@ func reposition_notes(force:bool=false):
 				if !SSP.replaying and SSP.record_replays:
 					SSP.replay.note_hit(note.id)
 				note.state = Globals.NSTATE_HIT
-				if SSP.play_hit_snd: 
+				if SSP.play_hit_snd and !SSP.ensure_hitsync: 
 					if SSP.sfx_2d:
 						$Hit2D.play()
 					else:
@@ -113,6 +119,12 @@ func reposition_notes(force:bool=false):
 var color_index:int = 0
 var note_count:int = 0
 
+func sort_note_nodes(a,b):
+	return a.notems < b.notems
+
+func sort_note_queue(a,b):
+	return a[2] < b[2]
+
 func spawn_note(n:Array):
 	if n[2] < SSP.start_offset:
 		return
@@ -135,8 +147,16 @@ func spawn_note(n:Array):
 	color_index += 1
 	note_count += 1
 	if color_index == colors.size(): color_index = 0
+	
+	if noteNodes.size() != 0 and n[2] < noteNodes[0].notems:
+		print("noteNodes is out of order, sorting")
+		if OS.has_feature("debug"):
+			Globals.notify(Globals.NOTIFY_WARN,"noteNodes is out of order, sorting","Note order enforcement")
+		noteNodes.sort_custom(self,"sort_note_nodes")
 
 func spawn_notes(notes:Array):
+	notes.sort_custom(self,"sort_note_queue")
+	
 	next_ms = notes[0][2]
 	for n in notes:
 		if n[2] > SSP.start_offset and n[2] <= SSP.start_offset + 5000: # load the first 5 seconds immediately
@@ -161,8 +181,8 @@ func _ready():
 	
 	var img = Globals.imageLoader.load_if_exists("user://note")
 	if img:
-		m.albedo_texture = img
-		mt.albedo_texture = img
+		m.set_shader_param("image",img)
+		mt.set_shader_param("image",img)
 	
 	if !SSP.replaying and SSP.record_replays:
 		SSP.replay = Replay.new()
@@ -190,15 +210,14 @@ func _ready():
 	
 	# Precache notes
 	if SSP.visual_mode: # Precache a bunch of notes, because we're probably going to need them
-		for i in range(1500):
+		for i in range(800):
 			var n = $Note.duplicate()
 			noteCache.append(n)
 #			add_child(n)
 	else:
-		for i in range(75):
+		for i in range(25):
 			var n = $Note.duplicate()
 			noteCache.append(n)
-#			add_child(n)
 
 var music_started:bool = false
 const cursor_offset = Vector3(1,-1,0)
@@ -287,19 +306,16 @@ func comma_sep(number):
 var spawn_ms_dist:float = ((max(SSP.spawn_distance / SSP.approach_rate,0.6) * 1000) + 500)
 
 func do_note_queue():
+	
 	var rem:int = 0
-#	var amt:int = 0
 	for n in noteQueue:
 		if n[2] <= (ms + (spawn_ms_dist * speed_multi)):
 			rem += 1
-#			amt += 1
-#			if amt > 10:
-#				print("TOO MANY NOTES SPAWNED THIS FRAME!")
-#				break
+			
 			spawn_note(n)
-		else: break
-	
-	for _i in range(rem): noteQueue.pop_front()
+			noteQueue.remove(noteQueue.find(n))
+		else:
+			break
 
 
 var rec_t:float = 0
@@ -366,17 +382,17 @@ func _process(delta:float):
 					pause_state = 1
 					ms = pause_ms - (pause_state * (750 * speed_multi))
 					emit_signal("ms_change",ms)
-					$Music.volume_db = SSP.music_volume_db - 30
+					$Music.volume_db = -30
 					$Music.play(ms/1000)
 		if Input.is_action_pressed("pause") and pause_state > 0:
 			var prev_state = pause_state
 			pause_state = max(pause_state - (delta/0.75), 0)
-			$Music.volume_db = min($Music.volume_db + (delta * 30), SSP.music_volume_db)
+			$Music.volume_db = min($Music.volume_db + (delta * 30), 0)
 			if pause_state == 0:
 	#				print("YEAH baby that's what i've been waiting for")
 				if (prev_state != pause_state) and SSP.record_replays:
 					SSP.replay.store_sig(rms,Globals.RS_FINISH_UNPAUSE)
-				$Music.volume_db = SSP.music_volume_db
+				$Music.volume_db = 0
 				pause_state = 0
 	elif SSP.replay.sv != 1:
 		var should_pause:bool = false
@@ -434,11 +450,11 @@ func _process(delta:float):
 			pause_state = 1
 			ms = pause_ms - (pause_state * (750 * speed_multi))
 			emit_signal("ms_change",ms)
-			$Music.volume_db = SSP.music_volume_db - 30
+			$Music.volume_db = -30
 			$Music.play((ms + SSP.music_offset)/1000)
 		if replay_unpause and pause_state >= 0:
 			pause_state = max(pause_state - (delta/0.75), 0)
-			$Music.volume_db = min($Music.volume_db + (delta * 30), SSP.music_volume_db)
+			$Music.volume_db = min($Music.volume_db + (delta * 30), 0)
 			if should_end_unpause:
 	#				print("YEAH baby that's what i've been waiting for")
 				$Music.volume_db = SSP.music_volume_db
@@ -462,7 +478,7 @@ func _process(delta:float):
 	
 	if $Music.playing and !SSP.disable_desync:
 		var playback_pos:float = $Music.get_playback_position()*1000.0
-		if abs(playback_pos - (ms + SSP.music_offset)) > 65:
+		if abs(playback_pos - (ms + SSP.music_offset)) > (100 * max(speed_multi, 1.0)):
 			if SSP.desync_alerts:
 				Globals.notify(
 					Globals.NOTIFY_WARN,
@@ -484,3 +500,10 @@ func _process(delta:float):
 	if SSP.rainbow_grid:
 		$Inner.get("material/0").albedo_color = Color.from_hsv(SSP.rainbow_t*0.1,0.65,1)
 		$Outer.get("material/0").albedo_color = Color.from_hsv(SSP.rainbow_t*0.1,0.65,1)
+
+
+func _exit_tree():
+	# Remove anything sitting outside of the tree
+	scoreEffect.queue_free()
+	for n in noteCache:
+		n.queue_free()

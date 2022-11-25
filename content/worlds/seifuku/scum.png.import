@@ -2,9 +2,9 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/square.png-53215e86c48f8d5bb5cc91a93c12020f.s3tc.stex"
-path.etc2="res://.import/square.png-53215e86c48f8d5bb5cc91a93c12020f.etc2.stex"
-path.etc="res://.import/square.png-53215e86c48f8d5bb5cc91a93c12020f.etc.stex"
+path.s3tc="res://.import/scum.png-c209e15728427a5936f94e19cd8b30d0.s3tc.stex"
+path.etc2="res://.import/scum.png-c209e15728427a5936f94e19cd8b30d0.etc2.stex"
+path.etc="res://.import/scum.png-c209e15728427a5936f94e19cd8b30d0.etc.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc2", "etc" ],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://content/cursors/square.png"
-dest_files=[ "res://.import/square.png-53215e86c48f8d5bb5cc91a93c12020f.s3tc.stex", "res://.import/square.png-53215e86c48f8d5bb5cc91a93c12020f.etc2.stex", "res://.import/square.png-53215e86c48f8d5bb5cc91a93c12020f.etc.stex" ]
+source_file="res://content/worlds/seifuku/scum.png"
+dest_files=[ "res://.import/scum.png-c209e15728427a5936f94e19cd8b30d0.s3tc.stex", "res://.import/scum.png-c209e15728427a5936f94e19cd8b30d0.etc2.stex", "res://.import/scum.png-c209e15728427a5936f94e19cd8b30d0.etc.stex" ]
 
 [params]
 

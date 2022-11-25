@@ -387,6 +387,7 @@ popup_exclusive = true
 window_title = "Save file..."
 mode_overrides_title = false
 access = 2
+show_hidden_files = true
 
 [node name="OpenFile" type="FileDialog" parent="C"]
 anchor_right = 1.0
@@ -397,6 +398,7 @@ window_title = "Open a File"
 mode_overrides_title = false
 mode = 0
 access = 2
+show_hidden_files = true
 
 [node name="Folder" type="FileDialog" parent="C"]
 anchor_right = 1.0
@@ -407,3 +409,4 @@ window_title = "Select folder..."
 mode_overrides_title = false
 mode = 2
 access = 2
+show_hidden_files = true

@@ -71,10 +71,10 @@ func _process(delta):
 	$AudioStreamPlayer.volume_db = -3 - (40*black_fade)
 	$Music.volume_db = -8 - (40*black_fade)
 	if black_fade_target && black_fade != 1:
-		black_fade = min(black_fade + (delta/0.75),1)
+		black_fade = min(black_fade + (delta/0.3),1)
 		$BlackFade.color = Color(0,0,0,black_fade)
 	elif !black_fade_target && black_fade != 0:
-		black_fade = max(black_fade - (delta/0.75),0)
+		black_fade = max(black_fade - (delta/0.3),0)
 		$BlackFade.color = Color(0,0,0,black_fade)
 	
 	if !leaving:

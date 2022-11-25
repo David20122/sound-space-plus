@@ -104,7 +104,8 @@ func update_static_values():
 	elif Game.hits == 0: acclabel.text = "0%"
 	else: acclabel.text = "%.3f%%" % ((Game.hits/Game.total_notes)*100)
 	SSP.song_end_accuracy_str = acclabel.text
-	accbar.value = Game.hits/Game.total_notes
+	if not Game.total_notes == 0:
+		accbar.value = Game.hits/Game.total_notes
 	noteslabel.text = "%s/%s" % [Globals.comma_sep(Game.hits),Globals.comma_sep(Game.total_notes)]
 	misseslabel.text = "%s" % Globals.comma_sep(Game.misses)
 	energybar.max_value = Game.max_energy
@@ -132,7 +133,9 @@ func update_static_values():
 	var grade:String = "--"
 	var gcol:Color = Color(1,0,1)
 	var shine:float = 0
-	var acc = Game.hits/Game.total_notes
+	var acc = 100
+	if not Game.total_notes == 0:
+		acc = Game.hits/Game.total_notes
 	rainbow_letter_grade = (acc == 1)
 	if acc == 1:
 		grade = "SS"

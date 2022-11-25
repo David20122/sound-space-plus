@@ -25,6 +25,7 @@ var user_vmap_dir:String = Globals.p("user://vmaps")
 var user_map_dir:String = Globals.p("user://maps")
 var user_best_dir:String = Globals.p("user://bests")
 var user_colorset_dir:String = Globals.p("user://colorsets")
+var user_friend_dir:String = Globals.p("user://friend")
 
 # Installed content info
 var installed_dlc:Array = ["ssp_basegame"]
@@ -82,14 +83,10 @@ func select_song(song:Song):
 		
 		get_tree().paused = false
 		if result.success:
-			if song.songType != Globals.MAP_SSPM2:
-				song.convert_to_sspm(true)
 			emit_signal("download_done")
 			selected_song = song
 			emit_signal("selected_song_changed",song)
 		elif result.error == "010-100":
-			if song.songType != Globals.MAP_SSPM2:
-				song.convert_to_sspm(true)
 			emit_signal("download_done")
 		else:
 			Globals.confirm_prompt.s_alert.play()
@@ -136,12 +133,15 @@ var errornum:int = 0 # Used by settings file errors
 var errorstr:String = "" # Used by loading errors (ie. errors/songload and errors/menuload)
 var first_init_done = false # Don't reload mods as that can cause problems
 var loaded_world = null # Holds the bg world for transit between songload and song player
+var was_map_screen_centered:bool = false
 var menu_target:String = ProjectSettings.get_setting("application/config/default_menu_target")
 
 # Song list position/search persistence
 var was_auto_play_switch:bool = true
 var last_search_str:String = ""
+var last_author_search_str:String = ""
 var last_search_incl_broken:bool = false
+var last_search_incl_online:bool = true
 var last_search_flip_sort:bool = false
 var last_search_flip_name_sort:bool = false
 var last_page_num:int = 0
@@ -317,10 +317,18 @@ func get_next():
 
 # Engine node functions + debug command line
 func _ready():
-	fail_asp.volume_db = -10
+	fail_asp.bus = "OtherSound"
 	call_deferred("add_child",fail_asp)
 	pause_mode = PAUSE_MODE_PROCESS
 	Globals.connect("console_sent",self,"_console")
+	
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear2db(0.5))
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), linear2db(0.5))
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("HitSound"), linear2db(0.3))
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("MissSound"), linear2db(0.6))
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("FailSound"), linear2db(0.6))
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("PBSound"), linear2db(0.6))
+
 func _process(delta):
 	# Rainbow sync
 	rainbow_t = fmod(rainbow_t + (delta*0.5),10)
@@ -652,9 +660,11 @@ func _set_music_volume(v:float):
 
 # Settings - Misc
 var show_warnings:bool = true
-var auto_maximize:bool = true
+var auto_maximize:bool = false
 
 # Settings - Experimental
+var ensure_hitsync:bool = false
+var hitsync_offset:float = 0 # don't save this yet; probably not even a necessary setting
 
 
 
@@ -853,7 +863,7 @@ func lcol(data:Dictionary,target:String) -> void:
 		set(target, Color(data[target]))
 
 # Settings file
-const current_sf_version = 45 # SV
+const current_sf_version = 46 # SV
 func load_saved_settings():
 	if Input.is_key_pressed(KEY_CONTROL) and Input.is_key_pressed(KEY_L): 
 		print("force settings read error")
@@ -913,8 +923,6 @@ func load_saved_settings():
 			hitwindow_ms = data.hitwindow_ms
 		if data.has("cursor_spin"): 
 			cursor_spin = data.cursor_spin
-		if data.has("music_volume_db"): 
-			music_volume_db = data.music_volume_db
 		if data.has("selected_space"): 
 			var world = registry_world.get_item(data.selected_space)
 			if world:
@@ -1015,6 +1023,11 @@ func load_saved_settings():
 			show_miss_effect = data.show_miss_effect
 		if data.has("auto_maximize"): 
 			auto_maximize = data.auto_maximize
+			if auto_maximize: OS.window_maximized = true
+		if data.has("window_fullscreen"): 
+			OS.window_fullscreen = data.window_fullscreen
+		if data.has("window_borderless"): 
+			OS.window_borderless = data.window_borderless
 		if data.has("note_visual_approach"): 
 			note_visual_approach = data.note_visual_approach
 		if data.has("score_popup"): 
@@ -1041,6 +1054,26 @@ func load_saved_settings():
 			cursor_color_type = data.cursor_color_type
 		elif data.has("rainbow_cursor"):
 			cursor_color_type = Globals.CURSOR_RAINBOW
+		
+		if data.has("target_fps"):
+			Engine.target_fps = data.target_fps
+		
+		
+		if data.has("master_volume"):
+			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), data.master_volume)
+		if data.has("music_volume"):
+			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), data.music_volume)
+		if data.has("hit_volume"):
+			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("HitSound"), data.hit_volume)
+		if data.has("miss_volume"):
+			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("MissSound"), data.miss_volume)
+		if data.has("fail_volume"):
+			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("FailSound"), data.fail_volume)
+		if data.has("pb_volume"):
+			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("PBSound"), data.pb_volume)
+		
+		if data.has("ensure_hitsync"):
+			ensure_hitsync = data.ensure_hitsync
 		
 		lcol(data,"grade_s_color")
 		lcol(data,"panel_bg")
@@ -1263,6 +1296,8 @@ func load_saved_settings():
 			hit_fov_decay = float(file.get_32())
 		if sv >= 45:
 			hit_fov_exponential = bool(file.get_8())
+		if sv >= 46:
+			ensure_hitsync = bool(file.get_8())
 		file.close()
 		save_settings()
 	return 0
@@ -1279,6 +1314,7 @@ func save_settings():
 			vsync_enabled = OS.vsync_enabled,
 			vsync_via_compositor = OS.vsync_via_compositor,
 			window_fullscreen = OS.window_fullscreen,
+			window_borderless = OS.window_borderless,
 			selected_colorset = selected_colorset.id,
 			selected_space = selected_space.id,
 			selected_mesh = selected_mesh.id,
@@ -1296,7 +1332,6 @@ func save_settings():
 			enable_drift_cursor = enable_drift_cursor,
 			hitwindow_ms = hitwindow_ms,
 			cursor_spin = cursor_spin,
-			music_volume_db = music_volume_db,
 			enable_border = enable_border,
 			play_menu_music = play_menu_music,
 			note_hitbox_size = note_hitbox_size,
@@ -1339,6 +1374,14 @@ func save_settings():
 			billboard_score = billboard_score,
 			sfx_2d = sfx_2d,
 			cursor_color_type = cursor_color_type,
+			target_fps = Engine.target_fps,
+			
+			master_volume = clamp(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Master")),-80,1000000),
+			music_volume = clamp(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Music")),-80,1000000),
+			hit_volume = clamp(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("HitSound")),-80,1000000),
+			miss_volume = clamp(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("MissSound")),-80,1000000),
+			fail_volume = clamp(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("FailSound")),-80,1000000),
+			pb_volume = clamp(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("PBSound")),-80,1000000),
 			
 			cursor_color = scol(cursor_color),
 			panel_bg = scol(panel_bg),
@@ -1378,6 +1421,8 @@ func save_settings():
 			grade_c_color = scol(grade_c_color),
 			grade_d_color = scol(grade_d_color),
 			grade_f_color = scol(grade_f_color),
+			
+			ensure_hitsync = ensure_hitsync,
 		}
 		
 		if is_nan(edge_drift):
@@ -1404,6 +1449,10 @@ func register_colorsets():
 	registry_colorset.add_item(ColorSet.new(
 		[ Color("#fc4441"), Color("#4151fc") ],
 		"ssp_redblue", "Red & Blue", "Chedski"
+	))
+	registry_colorset.add_item(ColorSet.new(
+		[ Color("#00ffed"), Color("#ff8ff9") ],
+		"ssp_cottoncandy", "Cotton Candy", "Unknown"
 	))
 	registry_colorset.add_item(ColorSet.new(
 		[ Color("#ffcc4d"),Color("#ff7892"),Color("#e5dd80") ],
@@ -1532,6 +1581,16 @@ func register_worlds():
 		"ssp_vaporwave", "v a p o r w a v e",
 		"res://content/worlds/vaporwave.tscn", "balt",
 		"res://content/worlds/covers/vaporwave.png"
+	))
+	registry_world.add_item(BackgroundWorld.new(
+		"ssp_seifuku", "Seifuku (TW: Gore)",
+		"res://content/worlds/seifuku.tscn", "pyrule",
+		"res://content/worlds/seifuku/scum.png"
+	))
+	registry_world.add_item(BackgroundWorld.new(
+		"ssp_seifuku_blurred", "Seifuku Blurred",
+		"res://content/worlds/seifukub.tscn", "pyrule",
+		"res://content/worlds/seifuku/scumb.png"
 	))
 	# doesn't work :(
 	# registry_world.add_item(BackgroundWorld.new(
@@ -1709,6 +1768,8 @@ func do_init(_ud=null):
 		if !dir.dir_exists(user_pack_dir): dir.make_dir(user_pack_dir)
 		if !dir.dir_exists(user_vmap_dir): dir.make_dir(user_vmap_dir)
 		if !dir.dir_exists(user_map_dir): dir.make_dir(user_map_dir)
+		if !dir.dir_exists(user_colorset_dir): dir.make_dir(user_colorset_dir)
+		if !dir.dir_exists(user_friend_dir): dir.make_dir(user_friend_dir)
 		if !dir.dir_exists(Globals.p("user://replays")): dir.make_dir(Globals.p("user://replays"))
 		if !dir.dir_exists(user_best_dir):
 			convert_pb_format = true

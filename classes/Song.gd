@@ -147,7 +147,6 @@ func load_pbs():
 	if file.file_exists(Globals.p("user://bests/%s" % id)):
 		var err:int = file.open(Globals.p("user://bests/%s" % id),File.READ)
 		if err != OK:
-#			print("error reading pb file for %s: %s" % [id, String(err)])
 			return
 		
 		if file.get_buffer(5) != PoolByteArray([0x53,0x53,0x2B,0x70,0x42]):
@@ -306,7 +305,7 @@ func get_music_buffer():
 			return mdata
 
 func stream() -> AudioStream:
-	if sspm_song_stored:
+	if sspm_song_stored || !musicFile.begins_with("res://"):
 		var buf = get_music_buffer()
 		if buf:
 			var s = Globals.audioLoader.load_buffer(buf)
@@ -315,10 +314,10 @@ func stream() -> AudioStream:
 			else: return Globals.error_sound
 		else:
 			return Globals.error_sound
-	elif !musicFile.begins_with("res://"):
-		var stream = Globals.audioLoader.load_file(musicFile)
-		if stream: return stream
-		else: return Globals.error_sound
+#	elif !musicFile.begins_with("res://"):
+#		var stream = Globals.audioLoader.load_file(musicFile)
+#		if stream: return stream
+#		else: return Globals.error_sound
 	else: 
 		var mf:AudioStream = load(musicFile) as AudioStream
 		if mf is AudioStreamOGGVorbis or mf is AudioStreamMP3: mf.loop = false
@@ -362,7 +361,7 @@ func loadRawData(data:String):
 	else:
 		warning = ""
 		is_broken = false
-	notes.sort_custom(self,"notesort")
+#	notes.sort_custom(self,"notesort")
 	note_count = notes.size()
 
 func loadVulnusNoteArray(vNotes:Array):
@@ -381,7 +380,7 @@ func loadVulnusNoteArray(vNotes:Array):
 		warning = "[vulnus map] Audio file doesn't exist!"
 		is_broken = true
 	elif invalid != 0: warning = "[vulnus map] Song has %s invalid note(s)" % String(invalid)
-	notes.sort_custom(self,"notesort")
+#	notes.sort_custom(self,"notesort")
 	note_count = notes.size()
 
 func setup_from_file(mapFile:String,songFile:String):
@@ -435,24 +434,24 @@ func notesort(a,b):
 	return a[2] < b[2]
 
 func markersort(a,b):
-	return a[0] < b[0]
+	return a[-1] < b[-1]
 
 func read_notes() -> Array:
 	if songType == Globals.MAP_TXT:
 		discard_notes()
 	if notes.size() == 0:
 		if (songType == Globals.MAP_RAW or songType == Globals.MAP_TXT):
-			print("RAW/TXT")
 			if songType == Globals.MAP_TXT:
-				print("TXT")
+				print("Reading: TXT")
 				loadFromFile(initFile)
-			else: print(rawData)
+			else: print("Reading: RAW")
 			loadRawData(rawData)
 			print(notes.size())
+			notes.sort_custom(self,"notesort")
 			markers.ssp_note = notes
 			return notes
 		elif songType == Globals.MAP_VULNUS:
-#			print("VULNUS")
+			print("Reading: VULNUS")
 			var file = File.new()
 			file.open(filePath,File.READ)
 #			print(filePath)
@@ -463,10 +462,11 @@ func read_notes() -> Array:
 			var n:Array = data.get("_notes",[])
 #			print(n.size())
 			loadVulnusNoteArray(n)
+			notes.sort_custom(self,"notesort")
 			markers.ssp_note = notes
 			return notes
 		elif songType == Globals.MAP_SSPM:
-#			print("SSPM")
+			print("Reading: SSPM")
 			var file:File = File.new()
 			var err = file.open(filePath,File.READ)
 			if err != OK:
@@ -514,16 +514,15 @@ func read_notes() -> Array:
 				
 			file.close()
 		elif songType == Globals.MAP_SSPM2:
-			notes = read_markers().get("ssp_note",[])
+			print("Reading: SSPM2")
+			var markers = read_markers()
+			notes = markers.get("ssp_note",[])
 			return notes
 			
 	markers.ssp_note = notes
 	return notes
 
 func read_markers() -> Dictionary:
-	if markers.size() != 0 and songType == Globals.MAP_SSPM2:
-		return markers
-	
 	if songType == Globals.MAP_SSPM2:
 		markers = {}
 		
@@ -593,6 +592,9 @@ func read_markers() -> Dictionary:
 			
 			markers[name].append(m)
 		
+		for arr in markers.values():
+			arr.sort_custom(self,"markersort")
+#			print(String(arr.slice(0,35)).replace("], ","],\n "))
 		
 		return markers
 	else:
@@ -866,14 +868,18 @@ func read_data_type(
 		
 		DT_POSITION:
 			var value:Vector2 = Vector2(5,3)
-			if file.get_8() == 0:
+			var t = file.get_8()
+			if t == 0:
 				var x = file.get_8()
 				var y = file.get_8()
 				value = Vector2(x,y)
-			else:
+			elif t == 1:
 				var x = file.get_float()
 				var y = file.get_float()
 				value = Vector2(x,y)
+			else:
+				# Something has gone wrong
+				assert(false)
 			return value
 		
 		DT_BUFFER:
@@ -1171,13 +1177,9 @@ func convert_to_sspm(upgrade:bool=false):
 			for i in range(d.size() - 1):
 				v[2].append(d[i])
 			
-			if allmarkers.size() == 0 or ms > allmarkers[-1][0]:
-				allmarkers.append(v)
-			else:
-				for ii in range(0, allmarkers.size()):
-					var i = allmarkers.size() - ii - 1
-					if ms > allmarkers[i][0]:
-						allmarkers.insert(i,v)
+			allmarkers.append(v)
+	
+	allmarkers.sort_custom(self,"marker_sort")
 	
 	start = file.get_position()
 	for m in allmarkers:
@@ -1227,7 +1229,9 @@ func convert_to_sspm(upgrade:bool=false):
 	filePath = path
 	dir.remove(Globals.p("user://upgrade_temp.sspm"))
 	
-	return "OK"
+	load_from_sspm(path)
+	
+	return "Converted!"
 
 func load_from_sspm(path:String):
 	is_online = false
@@ -1339,49 +1343,34 @@ func load_from_sspm(path:String):
 		# Pointers
 		# We will to return to these values later.
 		# Position: 0x30
-		print("cdb")
 		var cdb_offset = file.get_64() # Byte offset of the custom data block
-		print(cdb_offset)
 		
 		# Position: 0x38
 		var cdb_length = file.get_64() # Byte length of the custom data block
-		print(cdb_length)
 		
-		print("ab")
 		# Position: 0x40
 		var ab_offset = file.get_64() # Byte offset of the audio block (0 if not present)
-		print(ab_offset)
 		
 		# Position: 0x48
 		var ab_length = file.get_64() # Byte length of the audio block (0 if not present)
-		print(ab_length)
 		
-		print("cb")
 		# Position: 0x50
 		var cb_offset = file.get_64() # Byte offset of the cover block (0 if not present)
-		print(cb_offset)
 		
 		# Position: 0x58
 		var cb_length = file.get_64() # Byte length of the cover block (0 if not present)
-		print(cb_length)
 		
-		print("mdb")
 		# Position: 0x60
 		var mdb_offset = file.get_64() # Byte offset of the marker definitions block
-		print(mdb_offset)
 		
 		# Position: 0x68
 		var mdb_length = file.get_64() # Byte length of the marker definitions block
-		print(mdb_length)
 		
-		print("mb")
 		# Position: 0x70
 		var mb_offset = file.get_64() # Byte offset of the marker block
-		print(mb_offset)
 		
 		# Position: 0x78
 		var mb_length = file.get_64() # Byte length of the marker block
-		print(mb_length)
 		
 		
 		# Map ID
@@ -1447,7 +1436,6 @@ func load_from_sspm(path:String):
 				t.append(type)
 				
 			file.get_8()
-		print(marker_types)
 		
 		return self
 	
@@ -1470,11 +1458,35 @@ func export_text(path:String):
 	file.close()
 	return "OK"
 
+func delete():
+	if songType == Globals.MAP_SSPM or songType == Globals.MAP_SSPM2:
+		var dir:Directory = Directory.new()
+		var err = dir.remove(Globals.p(filePath))
+		if err == OK:
+			songType = -1
+			difficulty = -1
+			is_broken = true
+			name = ""
+			song = ""
+			creator = ""
+			SSP.registry_song.check_and_remove_id(id)
+			id = "!DELETED"
+			
+			filePath = ""
+			musicFile = ""
+			initFile = ""
+			SSP.emit_signal("selected_song_changed")
+			SSP.emit_signal("favorite_songs_changed")
+		else:
+			Globals.notify(Globals.NOTIFY_ERROR,"Failed to delete map (error code %s)" % err,"Error")
+		
+
 func _init(idI:String="SOMETHING IS VERY BROKEN",nameI:String="SOMETHING IS VERY BROKEN",creatorI:String="Unknown"):
 	id = idI
 	name = nameI
 	song = nameI
 	creator = creatorI
+
 
 
 

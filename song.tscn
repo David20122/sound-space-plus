@@ -5,10 +5,10 @@
 [ext_resource path="res://game/Game.gd" type="Script" id=3]
 [ext_resource path="res://classes/Note.gd" type="Script" id=4]
 [ext_resource path="res://game/HUD.tscn" type="PackedScene" id=5]
+[ext_resource path="res://content/cursors/circle.png" type="Texture" id=6]
 [ext_resource path="res://grid_inner.png" type="Texture" id=7]
 [ext_resource path="res://spawn_effect.png" type="Texture" id=8]
 [ext_resource path="res://grid_outer.png" type="Texture" id=9]
-[ext_resource path="res://content/cursors/square.png" type="Texture" id=10]
 [ext_resource path="res://Avatar.tscn" type="PackedScene" id=11]
 [ext_resource path="res://content/blocks/cube.obj" type="ArrayMesh" id=12]
 [ext_resource path="res://game/Cursor.gd" type="Script" id=14]
@@ -35,7 +35,7 @@ flags_unshaded = true
 flags_do_not_receive_shadows = true
 flags_disable_ambient_light = true
 params_depth_draw_mode = 2
-albedo_texture = ExtResource( 10 )
+albedo_texture = ExtResource( 6 )
 
 [sub_resource type="PlaneMesh" id=30]
 size = Vector2( 3.04, 3.04 )
@@ -70,7 +70,7 @@ flags_no_depth_test = true
 flags_do_not_receive_shadows = true
 flags_disable_ambient_light = true
 params_depth_draw_mode = 2
-albedo_texture = ExtResource( 10 )
+albedo_texture = ExtResource( 6 )
 
 [sub_resource type="CanvasItemMaterial" id=76]
 light_mode = 1
@@ -205,24 +205,24 @@ bus = "Music"
 [node name="Miss" type="AudioStreamPlayer3D" parent="Game/Spawn"]
 pause_mode = 2
 attenuation_model = 3
-unit_db = -11.0
+bus = "MissSound"
 attenuation_filter_cutoff_hz = 20500.0
 attenuation_filter_db = 0.0
 
 [node name="Hit" type="AudioStreamPlayer3D" parent="Game/Spawn"]
 pause_mode = 2
 attenuation_model = 3
-unit_db = -21.0
+bus = "HitSound"
 attenuation_filter_cutoff_hz = 20500.0
 attenuation_filter_db = 0.0
 
 [node name="Miss2D" type="AudioStreamPlayer" parent="Game/Spawn"]
 pause_mode = 2
-volume_db = -11.0
+bus = "MissSound"
 
 [node name="Hit2D" type="AudioStreamPlayer" parent="Game/Spawn"]
 pause_mode = 2
-volume_db = -21.0
+bus = "HitSound"
 
 [node name="Outer" type="MeshInstance" parent="Game/Spawn"]
 transform = Transform( -4.37114e-08, -4.37114e-08, -1, -1, 1.91069e-15, 4.37114e-08, 0, 1, -4.37114e-08, 1, -1, 0 )
@@ -261,7 +261,7 @@ margin_left = -16.0
 margin_top = -16.0
 margin_right = 16.0
 margin_bottom = 16.0
-texture = ExtResource( 10 )
+texture = ExtResource( 6 )
 expand = true
 stretch_mode = 6
 

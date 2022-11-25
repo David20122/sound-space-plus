@@ -49,7 +49,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://classes/cursordance/Directional.gd"
 }, {
-"base": "",
+"base": "Reference",
 "class": "DiscordActivity",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_activity.gdns"
@@ -59,7 +59,7 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_activity_assets.gdns"
 }, {
-"base": "",
+"base": "Reference",
 "class": "DiscordActivityManager",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_activity_manager.gdns"
@@ -69,12 +69,12 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_activity_party.gdns"
 }, {
-"base": "",
+"base": "Reference",
 "class": "DiscordActivitySecrets",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_activity_secrets.gdns"
 }, {
-"base": "",
+"base": "Reference",
 "class": "DiscordActivityTimestamps",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_activity_timestamps.gdns"
@@ -84,7 +84,7 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_core.gdns"
 }, {
-"base": "",
+"base": "Reference",
 "class": "DiscordLobby",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_lobby.gdns"
@@ -94,7 +94,7 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_lobby_manager.gdns"
 }, {
-"base": "",
+"base": "Reference",
 "class": "DiscordLobbyTransaction",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_lobby_transaction.gdns"
@@ -104,7 +104,7 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_overlay_manager.gdns"
 }, {
-"base": "",
+"base": "Reference",
 "class": "DiscordPartySize",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_party_size.gdns"
@@ -114,7 +114,7 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_result.gdns"
 }, {
-"base": "",
+"base": "Reference",
 "class": "DiscordUser",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_user.gdns"
@@ -259,7 +259,7 @@ boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://icon.svg"
 config/windows_native_icon="res://icon.ico"
 config/quit_on_go_back=false
-config/version="0.12.1-nightly"
+config/version="0.12.7-stable"
 config/autoload_map_registries="test maps|res://test_assets/test_maps.sspmr;built in|res://content/songs/built_in_maps.sspmr"
 config/enable_new_content_mgr=true
 config/default_menu_target="res://menu2.tscn"
@@ -284,7 +284,7 @@ config/show_trail_debug=false
 config/project_settings_override.standalone="user://override.cfg"
 networking/enabled=true
 networking/mapdb_api="https://chedski.net/ssp/mapdb/api/"
-networking/test_url="http://example.com/"
+networking/test_url="https://chedski.net/ok"
 config/discord_rpc.HTML5=false
 config/enable_new_content_mgr.HTML5=false
 config/disable_native_file_dialogs=false
@@ -426,6 +426,16 @@ console={
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":true,"control":false,"meta":false,"command":false,"pressed":false,"scancode":92,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]
 }
+fps={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777246,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+skip_convert={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":true,"meta":false,"command":true,"pressed":false,"scancode":77,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
 
 [logging]
 
@@ -438,6 +448,7 @@ common/enable_pause_aware_picking=true
 [rendering]
 
 quality/driver/fallback_to_gles2=true
+threads/thread_model=2
 vram_compression/import_etc=true
 quality/directional_shadow/size=1024
 quality/directional_shadow/size.mobile=512

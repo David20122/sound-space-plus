@@ -356,7 +356,8 @@ func store_cursor_pos(ms:float,x:float,y:float):
 	last_ms = max(last_ms,floor(ms))
 	file.store_float(x)
 	file.store_float(y)
-	max_usec = max(max_usec,OS.get_ticks_usec() - a)
+	if debug:
+		max_usec = max(max_usec,OS.get_ticks_usec() - a)
 
 func note_miss(nid:int):
 	if !recording: return
@@ -364,7 +365,8 @@ func note_miss(nid:int):
 	sig_count += 1
 	file.store_8(Globals.RS_MISS)
 	file.store_32(nid)
-	print("note %s miss saved @ #%s, took %s usec" % [nid,sig_count,Globals.comma_sep(OS.get_ticks_usec() - a)])
+	if debug:
+		print("note %s miss saved @ #%s, took %s usec" % [nid,sig_count,Globals.comma_sep(OS.get_ticks_usec() - a)])
 
 func note_hit(nid:int):
 	if !recording: return
@@ -372,7 +374,8 @@ func note_hit(nid:int):
 	sig_count += 1
 	file.store_8(Globals.RS_HIT)
 	file.store_32(nid)
-	print("note %s hit saved @ #%s, took %s usec" % [nid,sig_count,Globals.comma_sep(OS.get_ticks_usec() - a)])
+	if debug:
+		print("note %s hit saved @ #%s, took %s usec" % [nid,sig_count,Globals.comma_sep(OS.get_ticks_usec() - a)])
 
 func store_sig(ms:float,sig:int):
 	if !recording: return
@@ -380,7 +383,8 @@ func store_sig(ms:float,sig:int):
 	sig_count += 1
 	file.store_8(sig)
 	file.store_32(floor(ms))
-	print("signal %s saved @ #%s, ms %s, took %s usec" % [sig,sig_count,ms,Globals.comma_sep(OS.get_ticks_usec() - a)])
+	if debug:
+		print("signal %s saved @ #%s, ms %s, took %s usec" % [sig,sig_count,ms,Globals.comma_sep(OS.get_ticks_usec() - a)])
 
 func store_pause(ms:float):
 	if !recording: return
@@ -388,7 +392,8 @@ func store_pause(ms:float):
 	sig_count += 1
 	file.store_8(Globals.RS_PAUSE)
 	file.store_32(floor(ms))
-	print("pause saved @ #%s, ms %s, took %s usec" % [sig_count,ms,Globals.comma_sep(OS.get_ticks_usec() - a)])
+	if debug:
+		print("pause saved @ #%s, ms %s, took %s usec" % [sig_count,ms,Globals.comma_sep(OS.get_ticks_usec() - a)])
 
 func store_giveup(ms:float):
 	if !recording: return
@@ -396,7 +401,8 @@ func store_giveup(ms:float):
 	sig_count += 1
 	file.store_8(Globals.RS_GIVEUP)
 	file.store_32(floor(ms))
-	print("giveup saved @ #%s, ms %s, took %s usec" % [sig_count,ms,Globals.comma_sep(OS.get_ticks_usec() - a)]) 
+	if debug:
+		print("giveup saved @ #%s, ms %s, took %s usec" % [sig_count,ms,Globals.comma_sep(OS.get_ticks_usec() - a)]) 
 
 func start_recording(with_song:Song):
 	var a = OS.get_ticks_usec()
@@ -414,7 +420,8 @@ func start_recording(with_song:Song):
 	file.store_32(0)
 	file.store_32(0)
 	recording = true
-	print("Recording startup took %s usec" % [Globals.comma_sep(OS.get_ticks_usec() - a)])
+	if debug:
+		print("Recording startup took %s usec" % [Globals.comma_sep(OS.get_ticks_usec() - a)])
 
 func end_recording():
 	var a = OS.get_ticks_usec()
@@ -425,4 +432,5 @@ func end_recording():
 	file.store_32(last_ms)
 	file.store_32(sig_count)
 	file.close()
-	print("Recording end took %s usec. Highest cursor save time was %s usec." % [Globals.comma_sep(OS.get_ticks_usec() - a),max_usec])
+	if debug:
+		print("Recording end took %s usec. Highest cursor save time was %s usec." % [Globals.comma_sep(OS.get_ticks_usec() - a),max_usec])

@@ -38,6 +38,7 @@ func spawn(parent:Node,pos:Vector3,col:Color,id:String,miss:bool):
 	active = true
 
 func setup(id:String,miss:bool):
+	$Particles.material_override = $Particles.material_override.duplicate()
 	var path:String = "user://hit"
 	if miss: path = "user://miss"
 	

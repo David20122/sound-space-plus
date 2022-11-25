@@ -28,7 +28,7 @@ var mat_t:ShaderMaterial
 
 func linstep(a:float,b:float,x:float):
 	if a == b: return float(x >= a)
-	return clamp(abs((x - a) / (b - a)),0,1)
+	return clamp(((x - a) / (b - a)),0,1)
 
 func reposition(ms:float,approachSpeed:float):
 	approachSpeed /= speed_multi
