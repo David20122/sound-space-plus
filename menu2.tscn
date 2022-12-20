@@ -1953,7 +1953,6 @@ __meta__ = {
 }
 
 [node name="Results" type="HBoxContainer" parent="Main"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 12.0
@@ -3607,6 +3606,7 @@ margin_top = 15.0
 margin_right = 424.0
 margin_bottom = 63.0
 rect_min_size = Vector2( 0, 48 )
+hint_tooltip = "(Xbox A)"
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.576471, 0.576471, 0.576471, 1 )
 custom_colors/font_color_focus = Color( 0.541176, 1, 0.580392, 1 )
@@ -4006,6 +4006,7 @@ margin_bottom = 5370.0
 rect_clip_content = true
 
 [node name="Credits" type="ReferenceRect" parent="Main"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -4031,7 +4032,7 @@ scroll_horizontal_enabled = false
 scroll_deadzone = 45
 
 [node name="L" type="VBoxContainer" parent="Main/Credits/C/S"]
-margin_right = 1204.0
+margin_right = 1216.0
 margin_bottom = 1120.0
 grow_horizontal = 2
 rect_min_size = Vector2( 700, 0 )
