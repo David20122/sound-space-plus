@@ -1631,11 +1631,11 @@ func register_worlds():
 		"res://content/worlds/seifukub.tscn", "pyrule",
 		"res://content/worlds/seifuku/scumb.png"
 	))
-	registry_world.add_item(BackgroundWorld.new(
-		"ssp_seethrough", "Seethrough",
-		"res://content/worlds/seethrough.tscn", "pyrule",
-		"res://content/worlds/covers/void.png"
-	))
+#	registry_world.add_item(BackgroundWorld.new(
+#		"ssp_seethrough", "Seethrough",
+#		"res://content/worlds/seethrough.tscn", "pyrule",
+#		"res://content/worlds/covers/void.png"
+#	))
 	# doesn't work :(
 	# registry_world.add_item(BackgroundWorld.new(
 	# 	"ssp_security_room", "Security Room",

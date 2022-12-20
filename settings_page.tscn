@@ -60,7 +60,7 @@
 [ext_resource path="res://menu2/EnumDropdownMenu.gd" type="Script" id=58]
 [ext_resource path="res://menuButtons/ReloadContent.gd" type="Script" id=59]
 [ext_resource path="res://menu2/TargetFPS.gd" type="Script" id=60]
-[ext_resource path="res://menuButtons/CursorTrailMode.gd" type="Script" id=61]
+[ext_resource path="res://menu2/CursorTrailType.gd" type="Script" id=62]
 
 [sub_resource type="DynamicFont" id=5]
 size = 18
@@ -262,7 +262,7 @@ script = ExtResource( 59 )
 [node name="M" type="VBoxContainer" parent="."]
 margin_top = 59.0
 margin_right = 1280.0
-margin_bottom = 5270.0
+margin_bottom = 5262.0
 custom_constants/separation = 0
 
 [node name="Modifiers" type="VBoxContainer" parent="M"]
@@ -1639,7 +1639,7 @@ clip_text = true
 [node name="Customization" type="VBoxContainer" parent="M"]
 margin_top = 1158.0
 margin_right = 1280.0
-margin_bottom = 2026.0
+margin_bottom = 2018.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Customization"]
@@ -1667,14 +1667,14 @@ flat = true
 [node name="Group" type="MarginContainer" parent="M/Customization"]
 margin_top = 36.0
 margin_right = 1280.0
-margin_bottom = 868.0
+margin_bottom = 860.0
 custom_constants/margin_left = 180
 custom_constants/margin_bottom = 12
 
 [node name="H" type="GridContainer" parent="M/Customization/Group"]
 margin_left = 180.0
 margin_right = 1280.0
-margin_bottom = 820.0
+margin_bottom = 812.0
 
 [node name="SEPARATOR" type="HSeparator" parent="M/Customization/Group/H"]
 margin_right = 670.0
@@ -2533,38 +2533,38 @@ clip_text = true
 [node name="CursorTrailMode" type="Control" parent="M/Customization/Group/H"]
 margin_top = 658.0
 margin_right = 670.0
-margin_bottom = 698.0
-rect_min_size = Vector2( 200, 40 )
+margin_bottom = 690.0
+rect_min_size = Vector2( 200, 32 )
 
-[node name="Presets" type="MenuButton" parent="M/Customization/Group/H/CursorTrailMode"]
-margin_left = -10.0
-margin_right = 194.0
+[node name="Effect" type="MenuButton" parent="M/Customization/Group/H/CursorTrailMode"]
+margin_right = 200.0
 margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
 custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
-text = "Cursor Trail Mode"
+text = "Unknown"
 flat = false
-script = ExtResource( 61 )
+align = 0
+script = ExtResource( 62 )
 
-[node name="Label" type="Label" parent="M/Customization/Group/H/CursorTrailMode/Presets"]
-visible = false
-margin_left = -142.0
+[node name="Label" type="Label" parent="M/Customization/Group/H/CursorTrailMode/Effect"]
+margin_left = -149.0
 margin_right = -10.0
 margin_bottom = 32.0
 focus_mode = 2
 theme = ExtResource( 1 )
-custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 3 )
-text = "Modes"
+text = "Trail Fade Mode"
 align = 2
 valign = 1
 clip_text = true
 
-[node name="Desc" type="Label" parent="M/Customization/Group/H/CursorTrailMode/Presets"]
+[node name="Desc" type="Label" parent="M/Customization/Group/H/CursorTrailMode/Effect"]
 margin_left = 215.0
 margin_right = 562.0
 margin_bottom = 32.0
@@ -2573,13 +2573,13 @@ theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
 custom_fonts/font = SubResource( 4 )
-text = "Mode: Both"
+text = "how the trail will fade out"
 valign = 1
 
 [node name="TrailDetail" type="Control" parent="M/Customization/Group/H"]
-margin_top = 702.0
+margin_top = 694.0
 margin_right = 670.0
-margin_bottom = 734.0
+margin_bottom = 726.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="TrailDetail" type="SpinBox" parent="M/Customization/Group/H/TrailDetail"]
@@ -2624,9 +2624,9 @@ text = "[def. 10] number of particles in the cursor trail / (smart trail) number
 valign = 1
 
 [node name="TrailTime" type="Control" parent="M/Customization/Group/H"]
-margin_top = 738.0
+margin_top = 730.0
 margin_right = 670.0
-margin_bottom = 770.0
+margin_bottom = 762.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="TrailTime" type="SpinBox" parent="M/Customization/Group/H/TrailTime"]
@@ -2672,16 +2672,16 @@ text = "[def. 0.15] how long the cursor trail lasts in seconds"
 valign = 1
 
 [node name="SEPARATOR3" type="HSeparator" parent="M/Customization/Group/H"]
-margin_top = 774.0
+margin_top = 766.0
 margin_right = 670.0
-margin_bottom = 784.0
+margin_bottom = 776.0
 rect_min_size = Vector2( 0, 10 )
 custom_styles/separator = SubResource( 55 )
 
 [node name="TouchIndicator" type="Control" parent="M/Customization/Group/H"]
-margin_top = 788.0
+margin_top = 780.0
 margin_right = 670.0
-margin_bottom = 820.0
+margin_bottom = 812.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="TouchIndicator" type="Button" parent="M/Customization/Group/H/TouchIndicator"]
@@ -2750,9 +2750,9 @@ icon = ExtResource( 4 )
 expand_icon = true
 
 [node name="Audio" type="VBoxContainer" parent="M"]
-margin_top = 2026.0
+margin_top = 2018.0
 margin_right = 1280.0
-margin_bottom = 2498.0
+margin_bottom = 2490.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Audio"]
@@ -3365,9 +3365,9 @@ __meta__ = {
 }
 
 [node name="UI" type="VBoxContainer" parent="M"]
-margin_top = 2498.0
+margin_top = 2490.0
 margin_right = 1280.0
-margin_bottom = 3042.0
+margin_bottom = 3034.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/UI"]
@@ -3954,9 +3954,9 @@ valign = 1
 clip_text = true
 
 [node name="UIColor" type="VBoxContainer" parent="M"]
-margin_top = 3042.0
+margin_top = 3034.0
 margin_right = 1280.0
-margin_bottom = 4710.0
+margin_bottom = 4702.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/UIColor"]
@@ -5848,9 +5848,9 @@ text = "[def. ##DEFAULT##] color of text when grade is F"
 valign = 1
 
 [node name="Graphics" type="VBoxContainer" parent="M"]
-margin_top = 4710.0
+margin_top = 4702.0
 margin_right = 1280.0
-margin_bottom = 5002.0
+margin_bottom = 4994.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Graphics"]
@@ -6153,9 +6153,9 @@ text = "[0 = no limit] puts a limit on the framerate; use this if ss+ is using 1
 valign = 1
 
 [node name="Experimental" type="VBoxContainer" parent="M"]
-margin_top = 5002.0
+margin_top = 4994.0
 margin_right = 1280.0
-margin_bottom = 5211.0
+margin_bottom = 5203.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Experimental"]
@@ -6346,7 +6346,7 @@ text = "literally you | experimental avatar editor. nowhere near done. visible i
 valign = 1
 
 [node name="BottomMargin" type="Control" parent="."]
-margin_top = 5274.0
+margin_top = 5266.0
 margin_right = 1280.0
-margin_bottom = 5370.0
+margin_bottom = 5362.0
 rect_min_size = Vector2( 0, 96 )

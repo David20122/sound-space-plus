@@ -28,7 +28,7 @@ func _ready():
 		get_popup().add_item(presets[i].name,i)
 	get_popup().connect("id_pressed",self,"on_pressed")
 	
-	if not SSP.trail_mode_scale and not SSP.trail_mode_opacity:
+	if SSP.trail_mode_scale and SSP.trail_mode_opacity:
 		$Desc.text = "Mode: Both"
 	elif SSP.trail_mode_scale and not SSP.trail_mode_opacity:
 		$Desc.text = "Mode: Scale"
