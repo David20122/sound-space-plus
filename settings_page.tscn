@@ -1,4 +1,4 @@
-[gd_scene load_steps=84 format=2]
+[gd_scene load_steps=85 format=2]
 
 [ext_resource path="res://uitheme.tres" type="Theme" id=1]
 [ext_resource path="res://font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=2]
@@ -43,7 +43,7 @@
 [ext_resource path="res://content/ui/arrow_up_white.png" type="Texture" id=41]
 [ext_resource path="res://content/ui/arrow_down_white.png" type="Texture" id=42]
 [ext_resource path="res://menu2/SettingsGroup.gd" type="Script" id=43]
-[ext_resource path="res://HitsyncOffset.gd" type="Script" id=44]
+[ext_resource path="res://menuButtons/NoteScale.gd" type="Script" id=44]
 [ext_resource path="res://menu2/ReplaceCustomFile.gd" type="Script" id=45]
 [ext_resource path="res://addons/native_dialogs/bin/native_dialog_open_file.gdns" type="Script" id=46]
 [ext_resource path="res://HitFOVAmplifier.gd" type="Script" id=47]
@@ -60,6 +60,7 @@
 [ext_resource path="res://menu2/EnumDropdownMenu.gd" type="Script" id=58]
 [ext_resource path="res://menuButtons/ReloadContent.gd" type="Script" id=59]
 [ext_resource path="res://menu2/TargetFPS.gd" type="Script" id=60]
+[ext_resource path="res://CursorTrailMode.gd" type="Script" id=61]
 
 [sub_resource type="DynamicFont" id=5]
 size = 18
@@ -261,7 +262,7 @@ script = ExtResource( 59 )
 [node name="M" type="VBoxContainer" parent="."]
 margin_top = 59.0
 margin_right = 1280.0
-margin_bottom = 5158.0
+margin_bottom = 5202.0
 custom_constants/separation = 0
 
 [node name="Modifiers" type="VBoxContainer" parent="M"]
@@ -450,7 +451,7 @@ valign = 1
 [node name="Notes" type="VBoxContainer" parent="M"]
 margin_top = 154.0
 margin_right = 1280.0
-margin_bottom = 466.0
+margin_bottom = 502.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Notes"]
@@ -478,13 +479,13 @@ flat = true
 [node name="Group" type="MarginContainer" parent="M/Notes"]
 margin_top = 36.0
 margin_right = 1280.0
-margin_bottom = 312.0
+margin_bottom = 348.0
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="M/Notes/Group"]
 margin_left = 180.0
 margin_right = 1280.0
-margin_bottom = 276.0
+margin_bottom = 312.0
 
 [node name="ColorSet2" type="VBoxContainer" parent="M/Notes/Group/H"]
 margin_right = 1100.0
@@ -649,17 +650,65 @@ custom_fonts/font = SubResource( 4 )
 text = "model used by notes"
 valign = 1
 
-[node name="SEPARATOR2" type="HSeparator" parent="M/Notes/Group/H"]
+[node name="NoteScale" type="Control" parent="M/Notes/Group/H"]
 margin_top = 112.0
 margin_right = 1100.0
-margin_bottom = 122.0
+margin_bottom = 144.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="NoteScale" type="SpinBox" parent="M/Notes/Group/H/NoteScale"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+rect_pivot_offset = Vector2( 286, -344 )
+focus_mode = 2
+theme = ExtResource( 1 )
+step = 0.001
+value = 1.0
+allow_greater = true
+allow_lesser = true
+suffix = "x"
+script = ExtResource( 44 )
+
+[node name="Label" type="Label" parent="M/Notes/Group/H/NoteScale/NoteScale"]
+margin_left = -115.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Note Scale"
+align = 2
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Desc" type="Label" parent="M/Notes/Group/H/NoteScale/NoteScale"]
+margin_left = 215.0
+margin_right = 562.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 4 )
+text = "[def. 1] the visual size of the notes (doesn't affect hitboxes)"
+valign = 1
+
+[node name="SEPARATOR2" type="HSeparator" parent="M/Notes/Group/H"]
+margin_top = 148.0
+margin_right = 1100.0
+margin_bottom = 158.0
 rect_min_size = Vector2( 0, 10 )
 custom_styles/separator = SubResource( 55 )
 
 [node name="ApproachRate" type="Control" parent="M/Notes/Group/H"]
-margin_top = 126.0
+margin_top = 162.0
 margin_right = 1100.0
-margin_bottom = 158.0
+margin_bottom = 194.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="ApproachRate" type="SpinBox" parent="M/Notes/Group/H/ApproachRate"]
@@ -707,9 +756,9 @@ text = "[def. 50] the speed that notes move towards the grid. (note: this will b
 valign = 1
 
 [node name="SpawnDist" type="Control" parent="M/Notes/Group/H"]
-margin_top = 162.0
+margin_top = 198.0
 margin_right = 1100.0
-margin_bottom = 194.0
+margin_bottom = 230.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="SpawnDist" type="SpinBox" parent="M/Notes/Group/H/SpawnDist"]
@@ -756,9 +805,9 @@ text = "[def. 100] distance from the grid that notes spawn (approach time = SD/A
 valign = 1
 
 [node name="FadeLength" type="Control" parent="M/Notes/Group/H"]
-margin_top = 198.0
+margin_top = 234.0
 margin_right = 1100.0
-margin_bottom = 230.0
+margin_bottom = 266.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="FadeLength" type="SpinBox" parent="M/Notes/Group/H/FadeLength"]
@@ -802,16 +851,16 @@ text = "[def. 50%] percentage of the spawn distance that notes take to fade from
 valign = 1
 
 [node name="SEPARATOR" type="HSeparator" parent="M/Notes/Group/H"]
-margin_top = 234.0
+margin_top = 270.0
 margin_right = 1100.0
-margin_bottom = 244.0
+margin_bottom = 280.0
 rect_min_size = Vector2( 0, 10 )
 custom_styles/separator = SubResource( 55 )
 
 [node name="NoteSpawnEffect" type="CheckBox" parent="M/Notes/Group/H"]
-margin_top = 248.0
+margin_top = 284.0
 margin_right = 1100.0
-margin_bottom = 276.0
+margin_bottom = 312.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
@@ -842,9 +891,9 @@ valign = 1
 clip_text = true
 
 [node name="Camera" type="VBoxContainer" parent="M"]
-margin_top = 466.0
+margin_top = 502.0
 margin_right = 1280.0
-margin_bottom = 1090.0
+margin_bottom = 1126.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Camera"]
@@ -872,13 +921,13 @@ flat = true
 [node name="Group" type="MarginContainer" parent="M/Camera"]
 margin_top = 36.0
 margin_right = 1280.0
-margin_bottom = 624.0
+margin_bottom = 656.0
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="M/Camera/Group"]
 margin_left = 180.0
 margin_right = 1280.0
-margin_bottom = 588.0
+margin_bottom = 620.0
 
 [node name="Sensitivity" type="Control" parent="M/Camera/Group/H"]
 margin_right = 483.0
@@ -1306,17 +1355,51 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SEPARATOR3" type="HSeparator" parent="M/Camera/Group/H"]
+[node name="BufferParallax" type="CheckBox" parent="M/Camera/Group/H"]
 margin_top = 394.0
 margin_right = 483.0
-margin_bottom = 404.0
+margin_bottom = 422.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_fonts/font = SubResource( 4 )
+pressed = true
+action_mode = 0
+text = "makes the parallax follow the buffer cursor instead of the real one"
+flat = true
+script = ExtResource( 54 )
+target = "follow_drift_cursor"
+
+[node name="Label" type="Label" parent="M/Camera/Group/H/BufferParallax"]
+anchor_bottom = 1.0
+margin_left = -150.0
+margin_right = -10.0
+grow_horizontal = 0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Follow Buffer Cursor"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="SEPARATOR3" type="HSeparator" parent="M/Camera/Group/H"]
+margin_top = 426.0
+margin_right = 483.0
+margin_bottom = 436.0
 rect_min_size = Vector2( 0, 10 )
 custom_styles/separator = SubResource( 55 )
 
 [node name="FOV" type="Control" parent="M/Camera/Group/H"]
-margin_top = 408.0
+margin_top = 440.0
 margin_right = 483.0
-margin_bottom = 440.0
+margin_bottom = 472.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="FOV" type="SpinBox" parent="M/Camera/Group/H/FOV"]
@@ -1361,9 +1444,9 @@ text = "[def. 70] you know what this does"
 valign = 1
 
 [node name="HitFOV" type="CheckBox" parent="M/Camera/Group/H"]
-margin_top = 444.0
+margin_top = 476.0
 margin_right = 483.0
-margin_bottom = 472.0
+margin_bottom = 504.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
@@ -1394,9 +1477,9 @@ valign = 1
 clip_text = true
 
 [node name="HitFOVMode" type="Control" parent="M/Camera/Group/H"]
-margin_top = 476.0
+margin_top = 508.0
 margin_right = 483.0
-margin_bottom = 516.0
+margin_bottom = 548.0
 rect_min_size = Vector2( 200, 40 )
 
 [node name="Presets" type="MenuButton" parent="M/Camera/Group/H/HitFOVMode"]
@@ -1440,9 +1523,9 @@ text = "Mode: Additive"
 valign = 1
 
 [node name="HitFOVAmplifier" type="SpinBox" parent="M/Camera/Group/H"]
-margin_top = 520.0
+margin_top = 552.0
 margin_right = 200.0
-margin_bottom = 552.0
+margin_bottom = 584.0
 rect_min_size = Vector2( 200, 32 )
 rect_pivot_offset = Vector2( 286, -108 )
 focus_mode = 2
@@ -1481,9 +1564,9 @@ text = "[def. 2] how intense is the hit FOV pulsing is"
 valign = 1
 
 [node name="HitFOVDecay" type="SpinBox" parent="M/Camera/Group/H"]
-margin_top = 556.0
+margin_top = 588.0
 margin_right = 200.0
-margin_bottom = 588.0
+margin_bottom = 620.0
 rect_min_size = Vector2( 200, 32 )
 rect_pivot_offset = Vector2( 286, -108 )
 focus_mode = 2
@@ -1554,9 +1637,9 @@ valign = 1
 clip_text = true
 
 [node name="Customization" type="VBoxContainer" parent="M"]
-margin_top = 1090.0
+margin_top = 1126.0
 margin_right = 1280.0
-margin_bottom = 1914.0
+margin_bottom = 1958.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Customization"]
@@ -1584,14 +1667,14 @@ flat = true
 [node name="Group" type="MarginContainer" parent="M/Customization"]
 margin_top = 36.0
 margin_right = 1280.0
-margin_bottom = 824.0
+margin_bottom = 868.0
 custom_constants/margin_left = 180
 custom_constants/margin_bottom = 12
 
 [node name="H" type="GridContainer" parent="M/Customization/Group"]
 margin_left = 180.0
 margin_right = 1280.0
-margin_bottom = 776.0
+margin_bottom = 820.0
 
 [node name="SEPARATOR" type="HSeparator" parent="M/Customization/Group/H"]
 margin_right = 670.0
@@ -2447,10 +2530,56 @@ align = 2
 valign = 1
 clip_text = true
 
-[node name="TrailDetail" type="Control" parent="M/Customization/Group/H"]
+[node name="CursorTrailMode" type="Control" parent="M/Customization/Group/H"]
 margin_top = 658.0
 margin_right = 670.0
-margin_bottom = 690.0
+margin_bottom = 698.0
+rect_min_size = Vector2( 200, 40 )
+
+[node name="Presets" type="MenuButton" parent="M/Customization/Group/H/CursorTrailMode"]
+margin_left = -10.0
+margin_right = 194.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+text = "Cursor Trail Mode"
+flat = false
+script = ExtResource( 61 )
+
+[node name="Label" type="Label" parent="M/Customization/Group/H/CursorTrailMode/Presets"]
+visible = false
+margin_left = -142.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Modes"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="Desc" type="Label" parent="M/Customization/Group/H/CursorTrailMode/Presets"]
+margin_left = 215.0
+margin_right = 562.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 4 )
+text = "Mode: Both"
+valign = 1
+
+[node name="TrailDetail" type="Control" parent="M/Customization/Group/H"]
+margin_top = 702.0
+margin_right = 670.0
+margin_bottom = 734.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="TrailDetail" type="SpinBox" parent="M/Customization/Group/H/TrailDetail"]
@@ -2495,9 +2624,9 @@ text = "[def. 10] number of particles in the cursor trail / (smart trail) number
 valign = 1
 
 [node name="TrailTime" type="Control" parent="M/Customization/Group/H"]
-margin_top = 694.0
+margin_top = 738.0
 margin_right = 670.0
-margin_bottom = 726.0
+margin_bottom = 770.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="TrailTime" type="SpinBox" parent="M/Customization/Group/H/TrailTime"]
@@ -2543,16 +2672,16 @@ text = "[def. 0.15] how long the cursor trail lasts in seconds"
 valign = 1
 
 [node name="SEPARATOR3" type="HSeparator" parent="M/Customization/Group/H"]
-margin_top = 730.0
+margin_top = 774.0
 margin_right = 670.0
-margin_bottom = 740.0
+margin_bottom = 784.0
 rect_min_size = Vector2( 0, 10 )
 custom_styles/separator = SubResource( 55 )
 
 [node name="TouchIndicator" type="Control" parent="M/Customization/Group/H"]
-margin_top = 744.0
+margin_top = 788.0
 margin_right = 670.0
-margin_bottom = 776.0
+margin_bottom = 820.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="TouchIndicator" type="Button" parent="M/Customization/Group/H/TouchIndicator"]
@@ -2621,9 +2750,9 @@ icon = ExtResource( 4 )
 expand_icon = true
 
 [node name="Audio" type="VBoxContainer" parent="M"]
-margin_top = 1914.0
+margin_top = 1958.0
 margin_right = 1280.0
-margin_bottom = 2386.0
+margin_bottom = 2430.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Audio"]
@@ -3236,9 +3365,9 @@ __meta__ = {
 }
 
 [node name="UI" type="VBoxContainer" parent="M"]
-margin_top = 2386.0
+margin_top = 2430.0
 margin_right = 1280.0
-margin_bottom = 2930.0
+margin_bottom = 2974.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/UI"]
@@ -3825,9 +3954,9 @@ valign = 1
 clip_text = true
 
 [node name="UIColor" type="VBoxContainer" parent="M"]
-margin_top = 2930.0
+margin_top = 2974.0
 margin_right = 1280.0
-margin_bottom = 4598.0
+margin_bottom = 4642.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/UIColor"]
@@ -5719,9 +5848,9 @@ text = "[def. ##DEFAULT##] color of text when grade is F"
 valign = 1
 
 [node name="Graphics" type="VBoxContainer" parent="M"]
-margin_top = 4598.0
+margin_top = 4642.0
 margin_right = 1280.0
-margin_bottom = 4890.0
+margin_bottom = 4934.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Graphics"]
@@ -6024,9 +6153,9 @@ text = "[0 = no limit] puts a limit on the framerate; use this if ss+ is using 1
 valign = 1
 
 [node name="Experimental" type="VBoxContainer" parent="M"]
-margin_top = 4890.0
+margin_top = 4934.0
 margin_right = 1280.0
-margin_bottom = 5099.0
+margin_bottom = 5143.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Experimental"]
@@ -6178,7 +6307,7 @@ max_value = 300.0
 allow_greater = true
 allow_lesser = true
 suffix = "ms"
-script = ExtResource( 44 )
+script = ExtResource( 61 )
 
 [node name="Label" type="Label" parent="M/Experimental/Group/H/HitsyncOffset"]
 margin_left = -146.0
@@ -6259,7 +6388,7 @@ text = "literally you | experimental avatar editor. nowhere near done. visible i
 valign = 1
 
 [node name="BottomMargin" type="Control" parent="."]
-margin_top = 5162.0
+margin_top = 5206.0
 margin_right = 1280.0
-margin_bottom = 5258.0
+margin_bottom = 5302.0
 rect_min_size = Vector2( 0, 96 )

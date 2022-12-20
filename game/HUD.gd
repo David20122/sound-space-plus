@@ -424,7 +424,7 @@ func _ready():
 			Globals.SPEED_PP: modicons.get_node("SpeedPP").visible = true
 			Globals.SPEED_PPP: modicons.get_node("SpeedPPP").visible = true
 			Globals.SPEED_PPPP: modicons.get_node("SpeedPPPP").visible = true
-			Globals.SPEED_CUSTOM: mods.append("Speed%s%%" % [Globals.speed_multi[Globals.SPEED_CUSTOM] * 100])
+			Globals.SPEED_CUSTOM: mods.append("S%s" % [Globals.speed_multi[Globals.SPEED_CUSTOM] * 100])
 	if SSP.mod_sudden_death: mods.append("SuddenDeath")
 	if SSP.mod_extra_energy: mods.append("Energy+")
 	if SSP.mod_no_regen: mods.append("NoRegen")
@@ -436,19 +436,20 @@ func _ready():
 	if SSP.mod_ghost: mods.append("Ghost")
 	if SSP.mod_nearsighted: mods.append("Nearsight")
 	if SSP.mod_chaos: mods.append("Chaos")
+	if SSP.mod_earthquake: mods.append("Earthquake")
 	for i in range(mods.size()):
 		if i != 0: ms += " "
 		ms += mods[i]
 	if mods.size() != 0 and !SSP.mod_nofail: ms += '\n'
 	
-	if SSP.hitwindow_ms != 55 or SSP.note_hitbox_size != 1.140:
-		ms += "HW: %.0f ms | HB: %.02f m" % [SSP.hitwindow_ms,SSP.note_hitbox_size]
 	if SSP.hitwindow_ms == 83 and SSP.note_hitbox_size == 1.710:
-		ms = "py's nerf"
-	if SSP.hitwindow_ms == 58 and SSP.note_hitbox_size == 1.140:
-		ms = "Vulnus Judgement"
-	if SSP.hitwindow_ms == 82 and SSP.note_hitbox_size == 1.700:
-		ms = ""
+		ms += "py's nerf"
+	elif SSP.hitwindow_ms == 58 and SSP.note_hitbox_size == 1.140:
+		ms += "Vulnus Judgement"
+	elif SSP.hitwindow_ms == 82 and SSP.note_hitbox_size == 1.700:
+		ms += ""
+	elif SSP.hitwindow_ms != 55 or SSP.note_hitbox_size != 1.140:
+		ms += "HW: %.0f ms | HB: %.02f m" % [SSP.hitwindow_ms,SSP.note_hitbox_size]
 	
 	modtxt.text = ms
 

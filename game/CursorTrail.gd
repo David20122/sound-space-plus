@@ -33,8 +33,10 @@ func upd_dumb(delta):
 	if !SSP.smart_trail:
 		t += (delta/SSP.trail_time)
 	var a = clamp((t - 0.2),0,1)
-	$Mesh.get("material/0").albedo_color.a = a * 0.6 * transp_multi
-	$Mesh.scale = Vector3(a*SSP.cursor_scale,1,a*SSP.cursor_scale)
+	if SSP.trail_mode_opacity:
+		$Mesh.get("material/0").albedo_color.a = a * 0.6 * transp_multi
+	if SSP.trail_mode_scale:
+		$Mesh.scale = Vector3(a*SSP.cursor_scale,1,a*SSP.cursor_scale)
 	if !SSP.smart_trail and t >= 1:
 		t -= 1
 		respawn()
@@ -42,8 +44,10 @@ func upd_dumb(delta):
 func update(delta):
 	t -= (delta/SSP.trail_time)
 	var a = clamp((t),0,1)
-	$Mesh.get("material/0").albedo_color.a = a * 0.6 * transp_multi
-	$Mesh.scale = Vector3(a*SSP.cursor_scale,1,a*SSP.cursor_scale)
+	if SSP.trail_mode_opacity:
+		$Mesh.get("material/0").albedo_color.a = a * 0.6 * transp_multi
+	if SSP.trail_mode_scale:
+		$Mesh.scale = Vector3(a*SSP.cursor_scale,1,a*SSP.cursor_scale)
 	if t <= 0:
 		started = false
 		visible = false
@@ -59,6 +63,8 @@ func init():
 	if init_done: return
 	var mat:SpatialMaterial = $Mesh.get("material/0").duplicate()
 	$Mesh.scale = Vector3(0,1,0)
+	if not SSP.trail_mode_scale and SSP.trail_mode_opacity:
+		$Mesh.scale = Vector3(1,1,1)
 	$Mesh.set("material/0",mat)
 
 func start():

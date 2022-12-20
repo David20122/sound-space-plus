@@ -641,7 +641,25 @@ func _process(delta):
 		fps_visible = !fps_visible
 		fps_disp.visible = fps_visible
 
+var cmdline:Dictionary = {}
 func _ready():
+	if OS.has_feature("steam"):
+		var file = File.new()
+		if (
+			!file.file_exists(OS.get_executable_path().get_base_dir().plus_file("note.pck")) or
+			!file.file_exists(OS.get_executable_path().get_base_dir().plus_file("sfx.pck")) or
+			!file.file_exists(OS.get_executable_path().get_base_dir().plus_file("ui.pck")) or
+			!file.file_exists(OS.get_executable_path().get_base_dir().plus_file("worlds.pck"))
+		):
+			get_tree().change_scene("res://errors/content.tscn")
+			push_error("MISSING CONTENT")
+			return
+		ProjectSettings.load_resource_pack(OS.get_executable_path().get_base_dir().plus_file("note.pck"))
+		ProjectSettings.load_resource_pack(OS.get_executable_path().get_base_dir().plus_file("sfx.pck"))
+		ProjectSettings.load_resource_pack(OS.get_executable_path().get_base_dir().plus_file("ui.pck"))
+		ProjectSettings.load_resource_pack(OS.get_executable_path().get_base_dir().plus_file("worlds.pck"))
+		get_tree().call_deferred("change_scene","res://init.tscn")
+	
 	url_regex.compile(
 		"((http|https)://)(www.)?[a-zA-Z0-9@:%._\\+~#?&//=]{2,256}"+
 		"\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%._\\+~#?&//=]*)"
@@ -661,6 +679,13 @@ func _ready():
 	fps_disp.margin_right = 0
 	fps_disp.margin_bottom = 0
 	fps_disp.set("custom_fonts/font",load("res://font/debug2.tres"))
+	
+	for arg in OS.get_cmdline_args():
+		if arg.find("=") > -1:
+			var key_value = arg.split("=")
+			cmdline[key_value[0].lstrip("--")] = key_value[1]
+		else:
+			cmdline[arg.lstrip("--")] = ""
 	
 	if OS.has_feature("debug"):
 		get_tree().root.call_deferred("add_child",fps_disp)

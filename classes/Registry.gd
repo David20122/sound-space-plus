@@ -115,6 +115,7 @@ func add_sspm_map(path:String):
 		print(path + ": " + res)
 		return
 	add_item(song)
+	return song
 
 func add_vulnus_map(folder_path:String):
 	var id = "vmapimp_" + folder_path.get_file().replace(" ","_").to_lower()
@@ -165,8 +166,8 @@ func add_vulnus_map(folder_path:String):
 		if cover:
 			song.cover = cover
 			song.has_cover = true
-#	return song
 	add_item(song)
+	return song
 
 signal percent_progress
 

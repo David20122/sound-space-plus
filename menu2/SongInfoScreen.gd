@@ -41,6 +41,10 @@ func update(_s=null):
 	$Info/D/Difficulty.modulate = Globals.difficulty_colors.get(map.difficulty,Color("#ffffff"))
 	$Info/D/Data.text = "%s - %s notes" % [get_time_ms(map.last_ms),comma_sep(map.note_count)]
 	
+	$Info/M/V/Mapper.visible = !SSP.single_map_mode_txt
+	$Info/M/V/Id.visible = !SSP.single_map_mode_txt
+	$Info/M/V/SMM.visible = SSP.single_map_mode
+	
 	var txt = ""
 	if SSP.note_hitbox_size == 1.140: txt += "Default hitboxes, "
 	else: txt += "Hitboxes: %s, " % SSP.note_hitbox_size
@@ -76,7 +80,6 @@ func update(_s=null):
 #			$Info/M/V/Buttons/Control/PreviewMusic.disabled = false
 	else: $Info/M/V/Warning.visible = false
 	$Info/M/V/Run/Run.disabled = false
-	$Info/M/V/Buttons/Control/Favorite.disabled = false
 	$Info/M/V/Buttons/Control/Actions.disabled = false
 	$Info/M/V/Buttons/Control/PreviewMusic.disabled = false
 	
@@ -131,6 +134,5 @@ func _ready():
 	else:
 		$EndInfo.visible = false
 		$Info/M/V/Run/Run.disabled = true
-		$Info/M/V/Buttons/Control/Favorite.disabled = true
 		$Info/M/V/Buttons/Control/Actions.disabled = true
 		$Info/M/V/Buttons/Control/PreviewMusic.disabled = true

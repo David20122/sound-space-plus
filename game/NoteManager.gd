@@ -10,6 +10,7 @@ var approach_rate:float = SSP.approach_rate
 var speed_multi:float = Globals.speed_multi[SSP.mod_speed_level]
 var ms:float = SSP.start_offset - (3000 * speed_multi) # make waiting time shorter on lower speeds
 var notes_loaded:bool = false
+var hitsync_ensured:bool = false
 
 var noteNodes:Array = []
 var noteCache:Array = []
@@ -21,6 +22,7 @@ var scoreEffect:Spatial = load("res://content/notefx/score.tscn").instance()
 var hit_id:String = SSP.selected_hit_effect.id
 var miss_id:String = SSP.selected_miss_effect.id
 var chaos_rng:RandomNumberGenerator = RandomNumberGenerator.new()
+var earthquake_rng:RandomNumberGenerator = RandomNumberGenerator.new()
 
 var matcache_hit:Dictionary = {}
 var matcache_miss:Dictionary = {}
@@ -46,12 +48,7 @@ func reposition_notes(force:bool=false):
 			next_ms = note.notems
 		elif ms >= note.notems and note.state == Globals.NSTATE_ACTIVE:
 			var result = SSP.visual_mode or note.check($Cursor.transform.origin,last_cursor_position)
-			if SSP.play_hit_snd and SSP.ensure_hitsync: 
-				if SSP.sfx_2d:
-					$Hit2D.play()
-				else:
-					$Hit.transform = note.transform
-					$Hit.play()
+			
 			if !result and (ms > note.notems + SSP.hitwindow_ms or pause_state == -1):
 #				note_passed = true
 				# notes should not be in the hitwindow if the game is paused
@@ -103,6 +100,17 @@ func reposition_notes(force:bool=false):
 				
 				prev_ms = note.notems
 		elif ms > (note.notems + SSP.hitwindow_ms) + 100:
+			
+			# ensure hitsync ; not compatible with spatial hitsounds
+			if SSP.play_hit_snd and SSP.ensure_hitsync:
+				var dhs = $Hit2D.duplicate()
+				dhs.set_script(load("res://classes/hitsync_free.gd"))
+				add_child(dhs)
+				var played = false
+				if not played:
+					played = true
+					dhs.play()
+			
 			if noteNodes.size() > 1:
 				next_ms = noteNodes[1].notems
 			elif noteQueue.size() != 0:
@@ -174,7 +182,18 @@ func _ready():
 	$Hit.stream = SSP.hit_snd
 	$Miss2D.stream = SSP.miss_snd
 	$Hit2D.stream = SSP.hit_snd
-	$Note/Mesh.mesh = load(SSP.selected_mesh.path)
+	print(SSP.selected_mesh.path)
+	if "user://" in SSP.selected_mesh.path:
+		var m = ObjParse.load_obj(SSP.selected_mesh.path)
+		print(m)
+		if m != null:
+			$Note/Mesh.mesh = m
+		else:
+			$Note/Mesh.mesh = load("res://content/blocks/rounded.obj")
+	else:
+		$Note/Mesh.mesh = load(SSP.selected_mesh.path)
+		print(SSP.note_size)
+		$Note/Mesh.scale *= SSP.note_size
 	
 	var m:ShaderMaterial = $Note.solid_mat
 	var mt:ShaderMaterial = $Note.transparent_mat
@@ -189,6 +208,7 @@ func _ready():
 		SSP.replay.start_recording(SSP.selected_song)
 	
 	chaos_rng.seed = hash(SSP.selected_song.id)
+	earthquake_rng.seed = hash(SSP.selected_song.id)
 	
 	# setup for effects (user://hit and user://miss images)
 	if hitEffect.has_method("setup"): hitEffect.setup(hit_id,false)
@@ -227,6 +247,8 @@ onready var Grid = get_node("../HUD")
 
 func do_half_lock():
 	var cursorpos = $Cursor.transform.origin
+	if SSP.follow_drift_cursor:
+		cursorpos += $Cursor/Mesh2.transform.origin
 	var centeroff = cursorpos - cursor_offset
 	var hlm = 0.35
 	var uim = SSP.ui_parallax * 0.1

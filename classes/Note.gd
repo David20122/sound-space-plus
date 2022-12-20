@@ -13,6 +13,8 @@ onready var speed_multi:float = get_parent().speed_multi
 var col:Color
 
 var chaos_offset:Vector2 = Vector2()
+var chaos_rng2 = RandomNumberGenerator.new()
+var earthquake_offset:Vector2 = Vector2()
 var real_position:Vector2 = Vector2()
 
 var fade_in_enabled:bool = true
@@ -54,6 +56,11 @@ func reposition(ms:float,approachSpeed:float):
 			transform.origin.x = real_position.x + (chaos_offset.x * v)	
 			transform.origin.y = real_position.y + (chaos_offset.y * v)
 		
+		if SSP.mod_earthquake:
+			var rcoord = Vector2(chaos_rng2.randf_range(-0.25,0.25),chaos_rng2.randf_range(-0.25,0.25))
+			transform.origin.x = real_position.x + (rcoord.x * (current_dist * 0.1))
+			transform.origin.y = real_position.y + (rcoord.y * (current_dist * 0.1))
+		
 		if SSP.note_visual_approach:
 			$Approach.opacity = 1 - (current_dist / SSP.spawn_distance)
 			
@@ -81,6 +88,12 @@ func reposition(ms:float,approachSpeed:float):
 		
 		return true
 	else:
+#		if SSP.play_hit_snd and SSP.ensure_hitsync: 
+#			if SSP.sfx_2d:
+#				$"../Hit2D".play()
+#			else:
+#				$"../Hit".transform = transform
+#				$"../Hit".play()
 		visible = false
 		return !(state == Globals.NSTATE_ACTIVE and sign(approachSpeed) == 1 and current_dist > 100)
 
@@ -112,6 +125,11 @@ func setup(color:Color):
 	if SSP.mod_chaos:
 		var rng = get_parent().chaos_rng
 		chaos_offset = Vector2(rng.randf_range(-1,1),rng.randf_range(-1,1)).normalized() * 2
+		real_position = Vector2(transform.origin.x,transform.origin.y)
+	
+	if SSP.mod_earthquake:
+		var rng = get_parent().earthquake_rng
+		earthquake_offset = Vector2(rng.randf_range(-1,1),rng.randf_range(-1,1)).normalized() * 2
 		real_position = Vector2(transform.origin.x,transform.origin.y)
 	
 	if SSP.mod_ghost:

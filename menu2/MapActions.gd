@@ -68,29 +68,35 @@ func copy_item_selected(idx:int):
 func item_selected(idx:int):
 	match idx:
 		0: # Delete map
-			Globals.confirm_prompt.open(
-				"Are you sure you want to delete this map? You might not be able to get it back.",
-				"Delete Map",
-				[
-					{ text = "Cancel" },
-					{ text = "OK", wait = 1 }
-				]
-			)
-			Globals.confirm_prompt.s_alert.play()
-			var response:int = yield(Globals.confirm_prompt,"option_selected")
-			Globals.confirm_prompt.close()
-			if response == 1:
-				Globals.confirm_prompt.s_next.play()
-				SSP.selected_song.delete()
-			else:
-				Globals.confirm_prompt.s_back.play()
+			if (
+				(SSP.selected_song.songType == Globals.MAP_SSPM or
+				SSP.selected_song.songType == Globals.MAP_SSPM2) and
+				!SSP.single_map_mode
+			):
+				Globals.confirm_prompt.open(
+					"Are you sure you want to delete this map? You might not be able to get it back.",
+					"Delete Map",
+					[
+						{ text = "Cancel" },
+						{ text = "OK", wait = 1 }
+					]
+				)
+				Globals.confirm_prompt.s_alert.play()
+				var response:int = yield(Globals.confirm_prompt,"option_selected")
+				Globals.confirm_prompt.close()
+				if response == 1:
+					Globals.confirm_prompt.s_next.play()
+					SSP.selected_song.delete()
+				else:
+					Globals.confirm_prompt.s_back.play()
 		1:
 			if !(
 				SSP.selected_song.is_broken or
 				SSP.selected_song.is_builtin or
 				SSP.selected_song.converted or
 				SSP.selected_song.songType == Globals.MAP_SSPM2 or
-				SSP.selected_song.is_online
+				SSP.selected_song.is_online or
+				SSP.single_map_mode
 			):
 				var res = SSP.selected_song.convert_to_sspm(SSP.selected_song.songType == Globals.MAP_SSPM)
 				if res == "Converted!":
@@ -137,6 +143,7 @@ func item_selected(idx:int):
 func upd(_s=null):
 	visible = true
 	get_popup().set_item_disabled(0,(
+		SSP.single_map_mode or
 		SSP.selected_song.is_builtin or
 		SSP.selected_song.is_online or !(
 			SSP.selected_song.songType == Globals.MAP_SSPM or
@@ -144,6 +151,7 @@ func upd(_s=null):
 		)
 	))
 	get_popup().set_item_disabled(1,(
+		SSP.single_map_mode or
 		SSP.selected_song.is_broken or
 		SSP.selected_song.is_builtin or
 		SSP.selected_song.converted or
@@ -152,6 +160,7 @@ func upd(_s=null):
 	))
 	
 	get_popup().set_item_disabled(3,(
+		SSP.single_map_mode or
 		SSP.selected_song.is_builtin or
 		SSP.selected_song.is_online or !(
 			SSP.selected_song.songType == Globals.MAP_SSPM or
@@ -200,7 +209,7 @@ func _ready():
 	difficulty_submenu.add_radio_check_item("Logic?",4)
 	difficulty_submenu.add_radio_check_item("助 (Tasukete)",5)
 	
-	
+	if SSP.selected_song: upd()
 	SSP.connect("selected_song_changed",self,"upd")
 	yield(get_tree(),"idle_frame")
 	copy_submenu.name = "Copy"

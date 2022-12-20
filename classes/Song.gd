@@ -143,6 +143,8 @@ func load_from_db_data(data:Dictionary={
 	return {success=true}
 
 func load_pbs():
+	if SSP.single_map_mode:
+		return
 	var file:File = File.new()
 	if file.file_exists(Globals.p("user://bests/%s" % id)):
 		var err:int = file.open(Globals.p("user://bests/%s" % id),File.READ)
@@ -176,6 +178,8 @@ func load_pbs():
 		file.close()
 
 func save_pbs():
+	if SSP.single_map_mode:
+		return
 	var file:File = File.new()
 	var err:int = file.open(Globals.p("user://bests/%s") % id,File.WRITE)
 	if err != OK:
@@ -228,6 +232,8 @@ func is_pb_better(ob:Dictionary,pb:Dictionary):
 	elif pb.pauses > ob.pauses: return false # more pauses
 
 func set_pb_if_better(pb_str:String,pb:Dictionary):
+	if SSP.single_map_mode:
+		return false
 	if !pbs_loaded: load_pbs()
 	var ob:Dictionary = get_pb(pb_str)
 	

@@ -95,7 +95,9 @@ func end(end_type:int):
 			
 			$Spawn.notes_loaded = false
 			$Spawn.chaos_rng = RandomNumberGenerator.new()
+			$Spawn.earthquake_rng = RandomNumberGenerator.new()
 			$Spawn.chaos_rng.seed = hash(SSP.selected_song.id)
+			$Spawn.earthquake_rng.seed = hash(SSP.selected_song.id)
 			$Spawn.music_started = false
 			$Spawn.out_of_notes = false
 			$Spawn.note_count = 0

@@ -26,6 +26,26 @@ func move_cursor(mdel:Vector2):
 	
 	transform.origin.x = cx
 	transform.origin.y = -cy
+
+func move_cursor_abs(mdel:Vector2):
+	var rx = rpos.x
+	var ry = rpos.y
+	rx = mdel.x
+	ry = mdel.y
+	
+	rx = clamp(rx, (0 + sh.x + edger), (3 + sh.x - edger))
+	ry = clamp(ry, (0 + sh.y + edger), (3 + sh.y - edger))
+	
+	rpos.x = rx
+	rpos.y = ry
+	
+	var cx = rx
+	var cy = ry
+	cx = clamp(cx, (0 + sh.x + edgec), (3 + sh.x - edgec))
+	cy = clamp(cy, (0 + sh.y + edgec), (3 + sh.y - edgec))
+	
+	transform.origin.x = cx
+	transform.origin.y = -cy
 	
 	if SSP.enable_drift_cursor:
 		if cx != rx or cy != ry:
@@ -36,7 +56,13 @@ func move_cursor(mdel:Vector2):
 
 func _input(event:InputEvent):
 	if !SSP.replaying and !SSP.vr:
-		if !SSP.cam_unlock:
+		if ProjectSettings.get_setting("application/config/is_using_controller"):
+			var v_strength = (Input.get_action_strength("joy_up") + (Input.get_action_strength("joy_down") * -1)) * -1
+			var h_strength = (Input.get_action_strength("joy_right") + (Input.get_action_strength("joy_left") * -1)) * 1
+			var relative = Vector2(h_strength * 1.5,v_strength * 1.5)
+			var off = Vector2(1,1)
+			move_cursor_abs(relative + off)
+		if !SSP.cam_unlock and not ProjectSettings.get_setting("application/config/is_using_controller"):
 			visible = true
 			if (event is InputEventMouseMotion):
 				face = event.relative

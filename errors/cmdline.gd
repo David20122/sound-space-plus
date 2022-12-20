@@ -2,13 +2,10 @@ extends ColorRect
 
 func _ready():
 	Engine.target_fps = 30 # Don't use the entire GPU for the error screen
-	$Info.text = """-- settings load error --
-ss+ version: v%s
-platform: %s
-error code: %s""" % [
+	$Info.text = """ss+ version: v%s
+%s""" % [
 		ProjectSettings.get_setting("application/config/version"),
-		OS.get_name(),
-		SSP.errornum,
+		SSP.errorstr,
 	]
 	if OS.has_feature("mobile"):
 		$Info.get("custom_fonts/font").size = 28
@@ -16,7 +13,7 @@ error code: %s""" % [
 		var activity = Discord.Activity.new()
 		activity.set_type(Discord.ActivityType.Playing)
 		activity.set_details("experiencing a cattr moment")
-		activity.set_state("(settings error %s)" % SSP.errornum)
+		activity.set_state("(command line argument error)")
 
 		var assets = activity.get_assets()
 		assets.set_large_image("icon")

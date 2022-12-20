@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://errors/userfolder.gd" type="Script" id=1]
-[ext_resource path="res://content/sfx/music/error_loop.ogg" type="AudioStream" id=2]
+[ext_resource path="res://content/error_loop.ogg" type="AudioStream" id=2]
 [ext_resource path="res://content/ui/user_folder_error.png" type="Texture" id=3]
 [ext_resource path="res://font/UbuntuMono/Regular.ttf" type="DynamicFontData" id=4]
 

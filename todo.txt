@@ -1,0 +1,6 @@
+document how to use it in a sample project like dragging addon from where to where
+document you have to setup an application owned by a TEAM
+document which files from SDK need be extracted and where
+make application id configurable
+fix mac dependency names
+fix mac rpath issue
