@@ -292,7 +292,6 @@ config/disable_native_file_dialogs.Android=true
 config/disable_native_file_dialogs.web=true
 config/disable_native_file_dialogs.OSX=true
 run/main_scene.steam="res://preinit.tscn"
-config/is_using_controller=true
 
 [audio]
 

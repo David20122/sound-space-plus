@@ -2,10 +2,18 @@ extends Spatial
 
 var rpos:Vector2 = Vector2(transform.origin.x,-transform.origin.y)
 
+enum {
+	C_MOUSE = 0
+	C_JOYSTICK = 1
+}
+
 var sh:Vector2 = Vector2(-0.5,-0.5)
 var edgec:float = 0
 var edger:float = -SSP.edge_drift
 var face:Vector2
+
+var move_mode:int = C_MOUSE
+var can_switch_move_modes:bool = true
 
 func move_cursor(mdel:Vector2):
 	var rx = rpos.x
@@ -56,17 +64,24 @@ func move_cursor_abs(mdel:Vector2):
 
 func _input(event:InputEvent):
 	if !SSP.replaying and !SSP.vr:
-		if ProjectSettings.get_setting("application/config/is_using_controller"):
+		if can_switch_move_modes:
+			if event is InputEventJoypadMotion:
+				move_mode = C_JOYSTICK
+			elif event is InputEventMouseMotion:
+				move_mode = C_MOUSE
+		
+		if move_mode == C_JOYSTICK:
 			var v_strength = (Input.get_action_strength("joy_up") + (Input.get_action_strength("joy_down") * -1)) * -1
 			var h_strength = (Input.get_action_strength("joy_right") + (Input.get_action_strength("joy_left") * -1)) * 1
 			var relative = Vector2(h_strength * 1.5,v_strength * 1.5)
 			var off = Vector2(1,1)
 			move_cursor_abs(relative + off)
-		if !SSP.cam_unlock and not ProjectSettings.get_setting("application/config/is_using_controller"):
+		elif !SSP.cam_unlock and move_mode == C_MOUSE:
 			visible = true
 			if (event is InputEventMouseMotion):
 				face = event.relative
 				move_cursor(event.relative * 0.018 * SSP.sensitivity)
+			
 		if (event is InputEventScreenDrag):
 			$VisualPos.visible = true
 			$VisualPos.rect_position = event.position

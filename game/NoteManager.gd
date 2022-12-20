@@ -364,6 +364,8 @@ func _process(delta:float):
 	
 	can_skip = ((next_ms-prev_ms) > 5000) and (next_ms >= max(ms+(3000*speed_multi),1100*speed_multi))
 	
+	$Cursor.can_switch_move_modes = (ms < SSP.music_offset)
+	
 	if !SSP.replaying:
 		if Input.is_action_just_released("pause"):
 			if pause_state > 0:
