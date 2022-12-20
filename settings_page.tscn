@@ -46,9 +46,9 @@
 [ext_resource path="res://menuButtons/NoteScale.gd" type="Script" id=44]
 [ext_resource path="res://menu2/ReplaceCustomFile.gd" type="Script" id=45]
 [ext_resource path="res://addons/native_dialogs/bin/native_dialog_open_file.gdns" type="Script" id=46]
-[ext_resource path="res://HitFOVAmplifier.gd" type="Script" id=47]
+[ext_resource path="res://menuButtons/HitFOVAmplifier.gd" type="Script" id=47]
 [ext_resource path="res://error.jpg" type="Texture" id=48]
-[ext_resource path="res://HitFOVDecay.gd" type="Script" id=49]
+[ext_resource path="res://menuButtons/HitFOVDecay.gd" type="Script" id=49]
 [ext_resource path="res://menu2/SettingsNumberBox.gd" type="Script" id=50]
 [ext_resource path="res://menu2/SettingsColorPicker.gd" type="Script" id=51]
 [ext_resource path="res://menuButtons/TrailTime.gd" type="Script" id=52]
@@ -56,11 +56,11 @@
 [ext_resource path="res://menu2/SettingsCheckbox.gd" type="Script" id=54]
 [ext_resource path="res://ToAvEditor.gd" type="Script" id=55]
 [ext_resource path="res://menu2/ColorPresets.gd" type="Script" id=56]
-[ext_resource path="res://HitFOVModes.gd" type="Script" id=57]
+[ext_resource path="res://menuButtons/HitFOVModes.gd" type="Script" id=57]
 [ext_resource path="res://menu2/EnumDropdownMenu.gd" type="Script" id=58]
 [ext_resource path="res://menuButtons/ReloadContent.gd" type="Script" id=59]
 [ext_resource path="res://menu2/TargetFPS.gd" type="Script" id=60]
-[ext_resource path="res://CursorTrailMode.gd" type="Script" id=61]
+[ext_resource path="res://menuButtons/CursorTrailMode.gd" type="Script" id=61]
 
 [sub_resource type="DynamicFont" id=5]
 size = 18
@@ -262,7 +262,7 @@ script = ExtResource( 59 )
 [node name="M" type="VBoxContainer" parent="."]
 margin_top = 59.0
 margin_right = 1280.0
-margin_bottom = 5202.0
+margin_bottom = 5270.0
 custom_constants/separation = 0
 
 [node name="Modifiers" type="VBoxContainer" parent="M"]
@@ -893,7 +893,7 @@ clip_text = true
 [node name="Camera" type="VBoxContainer" parent="M"]
 margin_top = 502.0
 margin_right = 1280.0
-margin_bottom = 1126.0
+margin_bottom = 1158.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Camera"]
@@ -1637,9 +1637,9 @@ valign = 1
 clip_text = true
 
 [node name="Customization" type="VBoxContainer" parent="M"]
-margin_top = 1126.0
+margin_top = 1158.0
 margin_right = 1280.0
-margin_bottom = 1958.0
+margin_bottom = 2026.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Customization"]
@@ -2750,9 +2750,9 @@ icon = ExtResource( 4 )
 expand_icon = true
 
 [node name="Audio" type="VBoxContainer" parent="M"]
-margin_top = 1958.0
+margin_top = 2026.0
 margin_right = 1280.0
-margin_bottom = 2430.0
+margin_bottom = 2498.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Audio"]
@@ -3365,9 +3365,9 @@ __meta__ = {
 }
 
 [node name="UI" type="VBoxContainer" parent="M"]
-margin_top = 2430.0
+margin_top = 2498.0
 margin_right = 1280.0
-margin_bottom = 2974.0
+margin_bottom = 3042.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/UI"]
@@ -3954,9 +3954,9 @@ valign = 1
 clip_text = true
 
 [node name="UIColor" type="VBoxContainer" parent="M"]
-margin_top = 2974.0
+margin_top = 3042.0
 margin_right = 1280.0
-margin_bottom = 4642.0
+margin_bottom = 4710.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/UIColor"]
@@ -5848,9 +5848,9 @@ text = "[def. ##DEFAULT##] color of text when grade is F"
 valign = 1
 
 [node name="Graphics" type="VBoxContainer" parent="M"]
-margin_top = 4642.0
+margin_top = 4710.0
 margin_right = 1280.0
-margin_bottom = 4934.0
+margin_bottom = 5002.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Graphics"]
@@ -6153,9 +6153,9 @@ text = "[0 = no limit] puts a limit on the framerate; use this if ss+ is using 1
 valign = 1
 
 [node name="Experimental" type="VBoxContainer" parent="M"]
-margin_top = 4934.0
+margin_top = 5002.0
 margin_right = 1280.0
-margin_bottom = 5143.0
+margin_bottom = 5211.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Experimental"]
@@ -6292,48 +6292,6 @@ align = 2
 valign = 1
 clip_text = true
 
-[node name="HitsyncOffset" type="SpinBox" parent="M/Experimental/Group/H"]
-visible = false
-margin_top = 141.0
-margin_right = 200.0
-margin_bottom = 173.0
-rect_min_size = Vector2( 200, 32 )
-rect_pivot_offset = Vector2( 286, 160 )
-focus_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-theme = ExtResource( 1 )
-max_value = 300.0
-allow_greater = true
-allow_lesser = true
-suffix = "ms"
-script = ExtResource( 61 )
-
-[node name="Label" type="Label" parent="M/Experimental/Group/H/HitsyncOffset"]
-margin_left = -146.0
-margin_right = -10.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Hitsync Offset"
-align = 2
-valign = 1
-clip_text = true
-
-[node name="Desc" type="Label" parent="M/Experimental/Group/H/HitsyncOffset"]
-margin_left = 215.0
-margin_right = 562.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[def. 0 ms] offsets the synced hitsound (ensure hitsync must be enabled; positive only)"
-valign = 1
-
 [node name="Avatar" type="Control" parent="M/Experimental/Group/H"]
 margin_top = 141.0
 margin_right = 827.0
@@ -6388,7 +6346,7 @@ text = "literally you | experimental avatar editor. nowhere near done. visible i
 valign = 1
 
 [node name="BottomMargin" type="Control" parent="."]
-margin_top = 5206.0
+margin_top = 5274.0
 margin_right = 1280.0
-margin_bottom = 5302.0
+margin_bottom = 5370.0
 rect_min_size = Vector2( 0, 96 )
