@@ -27,6 +27,7 @@ func on_pressed(i):
 	var preset = presets[i]
 	SSP.trail_mode_scale = preset.scale
 	SSP.trail_mode_opacity = preset.opacity
+	text = preset.name
 
 
 func _ready():

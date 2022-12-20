@@ -63,8 +63,8 @@ func init():
 	if init_done: return
 	var mat:SpatialMaterial = $Mesh.get("material/0").duplicate()
 	$Mesh.scale = Vector3(0,1,0)
-	if not SSP.trail_mode_scale and SSP.trail_mode_opacity:
-		$Mesh.scale = Vector3(1,1,1)
+	if not SSP.trail_mode_scale:
+		$Mesh.scale = Vector3(SSP.cursor_scale,1,SSP.cursor_scale)
 	$Mesh.set("material/0",mat)
 
 func start():
