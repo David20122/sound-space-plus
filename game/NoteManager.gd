@@ -178,6 +178,10 @@ func spawn_notes(notes:Array):
 func _ready():
 	$Note.speed_multi = speed_multi
 	$Music.pitch_scale = speed_multi
+	if SSP.retain_song_pitch and not speed_multi == 1.0:
+		var shift = AudioEffectPitchShift.new()
+		shift.pitch_scale = 1.0 / speed_multi
+		AudioServer.add_bus_effect(AudioServer.get_bus_index("Music"),shift)
 	$Miss.stream = SSP.miss_snd
 	$Hit.stream = SSP.hit_snd
 	$Miss2D.stream = SSP.miss_snd

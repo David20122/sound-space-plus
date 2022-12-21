@@ -126,6 +126,7 @@ var replaying:bool = false
 
 # State/transit data
 var rainbow_t:float = 0 # Keep rainbow effects in perfect sync
+var note_spin_t:float = 0 # Keep note spin settings in perfect sync
 var alert:String = "" # Used for startup
 var should_ask_about_replays:bool = true # Replay setting was not found, ask
 var do_archive_convert:bool = false # Has "Convert SS Archive" been pressed?
@@ -333,6 +334,8 @@ func _ready():
 func _process(delta):
 	# Rainbow sync
 	rainbow_t = fmod(rainbow_t + (delta*0.5),10)
+	# Note Spin Sync
+	note_spin_t = fmod(note_spin_t + (delta*0.5),360)
 	# Global hotkeys
 	if Input.is_action_just_pressed("fullscreen"):
 		OS.window_fullscreen = not OS.window_fullscreen
@@ -535,6 +538,12 @@ var approach_rate:float = 40
 var spawn_distance:float = 40
 var note_spawn_effect:bool = false
 var note_size:float = 1
+var note_spin_x:float = 0
+var note_spin_y:float = 0
+var note_spin_z:float = 0
+# actually nah llol !!!!! (vector is not needed i can just do it in another script)
+# var note_spin_vector:Vector3 = Vector3(note_spin_x,note_spin_y,note_spin_z)
+var note_opacity:float = 1
 var fade_length:float = 0.5
 
 var show_hit_effect:bool = true
@@ -659,7 +668,7 @@ var play_hit_snd:bool = true
 var play_miss_snd:bool = true
 var sfx_2d:bool = false
 var music_offset:float = 0
-var play_menu_music:bool = false setget _set_menu_music
+var play_menu_music:bool = true setget _set_menu_music
 var music_volume_db:float = 0 setget _set_music_volume
 func _set_menu_music(v:bool):
 	play_menu_music = v; emit_signal("menu_music_state_changed")
@@ -673,6 +682,8 @@ var auto_maximize:bool = false
 # Settings - Experimental
 var ensure_hitsync:bool = false
 var hitsync_offset:float = 0 # don't save this yet; probably not even a necessary setting
+var retain_song_pitch:bool = false # not recommended as this is very heavy to compute, but people want it
+var do_note_pushback:bool = true # true; notes go past grid on miss, false; notes always vanish at grid
 
 
 
@@ -926,6 +937,14 @@ func load_saved_settings():
 			cursor_scale = data.cursor_scale
 		if data.has("note_size"): 
 			note_size = data.note_size
+		if data.has("note_spin_x"):
+			note_spin_x = data.note_spin_x
+		if data.has("note_spin_y"):
+			note_spin_y = data.note_spin_y
+		if data.has("note_spin_z"):
+			note_spin_z = data.note_spin_z
+		if data.has("note_opacity"):
+			note_opacity = data.note_opacity
 		if data.has("edge_drift"): 
 			edge_drift = dser_float(data.edge_drift)
 		if data.has("enable_drift_cursor"): 
@@ -1091,6 +1110,10 @@ func load_saved_settings():
 		
 		if data.has("ensure_hitsync"):
 			ensure_hitsync = data.ensure_hitsync
+		if data.has("retain_song_pitch"):
+			retain_song_pitch = data.retain_song_pitch
+		if data.has("do_note_pushback"):
+			do_note_pushback = data.do_note_pushback
 		
 		lcol(data,"grade_s_color")
 		lcol(data,"panel_bg")
@@ -1375,6 +1398,11 @@ func save_settings():
 			follow_drift_cursor = follow_drift_cursor,
 			hitwindow_ms = hitwindow_ms,
 			cursor_spin = cursor_spin,
+			note_size = note_size,
+			note_opacity = note_opacity,
+			note_spin_x = note_spin_x,
+			note_spin_y = note_spin_y,
+			note_spin_z = note_spin_z,
 			enable_border = enable_border,
 			play_menu_music = play_menu_music,
 			note_hitbox_size = note_hitbox_size,
@@ -1466,7 +1494,9 @@ func save_settings():
 			grade_f_color = scol(grade_f_color),
 	  
 			edge_drift = ser_float(edge_drift),
-			ensure_hitsync = ensure_hitsync
+			ensure_hitsync = ensure_hitsync,
+			retain_song_pitch = retain_song_pitch,
+			do_note_pushback = do_note_pushback
 		}
 		
 		file.store_string(JSON.print(data, "\t"))
