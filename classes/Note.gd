@@ -3,7 +3,7 @@ extends Spatial
 
 var grid_pushback:float = 0.1 # default 0.1
 var pushback_defaults:Dictionary = {
-	"do_pushback": 2,
+	"do_pushback": 4,
 	"never": 0.1
 }
 
@@ -70,8 +70,8 @@ func reposition(ms:float,approachSpeed:float):
 		if SSP.note_visual_approach:
 			$Approach.opacity = 1 - (current_dist / SSP.spawn_distance)
 			
-			$Approach.scale.x = 0.4 * ((current_dist / SSP.spawn_distance) + 0.3)
-			$Approach.scale.y = 0.4 * ((current_dist / SSP.spawn_distance) + 0.3)
+			$Approach.scale.x = 0.4 * ((current_dist / SSP.spawn_distance) + 0.6)
+			$Approach.scale.y = 0.4 * ((current_dist / SSP.spawn_distance) + 0.6)
 			
 			$Approach.global_translation.z = 0
 			
