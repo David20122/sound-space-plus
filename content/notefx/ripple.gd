@@ -2,6 +2,7 @@ extends Spatial
 
 var active:bool = false
 var rainbow:bool = false
+var menu:bool = false
 
 func _process(delta):
 	if !active and rainbow:
@@ -13,9 +14,10 @@ func _process(delta):
 			return
 
 func get_color_mat(parent:Node,col:Color,miss:bool):
-	var cache:Dictionary
-	if miss: cache = parent.matcache_miss
-	else: cache = parent.get_node("Spawn").matcache_hit
+	var cache:Dictionary = {}
+	if !menu:
+		if miss: cache = parent.matcache_miss
+		else: cache = parent.get_node("Spawn").matcache_hit
 	
 	var mat:SpatialMaterial
 	if cache.get(col):
@@ -26,6 +28,12 @@ func get_color_mat(parent:Node,col:Color,miss:bool):
 		cache[col] = mat
 		
 	return mat
+
+func spawn_menu(parent:Node,col:Color,transform:Transform):
+	menu = true
+	setup("ssp_ripple_n",false)
+	global_transform = transform
+	spawn(parent,transform.origin,col,"ssp_ripple_n",false)
 
 func spawn(parent:Node,pos:Vector3,col:Color,id:String,miss:bool):
 	if id == "ssp_ripple_n":

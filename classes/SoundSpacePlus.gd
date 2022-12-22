@@ -10,6 +10,7 @@ signal selected_mesh_changed
 signal selected_hit_effect_changed
 signal selected_miss_effect_changed
 signal init_stage_reached
+signal init_stage_num
 signal map_list_ready
 signal volume_changed
 signal favorite_songs_changed
@@ -125,6 +126,7 @@ var was_replay:bool = false
 var replaying:bool = false
 
 # State/transit data
+var load_target_frame_time:float = 1.0/40.0 # Length of time load loops run before letting a frame render
 var rainbow_t:float = 0 # Keep rainbow effects in perfect sync
 var note_spin_t:float = 0 # Keep note spin settings in perfect sync
 var alert:String = "" # Used for startup
@@ -137,6 +139,7 @@ var first_init_done = false # Don't reload mods as that can cause problems
 var loaded_world = null # Holds the bg world for transit between songload and song player
 var was_map_screen_centered:bool = false
 var menu_target:String = ProjectSettings.get_setting("application/config/default_menu_target")
+var is_init:bool = true # Used to check if Onboarding is being used for game startup
 
 # Song list position/search persistence
 var was_auto_play_switch:bool = true
@@ -569,7 +572,7 @@ var edge_drift:float = 0
 
 # Settings - Replays
 var record_replays:bool = false
-var alt_cam:bool = true
+var alt_cam:bool = false
 
 # Settings - Cursor
 var cursor_color_type:int = Globals.CURSOR_CUSTOM_COLOR
@@ -683,7 +686,7 @@ var auto_maximize:bool = false
 var ensure_hitsync:bool = false
 var hitsync_offset:float = 0 # don't save this yet; probably not even a necessary setting
 var retain_song_pitch:bool = false # not recommended as this is very heavy to compute, but people want it
-var do_note_pushback:bool = true # true; notes go past grid on miss, false; notes always vanish at grid
+var do_note_pushback:bool = true  # true; notes go past grid on miss, false; notes always vanish at grid
 
 
 
@@ -1886,6 +1889,7 @@ func do_init(_ud=null):
 			single_map_mode_audio_path = Globals.cmdline.audio
 	
 	emit_signal("init_stage_reached","Init filesystem")
+	emit_signal("init_stage_num",-1)
 	yield(get_tree(),"idle_frame")
 	if OS.has_feature("Android"): OS.request_permissions()
 	var user_dir = Globals.p("user://")
@@ -1947,6 +1951,7 @@ func do_init(_ud=null):
 	
 	# init colors.txt
 	emit_signal("init_stage_reached","Load user colorsets")
+	emit_signal("init_stage_num",0)
 	registry_colorset.add_item(ColorSet.new(
 		[ Color("#ffffff") ],
 		"colorsfile", "colors.txt (1 per line)", "Someone"
@@ -1989,6 +1994,7 @@ func do_init(_ud=null):
 				"This is a development environment, mods will not be loaded.",
 				"Not loading mods"
 			)
+	emit_signal("init_stage_num",1)
 	
 	emit_signal("init_stage_reached","Loading content 3/3\nContent packs")
 	yield(get_tree(),"idle_frame")
@@ -2004,7 +2010,10 @@ func do_init(_ud=null):
 	
 	emit_signal("init_stage_reached","Register content")
 	yield(get_tree(),"idle_frame")
+	var lt:float = OS.get_ticks_msec()
+	
 	if single_map_mode:
+		emit_signal("init_stage_num",2)
 		var song:Song = Song.new()
 		if single_map_mode_sspm:
 			var result = song.load_from_sspm(single_map_mode_path)
@@ -2039,12 +2048,16 @@ func do_init(_ud=null):
 		
 		Globals.get_files_recursive(map_search_folders,5,"sspm","",90)
 		smaps = yield(Globals,"recurse_result").files
+		emit_signal("init_stage_num",2)
 		
 		for i in range(smaps.size()):
 			emit_signal("init_stage_reached","Register content 1/4\nImport SS+ maps\n%.0f%%" % (
 				100*(float(i)/float(smaps.size()))
 			))
-			if fmod(i,max(min(floor(float(smaps.size())/200),40),5)) == 0: yield(get_tree(),"idle_frame")
+			if (OS.get_ticks_msec() - lt) >= load_target_frame_time * 1000:
+				lt = OS.get_ticks_msec()
+				yield(get_tree(),"idle_frame")
+			#if fmod(i,max(min(floor(float(smaps.size())/200),40),5)) == 0: yield(get_tree(),"idle_frame")
 			registry_song.add_sspm_map(smaps[i])
 	#	dir.list_dir_end()
 		
@@ -2052,9 +2065,10 @@ func do_init(_ud=null):
 			var amr:Array = mapreg[i]
 			emit_signal("init_stage_reached","Register content 2/4\nLoad map registry %d/%d\n%s" % [i,mapreg.size(),amr[0]])
 			yield(get_tree(),"idle_frame")
-			if lp: yield(get_tree(),"idle_frame")
 			registry_song.load_registry_file(amr[1],Globals.REGISTRY_MAP,amr[0])
 			yield(registry_song,"done_loading_reg")
+		
+		emit_signal("init_stage_num",3)
 		
 		var vmaps:Array = []
 		
@@ -2075,14 +2089,20 @@ func do_init(_ud=null):
 			emit_signal("init_stage_reached","Register content 3/4\nImport Vulnus maps\n%.0f%%" % (
 				100*(float(i)/float(vmaps.size()))
 			))
-			if fmod(i,floor(float(vmaps.size())/100)) == 0: yield(get_tree(),"idle_frame")
+			if (OS.get_ticks_msec() - lt) >= load_target_frame_time * 1000:
+				lt = OS.get_ticks_msec()
+				yield(get_tree(),"idle_frame")
+			#if fmod(i,floor(float(vmaps.size())/100)) == 0: yield(get_tree(),"idle_frame")
 			registry_song.add_vulnus_map(vmaps[i])
+		
 		
 		emit_signal("init_stage_reached","Register content 4/4\nLoad online maps")
 		yield(get_tree(),"idle_frame")
 		
 		Online.load_db_maps()
 		yield(Online,"db_maps_done")
+	
+	emit_signal("init_stage_num",4)
 	
 	# Default 
 	emit_signal("init_stage_reached","Init default assets")
@@ -2180,7 +2200,10 @@ func do_init(_ud=null):
 			emit_signal("init_stage_reached","Upgrading personal best data\nConverting data\n%.0f%%" % (
 				100*(float(i)/float(allmaps.size()))
 			))
-			if fmod(i,max(min(floor(float(allmaps.size())/200),40),5)) == 0: yield(get_tree(),"idle_frame")
+			if (OS.get_ticks_msec() - lt) >= load_target_frame_time * 1000:
+				lt = OS.get_ticks_msec()
+				yield(get_tree(),"idle_frame")
+			#if fmod(i,max(min(floor(float(allmaps.size())/200),40),5)) == 0: yield(get_tree(),"idle_frame")
 			convert_song_pbs(allmaps[i])
 	
 	# Load favorite songs
