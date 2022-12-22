@@ -106,7 +106,7 @@ func cache_trail(part:Spatial):
 	trail_cache.append(part)
 
 func recolor(col:Color):
-	$Mesh.get("material/0").albedo_color = Color(col.r,col.g,col.b,1)
+	$Mesh.get("material/0").albedo_color = Color(col.r,col.g,col.b,col.a)
 
 func _process(delta):
 	
