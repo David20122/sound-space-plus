@@ -61,6 +61,7 @@ func _process(delta):
 var init_done:bool = false
 func init():
 	if init_done: return
+	init_done = true
 	var mat:SpatialMaterial = $Mesh.get("material/0").duplicate()
 	$Mesh.scale = Vector3(0,1,0)
 	if not SSP.trail_mode_scale:

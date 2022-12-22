@@ -12,10 +12,6 @@ func idle_status():
 	
 	Discord.activity_manager.update_activity(activity)
 
-func _input(event):
-	if SSP.vr and event is InputEventMouseButton:
-		print(event)
-
 func _ready():
 	get_tree().paused = false
 	

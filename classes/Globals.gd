@@ -658,7 +658,7 @@ func _ready():
 		ProjectSettings.load_resource_pack(OS.get_executable_path().get_base_dir().plus_file("sfx.pck"))
 		ProjectSettings.load_resource_pack(OS.get_executable_path().get_base_dir().plus_file("ui.pck"))
 		ProjectSettings.load_resource_pack(OS.get_executable_path().get_base_dir().plus_file("worlds.pck"))
-		get_tree().call_deferred("change_scene","res://init.tscn")
+	get_tree().call_deferred("change_scene","res://onboarding/onboardingload.tscn")
 	
 	url_regex.compile(
 		"((http|https)://)(www.)?[a-zA-Z0-9@:%._\\+~#?&//=]{2,256}"+
