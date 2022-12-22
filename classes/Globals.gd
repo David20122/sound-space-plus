@@ -649,6 +649,7 @@ func _ready():
 			!file.file_exists(OS.get_executable_path().get_base_dir().plus_file("note.pck")) or
 			!file.file_exists(OS.get_executable_path().get_base_dir().plus_file("sfx.pck")) or
 			!file.file_exists(OS.get_executable_path().get_base_dir().plus_file("ui.pck")) or
+			!file.file_exists(OS.get_executable_path().get_base_dir().plus_file("3dm.pck")) or
 			!file.file_exists(OS.get_executable_path().get_base_dir().plus_file("worlds.pck"))
 		):
 			get_tree().change_scene("res://errors/content.tscn")
@@ -657,6 +658,7 @@ func _ready():
 		ProjectSettings.load_resource_pack(OS.get_executable_path().get_base_dir().plus_file("note.pck"))
 		ProjectSettings.load_resource_pack(OS.get_executable_path().get_base_dir().plus_file("sfx.pck"))
 		ProjectSettings.load_resource_pack(OS.get_executable_path().get_base_dir().plus_file("ui.pck"))
+		ProjectSettings.load_resource_pack(OS.get_executable_path().get_base_dir().plus_file("3dm.pck"))
 		ProjectSettings.load_resource_pack(OS.get_executable_path().get_base_dir().plus_file("worlds.pck"))
 	get_tree().call_deferred("change_scene","res://onboarding/onboardingload.tscn")
 	
