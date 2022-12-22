@@ -254,7 +254,7 @@ func do_half_lock():
 	if SSP.follow_drift_cursor:
 		cursorpos += $Cursor/Mesh2.transform.origin
 	var centeroff = cursorpos - cursor_offset
-	var hlm = 0.35
+	var hlm = 0.25
 	var uim = SSP.ui_parallax * 0.1
 	var grm = SSP.grid_parallax * 0.1
 	cam.transform.origin = Vector3(
@@ -279,7 +279,7 @@ func do_spin():
 	centeroff.x = cx - cursor_offset.x
 	centeroff.y = -cy - cursor_offset.y
 	
-	var hlm = 0.35
+	var hlm = 0.25
 	var uim = SSP.ui_parallax * 0.1
 	var grm = SSP.grid_parallax * 0.1
 	cam.transform.origin = Vector3(
@@ -303,7 +303,7 @@ func do_vr_cursor():
 	centeroff.x = cx - cursor_offset.x
 	centeroff.y = -cy - cursor_offset.y
 	
-	var hlm = 0.35
+	var hlm = 0.25
 	var uim = SSP.ui_parallax * 0.1
 	var grm = SSP.grid_parallax * 0.1
 	cam.transform.origin = Vector3(
@@ -348,6 +348,7 @@ var rec_t:float = 0
 var rms:float = 0
 var rec_interval:float = 35
 var pause_state:float = 0
+var pause_cooldown:float = 0
 var pause_ms:float = 0
 var replay_unpause:bool = false
 var can_skip:bool = ((next_ms-prev_ms) > 5000) and (next_ms >= max(ms+(3000*speed_multi),1100*speed_multi))
@@ -391,7 +392,7 @@ func _process(delta:float):
 					$Music.play((ms + SSP.music_offset)/1000)
 					music_started = true
 			else:
-				if pause_state == 0 and (ms > (1000 * speed_multi) and ms < get_parent().last_ms):
+				if pause_state == 0 and (ms > (1000 * speed_multi) and ms < get_parent().last_ms) and pause_cooldown == 0:
 					print("PAUSED AT MS %.0f" % ms)
 					if SSP.record_replays:
 						SSP.replay.store_pause(rms)
@@ -422,6 +423,9 @@ func _process(delta:float):
 					SSP.replay.store_sig(rms,Globals.RS_FINISH_UNPAUSE)
 				$Music.volume_db = 0
 				pause_state = 0
+				pause_cooldown = 1
+		elif pause_state == 0:
+			 pause_cooldown -= delta
 	elif SSP.replay.sv != 1:
 		var should_pause:bool = false
 		var should_giveup:bool = false

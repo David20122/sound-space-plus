@@ -1,19 +1,16 @@
 extends MenuButton
 
 var presets = [
+	{ name = "Half-lock", cam = 10, ui = 0, grid = 0, spin = false, faraway = true },
+	{ name = "Full-lock", cam = 0, ui = 0, grid = 0, spin = false, faraway = true },
+	{ name = "Reverse-lock", cam = -10, ui = -0, grid = 0, spin = false, faraway = true },
 	
-	# basil's modes
-	{ name = "Half-lock", cam = 6.5, ui = 1.63, grid = 0, spin = false, faraway = false },
-	{ name = "Full-lock", cam = 0, ui = 0, grid = 0, spin = false, faraway = false },
-	{ name = "Spin", cam = 7.14, ui = 0, grid = 0, spin = true, faraway = false },
-	{ name = "Spin (Faraway)", cam = 7.14, ui = 0, grid = 0, spin = true, faraway = true },
-	{ name = "Half-lock (Faraway)", cam = 6.5, ui = 0, grid = 0, spin = false, faraway = true },
+	{ name = "Spin", cam = 10, ui = 0, grid = 0, spin = true, faraway = true },
+	{ name = "Spin-lock (mid-pivot)", cam = 0, ui = -64*.25/.35, grid = -32*.25/.35, spin = true, faraway = true },
 	
-	# pyrule's modes
-	{ name = "Spin-lock (mid-pivot)", cam = 0, ui = -64, grid = -32, spin = true, faraway = true },
-	{ name = "Reverse-lock", cam = -6.5, ui = -1.63, grid = 0, spin = false, faraway = false },
-	{ name = "Reverse-lock (Faraway)", cam = -6.5, ui = 0, grid = 0, spin = false, faraway = true },
-	
+	{ name = "Spin (Non-faraway)", cam = 10, ui = 0, grid = 0, spin = true, faraway = false },
+	{ name = "Half-lock (Non-faraway)", cam = 10, ui = 0, grid = 0, spin = false, faraway = false },
+	{ name = "Reverse-lock (Non-faraway)", cam = -10, ui = 0, grid = 0, spin = false, faraway = false },
 ]
 
 onready var cam = get_node("../../Parallax/Parallax")

@@ -552,9 +552,10 @@ var hit_effect_at_cursor:bool = true
 var show_miss_effect:bool = true
 
 # Settings - Camera/Controls
+var hlm_converted:bool = false
 var sensitivity:float = 0.5
-var parallax:float = 6.5 # Camera
-var ui_parallax:float = 1.63
+var parallax:float = 10 * 0.35/0.25 # Camera, THESE DEFAULTS SHOULD BE BASED ON 0.35 HLM BECAUSE THEY GET CONVERTED
+var ui_parallax:float = 0
 var grid_parallax:float = 0
 var fov:float = 70
 var hit_fov:bool = false
@@ -602,7 +603,7 @@ var show_letter_grade:bool = true
 var attach_hp_to_grid:bool = false
 var attach_timer_to_grid:bool = false
 var simple_hud:bool = false
-var faraway_hud:bool = false
+var faraway_hud:bool = true
 var rainbow_grid:bool = false
 var rainbow_hud:bool = false
 var friend_position:int = Globals.FRIEND_BEHIND_GRID # Hidden
@@ -907,6 +908,8 @@ func load_saved_settings():
 		
 		var data:Dictionary = decode.result
 		
+		if data.has("hlm_converted"):
+			hlm_converted = data.hlm_converted
 		if data.has("approach_rate"): 
 			approach_rate = data.approach_rate
 		if data.has("sensitivity"): 
@@ -926,8 +929,6 @@ func load_saved_settings():
 		if data.has("selected_colorset"): 
 			var cset = registry_colorset.get_item(data.selected_colorset)
 			if cset: select_colorset(cset)
-		if data.has("parallax"): 
-			parallax = data.parallax
 		if data.has("cam_unlock"): 
 			cam_unlock = data.cam_unlock
 		if data.has("show_config"): 
@@ -978,10 +979,14 @@ func load_saved_settings():
 			note_spawn_effect = data.note_spawn_effect
 		if data.has("display_true_combo"): 
 			display_true_combo = data.display_true_combo
+		
+		if data.has("parallax"): 
+			parallax = data.parallax
 		if data.has("ui_parallax"): 
 			ui_parallax = data.ui_parallax
 		if data.has("grid_parallax"): 
 			grid_parallax = data.grid_parallax
+		
 		if data.has("fov"):
 			fov = data.fov
 		if data.has("hit_fov"):
@@ -1151,6 +1156,7 @@ func load_saved_settings():
 		lcol(data,"grade_d_color")
 		lcol(data,"grade_f_color")
 		lcol(data,"cursor_color")
+		
 	
 	elif file.file_exists(Globals.p("user://settings")):
 		var err = file.open(Globals.p("user://settings"),File.READ)
@@ -2137,6 +2143,12 @@ func do_init(_ud=null):
 		get_tree().change_scene("res://errors/settings.tscn")
 		return
 	print('settings done')
+	if !hlm_converted:
+		parallax *= (0.25/0.35)
+		ui_parallax *= (0.25/0.35)
+		grid_parallax *= (0.25/0.35)
+		hlm_converted = true
+		save_settings()
 	
 	# Get custom sounds
 	emit_signal("init_stage_reached","Load custom assets")
