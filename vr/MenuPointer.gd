@@ -63,12 +63,12 @@ func _process(delta):
 			$PointerTrail.amount = target_detail
 			$PointerTrail.lifetime = SSP.trail_time
 		
-		if SSP.rainbow_cursor:
+		if SSP.cursor_color_type == Globals.CURSOR_RAINBOW:
 			$Pointer.mesh.material.albedo_color = Color.from_hsv(SSP.rainbow_t*0.1,0.65,1)
 			$PointerTrail.draw_pass_1.material.albedo_color = Color.from_hsv(SSP.rainbow_t*0.1,0.65,1)
 		else:
-			$Pointer.mesh.material.albedo_color = Color(1,1,1)
-			$PointerTrail.draw_pass_1.material.albedo_color = Color(1,1,1)
+			$Pointer.mesh.material.albedo_color = SSP.cursor_color
+			$PointerTrail.draw_pass_1.material.albedo_color = SSP.cursor_color
 	else:
 		$Pointer.visible = false
 		$PointerTrail.emitting = false
