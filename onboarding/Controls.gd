@@ -95,6 +95,7 @@ func cache_trail(part:Spatial):
 var ripple = preload("res://content/notefx/ripple.tscn")
 
 func on_click():
+	if !SSP.selected_colorset: return
 	ci = (ci+1) % len(SSP.selected_colorset.colors)
 	var e = ripple.instance()
 	e.spawn_menu(self,SSP.selected_colorset.colors[ci],$PointerHolder/Pointer.transform)
@@ -165,8 +166,9 @@ func _process(delta):
 		if SSP.cursor_color_type == Globals.CURSOR_RAINBOW:
 			$PointerHolder/Pointer.mesh.material.albedo_color = Color.from_hsv(SSP.rainbow_t*0.1,0.65,1)
 		elif SSP.cursor_color_type == Globals.CURSOR_NOTE_COLOR:
-			ci = ci % len(SSP.selected_colorset.colors)
-			$PointerHolder/Pointer.mesh.material.albedo_color = SSP.selected_colorset.colors[ci]
+			if SSP.selected_colorset:
+				ci = ci % len(SSP.selected_colorset.colors)
+				$PointerHolder/Pointer.mesh.material.albedo_color = SSP.selected_colorset.colors[ci]
 		else:
 			$PointerHolder/Pointer.mesh.material.albedo_color = SSP.cursor_color
 	else:
