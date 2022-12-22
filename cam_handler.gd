@@ -18,6 +18,11 @@ func _ready():
 		$Game/Avatar.visible = false
 		$Camera.current = true
 		$AltCam.current = false
+	
+	if SSP.mod_flashlight:
+		$Game/Mask.visible = true
+	else:
+		$Game/Mask.visible = false # should already be false but just to ensure that it is
 
 func _process(delta):
 	if Input.is_action_just_pressed("debug_freecam_toggle"):

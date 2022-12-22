@@ -469,6 +469,7 @@ func _ready():
 	if SSP.mod_nearsighted: mods.append("Nearsight")
 	if SSP.mod_chaos: mods.append("Chaos")
 	if SSP.mod_earthquake: mods.append("Earthquake")
+	if SSP.mod_flashlight: mods.append("Masked")
 	for i in range(mods.size()):
 		if i != 0: ms += " "
 		ms += mods[i]

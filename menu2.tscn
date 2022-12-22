@@ -1,4 +1,4 @@
-[gd_scene load_steps=200 format=2]
+[gd_scene load_steps=201 format=2]
 
 [ext_resource path="res://uitheme.tres" type="Theme" id=1]
 [ext_resource path="res://font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=2]
@@ -95,6 +95,7 @@
 [ext_resource path="res://menu2/ResultsHolder.gd" type="Script" id=93]
 [ext_resource path="res://menuButtons/ModEarthquake.gd" type="Script" id=94]
 [ext_resource path="res://menu2/WarningBar.gd" type="Script" id=95]
+[ext_resource path="res://menuButtons/ModFlashlight.gd" type="Script" id=96]
 
 [sub_resource type="StyleBoxFlat" id=59]
 draw_center = false
@@ -2928,9 +2929,9 @@ script = ExtResource( 42 )
 
 [node name="StartOffset" type="SpinBox" parent="Main/Results/Results/ModsHolder/Mods"]
 margin_left = 130.0
-margin_top = 206.0
+margin_top = 238.0
 margin_right = 330.0
-margin_bottom = 234.0
+margin_bottom = 266.0
 focus_mode = 2
 theme = ExtResource( 1 )
 allow_greater = true
@@ -2952,9 +2953,9 @@ clip_text = true
 
 [node name="HpModel" type="MenuButton" parent="Main/Results/Results/ModsHolder/Mods"]
 margin_left = 130.0
-margin_top = 238.0
+margin_top = 274.0
 margin_right = 314.0
-margin_bottom = 264.0
+margin_bottom = 300.0
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
@@ -2977,9 +2978,6 @@ text = "Health Model"
 align = 2
 valign = 1
 clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="GradeSystem" type="MenuButton" parent="Main/Results/Results/ModsHolder/Mods"]
 visible = false
@@ -3296,9 +3294,6 @@ custom_fonts/font = SubResource( 92 )
 action_mode = 0
 flat = true
 script = ExtResource( 60 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Label" type="Label" parent="Main/Results/Results/ModsHolder/Mods/Chaos"]
 margin_left = -115.0
@@ -3309,6 +3304,34 @@ theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.960784, 1, 0.478431, 1 )
 custom_fonts/font = SubResource( 91 )
 text = "Chaos"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="Flashlight" type="CheckBox" parent="Main/Results/Results/ModsHolder/Mods"]
+margin_left = 130.0
+margin_top = 195.0
+margin_right = 190.0
+margin_bottom = 227.0
+theme = ExtResource( 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 92 )
+action_mode = 0
+flat = true
+script = ExtResource( 96 )
+
+[node name="Label" type="Label" parent="Main/Results/Results/ModsHolder/Mods/Flashlight"]
+margin_left = -115.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.960784, 1, 0.478431, 1 )
+custom_fonts/font = SubResource( 91 )
+text = "Masked"
 align = 2
 valign = 1
 clip_text = true

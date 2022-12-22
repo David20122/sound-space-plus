@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=40 format=2]
 
 [ext_resource path="res://game/Camera.gd" type="Script" id=1]
 [ext_resource path="res://game/NoteManager.gd" type="Script" id=2]
@@ -9,8 +9,10 @@
 [ext_resource path="res://grid_inner.png" type="Texture" id=7]
 [ext_resource path="res://spawn_effect.png" type="Texture" id=8]
 [ext_resource path="res://grid_outer.png" type="Texture" id=9]
+[ext_resource path="res://content/ui/flashlight.svg" type="Texture" id=10]
 [ext_resource path="res://Avatar.tscn" type="PackedScene" id=11]
 [ext_resource path="res://content/blocks/cube.obj" type="ArrayMesh" id=12]
+[ext_resource path="res://MaskedModifier.gd" type="Script" id=13]
 [ext_resource path="res://game/Cursor.gd" type="Script" id=14]
 [ext_resource path="res://font/UbuntuMono/Regular.ttf" type="DynamicFontData" id=22]
 [ext_resource path="res://cam_handler.gd" type="Script" id=23]
@@ -356,6 +358,17 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 1
 color = Color( 0, 0, 0, 0 )
+
+[node name="Mask" type="Spatial" parent="Game"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.1 )
+visible = false
+script = ExtResource( 13 )
+
+[node name="Sprite" type="Sprite3D" parent="Game/Mask"]
+pixel_size = 0.04
+double_sided = false
+render_priority = 75
+texture = ExtResource( 10 )
 
 [editable path="Game/Avatar"]
 [editable path="Game/Avatar/Head/Accessories"]
