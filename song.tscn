@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=38 format=2]
 
 [ext_resource path="res://game/Camera.gd" type="Script" id=1]
 [ext_resource path="res://game/NoteManager.gd" type="Script" id=2]
@@ -142,13 +142,6 @@ flags_transparent = true
 flags_unshaded = true
 albedo_color = Color( 1, 1, 1, 0.705882 )
 albedo_texture = ExtResource( 25 )
-
-[sub_resource type="DynamicFont" id=77]
-size = 32
-outline_size = 4
-outline_color = Color( 0, 0, 0, 0.490196 )
-use_filter = true
-font_data = ExtResource( 22 )
 
 [node name="Song" type="Spatial"]
 script = ExtResource( 23 )
@@ -363,26 +356,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 1
 color = Color( 0, 0, 0, 0 )
-
-[node name="Debug" type="Label" parent="."]
-visible = false
-margin_left = 10.0
-margin_top = 10.0
-margin_right = 106.0
-margin_bottom = 27.0
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-custom_fonts/font = SubResource( 46 )
-
-[node name="Stats" type="Control" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-
-[node name="Label" type="Label" parent="Stats"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_fonts/font = SubResource( 77 )
-text = "(stats)"
-align = 2
 
 [editable path="Game/Avatar"]
 [editable path="Game/Avatar/Head/Accessories"]

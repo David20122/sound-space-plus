@@ -36,14 +36,27 @@ func update(_s=null):
 #	$Actions.visible = true
 	$Info/M/V/Id/L.text = map.id
 	$Info/M/V/Name/L.text = map.name
+	$Info/M/V/SongName/L.text = map.song
+	$Info/M/V/SongName.visible = map.name != map.song
 	$Info/M/V/Mapper/L.text = map.creator
-	$Info/D/Difficulty.text = Globals.difficulty_names.get(map.difficulty,"INVALID DIFFICULTY ID")
+	$Info/D/Difficulty.text = map.custom_data.get("difficulty_name",
+		Globals.difficulty_names.get(map.difficulty,"INVALID DIFFICULTY ID")
+	)
 	$Info/D/Difficulty.modulate = Globals.difficulty_colors.get(map.difficulty,Color("#ffffff"))
 	$Info/D/Data.text = "%s - %s notes" % [get_time_ms(map.last_ms),comma_sep(map.note_count)]
+	
+	if $Info/D/Difficulty.text.length() > 10:
+		$Info/D/Difficulty.visible = false
+		$Info/D/DifficultySmaller.visible = true
+		$Info/D/DifficultySmaller.text = $Info/D/Difficulty.text
+	else:
+		$Info/D/Difficulty.visible = true
+		$Info/D/DifficultySmaller.visible = false
 	
 	$Info/M/V/Mapper.visible = !SSP.single_map_mode_txt
 	$Info/M/V/Id.visible = !SSP.single_map_mode_txt
 	$Info/M/V/SMM.visible = SSP.single_map_mode
+	
 	
 	var txt = ""
 	if SSP.note_hitbox_size == 1.140: txt += "Default hitboxes, "

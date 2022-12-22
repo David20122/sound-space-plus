@@ -101,12 +101,7 @@ func add_item(item,subregistry:bool=false,replaceSongs:bool=false):
 	else: assert(false,"Invalid asset type for registry")
 
 func load_png(file:String):
-	var imgtex = ImageTexture.new()
-	var img = Image.new()
-	var res = img.load(file)
-	if res != OK: return null
-	imgtex.create_from_image(img)
-	return imgtex
+	return Globals.imageLoader.load_file(file)
 
 func add_sspm_map(path:String):
 	var song:Song = Song.new()
@@ -118,56 +113,22 @@ func add_sspm_map(path:String):
 	return song
 
 func add_vulnus_map(folder_path:String):
-	var id = "vmapimp_" + folder_path.get_file().replace(" ","_").to_lower()
-	var file:File = File.new()
-	if !file.file_exists(folder_path + "/meta.json"): return
-	
-	var err = file.open(folder_path + "/meta.json",File.READ)
-	if err != OK: return
-	var meta_json:String = file.get_as_text()
-	file.close()
-	var meta:Dictionary = parse_json(meta_json)
-	
-	var artist:String = meta.get("_artist","Unknown Artist")
-	var difficulties:Array = meta.get("_difficulties",[])
-	var mappers:Array = meta.get("_mappers",[])
-	var music_path:String = meta.get("_music","**missing**")
-	var title:String = meta.get("_title","Unknown Song")
-	
-	if difficulties.size() == 0: return
-	if music_path == "**missing**" or !music_path.is_valid_filename(): return
-	if mappers.size() == 0: mappers = ["Unknown"]
-	
-	if !file.file_exists(folder_path + "/" + music_path): return
-	if !file.file_exists(folder_path + "/" + difficulties[0]): return
-	var diff = Globals.DIFF_UNKNOWN
-	if difficulties[0] == "official.json":
-		id = id.replace("vmapimp_","ss_archive_")
-		var audioid = int(music_path.split(".")[0])
-		diff = Globals.official_map_difficulties.get(audioid,Globals.DIFF_UNKNOWN)
-		var dir:Directory = Directory.new()
-		dir.open(folder_path)
-		dir.rename(music_path,"../../packs/ssarchive/" + music_path)
-	
-#	file.open(folder_path + "/" + difficulties[0],File.READ)
-#	var songdata_json:String = file.get_as_text()
-#	var songdata:Dictionary = parse_json(songdata_json)
-#	file.close()
-	var conc:String = ""
-	for i in range(mappers.size()):
-		if i != 0: conc += ", "
-		conc += mappers[i]
-	
-	var song:Song = Song.new(id,"%s - %s"%[artist,title],conc)
-	song.setup_from_vulnus_json(folder_path + "/" + difficulties[0],folder_path + "/" + music_path)
-	song.difficulty = diff
-	if file.file_exists(folder_path + "/cover.png"):
-		var cover = load_png(folder_path + "/cover.png")
-		if cover:
-			song.cover = cover
-			song.has_cover = true
-	add_item(song)
-	return song
+	var songBase:Song = Song.new()
+	var song = songBase.load_from_vulnus_map(folder_path)
+	if song:
+		add_item(song)
+		
+		var difflist = song.get_vulnus_map_difficulty_list(folder_path)
+		if difflist.size() > 1:
+			for i in range(1, difflist.size()):
+				songBase = Song.new()
+				song = songBase.load_from_vulnus_map(folder_path, i)
+				if song: add_item(song)
+				else: songBase.unreference()
+		
+		return song
+	else:
+		songBase.unreference()
 
 signal percent_progress
 

@@ -317,7 +317,7 @@ func _process(delta:float):
 		elapsed = 0
 	
 	var fstr = "cursor speed\n{current} m/sec\n\ntop speed\n{top} m/sec"
-	$"../../Stats/Label".text = fstr.format(
+	$Stats/Label.text = fstr.format(
 		{
 			"current": stepify(s_curspd,0.1),
 			"top": stepify(s_tcurspd,0.1)
@@ -329,6 +329,8 @@ func _process(delta:float):
 
 func _ready():
 	Game.connect("miss",self,"on_miss")
+	
+	$Stats/Label.visible = SSP.show_stats
 	
 	$GiveUpVP/Control.fill_color = giveup_fill_color
 	

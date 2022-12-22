@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=2]
+[gd_scene load_steps=71 format=2]
 
 [ext_resource path="res://game/TrueComboHandler.gd" type="Script" id=1]
 [ext_resource path="res://game/FPS.gd" type="Script" id=2]
@@ -29,6 +29,13 @@
 [ext_resource path="res://classes/cursordance/Main.gd" type="Script" id=27]
 [ext_resource path="res://classes/cursordance/dancetest.gd" type="Script" id=28]
 [ext_resource path="res://game/HUD.gd" type="Script" id=29]
+
+[sub_resource type="DynamicFont" id=85]
+size = 32
+outline_size = 4
+outline_color = Color( 0, 0, 0, 0.490196 )
+use_filter = true
+font_data = ExtResource( 14 )
 
 [sub_resource type="StyleBoxFlat" id=4]
 bg_color = Color( 1, 1, 1, 1 )
@@ -249,6 +256,17 @@ viewport_path = NodePath("ApproachVP")
 [node name="HUD" type="Spatial"]
 pause_mode = 1
 script = ExtResource( 29 )
+
+[node name="Stats" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Label" type="Label" parent="Stats"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 85 )
+text = "(stats)"
+align = 2
 
 [node name="TimerVP" type="Viewport" parent="."]
 size = Vector2( 900, 300 )

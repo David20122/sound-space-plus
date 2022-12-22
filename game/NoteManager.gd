@@ -425,7 +425,7 @@ func _process(delta:float):
 				pause_state = 0
 				pause_cooldown = 1
 		elif pause_state == 0:
-			 pause_cooldown -= delta
+			 pause_cooldown = max(pause_cooldown - delta, 0)
 	elif SSP.replay.sv != 1:
 		var should_pause:bool = false
 		var should_giveup:bool = false

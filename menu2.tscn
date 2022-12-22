@@ -1,4 +1,4 @@
-[gd_scene load_steps=199 format=2]
+[gd_scene load_steps=200 format=2]
 
 [ext_resource path="res://uitheme.tres" type="Theme" id=1]
 [ext_resource path="res://font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=2]
@@ -393,6 +393,12 @@ font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=97]
 size = 24
+use_filter = true
+font_data = ExtResource( 27 )
+fallback/0 = ExtResource( 15 )
+
+[sub_resource type="DynamicFont" id=162]
+size = 18
 use_filter = true
 font_data = ExtResource( 27 )
 fallback/0 = ExtResource( 15 )
@@ -3410,6 +3416,34 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="DifficultySmaller" type="Label" parent="Main/Results/Results/Info/D"]
+visible = false
+margin_right = 450.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_fonts/font = SubResource( 162 )
+text = "-"
+align = 2
+valign = 1
+
+[node name="Label" type="Label" parent="Main/Results/Results/Info/D/DifficultySmaller"]
+visible = false
+margin_left = -85.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.698039, 0.901961, 0.639216, 1 )
+custom_fonts/font = SubResource( 91 )
+text = "Difficulty:"
+align = 2
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Data" type="Label" parent="Main/Results/Results/Info/D"]
 margin_right = 425.0
 margin_bottom = 32.0
@@ -3486,6 +3520,42 @@ clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="SongName" type="MarginContainer" parent="Main/Results/Results/Info/M/V"]
+visible = false
+margin_top = 32.0
+margin_right = 424.0
+margin_bottom = 57.0
+custom_constants/margin_left = 62
+
+[node name="L" type="Label" parent="Main/Results/Results/Info/M/V/SongName"]
+margin_left = 62.0
+margin_right = 424.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 0, 25 )
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.952941, 0.752941, 1, 1 )
+custom_fonts/font = SubResource( 117 )
+text = "-"
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="Main/Results/Results/Info/M/V/SongName/L"]
+margin_left = -68.0
+margin_right = -6.0
+margin_bottom = 25.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.698039, 0.901961, 0.639216, 1 )
+custom_fonts/font = SubResource( 91 )
+text = "Song"
+align = 2
+valign = 1
+clip_text = true
 
 [node name="Mapper" type="MarginContainer" parent="Main/Results/Results/Info/M/V"]
 margin_top = 32.0
@@ -4002,7 +4072,7 @@ scroll_horizontal_enabled = false
 [node name="F" parent="Main/Settings/S" instance=ExtResource( 49 )]
 anchor_right = 0.0
 margin_right = 1210.0
-margin_bottom = 5502.0
+margin_bottom = 5530.0
 rect_clip_content = true
 
 [node name="Credits" type="ReferenceRect" parent="Main"]

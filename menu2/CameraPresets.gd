@@ -6,11 +6,14 @@ var presets = [
 	{ name = "Reverse-lock", cam = -10, ui = -0, grid = 0, spin = false, faraway = true },
 	
 	{ name = "Spin", cam = 10, ui = 0, grid = 0, spin = true, faraway = true },
-	{ name = "Spin-lock (mid-pivot)", cam = 0, ui = -64*.25/.35, grid = -32*.25/.35, spin = true, faraway = true },
 	
-	{ name = "Spin (Non-faraway)", cam = 10, ui = 0, grid = 0, spin = true, faraway = false },
-	{ name = "Half-lock (Non-faraway)", cam = 10, ui = 0, grid = 0, spin = false, faraway = false },
-	{ name = "Reverse-lock (Non-faraway)", cam = -10, ui = 0, grid = 0, spin = false, faraway = false },
+	{ name = "Half-lock (Classic)", cam = 6.5*(.35/.25), ui = 1.63*(.35/.25), grid = 0, spin = false, faraway = false },
+	{ name = "Reverse-lock (Classic)", cam = -6.5*(.35/.25), ui = -1.63*(.35/.25), grid = 0, spin = false, faraway = false },
+	
+	{ name = "Spin-lock (mid-pivot)", cam = 0, ui = -64*(.35/.25), grid = -32*(.35/.25), spin = true, faraway = true },
+	
+	# dev choice
+	{ name = "Basil's Choice", cam = -5.6, ui = 0, grid = 0, spin = false, faraway = true },
 ]
 
 onready var cam = get_node("../../Parallax/Parallax")

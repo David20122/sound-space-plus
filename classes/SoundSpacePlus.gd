@@ -1380,6 +1380,7 @@ func save_settings():
 	var err:int = file.open(Globals.p("user://settings.json"),File.WRITE)
 	if err == OK:
 		var data = {
+			hlm_converted = hlm_converted,
 			approach_rate = approach_rate,
 			sensitivity = sensitivity,
 			play_hit_snd = play_hit_snd,
@@ -2164,9 +2165,9 @@ func do_init(_ud=null):
 		return
 	print('settings done')
 	if !hlm_converted:
-		parallax *= (0.25/0.35)
-		ui_parallax *= (0.25/0.35)
-		grid_parallax *= (0.25/0.35)
+		parallax *= (0.35/0.25)
+		ui_parallax *= (0.35/0.25)
+		grid_parallax *= (0.35/0.25)
 		hlm_converted = true
 		save_settings()
 	
