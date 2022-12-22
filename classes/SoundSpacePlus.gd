@@ -684,6 +684,7 @@ var ensure_hitsync:bool = false
 var hitsync_offset:float = 0 # don't save this yet; probably not even a necessary setting
 var retain_song_pitch:bool = false # not recommended as this is very heavy to compute, but people want it
 var do_note_pushback:bool = true # true; notes go past grid on miss, false; notes always vanish at grid
+var show_stats:bool = false
 
 
 
@@ -1114,6 +1115,8 @@ func load_saved_settings():
 			retain_song_pitch = data.retain_song_pitch
 		if data.has("do_note_pushback"):
 			do_note_pushback = data.do_note_pushback
+		if data.has("show_stats"):
+			show_stats = data.show_stats
 		
 		lcol(data,"grade_s_color")
 		lcol(data,"panel_bg")
@@ -1496,7 +1499,8 @@ func save_settings():
 			edge_drift = ser_float(edge_drift),
 			ensure_hitsync = ensure_hitsync,
 			retain_song_pitch = retain_song_pitch,
-			do_note_pushback = do_note_pushback
+			do_note_pushback = do_note_pushback,
+			show_stats = show_stats
 		}
 		
 		file.store_string(JSON.print(data, "\t"))
