@@ -557,8 +557,8 @@ var show_miss_effect:bool = true
 # Settings - Camera/Controls
 var hlm_converted:bool = false
 var sensitivity:float = 0.5
-var parallax:float = 10 * 0.35/0.25 # Camera, THESE DEFAULTS SHOULD BE BASED ON 0.35 HLM BECAUSE THEY GET CONVERTED
-var ui_parallax:float = 0
+var parallax:float = 6.5 # THESE DEFAULTS SHOULD BE BASED ON 0.35 HLM BECAUSE THEY GET CONVERTED
+var ui_parallax:float = 1.63
 var grid_parallax:float = 0
 var fov:float = 70
 var hit_fov:bool = false

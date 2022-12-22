@@ -1,19 +1,20 @@
 extends MenuButton
 
 var presets = [
-	{ name = "Half-lock", cam = 10, ui = 0, grid = 0, spin = false, faraway = true },
-	{ name = "Full-lock", cam = 0, ui = 0, grid = 0, spin = false, faraway = true },
-	{ name = "Reverse-lock", cam = -10, ui = -0, grid = 0, spin = false, faraway = true },
+	{ name = "Half-lock", cam = 6.5*(.35/.25), ui = 1.63*(.35/.25), grid = 0, spin = false, faraway = false },
+	{ name = "Full-lock", cam = 0, ui = 0, grid = 0, spin = false, faraway = false },
+	{ name = "Reverse-lock", cam = -6.5*(.35/.25), ui = -1.63*(.35/.25), grid = 0, spin = false, faraway = false },
 	
 	{ name = "Spin", cam = 10, ui = 0, grid = 0, spin = true, faraway = true },
 	
-	{ name = "Half-lock (Classic)", cam = 6.5*(.35/.25), ui = 1.63*(.35/.25), grid = 0, spin = false, faraway = false },
-	{ name = "Reverse-lock (Classic)", cam = -6.5*(.35/.25), ui = -1.63*(.35/.25), grid = 0, spin = false, faraway = false },
+	{ name = "Half-lock (faraway)", cam = 6.5*(.35/.25), ui = 0, grid = 0, spin = false, faraway = true },
+	{ name = "Full-lock (faraway)", cam = 0, ui = 0, grid = 0, spin = false, faraway = true },
+	{ name = "Reverse-lock (faraway)", cam = -6.5*(.35/.25), ui = 0, grid = 0, spin = false, faraway = true },
 	
 	{ name = "Spin-lock (mid-pivot)", cam = 0, ui = -64*(.35/.25), grid = -32*(.35/.25), spin = true, faraway = true },
 	
 	# dev choice
-	{ name = "Basil's Choice", cam = -5.6, ui = 0, grid = 0, spin = false, faraway = true },
+#	{ name = "Basil's Choice", cam = -7.2, ui = 0, grid = 0, spin = false, faraway = true },
 ]
 
 onready var cam = get_node("../../Parallax/Parallax")
