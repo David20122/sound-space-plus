@@ -26,6 +26,9 @@ onready var lettergrade:Label = get_node("LeftVP/Control/LetterGrade")
 
 onready var friend:MeshInstance = Spawn.get_node("Friend")
 
+onready var cur_pos = $"../Spawn/Cursor/Mesh".global_transform.origin
+onready var pcur_pos = cur_pos
+
 
 
 
@@ -83,6 +86,13 @@ var grade_f_color:Color = SSP.grade_f_color
 
 var last_combo:int = 0
 var rainbow_letter_grade:bool = false
+
+
+
+var elapsed:float = 0
+var s_curspd:float = 0
+var s_tcurspd:float = 0
+
 
 func set_song_name(name:String=SSP.selected_song.name):
 	songnametxt.text = name
@@ -294,6 +304,26 @@ func _process(delta:float):
 		$PauseHud.modulate = Color(1,1,1,abs(Spawn.pause_state) * pause_ui_opacity)
 	else:
 		$PauseHud.visible = false
+	
+	# stat mod
+	elapsed += delta
+	if elapsed >= 0.1:
+		pcur_pos = cur_pos
+		cur_pos = $"../Spawn/Cursor/Mesh".global_transform.origin
+		var dist = cur_pos.distance_to(pcur_pos)
+		s_curspd = dist / elapsed
+		if s_curspd > s_tcurspd:
+			s_tcurspd = s_curspd
+		elapsed = 0
+	
+	var fstr = "cursor speed\n{current} m/sec\n\ntop speed\n{top} m/sec"
+	$"../../Stats/Label".text = fstr.format(
+		{
+			"current": stepify(s_curspd,0.1),
+			"top": stepify(s_tcurspd,0.1)
+		}
+	)
+	
 
 
 
