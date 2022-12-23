@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=2]
+[gd_scene load_steps=72 format=2]
 
 [ext_resource path="res://game/TrueComboHandler.gd" type="Script" id=1]
 [ext_resource path="res://game/FPS.gd" type="Script" id=2]
@@ -29,6 +29,7 @@
 [ext_resource path="res://classes/cursordance/Main.gd" type="Script" id=27]
 [ext_resource path="res://classes/cursordance/dancetest.gd" type="Script" id=28]
 [ext_resource path="res://game/HUD.gd" type="Script" id=29]
+[ext_resource path="res://game/TextShake.gd" type="Script" id=30]
 
 [sub_resource type="DynamicFont" id=85]
 size = 32
@@ -260,6 +261,9 @@ script = ExtResource( 29 )
 [node name="Stats" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
 
 [node name="Label" type="Label" parent="Stats"]
 anchor_right = 1.0
@@ -267,6 +271,22 @@ anchor_bottom = 1.0
 custom_fonts/font = SubResource( 85 )
 text = "(stats)"
 align = 2
+
+[node name="ObnoxiousWarning" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 30 )
+
+[node name="Label" type="Label" parent="ObnoxiousWarning"]
+modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_colors/font_color = Color( 1, 0.45098, 0.45098, 1 )
+custom_fonts/font = SubResource( 85 )
+text = "(obnoxious warning)"
+align = 1
+valign = 1
 
 [node name="TimerVP" type="Viewport" parent="."]
 size = Vector2( 900, 300 )

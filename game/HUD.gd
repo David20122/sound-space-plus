@@ -90,8 +90,10 @@ var rainbow_letter_grade:bool = false
 
 
 var elapsed:float = 0
+var gtimer:float = 0 # global delta timer
 var s_curspd:float = 0
 var s_tcurspd:float = 0
+var calculating:bool = false
 
 
 func set_song_name(name:String=SSP.selected_song.name):
@@ -247,6 +249,7 @@ func paint(node:Control,color:Color):
 var config_time:float = 2.5
 
 func _process(delta:float):
+	gtimer += delta
 	if SSP.show_config:
 		config_time = max(config_time-delta,0)
 		if config_time <= 0: $ConfigHud.visible = false
@@ -307,7 +310,7 @@ func _process(delta:float):
 	
 	# stat mod
 	elapsed += delta
-	if elapsed >= 0.1:
+	if elapsed >= 0.1 and calculating:
 		pcur_pos = cur_pos
 		cur_pos = $"../Spawn/Cursor/Mesh".global_transform.origin
 		var dist = cur_pos.distance_to(pcur_pos)
@@ -315,6 +318,8 @@ func _process(delta:float):
 		if s_curspd > s_tcurspd:
 			s_tcurspd = s_curspd
 		elapsed = 0
+	if gtimer >= 2:
+		calculating = true
 	
 	var fstr = "cursor speed\n{current} m/sec\n\ntop speed\n{top} m/sec"
 	$Stats/Label.text = fstr.format(
@@ -323,6 +328,13 @@ func _process(delta:float):
 			"top": stepify(s_tcurspd,0.1)
 		}
 	)
+	
+	# warning
+	if not SSP.fov == 70 and SSP.mod_flashlight and calculating:
+		$ObnoxiousWarning.trigger = true
+		$ObnoxiousWarning.target = "STOP PLAYING MASKED WITH (fov) FOV PUSSY\njust use the damn default man".format({
+			"(fov)": SSP.fov
+		})
 	
 
 

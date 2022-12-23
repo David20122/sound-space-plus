@@ -2255,8 +2255,8 @@ func do_init(_ud=null):
 	first_init_done = true
 	do_archive_convert = false
 	
-	if Input.is_key_pressed(KEY_W):
-		alert = "Test alert"
+	if Input.is_key_pressed(KEY_A) and Input.is_key_pressed(KEY_R) and Input.is_key_pressed(KEY_C) and Input.is_key_pressed(KEY_W):
+		alert = "arcW sex :hardcoresex:"
 	
 	var alert_snd_played:bool = false
 	if alert != "":
