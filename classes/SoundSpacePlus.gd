@@ -614,6 +614,7 @@ var rainbow_grid:bool = false
 var rainbow_hud:bool = false
 var friend_position:int = Globals.FRIEND_BEHIND_GRID # Hidden
 var note_visual_approach:bool = false # Experimental
+var visual_approach_follow:bool = false
 var billboard_score:bool = false
 var score_popup:bool = true
 
@@ -1081,6 +1082,8 @@ func load_saved_settings():
 			OS.window_borderless = data.window_borderless
 		if data.has("note_visual_approach"): 
 			note_visual_approach = data.note_visual_approach
+		if data.has("visual_approach_follow"): 
+			visual_approach_follow = data.visual_approach_follow
 		if data.has("score_popup"): 
 			score_popup = data.score_popup
 		if data.has("billboard_score"): 
@@ -1460,6 +1463,7 @@ func save_settings():
 			show_miss_effect = show_miss_effect,
 			auto_maximize = auto_maximize,
 			note_visual_approach = note_visual_approach,
+			visual_approach_follow = visual_approach_follow,
 			score_popup = score_popup,
 			billboard_score = billboard_score,
 			sfx_2d = sfx_2d,

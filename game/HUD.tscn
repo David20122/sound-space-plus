@@ -32,7 +32,7 @@
 [ext_resource path="res://game/TextShake.gd" type="Script" id=30]
 
 [sub_resource type="DynamicFont" id=85]
-size = 32
+size = 48
 outline_size = 4
 outline_color = Color( 0, 0, 0, 0.490196 )
 use_filter = true

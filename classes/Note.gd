@@ -73,7 +73,8 @@ func reposition(ms:float,approachSpeed:float):
 			$Approach.scale.x = 0.4 * ((current_dist / SSP.spawn_distance) + 0.6)
 			$Approach.scale.y = 0.4 * ((current_dist / SSP.spawn_distance) + 0.6)
 			
-			$Approach.global_translation.z = 0
+			if not SSP.visual_approach_follow:
+				$Approach.global_translation.z = 0
 			
 		# note spin; not doing this all in a single Vector3 because we're trying to rotate locally
 		rotate(Vector3(1,0,0),SSP.note_spin_x / 2000)

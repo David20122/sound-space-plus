@@ -365,7 +365,9 @@ visible = false
 script = ExtResource( 13 )
 
 [node name="Sprite" type="Sprite3D" parent="Game/Mask"]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 1, 0, 0, 0 )
 pixel_size = 0.04
+billboard = 1
 double_sided = false
 render_priority = 75
 texture = ExtResource( 10 )
