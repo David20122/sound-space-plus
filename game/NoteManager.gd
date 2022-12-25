@@ -141,6 +141,8 @@ func note_reposition(i:int):
 			var at = Transform()
 			at = at.scaled(Vector3(sc,sc,sc))
 			at.origin = nt.origin#Vector3(nt.origin.x, nt.origin.y, 0)
+			if !SSP.visual_approach_follow:
+				at.origin.z = 0
 			
 			$ASq.multimesh.set_instance_transform(i - current_note, at)
 			$ASq.multimesh.set_instance_color(i - current_note, Color(1,1,1,pow(linstep(SSP.spawn_distance,0,current_dist),1.7)))
