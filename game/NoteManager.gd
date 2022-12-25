@@ -80,6 +80,7 @@ func note_reposition(i:int):
 	
 	var current_offset_ms:float = notems - ms
 	var current_dist:float = approachSpeed*current_offset_ms/1000
+	
 	if (
 		(current_dist <= SSP.spawn_distance and current_dist >= (grid_pushback * -1) and sign(approachSpeed) == 1) or
 		(current_dist >= -50 and current_dist <= 0.1 and sign(approachSpeed) == -1) or
@@ -179,7 +180,8 @@ func note_check_collision(i:int):
 var asq = SSP.note_visual_approach
 var last_reposition_ms:float = -10000
 var out_of_notes:bool = false
-func reposition_notes(force:bool=false):
+func reposition_notes(force:bool=false,rerun_start:int=-1):
+	var rerun_required:bool = false
 	$Label.text = ""
 #	force = force or OS.has_feature("debug")
 	if current_note == notes.size():
@@ -207,7 +209,7 @@ func reposition_notes(force:bool=false):
 	
 	last_reposition_ms = ms
 	
-	for i in range(current_note, notes.size()):
+	for i in range(max(current_note,rerun_start), notes.size()):
 		var notems:float = notes[i][1]
 		
 		if force:
@@ -222,6 +224,12 @@ func reposition_notes(force:bool=false):
 #					$Label.text += "(%s) note is end of visible area\n" % [ i ]
 					if notes[i][2] == Globals.NSTATE_ACTIVE:
 						return note_passed
+		
+		if (i - current_note + 2) > $Notes.multimesh.instance_count:
+			rerun_required = true
+			$Notes.multimesh.instance_count = min($Notes.multimesh.instance_count + 10, notes.size())
+			if asq: $ASq.multimesh.instance_count = $Notes.multimesh.instance_count
+			break
 		
 		if ms < notems and is_first:
 			is_first = false
@@ -299,6 +307,8 @@ func reposition_notes(force:bool=false):
 #	$Label.text += "last note is visible!"
 	$Notes.multimesh.visible_instance_count = notes.size() - current_note
 	if asq: $ASq.multimesh.visible_instance_count = notes.size() - current_note
+	
+	if rerun_required: reposition_notes()
 	return note_passed
 
 var color_index:int = 0
@@ -346,9 +356,11 @@ func spawn_notes(note_array:Array):
 			
 			notes.append(note)
 	
-	$Notes.multimesh.instance_count = notes.size()
+	var last_ms = note_array[-1][2]
+	var inst_count = max(35,ceil(10000 * (float(notes.size()) / float(last_ms))))
+	$Notes.multimesh.instance_count = inst_count
 	if asq:
-		$ASq.multimesh.instance_count = notes.size()
+		$ASq.multimesh.instance_count = inst_count
 		
 	notes_loaded = true
 	call_deferred("reposition_notes",true)
