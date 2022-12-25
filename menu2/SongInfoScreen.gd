@@ -43,6 +43,7 @@ func update(_s=null):
 		Globals.difficulty_names.get(map.difficulty,"INVALID DIFFICULTY ID")
 	)
 	$Info/D/Difficulty.modulate = Globals.difficulty_colors.get(map.difficulty,Color("#ffffff"))
+	$Info/D/DifficultySmaller.modulate = Globals.difficulty_colors.get(map.difficulty,Color("#ffffff"))
 	$Info/D/Data.text = "%s - %s notes" % [get_time_ms(map.last_ms),comma_sep(map.note_count)]
 	
 	if $Info/D/Difficulty.text.length() > 10:

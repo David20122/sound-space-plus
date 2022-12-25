@@ -264,7 +264,7 @@ script = ExtResource( 59 )
 [node name="M" type="VBoxContainer" parent="."]
 margin_top = 59.0
 margin_right = 1280.0
-margin_bottom = 5430.0
+margin_bottom = 5462.0
 custom_constants/separation = 0
 
 [node name="Modifiers" type="VBoxContainer" parent="M"]
@@ -6316,7 +6316,7 @@ valign = 1
 [node name="Experimental" type="VBoxContainer" parent="M"]
 margin_top = 5066.0
 margin_right = 1280.0
-margin_bottom = 5371.0
+margin_bottom = 5403.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Experimental"]
@@ -6345,13 +6345,13 @@ flat = true
 [node name="Group" type="MarginContainer" parent="M/Experimental"]
 margin_top = 36.0
 margin_right = 1280.0
-margin_bottom = 305.0
+margin_bottom = 337.0
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="M/Experimental/Group"]
 margin_left = 180.0
 margin_right = 1280.0
-margin_bottom = 269.0
+margin_bottom = 301.0
 
 [node name="ExpWarning" type="MarginContainer" parent="M/Experimental/Group/H"]
 margin_right = 827.0
@@ -6549,10 +6549,42 @@ align = 2
 valign = 1
 clip_text = true
 
-[node name="Avatar" type="Control" parent="M/Experimental/Group/H"]
+[node name="HalfGhost" type="CheckBox" parent="M/Experimental/Group/H"]
 margin_top = 237.0
 margin_right = 827.0
-margin_bottom = 269.0
+margin_bottom = 265.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_fonts/font = SubResource( 4 )
+action_mode = 0
+text = "useful for patterns that fill the whole screen"
+flat = true
+script = ExtResource( 54 )
+target = "half_ghost"
+
+[node name="Label" type="Label" parent="M/Experimental/Group/H/HalfGhost"]
+anchor_bottom = 1.0
+margin_left = -165.0
+margin_right = -10.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Half Ghost"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="Avatar" type="Control" parent="M/Experimental/Group/H"]
+margin_top = 269.0
+margin_right = 827.0
+margin_bottom = 301.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="Editor" type="Button" parent="M/Experimental/Group/H/Avatar"]
@@ -6603,7 +6635,7 @@ text = "literally you | experimental avatar editor. nowhere near done. visible i
 valign = 1
 
 [node name="BottomMargin" type="Control" parent="."]
-margin_top = 5434.0
+margin_top = 5466.0
 margin_right = 1280.0
-margin_bottom = 5530.0
+margin_bottom = 5562.0
 rect_min_size = Vector2( 0, 96 )
