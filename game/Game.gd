@@ -188,7 +188,7 @@ func _process(delta):
 		black_fade = min(black_fade + (delta/0.3),1)
 		$BlackFade.color = Color(0,0,0,black_fade)
 	elif !black_fade_target && black_fade != 0:
-		black_fade = max(black_fade - (delta/1),0)
+		black_fade = max(black_fade - (delta/0.75),0)
 		$BlackFade.color = Color(0,0,0,black_fade)
 	$BlackFade.visible = (black_fade != 0)
 	
@@ -290,5 +290,10 @@ func _ready():
 	SSP.update_rpc_song()
 	
 	yield(get_tree(),"idle_frame")
+	yield(get_tree(),"idle_frame")
+	yield(get_tree(),"idle_frame")
+	yield(get_tree(),"idle_frame")
 	black_fade_target = false
+	$ForceMatLoad.visible = false
+	$Spawn.active = true
 

@@ -615,6 +615,7 @@ var rainbow_hud:bool = false
 var friend_position:int = Globals.FRIEND_BEHIND_GRID # Hidden
 var note_visual_approach:bool = false # Experimental
 var visual_approach_follow:bool = false
+var half_ghost:bool = false # Experimental
 var billboard_score:bool = false
 var score_popup:bool = true
 
@@ -1134,6 +1135,8 @@ func load_saved_settings():
 			do_note_pushback = data.do_note_pushback
 		if data.has("show_stats"):
 			show_stats = data.show_stats
+		if data.has("half_ghost"):
+			half_ghost = data.half_ghost
 		
 		lcol(data,"grade_s_color")
 		lcol(data,"panel_bg")
@@ -1468,6 +1471,7 @@ func save_settings():
 			billboard_score = billboard_score,
 			sfx_2d = sfx_2d,
 			cursor_color_type = cursor_color_type,
+			half_ghost = half_ghost,
 			target_fps = Engine.target_fps,
 			
 			master_volume = ser_float(clamp(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Master")),-80,1000000)),
@@ -1711,12 +1715,12 @@ func register_worlds():
 
 func register_meshes():
 	registry_mesh.add_item(NoteMesh.new(
-		"ssp_square", "Square",
-		"res://content/blocks/default.obj", "Chedski"
-	))
-	registry_mesh.add_item(NoteMesh.new(
 		"ssp_rounded", "Rounded",
 		"res://content/blocks/rounded.obj", "Chedski"
+	))
+	registry_mesh.add_item(NoteMesh.new(
+		"ssp_square", "Square",
+		"res://content/blocks/default.obj", "Chedski"
 	))
 	registry_mesh.add_item(NoteMesh.new(
 		"ssp_circle", "Circle",
@@ -1729,6 +1733,10 @@ func register_meshes():
 	registry_mesh.add_item(NoteMesh.new(
 		"ssp_plane", "Front of Block",
 		"res://content/blocks/plane.obj", "Chedski"
+	))
+	registry_mesh.add_item(NoteMesh.new(
+		"ssp_realplane", "Plane",
+		"res://content/blocks/quad.tres", "Chedski"
 	))
 	var dir = Directory.new()
 	if dir.open(user_mesh_dir) == OK:

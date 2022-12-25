@@ -418,7 +418,7 @@ func setup_from_vulnus_json(jsonPath:String,songFile:String,useDifficultyName:bo
 	var json = file.get_as_text()
 	file.close()
 	var dn = json.find('"_name":')
-	if dn > 0:
+	if dn && dn > 0:
 		var nq_open = json.find('"',dn + 7)
 		var nq_close = json.find('",',nq_open)
 		var diffname = json.substr(nq_open + 1, nq_close - (nq_open + 1))
@@ -494,10 +494,12 @@ func load_from_vulnus_map(folder_path:String,difficulty_id:int=0):
 	
 	#var song:Song = Song.new(id,,conc)
 	setup_from_vulnus_json(folder_path + "/" + difficulties[difficulty_id], folder_path + "/" + music_path)
-	id = generate_vmapimp_id(title, custom_data.difficulty_name, difficulty_id != 0)
+	id = generate_vmapimp_id(title,custom_data.get("difficulty_name",String(difficulty_id)), difficulty_id != 0)
 	
 	if difficulties.size() != 1:
-		name = "%s - %s [%s]" % [artist,title,custom_data.difficulty_name]
+		name = "%s - %s [%s]" % [artist,title,custom_data.get("difficulty_name",String(difficulty_id))]
+	else:
+		name = song
 	
 	difficulty = diff
 	

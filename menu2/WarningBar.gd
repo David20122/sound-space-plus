@@ -22,21 +22,47 @@ func display_warning(id:String):
 			state = true
 			$L.text = "Running in single map mode. Online features, PBs, and most map actions are disabled."
 			color = Color("#ffbb19")
+		"spawn":
+			state = true
+			$L.text = "Note spawn effects aren't available in the new note rendering system yet."
+			color = Color("#fc794e")
 		"debug":
 			state = true
 			$L.text = "Development mode is active, game mods will not be used."
 			color = Color("#477d94")
+		"experimental":
+			state = true
+			$L.text = "You are currently using experimental settings. Expect bugs."
+			color = Color("#c1c1ac")
+#			color = Color("#dbd1a2")
 		_:
 			assert(false)
 	$L2.text = $L.text
+
+var experimental_settings = [
+	"show_stats",
+	"ensure_hitsync",
+	"do_note_pushback",
+	"retain_song_pitch",
+	"half_ghost",
+]
+
+func check_experimental_settings():
+	for k in experimental_settings:
+		if SSP.get(k): return true
+	return false
 
 func check_warnings():
 	if Input.is_action_pressed("warning_test"):
 		return "test"
 	elif SSP.single_map_mode:
 		return "smm"
+	elif SSP.note_spawn_effect:
+		return "spawn"
 	elif OS.has_feature("debug"):
 		return "debug"
+	elif check_experimental_settings():
+		return "experimental"
 	else:
 		return "none"
 

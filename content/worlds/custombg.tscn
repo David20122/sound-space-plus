@@ -19,6 +19,15 @@ code = "shader_type canvas_item;
 
 uniform sampler2D tex;
 
+vec4 cc(vec4 v) {
+	return vec4(
+		pow(v.r, 2.2),
+		pow(v.g, 2.2),
+		pow(v.b, 2.2),
+		v.a
+	);
+}
+
 void fragment() {
 	COLOR.x = 1.0;
 	float theta = UV.y*3.14159;
@@ -32,22 +41,22 @@ void fragment() {
 	vec2 st = vec2(0.0);
 	if (-unit.y>=abs(unit.x) && -unit.y>=abs(unit.z)) {
 		st = ((vec2(1.0, -1.0)*unit.xz)/abs(unit.y)+1.0)/2.0;
-		COLOR = texture(tex, st);
+		COLOR = cc(texture(tex, st));
 	} if (unit.y>=abs(unit.x) && unit.y>=abs(unit.z)) {
 		st = ((unit.xz)/abs(unit.y)+1.0)/2.0;
-		COLOR = texture(tex, st);
+		COLOR = cc(texture(tex, st));
 	} if (unit.x>=abs(unit.y) && unit.x>=abs(unit.z)) {
 		st = (-unit.zy/abs(unit.x)+1.0)/2.0;
-		COLOR = texture(tex, st);
+		COLOR = cc(texture(tex, st));
 	} if (-unit.x>=abs(unit.y) && -unit.x>=abs(unit.z)) {
 		st = ((vec2(1.0, -1.0)*unit.zy)/abs(unit.x)+1.0)/2.0;
-		COLOR = texture(tex, st);
+		COLOR = cc(texture(tex, st));
 	} if (unit.z>=abs(unit.x) && unit.z>=abs(unit.y)) {
 		st = ((vec2(1.0, -1.0)*unit.xy)/abs(unit.z)+1.0)/2.0;
-		COLOR = texture(tex, st);
+		COLOR = cc(texture(tex, st));
 	} if (-unit.z>=abs(unit.x) && -unit.z>=abs(unit.y)) {
 		st = ((vec2(-1.0)*unit.xy)/abs(unit.z)+1.0)/2.0;
-		COLOR = texture(tex, st);
+		COLOR = cc(texture(tex, st));
 	}
 }"
 
@@ -97,6 +106,7 @@ __meta__ = {
 [node name="V" type="Viewport" parent="."]
 size = Vector2( 4096, 2048 )
 world = SubResource( 6 )
+hdr = false
 usage = 0
 render_target_update_mode = 3
 
