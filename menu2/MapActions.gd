@@ -92,7 +92,7 @@ func item_selected(idx:int):
 		1:
 			if !(
 				SSP.selected_song.is_broken or
-				SSP.selected_song.is_builtin or
+				#SSP.selected_song.is_builtin or
 				SSP.selected_song.converted or
 				SSP.selected_song.songType == Globals.MAP_SSPM2 or
 				SSP.selected_song.is_online or
@@ -116,7 +116,7 @@ func item_selected(idx:int):
 		5:
 			if !(
 				SSP.selected_song.is_broken or
-				SSP.selected_song.is_builtin or
+				#SSP.selected_song.is_builtin or
 				SSP.selected_song.is_online
 			):
 				audio_data = SSP.selected_song.get_music_buffer()
@@ -144,7 +144,7 @@ func upd(_s=null):
 	visible = true
 	get_popup().set_item_disabled(0,(
 		SSP.single_map_mode or
-		SSP.selected_song.is_builtin or
+		#SSP.selected_song.is_builtin or
 		SSP.selected_song.is_online or !(
 			SSP.selected_song.songType == Globals.MAP_SSPM or
 			SSP.selected_song.songType == Globals.MAP_SSPM2
@@ -153,7 +153,7 @@ func upd(_s=null):
 	get_popup().set_item_disabled(1,(
 		SSP.single_map_mode or
 		SSP.selected_song.is_broken or
-		SSP.selected_song.is_builtin or
+		#SSP.selected_song.is_builtin or
 		SSP.selected_song.converted or
 		SSP.selected_song.songType == Globals.MAP_SSPM2 or
 		SSP.selected_song.is_online
@@ -161,7 +161,7 @@ func upd(_s=null):
 	
 	get_popup().set_item_disabled(3,(
 		SSP.single_map_mode or
-		SSP.selected_song.is_builtin or
+		#SP.selected_song.is_builtin or
 		SSP.selected_song.is_online or !(
 			SSP.selected_song.songType == Globals.MAP_SSPM or
 			SSP.selected_song.songType == Globals.MAP_SSPM2
@@ -170,12 +170,12 @@ func upd(_s=null):
 	
 	get_popup().set_item_disabled(5,(
 		SSP.selected_song.is_broken or
-		SSP.selected_song.is_builtin or
+		#SSP.selected_song.is_builtin or
 		SSP.selected_song.is_online
 	))
 	
 	copy_submenu.set_item_disabled(1,(
-		SSP.selected_song.is_builtin or
+		#SSP.selected_song.is_builtin or
 		SSP.selected_song.is_online
 	))
 	

@@ -77,6 +77,15 @@ func is_valid_id(txt:String):
 		!(("n" + txt).replace("-","")).is_valid_identifier()
 	)
 
+const db_builtin_difficulty_names = [
+	"N/A",
+	"Easy",
+	"Medium",
+	"Hard",
+	"LOGIC?",
+	"助 (Tasukete)"
+]
+
 func load_from_db_data(data:Dictionary={
 		"id":"INVALID_id_that_doesnt_exist",
 		"download":"http://chedski.test/ssp/mapdb/api/download/INVALID_id_that_doesnt_exist",
@@ -110,6 +119,7 @@ func load_from_db_data(data:Dictionary={
 	if !data.has("author"): return {success=false,error="014-423"}
 	if !data.has("version"): return {success=false,error="014-594"}
 	if !data.has("difficulty"): return {success=false,error="014-424"}
+	if !data.has("difficulty_name"): return {success=false,error="014-424"}
 	if !data.has("length_ms"): return {success=false,error="014-425"}
 	if !data.has("note_count"): return {success=false,error="014-426"}
 	if !data.has("download"): return {success=false,error="014-415"}
@@ -126,6 +136,9 @@ func load_from_db_data(data:Dictionary={
 	if !is_valid_id(data.id): return {success=false,error="014-461"}
 	if data.difficulty < -1 or data.difficulty > 4: return {success=false,error="014-465"}
 	
+	if !db_builtin_difficulty_names.has(data.difficulty_name):
+		custom_data = {difficulty_name = data.difficulty_name}
+	
 	id = data.id
 	name = data.name
 	song = data.name
@@ -139,6 +152,7 @@ func load_from_db_data(data:Dictionary={
 	note_count = int(data.note_count)
 	download_url = data.download
 	is_online = true
+	is_broken = data.get("broken",false)
 	
 	return {success=true}
 
@@ -1565,7 +1579,7 @@ func export_text(path:String):
 		return "no notes"
 	else:
 		for n in read_notes():
-			txt += "%s|%s|%s," % n
+			txt += "%s|%s|%s," % [2 - n[0], n[1], n[2]]
 
 	var file:File = File.new()
 	var err:int = file.open(path,File.WRITE)

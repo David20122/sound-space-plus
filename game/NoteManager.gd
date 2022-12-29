@@ -772,10 +772,10 @@ func _process(delta:float):
 			var should_write_pos:bool = rn_res
 			var ri = rec_interval
 			if pause_state == -1: ri *= 3
-			if rec_t >= ri:
+			if rn_res or rec_t >= ri:
 				rec_t = 0
 				should_write_pos = true
-			SSP.replay.store_cursor_pos(rms,$Cursor.transform.origin.x,$Cursor.transform.origin.y)
+				SSP.replay.store_cursor_pos(rms,$Cursor.transform.origin.x,$Cursor.transform.origin.y)
 		
 		if SSP.rainbow_grid:
 			$Inner.get("material/0").albedo_color = Color.from_hsv(SSP.rainbow_t*0.1,0.65,1)

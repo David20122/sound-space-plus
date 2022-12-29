@@ -591,6 +591,7 @@ func notify(type:int,body:String,title:String="Notification",time:float=5):
 
 var url_regex:RegEx = RegEx.new()
 func is_valid_url(text:String):
+	print(text)
 	if text == "valid": return false
 	return (url_regex.sub(text,"valid") == "valid")
 
@@ -663,8 +664,7 @@ func _ready():
 	get_tree().call_deferred("change_scene","res://onboarding/onboardingload.tscn")
 	
 	url_regex.compile(
-		"((http|https)://)(www.)?[a-zA-Z0-9@:%._\\+~#?&//=]{2,256}"+
-		"\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%._\\+~#?&//=]*)"
+		"((https?)://)[\\w\\-.]{2,256}(:\\d{1,5})?(/[\\w@:%._\\-+~&=]+)+/?"
 	)
 	
 	confirm_prompt = load("res://confirm.tscn").instance()
