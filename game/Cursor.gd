@@ -75,12 +75,18 @@ func _input(event:InputEvent):
 			var h_strength = (Input.get_action_strength("joy_right") + (Input.get_action_strength("joy_left") * -1)) * 1
 			var relative = Vector2(h_strength * 1.5,v_strength * 1.5)
 			var off = Vector2(1,1)
-			move_cursor_abs(relative + off)
+			if SSP.invert_mouse:
+				move_cursor_abs((relative + off) * -1)
+			else:
+				move_cursor_abs(relative + off)
 		elif !SSP.cam_unlock and move_mode == C_MOUSE:
 			visible = true
 			if (event is InputEventMouseMotion):
 				face = event.relative
-				move_cursor(event.relative * 0.018 * SSP.sensitivity)
+				if SSP.invert_mouse:
+					move_cursor((event.relative * 0.018 * SSP.sensitivity) * -1)
+				else:
+					move_cursor(event.relative * 0.018 * SSP.sensitivity)
 			
 		if (event is InputEventScreenDrag):
 			$VisualPos.visible = true

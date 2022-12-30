@@ -1,0 +1,42 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://content/ui/bedrock.webm" type="VideoStream" id=1]
+[ext_resource path="res://w.gd" type="Script" id=2]
+[ext_resource path="res://content/ui/arcw.png" type="Texture" id=3]
+
+[node name="w" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+
+[node name="bg" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="arcw" type="TextureRect" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -640.0
+margin_top = -360.0
+margin_right = 640.0
+margin_bottom = 360.0
+texture = ExtResource( 3 )
+
+[node name="bedrock" type="VideoPlayer" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -426.0
+margin_top = -233.0
+margin_right = 426.0
+margin_bottom = 233.0
+stream = ExtResource( 1 )
+expand = false
+
+[connection signal="finished" from="bedrock" to="." method="_on_bedrock_finished"]

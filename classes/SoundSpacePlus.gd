@@ -471,6 +471,7 @@ var custom_speed:float = 1 setget _set_custom_speed
 var health_model:int = Globals.HP_SOUNDSPACE setget _set_health_model
 var grade_system:int = Globals.GRADE_SSP setget _set_grade_system
 var visual_mode:bool = false setget set_visual_mode
+var invert_mouse:bool = false setget set_invert_mouse
 
 # Mod setters - Normal
 func set_mod_extra_energy(v:bool):
@@ -531,6 +532,8 @@ func set_visual_mode(v:bool):
 	if v:
 		set_mod_nofail(true)
 	visual_mode = v; emit_signal("mods_changed")
+func set_invert_mouse(v:bool):
+	invert_mouse = v; emit_signal("mods_changed")
 func _set_health_model(v:int):
 	health_model = v; emit_signal("mods_changed")
 func _set_grade_system(v:int):
@@ -695,6 +698,8 @@ var retain_song_pitch:bool = false # not recommended as this is very heavy to co
 var do_note_pushback:bool = true # true; notes go past grid on miss, false; notes always vanish at grid
 var show_stats:bool = false
 
+var arcw_mode:bool = false # heheheha
+
 
 
 # Favorited songs
@@ -770,6 +775,7 @@ func generate_pb_str(for_pb:bool=false):
 	if mod_ghost: pts.append("m_ghost")
 	if mod_sudden_death: pts.append("m_sd")
 	if mod_chaos: pts.append("m_chaos")
+	if invert_mouse: pts.append("m_im")
 	if mod_earthquake: pts.append("m_earthquake")
 	if mod_flashlight: pts.append("m_flashlight")
 	if mod_nofail: pts.append("m_nofail") # for replays
@@ -798,6 +804,7 @@ func parse_pb_str(txt:String):
 	data.mod_nearsighted = false
 	data.mod_ghost = false
 	data.mod_chaos = false
+	data.invert_mouse = false
 	data.mod_earthquake = false
 	data.mod_flashlight = false
 	data.mod_nofail = false
@@ -831,6 +838,7 @@ func parse_pb_str(txt:String):
 				"m_nsight": data.mod_nearsighted = true
 				"m_ghost": data.mod_ghost = true
 				"m_chaos": data.mod_chaos = true
+				"m_im": data.invert_mouse = true
 				"m_earthquake": data.mod_earthquake = true
 				"m_flashlight": data.mod_flashlight = true
 				"m_nofail": data.mod_nofail = true
@@ -1689,6 +1697,11 @@ func register_worlds():
 		"res://content/worlds/seifukub.tscn", "pyrule",
 		"res://content/worlds/seifuku/scumb.png"
 	))
+	registry_world.add_item(BackgroundWorld.new(
+		"ssp_tri_tunnel", "Tri-Tunnel",
+		"res://content/worlds/tri_tunnel.tscn", "Lexus, pyrule",
+		"res://content/worlds/tri_tunnel/cover.png"
+	))
 #	registry_world.add_item(BackgroundWorld.new(
 #		"ssp_seethrough", "Seethrough",
 #		"res://content/worlds/seethrough.tscn", "pyrule",
@@ -2268,7 +2281,8 @@ func do_init(_ud=null):
 	do_archive_convert = false
 	
 	if Input.is_key_pressed(KEY_A) and Input.is_key_pressed(KEY_R) and Input.is_key_pressed(KEY_C) and Input.is_key_pressed(KEY_W):
-		alert = "arcW sex :hardcoresex:"
+		arcw_mode = true
+		alert = "ARCW mode enabled successfully."
 	
 	var alert_snd_played:bool = false
 	if alert != "":

@@ -482,6 +482,7 @@ func _ready():
 	if SSP.mod_chaos: mods.append("Chaos")
 	if SSP.mod_earthquake: mods.append("Earthquake")
 	if SSP.mod_flashlight: mods.append("Masked")
+	if SSP.invert_mouse: mods.append("Mouse Inverted")
 	for i in range(mods.size()):
 		if i != 0: ms += " "
 		ms += mods[i]
