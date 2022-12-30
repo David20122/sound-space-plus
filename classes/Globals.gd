@@ -591,7 +591,6 @@ func notify(type:int,body:String,title:String="Notification",time:float=5):
 
 var url_regex:RegEx = RegEx.new()
 func is_valid_url(text:String):
-	print(text)
 	if text == "valid": return false
 	return (url_regex.sub(text,"valid") == "valid")
 
