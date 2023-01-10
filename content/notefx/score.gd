@@ -1,5 +1,7 @@
 extends Spatial
 
+signal cache_me
+
 var active:bool = false
 var rainbow:bool = false
 var col:Color = Color(1,1,1,1)

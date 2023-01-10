@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=49 format=2]
 
 [ext_resource path="res://game/Camera.gd" type="Script" id=1]
 [ext_resource path="res://game/NoteManager.gd" type="Script" id=2]
@@ -9,9 +9,13 @@
 [ext_resource path="res://grid_inner.png" type="Texture" id=7]
 [ext_resource path="res://spawn_effect.png" type="Texture" id=8]
 [ext_resource path="res://grid_outer.png" type="Texture" id=9]
+[ext_resource path="res://content/ui/flashlight.svg" type="Texture" id=10]
 [ext_resource path="res://Avatar.tscn" type="PackedScene" id=11]
 [ext_resource path="res://content/blocks/cube.obj" type="ArrayMesh" id=12]
+[ext_resource path="res://MaskedModifier.gd" type="Script" id=13]
 [ext_resource path="res://game/Cursor.gd" type="Script" id=14]
+[ext_resource path="res://content/blocks/default.obj" type="ArrayMesh" id=15]
+[ext_resource path="res://font/debug2.tres" type="DynamicFont" id=16]
 [ext_resource path="res://font/UbuntuMono/Regular.ttf" type="DynamicFontData" id=22]
 [ext_resource path="res://cam_handler.gd" type="Script" id=23]
 [ext_resource path="res://game/CursorTrail.gd" type="Script" id=24]
@@ -36,6 +40,106 @@ flags_do_not_receive_shadows = true
 flags_disable_ambient_light = true
 params_depth_draw_mode = 2
 albedo_texture = ExtResource( 6 )
+
+[sub_resource type="Shader" id=78]
+code = "shader_type spatial;
+render_mode blend_mix,cull_back,depth_draw_alpha_prepass,diffuse_burley,specular_disabled,unshaded;
+uniform vec4 notecolor : hint_color = vec4(1,1,1,1);
+
+uniform float alpha_multi = 1;
+uniform float fade = 1;
+
+uniform bool use_image = false;
+uniform sampler2D image;
+
+float cc(float x) {
+	return pow(x, 2.2);
+}
+
+vec4 colconv(vec4 a) {
+	return vec4(
+		cc(a.r),
+		cc(a.g),
+		cc(a.b),
+		a.a
+	);
+}
+
+void fragment() {
+	vec2 base_uv = UV;
+	vec4 img = vec4(1.0);
+	if (use_image) {
+		img = texture(image,UV);
+	}
+	
+	vec4 col = colconv(COLOR);
+//	if (col.a >= 0.5) {
+//		ALBEDO = vec3(0.0, 1.0 - (2.0 * (col.a - 0.5)), (2.0 * (col.a - 0.5)))
+//	} else {
+//		ALBEDO = vec3(1.0 - (2.0 * col.a), (2.0 * col.a), 0.0)
+//	}
+	ALBEDO = col.rgb * img.rgb;
+//	ALBEDO = vec3(col.r, col.a, float(col.a >= 1.0 || col.a == 0.0));
+	//ALBEDO = vec3(1.0 - col.a, col.a, 0.0);
+	ALPHA = col.a*img.a*alpha_multi;/*COLOR.a * */
+}
+"
+
+[sub_resource type="ShaderMaterial" id=79]
+shader = SubResource( 78 )
+shader_param/notecolor = Color( 1, 1, 1, 1 )
+shader_param/alpha_multi = 1.0
+shader_param/fade = 1.0
+shader_param/use_image = false
+
+[sub_resource type="ShaderMaterial" id=80]
+shader = SubResource( 78 )
+shader_param/notecolor = Color( 1, 1, 1, 1 )
+shader_param/alpha_multi = 0.15
+shader_param/fade = 1.0
+shader_param/use_image = false
+
+[sub_resource type="Shader" id=81]
+code = "shader_type spatial;
+render_mode blend_mix,cull_back,depth_draw_alpha_prepass,diffuse_burley,specular_disabled,unshaded;
+
+uniform bool use_image = true;
+uniform sampler2D image;
+
+float cc(float x) {
+	return pow(x, 2.2);
+}
+
+vec4 colconv(vec4 a) {
+	return vec4(
+		cc(a.r),
+		cc(a.g),
+		cc(a.b),
+		a.a
+	);
+}
+
+void fragment() {
+	vec2 base_uv = UV;
+	vec4 img = vec4(1.0);
+	if (use_image) {
+		img = texture(image,UV);
+	}
+	
+	vec4 col = colconv(COLOR);
+	ALBEDO = col.rgb * img.rgb;
+	ALPHA = col.a*img.a;
+}
+"
+
+[sub_resource type="ShaderMaterial" id=82]
+shader = SubResource( 81 )
+shader_param/use_image = true
+shader_param/image = ExtResource( 44 )
+
+[sub_resource type="MultiMesh" id=77]
+transform_format = 1
+mesh = ExtResource( 15 )
 
 [sub_resource type="PlaneMesh" id=30]
 size = Vector2( 3.04, 3.04 )
@@ -143,6 +247,8 @@ flags_unshaded = true
 albedo_color = Color( 1, 1, 1, 0.705882 )
 albedo_texture = ExtResource( 25 )
 
+[sub_resource type="QuadMesh" id=83]
+
 [node name="Song" type="Spatial"]
 script = ExtResource( 23 )
 
@@ -198,6 +304,26 @@ material/0 = SubResource( 35 )
 pause_mode = 1
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, 0 )
 script = ExtResource( 2 )
+note_solid_mat = SubResource( 79 )
+note_transparent_mat = SubResource( 80 )
+asq_mat = SubResource( 82 )
+
+[node name="Notes" type="MultiMeshInstance" parent="Game/Spawn"]
+cast_shadow = 0
+generate_lightmap = false
+multimesh = SubResource( 77 )
+
+[node name="ASq" type="MultiMeshInstance" parent="Game/Spawn"]
+cast_shadow = 0
+generate_lightmap = false
+
+[node name="Label" type="Label" parent="Game/Spawn"]
+margin_left = 10.0
+margin_top = 45.0
+margin_right = 50.0
+margin_bottom = 59.0
+custom_fonts/font = ExtResource( 16 )
+text = "mmi debug"
 
 [node name="Music" type="AudioStreamPlayer" parent="Game/Spawn"]
 bus = "Music"
@@ -338,6 +464,12 @@ script = ExtResource( 45 )
 look_multi = 2.0
 speed_multi = 0.05
 
+[node name="Accessories" parent="Game/Avatar/Head" index="6"]
+visible = false
+
+[node name="CubellaHair" parent="Game/Avatar/Head/Accessories" index="0"]
+visible = true
+
 [node name="Outline" parent="Game/Avatar/Torso" index="0"]
 visible = true
 
@@ -351,14 +483,35 @@ anchor_bottom = 1.0
 mouse_filter = 1
 color = Color( 0, 0, 0, 0 )
 
-[node name="Debug" type="Label" parent="."]
+[node name="Mask" type="Spatial" parent="Game"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.1 )
 visible = false
-margin_left = 10.0
-margin_top = 10.0
-margin_right = 106.0
-margin_bottom = 27.0
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-custom_fonts/font = SubResource( 46 )
+script = ExtResource( 13 )
+
+[node name="Sprite" type="Sprite3D" parent="Game/Mask"]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 1, 0, 0, 0 )
+pixel_size = 0.04
+billboard = 1
+double_sided = false
+render_priority = 75
+texture = ExtResource( 10 )
+
+[node name="ForceMatLoad" type="Spatial" parent="Game"]
+transform = Transform( 1, 0, 2.38419e-07, 0, 1, 0, -2.38419e-07, 0, 1, 0, 0, -1.5 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Game/ForceMatLoad"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+mesh = SubResource( 83 )
+material/0 = SubResource( 82 )
+
+[node name="MeshInstance2" type="MeshInstance" parent="Game/ForceMatLoad"]
+mesh = SubResource( 83 )
+material/0 = SubResource( 79 )
+
+[node name="MeshInstance3" type="MeshInstance" parent="Game/ForceMatLoad"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
+mesh = SubResource( 83 )
+material/0 = SubResource( 80 )
 
 [editable path="Game/Avatar"]
 [editable path="Game/Avatar/Head/Accessories"]

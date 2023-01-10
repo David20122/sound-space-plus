@@ -47,89 +47,76 @@ environment = SubResource( 2 )
 [node name="1" type="MeshInstance" parent="Rings"]
 cast_shadow = 0
 mesh = SubResource( 3 )
-material/0 = null
 script = ExtResource( 3 )
 
 [node name="2" type="MeshInstance" parent="Rings"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7.5 )
 cast_shadow = 0
 mesh = SubResource( 3 )
-material/0 = null
 script = ExtResource( 3 )
 
 [node name="3" type="MeshInstance" parent="Rings"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -15 )
 cast_shadow = 0
 mesh = SubResource( 3 )
-material/0 = null
 script = ExtResource( 3 )
 
 [node name="4" type="MeshInstance" parent="Rings"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -22.5 )
 cast_shadow = 0
 mesh = SubResource( 3 )
-material/0 = null
 script = ExtResource( 3 )
 
 [node name="5" type="MeshInstance" parent="Rings"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -30 )
 cast_shadow = 0
 mesh = SubResource( 3 )
-material/0 = null
 script = ExtResource( 3 )
 
 [node name="6" type="MeshInstance" parent="Rings"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -37.5 )
 cast_shadow = 0
 mesh = SubResource( 3 )
-material/0 = null
 script = ExtResource( 3 )
 
 [node name="7" type="MeshInstance" parent="Rings"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -45 )
 cast_shadow = 0
 mesh = SubResource( 3 )
-material/0 = null
 script = ExtResource( 3 )
 
 [node name="9" type="MeshInstance" parent="Rings"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7.5 )
 cast_shadow = 0
 mesh = SubResource( 3 )
-material/0 = null
 script = ExtResource( 3 )
 
 [node name="10" type="MeshInstance" parent="Rings"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15 )
 cast_shadow = 0
 mesh = SubResource( 3 )
-material/0 = null
 script = ExtResource( 3 )
 
 [node name="11" type="MeshInstance" parent="Rings"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 22.5 )
 cast_shadow = 0
 mesh = SubResource( 3 )
-material/0 = null
 script = ExtResource( 3 )
 
 [node name="12" type="MeshInstance" parent="Rings"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 30 )
 cast_shadow = 0
 mesh = SubResource( 3 )
-material/0 = null
 script = ExtResource( 3 )
 
 [node name="13" type="MeshInstance" parent="Rings"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 37.5 )
 cast_shadow = 0
 mesh = SubResource( 3 )
-material/0 = null
 script = ExtResource( 3 )
 
 [node name="14" type="MeshInstance" parent="Rings"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 45 )
 cast_shadow = 0
 mesh = SubResource( 3 )
-material/0 = null
 script = ExtResource( 3 )

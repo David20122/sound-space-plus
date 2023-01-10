@@ -161,7 +161,7 @@ func _update(ms:float) -> Vector2:
 	pts[5] = np(noteNum+2)
 	
 	for i in range(11):
-		bez[i] = bezier(Dance.Linear(float(i)/10.0),p0,p1,p3,p2)
+		bez[i] = bezier(Dance.OutExpo(float(i)/10.0),p0,p1,p3,p2)
 	
 	return bezier(Dance.Linear(t),p0,p1,p3,p2)
 	#Dance.InOutQuad(t)

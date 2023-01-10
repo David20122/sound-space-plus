@@ -1,0 +1,80 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://errors/onboarding_load_error.png" type="Texture" id=1]
+[ext_resource path="res://content/error_loop.ogg" type="AudioStream" id=2]
+[ext_resource path="res://errors/onboardingload.gd" type="Script" id=3]
+[ext_resource path="res://font/UbuntuMono/Regular.ttf" type="DynamicFontData" id=4]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends AudioStreamPlayer
+
+func _process(delta):
+	if volume_db != 0:
+		volume_db = min(volume_db + (delta * 75),0)
+"
+
+[sub_resource type="DynamicFont" id=3]
+size = 18
+outline_size = 8
+outline_color = Color( 0, 0, 0, 1 )
+use_filter = true
+font_data = ExtResource( 4 )
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends ColorRect
+
+func _process(delta):
+	if color.a > 0:
+		color.a = max(color.a-(delta/1.5),0)
+
+func _ready():
+	color = Color(0,0,0,1)
+"
+
+[node name="Control" type="ColorRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+script = ExtResource( 3 )
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchor_left = -1.0
+anchor_top = -1.0
+anchor_right = 2.0
+anchor_bottom = 2.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer"]
+margin_left = 1408.0
+margin_top = 696.0
+margin_right = 2432.0
+margin_bottom = 1464.0
+texture = ExtResource( 1 )
+stretch_mode = 6
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+volume_db = -45.0
+autoplay = true
+bus = "Music"
+script = SubResource( 1 )
+
+[node name="Info" type="Label" parent="."]
+margin_left = 15.0
+margin_top = 15.0
+margin_right = 276.0
+margin_bottom = 100.0
+custom_fonts/font = SubResource( 3 )
+text = "ss+ version: v%s
+platform: %s
+error code: %s
+https://discord.gg/ttPys6Jajs"
+
+[node name="BlackFade" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 0 )
+script = SubResource( 2 )

@@ -1,6 +1,7 @@
 extends ColorRect
 
 func _ready():
+	Engine.target_fps = 30 # Don't use the entire GPU for the error screen
 	$Info.text = """-- song player load error --
 ss+ version: v%s
 platform: %s

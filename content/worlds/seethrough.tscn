@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://content/worlds/seethrough.gd" type="Script" id=1]
+
+[sub_resource type="Environment" id=1]
+background_mode = 1
+background_color = Color( 0, 0, 0, 0 )
+ambient_light_color = Color( 0, 0, 0, 0 )
+
+[node name="seethrough" type="Spatial"]
+script = ExtResource( 1 )
+
+[node name="env" type="WorldEnvironment" parent="."]
+environment = SubResource( 1 )

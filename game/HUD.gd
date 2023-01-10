@@ -26,6 +26,9 @@ onready var lettergrade:Label = get_node("LeftVP/Control/LetterGrade")
 
 onready var friend:MeshInstance = Spawn.get_node("Friend")
 
+onready var cur_pos = $"../Spawn/Cursor/Mesh".global_transform.origin
+onready var pcur_pos = cur_pos
+
 
 
 
@@ -83,6 +86,15 @@ var grade_f_color:Color = SSP.grade_f_color
 
 var last_combo:int = 0
 var rainbow_letter_grade:bool = false
+
+
+
+var elapsed:float = 0
+var gtimer:float = 0 # global delta timer
+var s_curspd:float = 0
+var s_tcurspd:float = 0
+var calculating:bool = false
+
 
 func set_song_name(name:String=SSP.selected_song.name):
 	songnametxt.text = name
@@ -237,6 +249,7 @@ func paint(node:Control,color:Color):
 var config_time:float = 2.5
 
 func _process(delta:float):
+	gtimer += delta
 	if SSP.show_config:
 		config_time = max(config_time-delta,0)
 		if config_time <= 0: $ConfigHud.visible = false
@@ -294,11 +307,42 @@ func _process(delta:float):
 		$PauseHud.modulate = Color(1,1,1,abs(Spawn.pause_state) * pause_ui_opacity)
 	else:
 		$PauseHud.visible = false
+	
+	# stat mod
+	elapsed += delta
+	if elapsed >= 0.1 and calculating:
+		pcur_pos = cur_pos
+		cur_pos = $"../Spawn/Cursor/Mesh".global_transform.origin
+		var dist = cur_pos.distance_to(pcur_pos)
+		s_curspd = dist / elapsed
+		if s_curspd > s_tcurspd:
+			s_tcurspd = s_curspd
+		elapsed = 0
+	if gtimer >= 2:
+		calculating = true
+	
+	var fstr = "cursor speed\n{current} m/sec\n\ntop speed\n{top} m/sec"
+	$Stats/Label.text = fstr.format(
+		{
+			"current": stepify(s_curspd,0.1),
+			"top": stepify(s_tcurspd,0.1)
+		}
+	)
+	
+	# warning
+	if not SSP.fov == 70 and SSP.mod_flashlight and calculating:
+		$ObnoxiousWarning.trigger = true
+		$ObnoxiousWarning.target = "STOP PLAYING MASKED WITH {fov} FOV PUSSY\njust use the damn default man".format({
+			"fov": SSP.fov
+		})
+	
 
 
 
 func _ready():
 	Game.connect("miss",self,"on_miss")
+	
+	$Stats/Label.visible = SSP.show_stats
 	
 	$GiveUpVP/Control.fill_color = giveup_fill_color
 	
@@ -424,7 +468,7 @@ func _ready():
 			Globals.SPEED_PP: modicons.get_node("SpeedPP").visible = true
 			Globals.SPEED_PPP: modicons.get_node("SpeedPPP").visible = true
 			Globals.SPEED_PPPP: modicons.get_node("SpeedPPPP").visible = true
-			Globals.SPEED_CUSTOM: mods.append("Speed%s%%" % [Globals.speed_multi[Globals.SPEED_CUSTOM] * 100])
+			Globals.SPEED_CUSTOM: mods.append("S%s" % [Globals.speed_multi[Globals.SPEED_CUSTOM] * 100])
 	if SSP.mod_sudden_death: mods.append("SuddenDeath")
 	if SSP.mod_extra_energy: mods.append("Energy+")
 	if SSP.mod_no_regen: mods.append("NoRegen")
@@ -436,19 +480,22 @@ func _ready():
 	if SSP.mod_ghost: mods.append("Ghost")
 	if SSP.mod_nearsighted: mods.append("Nearsight")
 	if SSP.mod_chaos: mods.append("Chaos")
+	if SSP.mod_earthquake: mods.append("Earthquake")
+	if SSP.mod_flashlight: mods.append("Masked")
+	if SSP.invert_mouse: mods.append("Mouse Inverted")
 	for i in range(mods.size()):
 		if i != 0: ms += " "
 		ms += mods[i]
 	if mods.size() != 0 and !SSP.mod_nofail: ms += '\n'
 	
-	if SSP.hitwindow_ms != 55 or SSP.note_hitbox_size != 1.140:
-		ms += "HW: %.0f ms | HB: %.02f m" % [SSP.hitwindow_ms,SSP.note_hitbox_size]
 	if SSP.hitwindow_ms == 83 and SSP.note_hitbox_size == 1.710:
-		ms = "py's nerf"
-	if SSP.hitwindow_ms == 58 and SSP.note_hitbox_size == 1.140:
-		ms = "Vulnus Judgement"
-	if SSP.hitwindow_ms == 82 and SSP.note_hitbox_size == 1.700:
-		ms = ""
+		ms += "py's nerf"
+	elif SSP.hitwindow_ms == 58 and SSP.note_hitbox_size == 1.140:
+		ms += "Vulnus Judgement"
+	elif SSP.hitwindow_ms == 82 and SSP.note_hitbox_size == 1.700:
+		ms += ""
+	elif SSP.hitwindow_ms != 55 or SSP.note_hitbox_size != 1.140:
+		ms += "HW: %.0f ms | HB: %.02f m" % [SSP.hitwindow_ms,SSP.note_hitbox_size]
 	
 	modtxt.text = ms
 

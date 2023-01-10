@@ -1,0 +1,61 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://errors/missing_critical_files.png" type="Texture" id=1]
+[ext_resource path="res://content/error_loop.ogg" type="AudioStream" id=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends AudioStreamPlayer
+
+func _process(delta):
+	volume_db = -35 * get_parent().get_node(\"BlackFade\").color.a
+
+func _ready():
+	yield(get_tree().create_timer(1),\"timeout\")
+	play()
+"
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends ColorRect
+
+var started = false
+
+func _process(delta):
+	if started and color.a > 0:
+		color.a = max(color.a-(delta/0.5),0)
+
+func _ready():
+	color = Color(0,0,0,1)
+	yield(get_tree().create_timer(1),\"timeout\")
+	started = true
+"
+
+[node name="Control" type="ColorRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchor_left = -1.0
+anchor_top = -1.0
+anchor_right = 2.0
+anchor_bottom = 2.0
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer"]
+margin_left = 1408.0
+margin_top = 696.0
+margin_right = 2432.0
+margin_bottom = 1464.0
+texture = ExtResource( 1 )
+stretch_mode = 6
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+bus = "Music"
+script = SubResource( 1 )
+
+[node name="BlackFade" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 0 )
+script = SubResource( 2 )

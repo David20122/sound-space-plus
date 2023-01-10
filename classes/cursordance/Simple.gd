@@ -73,4 +73,4 @@ func _update(ms:float) -> Vector2:
 	
 	t = clamp((ms - Start.z) / (End.z - Start.z),0,1)
 	
-	return lerp(StartPos,EndPos,Dance.InOutQuad(t))#Dance.Linear(t))
+	return lerp(StartPos,EndPos,Dance.InBack(t))#Dance.Linear(t))

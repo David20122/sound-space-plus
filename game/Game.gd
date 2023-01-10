@@ -95,7 +95,9 @@ func end(end_type:int):
 			
 			$Spawn.notes_loaded = false
 			$Spawn.chaos_rng = RandomNumberGenerator.new()
+			$Spawn.earthquake_rng = RandomNumberGenerator.new()
 			$Spawn.chaos_rng.seed = hash(SSP.selected_song.id)
+			$Spawn.earthquake_rng.seed = hash(SSP.selected_song.id)
 			$Spawn.music_started = false
 			$Spawn.out_of_notes = false
 			$Spawn.note_count = 0
@@ -186,7 +188,7 @@ func _process(delta):
 		black_fade = min(black_fade + (delta/0.3),1)
 		$BlackFade.color = Color(0,0,0,black_fade)
 	elif !black_fade_target && black_fade != 0:
-		black_fade = max(black_fade - (delta/1),0)
+		black_fade = max(black_fade - (delta/0.75),0)
 		$BlackFade.color = Color(0,0,0,black_fade)
 	$BlackFade.visible = (black_fade != 0)
 	
@@ -288,5 +290,10 @@ func _ready():
 	SSP.update_rpc_song()
 	
 	yield(get_tree(),"idle_frame")
+	yield(get_tree(),"idle_frame")
+	yield(get_tree(),"idle_frame")
+	yield(get_tree(),"idle_frame")
 	black_fade_target = false
+	$ForceMatLoad.visible = false
+	$Spawn.active = true
 

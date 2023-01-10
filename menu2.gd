@@ -12,12 +12,15 @@ func idle_status():
 	
 	Discord.activity_manager.update_activity(activity)
 
-func _input(event):
-	if SSP.vr and event is InputEventMouseButton:
-		print(event)
-
 func _ready():
 	get_tree().paused = false
+	if SSP.arcw_mode:
+		get_tree().change_scene("res://w.tscn")
+	
+	# fix audio pitchshifts
+	if AudioServer.get_bus_effect_count(AudioServer.get_bus_index("Music")) > 0:
+		AudioServer.remove_bus_effect(AudioServer.get_bus_index("Music"),0)
+	
 	$BlackFade.visible = true
 	$BlackFade.color = Color(0,0,0,black_fade)
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)

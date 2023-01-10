@@ -1,0 +1,426 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://VersionNumber.gd" type="Script" id=2]
+[ext_resource path="res://icon.svg" type="Texture" id=3]
+[ext_resource path="res://uitheme.tres" type="Theme" id=4]
+[ext_resource path="res://onboarding/onboardingload.gd" type="Script" id=5]
+[ext_resource path="res://content/sfx/mkwii_load_short.ogg" type="AudioStream" id=6]
+
+[sub_resource type="DynamicFont" id=1]
+size = 48
+use_filter = true
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 24
+use_filter = true
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 22
+use_filter = true
+font_data = ExtResource( 1 )
+
+[sub_resource type="GDScript" id=4]
+script/source = "extends Control
+
+var switch_time:float = 0.17
+
+var t:float = switch_time
+var i:int = -1
+
+func _process(delta):
+	var up = false
+	t += delta
+	if t >= switch_time:
+		t -= switch_time
+		up = true
+		i += 1
+		if i > 7: i -= 8
+	
+	for n in get_children():
+		var ni = int(n.name)
+		if up and i == ni:
+			n.modulate.a = 1
+		else: n.modulate.a = max(n.modulate.a-(delta*1.35),0)
+"
+
+[node name="Control" type="ColorRect"]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+script = ExtResource( 5 )
+
+[node name="Label" type="Label" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 0.5
+custom_fonts/font = SubResource( 1 )
+text = "Loading"
+align = 1
+valign = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="."]
+visible = false
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -2.51987
+margin_right = -2.5199
+rect_pivot_offset = Vector2( -109, -204 )
+custom_fonts/font = SubResource( 2 )
+text = "Waiting for engine"
+align = 1
+
+[node name="VersionNumber" type="Label" parent="."]
+visible = false
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 55.0
+margin_top = -45.0
+margin_right = 344.0
+margin_bottom = -15.0
+grow_vertical = 2
+theme = ExtResource( 4 )
+custom_colors/font_color = Color( 1, 0.705882, 0.945098, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Sound Space+   vA-B-C-branch"
+valign = 1
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="VersionNumber"]
+anchor_bottom = 1.0
+margin_left = -40.0
+margin_right = -10.0
+rect_min_size = Vector2( 30, 30 )
+texture = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Spinner" type="ReferenceRect" parent="."]
+pause_mode = 2
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -100.0
+margin_top = -100.0
+margin_right = -20.0
+margin_bottom = -20.0
+script = SubResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="0" type="Control" parent="Spinner"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 25.0
+margin_bottom = 25.0
+
+[node name="ColorRect" type="ColorRect" parent="Spinner/0"]
+margin_right = 10.0
+margin_bottom = 10.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Spinner/0"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 20.0
+margin_bottom = 20.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+
+[node name="ColorRect3" type="ColorRect" parent="Spinner/0"]
+margin_top = 10.0
+margin_right = 10.0
+margin_bottom = 20.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+
+[node name="ColorRect4" type="ColorRect" parent="Spinner/0"]
+margin_left = 10.0
+margin_right = 20.0
+margin_bottom = 10.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="1" type="Control" parent="Spinner"]
+margin_left = 30.0
+margin_top = 5.0
+margin_right = 50.0
+margin_bottom = 25.0
+
+[node name="ColorRect" type="ColorRect" parent="Spinner/1"]
+margin_right = 10.0
+margin_bottom = 10.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Spinner/1"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 20.0
+margin_bottom = 20.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+
+[node name="ColorRect3" type="ColorRect" parent="Spinner/1"]
+margin_top = 10.0
+margin_right = 10.0
+margin_bottom = 20.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+
+[node name="ColorRect4" type="ColorRect" parent="Spinner/1"]
+margin_left = 10.0
+margin_right = 20.0
+margin_bottom = 10.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="2" type="Control" parent="Spinner"]
+margin_left = 55.0
+margin_top = 5.0
+margin_right = 75.0
+margin_bottom = 25.0
+
+[node name="ColorRect" type="ColorRect" parent="Spinner/2"]
+margin_right = 10.0
+margin_bottom = 10.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Spinner/2"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 20.0
+margin_bottom = 20.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+
+[node name="ColorRect3" type="ColorRect" parent="Spinner/2"]
+margin_top = 10.0
+margin_right = 10.0
+margin_bottom = 20.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+
+[node name="ColorRect4" type="ColorRect" parent="Spinner/2"]
+margin_left = 10.0
+margin_right = 20.0
+margin_bottom = 10.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="3" type="Control" parent="Spinner"]
+margin_left = 55.0
+margin_top = 30.0
+margin_right = 75.0
+margin_bottom = 50.0
+
+[node name="ColorRect" type="ColorRect" parent="Spinner/3"]
+margin_right = 10.0
+margin_bottom = 10.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Spinner/3"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 20.0
+margin_bottom = 20.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+
+[node name="ColorRect3" type="ColorRect" parent="Spinner/3"]
+margin_top = 10.0
+margin_right = 10.0
+margin_bottom = 20.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+
+[node name="ColorRect4" type="ColorRect" parent="Spinner/3"]
+margin_left = 10.0
+margin_right = 20.0
+margin_bottom = 10.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="4" type="Control" parent="Spinner"]
+margin_left = 55.0
+margin_top = 55.0
+margin_right = 75.0
+margin_bottom = 75.0
+
+[node name="ColorRect" type="ColorRect" parent="Spinner/4"]
+margin_right = 10.0
+margin_bottom = 10.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Spinner/4"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 20.0
+margin_bottom = 20.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+
+[node name="ColorRect3" type="ColorRect" parent="Spinner/4"]
+margin_top = 10.0
+margin_right = 10.0
+margin_bottom = 20.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+
+[node name="ColorRect4" type="ColorRect" parent="Spinner/4"]
+margin_left = 10.0
+margin_right = 20.0
+margin_bottom = 10.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="5" type="Control" parent="Spinner"]
+margin_left = 30.0
+margin_top = 55.0
+margin_right = 50.0
+margin_bottom = 75.0
+
+[node name="ColorRect" type="ColorRect" parent="Spinner/5"]
+margin_right = 10.0
+margin_bottom = 10.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Spinner/5"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 20.0
+margin_bottom = 20.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+
+[node name="ColorRect3" type="ColorRect" parent="Spinner/5"]
+margin_top = 10.0
+margin_right = 10.0
+margin_bottom = 20.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+
+[node name="ColorRect4" type="ColorRect" parent="Spinner/5"]
+margin_left = 10.0
+margin_right = 20.0
+margin_bottom = 10.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="6" type="Control" parent="Spinner"]
+margin_left = 5.0
+margin_top = 55.0
+margin_right = 25.0
+margin_bottom = 75.0
+
+[node name="ColorRect" type="ColorRect" parent="Spinner/6"]
+margin_right = 10.0
+margin_bottom = 10.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Spinner/6"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 20.0
+margin_bottom = 20.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+
+[node name="ColorRect3" type="ColorRect" parent="Spinner/6"]
+margin_top = 10.0
+margin_right = 10.0
+margin_bottom = 20.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+
+[node name="ColorRect4" type="ColorRect" parent="Spinner/6"]
+margin_left = 10.0
+margin_right = 20.0
+margin_bottom = 10.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="7" type="Control" parent="Spinner"]
+margin_left = 5.0
+margin_top = 30.0
+margin_right = 25.0
+margin_bottom = 50.0
+
+[node name="ColorRect" type="ColorRect" parent="Spinner/7"]
+margin_right = 10.0
+margin_bottom = 10.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Spinner/7"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 20.0
+margin_bottom = 20.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+
+[node name="ColorRect3" type="ColorRect" parent="Spinner/7"]
+margin_top = 10.0
+margin_right = 10.0
+margin_bottom = 20.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+
+[node name="ColorRect4" type="ColorRect" parent="Spinner/7"]
+margin_left = 10.0
+margin_right = 20.0
+margin_bottom = 10.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+
+[node name="BlackFade" type="ColorRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+volume_db = -48.0
+bus = "MenuReverb"
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+volume_db = -2.0

@@ -219,7 +219,7 @@ func read_data(from_path:String=""):
 			debug_txt.autoplayer = true
 			update_debug_text()
 			song = SSP.selected_song
-			dance = DirectionalDanceMover.new(song)
+			dance = BouncyDanceMover.new(song)
 #			var notes = song.read_notes()
 #			var prev = Vector3(1,-1,-1)
 #			var cursor_unrev = []

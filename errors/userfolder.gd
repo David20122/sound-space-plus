@@ -1,6 +1,7 @@
 extends ColorRect
 
 func _ready():
+	Engine.target_fps = 30 # Don't use the entire GPU for the error screen
 	$Info.text = """-- user folder open error --
 ss+ version: v%s
 platform: %s

@@ -10,6 +10,7 @@ signal selected_mesh_changed
 signal selected_hit_effect_changed
 signal selected_miss_effect_changed
 signal init_stage_reached
+signal init_stage_num
 signal map_list_ready
 signal volume_changed
 signal favorite_songs_changed
@@ -26,6 +27,7 @@ var user_map_dir:String = Globals.p("user://maps")
 var user_best_dir:String = Globals.p("user://bests")
 var user_colorset_dir:String = Globals.p("user://colorsets")
 var user_friend_dir:String = Globals.p("user://friend")
+var user_mesh_dir:String = Globals.p("user://meshes")
 
 # Installed content info
 var installed_dlc:Array = ["ssp_basegame"]
@@ -124,7 +126,9 @@ var was_replay:bool = false
 var replaying:bool = false
 
 # State/transit data
+var load_target_frame_time:float = 1.0/40.0 # Length of time load loops run before letting a frame render
 var rainbow_t:float = 0 # Keep rainbow effects in perfect sync
+var note_spin_t:float = 0 # Keep note spin settings in perfect sync
 var alert:String = "" # Used for startup
 var should_ask_about_replays:bool = true # Replay setting was not found, ask
 var do_archive_convert:bool = false # Has "Convert SS Archive" been pressed?
@@ -135,6 +139,7 @@ var first_init_done = false # Don't reload mods as that can cause problems
 var loaded_world = null # Holds the bg world for transit between songload and song player
 var was_map_screen_centered:bool = false
 var menu_target:String = ProjectSettings.get_setting("application/config/default_menu_target")
+var is_init:bool = true # Used to check if Onboarding is being used for game startup
 
 # Song list position/search persistence
 var was_auto_play_switch:bool = true
@@ -332,6 +337,8 @@ func _ready():
 func _process(delta):
 	# Rainbow sync
 	rainbow_t = fmod(rainbow_t + (delta*0.5),10)
+	# Note Spin Sync
+	note_spin_t = fmod(note_spin_t + (delta*0.5),360)
 	# Global hotkeys
 	if Input.is_action_just_pressed("fullscreen"):
 		OS.window_fullscreen = not OS.window_fullscreen
@@ -453,6 +460,8 @@ var mod_nearsighted:bool = false setget set_mod_nearsighted
 var mod_ghost:bool = false setget set_mod_ghost
 var mod_sudden_death:bool = false setget set_mod_sudden_death
 var mod_chaos:bool = false setget set_mod_chaos
+var mod_earthquake:bool = false setget set_mod_earthquake
+var mod_flashlight:bool = false setget set_mod_flashlight
 # Modifiers - Custom values
 var start_offset:float = 0 setget _set_start_offset
 var note_hitbox_size:float = 1.140 setget _set_hitbox_size
@@ -462,6 +471,7 @@ var custom_speed:float = 1 setget _set_custom_speed
 var health_model:int = Globals.HP_SOUNDSPACE setget _set_health_model
 var grade_system:int = Globals.GRADE_SSP setget _set_grade_system
 var visual_mode:bool = false setget set_visual_mode
+var invert_mouse:bool = false setget set_invert_mouse
 
 # Mod setters - Normal
 func set_mod_extra_energy(v:bool):
@@ -500,6 +510,10 @@ func set_mod_sudden_death(v:bool):
 	mod_sudden_death = v; emit_signal("mods_changed")
 func set_mod_chaos(v:bool):
 	mod_chaos = v; emit_signal("mods_changed")
+func set_mod_earthquake(v:bool):
+	mod_earthquake = v; emit_signal("mods_changed")
+func set_mod_flashlight(v:bool):
+	mod_flashlight = v; emit_signal("mods_changed")
 # Mod setters - Custom values
 func _set_start_offset(v:float):
 	start_offset = v; emit_signal("mods_changed")
@@ -518,6 +532,8 @@ func set_visual_mode(v:bool):
 	if v:
 		set_mod_nofail(true)
 	visual_mode = v; emit_signal("mods_changed")
+func set_invert_mouse(v:bool):
+	invert_mouse = v; emit_signal("mods_changed")
 func _set_health_model(v:int):
 	health_model = v; emit_signal("mods_changed")
 func _set_grade_system(v:int):
@@ -530,6 +546,13 @@ func _set_grade_system(v:int):
 var approach_rate:float = 40
 var spawn_distance:float = 40
 var note_spawn_effect:bool = false
+var note_size:float = 1
+var note_spin_x:float = 0
+var note_spin_y:float = 0
+var note_spin_z:float = 0
+# actually nah llol !!!!! (vector is not needed i can just do it in another script)
+# var note_spin_vector:Vector3 = Vector3(note_spin_x,note_spin_y,note_spin_z)
+var note_opacity:float = 1
 var fade_length:float = 0.5
 
 var show_hit_effect:bool = true
@@ -538,8 +561,9 @@ var hit_effect_at_cursor:bool = true
 var show_miss_effect:bool = true
 
 # Settings - Camera/Controls
+var hlm_converted:bool = false
 var sensitivity:float = 0.5
-var parallax:float = 6.5 # Camera
+var parallax:float = 6.5 # THESE DEFAULTS SHOULD BE BASED ON 0.35 HLM BECAUSE THEY GET CONVERTED
 var ui_parallax:float = 1.63
 var grid_parallax:float = 0
 var fov:float = 70
@@ -555,18 +579,21 @@ var edge_drift:float = 0
 
 # Settings - Replays
 var record_replays:bool = false
-var alt_cam:bool = true
+var alt_cam:bool = false
 
 # Settings - Cursor
 var cursor_color_type:int = Globals.CURSOR_CUSTOM_COLOR
 var cursor_color:Color = Color(1,1,1)
 
 var cursor_trail:bool = false
+var trail_mode_scale:bool = true
+var trail_mode_opacity:bool = true
 var smart_trail:bool = false
 var trail_detail:int = 10
 var trail_time:float = 0.15
 var cursor_scale:float = 1
 var enable_drift_cursor:bool = true
+var follow_drift_cursor:bool = false
 var cursor_spin:float = 0
 var cursor_face_velocity:bool = false # Disabled
 
@@ -585,11 +612,13 @@ var show_letter_grade:bool = true
 var attach_hp_to_grid:bool = false
 var attach_timer_to_grid:bool = false
 var simple_hud:bool = false
-var faraway_hud:bool = false
+var faraway_hud:bool = true
 var rainbow_grid:bool = false
 var rainbow_hud:bool = false
 var friend_position:int = Globals.FRIEND_BEHIND_GRID # Hidden
 var note_visual_approach:bool = false # Experimental
+var visual_approach_follow:bool = false
+var half_ghost:bool = false # Experimental
 var billboard_score:bool = false
 var score_popup:bool = true
 
@@ -651,7 +680,7 @@ var play_hit_snd:bool = true
 var play_miss_snd:bool = true
 var sfx_2d:bool = false
 var music_offset:float = 0
-var play_menu_music:bool = false setget _set_menu_music
+var play_menu_music:bool = true setget _set_menu_music
 var music_volume_db:float = 0 setget _set_music_volume
 func _set_menu_music(v:bool):
 	play_menu_music = v; emit_signal("menu_music_state_changed")
@@ -665,29 +694,35 @@ var auto_maximize:bool = false
 # Settings - Experimental
 var ensure_hitsync:bool = false
 var hitsync_offset:float = 0 # don't save this yet; probably not even a necessary setting
+var retain_song_pitch:bool = false # not recommended as this is very heavy to compute, but people want it
+var do_note_pushback:bool = true # true; notes go past grid on miss, false; notes always vanish at grid
+var show_stats:bool = false
+
+var arcw_mode:bool = false # heheheha
 
 
 
 # Favorited songs
 var favorite_songs:Array = []
 func save_favorites():
-	var file:File = File.new()
-	file.open(Globals.p("user://favorites.txt"),File.WRITE)
-	var txt:String = ""
-	for s in favorite_songs:
-		if s != favorite_songs[0]: txt += "\n"
-		txt += s
-	file.store_line(txt)
-	file.close()
+	if !single_map_mode:
+		var file:File = File.new()
+		file.open(Globals.p("user://favorites.txt"),File.WRITE)
+		var txt:String = ""
+		for s in favorite_songs:
+			if s != favorite_songs[0]: txt += "\n"
+			txt += s
+		file.store_line(txt)
+		file.close()
 func is_favorite(id:String):
-	return favorite_songs.has(id)
+	return !single_map_mode and favorite_songs.has(id)
 func add_favorite(id:String):
-	if !favorite_songs.has(id):
+	if !single_map_mode and !favorite_songs.has(id):
 		favorite_songs.append(id)
 		emit_signal("favorite_songs_changed")
 		save_favorites()
 func remove_favorite(id:String):
-	if favorite_songs.has(id):
+	if !single_map_mode and favorite_songs.has(id):
 		favorite_songs.remove(favorite_songs.find(id))
 		emit_signal("favorite_songs_changed")
 		save_favorites()
@@ -740,6 +775,9 @@ func generate_pb_str(for_pb:bool=false):
 	if mod_ghost: pts.append("m_ghost")
 	if mod_sudden_death: pts.append("m_sd")
 	if mod_chaos: pts.append("m_chaos")
+	if invert_mouse: pts.append("m_im")
+	if mod_earthquake: pts.append("m_earthquake")
+	if mod_flashlight: pts.append("m_flashlight")
 	if mod_nofail: pts.append("m_nofail") # for replays
 	
 	pts.sort()
@@ -766,6 +804,9 @@ func parse_pb_str(txt:String):
 	data.mod_nearsighted = false
 	data.mod_ghost = false
 	data.mod_chaos = false
+	data.invert_mouse = false
+	data.mod_earthquake = false
+	data.mod_flashlight = false
 	data.mod_nofail = false
 	
 	for s in pts:
@@ -797,6 +838,9 @@ func parse_pb_str(txt:String):
 				"m_nsight": data.mod_nearsighted = true
 				"m_ghost": data.mod_ghost = true
 				"m_chaos": data.mod_chaos = true
+				"m_im": data.invert_mouse = true
+				"m_earthquake": data.mod_earthquake = true
+				"m_flashlight": data.mod_flashlight = true
 				"m_nofail": data.mod_nofail = true
 	return data
 var prev_state:Dictionary = {}
@@ -863,7 +907,7 @@ func lcol(data:Dictionary,target:String) -> void:
 		set(target, Color(data[target]))
 
 # Settings file
-const current_sf_version = 46 # SV
+const current_sf_version = 47 # SV
 func load_saved_settings():
 	if Input.is_key_pressed(KEY_CONTROL) and Input.is_key_pressed(KEY_L): 
 		print("force settings read error")
@@ -878,11 +922,13 @@ func load_saved_settings():
 		file.close()
 		
 		if decode.error:
-			print(decode.error_string)
+			print("!!! Error on line " + str(decode.error_line) + ": " + decode.error_string)
 			return ((-100) - decode.error)
 		
 		var data:Dictionary = decode.result
 		
+		if data.has("hlm_converted"):
+			hlm_converted = data.hlm_converted
 		if data.has("approach_rate"): 
 			approach_rate = data.approach_rate
 		if data.has("sensitivity"): 
@@ -902,8 +948,6 @@ func load_saved_settings():
 		if data.has("selected_colorset"): 
 			var cset = registry_colorset.get_item(data.selected_colorset)
 			if cset: select_colorset(cset)
-		if data.has("parallax"): 
-			parallax = data.parallax
 		if data.has("cam_unlock"): 
 			cam_unlock = data.cam_unlock
 		if data.has("show_config"): 
@@ -912,13 +956,22 @@ func load_saved_settings():
 			enable_grid = data.enable_grid
 		if data.has("cursor_scale"): 
 			cursor_scale = data.cursor_scale
+		if data.has("note_size"): 
+			note_size = data.note_size
+		if data.has("note_spin_x"):
+			note_spin_x = data.note_spin_x
+		if data.has("note_spin_y"):
+			note_spin_y = data.note_spin_y
+		if data.has("note_spin_z"):
+			note_spin_z = data.note_spin_z
+		if data.has("note_opacity"):
+			note_opacity = data.note_opacity
 		if data.has("edge_drift"): 
-			if typeof(data.edge_drift) == TYPE_STRING:
-				edge_drift = NAN
-			else:
-				edge_drift = data.edge_drift
+			edge_drift = dser_float(data.edge_drift)
 		if data.has("enable_drift_cursor"): 
 			enable_drift_cursor = data.enable_drift_cursor
+		if data.has("follow_drift_cursor"): 
+			follow_drift_cursor = data.follow_drift_cursor
 		if data.has("hitwindow_ms"): 
 			hitwindow_ms = data.hitwindow_ms
 		if data.has("cursor_spin"): 
@@ -945,10 +998,14 @@ func load_saved_settings():
 			note_spawn_effect = data.note_spawn_effect
 		if data.has("display_true_combo"): 
 			display_true_combo = data.display_true_combo
+		
+		if data.has("parallax"): 
+			parallax = data.parallax
 		if data.has("ui_parallax"): 
 			ui_parallax = data.ui_parallax
 		if data.has("grid_parallax"): 
 			grid_parallax = data.grid_parallax
+		
 		if data.has("fov"):
 			fov = data.fov
 		if data.has("hit_fov"):
@@ -969,6 +1026,10 @@ func load_saved_settings():
 			lock_mouse = data.lock_mouse
 		if data.has("cursor_trail"): 
 			cursor_trail = data.cursor_trail
+		if data.has("trail_mode_scale"):
+			trail_mode_scale = data.trail_mode_scale
+		if data.has("trail_mode_opacity"):
+			trail_mode_opacity = data.trail_mode_opacity
 		if data.has("trail_detail"): 
 			trail_detail = data.trail_detail
 		if data.has("trail_time"): 
@@ -1030,6 +1091,8 @@ func load_saved_settings():
 			OS.window_borderless = data.window_borderless
 		if data.has("note_visual_approach"): 
 			note_visual_approach = data.note_visual_approach
+		if data.has("visual_approach_follow"): 
+			visual_approach_follow = data.visual_approach_follow
 		if data.has("score_popup"): 
 			score_popup = data.score_popup
 		if data.has("billboard_score"): 
@@ -1060,20 +1123,28 @@ func load_saved_settings():
 		
 		
 		if data.has("master_volume"):
-			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), data.master_volume)
+			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), dser_float(data.master_volume))
 		if data.has("music_volume"):
-			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), data.music_volume)
+			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), dser_float(data.music_volume))
 		if data.has("hit_volume"):
-			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("HitSound"), data.hit_volume)
+			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("HitSound"), dser_float(data.hit_volume))
 		if data.has("miss_volume"):
-			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("MissSound"), data.miss_volume)
+			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("MissSound"), dser_float(data.miss_volume))
 		if data.has("fail_volume"):
-			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("FailSound"), data.fail_volume)
+			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("FailSound"), dser_float(data.fail_volume))
 		if data.has("pb_volume"):
-			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("PBSound"), data.pb_volume)
+			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("PBSound"), dser_float(data.pb_volume))
 		
 		if data.has("ensure_hitsync"):
 			ensure_hitsync = data.ensure_hitsync
+		if data.has("retain_song_pitch"):
+			retain_song_pitch = data.retain_song_pitch
+		if data.has("do_note_pushback"):
+			do_note_pushback = data.do_note_pushback
+		if data.has("show_stats"):
+			show_stats = data.show_stats
+		if data.has("half_ghost"):
+			half_ghost = data.half_ghost
 		
 		lcol(data,"grade_s_color")
 		lcol(data,"panel_bg")
@@ -1107,6 +1178,8 @@ func load_saved_settings():
 		lcol(data,"grade_c_color")
 		lcol(data,"grade_d_color")
 		lcol(data,"grade_f_color")
+		lcol(data,"cursor_color")
+		
 	
 	elif file.file_exists(Globals.p("user://settings")):
 		var err = file.open(Globals.p("user://settings"),File.READ)
@@ -1298,14 +1371,36 @@ func load_saved_settings():
 			hit_fov_exponential = bool(file.get_8())
 		if sv >= 46:
 			ensure_hitsync = bool(file.get_8())
+		if sv >= 47:
+			trail_mode_scale = bool(file.get_8())
+			trail_mode_opacity = bool(file.get_8())
 		file.close()
 		save_settings()
 	return 0
+	
+func ser_float(n: float):
+	if is_nan(n):
+		return "nan"
+	elif is_inf(n):
+		return "+inf" if sign(n) > 0 else "-inf"
+	else:
+		return n
+
+func dser_float(s):
+	if typeof(s) == TYPE_STRING:
+		if "inf" in s:
+			return INF * (1 if s[0] == "+" else -1)
+		else:
+			return NAN
+	else:
+		return s
+
 func save_settings():
 	var file:File = File.new()
 	var err:int = file.open(Globals.p("user://settings.json"),File.WRITE)
 	if err == OK:
 		var data = {
+			hlm_converted = hlm_converted,
 			approach_rate = approach_rate,
 			sensitivity = sensitivity,
 			play_hit_snd = play_hit_snd,
@@ -1324,14 +1419,23 @@ func save_settings():
 			hit_fov = hit_fov,
 			hit_fov_additive = hit_fov_additive,
 			hit_fov_amplifier = hit_fov_amplifier,
+			hit_fov_exponential = hit_fov_exponential,
 			hit_fov_decay = hit_fov_decay,
+			trail_mode_scale = trail_mode_scale,
+			trail_mode_opacity = trail_mode_opacity,
 			cam_unlock = cam_unlock,
 			show_config = show_config,
 			enable_grid = enable_grid,
 			cursor_scale = cursor_scale,
 			enable_drift_cursor = enable_drift_cursor,
+			follow_drift_cursor = follow_drift_cursor,
 			hitwindow_ms = hitwindow_ms,
 			cursor_spin = cursor_spin,
+			note_size = note_size,
+			note_opacity = note_opacity,
+			note_spin_x = note_spin_x,
+			note_spin_y = note_spin_y,
+			note_spin_z = note_spin_z,
 			enable_border = enable_border,
 			play_menu_music = play_menu_music,
 			note_hitbox_size = note_hitbox_size,
@@ -1370,18 +1474,20 @@ func save_settings():
 			show_miss_effect = show_miss_effect,
 			auto_maximize = auto_maximize,
 			note_visual_approach = note_visual_approach,
+			visual_approach_follow = visual_approach_follow,
 			score_popup = score_popup,
 			billboard_score = billboard_score,
 			sfx_2d = sfx_2d,
 			cursor_color_type = cursor_color_type,
+			half_ghost = half_ghost,
 			target_fps = Engine.target_fps,
 			
-			master_volume = clamp(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Master")),-80,1000000),
-			music_volume = clamp(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Music")),-80,1000000),
-			hit_volume = clamp(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("HitSound")),-80,1000000),
-			miss_volume = clamp(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("MissSound")),-80,1000000),
-			fail_volume = clamp(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("FailSound")),-80,1000000),
-			pb_volume = clamp(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("PBSound")),-80,1000000),
+			master_volume = ser_float(clamp(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Master")),-80,1000000)),
+			music_volume = ser_float(clamp(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Music")),-80,1000000)),
+			hit_volume = ser_float(clamp(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("HitSound")),-80,1000000)),
+			miss_volume = ser_float(clamp(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("MissSound")),-80,1000000)),
+			fail_volume = ser_float(clamp(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("FailSound")),-80,1000000)),
+			pb_volume = ser_float(clamp(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("PBSound")),-80,1000000)),
 			
 			cursor_color = scol(cursor_color),
 			panel_bg = scol(panel_bg),
@@ -1421,16 +1527,15 @@ func save_settings():
 			grade_c_color = scol(grade_c_color),
 			grade_d_color = scol(grade_d_color),
 			grade_f_color = scol(grade_f_color),
-			
+	  
+			edge_drift = ser_float(edge_drift),
 			ensure_hitsync = ensure_hitsync,
+			retain_song_pitch = retain_song_pitch,
+			do_note_pushback = do_note_pushback,
+			show_stats = show_stats
 		}
 		
-		if is_nan(edge_drift):
-			data.edge_drift = "nan"
-		else:
-			data.edge_drift = edge_drift
-		
-		file.store_string(to_json(data))
+		file.store_string(JSON.print(data, "\t"))
 		
 		file.close()
 		return "OK"
@@ -1592,6 +1697,16 @@ func register_worlds():
 		"res://content/worlds/seifukub.tscn", "pyrule",
 		"res://content/worlds/seifuku/scumb.png"
 	))
+	registry_world.add_item(BackgroundWorld.new(
+		"ssp_tri_tunnel", "Tri-Tunnel",
+		"res://content/worlds/tri_tunnel.tscn", "Lexus, pyrule",
+		"res://content/worlds/tri_tunnel/cover.png"
+	))
+#	registry_world.add_item(BackgroundWorld.new(
+#		"ssp_seethrough", "Seethrough",
+#		"res://content/worlds/seethrough.tscn", "pyrule",
+#		"res://content/worlds/covers/void.png"
+#	))
 	# doesn't work :(
 	# registry_world.add_item(BackgroundWorld.new(
 	# 	"ssp_security_room", "Security Room",
@@ -1613,12 +1728,12 @@ func register_worlds():
 
 func register_meshes():
 	registry_mesh.add_item(NoteMesh.new(
-		"ssp_square", "Square",
-		"res://content/blocks/default.obj", "Chedski"
-	))
-	registry_mesh.add_item(NoteMesh.new(
 		"ssp_rounded", "Rounded",
 		"res://content/blocks/rounded.obj", "Chedski"
+	))
+	registry_mesh.add_item(NoteMesh.new(
+		"ssp_square", "Square",
+		"res://content/blocks/default.obj", "Chedski"
 	))
 	registry_mesh.add_item(NoteMesh.new(
 		"ssp_circle", "Circle",
@@ -1632,6 +1747,22 @@ func register_meshes():
 		"ssp_plane", "Front of Block",
 		"res://content/blocks/plane.obj", "Chedski"
 	))
+	registry_mesh.add_item(NoteMesh.new(
+		"ssp_realplane", "Plane",
+		"res://content/blocks/quad.tres", "Chedski"
+	))
+	var dir = Directory.new()
+	if dir.open(user_mesh_dir) == OK:
+		dir.list_dir_begin(true, false)
+		var mesh_name: String = dir.get_next()
+		while mesh_name != "":
+			if not dir.current_is_dir() and mesh_name.get_extension() == "obj":
+				registry_mesh.add_item(NoteMesh.new(
+					"ugc_" + mesh_name.get_file().to_lower().replace(" ","_"), 
+					mesh_name.get_basename() + " (custom)",
+					user_mesh_dir.plus_file(mesh_name), "???"
+				))
+			mesh_name = dir.get_next()
 func register_effects():
 	registry_effect.add_item(NoteEffect.new(
 		"ssp_ripple", "Ripple* (no color)", "res://content/notefx/ripple.tscn", "Chedski"
@@ -1734,6 +1865,12 @@ func load_color_folder():
 	print("colorsets took %s usec" % [Globals.comma_sep(OS.get_ticks_usec() - a)])
 	emit_signal("colors_done")
 
+var single_map_mode:bool = false
+var single_map_mode_sspm:bool = false
+var single_map_mode_txt:bool = false
+var single_map_mode_path:String
+var single_map_mode_audio_path:String
+
 # Initialization
 func do_init(_ud=null):
 	installed_packs = []
@@ -1742,7 +1879,59 @@ func do_init(_ud=null):
 	var file:File = File.new()
 	var dir:Directory = Directory.new()
 	
+	emit_signal("init_stage_reached","Check arguments")
+	yield(get_tree(),"idle_frame")
+	
+	if Globals.cmdline.has("m"): Globals.cmdline.map = Globals.cmdline.m
+	if Globals.cmdline.has("t"): Globals.cmdline.txt = Globals.cmdline.t
+	if Globals.cmdline.has("a"): Globals.cmdline.audio = Globals.cmdline.a
+	
+	if Globals.cmdline.has("map"):
+		if Globals.cmdline.has("txt"):
+			errorstr = "--txt cannot be used with --map"
+			get_tree().change_scene("res://errors/cmdline.tscn")
+			return
+		elif Globals.cmdline.has("audio"):
+			errorstr = "--audio cannot be used with --map"
+			get_tree().change_scene("res://errors/cmdline.tscn")
+			return
+		elif Globals.cmdline.map == "" || Globals.cmdline.map.is_valid_filename():
+			errorstr = "--map must be a valid path (ie. --map=~/Desktop/map.sspm)"
+			get_tree().change_scene("res://errors/cmdline.tscn")
+			return
+		else:
+			single_map_mode = true
+			single_map_mode_sspm = true
+			single_map_mode_path = Globals.cmdline.map
+			if !file.file_exists(single_map_mode_path):
+				errorstr = "--map: file '%s' does not exist" % single_map_mode_path
+				get_tree().change_scene("res://errors/cmdline.tscn")
+				return
+			
+	elif Globals.cmdline.has("txt") || Globals.cmdline.has("audio"):
+		if !(Globals.cmdline.has("txt") && Globals.cmdline.has("audio")):
+			if Globals.cmdline.has("txt"):
+				errorstr = "--txt must be used with --audio"
+			else:
+				errorstr = "--audio must be used with --txt"
+			get_tree().change_scene("res://errors/cmdline.tscn")
+			return
+		elif Globals.cmdline.txt == "" || Globals.cmdline.txt.is_valid_filename():
+			errorstr = "--txt must be a valid path (ie. --txt=~/Desktop/map.txt)"
+			get_tree().change_scene("res://errors/cmdline.tscn")
+			return
+		elif Globals.cmdline.audio == "" || Globals.cmdline.txt.is_valid_filename():
+			errorstr = "--audio must be a valid path (ie. --txt=~/Desktop/audio.txt)"
+			get_tree().change_scene("res://errors/cmdline.tscn")
+			return
+		else:
+			single_map_mode = true
+			single_map_mode_txt = true
+			single_map_mode_path = Globals.cmdline.txt
+			single_map_mode_audio_path = Globals.cmdline.audio
+	
 	emit_signal("init_stage_reached","Init filesystem")
+	emit_signal("init_stage_num",-1)
 	yield(get_tree(),"idle_frame")
 	if OS.has_feature("Android"): OS.request_permissions()
 	var user_dir = Globals.p("user://")
@@ -1750,8 +1939,8 @@ func do_init(_ud=null):
 		yield(get_tree().create_timer(7),"timeout")
 		user_dir = Globals.p("user://")
 	var err:int = dir.open(user_dir)
-	if OS.has_feature("editor"):
-		yield(get_tree().create_timer(0.35),"timeout")
+	#if OS.has_feature("editor"):
+	#	yield(get_tree().create_timer(0.35),"timeout")
 	if Input.is_key_pressed(KEY_CONTROL) and Input.is_key_pressed(KEY_U):
 		err = -1
 	
@@ -1762,7 +1951,6 @@ func do_init(_ud=null):
 	
 	# Setup directories if they don't already exist
 	var convert_pb_format:bool = false
-	
 	if !first_init_done:
 		if !dir.dir_exists(user_mod_dir): dir.make_dir(user_mod_dir)
 		if !dir.dir_exists(user_pack_dir): dir.make_dir(user_pack_dir)
@@ -1770,10 +1958,22 @@ func do_init(_ud=null):
 		if !dir.dir_exists(user_map_dir): dir.make_dir(user_map_dir)
 		if !dir.dir_exists(user_colorset_dir): dir.make_dir(user_colorset_dir)
 		if !dir.dir_exists(user_friend_dir): dir.make_dir(user_friend_dir)
+		if !dir.dir_exists(user_mesh_dir): dir.make_dir(user_mesh_dir)
+		if !dir.file_exists(user_mesh_dir.plus_file("readme.txt")):
+			file.open(user_mesh_dir.plus_file("readme.txt"), File.WRITE)
+			file.store_line("The second material is transparent, everything else is opaque.")
+			file.store_line("The default blender cube is about the right size for a mesh.")
+			file.store_line("In blender, the mesh should face towards the positive Y direction.")
+			file.close()
 		if !dir.dir_exists(Globals.p("user://replays")): dir.make_dir(Globals.p("user://replays"))
 		if !dir.dir_exists(user_best_dir):
 			convert_pb_format = true
 			dir.make_dir(user_best_dir)
+		err = file.open(Globals.p("user://install_path.txt"),File.WRITE)
+		if err == OK:
+			file.store_string(OS.get_executable_path())
+	
+	
 	
 	# set up registries
 	emit_signal("init_stage_reached","Init registries")
@@ -1793,6 +1993,7 @@ func do_init(_ud=null):
 	
 	# init colors.txt
 	emit_signal("init_stage_reached","Load user colorsets")
+	emit_signal("init_stage_num",0)
 	registry_colorset.add_item(ColorSet.new(
 		[ Color("#ffffff") ],
 		"colorsfile", "colors.txt (1 per line)", "Someone"
@@ -1835,6 +2036,7 @@ func do_init(_ud=null):
 				"This is a development environment, mods will not be loaded.",
 				"Not loading mods"
 			)
+	emit_signal("init_stage_num",1)
 	
 	emit_signal("init_stage_reached","Loading content 3/3\nContent packs")
 	yield(get_tree(),"idle_frame")
@@ -1850,67 +2052,99 @@ func do_init(_ud=null):
 	
 	emit_signal("init_stage_reached","Register content")
 	yield(get_tree(),"idle_frame")
+	var lt:float = OS.get_ticks_msec()
 	
-	var smaps:Array = []
-	emit_signal("init_stage_reached","Register content 1/4\nImport SS+ maps\nLocating files")
-	yield(get_tree(),"idle_frame")
-	var sd:Array = []
-	dir.change_dir(user_map_dir)
-	var li = 0
-	
-	var map_search_folders = [user_map_dir]
-	err = file.open(Globals.p("user://map_folders.txt"),File.READ)
-	if err == OK:
-		var txt = file.get_as_text()
-		var list = txt.split("\n",false)
-		map_search_folders.append_array(list)
-	
-	Globals.get_files_recursive(map_search_folders,5,"sspm","",90)
-	smaps = yield(Globals,"recurse_result").files
-	
-	for i in range(smaps.size()):
-		emit_signal("init_stage_reached","Register content 1/4\nImport SS+ maps\n%.0f%%" % (
-			100*(float(i)/float(smaps.size()))
-		))
-		if fmod(i,max(min(floor(float(smaps.size())/200),40),5)) == 0: yield(get_tree(),"idle_frame")
-		registry_song.add_sspm_map(smaps[i])
-#	dir.list_dir_end()
-	
-	for i in range(mapreg.size()):
-		var amr:Array = mapreg[i]
-		emit_signal("init_stage_reached","Register content 2/4\nLoad map registry %d/%d\n%s" % [i,mapreg.size(),amr[0]])
+	if single_map_mode:
+		emit_signal("init_stage_num",2)
+		var song:Song = Song.new()
+		if single_map_mode_sspm:
+			var result = song.load_from_sspm(single_map_mode_path)
+			if result != song:
+				errorstr = "song load failed with message '%s'" % result
+				get_tree().change_scene("res://errors/cmdline.tscn")
+				return
+		elif single_map_mode_txt:
+			song.id = "__smm"
+			song.name = single_map_mode_path.get_file()
+			song.song = single_map_mode_audio_path.get_file()
+			var result = song.setup_from_file(single_map_mode_path,single_map_mode_audio_path)
+			if result != song:
+				errorstr = "song load failed with message '%s'" % result
+				get_tree().change_scene("res://errors/cmdline.tscn")
+				return
+		SSP.selected_song = song
+	else:
+		var smaps:Array = []
+		emit_signal("init_stage_reached","Register content 1/4\nImport SS+ maps\nLocating files")
 		yield(get_tree(),"idle_frame")
-		if lp: yield(get_tree(),"idle_frame")
-		registry_song.load_registry_file(amr[1],Globals.REGISTRY_MAP,amr[0])
-		yield(registry_song,"done_loading_reg")
+		var sd:Array = []
+		dir.change_dir(user_map_dir)
+		var li = 0
+		
+		var map_search_folders = [user_map_dir]
+		err = file.open(Globals.p("user://map_folders.txt"),File.READ)
+		if err == OK:
+			var txt = file.get_as_text()
+			var list = txt.split("\n",false)
+			map_search_folders.append_array(list)
+		
+		Globals.get_files_recursive(map_search_folders,5,"sspm","",90)
+		smaps = yield(Globals,"recurse_result").files
+		emit_signal("init_stage_num",2)
+		
+		for i in range(smaps.size()):
+			emit_signal("init_stage_reached","Register content 1/4\nImport SS+ maps\n%.0f%%" % (
+				100*(float(i)/float(smaps.size()))
+			))
+			if (OS.get_ticks_msec() - lt) >= load_target_frame_time * 1000:
+				lt = OS.get_ticks_msec()
+				yield(get_tree(),"idle_frame")
+			#if fmod(i,max(min(floor(float(smaps.size())/200),40),5)) == 0: yield(get_tree(),"idle_frame")
+			registry_song.add_sspm_map(smaps[i])
+	#	dir.list_dir_end()
+		
+		for i in range(mapreg.size()):
+			var amr:Array = mapreg[i]
+			emit_signal("init_stage_reached","Register content 2/4\nLoad map registry %d/%d\n%s" % [i,mapreg.size(),amr[0]])
+			yield(get_tree(),"idle_frame")
+			registry_song.load_registry_file(amr[1],Globals.REGISTRY_MAP,amr[0])
+			yield(registry_song,"done_loading_reg")
+		
+		emit_signal("init_stage_num",3)
+		
+		var vmaps:Array = []
+		
+		var vmap_search_folders = [user_vmap_dir]
+		err = file.open(Globals.p("user://vmap_folders.txt"),File.READ)
+		if err == OK:
+			var txt = file.get_as_text()
+			var list = txt.split("\n",false)
+			vmap_search_folders.append_array(list)
+		
+		emit_signal("init_stage_reached","Register content 3/4\nImport Vulnus maps\nLocating files")
+		yield(get_tree(),"idle_frame")
+		
+		Globals.get_files_recursive(vmap_search_folders,6,"","meta.json",70)
+		vmaps = yield(Globals,"recurse_result").folders
+		
+		for i in range(vmaps.size()):
+			emit_signal("init_stage_reached","Register content 3/4\nImport Vulnus maps\n%.0f%%" % (
+				100*(float(i)/float(vmaps.size()))
+			))
+			if (OS.get_ticks_msec() - lt) >= load_target_frame_time * 1000:
+				lt = OS.get_ticks_msec()
+				yield(get_tree(),"idle_frame")
+			#if fmod(i,floor(float(vmaps.size())/100)) == 0: yield(get_tree(),"idle_frame")
+			registry_song.add_vulnus_map(vmaps[i])
+		
+		
+		emit_signal("init_stage_reached","Register content 4/4\nLoad online maps")
+		yield(get_tree(),"idle_frame")
+		
+		Online.load_db_maps()
+		yield(Online,"db_maps_done")
 	
-	var vmaps:Array = []
-	
-	var vmap_search_folders = [user_vmap_dir]
-	err = file.open(Globals.p("user://vmap_folders.txt"),File.READ)
-	if err == OK:
-		var txt = file.get_as_text()
-		var list = txt.split("\n",false)
-		vmap_search_folders.append_array(list)
-	
-	emit_signal("init_stage_reached","Register content 3/4\nImport Vulnus maps\nLocating files")
-	yield(get_tree(),"idle_frame")
-	
-	Globals.get_files_recursive(vmap_search_folders,6,"","meta.json",70)
-	vmaps = yield(Globals,"recurse_result").folders
-	
-	for i in range(vmaps.size()):
-		emit_signal("init_stage_reached","Register content 3/4\nImport Vulnus maps\n%.0f%%" % (
-			100*(float(i)/float(vmaps.size()))
-		))
-		if fmod(i,floor(float(vmaps.size())/100)) == 0: yield(get_tree(),"idle_frame")
-		registry_song.add_vulnus_map(vmaps[i])
-	
-	emit_signal("init_stage_reached","Register content 4/4\nLoad online maps")
-	yield(get_tree(),"idle_frame")
-	
-	Online.load_db_maps()
-	yield(Online,"db_maps_done")
+	emit_signal("init_stage_num",4)
 	
 	# Default 
 	emit_signal("init_stage_reached","Init default assets")
@@ -1961,6 +2195,12 @@ func do_init(_ud=null):
 		get_tree().change_scene("res://errors/settings.tscn")
 		return
 	print('settings done')
+	if !hlm_converted:
+		parallax *= (0.35/0.25)
+		ui_parallax *= (0.35/0.25)
+		grid_parallax *= (0.35/0.25)
+		hlm_converted = true
+		save_settings()
 	
 	# Get custom sounds
 	emit_signal("init_stage_reached","Load custom assets")
@@ -2008,7 +2248,10 @@ func do_init(_ud=null):
 			emit_signal("init_stage_reached","Upgrading personal best data\nConverting data\n%.0f%%" % (
 				100*(float(i)/float(allmaps.size()))
 			))
-			if fmod(i,max(min(floor(float(allmaps.size())/200),40),5)) == 0: yield(get_tree(),"idle_frame")
+			if (OS.get_ticks_msec() - lt) >= load_target_frame_time * 1000:
+				lt = OS.get_ticks_msec()
+				yield(get_tree(),"idle_frame")
+			#if fmod(i,max(min(floor(float(allmaps.size())/200),40),5)) == 0: yield(get_tree(),"idle_frame")
 			convert_song_pbs(allmaps[i])
 	
 	# Load favorite songs
@@ -2037,8 +2280,9 @@ func do_init(_ud=null):
 	first_init_done = true
 	do_archive_convert = false
 	
-	if Input.is_key_pressed(KEY_W):
-		alert = "Test alert"
+	if Input.is_key_pressed(KEY_A) and Input.is_key_pressed(KEY_R) and Input.is_key_pressed(KEY_C) and Input.is_key_pressed(KEY_W):
+		arcw_mode = true
+		alert = "ARCW mode enabled successfully."
 	
 	var alert_snd_played:bool = false
 	if alert != "":

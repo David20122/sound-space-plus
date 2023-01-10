@@ -2,16 +2,44 @@ extends Spatial
 
 var rpos:Vector2 = Vector2(transform.origin.x,-transform.origin.y)
 
+enum {
+	C_MOUSE = 0
+	C_JOYSTICK = 1
+}
+
 var sh:Vector2 = Vector2(-0.5,-0.5)
 var edgec:float = 0.13125
 var edger:float = -SSP.edge_drift
 var face:Vector2
+
+var move_mode:int = C_MOUSE
+var can_switch_move_modes:bool = true
 
 func move_cursor(mdel:Vector2):
 	var rx = rpos.x
 	var ry = rpos.y
 	rx += mdel.x
 	ry += mdel.y
+	
+	rx = clamp(rx, (0 + sh.x + edger), (3 + sh.x - edger))
+	ry = clamp(ry, (0 + sh.y + edger), (3 + sh.y - edger))
+	
+	rpos.x = rx
+	rpos.y = ry
+	
+	var cx = rx
+	var cy = ry
+	cx = clamp(cx, (0 + sh.x + edgec), (3 + sh.x - edgec))
+	cy = clamp(cy, (0 + sh.y + edgec), (3 + sh.y - edgec))
+	
+	transform.origin.x = cx
+	transform.origin.y = -cy
+
+func move_cursor_abs(mdel:Vector2):
+	var rx = rpos.x
+	var ry = rpos.y
+	rx = mdel.x
+	ry = mdel.y
 	
 	rx = clamp(rx, (0 + sh.x + edger), (3 + sh.x - edger))
 	ry = clamp(ry, (0 + sh.y + edger), (3 + sh.y - edger))
@@ -36,11 +64,30 @@ func move_cursor(mdel:Vector2):
 
 func _input(event:InputEvent):
 	if !SSP.replaying and !SSP.vr:
-		if !SSP.cam_unlock:
+		if can_switch_move_modes:
+			if event is InputEventJoypadMotion:
+				move_mode = C_JOYSTICK
+			elif event is InputEventMouseMotion:
+				move_mode = C_MOUSE
+		
+		if move_mode == C_JOYSTICK:
+			var v_strength = (Input.get_action_strength("joy_up") + (Input.get_action_strength("joy_down") * -1)) * -1
+			var h_strength = (Input.get_action_strength("joy_right") + (Input.get_action_strength("joy_left") * -1)) * 1
+			var relative = Vector2(h_strength * 1.5,v_strength * 1.5)
+			var off = Vector2(1,1)
+			if SSP.invert_mouse:
+				move_cursor_abs((relative + off) * -1)
+			else:
+				move_cursor_abs(relative + off)
+		elif !SSP.cam_unlock and move_mode == C_MOUSE:
 			visible = true
 			if (event is InputEventMouseMotion):
 				face = event.relative
-				move_cursor(event.relative * 0.018 * SSP.sensitivity)
+				if SSP.invert_mouse:
+					move_cursor((event.relative * 0.018 * SSP.sensitivity) * -1)
+				else:
+					move_cursor(event.relative * 0.018 * SSP.sensitivity)
+			
 		if (event is InputEventScreenDrag):
 			$VisualPos.visible = true
 			$VisualPos.rect_position = event.position
@@ -65,7 +112,7 @@ func cache_trail(part:Spatial):
 	trail_cache.append(part)
 
 func recolor(col:Color):
-	$Mesh.get("material/0").albedo_color = Color(col.r,col.g,col.b,1)
+	$Mesh.get("material/0").albedo_color = Color(col.r,col.g,col.b,col.a)
 
 func _process(delta):
 	
