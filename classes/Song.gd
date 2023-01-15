@@ -41,6 +41,7 @@ var is_builtin:bool = false
 
 var is_online:bool = false
 var download_url:String = ""
+var has_combo:bool
 
 var sspm_song_stored:bool = false
 
@@ -171,7 +172,7 @@ func load_pbs():
 			return
 		
 		var sv:int = file.get_16()
-		if sv > 2:
+		if sv > 3:
 			print("invalid file version for pb file (%s)" % id)
 			file.close()
 			return
@@ -182,13 +183,19 @@ func load_pbs():
 			var pb:Dictionary = {}
 			var s:String = file.get_line()
 			if sv == 1: s = s.replace("1.27","1.14") # handle the default hitbox change
+			if sv < 3: has_combo = false
+			else: has_combo = true
+			
 			pb.has_passed = bool(file.get_8())
 			pb.pauses = file.get_16()
 			pb.hit_notes = file.get_32()
 			pb.total_notes = file.get_32()
 			pb.position = file.get_32()
 			pb.length = file.get_32()
+			
+			pb.max_combo = file.get_16()
 			pb_data[s] = pb
+			
 		file.close()
 
 func save_pbs():
@@ -197,24 +204,26 @@ func save_pbs():
 	var file:File = File.new()
 	var err:int = file.open(Globals.p("user://bests/%s") % id,File.WRITE)
 	if err != OK:
-		print("error writing pb file for %s: %s" % [id, String(err)])
+		print("error writing pb file for %s:  %s" % [id, String(err)])
 		return
 	file.store_buffer(PoolByteArray([0x53,0x53,0x2B,0x70,0x42]))
-	file.store_16(2) # version
+	file.store_16(3) # version
 	file.store_64(pb_data.size()) # number of PBs
 	for k in pb_data.keys():
 		var pb:Dictionary = pb_data[k]
 		file.store_line(k)
 		file.store_8(int(pb.has_passed))
 		file.store_16(pb.pauses)
+		
 		file.store_32(pb.hit_notes)
 		file.store_32(pb.total_notes)
-		
 		# prevent the 69420:00 bug (hacky but it should work)
 		if pb.has_passed: file.store_32(floor(pb.length))
 		else: file.store_32(floor(min(pb.length,pb.position)))
-		
 		file.store_32(floor(pb.length))
+
+		file.store_16(pb.max_combo)		
+		
 	file.close()
 
 func get_pb(pb_str:String):
