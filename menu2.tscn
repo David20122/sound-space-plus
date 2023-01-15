@@ -4045,9 +4045,10 @@ focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.623529, 0.67451, 1, 1 )
 custom_fonts/font = SubResource( 108 )
-text = "
--"
+text = "-
+"
 align = 1
+valign = 1
 uppercase = true
 
 [node name="Title" type="Label" parent="Main/Results/Results/EndInfo/MaxCombo"]
@@ -4060,9 +4061,6 @@ custom_fonts/font = SubResource( 106 )
 text = "MAX COMBO"
 align = 1
 valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Deleted" type="CenterContainer" parent="Main/Results/Results"]
 visible = false

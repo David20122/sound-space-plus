@@ -91,6 +91,7 @@ func show_pb(_s=null):
 				$MaxCombo.text = "FULL COMBO"
 			else:
 				$MaxCombo.text = "NO COMBO"
+			$MaxCombo.text += "\n"
 			
 			update_letter_grade(float(pb.hit_notes)/float(pb.total_notes))
 			$Progress.text = "%s\n%.2f%%" % [get_time_ms(pb.position),clamp(pb.position/SSP.selected_song.last_ms,0,1)*100]
@@ -157,7 +158,8 @@ func _ready():
 			$MaxCombo.text = "FULL COMBO"
 		else:
 			$MaxCombo.text = "NO COMBO"
-			
+		$MaxCombo.text += "\n"
+		
 		update_letter_grade(float(SSP.song_end_hits)/float(SSP.song_end_total_notes))
 		$Progress.text = "%s\n%.1f%%" % [SSP.song_end_time_str,clamp(SSP.song_end_position/SSP.song_end_length,0,1)*100]
 	else:
