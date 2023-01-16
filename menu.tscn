@@ -1846,7 +1846,7 @@ scroll_horizontal_enabled = false
 [node name="F" parent="PageMgr/Settings" instance=ExtResource( 3 )]
 anchor_right = 0.0
 margin_right = 1150.0
-margin_bottom = 2876.0
+margin_bottom = 5594.0
 rect_clip_content = true
 
 [node name="MapRegistry" type="ReferenceRect" parent="PageMgr"]
@@ -3667,7 +3667,6 @@ custom_styles/normal = SubResource( 68 )
 action_mode = 0
 text = "Reload All Content (do this after modifying packs)"
 script = ExtResource( 41 )
-target_scene = "res://init.tscn"
 
 [node name="ReloadMenu" type="Button" parent="PageMgr/ContentMgr"]
 anchor_right = 0.5
@@ -3679,7 +3678,6 @@ theme = ExtResource( 2 )
 action_mode = 0
 text = "Reload Menu (do this after adding maps)"
 script = ExtResource( 41 )
-target_scene = "res://menuload.tscn"
 
 [node name="Credits" type="ReferenceRect" parent="PageMgr"]
 visible = false

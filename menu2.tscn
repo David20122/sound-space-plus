@@ -3814,10 +3814,10 @@ expand_icon = true
 script = ExtResource( 89 )
 
 [node name="EndInfo" type="ReferenceRect" parent="Main/Results/Results"]
-margin_left = 15.0
-margin_top = 280.0
-margin_right = 298.0
-margin_bottom = 512.0
+margin_left = 16.0
+margin_top = 277.0
+margin_right = 299.0
+margin_bottom = 597.0
 rect_min_size = Vector2( 283, 232 )
 script = ExtResource( 29 )
 __meta__ = {
@@ -4034,6 +4034,33 @@ valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="MaxCombo" type="Label" parent="Main/Results/Results/EndInfo"]
+modulate = Color( 0.572549, 1, 0.568627, 1 )
+margin_left = 70.0
+margin_top = 255.0
+margin_right = 210.0
+margin_bottom = 328.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.623529, 0.67451, 1, 1 )
+custom_fonts/font = SubResource( 108 )
+text = "-
+"
+align = 1
+valign = 1
+uppercase = true
+
+[node name="Title" type="Label" parent="Main/Results/Results/EndInfo/MaxCombo"]
+margin_top = -24.0
+margin_right = 139.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.623529, 0.67451, 1, 1 )
+custom_fonts/font = SubResource( 106 )
+text = "MAX COMBO"
+align = 1
+valign = 1
 
 [node name="Deleted" type="CenterContainer" parent="Main/Results/Results"]
 visible = false

@@ -53,6 +53,7 @@ var total_notes:float = 0
 var energy:float = 6
 var max_energy:float = 6
 var energy_per_hit:float = 1
+var max_combo:int = 0
 
 func update_hud():
 	$HUD.update_static_values()
@@ -76,6 +77,9 @@ func end(end_type:int):
 	SSP.song_end_position = min($Spawn.ms,last_ms)
 	SSP.song_end_length = last_ms
 	SSP.song_end_type = end_type
+	SSP.song_end_combo = max_combo
+	print("song max combo: ", max_combo)
+	
 	if SSP.record_replays and !SSP.replaying:
 		SSP.replay.end_recording()
 	
@@ -218,6 +222,9 @@ func hit(col):
 	total_notes += 1
 	if !SSP.mod_no_regen: energy = clamp(energy+energy_per_hit,0,max_energy)
 	combo += 1
+
+	if combo > max_combo: max_combo = combo
+
 	var points = get_point_amt()
 	if combo_level != 8:
 		lvl_progress += 1

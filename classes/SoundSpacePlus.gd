@@ -118,7 +118,7 @@ var song_end_pause_count:int
 var song_end_accuracy_str:String
 var song_end_time_str:String
 var song_end_length:float
-
+var song_end_combo:int
 # Replay data
 var replay:Replay
 var replay_path:String = ""
@@ -182,8 +182,7 @@ var queue_end_pause_count:int
 var queue_end_accuracy_str:String
 var queue_end_time_str:String
 var queue_end_length:float
-
-
+var queue_end_combo:int
 
 
 # Loaded sounds
@@ -298,6 +297,7 @@ func prepare_queue():
 	queue_end_position = 0
 	queue_end_pause_count = 0
 	queue_end_length = 0
+	queue_end_combo = 0
 	for s in song_queue:
 		queue_end_length += s.last_ms
 
@@ -311,6 +311,8 @@ func get_next():
 	queue_end_total_notes += song_end_total_notes
 	queue_end_position += clamp(song_end_position,0,selected_song.last_ms)
 	queue_end_pause_count += song_end_pause_count
+	
+	queue_end_combo += song_end_combo
 	
 	if song_end_type == Globals.END_GIVEUP or queue_pos == song_queue.size():
 		print("all done!")
@@ -740,6 +742,7 @@ func do_pb_check_and_set() -> bool:
 	pb.total_notes = song_end_total_notes
 	pb.pauses = song_end_pause_count
 	pb.has_passed = song_end_type == Globals.END_PASS
+	pb.max_combo = song_end_combo
 	return selected_song.set_pb_if_better(generate_pb_str(true),pb)
 func get_best():
 	return selected_song.get_pb(generate_pb_str(true))
