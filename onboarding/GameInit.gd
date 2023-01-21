@@ -58,7 +58,7 @@ func activate():
 		else: activity.set_state("Starting the game")
 
 		var assets = activity.get_assets()
-		assets.set_large_image("icon")
+		assets.set_large_image("icon-bg")
 		
 		Discord.activity_manager.update_activity(activity)
 
