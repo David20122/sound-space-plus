@@ -9,7 +9,7 @@ var names = [
 	"Legacy - same as the original game" # GRADE_LEGACY
 ]
 var namet = [ # Shown on the button
-	"Default (Sound Space+)",
+	"Default (Sound Space Plus)",
 	"Legacy (Sound Space)"
 ]
 

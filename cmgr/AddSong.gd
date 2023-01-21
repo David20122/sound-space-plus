@@ -161,7 +161,7 @@ func select_type(type:int):
 		Globals.file_sel.open_file(
 			self,
 			"file_selected",
-			PoolStringArray(["*.sspm ; Sound Space+ map"]),
+			PoolStringArray(["*.sspm ; Sound Space Plus map"]),
 			false,
 			"~/Downloads"
 		)
