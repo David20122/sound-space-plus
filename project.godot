@@ -248,7 +248,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Sound Space+"
+config/name="Sound Space Plus"
 run/main_scene="res://preinit.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="SoundSpacePlus"

@@ -1729,7 +1729,7 @@ grow_vertical = 2
 theme = ExtResource( 2 )
 custom_colors/font_color = Color( 1, 0.705882, 0.945098, 1 )
 custom_fonts/font = SubResource( 21 )
-text = "Sound Space+   vX.Y.Z-stage"
+text = "Sound Space Plus   vX.Y.Z-stage"
 valign = 1
 script = ExtResource( 17 )
 
