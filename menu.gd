@@ -8,7 +8,7 @@ func idle_status():
 	activity.set_state("Listening to music")
 
 	var assets = activity.get_assets()
-	assets.set_large_image("icon")
+	assets.set_large_image("icon-bg")
 
 	Discord.activity_manager.update_activity(activity)
 
@@ -25,7 +25,7 @@ func _ready():
 		activity.set_state("Selecting a song")
 
 		var assets = activity.get_assets()
-		assets.set_large_image("icon")
+		assets.set_large_image("icon-bg")
 
 		Discord.activity_manager.update_activity(activity)
 		
@@ -36,9 +36,9 @@ var black_fade:float = 1
 
 func _process(delta):
 	if black_fade_target && black_fade != 1:
-		black_fade = min(black_fade + (delta/0.75),1)
+		black_fade = min(black_fade + (delta/0.3),1)
 		$BlackFade.color = Color(0,0,0,black_fade)
 	elif !black_fade_target && black_fade != 0:
-		black_fade = max(black_fade - (delta/0.75),0)
+		black_fade = max(black_fade - (delta/0.3),0)
 		$BlackFade.color = Color(0,0,0,black_fade)
 	$BlackFade.visible = (black_fade != 0)

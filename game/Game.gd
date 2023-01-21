@@ -38,6 +38,9 @@ func loadMapFile():
 	notes = map.read_notes()
 	var file:File = File.new()
 	var song:AudioStream = map.stream()
+	
+	
+	
 	$Spawn.spawn_notes(notes)
 	
 	get_node("Spawn/Music").stream = song
@@ -50,6 +53,7 @@ var total_notes:float = 0
 var energy:float = 6
 var max_energy:float = 6
 var energy_per_hit:float = 1
+var max_combo:int = 0
 
 func update_hud():
 	$HUD.update_static_values()
@@ -73,6 +77,9 @@ func end(end_type:int):
 	SSP.song_end_position = min($Spawn.ms,last_ms)
 	SSP.song_end_length = last_ms
 	SSP.song_end_type = end_type
+	SSP.song_end_combo = max_combo
+	print("song max combo: ", max_combo)
+	
 	if SSP.record_replays and !SSP.replaying:
 		SSP.replay.end_recording()
 	
@@ -92,7 +99,9 @@ func end(end_type:int):
 			
 			$Spawn.notes_loaded = false
 			$Spawn.chaos_rng = RandomNumberGenerator.new()
+			$Spawn.earthquake_rng = RandomNumberGenerator.new()
 			$Spawn.chaos_rng.seed = hash(SSP.selected_song.id)
+			$Spawn.earthquake_rng.seed = hash(SSP.selected_song.id)
 			$Spawn.music_started = false
 			$Spawn.out_of_notes = false
 			$Spawn.note_count = 0
@@ -106,7 +115,7 @@ func end(end_type:int):
 			return
 	
 	black_fade_target = true
-	yield(get_tree().create_timer(1),"timeout")
+	yield(get_tree().create_timer(0.35),"timeout")
 	
 	get_tree().change_scene("res://menuload.tscn")
 
@@ -139,13 +148,13 @@ func update_timer(ms:float,canSkip:bool=false):
 			end(Globals.END_PASS)
 		elif !SSP.queue_active and !get_node("Spawn/Music").playing:
 			end(Globals.END_PASS)
-			
+
 
 
 var loaded = false
 
 var giving_up:float = 0
-var black_fade_target:bool = false
+var black_fade_target:bool = true
 var black_fade:float = 1
 var passed:bool = false
 
@@ -180,20 +189,20 @@ func _process(delta):
 	
 	
 	if black_fade_target && black_fade != 1:
-		black_fade = min(black_fade + (delta/0.75),1)
+		black_fade = min(black_fade + (delta/0.3),1)
 		$BlackFade.color = Color(0,0,0,black_fade)
 	elif !black_fade_target && black_fade != 0:
 		black_fade = max(black_fade - (delta/0.75),0)
 		$BlackFade.color = Color(0,0,0,black_fade)
-	
 	$BlackFade.visible = (black_fade != 0)
+	
 
 func linstep(a:float,b:float,x:float):
 	if a == b: return float(x >= a)
 	return clamp(abs((x - a) / (b - a)),0,1)
 
 func get_point_amt() -> int:
-	var speed_multi = Globals.speed_multi[SSP.custom_speed]
+	var speed_multi = Globals.speed_multi[SSP.mod_speed_level]
 	var spd = clamp(((speed_multi - 1) * 1.5) + 1, 0, 1.9)
 	
 	var hitbox_diff = SSP.note_hitbox_size - 1.140
@@ -202,10 +211,9 @@ func get_point_amt() -> int:
 	var hitwin_diff = SSP.note_hitbox_size - 55
 	var hwi = clamp(linstep(55,0,hitwin_diff), 0, 1)
 	
-	
 	var mod = 1
 	
-	return int(floor((20 * combo_level * spd * min(hbo,hwi) * mod) + 0.5))
+	return int(floor((50 * spd * min(hbo,hwi) * mod) + 0.5) * combo_level)
 
 
 func hit(col):
@@ -214,6 +222,9 @@ func hit(col):
 	total_notes += 1
 	if !SSP.mod_no_regen: energy = clamp(energy+energy_per_hit,0,max_energy)
 	combo += 1
+
+	if combo > max_combo: max_combo = combo
+
 	var points = get_point_amt()
 	if combo_level != 8:
 		lvl_progress += 1
@@ -274,6 +285,7 @@ func _ready():
 	get_parent().call_deferred("add_child",spinst)
 	spinst.name = "Space"
 #	call_deferred("raise")
+	$BlackFade.visible = true
 	$BlackFade.color = Color(0,0,0,black_fade)
 	get_tree().paused = false
 	$Spawn.connect("timer_update",self,"update_timer")
@@ -283,4 +295,12 @@ func _ready():
 	
 	
 	SSP.update_rpc_song()
+	
+	yield(get_tree(),"idle_frame")
+	yield(get_tree(),"idle_frame")
+	yield(get_tree(),"idle_frame")
+	yield(get_tree(),"idle_frame")
+	black_fade_target = false
+	$ForceMatLoad.visible = false
+	$Spawn.active = true
 

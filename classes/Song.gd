@@ -41,6 +41,7 @@ var is_builtin:bool = false
 
 var is_online:bool = false
 var download_url:String = ""
+var has_combo:bool
 
 var sspm_song_stored:bool = false
 
@@ -77,6 +78,15 @@ func is_valid_id(txt:String):
 		!(("n" + txt).replace("-","")).is_valid_identifier()
 	)
 
+const db_builtin_difficulty_names = [
+	"N/A",
+	"Easy",
+	"Medium",
+	"Hard",
+	"LOGIC?",
+	"助 (Tasukete)"
+]
+
 func load_from_db_data(data:Dictionary={
 		"id":"INVALID_id_that_doesnt_exist",
 		"download":"http://chedski.test/ssp/mapdb/api/download/INVALID_id_that_doesnt_exist",
@@ -110,6 +120,7 @@ func load_from_db_data(data:Dictionary={
 	if !data.has("author"): return {success=false,error="014-423"}
 	if !data.has("version"): return {success=false,error="014-594"}
 	if !data.has("difficulty"): return {success=false,error="014-424"}
+	if !data.has("difficulty_name"): return {success=false,error="014-424"}
 	if !data.has("length_ms"): return {success=false,error="014-425"}
 	if !data.has("note_count"): return {success=false,error="014-426"}
 	if !data.has("download"): return {success=false,error="014-415"}
@@ -126,6 +137,9 @@ func load_from_db_data(data:Dictionary={
 	if !is_valid_id(data.id): return {success=false,error="014-461"}
 	if data.difficulty < -1 or data.difficulty > 4: return {success=false,error="014-465"}
 	
+	if !db_builtin_difficulty_names.has(data.difficulty_name):
+		custom_data = {difficulty_name = data.difficulty_name}
+	
 	id = data.id
 	name = data.name
 	song = data.name
@@ -139,10 +153,13 @@ func load_from_db_data(data:Dictionary={
 	note_count = int(data.note_count)
 	download_url = data.download
 	is_online = true
+	is_broken = data.get("broken",false)
 	
 	return {success=true}
 
 func load_pbs():
+	if SSP.single_map_mode:
+		return
 	var file:File = File.new()
 	if file.file_exists(Globals.p("user://bests/%s" % id)):
 		var err:int = file.open(Globals.p("user://bests/%s" % id),File.READ)
@@ -155,7 +172,7 @@ func load_pbs():
 			return
 		
 		var sv:int = file.get_16()
-		if sv > 2:
+		if sv > 3:
 			print("invalid file version for pb file (%s)" % id)
 			file.close()
 			return
@@ -166,37 +183,47 @@ func load_pbs():
 			var pb:Dictionary = {}
 			var s:String = file.get_line()
 			if sv == 1: s = s.replace("1.27","1.14") # handle the default hitbox change
+			if sv < 3: has_combo = false
+			else: has_combo = true
+			
 			pb.has_passed = bool(file.get_8())
 			pb.pauses = file.get_16()
 			pb.hit_notes = file.get_32()
 			pb.total_notes = file.get_32()
 			pb.position = file.get_32()
 			pb.length = file.get_32()
+			
+			pb.max_combo = file.get_16()
 			pb_data[s] = pb
+			
 		file.close()
 
 func save_pbs():
+	if SSP.single_map_mode:
+		return
 	var file:File = File.new()
 	var err:int = file.open(Globals.p("user://bests/%s") % id,File.WRITE)
 	if err != OK:
-		print("error writing pb file for %s: %s" % [id, String(err)])
+		print("error writing pb file for %s:  %s" % [id, String(err)])
 		return
 	file.store_buffer(PoolByteArray([0x53,0x53,0x2B,0x70,0x42]))
-	file.store_16(2) # version
+	file.store_16(3) # version
 	file.store_64(pb_data.size()) # number of PBs
 	for k in pb_data.keys():
 		var pb:Dictionary = pb_data[k]
 		file.store_line(k)
 		file.store_8(int(pb.has_passed))
 		file.store_16(pb.pauses)
+		
 		file.store_32(pb.hit_notes)
 		file.store_32(pb.total_notes)
-		
 		# prevent the 69420:00 bug (hacky but it should work)
 		if pb.has_passed: file.store_32(floor(pb.length))
 		else: file.store_32(floor(min(pb.length,pb.position)))
-		
 		file.store_32(floor(pb.length))
+
+		file.store_16(pb.max_combo)		
+		
 	file.close()
 
 func get_pb(pb_str:String):
@@ -228,6 +255,8 @@ func is_pb_better(ob:Dictionary,pb:Dictionary):
 	elif pb.pauses > ob.pauses: return false # more pauses
 
 func set_pb_if_better(pb_str:String,pb:Dictionary):
+	if SSP.single_map_mode:
+		return false
 	if !pbs_loaded: load_pbs()
 	var ob:Dictionary = get_pb(pb_str)
 	
@@ -305,7 +334,7 @@ func get_music_buffer():
 			return mdata
 
 func stream() -> AudioStream:
-	if sspm_song_stored:
+	if sspm_song_stored || !musicFile.begins_with("res://"):
 		var buf = get_music_buffer()
 		if buf:
 			var s = Globals.audioLoader.load_buffer(buf)
@@ -314,10 +343,10 @@ func stream() -> AudioStream:
 			else: return Globals.error_sound
 		else:
 			return Globals.error_sound
-	elif !musicFile.begins_with("res://"):
-		var stream = Globals.audioLoader.load_file(musicFile)
-		if stream: return stream
-		else: return Globals.error_sound
+#	elif !musicFile.begins_with("res://"):
+#		var stream = Globals.audioLoader.load_file(musicFile)
+#		if stream: return stream
+#		else: return Globals.error_sound
 	else: 
 		var mf:AudioStream = load(musicFile) as AudioStream
 		if mf is AudioStreamOGGVorbis or mf is AudioStreamMP3: mf.loop = false
@@ -361,7 +390,7 @@ func loadRawData(data:String):
 	else:
 		warning = ""
 		is_broken = false
-	notes.sort_custom(self,"notesort")
+#	notes.sort_custom(self,"notesort")
 	note_count = notes.size()
 
 func loadVulnusNoteArray(vNotes:Array):
@@ -380,7 +409,7 @@ func loadVulnusNoteArray(vNotes:Array):
 		warning = "[vulnus map] Audio file doesn't exist!"
 		is_broken = true
 	elif invalid != 0: warning = "[vulnus map] Song has %s invalid note(s)" % String(invalid)
-	notes.sort_custom(self,"notesort")
+#	notes.sort_custom(self,"notesort")
 	note_count = notes.size()
 
 func setup_from_file(mapFile:String,songFile:String):
@@ -401,7 +430,8 @@ func setup_from_data(mapData:String,songFile:String):
 	loadRawData(mapData)
 	return self
 
-func setup_from_vulnus_json(jsonPath:String,songFile:String):
+
+func setup_from_vulnus_json(jsonPath:String,songFile:String,useDifficultyName:bool=false):
 	print("PARSING VULNUS JSON: " + jsonPath)
 	songType = Globals.MAP_VULNUS
 	musicFile = songFile
@@ -410,6 +440,13 @@ func setup_from_vulnus_json(jsonPath:String,songFile:String):
 	file.open(jsonPath,File.READ)
 	var json = file.get_as_text()
 	file.close()
+	var dn = json.find('"_name":')
+	if dn && dn > 0:
+		var nq_open = json.find('"',dn + 7)
+		var nq_close = json.find('",',nq_open)
+		var diffname = json.substr(nq_open + 1, nq_close - (nq_open + 1))
+		custom_data.difficulty_name = diffname
+	
 	note_count = json.count('"_time"')
 	if note_count != 0:
 		var last = json.find_last('"_time":')
@@ -426,6 +463,108 @@ func setup_from_vulnus_json(jsonPath:String,songFile:String):
 		warning = "[vulnus map] Song has no notes!"
 		is_broken = true
 		return self
+
+
+const valid_chars = "0123456789abcdefghijklmnopqrstuvwxyz_-"
+func generate_vmapimp_id(sname:String,dname:String,useDifficultyName:bool=false):
+	var txt:String = "vmapimp_"
+	for i in range(sname.length()):
+		if sname.to_lower()[i].is_subsequence_of(valid_chars):
+			txt += sname.to_lower()[i]
+		elif sname[i] == " " and txt[txt.length()-1] != "_": txt += "_"
+	if useDifficultyName:
+		txt += "_"
+		for i in range(dname.length()):
+			if dname.to_lower()[i].is_subsequence_of(valid_chars):
+				txt += dname.to_lower()[i]
+			elif dname[i] == " " and txt[txt.length()-1] != "_": txt += "_"
+	return txt.trim_prefix("_").trim_suffix("_")
+
+func load_from_vulnus_map(folder_path:String,difficulty_id:int=0):
+	var file:File = File.new()
+	if !file.file_exists(folder_path + "/meta.json"): return
+	
+	var err = file.open(folder_path + "/meta.json",File.READ)
+	if err != OK: return
+	var meta_json:String = file.get_as_text()
+	file.close()
+	var meta:Dictionary = parse_json(meta_json)
+	
+	var artist:String = meta.get("_artist","Unknown Artist")
+	var difficulties:Array = meta.get("_difficulties",[])
+	var mappers:Array = meta.get("_mappers",[])
+	var music_path:String = meta.get("_music","**missing**")
+	var title:String = meta.get("_title","Unknown Song")
+	
+	song = "%s - %s" % [artist,title]
+	
+	if difficulties.size() <= difficulty_id: return
+	if music_path == "**missing**" or !music_path.is_valid_filename(): return
+	if mappers.size() == 0: mappers = ["Unknown"]
+	
+	if !file.file_exists(folder_path + "/" + music_path): return
+	if !file.file_exists(folder_path + "/" + difficulties[difficulty_id]): return
+	var diff = Globals.DIFF_UNKNOWN
+	if difficulties[difficulty_id] == "official.json":
+		var audioid = int(music_path.split(".")[0])
+		diff = Globals.official_map_difficulties.get(audioid,Globals.DIFF_UNKNOWN)
+	
+	var conc:String = ""
+	for i in range(mappers.size()):
+		if i != 0: conc += ", "
+		conc += mappers[i]
+	creator = conc
+	
+	#var song:Song = Song.new(id,,conc)
+	setup_from_vulnus_json(folder_path + "/" + difficulties[difficulty_id], folder_path + "/" + music_path)
+	id = generate_vmapimp_id(title,custom_data.get("difficulty_name",String(difficulty_id)), difficulty_id != 0)
+	
+	if difficulties.size() != 1:
+		name = "%s - %s [%s]" % [artist,title,custom_data.get("difficulty_name",String(difficulty_id))]
+	else:
+		name = song
+	
+	difficulty = diff
+	
+	var c = Globals.imageLoader.load_if_exists(folder_path + "/cover.png")
+	if c:
+		cover = c
+		has_cover = true
+	
+	return self
+
+func get_vulnus_map_difficulty_list(folder_path:String):
+	var file:File = File.new()
+	if !file.file_exists(folder_path + "/meta.json"): return []
+	
+	var err = file.open(folder_path + "/meta.json",File.READ)
+	if err != OK: return []
+	var meta_json:String = file.get_as_text()
+	file.close()
+	var meta:Dictionary = parse_json(meta_json)
+	
+	var difficulties:Array = meta.get("_difficulties",[])
+	if difficulties.size() == 0: return []
+	
+	var names = []
+	
+	for i in range(difficulties.size()):
+		var p = difficulties[i]
+		file.open(folder_path + "/" + p,File.READ)
+		var json = file.get_as_text()
+		file.close()
+		var dn = json.find('"_name":')
+		if dn > 0:
+			var nq_open = json.find('"',dn + 7)
+			var nq_close = json.find('",',nq_open)
+			var diffname = json.substr(nq_open + 1, nq_close - (nq_open + 1))
+			names.append(diffname)
+		else:
+			names.append("NAMELESS_DIFFICULTY_%d" % i)
+	
+	return names
+
+
 
 func notesort(a,b):
 	if a[2] == b[2]:
@@ -447,6 +586,7 @@ func read_notes() -> Array:
 			else: print("Reading: RAW")
 			loadRawData(rawData)
 			print(notes.size())
+			notes.sort_custom(self,"notesort")
 			markers.ssp_note = notes
 			return notes
 		elif songType == Globals.MAP_VULNUS:
@@ -461,6 +601,7 @@ func read_notes() -> Array:
 			var n:Array = data.get("_notes",[])
 #			print(n.size())
 			loadVulnusNoteArray(n)
+			notes.sort_custom(self,"notesort")
 			markers.ssp_note = notes
 			return notes
 		elif songType == Globals.MAP_SSPM:
@@ -866,14 +1007,18 @@ func read_data_type(
 		
 		DT_POSITION:
 			var value:Vector2 = Vector2(5,3)
-			if file.get_8() == 0:
+			var t = file.get_8()
+			if t == 0:
 				var x = file.get_8()
 				var y = file.get_8()
 				value = Vector2(x,y)
-			else:
+			elif t == 1:
 				var x = file.get_float()
 				var y = file.get_float()
 				value = Vector2(x,y)
+			else:
+				# Something has gone wrong
+				assert(false)
 			return value
 		
 		DT_BUFFER:
@@ -1096,7 +1241,7 @@ func convert_to_sspm(upgrade:bool=false):
 		var at = DT_UNKNOWN
 		if t == DT_ARRAY and t.size() != 0:
 			at = auto_data_type(t[0])
-		store_data_type(file,t,false,at,false)
+		store_data_type(file,t,v,false,at,false)
 	
 	
 	var end = file.get_position()
@@ -1171,13 +1316,9 @@ func convert_to_sspm(upgrade:bool=false):
 			for i in range(d.size() - 1):
 				v[2].append(d[i])
 			
-			if allmarkers.size() == 0 or ms > allmarkers[-1][0]:
-				allmarkers.append(v)
-			else:
-				for ii in range(0, allmarkers.size()):
-					var i = allmarkers.size() - ii - 1
-					if ms > allmarkers[i][0]:
-						allmarkers.insert(i,v)
+			allmarkers.append(v)
+	
+	allmarkers.sort_custom(self,"marker_sort")
 	
 	start = file.get_position()
 	for m in allmarkers:
@@ -1227,7 +1368,9 @@ func convert_to_sspm(upgrade:bool=false):
 	filePath = path
 	dir.remove(Globals.p("user://upgrade_temp.sspm"))
 	
-	return "OK"
+	load_from_sspm(path)
+	
+	return "Converted!"
 
 func load_from_sspm(path:String):
 	is_online = false
@@ -1445,7 +1588,7 @@ func export_text(path:String):
 		return "no notes"
 	else:
 		for n in read_notes():
-			txt += "%s|%s|%s," % n
+			txt += "%s|%s|%s," % [2 - n[0], n[1], n[2]]
 
 	var file:File = File.new()
 	var err:int = file.open(path,File.WRITE)
@@ -1454,11 +1597,35 @@ func export_text(path:String):
 	file.close()
 	return "OK"
 
+func delete():
+	if songType == Globals.MAP_SSPM or songType == Globals.MAP_SSPM2:
+		var dir:Directory = Directory.new()
+		var err = dir.remove(Globals.p(filePath))
+		if err == OK:
+			songType = -1
+			difficulty = -1
+			is_broken = true
+			name = ""
+			song = ""
+			creator = ""
+			SSP.registry_song.check_and_remove_id(id)
+			id = "!DELETED"
+			
+			filePath = ""
+			musicFile = ""
+			initFile = ""
+			SSP.emit_signal("selected_song_changed")
+			SSP.emit_signal("favorite_songs_changed")
+		else:
+			Globals.notify(Globals.NOTIFY_ERROR,"Failed to delete map (error code %s)" % err,"Error")
+		
+
 func _init(idI:String="SOMETHING IS VERY BROKEN",nameI:String="SOMETHING IS VERY BROKEN",creatorI:String="Unknown"):
 	id = idI
 	name = nameI
 	song = nameI
 	creator = creatorI
+
 
 
 

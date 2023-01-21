@@ -1,22 +1,23 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://uitheme.tres" type="Theme" id=2]
-[ext_resource path="res://content/ui/text_file.png" type="Texture" id=3]
-[ext_resource path="res://content/ui/humor_funny.png" type="Texture" id=4]
-[ext_resource path="res://content/ui/application-software.png" type="Texture" id=5]
+[ext_resource path="res://assets/ui/text_file.png" type="Texture" id=3]
+[ext_resource path="res://assets/ui/humor_funny.png" type="Texture" id=4]
+[ext_resource path="res://assets/ui/application-software.png" type="Texture" id=5]
 [ext_resource path="res://cmgr/AddSong.gd" type="Script" id=6]
 [ext_resource path="res://font/Noto_Sans_JP/NotoSansJP-Medium.otf" type="DynamicFontData" id=7]
-[ext_resource path="res://content/ui/placeholder_dark.jpg" type="Texture" id=8]
+[ext_resource path="res://assets/ui/placeholder_dark.jpg" type="Texture" id=8]
 [ext_resource path="res://font/Lato/Lato-Bold.ttf" type="DynamicFontData" id=9]
 [ext_resource path="res://MusicVolumeSetter.gd" type="Script" id=10]
 [ext_resource path="res://contentmgr.gd" type="Script" id=11]
 [ext_resource path="res://addons/native_dialogs/bin/native_dialog_open_file.gdns" type="Script" id=13]
 [ext_resource path="res://addons/native_dialogs/bin/native_dialog_select_folder.gdns" type="Script" id=14]
-[ext_resource path="res://icon.svg" type="Texture" id=15]
+[ext_resource path="res://assets/branding/icon.svg" type="Texture" id=15]
 [ext_resource path="res://VersionNumber.gd" type="Script" id=17]
 [ext_resource path="res://menuButtons/CMgrExit.gd" type="Script" id=59]
-[ext_resource path="res://content/sfx/menu_full.mp3" type="AudioStream" id=70]
+[ext_resource path="res://assets/sfx/menu_full.mp3" type="AudioStream" id=70]
+
 
 [sub_resource type="StyleBoxFlat" id=70]
 bg_color = Color( 0.0588235, 0.0235294, 0.0666667, 1 )
@@ -65,6 +66,7 @@ corner_radius_bottom_left = 8
 [sub_resource type="DynamicFont" id=77]
 use_filter = true
 font_data = ExtResource( 1 )
+fallback/0 = ExtResource( 7 )
 
 [sub_resource type="DynamicFont" id=78]
 size = 14
@@ -80,6 +82,11 @@ corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
 [sub_resource type="DynamicFont" id=79]
+use_filter = true
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=84]
+size = 14
 use_filter = true
 font_data = ExtResource( 1 )
 
@@ -463,7 +470,140 @@ text = "Back"
 align = 1
 valign = 1
 
+[node name="SelectDifficulty" type="ReferenceRect" parent="AddSong"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 35.0
+border_color = Color( 1, 0, 0, 0 )
+
+[node name="Title" type="Label" parent="AddSong/SelectDifficulty"]
+anchor_right = 1.0
+margin_bottom = 24.0
+custom_fonts/font = SubResource( 72 )
+text = "Vulnus Map - Select Difficulty"
+align = 1
+valign = 1
+
+[node name="Error" type="Label" parent="AddSong/SelectDifficulty"]
+visible = false
+anchor_right = 1.0
+margin_top = 180.0
+margin_bottom = 204.0
+custom_colors/font_color = Color( 1, 0.580392, 0.580392, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 79 )
+text = "Selected folder was missing a meta.json!"
+align = 1
+autowrap = true
+
+[node name="Success" type="Label" parent="AddSong/SelectDifficulty"]
+visible = false
+anchor_right = 1.0
+margin_top = 180.0
+margin_bottom = 204.0
+custom_colors/font_color = Color( 0.611765, 1, 0.580392, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 79 )
+text = "Selected folder was missing a meta.json!"
+align = 1
+autowrap = true
+
+[node name="S" type="ScrollContainer" parent="AddSong/SelectDifficulty"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 15.0
+margin_top = 40.0
+margin_right = -15.0
+margin_bottom = -65.0
+scroll_horizontal_enabled = false
+
+[node name="V" type="VBoxContainer" parent="AddSong/SelectDifficulty/S"]
+margin_right = 410.0
+margin_bottom = 83.0
+size_flags_horizontal = 3
+custom_constants/separation = 8
+
+[node name="All" type="Button" parent="AddSong/SelectDifficulty/S/V"]
+margin_right = 410.0
+margin_bottom = 75.0
+rect_min_size = Vector2( 0, 75 )
+custom_styles/hover = SubResource( 75 )
+custom_styles/pressed = SubResource( 75 )
+custom_styles/focus = SubResource( 76 )
+custom_styles/disabled = SubResource( 74 )
+custom_styles/normal = SubResource( 73 )
+action_mode = 0
+
+[node name="L" type="Label" parent="AddSong/SelectDifficulty/S/V/All"]
+anchor_top = 0.05
+anchor_right = 1.0
+anchor_bottom = 0.7
+custom_fonts/font = SubResource( 77 )
+text = "Import all difficulties"
+align = 1
+valign = 1
+
+[node name="L2" type="Label" parent="AddSong/SelectDifficulty/S/V/All"]
+modulate = Color( 0.713726, 0.713726, 0.713726, 1 )
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.85
+custom_fonts/font = SubResource( 84 )
+text = "Note: This option skips the edit screen."
+align = 1
+valign = 1
+
+[node name="L" type="VBoxContainer" parent="AddSong/SelectDifficulty/S/V"]
+margin_top = 83.0
+margin_right = 410.0
+margin_bottom = 83.0
+custom_constants/separation = 4
+
+[node name="Item" type="Button" parent="AddSong/SelectDifficulty/S/V/L"]
+visible = false
+margin_right = 410.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 0, 50 )
+custom_styles/hover = SubResource( 75 )
+custom_styles/pressed = SubResource( 75 )
+custom_styles/focus = SubResource( 76 )
+custom_styles/disabled = SubResource( 74 )
+custom_styles/normal = SubResource( 73 )
+action_mode = 0
+
+[node name="L" type="Label" parent="AddSong/SelectDifficulty/S/V/L/Item"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 77 )
+text = "Difficulty Name"
+align = 1
+valign = 1
+
+[node name="cancel" type="Button" parent="AddSong/SelectDifficulty"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 45.0
+margin_top = -50.0
+margin_right = -45.0
+margin_bottom = -15.0
+custom_styles/hover = SubResource( 75 )
+custom_styles/pressed = SubResource( 75 )
+custom_styles/focus = SubResource( 76 )
+custom_styles/disabled = SubResource( 74 )
+custom_styles/normal = SubResource( 73 )
+action_mode = 0
+
+[node name="Title" type="Label" parent="AddSong/SelectDifficulty/cancel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 77 )
+text = "Back"
+align = 1
+valign = 1
+
 [node name="TxtFile" type="ReferenceRect" parent="AddSong"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 35.0

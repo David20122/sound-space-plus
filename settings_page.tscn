@@ -1,20 +1,20 @@
-[gd_scene load_steps=83 format=2]
+[gd_scene load_steps=88 format=2]
 
 [ext_resource path="res://uitheme.tres" type="Theme" id=1]
 [ext_resource path="res://font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://font/Noto_Sans_JP/NotoSansJP-Medium.otf" type="DynamicFontData" id=3]
-[ext_resource path="res://content/ui/reset_to_default.png" type="Texture" id=4]
+[ext_resource path="res://assets/ui/reset_to_default.png" type="Texture" id=4]
 [ext_resource path="res://menuButtons/UserDir.gd" type="Script" id=5]
 [ext_resource path="res://menuButtons/NoteHitboxSize.gd" type="Script" id=6]
 [ext_resource path="res://addons/native_dialogs/bin/native_dialog_save_file.gdns" type="Script" id=7]
-[ext_resource path="res://menuButtons/MusicVolume.gd" type="Script" id=8]
+[ext_resource path="res://menu2/VolumeSetting.gd" type="Script" id=8]
 [ext_resource path="res://menuButtons/HitEffect.gd" type="Script" id=9]
 [ext_resource path="res://menuButtons/CursorSpin.gd" type="Script" id=10]
 [ext_resource path="res://menuButtons/WorldSel.gd" type="Script" id=11]
 [ext_resource path="res://menuButtons/EdgeBuffer.gd" type="Script" id=12]
-[ext_resource path="res://content/ui/placeholder_dark.jpg" type="Texture" id=13]
+[ext_resource path="res://assets/ui/placeholder_dark.jpg" type="Texture" id=13]
 [ext_resource path="res://ReplayDir.gd" type="Script" id=14]
-[ext_resource path="res://menuButtons/ColorSetSelectorButton.gd" type="Script" id=15]
+[ext_resource path="res://assets/cursors/circle.png" type="Texture" id=15]
 [ext_resource path="res://menuButtons/NoteMesh.gd" type="Script" id=16]
 [ext_resource path="res://menuButtons/CursorScale.gd" type="Script" id=17]
 [ext_resource path="res://menuButtons/VSyncCompositor.gd" type="Script" id=18]
@@ -37,18 +37,18 @@
 [ext_resource path="res://menuButtons/MissEffect.gd" type="Script" id=35]
 [ext_resource path="res://menuButtons/ArchiveConvert.gd" type="Script" id=36]
 [ext_resource path="res://menuButtons/FadeLength.gd" type="Script" id=37]
-[ext_resource path="res://content/ui/placeholder.jpg" type="Texture" id=38]
+[ext_resource path="res://assets/ui/placeholder.jpg" type="Texture" id=38]
 [ext_resource path="res://fov.gd" type="Script" id=39]
 [ext_resource path="res://font/Lato/Lato-Bold.ttf" type="DynamicFontData" id=40]
-[ext_resource path="res://content/ui/arrow_up_white.png" type="Texture" id=41]
-[ext_resource path="res://content/ui/arrow_down_white.png" type="Texture" id=42]
+[ext_resource path="res://assets/ui/arrow_up_white.png" type="Texture" id=41]
+[ext_resource path="res://assets/ui/arrow_down_white.png" type="Texture" id=42]
 [ext_resource path="res://menu2/SettingsGroup.gd" type="Script" id=43]
-[ext_resource path="res://content/cursors/square.png" type="Texture" id=44]
+[ext_resource path="res://menuButtons/NoteScale.gd" type="Script" id=44]
 [ext_resource path="res://menu2/ReplaceCustomFile.gd" type="Script" id=45]
 [ext_resource path="res://addons/native_dialogs/bin/native_dialog_open_file.gdns" type="Script" id=46]
-[ext_resource path="res://HitFOVAmplifier.gd" type="Script" id=47]
+[ext_resource path="res://menuButtons/HitFOVAmplifier.gd" type="Script" id=47]
 [ext_resource path="res://error.jpg" type="Texture" id=48]
-[ext_resource path="res://HitFOVDecay.gd" type="Script" id=49]
+[ext_resource path="res://menuButtons/HitFOVDecay.gd" type="Script" id=49]
 [ext_resource path="res://menu2/SettingsNumberBox.gd" type="Script" id=50]
 [ext_resource path="res://menu2/SettingsColorPicker.gd" type="Script" id=51]
 [ext_resource path="res://menuButtons/TrailTime.gd" type="Script" id=52]
@@ -56,9 +56,14 @@
 [ext_resource path="res://menu2/SettingsCheckbox.gd" type="Script" id=54]
 [ext_resource path="res://ToAvEditor.gd" type="Script" id=55]
 [ext_resource path="res://menu2/ColorPresets.gd" type="Script" id=56]
-[ext_resource path="res://HitFOVModes.gd" type="Script" id=57]
+[ext_resource path="res://menuButtons/HitFOVModes.gd" type="Script" id=57]
 [ext_resource path="res://menu2/EnumDropdownMenu.gd" type="Script" id=58]
-[ext_resource path="res://IntroButton.gd" type="Script" id=59]
+[ext_resource path="res://IntroButton.gd" type="Script" id=88]
+[ext_resource path="res://menuButtons/ReloadContent.gd" type="Script" id=59]
+[ext_resource path="res://menu2/TargetFPS.gd" type="Script" id=60]
+[ext_resource path="res://menuButtons/NoteSpin.gd" type="Script" id=61]
+[ext_resource path="res://menu2/CursorTrailType.gd" type="Script" id=62]
+[ext_resource path="res://menuButtons/NoteOpacity.gd" type="Script" id=63]
 
 [sub_resource type="DynamicFont" id=5]
 size = 18
@@ -74,6 +79,9 @@ fallback/0 = ExtResource( 3 )
 size = 14
 use_filter = true
 font_data = ExtResource( 2 )
+
+[sub_resource type="StyleBoxLine" id=55]
+color = Color( 0.690196, 0.690196, 0.690196, 0.588235 )
 
 [sub_resource type="StyleBoxFlat" id=33]
 draw_center = false
@@ -165,9 +173,6 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[sub_resource type="StyleBoxLine" id=55]
-color = Color( 0.690196, 0.690196, 0.690196, 0.588235 )
-
 [sub_resource type="StyleBoxFlat" id=48]
 bg_color = Color( 0.219608, 0.145098, 0.145098, 1 )
 border_width_left = 2
@@ -196,56 +201,76 @@ rect_min_size = Vector2( 1150, 915 )
 size_flags_horizontal = 3
 theme = ExtResource( 1 )
 
-[node name="TopButtons" type="Control" parent="."]
+[node name="TopButtons" type="MarginContainer" parent="."]
 margin_right = 1280.0
 margin_bottom = 55.0
 rect_min_size = Vector2( 0, 55 )
+custom_constants/margin_top = 11
+custom_constants/margin_left = 53
+custom_constants/margin_bottom = 11
 
-[node name="Save" type="Button" parent="TopButtons"]
+[node name="HBoxContainer" type="HBoxContainer" parent="TopButtons"]
 margin_left = 53.0
 margin_top = 11.0
-margin_right = 161.0
+margin_right = 1280.0
 margin_bottom = 44.0
+rect_min_size = Vector2( 0, 33 )
+custom_constants/separation = 10
+
+[node name="Save" type="Button" parent="TopButtons/HBoxContainer"]
+modulate = Color( 1, 0.984314, 0, 1 )
+margin_right = 100.0
+margin_bottom = 33.0
+rect_min_size = Vector2( 100, 0 )
 theme = ExtResource( 1 )
 text = "Save"
 script = ExtResource( 20 )
 
-[node name="UserDir" type="Button" parent="TopButtons"]
-margin_left = 173.0
-margin_top = 11.0
-margin_right = 323.0
-margin_bottom = 44.0
+[node name="UserDir" type="Button" parent="TopButtons/HBoxContainer"]
+margin_left = 110.0
+margin_right = 260.0
+margin_bottom = 33.0
+rect_min_size = Vector2( 150, 0 )
 theme = ExtResource( 1 )
 text = "Open User Folder"
 script = ExtResource( 5 )
 
-[node name="ReplayDir" type="Button" parent="TopButtons"]
-margin_left = 333.0
-margin_top = 11.0
-margin_right = 498.0
-margin_bottom = 44.0
+[node name="ReplayDir" type="Button" parent="TopButtons/HBoxContainer"]
+margin_left = 270.0
+margin_right = 440.0
+margin_bottom = 33.0
+rect_min_size = Vector2( 170, 0 )
 theme = ExtResource( 1 )
 text = "Open Replay Folder"
 script = ExtResource( 14 )
 
-[node name="ArchiveConvert" type="Button" parent="TopButtons"]
-margin_left = 507.0
-margin_top = 11.0
-margin_right = 763.0
-margin_bottom = 44.0
+[node name="ArchiveConvert" type="Button" parent="TopButtons/HBoxContainer"]
+margin_left = 450.0
+margin_right = 675.0
+margin_bottom = 33.0
+rect_min_size = Vector2( 225, 0 )
 theme = ExtResource( 1 )
 text = "Convert SS archive to .sspm"
 script = ExtResource( 36 )
 
+[node name="ReloadContent" type="Button" parent="TopButtons/HBoxContainer"]
+margin_left = 685.0
+margin_right = 825.0
+margin_bottom = 33.0
+rect_min_size = Vector2( 140, 0 )
+theme = ExtResource( 1 )
+text = "Reload Content"
+script = ExtResource( 59 )
+
 [node name="M" type="VBoxContainer" parent="."]
 margin_top = 59.0
 margin_right = 1280.0
-margin_bottom = 4736.0
+margin_bottom = 5462.0
 custom_constants/separation = 0
 
 [node name="Modifiers" type="VBoxContainer" parent="M"]
 margin_right = 1280.0
-margin_bottom = 140.0
+margin_bottom = 154.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Modifiers"]
@@ -273,13 +298,13 @@ flat = true
 [node name="Group" type="MarginContainer" parent="M/Modifiers"]
 margin_top = 36.0
 margin_right = 1280.0
-margin_bottom = 140.0
+margin_bottom = 154.0
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="M/Modifiers/Group"]
 margin_left = 180.0
 margin_right = 1280.0
-margin_bottom = 104.0
+margin_bottom = 118.0
 
 [node name="CustomSpeed" type="Control" parent="M/Modifiers/Group/H"]
 margin_right = 200.0
@@ -326,10 +351,17 @@ custom_fonts/font = SubResource( 4 )
 text = "[default 100%] used by the custom speed modifier (speed+ mods are 115, 125, 135, and 145)"
 valign = 1
 
-[node name="HitboxSize" type="Control" parent="M/Modifiers/Group/H"]
+[node name="SEPARATOR" type="HSeparator" parent="M/Modifiers/Group/H"]
 margin_top = 36.0
 margin_right = 200.0
-margin_bottom = 68.0
+margin_bottom = 46.0
+rect_min_size = Vector2( 0, 10 )
+custom_styles/separator = SubResource( 55 )
+
+[node name="HitboxSize" type="Control" parent="M/Modifiers/Group/H"]
+margin_top = 50.0
+margin_right = 200.0
+margin_bottom = 82.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="NoteHitboxSize" type="SpinBox" parent="M/Modifiers/Group/H/HitboxSize"]
@@ -374,9 +406,9 @@ text = "[def. 1.14] the size of note hitboxes in grid units (hit checking is don
 valign = 1
 
 [node name="HitWindow" type="Control" parent="M/Modifiers/Group/H"]
-margin_top = 72.0
+margin_top = 86.0
 margin_right = 200.0
-margin_bottom = 104.0
+margin_bottom = 118.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="HitWindow" type="SpinBox" parent="M/Modifiers/Group/H/HitWindow"]
@@ -419,10 +451,1357 @@ custom_fonts/font = SubResource( 4 )
 text = "[def. 55ms] the length of time notes can be hit after reaching the grid   [1.5x = 83; 2x = 110]"
 valign = 1
 
-[node name="Customization" type="VBoxContainer" parent="M"]
-margin_top = 140.0
+[node name="Notes" type="VBoxContainer" parent="M"]
+margin_top = 154.0
 margin_right = 1280.0
-margin_bottom = 960.0
+margin_bottom = 574.0
+script = ExtResource( 43 )
+
+[node name="Title" type="MarginContainer" parent="M/Notes"]
+margin_right = 1280.0
+margin_bottom = 32.0
+custom_constants/margin_left = 32
+
+[node name="C" type="CheckBox" parent="M/Notes/Title"]
+margin_left = 32.0
+margin_right = 1280.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 0, 32 )
+custom_colors/font_color_disabled = Color( 1, 1, 1, 1 )
+custom_colors/font_color_focus = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover_pressed = Color( 1, 1, 1, 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
+custom_colors/font_color_pressed = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 5 )
+custom_icons/checked = ExtResource( 42 )
+custom_icons/unchecked = ExtResource( 41 )
+text = "Notes"
+flat = true
+
+[node name="Group" type="MarginContainer" parent="M/Notes"]
+margin_top = 36.0
+margin_right = 1280.0
+margin_bottom = 420.0
+custom_constants/margin_left = 180
+
+[node name="H" type="GridContainer" parent="M/Notes/Group"]
+margin_left = 180.0
+margin_right = 1280.0
+margin_bottom = 384.0
+
+[node name="ColorSet2" type="VBoxContainer" parent="M/Notes/Group/H"]
+margin_right = 1100.0
+margin_bottom = 72.0
+rect_min_size = Vector2( 200, 72 )
+size_flags_horizontal = 3
+size_flags_vertical = 9
+
+[node name="Control" type="Control" parent="M/Notes/Group/H/ColorSet2"]
+margin_right = 1100.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 0, 32 )
+
+[node name="Label" type="Label" parent="M/Notes/Group/H/ColorSet2/Control"]
+margin_left = -115.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Note Colors"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="ColorSet" type="GridContainer" parent="M/Notes/Group/H/ColorSet2"]
+margin_top = 36.0
+margin_right = 1100.0
+margin_bottom = 36.0
+rect_pivot_offset = Vector2( -180, -271 )
+custom_constants/vseparation = 42
+custom_constants/hseparation = 4
+columns = 8
+script = ExtResource( 29 )
+
+[node name="Color" type="Panel" parent="M/Notes/Group/H/ColorSet2/ColorSet"]
+visible = false
+margin_right = 96.0
+margin_bottom = 96.0
+rect_min_size = Vector2( 96, 96 )
+custom_styles/panel = SubResource( 33 )
+
+[node name="TextureRect" type="TextureRect" parent="M/Notes/Group/H/ColorSet2/ColorSet/Color"]
+modulate = Color( 0.501961, 0.501961, 0.501961, 1 )
+show_behind_parent = true
+material = SubResource( 43 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 3.0
+margin_right = -3.0
+margin_bottom = -3.0
+texture = ExtResource( 26 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Select" type="Button" parent="M/Notes/Group/H/ColorSet2/ColorSet/Color"]
+material = SubResource( 44 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+hint_tooltip = "color set"
+custom_styles/hover = SubResource( 36 )
+custom_styles/pressed = SubResource( 37 )
+custom_styles/focus = SubResource( 38 )
+custom_styles/disabled = SubResource( 37 )
+custom_styles/normal = SubResource( 40 )
+action_mode = 0
+group = SubResource( 45 )
+
+[node name="Colors" type="GridContainer" parent="M/Notes/Group/H/ColorSet2/ColorSet/Color"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -4.0
+mouse_filter = 2
+custom_constants/vseparation = 1
+custom_constants/hseparation = 1
+columns = 4
+
+[node name="T" type="ColorRect" parent="M/Notes/Group/H/ColorSet2/ColorSet/Color/Colors"]
+visible = false
+margin_right = 21.0
+margin_bottom = 86.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Name" type="Label" parent="M/Notes/Group/H/ColorSet2/ColorSet/Color"]
+anchor_right = 1.0
+margin_top = -36.0
+margin_bottom = -2.0
+custom_constants/line_spacing = 0
+custom_fonts/font = SubResource( 46 )
+text = "Everybody Votes Channel"
+align = 1
+valign = 2
+autowrap = true
+clip_text = true
+
+[node name="Mirror" type="Label" parent="M/Notes/Group/H/ColorSet2/ColorSet/Color"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -7.0
+margin_bottom = -6.0
+custom_constants/line_spacing = 0
+custom_fonts/font = SubResource( 47 )
+text = "M"
+align = 2
+valign = 2
+autowrap = true
+clip_text = true
+
+[node name="Mesh" type="Control" parent="M/Notes/Group/H"]
+margin_top = 76.0
+margin_right = 1100.0
+margin_bottom = 108.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="Mesh" type="MenuButton" parent="M/Notes/Group/H/Mesh"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+text = "mesh name here"
+flat = false
+align = 0
+script = ExtResource( 16 )
+
+[node name="Label" type="Label" parent="M/Notes/Group/H/Mesh/Mesh"]
+margin_left = -149.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Note Mesh"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="Desc" type="Label" parent="M/Notes/Group/H/Mesh/Mesh"]
+margin_left = 215.0
+margin_right = 562.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 4 )
+text = "model used by notes"
+valign = 1
+
+[node name="NoteScale" type="Control" parent="M/Notes/Group/H"]
+margin_top = 112.0
+margin_right = 1100.0
+margin_bottom = 144.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="NoteScale" type="SpinBox" parent="M/Notes/Group/H/NoteScale"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+rect_pivot_offset = Vector2( 286, -344 )
+focus_mode = 2
+theme = ExtResource( 1 )
+step = 0.001
+value = 1.0
+allow_greater = true
+allow_lesser = true
+suffix = "x"
+script = ExtResource( 44 )
+
+[node name="Label" type="Label" parent="M/Notes/Group/H/NoteScale/NoteScale"]
+margin_left = -115.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Note Scale"
+align = 2
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Desc" type="Label" parent="M/Notes/Group/H/NoteScale/NoteScale"]
+margin_left = 215.0
+margin_right = 562.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 4 )
+text = "[def. 1] the visual size of the notes (doesn't affect hitboxes)"
+valign = 1
+
+[node name="NoteSpin" type="Control" parent="M/Notes/Group/H"]
+margin_top = 148.0
+margin_right = 1100.0
+margin_bottom = 180.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="NoteSpinX" type="SpinBox" parent="M/Notes/Group/H/NoteSpin"]
+margin_left = 65.0
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 135, 32 )
+rect_pivot_offset = Vector2( 286, -344 )
+focus_mode = 2
+theme = ExtResource( 1 )
+max_value = 360.0
+allow_greater = true
+allow_lesser = true
+suffix = "°/sec"
+script = ExtResource( 61 )
+
+[node name="Label" type="Label" parent="M/Notes/Group/H/NoteSpin/NoteSpinX"]
+margin_left = -201.0
+margin_right = -75.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Note Spin"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="Label2" type="Label" parent="M/Notes/Group/H/NoteSpin/NoteSpinX"]
+margin_left = -58.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Pitch"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="NoteSpinY" type="SpinBox" parent="M/Notes/Group/H/NoteSpin"]
+margin_left = 255.0
+margin_right = 390.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 135, 32 )
+rect_pivot_offset = Vector2( 286, -344 )
+focus_mode = 2
+theme = ExtResource( 1 )
+max_value = 360.0
+allow_greater = true
+allow_lesser = true
+suffix = "°/sec"
+script = ExtResource( 61 )
+
+[node name="Label" type="Label" parent="M/Notes/Group/H/NoteSpin/NoteSpinY"]
+margin_left = -44.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Yaw"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="NoteSpinZ" type="SpinBox" parent="M/Notes/Group/H/NoteSpin"]
+margin_left = 445.0
+margin_right = 570.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 135, 32 )
+rect_pivot_offset = Vector2( 286, -344 )
+focus_mode = 2
+theme = ExtResource( 1 )
+max_value = 360.0
+allow_greater = true
+allow_lesser = true
+suffix = "°/sec"
+script = ExtResource( 61 )
+
+[node name="Label" type="Label" parent="M/Notes/Group/H/NoteSpin/NoteSpinZ"]
+margin_left = -48.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Roll"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="Desc" type="Label" parent="M/Notes/Group/H/NoteSpin/NoteSpinZ"]
+margin_left = 140.0
+margin_right = 487.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 4 )
+text = "[def. (0,0,0)] note rotation speed (visual only)"
+valign = 1
+
+[node name="NoteOpacity" type="Control" parent="M/Notes/Group/H"]
+margin_top = 184.0
+margin_right = 1100.0
+margin_bottom = 216.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="NoteOpacity" type="SpinBox" parent="M/Notes/Group/H/NoteOpacity"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+rect_pivot_offset = Vector2( 286, -344 )
+focus_mode = 2
+theme = ExtResource( 1 )
+value = 100.0
+allow_greater = true
+allow_lesser = true
+suffix = "%"
+script = ExtResource( 63 )
+
+[node name="Label" type="Label" parent="M/Notes/Group/H/NoteOpacity/NoteOpacity"]
+margin_left = -115.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Note Opacity"
+align = 2
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Desc" type="Label" parent="M/Notes/Group/H/NoteOpacity/NoteOpacity"]
+margin_left = 215.0
+margin_right = 562.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 4 )
+text = "[def. 100%] how opaque/transparent/visible the note appears"
+valign = 1
+
+[node name="SEPARATOR2" type="HSeparator" parent="M/Notes/Group/H"]
+margin_top = 220.0
+margin_right = 1100.0
+margin_bottom = 230.0
+rect_min_size = Vector2( 0, 10 )
+custom_styles/separator = SubResource( 55 )
+
+[node name="ApproachRate" type="Control" parent="M/Notes/Group/H"]
+margin_top = 234.0
+margin_right = 1100.0
+margin_bottom = 266.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="ApproachRate" type="SpinBox" parent="M/Notes/Group/H/ApproachRate"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+rect_pivot_offset = Vector2( 286, -344 )
+focus_mode = 2
+theme = ExtResource( 1 )
+min_value = -500.0
+max_value = 500.0
+step = 0.1
+value = 40.0
+allow_greater = true
+allow_lesser = true
+suffix = "m/s"
+script = ExtResource( 24 )
+
+[node name="Label" type="Label" parent="M/Notes/Group/H/ApproachRate/ApproachRate"]
+margin_left = -115.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Approach Rate"
+align = 2
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Desc" type="Label" parent="M/Notes/Group/H/ApproachRate/ApproachRate"]
+margin_left = 215.0
+margin_right = 562.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 4 )
+text = "[def. 40] the speed that notes move towards the grid. (note: this will be half of your AR in ss/vulnus)"
+valign = 1
+
+[node name="SpawnDist" type="Control" parent="M/Notes/Group/H"]
+margin_top = 270.0
+margin_right = 1100.0
+margin_bottom = 302.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="SpawnDist" type="SpinBox" parent="M/Notes/Group/H/SpawnDist"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+rect_pivot_offset = Vector2( 286, -380 )
+focus_mode = 2
+theme = ExtResource( 1 )
+min_value = 2.0
+max_value = 1000.0
+step = 0.01
+value = 40.0
+allow_greater = true
+suffix = "m"
+script = ExtResource( 30 )
+
+[node name="Label" type="Label" parent="M/Notes/Group/H/SpawnDist/SpawnDist"]
+margin_left = -146.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Spawn Distance"
+align = 2
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Desc" type="Label" parent="M/Notes/Group/H/SpawnDist/SpawnDist"]
+margin_left = 215.0
+margin_right = 562.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 4 )
+text = "[def. 40] distance from the grid that notes spawn (approach time = SD/AR)"
+valign = 1
+
+[node name="FadeLength" type="Control" parent="M/Notes/Group/H"]
+margin_top = 306.0
+margin_right = 1100.0
+margin_bottom = 338.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="FadeLength" type="SpinBox" parent="M/Notes/Group/H/FadeLength"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+rect_pivot_offset = Vector2( 286, -416 )
+focus_mode = 2
+theme = ExtResource( 1 )
+step = 0.01
+value = 50.0
+suffix = "%"
+script = ExtResource( 37 )
+
+[node name="Label" type="Label" parent="M/Notes/Group/H/FadeLength/FadeLength"]
+margin_left = -149.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Fade Length"
+align = 2
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Desc" type="Label" parent="M/Notes/Group/H/FadeLength/FadeLength"]
+margin_left = 215.0
+margin_right = 562.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 4 )
+text = "[def. 50%] percentage of the spawn distance that notes take to fade from invisible to fully opaque"
+valign = 1
+
+[node name="SEPARATOR" type="HSeparator" parent="M/Notes/Group/H"]
+margin_top = 342.0
+margin_right = 1100.0
+margin_bottom = 352.0
+rect_min_size = Vector2( 0, 10 )
+custom_styles/separator = SubResource( 55 )
+
+[node name="NoteSpawnEffect" type="CheckBox" parent="M/Notes/Group/H"]
+margin_top = 356.0
+margin_right = 1100.0
+margin_bottom = 384.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_fonts/font = SubResource( 4 )
+pressed = true
+action_mode = 0
+text = "alright, fine. no distractions for you."
+flat = true
+script = ExtResource( 54 )
+target = "note_spawn_effect"
+
+[node name="Label" type="Label" parent="M/Notes/Group/H/NoteSpawnEffect"]
+anchor_bottom = 1.0
+margin_left = -173.0
+margin_right = -10.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Note Spawn Effect"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="Camera" type="VBoxContainer" parent="M"]
+margin_top = 574.0
+margin_right = 1280.0
+margin_bottom = 1230.0
+script = ExtResource( 43 )
+
+[node name="Title" type="MarginContainer" parent="M/Camera"]
+margin_right = 1280.0
+margin_bottom = 32.0
+custom_constants/margin_left = 32
+
+[node name="C" type="CheckBox" parent="M/Camera/Title"]
+margin_left = 32.0
+margin_right = 1280.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 0, 32 )
+custom_colors/font_color_disabled = Color( 1, 1, 1, 1 )
+custom_colors/font_color_focus = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover_pressed = Color( 1, 1, 1, 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
+custom_colors/font_color_pressed = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 5 )
+custom_icons/checked = ExtResource( 42 )
+custom_icons/unchecked = ExtResource( 41 )
+text = "Camera & Controls"
+flat = true
+
+[node name="Group" type="MarginContainer" parent="M/Camera"]
+margin_top = 36.0
+margin_right = 1280.0
+margin_bottom = 656.0
+custom_constants/margin_left = 180
+
+[node name="H" type="GridContainer" parent="M/Camera/Group"]
+margin_left = 180.0
+margin_right = 1280.0
+margin_bottom = 620.0
+
+[node name="Sensitivity" type="Control" parent="M/Camera/Group/H"]
+margin_right = 483.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="Sensitivity" type="SpinBox" parent="M/Camera/Group/H/Sensitivity"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+rect_pivot_offset = Vector2( 286, -176 )
+focus_mode = 2
+theme = ExtResource( 1 )
+step = 0.01
+value = 1.0
+allow_greater = true
+allow_lesser = true
+script = ExtResource( 22 )
+
+[node name="Label" type="Label" parent="M/Camera/Group/H/Sensitivity/Sensitivity"]
+margin_left = -115.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Sensitivity"
+align = 2
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Desc" type="Label" parent="M/Camera/Group/H/Sensitivity/Sensitivity"]
+margin_left = 215.0
+margin_right = 562.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 4 )
+text = "[def. 1] changes how much the cursor/camera move with mouse/touch input"
+valign = 1
+
+[node name="LockMouse" type="CheckBox" parent="M/Camera/Group/H"]
+margin_top = 36.0
+margin_right = 483.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_fonts/font = SubResource( 4 )
+pressed = true
+action_mode = 0
+text = "turning this off will unlock the mouse while playing - useful for tablets"
+flat = true
+script = ExtResource( 54 )
+target = "lock_mouse"
+
+[node name="Label" type="Label" parent="M/Camera/Group/H/LockMouse"]
+anchor_bottom = 1.0
+margin_left = -150.0
+margin_right = -10.0
+grow_horizontal = 0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Lock Mouse"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="SEPARATOR4" type="HSeparator" parent="M/Camera/Group/H"]
+margin_top = 68.0
+margin_right = 483.0
+margin_bottom = 78.0
+rect_min_size = Vector2( 0, 10 )
+custom_styles/separator = SubResource( 55 )
+
+[node name="Presets" type="Control" parent="M/Camera/Group/H"]
+margin_top = 82.0
+margin_right = 483.0
+margin_bottom = 122.0
+rect_min_size = Vector2( 200, 40 )
+
+[node name="Presets" type="MenuButton" parent="M/Camera/Group/H/Presets"]
+margin_left = -10.0
+margin_right = 194.0
+margin_bottom = 32.0
+rect_pivot_offset = Vector2( -604, -160 )
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+text = "Camera Mode Presets"
+flat = false
+script = ExtResource( 19 )
+
+[node name="Label" type="Label" parent="M/Camera/Group/H/Presets/Presets"]
+visible = false
+margin_left = -142.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Presets"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="Parallax" type="Control" parent="M/Camera/Group/H"]
+margin_top = 126.0
+margin_right = 483.0
+margin_bottom = 158.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="Parallax" type="SpinBox" parent="M/Camera/Group/H/Parallax"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+rect_pivot_offset = Vector2( 286, -36 )
+focus_mode = 2
+theme = ExtResource( 1 )
+step = 0.01
+value = 1.0
+allow_greater = true
+allow_lesser = true
+script = ExtResource( 28 )
+
+[node name="Label" type="Label" parent="M/Camera/Group/H/Parallax/Parallax"]
+margin_left = -134.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Camera Parallax"
+align = 2
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Desc" type="Label" parent="M/Camera/Group/H/Parallax/Parallax"]
+margin_left = 215.0
+margin_right = 562.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 4 )
+text = "how much the camera moves with the cursor - affects everything"
+valign = 1
+
+[node name="SEPARATOR" type="HSeparator" parent="M/Camera/Group/H"]
+margin_top = 162.0
+margin_right = 483.0
+margin_bottom = 172.0
+rect_min_size = Vector2( 0, 10 )
+custom_styles/separator = SubResource( 55 )
+
+[node name="UIParallax" type="Control" parent="M/Camera/Group/H"]
+margin_top = 176.0
+margin_right = 483.0
+margin_bottom = 208.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="UIParallax" type="SpinBox" parent="M/Camera/Group/H/UIParallax"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+rect_pivot_offset = Vector2( 286, -72 )
+focus_mode = 2
+theme = ExtResource( 1 )
+step = 0.01
+value = 1.0
+allow_greater = true
+allow_lesser = true
+script = ExtResource( 33 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="M/Camera/Group/H/UIParallax/UIParallax"]
+margin_left = -115.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "HUD Parallax"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="Desc" type="Label" parent="M/Camera/Group/H/UIParallax/UIParallax"]
+margin_left = 215.0
+margin_right = 562.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 4 )
+text = "how much the hud moves with the cursor - added on top of camera parallax"
+valign = 1
+
+[node name="GridParallax" type="Control" parent="M/Camera/Group/H"]
+margin_top = 212.0
+margin_right = 483.0
+margin_bottom = 244.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="GridParallax" type="SpinBox" parent="M/Camera/Group/H/GridParallax"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+rect_pivot_offset = Vector2( 286, -108 )
+focus_mode = 2
+theme = ExtResource( 1 )
+step = 0.01
+value = 1.0
+allow_greater = true
+allow_lesser = true
+script = ExtResource( 34 )
+
+[node name="Label" type="Label" parent="M/Camera/Group/H/GridParallax/GridParallax"]
+margin_left = -115.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Grid Parallax"
+align = 2
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Desc" type="Label" parent="M/Camera/Group/H/GridParallax/GridParallax"]
+margin_left = 215.0
+margin_right = 562.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 4 )
+text = "how much the note grid moves with the cursor - added on top of camera parallax"
+valign = 1
+
+[node name="SEPARATOR2" type="HSeparator" parent="M/Camera/Group/H"]
+margin_top = 248.0
+margin_right = 483.0
+margin_bottom = 258.0
+rect_min_size = Vector2( 0, 10 )
+custom_styles/separator = SubResource( 55 )
+
+[node name="Spin" type="CheckBox" parent="M/Camera/Group/H"]
+margin_top = 262.0
+margin_right = 483.0
+margin_bottom = 290.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_fonts/font = SubResource( 4 )
+action_mode = 0
+text = "enables camera rotation - aka \"spin\""
+flat = true
+script = ExtResource( 54 )
+target = "cam_unlock"
+
+[node name="Label" type="Label" parent="M/Camera/Group/H/Spin"]
+anchor_bottom = 1.0
+margin_left = -150.0
+margin_right = -10.0
+grow_horizontal = 0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Camera Unlock"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="FarawayHud" type="CheckBox" parent="M/Camera/Group/H"]
+margin_top = 294.0
+margin_right = 483.0
+margin_bottom = 322.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_fonts/font = SubResource( 4 )
+action_mode = 0
+text = "moves the HUD back by 10 grid units (20 studs) and makes it larger"
+flat = true
+script = ExtResource( 54 )
+target = "faraway_hud"
+
+[node name="Label" type="Label" parent="M/Camera/Group/H/FarawayHud"]
+anchor_bottom = 1.0
+margin_left = -150.0
+margin_right = -10.0
+grow_horizontal = 0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Faraway Hud"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="EdgeBuffer" type="Control" parent="M/Camera/Group/H"]
+margin_top = 326.0
+margin_right = 483.0
+margin_bottom = 358.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="EdgeBuffer" type="SpinBox" parent="M/Camera/Group/H/EdgeBuffer"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+rect_pivot_offset = Vector2( 286, -212 )
+focus_mode = 2
+theme = ExtResource( 1 )
+min_value = -1.5
+step = 0.01
+allow_greater = true
+script = ExtResource( 12 )
+
+[node name="Label" type="Label" parent="M/Camera/Group/H/EdgeBuffer/EdgeBuffer"]
+margin_left = -146.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Edge Buffer (Drift)"
+align = 2
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Desc" type="Label" parent="M/Camera/Group/H/EdgeBuffer/EdgeBuffer"]
+margin_left = 215.0
+margin_right = 838.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 4 )
+text = "[def. 0] aka cursor drift; makes the cursor \"stick\" to the edges by letting it move slightly past the edges"
+valign = 1
+
+[node name="BufferCursor" type="CheckBox" parent="M/Camera/Group/H"]
+margin_top = 362.0
+margin_right = 483.0
+margin_bottom = 390.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_fonts/font = SubResource( 4 )
+pressed = true
+action_mode = 0
+text = "shows a mini cursor at the \"real\" position when you enter the edge buffer"
+flat = true
+script = ExtResource( 54 )
+target = "enable_drift_cursor"
+
+[node name="Label" type="Label" parent="M/Camera/Group/H/BufferCursor"]
+anchor_bottom = 1.0
+margin_left = -150.0
+margin_right = -10.0
+grow_horizontal = 0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Buffer Cursor"
+align = 2
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BufferParallax" type="CheckBox" parent="M/Camera/Group/H"]
+margin_top = 394.0
+margin_right = 483.0
+margin_bottom = 422.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_fonts/font = SubResource( 4 )
+pressed = true
+action_mode = 0
+text = "makes the parallax follow the buffer cursor instead of the real one"
+flat = true
+script = ExtResource( 54 )
+target = "follow_drift_cursor"
+
+[node name="Label" type="Label" parent="M/Camera/Group/H/BufferParallax"]
+anchor_bottom = 1.0
+margin_left = -150.0
+margin_right = -10.0
+grow_horizontal = 0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Follow Buffer Cursor"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="SEPARATOR3" type="HSeparator" parent="M/Camera/Group/H"]
+margin_top = 426.0
+margin_right = 483.0
+margin_bottom = 436.0
+rect_min_size = Vector2( 0, 10 )
+custom_styles/separator = SubResource( 55 )
+
+[node name="FOV" type="Control" parent="M/Camera/Group/H"]
+margin_top = 440.0
+margin_right = 483.0
+margin_bottom = 472.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="FOV" type="SpinBox" parent="M/Camera/Group/H/FOV"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+rect_pivot_offset = Vector2( 286, -108 )
+focus_mode = 2
+theme = ExtResource( 1 )
+step = 0.01
+value = 70.0
+allow_greater = true
+allow_lesser = true
+script = ExtResource( 39 )
+
+[node name="Label" type="Label" parent="M/Camera/Group/H/FOV/FOV"]
+margin_left = -115.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Field of View"
+align = 2
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Desc" type="Label" parent="M/Camera/Group/H/FOV/FOV"]
+margin_left = 215.0
+margin_right = 562.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 4 )
+text = "[def. 70] you know what this does"
+valign = 1
+
+[node name="HitFOV" type="CheckBox" parent="M/Camera/Group/H"]
+margin_top = 476.0
+margin_right = 483.0
+margin_bottom = 504.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_fonts/font = SubResource( 4 )
+action_mode = 0
+text = "enables a FOV (Field of View) pulse when you hit a note"
+flat = true
+script = ExtResource( 54 )
+target = "hit_fov"
+
+[node name="Label" type="Label" parent="M/Camera/Group/H/HitFOV"]
+anchor_bottom = 1.0
+margin_left = -150.0
+margin_right = -10.0
+grow_horizontal = 0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Hit FOV"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="HitFOVMode" type="Control" parent="M/Camera/Group/H"]
+margin_top = 508.0
+margin_right = 483.0
+margin_bottom = 548.0
+rect_min_size = Vector2( 200, 40 )
+
+[node name="Presets" type="MenuButton" parent="M/Camera/Group/H/HitFOVMode"]
+margin_left = -10.0
+margin_right = 194.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+text = "Hit FOV Modes"
+flat = false
+script = ExtResource( 57 )
+
+[node name="Label" type="Label" parent="M/Camera/Group/H/HitFOVMode/Presets"]
+visible = false
+margin_left = -142.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Modes"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="Desc" type="Label" parent="M/Camera/Group/H/HitFOVMode/Presets"]
+margin_left = 215.0
+margin_right = 562.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 4 )
+text = "Mode: Additive"
+valign = 1
+
+[node name="HitFOVAmplifier" type="SpinBox" parent="M/Camera/Group/H"]
+margin_top = 552.0
+margin_right = 200.0
+margin_bottom = 584.0
+rect_min_size = Vector2( 200, 32 )
+rect_pivot_offset = Vector2( 286, -108 )
+focus_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource( 1 )
+step = 0.01
+value = 2.0
+allow_greater = true
+allow_lesser = true
+script = ExtResource( 47 )
+
+[node name="Label" type="Label" parent="M/Camera/Group/H/HitFOVAmplifier"]
+margin_left = -142.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Hit FOV Amplifier"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="Desc" type="Label" parent="M/Camera/Group/H/HitFOVAmplifier"]
+margin_left = 215.0
+margin_right = 562.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 4 )
+text = "[def. 2] how intense is the hit FOV pulsing is"
+valign = 1
+
+[node name="HitFOVDecay" type="SpinBox" parent="M/Camera/Group/H"]
+margin_top = 588.0
+margin_right = 200.0
+margin_bottom = 620.0
+rect_min_size = Vector2( 200, 32 )
+rect_pivot_offset = Vector2( 286, -108 )
+focus_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource( 1 )
+step = 0.01
+value = 20.0
+allow_greater = true
+allow_lesser = true
+script = ExtResource( 49 )
+
+[node name="Label" type="Label" parent="M/Camera/Group/H/HitFOVDecay"]
+margin_left = -119.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Hit FOV Decay"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="Desc" type="Label" parent="M/Camera/Group/H/HitFOVDecay"]
+margin_left = 215.0
+margin_right = 584.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 4 )
+text = "[def. 20] how long it takes for hit FOV pulsing to wear-off"
+valign = 1
+
+[node name="CursorFaceVelocity" type="CheckBox" parent="M/Camera/Group/H"]
+visible = false
+margin_top = 244.0
+margin_right = 471.0
+margin_bottom = 272.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 4 )
+pressed = true
+action_mode = 0
+text = "points your cursor in the direction of your mouse movement"
+flat = true
+script = ExtResource( 54 )
+target = "cursor_face_velocity"
+
+[node name="Label" type="Label" parent="M/Camera/Group/H/CursorFaceVelocity"]
+anchor_bottom = 1.0
+margin_left = -165.0
+margin_right = -10.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Cursor Face Velocity"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="Customization" type="VBoxContainer" parent="M"]
+margin_top = 1230.0
+margin_right = 1280.0
+margin_bottom = 2122.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Customization"]
@@ -450,371 +1829,25 @@ flat = true
 [node name="Group" type="MarginContainer" parent="M/Customization"]
 margin_top = 36.0
 margin_right = 1280.0
-margin_bottom = 820.0
+margin_bottom = 892.0
 custom_constants/margin_left = 180
 custom_constants/margin_bottom = 12
 
 [node name="H" type="GridContainer" parent="M/Customization/Group"]
 margin_left = 180.0
 margin_right = 1280.0
-margin_bottom = 772.0
+margin_bottom = 844.0
 
-[node name="ColorSet" type="Control" parent="M/Customization/Group/H"]
-visible = false
-margin_right = 1100.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 200, 32 )
-
-[node name="ColorSet" type="MenuButton" parent="M/Customization/Group/H/ColorSet"]
-margin_right = 200.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 200, 32 )
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
-custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
-text = "colorset name here"
-flat = false
-align = 0
-script = ExtResource( 15 )
-
-[node name="Colors" type="GridContainer" parent="M/Customization/Group/H/ColorSet/ColorSet"]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = 10.0
-margin_right = 360.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 350, 0 )
-columns = 32
-
-[node name="0" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
-visible = false
-margin_right = 30.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 30, 30 )
-
-[node name="1" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
-visible = false
-margin_right = 30.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 30, 30 )
-
-[node name="2" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
-visible = false
-margin_right = 30.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 30, 30 )
-
-[node name="3" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
-visible = false
-margin_right = 30.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 30, 30 )
-
-[node name="4" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
-visible = false
-margin_right = 30.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 30, 30 )
-
-[node name="5" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
-visible = false
-margin_right = 30.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 30, 30 )
-
-[node name="6" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
-visible = false
-margin_right = 30.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 30, 30 )
-
-[node name="7" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
-visible = false
-margin_right = 30.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 30, 30 )
-
-[node name="8" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
-visible = false
-margin_right = 30.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 30, 30 )
-
-[node name="9" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
-visible = false
-margin_right = 30.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 30, 30 )
-
-[node name="10" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
-visible = false
-margin_right = 30.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 30, 30 )
-
-[node name="11" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
-visible = false
-margin_right = 30.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 30, 30 )
-
-[node name="12" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
-visible = false
-margin_right = 30.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 30, 30 )
-
-[node name="13" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
-visible = false
-margin_right = 30.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 30, 30 )
-
-[node name="14" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
-visible = false
-margin_right = 30.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 30, 30 )
-
-[node name="15" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
-visible = false
-margin_right = 30.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 30, 30 )
-
-[node name="16" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
-visible = false
-margin_right = 30.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 30, 30 )
-
-[node name="17" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
-visible = false
-margin_right = 30.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 30, 30 )
-
-[node name="18" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
-visible = false
-margin_right = 30.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 30, 30 )
-
-[node name="19" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
-visible = false
-margin_right = 30.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 30, 30 )
-
-[node name="20" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
-visible = false
-margin_right = 30.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 30, 30 )
-
-[node name="21" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
-visible = false
-margin_right = 30.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 30, 30 )
-
-[node name="22" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
-visible = false
-margin_right = 30.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 30, 30 )
-
-[node name="23" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
-visible = false
-margin_right = 30.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 30, 30 )
-
-[node name="24" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
-visible = false
-margin_right = 30.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 30, 30 )
-
-[node name="25" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
-visible = false
-margin_right = 30.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 30, 30 )
-
-[node name="26" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
-visible = false
-margin_right = 30.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 30, 30 )
-
-[node name="27" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
-visible = false
-margin_right = 30.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 30, 30 )
-
-[node name="28" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
-visible = false
-margin_right = 30.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 30, 30 )
-
-[node name="29" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
-visible = false
-margin_right = 30.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 30, 30 )
-
-[node name="30" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
-visible = false
-margin_right = 30.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 30, 30 )
-
-[node name="31" type="ColorRect" parent="M/Customization/Group/H/ColorSet/ColorSet/Colors"]
-visible = false
-margin_right = 30.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 30, 30 )
-
-[node name="Label" type="Label" parent="M/Customization/Group/H/ColorSet/ColorSet"]
-margin_left = -115.0
-margin_right = -10.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Note Colors"
-align = 2
-valign = 1
-clip_text = true
-
-[node name="ColorSet2" type="VBoxContainer" parent="M/Customization/Group/H"]
-margin_right = 1100.0
-margin_bottom = 72.0
-rect_min_size = Vector2( 200, 72 )
-size_flags_horizontal = 3
-size_flags_vertical = 9
-
-[node name="Control" type="Control" parent="M/Customization/Group/H/ColorSet2"]
-margin_right = 1100.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 0, 32 )
-
-[node name="Label" type="Label" parent="M/Customization/Group/H/ColorSet2/Control"]
-margin_left = -115.0
-margin_right = -10.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Note Colors"
-align = 2
-valign = 1
-clip_text = true
-
-[node name="ColorSet" type="GridContainer" parent="M/Customization/Group/H/ColorSet2"]
-margin_top = 36.0
-margin_right = 1100.0
-margin_bottom = 36.0
-rect_pivot_offset = Vector2( -180, -271 )
-custom_constants/vseparation = 42
-custom_constants/hseparation = 4
-columns = 8
-script = ExtResource( 29 )
-
-[node name="Color" type="Panel" parent="M/Customization/Group/H/ColorSet2/ColorSet"]
-visible = false
-margin_right = 96.0
-margin_bottom = 96.0
-rect_min_size = Vector2( 96, 96 )
-custom_styles/panel = SubResource( 33 )
-
-[node name="TextureRect" type="TextureRect" parent="M/Customization/Group/H/ColorSet2/ColorSet/Color"]
-modulate = Color( 0.501961, 0.501961, 0.501961, 1 )
-show_behind_parent = true
-material = SubResource( 43 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.0
-margin_top = 3.0
-margin_right = -3.0
-margin_bottom = -3.0
-texture = ExtResource( 26 )
-expand = true
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="Select" type="Button" parent="M/Customization/Group/H/ColorSet2/ColorSet/Color"]
-material = SubResource( 44 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-hint_tooltip = "color set"
-custom_styles/hover = SubResource( 36 )
-custom_styles/pressed = SubResource( 37 )
-custom_styles/focus = SubResource( 38 )
-custom_styles/disabled = SubResource( 37 )
-custom_styles/normal = SubResource( 40 )
-action_mode = 0
-group = SubResource( 45 )
-
-[node name="Colors" type="GridContainer" parent="M/Customization/Group/H/ColorSet2/ColorSet/Color"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -4.0
-mouse_filter = 2
-custom_constants/vseparation = 1
-custom_constants/hseparation = 1
-columns = 4
-
-[node name="T" type="ColorRect" parent="M/Customization/Group/H/ColorSet2/ColorSet/Color/Colors"]
-visible = false
-margin_right = 21.0
-margin_bottom = 86.0
-mouse_filter = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="Name" type="Label" parent="M/Customization/Group/H/ColorSet2/ColorSet/Color"]
-anchor_right = 1.0
-margin_top = -36.0
-margin_bottom = -2.0
-custom_constants/line_spacing = 0
-custom_fonts/font = SubResource( 46 )
-text = "Everybody Votes Channel"
-align = 1
-valign = 2
-autowrap = true
-clip_text = true
-
-[node name="Mirror" type="Label" parent="M/Customization/Group/H/ColorSet2/ColorSet/Color"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_right = -7.0
-margin_bottom = -6.0
-custom_constants/line_spacing = 0
-custom_fonts/font = SubResource( 47 )
-text = "M"
-align = 2
-valign = 2
-autowrap = true
-clip_text = true
+[node name="SEPARATOR" type="HSeparator" parent="M/Customization/Group/H"]
+margin_right = 670.0
+margin_bottom = 10.0
+rect_min_size = Vector2( 0, 10 )
+custom_styles/separator = SubResource( 55 )
 
 [node name="World" type="Control" parent="M/Customization/Group/H"]
-margin_top = 76.0
-margin_right = 1100.0
-margin_bottom = 108.0
+margin_top = 14.0
+margin_right = 670.0
+margin_bottom = 46.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="World" type="MenuButton" parent="M/Customization/Group/H/World"]
@@ -860,28 +1893,105 @@ custom_fonts/font = SubResource( 4 )
 text = "background and environment used in the song player"
 valign = 1
 
-[node name="Mesh" type="Control" parent="M/Customization/Group/H"]
-margin_top = 112.0
-margin_right = 1100.0
-margin_bottom = 144.0
+[node name="CustomBg" type="Control" parent="M/Customization/Group/H"]
+margin_top = 50.0
+margin_right = 670.0
+margin_bottom = 82.0
 rect_min_size = Vector2( 200, 32 )
 
-[node name="Mesh" type="MenuButton" parent="M/Customization/Group/H/Mesh"]
+[node name="CustomBg" type="Button" parent="M/Customization/Group/H/CustomBg"]
 margin_right = 200.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 200, 32 )
-focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
 custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
-text = "mesh name here"
-flat = false
-align = 0
-script = ExtResource( 16 )
+text = "Click to replace"
+script = ExtResource( 45 )
+target = "custombg"
+default_image = ExtResource( 48 )
 
-[node name="Label" type="Label" parent="M/Customization/Group/H/Mesh/Mesh"]
+[node name="Label" type="Label" parent="M/Customization/Group/H/CustomBg/CustomBg"]
+margin_left = -162.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Custom World BG"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="ImgPreview" type="TextureRect" parent="M/Customization/Group/H/CustomBg/CustomBg"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 5.0
+margin_right = 37.0
+margin_bottom = 32.0
+texture = ExtResource( 48 )
+expand = true
+stretch_mode = 1
+
+[node name="Desc" type="Label" parent="M/Customization/Group/H/CustomBg/CustomBg"]
+margin_left = 294.0
+margin_right = 657.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 4 )
+text = "this is the background for the \"Custom Background\" world"
+valign = 1
+
+[node name="Clear" type="Button" parent="M/Customization/Group/H/CustomBg/CustomBg"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 42.0
+margin_right = 74.0
+margin_bottom = 32.0
+theme = ExtResource( 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+disabled = true
+icon = ExtResource( 4 )
+expand_icon = true
+
+[node name="SEPARATOR2" type="HSeparator" parent="M/Customization/Group/H"]
+margin_top = 86.0
+margin_right = 670.0
+margin_bottom = 96.0
+rect_min_size = Vector2( 0, 10 )
+custom_styles/separator = SubResource( 55 )
+
+[node name="HitRipple" type="Control" parent="M/Customization/Group/H"]
+margin_top = 100.0
+margin_right = 670.0
+margin_bottom = 132.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="HitEffect" type="Button" parent="M/Customization/Group/H/HitRipple"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+rect_pivot_offset = Vector2( 115, 16 )
+theme = ExtResource( 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+text = "Click to replace"
+script = ExtResource( 45 )
+target = "hit"
+default_image = ExtResource( 13 )
+
+[node name="Label" type="Label" parent="M/Customization/Group/H/HitRipple/HitEffect"]
 margin_left = -149.0
 margin_right = -10.0
 margin_bottom = 32.0
@@ -889,27 +1999,52 @@ focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 3 )
-text = "Note Mesh"
+text = "Hit Effect Image"
 align = 2
 valign = 1
 clip_text = true
 
-[node name="Desc" type="Label" parent="M/Customization/Group/H/Mesh/Mesh"]
-margin_left = 215.0
-margin_right = 562.0
+[node name="ImgPreview" type="TextureRect" parent="M/Customization/Group/H/HitRipple/HitEffect"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 5.0
+margin_right = 37.0
+margin_bottom = 32.0
+texture = ExtResource( 13 )
+expand = true
+stretch_mode = 1
+
+[node name="Desc" type="Label" parent="M/Customization/Group/H/HitRipple/HitEffect"]
+margin_left = 294.0
+margin_right = 687.0
 margin_bottom = 32.0
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
 custom_fonts/font = SubResource( 4 )
-text = "model used by notes"
+text = "this image is used by hit effects with an asterisk (*) in their name"
 valign = 1
 
+[node name="Clear" type="Button" parent="M/Customization/Group/H/HitRipple/HitEffect"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 42.0
+margin_right = 74.0
+margin_bottom = 32.0
+theme = ExtResource( 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+disabled = true
+icon = ExtResource( 4 )
+expand_icon = true
+
 [node name="HitEffect" type="Control" parent="M/Customization/Group/H"]
-margin_top = 148.0
-margin_right = 1100.0
-margin_bottom = 180.0
+margin_top = 136.0
+margin_right = 670.0
+margin_bottom = 168.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="Effect" type="MenuButton" parent="M/Customization/Group/H/HitEffect"]
@@ -952,10 +2087,218 @@ custom_fonts/font = SubResource( 4 )
 text = "effect played when you hit a note"
 valign = 1
 
+[node name="ShowHitEffect" type="CheckBox" parent="M/Customization/Group/H"]
+margin_top = 172.0
+margin_right = 670.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_fonts/font = SubResource( 4 )
+pressed = true
+action_mode = 0
+text = "plays your selected hit effect when you hit a note"
+flat = true
+script = ExtResource( 54 )
+target = "show_hit_effect"
+
+[node name="Label" type="Label" parent="M/Customization/Group/H/ShowHitEffect"]
+anchor_bottom = 1.0
+margin_left = -165.0
+margin_right = -10.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Show Hit Effect"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="HitEffectCursor" type="CheckBox" parent="M/Customization/Group/H"]
+margin_top = 204.0
+margin_right = 670.0
+margin_bottom = 232.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_fonts/font = SubResource( 4 )
+pressed = true
+action_mode = 0
+text = "hit effects will appear at the center of notes when this is off"
+flat = true
+script = ExtResource( 54 )
+target = "hit_effect_at_cursor"
+
+[node name="Label" type="Label" parent="M/Customization/Group/H/HitEffectCursor"]
+anchor_bottom = 1.0
+margin_left = -165.0
+margin_right = -10.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Hit Effect at Cursor"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="ApproachSquares" type="CheckBox" parent="M/Customization/Group/H"]
+margin_top = 236.0
+margin_right = 670.0
+margin_bottom = 264.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_fonts/font = SubResource( 4 )
+action_mode = 0
+text = "squares on the grid that show note approach - similar to the circles in osu!"
+flat = true
+script = ExtResource( 54 )
+target = "note_visual_approach"
+
+[node name="Label" type="Label" parent="M/Customization/Group/H/ApproachSquares"]
+anchor_bottom = 1.0
+margin_left = -165.0
+margin_right = -10.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Approach Squares"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="ApproachFollow" type="CheckBox" parent="M/Customization/Group/H"]
+margin_top = 268.0
+margin_right = 670.0
+margin_bottom = 296.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_fonts/font = SubResource( 4 )
+action_mode = 0
+text = "makes it so the approach squares lock to the note"
+flat = true
+script = ExtResource( 54 )
+target = "visual_approach_follow"
+
+[node name="Label" type="Label" parent="M/Customization/Group/H/ApproachFollow"]
+anchor_bottom = 1.0
+margin_left = -165.0
+margin_right = -10.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Approach Follow"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="SEPARATOR4" type="HSeparator" parent="M/Customization/Group/H"]
+margin_top = 300.0
+margin_right = 670.0
+margin_bottom = 310.0
+rect_min_size = Vector2( 0, 10 )
+custom_styles/separator = SubResource( 55 )
+
+[node name="MissRipple" type="Control" parent="M/Customization/Group/H"]
+margin_top = 314.0
+margin_right = 670.0
+margin_bottom = 346.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="MissEffect" type="Button" parent="M/Customization/Group/H/MissRipple"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+rect_pivot_offset = Vector2( -432, 222 )
+theme = ExtResource( 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+text = "Click to replace"
+script = ExtResource( 45 )
+target = "miss"
+default_image = ExtResource( 13 )
+
+[node name="Label" type="Label" parent="M/Customization/Group/H/MissRipple/MissEffect"]
+margin_left = -149.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Miss Effect Image"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="ImgPreview" type="TextureRect" parent="M/Customization/Group/H/MissRipple/MissEffect"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 5.0
+margin_right = 37.0
+margin_bottom = 32.0
+texture = ExtResource( 13 )
+expand = true
+stretch_mode = 1
+
+[node name="Desc" type="Label" parent="M/Customization/Group/H/MissRipple/MissEffect"]
+margin_left = 294.0
+margin_right = 622.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 4 )
+text = "same as above, but applies to your miss effect instead"
+valign = 1
+
+[node name="Clear" type="Button" parent="M/Customization/Group/H/MissRipple/MissEffect"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 42.0
+margin_right = 74.0
+margin_bottom = 32.0
+theme = ExtResource( 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+disabled = true
+icon = ExtResource( 4 )
+expand_icon = true
+
 [node name="MissEffect" type="Control" parent="M/Customization/Group/H"]
-margin_top = 184.0
-margin_right = 1100.0
-margin_bottom = 216.0
+margin_top = 350.0
+margin_right = 670.0
+margin_bottom = 382.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="Effect" type="MenuButton" parent="M/Customization/Group/H/MissEffect"]
@@ -998,10 +2341,228 @@ custom_fonts/font = SubResource( 4 )
 text = "hit effect but when you don't"
 valign = 1
 
+[node name="ShowMissEffect" type="CheckBox" parent="M/Customization/Group/H"]
+margin_top = 386.0
+margin_right = 670.0
+margin_bottom = 414.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_fonts/font = SubResource( 4 )
+pressed = true
+action_mode = 0
+text = "replace \"hit\" with \"miss\" in the description of the setting above this one"
+flat = true
+script = ExtResource( 54 )
+target = "show_miss_effect"
+
+[node name="Label" type="Label" parent="M/Customization/Group/H/ShowMissEffect"]
+anchor_bottom = 1.0
+margin_left = -165.0
+margin_right = -10.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Show Miss Effect"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="SEPARATOR5" type="HSeparator" parent="M/Customization/Group/H"]
+margin_top = 418.0
+margin_right = 670.0
+margin_bottom = 428.0
+rect_min_size = Vector2( 0, 10 )
+custom_styles/separator = SubResource( 55 )
+
+[node name="CustomCursor" type="Control" parent="M/Customization/Group/H"]
+margin_top = 432.0
+margin_right = 670.0
+margin_bottom = 464.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="CustomCursor" type="Button" parent="M/Customization/Group/H/CustomCursor"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+rect_pivot_offset = Vector2( -432, 104 )
+theme = ExtResource( 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+text = "Click to replace"
+script = ExtResource( 45 )
+default_image = ExtResource( 15 )
+
+[node name="Label" type="Label" parent="M/Customization/Group/H/CustomCursor/CustomCursor"]
+margin_left = -149.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Cursor Image"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="Desc" type="Label" parent="M/Customization/Group/H/CustomCursor/CustomCursor"]
+margin_left = 294.0
+margin_right = 672.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 4 )
+text = "ah, the cursor. arguably the most important part of this game."
+valign = 1
+
+[node name="ImgPreview" type="TextureRect" parent="M/Customization/Group/H/CustomCursor/CustomCursor"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 5.0
+margin_right = 37.0
+margin_bottom = 32.0
+texture = ExtResource( 15 )
+expand = true
+stretch_mode = 1
+
+[node name="Button" type="Button" parent="M/Customization/Group/H/CustomCursor/CustomCursor"]
+visible = false
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 42.0
+margin_right = 74.0
+margin_bottom = 32.0
+
+[node name="TextureRect" type="TextureRect" parent="M/Customization/Group/H/CustomCursor/CustomCursor/Button"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 4
+
+[node name="Clear" type="Button" parent="M/Customization/Group/H/CustomCursor/CustomCursor"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 42.0
+margin_right = 74.0
+margin_bottom = 32.0
+theme = ExtResource( 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+disabled = true
+icon = ExtResource( 4 )
+expand_icon = true
+
+[node name="CursorColorType" type="Control" parent="M/Customization/Group/H"]
+margin_top = 468.0
+margin_right = 670.0
+margin_bottom = 500.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="Effect" type="MenuButton" parent="M/Customization/Group/H/CursorColorType"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+text = "will show selected option"
+flat = false
+align = 0
+script = ExtResource( 58 )
+options = [ "Single Color", "Rainbow", "Note Color" ]
+target = "cursor_color_type"
+
+[node name="Label" type="Label" parent="M/Customization/Group/H/CursorColorType/Effect"]
+margin_left = -149.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Color Mode"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="Desc" type="Label" parent="M/Customization/Group/H/CursorColorType/Effect"]
+margin_left = 215.0
+margin_right = 562.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 4 )
+text = "how the cursor will be colored"
+valign = 1
+
+[node name="cursor_color" type="Control" parent="M/Customization/Group/H"]
+margin_top = 504.0
+margin_right = 670.0
+margin_bottom = 536.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="Color" type="ColorPickerButton" parent="M/Customization/Group/H/cursor_color"]
+margin_right = 100.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 100, 32 )
+rect_pivot_offset = Vector2( 286, -36 )
+theme = ExtResource( 1 )
+custom_styles/hover = SubResource( 50 )
+custom_styles/pressed = SubResource( 51 )
+custom_styles/focus = SubResource( 52 )
+custom_styles/disabled = SubResource( 53 )
+custom_styles/normal = SubResource( 54 )
+script = ExtResource( 51 )
+target = "cursor_color"
+
+[node name="Label" type="Label" parent="M/Customization/Group/H/cursor_color/Color"]
+margin_left = -151.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Color"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="Desc" type="Label" parent="M/Customization/Group/H/cursor_color/Color"]
+margin_left = 115.0
+margin_right = 462.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 4 )
+text = "[def. #ffffff] color used for \"Single Color\""
+valign = 1
+
 [node name="CursorScale" type="Control" parent="M/Customization/Group/H"]
-margin_top = 220.0
-margin_right = 1100.0
-margin_bottom = 252.0
+margin_top = 540.0
+margin_right = 670.0
+margin_bottom = 572.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="CursorScale" type="SpinBox" parent="M/Customization/Group/H/CursorScale"]
@@ -1044,9 +2605,9 @@ text = "[def. 1] cursor size multiplier (doesn't affect hitboxes)"
 valign = 1
 
 [node name="CursorSpin" type="Control" parent="M/Customization/Group/H"]
-margin_top = 256.0
-margin_right = 1100.0
-margin_bottom = 288.0
+margin_top = 576.0
+margin_right = 670.0
+margin_bottom = 608.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="CursorSpin" type="SpinBox" parent="M/Customization/Group/H/CursorSpin"]
@@ -1092,541 +2653,17 @@ custom_fonts/font = SubResource( 4 )
 text = "[def. 0°] makes the cursor image rotate"
 valign = 1
 
-[node name="CustomCursor" type="Control" parent="M/Customization/Group/H"]
-margin_top = 292.0
-margin_right = 1100.0
-margin_bottom = 324.0
-rect_min_size = Vector2( 200, 32 )
-
-[node name="CustomCursor" type="Button" parent="M/Customization/Group/H/CustomCursor"]
-margin_right = 200.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 200, 32 )
-theme = ExtResource( 1 )
-custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
-custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
-text = "Click to replace"
-script = ExtResource( 45 )
-default_image = ExtResource( 44 )
-
-[node name="OpenFile" type="Node" parent="M/Customization/Group/H/CustomCursor/CustomCursor"]
-script = ExtResource( 46 )
-title = "Select file"
-initial_path = "~/Downloads"
-filters = PoolStringArray( "*.png, *.jpg, *.jpeg, *.webp, *.bmp ; Image files" )
-
-[node name="SaveFile" type="Node" parent="M/Customization/Group/H/CustomCursor/CustomCursor"]
-script = ExtResource( 7 )
-title = "Save file..."
-
-[node name="Label" type="Label" parent="M/Customization/Group/H/CustomCursor/CustomCursor"]
-margin_left = -149.0
-margin_right = -10.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Cursor Image"
-align = 2
-valign = 1
-clip_text = true
-
-[node name="Desc" type="Label" parent="M/Customization/Group/H/CustomCursor/CustomCursor"]
-margin_left = 257.0
-margin_right = 321.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "ah, the cursor. arguably the most important part of this game."
-valign = 1
-
-[node name="ImgPreview" type="TextureRect" parent="M/Customization/Group/H/CustomCursor/CustomCursor"]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = 5.0
-margin_right = 37.0
-margin_bottom = 32.0
-texture = ExtResource( 44 )
-expand = true
-stretch_mode = 1
-
-[node name="Button" type="Button" parent="M/Customization/Group/H/CustomCursor/CustomCursor"]
-visible = false
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = 42.0
-margin_right = 74.0
-margin_bottom = 32.0
-
-[node name="TextureRect" type="TextureRect" parent="M/Customization/Group/H/CustomCursor/CustomCursor/Button"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-texture = ExtResource( 4 )
-expand = true
-stretch_mode = 4
-
-[node name="TouchIndicator" type="Control" parent="M/Customization/Group/H"]
-margin_top = 328.0
-margin_right = 1100.0
-margin_bottom = 360.0
-rect_min_size = Vector2( 200, 32 )
-
-[node name="TouchIndicator" type="Button" parent="M/Customization/Group/H/TouchIndicator"]
-margin_right = 200.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 200, 32 )
-theme = ExtResource( 1 )
-custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
-custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
-text = "Click to replace"
-script = ExtResource( 45 )
-target = "touch"
-default_image = ExtResource( 44 )
-
-[node name="OpenFile" type="Node" parent="M/Customization/Group/H/TouchIndicator/TouchIndicator"]
-script = ExtResource( 46 )
-title = "Select file"
-initial_path = "~/Downloads"
-filters = PoolStringArray( "*.png, *.jpg, *.jpeg, *.webp, *.bmp ; Image files" )
-
-[node name="SaveFile" type="Node" parent="M/Customization/Group/H/TouchIndicator/TouchIndicator"]
-script = ExtResource( 7 )
-title = "Save file..."
-
-[node name="Label" type="Label" parent="M/Customization/Group/H/TouchIndicator/TouchIndicator"]
-margin_left = -149.0
-margin_right = -10.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Touch Indicator"
-align = 2
-valign = 1
-clip_text = true
-
-[node name="ImgPreview" type="TextureRect" parent="M/Customization/Group/H/TouchIndicator/TouchIndicator"]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = 5.0
-margin_right = 37.0
-margin_bottom = 32.0
-texture = ExtResource( 44 )
-expand = true
-stretch_mode = 1
-
-[node name="Desc" type="Label" parent="M/Customization/Group/H/TouchIndicator/TouchIndicator"]
-margin_left = 257.0
-margin_right = 321.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "this is the image that shows up under your finger on a touchscreen"
-valign = 1
-
-[node name="HitRipple" type="Control" parent="M/Customization/Group/H"]
-margin_top = 364.0
-margin_right = 1100.0
-margin_bottom = 396.0
-rect_min_size = Vector2( 200, 32 )
-
-[node name="HitEffect" type="Button" parent="M/Customization/Group/H/HitRipple"]
-margin_right = 200.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 200, 32 )
-theme = ExtResource( 1 )
-custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
-custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
-text = "Click to replace"
-script = ExtResource( 45 )
-target = "hit"
-default_image = ExtResource( 13 )
-
-[node name="OpenFile" type="Node" parent="M/Customization/Group/H/HitRipple/HitEffect"]
-script = ExtResource( 46 )
-title = "Select file"
-initial_path = "~/Downloads"
-filters = PoolStringArray( "*.png, *.jpg, *.jpeg, *.webp, *.bmp ; Image files" )
-
-[node name="SaveFile" type="Node" parent="M/Customization/Group/H/HitRipple/HitEffect"]
-script = ExtResource( 7 )
-title = "Save file..."
-
-[node name="Label" type="Label" parent="M/Customization/Group/H/HitRipple/HitEffect"]
-margin_left = -149.0
-margin_right = -10.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Hit Effect Image"
-align = 2
-valign = 1
-clip_text = true
-
-[node name="ImgPreview" type="TextureRect" parent="M/Customization/Group/H/HitRipple/HitEffect"]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = 5.0
-margin_right = 37.0
-margin_bottom = 32.0
-texture = ExtResource( 13 )
-expand = true
-stretch_mode = 1
-
-[node name="Desc" type="Label" parent="M/Customization/Group/H/HitRipple/HitEffect"]
-margin_left = 257.0
-margin_right = 321.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "this image is used by hit effects with an asterisk (*) in their name"
-valign = 1
-
-[node name="MissRipple" type="Control" parent="M/Customization/Group/H"]
-margin_top = 400.0
-margin_right = 1100.0
-margin_bottom = 432.0
-rect_min_size = Vector2( 200, 32 )
-
-[node name="MissEffect" type="Button" parent="M/Customization/Group/H/MissRipple"]
-margin_right = 200.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 200, 32 )
-theme = ExtResource( 1 )
-custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
-custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
-text = "Click to replace"
-script = ExtResource( 45 )
-target = "miss"
-default_image = ExtResource( 13 )
-
-[node name="OpenFile" type="Node" parent="M/Customization/Group/H/MissRipple/MissEffect"]
-script = ExtResource( 46 )
-title = "Select file"
-initial_path = "~/Downloads"
-filters = PoolStringArray( "*.png, *.jpg, *.jpeg, *.webp, *.bmp ; Image files" )
-
-[node name="SaveFile" type="Node" parent="M/Customization/Group/H/MissRipple/MissEffect"]
-script = ExtResource( 7 )
-title = "Save file..."
-
-[node name="Label" type="Label" parent="M/Customization/Group/H/MissRipple/MissEffect"]
-margin_left = -149.0
-margin_right = -10.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Miss Effect Image"
-align = 2
-valign = 1
-clip_text = true
-
-[node name="ImgPreview" type="TextureRect" parent="M/Customization/Group/H/MissRipple/MissEffect"]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = 5.0
-margin_right = 37.0
-margin_bottom = 32.0
-texture = ExtResource( 13 )
-expand = true
-stretch_mode = 1
-
-[node name="Desc" type="Label" parent="M/Customization/Group/H/MissRipple/MissEffect"]
-margin_left = 257.0
-margin_right = 321.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "same as above, but applies to your miss effect instead"
-valign = 1
-
-[node name="CustomBg" type="Control" parent="M/Customization/Group/H"]
-margin_top = 436.0
-margin_right = 1100.0
-margin_bottom = 468.0
-rect_min_size = Vector2( 200, 32 )
-
-[node name="CustomBg" type="Button" parent="M/Customization/Group/H/CustomBg"]
-margin_right = 200.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 200, 32 )
-theme = ExtResource( 1 )
-custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
-custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
-text = "Click to replace"
-script = ExtResource( 45 )
-target = "custombg"
-default_image = ExtResource( 48 )
-
-[node name="OpenFile" type="Node" parent="M/Customization/Group/H/CustomBg/CustomBg"]
-script = ExtResource( 46 )
-title = "Select file"
-initial_path = "~/Downloads"
-filters = PoolStringArray( "*.png, *.jpg, *.jpeg, *.webp, *.bmp ; Image files" )
-
-[node name="SaveFile" type="Node" parent="M/Customization/Group/H/CustomBg/CustomBg"]
-script = ExtResource( 7 )
-title = "Save file..."
-
-[node name="Label" type="Label" parent="M/Customization/Group/H/CustomBg/CustomBg"]
-margin_left = -162.0
-margin_right = -10.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Custom World BG"
-align = 2
-valign = 1
-clip_text = true
-
-[node name="ImgPreview" type="TextureRect" parent="M/Customization/Group/H/CustomBg/CustomBg"]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = 5.0
-margin_right = 37.0
-margin_bottom = 32.0
-texture = ExtResource( 48 )
-expand = true
-stretch_mode = 1
-
-[node name="Desc" type="Label" parent="M/Customization/Group/H/CustomBg/CustomBg"]
-margin_left = 257.0
-margin_right = 321.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "this is the background for the \"Custom Background\" world"
-valign = 1
-
-[node name="ShowHitEffect" type="CheckBox" parent="M/Customization/Group/H"]
-margin_top = 472.0
-margin_right = 1100.0
-margin_bottom = 500.0
-rect_min_size = Vector2( 0, 28 )
-theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_fonts/font = SubResource( 4 )
-pressed = true
-action_mode = 0
-text = "plays your selected hit effect when you hit a note"
-flat = true
-script = ExtResource( 54 )
-target = "show_hit_effect"
-
-[node name="Label" type="Label" parent="M/Customization/Group/H/ShowHitEffect"]
-anchor_bottom = 1.0
-margin_left = -165.0
-margin_right = -10.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Hit Effect"
-align = 2
-valign = 1
-clip_text = true
-
-[node name="ShowMissEffect" type="CheckBox" parent="M/Customization/Group/H"]
-margin_top = 504.0
-margin_right = 1100.0
-margin_bottom = 532.0
-rect_min_size = Vector2( 0, 28 )
-theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_fonts/font = SubResource( 4 )
-pressed = true
-action_mode = 0
-text = "replace \"hit\" with \"miss\" in the description of the setting above this one"
-flat = true
-script = ExtResource( 54 )
-target = "show_miss_effect"
-
-[node name="Label" type="Label" parent="M/Customization/Group/H/ShowMissEffect"]
-anchor_bottom = 1.0
-margin_left = -165.0
-margin_right = -10.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Miss Effect"
-align = 2
-valign = 1
-clip_text = true
-
-[node name="HitEffectCursor" type="CheckBox" parent="M/Customization/Group/H"]
-margin_top = 536.0
-margin_right = 1100.0
-margin_bottom = 564.0
-rect_min_size = Vector2( 0, 28 )
-theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_fonts/font = SubResource( 4 )
-pressed = true
-action_mode = 0
-text = "hit effects will appear at the center of notes when this is off"
-flat = true
-script = ExtResource( 54 )
-target = "hit_effect_at_cursor"
-
-[node name="Label" type="Label" parent="M/Customization/Group/H/HitEffectCursor"]
-anchor_bottom = 1.0
-margin_left = -165.0
-margin_right = -10.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Hit Effect at Cursor"
-align = 2
-valign = 1
-clip_text = true
-
-[node name="CursorColorType" type="Control" parent="M/Customization/Group/H"]
-margin_top = 568.0
-margin_right = 1100.0
-margin_bottom = 600.0
-rect_min_size = Vector2( 200, 32 )
-
-[node name="Effect" type="MenuButton" parent="M/Customization/Group/H/CursorColorType"]
-margin_right = 200.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 200, 32 )
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
-custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
-text = "will show selected option"
-flat = false
-align = 0
-script = ExtResource( 58 )
-options = [ "Single Color", "Rainbow", "Note Color" ]
-target = "cursor_color_type"
-
-[node name="Label" type="Label" parent="M/Customization/Group/H/CursorColorType/Effect"]
-margin_left = -149.0
-margin_right = -10.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Cursor Color"
-align = 2
-valign = 1
-clip_text = true
-
-[node name="Desc" type="Label" parent="M/Customization/Group/H/CursorColorType/Effect"]
-margin_left = 215.0
-margin_right = 562.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "how the cursor will be colored"
-valign = 1
-
-[node name="cursor_color" type="Control" parent="M/Customization/Group/H"]
-margin_top = 604.0
-margin_right = 1100.0
-margin_bottom = 636.0
-rect_min_size = Vector2( 200, 32 )
-
-[node name="Color" type="ColorPickerButton" parent="M/Customization/Group/H/cursor_color"]
-margin_right = 100.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 100, 32 )
-rect_pivot_offset = Vector2( 286, -36 )
-theme = ExtResource( 1 )
-custom_styles/hover = SubResource( 50 )
-custom_styles/pressed = SubResource( 51 )
-custom_styles/focus = SubResource( 52 )
-custom_styles/disabled = SubResource( 53 )
-custom_styles/normal = SubResource( 54 )
-script = ExtResource( 51 )
-target = "cursor_color"
-
-[node name="Label" type="Label" parent="M/Customization/Group/H/cursor_color/Color"]
-margin_left = -151.0
-margin_right = -10.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Color"
-align = 2
-valign = 1
-clip_text = true
-
-[node name="Desc" type="Label" parent="M/Customization/Group/H/cursor_color/Color"]
-margin_left = 115.0
-margin_right = 462.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[def. #ffffff] color used for \"Single Color\""
-valign = 1
+[node name="SEPARATOR7" type="HSeparator" parent="M/Customization/Group/H"]
+margin_top = 612.0
+margin_right = 670.0
+margin_bottom = 622.0
+rect_min_size = Vector2( 0, 10 )
+custom_styles/separator = SubResource( 55 )
 
 [node name="CursorTrail" type="CheckBox" parent="M/Customization/Group/H"]
-margin_top = 640.0
-margin_right = 1100.0
-margin_bottom = 668.0
+margin_top = 626.0
+margin_right = 670.0
+margin_bottom = 654.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
@@ -1656,9 +2693,9 @@ valign = 1
 clip_text = true
 
 [node name="SmartTrail" type="CheckBox" parent="M/Customization/Group/H"]
-margin_top = 672.0
-margin_right = 1100.0
-margin_bottom = 700.0
+margin_top = 658.0
+margin_right = 670.0
+margin_bottom = 686.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
@@ -1687,10 +2724,56 @@ align = 2
 valign = 1
 clip_text = true
 
+[node name="CursorTrailMode" type="Control" parent="M/Customization/Group/H"]
+margin_top = 690.0
+margin_right = 670.0
+margin_bottom = 722.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="Effect" type="MenuButton" parent="M/Customization/Group/H/CursorTrailMode"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+text = "Unknown"
+flat = false
+align = 0
+script = ExtResource( 62 )
+
+[node name="Label" type="Label" parent="M/Customization/Group/H/CursorTrailMode/Effect"]
+margin_left = -149.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Trail Fade Mode"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="Desc" type="Label" parent="M/Customization/Group/H/CursorTrailMode/Effect"]
+margin_left = 215.0
+margin_right = 562.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 4 )
+text = "how the trail will fade out"
+valign = 1
+
 [node name="TrailDetail" type="Control" parent="M/Customization/Group/H"]
-margin_top = 704.0
-margin_right = 1100.0
-margin_bottom = 736.0
+margin_top = 726.0
+margin_right = 670.0
+margin_bottom = 758.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="TrailDetail" type="SpinBox" parent="M/Customization/Group/H/TrailDetail"]
@@ -1735,9 +2818,9 @@ text = "[def. 10] number of particles in the cursor trail / (smart trail) number
 valign = 1
 
 [node name="TrailTime" type="Control" parent="M/Customization/Group/H"]
-margin_top = 740.0
-margin_right = 1100.0
-margin_bottom = 772.0
+margin_top = 762.0
+margin_right = 670.0
+margin_bottom = 794.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="TrailTime" type="SpinBox" parent="M/Customization/Group/H/TrailTime"]
@@ -1782,10 +2865,88 @@ custom_fonts/font = SubResource( 4 )
 text = "[def. 0.15] how long the cursor trail lasts in seconds"
 valign = 1
 
+[node name="SEPARATOR3" type="HSeparator" parent="M/Customization/Group/H"]
+margin_top = 798.0
+margin_right = 670.0
+margin_bottom = 808.0
+rect_min_size = Vector2( 0, 10 )
+custom_styles/separator = SubResource( 55 )
+
+[node name="TouchIndicator" type="Control" parent="M/Customization/Group/H"]
+margin_top = 812.0
+margin_right = 670.0
+margin_bottom = 844.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="TouchIndicator" type="Button" parent="M/Customization/Group/H/TouchIndicator"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+rect_pivot_offset = Vector2( 89, 16 )
+theme = ExtResource( 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+text = "Click to replace"
+script = ExtResource( 45 )
+target = "touch"
+default_image = ExtResource( 15 )
+
+[node name="Label" type="Label" parent="M/Customization/Group/H/TouchIndicator/TouchIndicator"]
+margin_left = -149.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Touch Indicator"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="ImgPreview" type="TextureRect" parent="M/Customization/Group/H/TouchIndicator/TouchIndicator"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 5.0
+margin_right = 37.0
+margin_bottom = 32.0
+texture = ExtResource( 15 )
+expand = true
+stretch_mode = 1
+
+[node name="Desc" type="Label" parent="M/Customization/Group/H/TouchIndicator/TouchIndicator"]
+margin_left = 294.0
+margin_right = 703.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 4 )
+text = "this is the image that shows up under your finger on a touchscreen"
+valign = 1
+
+[node name="Clear" type="Button" parent="M/Customization/Group/H/TouchIndicator/TouchIndicator"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 42.0
+margin_right = 74.0
+margin_bottom = 32.0
+theme = ExtResource( 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+disabled = true
+icon = ExtResource( 4 )
+expand_icon = true
+
 [node name="Audio" type="VBoxContainer" parent="M"]
-margin_top = 960.0
+margin_top = 2122.0
 margin_right = 1280.0
-margin_bottom = 1224.0
+margin_bottom = 2594.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Audio"]
@@ -1813,17 +2974,478 @@ flat = true
 [node name="Group" type="MarginContainer" parent="M/Audio"]
 margin_top = 36.0
 margin_right = 1280.0
-margin_bottom = 264.0
+margin_bottom = 472.0
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="M/Audio/Group"]
 margin_left = 180.0
 margin_right = 1280.0
-margin_bottom = 228.0
+margin_bottom = 436.0
+
+[node name="Master" type="Control" parent="M/Audio/Group/H"]
+margin_right = 552.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+script = ExtResource( 8 )
+target_bus = "Master"
+
+[node name="percent" type="SpinBox" parent="M/Audio/Group/H/Master"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+rect_pivot_offset = Vector2( 286, 160 )
+focus_mode = 2
+theme = ExtResource( 1 )
+step = 0.01
+allow_greater = true
+suffix = "%"
+
+[node name="Label" type="Label" parent="M/Audio/Group/H/Master/percent"]
+margin_left = -146.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Master Volume"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="db" type="SpinBox" parent="M/Audio/Group/H/Master"]
+margin_left = 215.0
+margin_right = 340.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 125, 32 )
+rect_pivot_offset = Vector2( 286, 160 )
+focus_mode = 2
+theme = ExtResource( 1 )
+min_value = -80.0
+max_value = 300.0
+step = 0.01
+suffix = "dB"
+
+[node name="Desc" type="Label" parent="M/Audio/Group/H/Master/db"]
+margin_left = 140.0
+margin_right = 487.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 4 )
+text = "overall volume"
+valign = 1
+
+[node name="Music" type="Control" parent="M/Audio/Group/H"]
+margin_top = 36.0
+margin_right = 552.0
+margin_bottom = 68.0
+rect_min_size = Vector2( 200, 32 )
+script = ExtResource( 8 )
+target_bus = "Music"
+
+[node name="percent" type="SpinBox" parent="M/Audio/Group/H/Music"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+rect_pivot_offset = Vector2( 286, 160 )
+focus_mode = 2
+theme = ExtResource( 1 )
+step = 0.01
+allow_greater = true
+suffix = "%"
+
+[node name="Label" type="Label" parent="M/Audio/Group/H/Music/percent"]
+margin_left = -146.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Music Volume"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="db" type="SpinBox" parent="M/Audio/Group/H/Music"]
+margin_left = 215.0
+margin_right = 340.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 125, 32 )
+rect_pivot_offset = Vector2( 286, 160 )
+focus_mode = 2
+theme = ExtResource( 1 )
+min_value = -80.0
+max_value = 300.0
+step = 0.01
+suffix = "dB"
+
+[node name="Desc" type="Label" parent="M/Audio/Group/H/Music/db"]
+margin_left = 140.0
+margin_right = 487.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 4 )
+text = "music volume"
+valign = 1
+
+[node name="HitSound2" type="Control" parent="M/Audio/Group/H"]
+margin_top = 72.0
+margin_right = 552.0
+margin_bottom = 104.0
+rect_min_size = Vector2( 200, 32 )
+script = ExtResource( 8 )
+target_bus = "HitSound"
+
+[node name="percent" type="SpinBox" parent="M/Audio/Group/H/HitSound2"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+rect_pivot_offset = Vector2( 286, 160 )
+focus_mode = 2
+theme = ExtResource( 1 )
+step = 0.01
+allow_greater = true
+suffix = "%"
+
+[node name="Label" type="Label" parent="M/Audio/Group/H/HitSound2/percent"]
+margin_left = -146.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Hit Volume"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="db" type="SpinBox" parent="M/Audio/Group/H/HitSound2"]
+margin_left = 215.0
+margin_right = 340.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 125, 32 )
+rect_pivot_offset = Vector2( 286, 160 )
+focus_mode = 2
+theme = ExtResource( 1 )
+min_value = -80.0
+max_value = 300.0
+step = 0.01
+suffix = "dB"
+
+[node name="Desc" type="Label" parent="M/Audio/Group/H/HitSound2/db"]
+margin_left = 140.0
+margin_right = 487.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 4 )
+text = "hit sound volume"
+valign = 1
+
+[node name="MissSound2" type="Control" parent="M/Audio/Group/H"]
+margin_top = 108.0
+margin_right = 552.0
+margin_bottom = 140.0
+rect_min_size = Vector2( 200, 32 )
+script = ExtResource( 8 )
+target_bus = "MissSound"
+
+[node name="percent" type="SpinBox" parent="M/Audio/Group/H/MissSound2"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+rect_pivot_offset = Vector2( 286, 160 )
+focus_mode = 2
+theme = ExtResource( 1 )
+step = 0.01
+allow_greater = true
+suffix = "%"
+
+[node name="Label" type="Label" parent="M/Audio/Group/H/MissSound2/percent"]
+margin_left = -146.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Miss Volume"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="db" type="SpinBox" parent="M/Audio/Group/H/MissSound2"]
+margin_left = 215.0
+margin_right = 340.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 125, 32 )
+rect_pivot_offset = Vector2( 286, 160 )
+focus_mode = 2
+theme = ExtResource( 1 )
+min_value = -80.0
+max_value = 300.0
+step = 0.01
+suffix = "dB"
+
+[node name="Desc" type="Label" parent="M/Audio/Group/H/MissSound2/db"]
+margin_left = 140.0
+margin_right = 487.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 4 )
+text = "miss sound volume"
+valign = 1
+
+[node name="FailSound" type="Control" parent="M/Audio/Group/H"]
+margin_top = 144.0
+margin_right = 552.0
+margin_bottom = 176.0
+rect_min_size = Vector2( 200, 32 )
+script = ExtResource( 8 )
+target_bus = "FailSound"
+
+[node name="percent" type="SpinBox" parent="M/Audio/Group/H/FailSound"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+rect_pivot_offset = Vector2( 286, 160 )
+focus_mode = 2
+theme = ExtResource( 1 )
+step = 0.01
+allow_greater = true
+suffix = "%"
+
+[node name="Label" type="Label" parent="M/Audio/Group/H/FailSound/percent"]
+margin_left = -146.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Fail Volume"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="db" type="SpinBox" parent="M/Audio/Group/H/FailSound"]
+margin_left = 215.0
+margin_right = 340.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 125, 32 )
+rect_pivot_offset = Vector2( 286, 160 )
+focus_mode = 2
+theme = ExtResource( 1 )
+min_value = -80.0
+max_value = 300.0
+step = 0.01
+suffix = "dB"
+
+[node name="Desc" type="Label" parent="M/Audio/Group/H/FailSound/db"]
+margin_left = 140.0
+margin_right = 487.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 4 )
+text = "fail sound volume"
+valign = 1
+
+[node name="PBSound" type="Control" parent="M/Audio/Group/H"]
+margin_top = 180.0
+margin_right = 552.0
+margin_bottom = 212.0
+rect_min_size = Vector2( 200, 32 )
+script = ExtResource( 8 )
+target_bus = "PBSound"
+
+[node name="percent" type="SpinBox" parent="M/Audio/Group/H/PBSound"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+rect_pivot_offset = Vector2( 286, 160 )
+focus_mode = 2
+theme = ExtResource( 1 )
+step = 0.01
+allow_greater = true
+suffix = "%"
+
+[node name="Label" type="Label" parent="M/Audio/Group/H/PBSound/percent"]
+margin_left = -146.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "PB Volume"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="db" type="SpinBox" parent="M/Audio/Group/H/PBSound"]
+margin_left = 215.0
+margin_right = 340.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 125, 32 )
+rect_pivot_offset = Vector2( 286, 160 )
+focus_mode = 2
+theme = ExtResource( 1 )
+min_value = -80.0
+max_value = 300.0
+step = 0.01
+suffix = "dB"
+
+[node name="Desc" type="Label" parent="M/Audio/Group/H/PBSound/db"]
+margin_left = 140.0
+margin_right = 487.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 4 )
+text = "new best sound volume"
+valign = 1
+
+[node name="SEPARATOR2" type="HSeparator" parent="M/Audio/Group/H"]
+margin_top = 216.0
+margin_right = 552.0
+margin_bottom = 226.0
+rect_min_size = Vector2( 0, 10 )
+custom_styles/separator = SubResource( 55 )
+
+[node name="HitSound" type="CheckBox" parent="M/Audio/Group/H"]
+margin_top = 230.0
+margin_right = 552.0
+margin_bottom = 258.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_fonts/font = SubResource( 4 )
+pressed = true
+action_mode = 0
+text = "customize this with a \"hit.mp3\" file in your save directory"
+flat = true
+script = ExtResource( 54 )
+target = "play_hit_snd"
+
+[node name="Label" type="Label" parent="M/Audio/Group/H/HitSound"]
+anchor_bottom = 1.0
+margin_left = -115.0
+margin_right = -10.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Hit Sound"
+align = 2
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MissSound" type="CheckBox" parent="M/Audio/Group/H"]
+margin_top = 262.0
+margin_right = 552.0
+margin_bottom = 290.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_fonts/font = SubResource( 4 )
+pressed = true
+action_mode = 0
+text = "customize this with a \"miss.mp3\" file in your save directory"
+flat = true
+script = ExtResource( 54 )
+target = "play_miss_snd"
+
+[node name="Label" type="Label" parent="M/Audio/Group/H/MissSound"]
+anchor_bottom = 1.0
+margin_left = -115.0
+margin_right = -10.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Miss Sound"
+align = 2
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SFX2d" type="CheckBox" parent="M/Audio/Group/H"]
+margin_top = 294.0
+margin_right = 552.0
+margin_bottom = 322.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_fonts/font = SubResource( 4 )
+pressed = true
+action_mode = 0
+text = "makes the hit/miss sounds non-directional"
+flat = true
+script = ExtResource( 54 )
+target = "sfx_2d"
+
+[node name="Label" type="Label" parent="M/Audio/Group/H/SFX2d"]
+anchor_bottom = 1.0
+margin_left = -173.0
+margin_right = -10.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Disable Directional"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="SEPARATOR" type="HSeparator" parent="M/Audio/Group/H"]
+margin_top = 326.0
+margin_right = 552.0
+margin_bottom = 336.0
+rect_min_size = Vector2( 0, 10 )
+custom_styles/separator = SubResource( 55 )
 
 [node name="MusicOffset" type="Control" parent="M/Audio/Group/H"]
-margin_right = 540.0
-margin_bottom = 32.0
+margin_top = 340.0
+margin_right = 552.0
+margin_bottom = 372.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="MusicOffset" type="SpinBox" parent="M/Audio/Group/H/MusicOffset"]
@@ -1865,54 +3487,10 @@ custom_fonts/font = SubResource( 4 )
 text = "[def. 0 ms] offsets the music from the actual map (positive = music starts later)"
 valign = 1
 
-[node name="MusicVolume2" type="Control" parent="M/Audio/Group/H"]
-margin_top = 36.0
-margin_right = 540.0
-margin_bottom = 68.0
-rect_min_size = Vector2( 200, 32 )
-
-[node name="MusicVolume" type="SpinBox" parent="M/Audio/Group/H/MusicVolume2"]
-margin_right = 200.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 200, 32 )
-rect_pivot_offset = Vector2( 286, 160 )
-focus_mode = 2
-theme = ExtResource( 1 )
-min_value = -80.0
-max_value = 300.0
-step = 0.01
-suffix = "dB"
-script = ExtResource( 8 )
-
-[node name="Label" type="Label" parent="M/Audio/Group/H/MusicVolume2/MusicVolume"]
-margin_left = -146.0
-margin_right = -10.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Music Volume"
-align = 2
-valign = 1
-clip_text = true
-
-[node name="Desc" type="Label" parent="M/Audio/Group/H/MusicVolume2/MusicVolume"]
-margin_left = 215.0
-margin_right = 562.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[def. 0 dB] music volume in dB. (0 dB = 100%, 6 dB ≈ 200%) - see wikipedia for more info"
-valign = 1
-
 [node name="MenuMusic" type="CheckBox" parent="M/Audio/Group/H"]
-margin_top = 72.0
-margin_right = 540.0
-margin_bottom = 100.0
+margin_top = 376.0
+margin_right = 552.0
+margin_bottom = 404.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
@@ -1945,9 +3523,9 @@ __meta__ = {
 }
 
 [node name="AutoPreview" type="CheckBox" parent="M/Audio/Group/H"]
-margin_top = 104.0
-margin_right = 540.0
-margin_bottom = 132.0
+margin_top = 408.0
+margin_right = 552.0
+margin_bottom = 436.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
@@ -1980,1018 +3558,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HitSound" type="CheckBox" parent="M/Audio/Group/H"]
-margin_top = 136.0
-margin_right = 540.0
-margin_bottom = 164.0
-rect_min_size = Vector2( 0, 28 )
-theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_fonts/font = SubResource( 4 )
-pressed = true
-action_mode = 0
-text = "customize this with a \"hit.mp3\" file in your save directory"
-flat = true
-script = ExtResource( 54 )
-target = "play_hit_snd"
-
-[node name="Label" type="Label" parent="M/Audio/Group/H/HitSound"]
-anchor_bottom = 1.0
-margin_left = -115.0
-margin_right = -10.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Hit Sound"
-align = 2
-valign = 1
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="MissSound" type="CheckBox" parent="M/Audio/Group/H"]
-margin_top = 168.0
-margin_right = 540.0
-margin_bottom = 196.0
-rect_min_size = Vector2( 0, 28 )
-theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_fonts/font = SubResource( 4 )
-pressed = true
-action_mode = 0
-text = "customize this with a \"miss.mp3\" file in your save directory"
-flat = true
-script = ExtResource( 54 )
-target = "play_miss_snd"
-
-[node name="Label" type="Label" parent="M/Audio/Group/H/MissSound"]
-anchor_bottom = 1.0
-margin_left = -115.0
-margin_right = -10.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Miss Sound"
-align = 2
-valign = 1
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="SFX2d" type="CheckBox" parent="M/Audio/Group/H"]
-margin_top = 200.0
-margin_right = 540.0
-margin_bottom = 228.0
-rect_min_size = Vector2( 0, 28 )
-theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_fonts/font = SubResource( 4 )
-pressed = true
-action_mode = 0
-text = "makes the hit/miss sounds non-directional"
-flat = true
-script = ExtResource( 54 )
-target = "sfx_2d"
-
-[node name="Label" type="Label" parent="M/Audio/Group/H/SFX2d"]
-anchor_bottom = 1.0
-margin_left = -173.0
-margin_right = -10.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Disable Directional"
-align = 2
-valign = 1
-clip_text = true
-
-[node name="Camera" type="VBoxContainer" parent="M"]
-margin_top = 1224.0
-margin_right = 1280.0
-margin_bottom = 1792.0
-script = ExtResource( 43 )
-
-[node name="Title" type="MarginContainer" parent="M/Camera"]
-margin_right = 1280.0
-margin_bottom = 32.0
-custom_constants/margin_left = 32
-
-[node name="C" type="CheckBox" parent="M/Camera/Title"]
-margin_left = 32.0
-margin_right = 1280.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 0, 32 )
-custom_colors/font_color_disabled = Color( 1, 1, 1, 1 )
-custom_colors/font_color_focus = Color( 1, 1, 1, 1 )
-custom_colors/font_color_hover_pressed = Color( 1, 1, 1, 1 )
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
-custom_colors/font_color_pressed = Color( 1, 1, 1, 1 )
-custom_fonts/font = SubResource( 5 )
-custom_icons/checked = ExtResource( 42 )
-custom_icons/unchecked = ExtResource( 41 )
-text = "Camera & Controls"
-flat = true
-
-[node name="Group" type="MarginContainer" parent="M/Camera"]
-margin_top = 36.0
-margin_right = 1280.0
-margin_bottom = 568.0
-custom_constants/margin_left = 180
-
-[node name="H" type="GridContainer" parent="M/Camera/Group"]
-margin_left = 180.0
-margin_right = 1280.0
-margin_bottom = 532.0
-
-[node name="Presets" type="Control" parent="M/Camera/Group/H"]
-margin_right = 608.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 200, 40 )
-
-[node name="Presets" type="MenuButton" parent="M/Camera/Group/H/Presets"]
-margin_left = -10.0
-margin_right = 194.0
-margin_bottom = 32.0
-rect_pivot_offset = Vector2( -604, -160 )
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
-custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
-text = "Camera Mode Presets"
-flat = false
-script = ExtResource( 19 )
-
-[node name="Label" type="Label" parent="M/Camera/Group/H/Presets/Presets"]
-visible = false
-margin_left = -142.0
-margin_right = -10.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Presets"
-align = 2
-valign = 1
-clip_text = true
-
-[node name="Parallax" type="Control" parent="M/Camera/Group/H"]
-margin_top = 44.0
-margin_right = 608.0
-margin_bottom = 76.0
-rect_min_size = Vector2( 200, 32 )
-
-[node name="Parallax" type="SpinBox" parent="M/Camera/Group/H/Parallax"]
-margin_right = 200.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 200, 32 )
-rect_pivot_offset = Vector2( 286, -36 )
-focus_mode = 2
-theme = ExtResource( 1 )
-step = 0.01
-value = 1.0
-allow_greater = true
-allow_lesser = true
-script = ExtResource( 28 )
-
-[node name="Label" type="Label" parent="M/Camera/Group/H/Parallax/Parallax"]
-margin_left = -134.0
-margin_right = -10.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Camera Parallax"
-align = 2
-valign = 1
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Desc" type="Label" parent="M/Camera/Group/H/Parallax/Parallax"]
-margin_left = 215.0
-margin_right = 562.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[def. 6.5] how much the camera moves with the cursor - affects everything"
-valign = 1
-
-[node name="UIParallax" type="Control" parent="M/Camera/Group/H"]
-margin_top = 80.0
-margin_right = 608.0
-margin_bottom = 112.0
-rect_min_size = Vector2( 200, 32 )
-
-[node name="UIParallax" type="SpinBox" parent="M/Camera/Group/H/UIParallax"]
-margin_right = 200.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 200, 32 )
-rect_pivot_offset = Vector2( 286, -72 )
-focus_mode = 2
-theme = ExtResource( 1 )
-step = 0.01
-value = 1.0
-allow_greater = true
-allow_lesser = true
-script = ExtResource( 33 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="M/Camera/Group/H/UIParallax/UIParallax"]
-margin_left = -115.0
-margin_right = -10.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "HUD Parallax"
-align = 2
-valign = 1
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Desc" type="Label" parent="M/Camera/Group/H/UIParallax/UIParallax"]
-margin_left = 215.0
-margin_right = 562.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[def. 3.25] how much the hud moves with the cursor - added on top of camera parallax"
-valign = 1
-
-[node name="GridParallax" type="Control" parent="M/Camera/Group/H"]
-margin_top = 116.0
-margin_right = 608.0
-margin_bottom = 148.0
-rect_min_size = Vector2( 200, 32 )
-
-[node name="GridParallax" type="SpinBox" parent="M/Camera/Group/H/GridParallax"]
-margin_right = 200.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 200, 32 )
-rect_pivot_offset = Vector2( 286, -108 )
-focus_mode = 2
-theme = ExtResource( 1 )
-step = 0.01
-value = 1.0
-allow_greater = true
-allow_lesser = true
-script = ExtResource( 34 )
-
-[node name="Label" type="Label" parent="M/Camera/Group/H/GridParallax/GridParallax"]
-margin_left = -115.0
-margin_right = -10.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Grid Parallax"
-align = 2
-valign = 1
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Desc" type="Label" parent="M/Camera/Group/H/GridParallax/GridParallax"]
-margin_left = 215.0
-margin_right = 562.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[def. 0] how much the note grid moves with the cursor - added on top of camera parallax"
-valign = 1
-
-[node name="FOV" type="Control" parent="M/Camera/Group/H"]
-margin_top = 152.0
-margin_right = 608.0
-margin_bottom = 184.0
-rect_min_size = Vector2( 200, 32 )
-
-[node name="FOV" type="SpinBox" parent="M/Camera/Group/H/FOV"]
-margin_right = 200.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 200, 32 )
-rect_pivot_offset = Vector2( 286, -108 )
-focus_mode = 2
-theme = ExtResource( 1 )
-step = 0.01
-value = 70.0
-allow_greater = true
-allow_lesser = true
-script = ExtResource( 39 )
-
-[node name="Label" type="Label" parent="M/Camera/Group/H/FOV/FOV"]
-margin_left = -115.0
-margin_right = -10.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Field of View"
-align = 2
-valign = 1
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Desc" type="Label" parent="M/Camera/Group/H/FOV/FOV"]
-margin_left = 215.0
-margin_right = 562.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[def. 70] you know what this does"
-valign = 1
-
-[node name="HitFOV" type="CheckBox" parent="M/Camera/Group/H"]
-margin_top = 188.0
-margin_right = 608.0
-margin_bottom = 216.0
-rect_min_size = Vector2( 0, 28 )
-theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_fonts/font = SubResource( 4 )
-action_mode = 0
-text = "enables a FOV (Field of View) pulse when you hit a note"
-flat = true
-script = ExtResource( 54 )
-target = "hit_fov"
-
-[node name="Label" type="Label" parent="M/Camera/Group/H/HitFOV"]
-anchor_bottom = 1.0
-margin_left = -150.0
-margin_right = -10.0
-grow_horizontal = 0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Hit FOV"
-align = 2
-valign = 1
-clip_text = true
-
-[node name="HitFOVMode" type="Control" parent="M/Camera/Group/H"]
-margin_top = 220.0
-margin_right = 608.0
-margin_bottom = 260.0
-rect_min_size = Vector2( 200, 40 )
-
-[node name="Presets" type="MenuButton" parent="M/Camera/Group/H/HitFOVMode"]
-margin_left = -10.0
-margin_right = 194.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
-custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
-text = "Hit FOV Modes"
-flat = false
-script = ExtResource( 57 )
-
-[node name="Label" type="Label" parent="M/Camera/Group/H/HitFOVMode/Presets"]
-visible = false
-margin_left = -142.0
-margin_right = -10.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Modes"
-align = 2
-valign = 1
-clip_text = true
-
-[node name="Desc" type="Label" parent="M/Camera/Group/H/HitFOVMode/Presets"]
-margin_left = 215.0
-margin_right = 562.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "Mode: Additive"
-valign = 1
-
-[node name="HitFOVAmplifier" type="SpinBox" parent="M/Camera/Group/H"]
-margin_top = 264.0
-margin_right = 200.0
-margin_bottom = 296.0
-rect_min_size = Vector2( 200, 32 )
-rect_pivot_offset = Vector2( 286, -108 )
-focus_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-theme = ExtResource( 1 )
-step = 0.01
-value = 2.0
-allow_greater = true
-allow_lesser = true
-script = ExtResource( 47 )
-
-[node name="Label" type="Label" parent="M/Camera/Group/H/HitFOVAmplifier"]
-margin_left = -142.0
-margin_right = -10.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Hit FOV Amplifier"
-align = 2
-valign = 1
-clip_text = true
-
-[node name="Desc" type="Label" parent="M/Camera/Group/H/HitFOVAmplifier"]
-margin_left = 215.0
-margin_right = 562.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[def. 2] how intense is the hit FOV pulsing is"
-valign = 1
-
-[node name="HitFOVDecay" type="SpinBox" parent="M/Camera/Group/H"]
-margin_top = 300.0
-margin_right = 200.0
-margin_bottom = 332.0
-rect_min_size = Vector2( 200, 32 )
-rect_pivot_offset = Vector2( 286, -108 )
-focus_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-theme = ExtResource( 1 )
-step = 0.01
-value = 20.0
-allow_greater = true
-allow_lesser = true
-script = ExtResource( 49 )
-
-[node name="Label" type="Label" parent="M/Camera/Group/H/HitFOVDecay"]
-margin_left = -119.0
-margin_right = -10.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Hit FOV Decay"
-align = 2
-valign = 1
-clip_text = true
-
-[node name="Desc" type="Label" parent="M/Camera/Group/H/HitFOVDecay"]
-margin_left = 215.0
-margin_right = 584.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[def. 20] how long it takes for hit FOV pulsing to wear-off"
-valign = 1
-
-[node name="Spin" type="CheckBox" parent="M/Camera/Group/H"]
-margin_top = 336.0
-margin_right = 608.0
-margin_bottom = 364.0
-rect_min_size = Vector2( 0, 28 )
-theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_fonts/font = SubResource( 4 )
-action_mode = 0
-text = "enables camera rotation - aka \"spin\""
-flat = true
-script = ExtResource( 54 )
-target = "cam_unlock"
-
-[node name="Label" type="Label" parent="M/Camera/Group/H/Spin"]
-anchor_bottom = 1.0
-margin_left = -150.0
-margin_right = -10.0
-grow_horizontal = 0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Camera Unlock"
-align = 2
-valign = 1
-clip_text = true
-
-[node name="FarawayHud" type="CheckBox" parent="M/Camera/Group/H"]
-margin_top = 368.0
-margin_right = 608.0
-margin_bottom = 396.0
-rect_min_size = Vector2( 0, 28 )
-theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_fonts/font = SubResource( 4 )
-action_mode = 0
-text = "moves the HUD back by 10 grid units (20 studs) and makes it larger"
-flat = true
-script = ExtResource( 54 )
-target = "faraway_hud"
-
-[node name="Label" type="Label" parent="M/Camera/Group/H/FarawayHud"]
-anchor_bottom = 1.0
-margin_left = -150.0
-margin_right = -10.0
-grow_horizontal = 0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Faraway Hud"
-align = 2
-valign = 1
-clip_text = true
-
-[node name="Sensitivity" type="Control" parent="M/Camera/Group/H"]
-margin_top = 400.0
-margin_right = 608.0
-margin_bottom = 432.0
-rect_min_size = Vector2( 200, 32 )
-
-[node name="Sensitivity" type="SpinBox" parent="M/Camera/Group/H/Sensitivity"]
-margin_right = 200.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 200, 32 )
-rect_pivot_offset = Vector2( 286, -176 )
-focus_mode = 2
-theme = ExtResource( 1 )
-step = 0.01
-value = 1.0
-allow_greater = true
-allow_lesser = true
-script = ExtResource( 22 )
-
-[node name="Label" type="Label" parent="M/Camera/Group/H/Sensitivity/Sensitivity"]
-margin_left = -115.0
-margin_right = -10.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Sensitivity"
-align = 2
-valign = 1
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Desc" type="Label" parent="M/Camera/Group/H/Sensitivity/Sensitivity"]
-margin_left = 215.0
-margin_right = 562.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[def. 1] changes how much the cursor/camera move with mouse/touch input"
-valign = 1
-
-[node name="EdgeBuffer" type="Control" parent="M/Camera/Group/H"]
-margin_top = 436.0
-margin_right = 608.0
-margin_bottom = 468.0
-rect_min_size = Vector2( 200, 32 )
-
-[node name="EdgeBuffer" type="SpinBox" parent="M/Camera/Group/H/EdgeBuffer"]
-margin_right = 200.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 200, 32 )
-rect_pivot_offset = Vector2( 286, -212 )
-focus_mode = 2
-theme = ExtResource( 1 )
-min_value = -1.5
-step = 0.01
-allow_greater = true
-script = ExtResource( 12 )
-
-[node name="Label" type="Label" parent="M/Camera/Group/H/EdgeBuffer/EdgeBuffer"]
-margin_left = -146.0
-margin_right = -10.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Edge Buffer (Drift)"
-align = 2
-valign = 1
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Desc" type="Label" parent="M/Camera/Group/H/EdgeBuffer/EdgeBuffer"]
-margin_left = 215.0
-margin_right = 838.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[def. 0] aka cursor drift; makes the cursor \"stick\" to the edges by letting it move slightly past the edges"
-valign = 1
-
-[node name="BufferCursor" type="CheckBox" parent="M/Camera/Group/H"]
-margin_top = 472.0
-margin_right = 608.0
-margin_bottom = 500.0
-rect_min_size = Vector2( 0, 28 )
-theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_fonts/font = SubResource( 4 )
-pressed = true
-action_mode = 0
-text = "shows a mini cursor at the \"real\" position when you enter the edge buffer"
-flat = true
-script = ExtResource( 54 )
-target = "enable_drift_cursor"
-
-[node name="Label" type="Label" parent="M/Camera/Group/H/BufferCursor"]
-anchor_bottom = 1.0
-margin_left = -150.0
-margin_right = -10.0
-grow_horizontal = 0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Buffer Cursor"
-align = 2
-valign = 1
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="LockMouse" type="CheckBox" parent="M/Camera/Group/H"]
-margin_top = 504.0
-margin_right = 608.0
-margin_bottom = 532.0
-rect_min_size = Vector2( 0, 28 )
-theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_fonts/font = SubResource( 4 )
-pressed = true
-action_mode = 0
-text = "turning this off will unlock the mouse while playing (it'll still be confined to the window though)"
-flat = true
-script = ExtResource( 54 )
-target = "lock_mouse"
-
-[node name="Label" type="Label" parent="M/Camera/Group/H/LockMouse"]
-anchor_bottom = 1.0
-margin_left = -150.0
-margin_right = -10.0
-grow_horizontal = 0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Lock Mouse"
-align = 2
-valign = 1
-clip_text = true
-
-[node name="CursorFaceVelocity" type="CheckBox" parent="M/Camera/Group/H"]
-visible = false
-margin_top = 244.0
-margin_right = 471.0
-margin_bottom = 272.0
-rect_min_size = Vector2( 0, 28 )
-theme = ExtResource( 1 )
-custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
-custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
-custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
-custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
-custom_fonts/font = SubResource( 4 )
-pressed = true
-action_mode = 0
-text = "points your cursor in the direction of your mouse movement"
-flat = true
-script = ExtResource( 54 )
-target = "cursor_face_velocity"
-
-[node name="Label" type="Label" parent="M/Camera/Group/H/CursorFaceVelocity"]
-anchor_bottom = 1.0
-margin_left = -165.0
-margin_right = -10.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 1, 0.478431, 0.478431, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Cursor Face Velocity"
-align = 2
-valign = 1
-clip_text = true
-
-[node name="Notes" type="VBoxContainer" parent="M"]
-margin_top = 1792.0
-margin_right = 1280.0
-margin_bottom = 1964.0
-script = ExtResource( 43 )
-
-[node name="Title" type="MarginContainer" parent="M/Notes"]
-margin_right = 1280.0
-margin_bottom = 32.0
-custom_constants/margin_left = 32
-
-[node name="C" type="CheckBox" parent="M/Notes/Title"]
-margin_left = 32.0
-margin_right = 1280.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 0, 32 )
-custom_colors/font_color_disabled = Color( 1, 1, 1, 1 )
-custom_colors/font_color_focus = Color( 1, 1, 1, 1 )
-custom_colors/font_color_hover_pressed = Color( 1, 1, 1, 1 )
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
-custom_colors/font_color_pressed = Color( 1, 1, 1, 1 )
-custom_fonts/font = SubResource( 5 )
-custom_icons/checked = ExtResource( 42 )
-custom_icons/unchecked = ExtResource( 41 )
-text = "Approach & Note Display"
-flat = true
-
-[node name="Group" type="MarginContainer" parent="M/Notes"]
-margin_top = 36.0
-margin_right = 1280.0
-margin_bottom = 172.0
-custom_constants/margin_left = 180
-
-[node name="H" type="GridContainer" parent="M/Notes/Group"]
-margin_left = 180.0
-margin_right = 1280.0
-margin_bottom = 136.0
-
-[node name="ApproachRate" type="Control" parent="M/Notes/Group/H"]
-margin_right = 241.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 200, 32 )
-
-[node name="ApproachRate" type="SpinBox" parent="M/Notes/Group/H/ApproachRate"]
-margin_right = 200.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 200, 32 )
-rect_pivot_offset = Vector2( 286, -344 )
-focus_mode = 2
-theme = ExtResource( 1 )
-min_value = -500.0
-max_value = 500.0
-step = 0.1
-value = 50.0
-allow_greater = true
-allow_lesser = true
-suffix = "m/s"
-script = ExtResource( 24 )
-
-[node name="Label" type="Label" parent="M/Notes/Group/H/ApproachRate/ApproachRate"]
-margin_left = -115.0
-margin_right = -10.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Approach Rate"
-align = 2
-valign = 1
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Desc" type="Label" parent="M/Notes/Group/H/ApproachRate/ApproachRate"]
-margin_left = 215.0
-margin_right = 562.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[def. 50] the speed that notes move towards the grid. (note: this will be half of your AR in ss/vulnus)"
-valign = 1
-
-[node name="SpawnDist" type="Control" parent="M/Notes/Group/H"]
-margin_top = 36.0
-margin_right = 241.0
-margin_bottom = 68.0
-rect_min_size = Vector2( 200, 32 )
-
-[node name="SpawnDist" type="SpinBox" parent="M/Notes/Group/H/SpawnDist"]
-margin_right = 200.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 200, 32 )
-rect_pivot_offset = Vector2( 286, -380 )
-focus_mode = 2
-theme = ExtResource( 1 )
-min_value = 2.0
-max_value = 1000.0
-step = 0.01
-value = 100.0
-allow_greater = true
-suffix = "m"
-script = ExtResource( 30 )
-
-[node name="Label" type="Label" parent="M/Notes/Group/H/SpawnDist/SpawnDist"]
-margin_left = -146.0
-margin_right = -10.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Spawn Distance"
-align = 2
-valign = 1
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Desc" type="Label" parent="M/Notes/Group/H/SpawnDist/SpawnDist"]
-margin_left = 215.0
-margin_right = 562.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[def. 100] distance from the grid that notes spawn (approach time = SD/AR)"
-valign = 1
-
-[node name="FadeLength" type="Control" parent="M/Notes/Group/H"]
-margin_top = 72.0
-margin_right = 241.0
-margin_bottom = 104.0
-rect_min_size = Vector2( 200, 32 )
-
-[node name="FadeLength" type="SpinBox" parent="M/Notes/Group/H/FadeLength"]
-margin_right = 200.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 200, 32 )
-rect_pivot_offset = Vector2( 286, -416 )
-focus_mode = 2
-theme = ExtResource( 1 )
-step = 0.01
-value = 50.0
-suffix = "%"
-script = ExtResource( 37 )
-
-[node name="Label" type="Label" parent="M/Notes/Group/H/FadeLength/FadeLength"]
-margin_left = -149.0
-margin_right = -10.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Fade Length"
-align = 2
-valign = 1
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Desc" type="Label" parent="M/Notes/Group/H/FadeLength/FadeLength"]
-margin_left = 215.0
-margin_right = 562.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[def. 50%] percentage of the spawn distance that notes take to fade from invisible to fully opaque"
-valign = 1
-
-[node name="NoteSpawnEffect" type="CheckBox" parent="M/Notes/Group/H"]
-margin_top = 108.0
-margin_right = 241.0
-margin_bottom = 136.0
-rect_min_size = Vector2( 0, 28 )
-theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_fonts/font = SubResource( 4 )
-pressed = true
-action_mode = 0
-text = "alright, fine. no distractions for you."
-flat = true
-script = ExtResource( 54 )
-target = "note_spawn_effect"
-
-[node name="Label" type="Label" parent="M/Notes/Group/H/NoteSpawnEffect"]
-anchor_bottom = 1.0
-margin_left = -173.0
-margin_right = -10.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Note Spawn Effect"
-align = 2
-valign = 1
-clip_text = true
-
 [node name="UI" type="VBoxContainer" parent="M"]
-margin_top = 1964.0
+margin_top = 2594.0
 margin_right = 1280.0
-margin_bottom = 2508.0
+margin_bottom = 3138.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/UI"]
@@ -3578,9 +4148,9 @@ valign = 1
 clip_text = true
 
 [node name="UIColor" type="VBoxContainer" parent="M"]
-margin_top = 2508.0
+margin_top = 3138.0
 margin_right = 1280.0
-margin_bottom = 4176.0
+margin_bottom = 4806.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/UIColor"]
@@ -4568,7 +5138,7 @@ theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
 custom_fonts/font = SubResource( 4 )
-text = "[def. ##DEFAULT##] DESCRIPTION GOES HERE"
+text = "[def. ##DEFAULT##] fill color of timer progress bar"
 valign = 1
 
 [node name="timer_bg" type="Control" parent="M/UIColor/Group/H"]
@@ -4613,7 +5183,7 @@ theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
 custom_fonts/font = SubResource( 4 )
-text = "[def. ##DEFAULT##] DESCRIPTION GOES HERE"
+text = "[def. ##DEFAULT##] empty color of timer progress bar"
 valign = 1
 
 [node name="SEPARATOR8" type="HSeparator" parent="M/UIColor/Group/H"]
@@ -5472,9 +6042,9 @@ text = "[def. ##DEFAULT##] color of text when grade is F"
 valign = 1
 
 [node name="Graphics" type="VBoxContainer" parent="M"]
-margin_top = 4176.0
+margin_top = 4806.0
 margin_right = 1280.0
-margin_bottom = 4432.0
+margin_bottom = 5098.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Graphics"]
@@ -5487,6 +6057,7 @@ margin_left = 32.0
 margin_right = 1280.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 0, 32 )
+rect_pivot_offset = Vector2( -397, -32 )
 custom_colors/font_color_disabled = Color( 1, 1, 1, 1 )
 custom_colors/font_color_focus = Color( 1, 1, 1, 1 )
 custom_colors/font_color_hover_pressed = Color( 1, 1, 1, 1 )
@@ -5502,13 +6073,13 @@ flat = true
 [node name="Group" type="MarginContainer" parent="M/Graphics"]
 margin_top = 36.0
 margin_right = 1280.0
-margin_bottom = 256.0
+margin_bottom = 292.0
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="M/Graphics/Group"]
 margin_left = 180.0
 margin_right = 1280.0
-margin_bottom = 220.0
+margin_bottom = 256.0
 
 [node name="VSync" type="CheckBox" parent="M/Graphics/Group/H"]
 margin_right = 594.0
@@ -5618,7 +6189,6 @@ custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
 custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
 custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
 custom_fonts/font = SubResource( 4 )
-pressed = true
 action_mode = 0
 text = "you might wanna turn this thing off if you're on an ultrawide display"
 flat = true
@@ -5734,10 +6304,52 @@ align = 2
 valign = 1
 clip_text = true
 
+[node name="TargetFPS" type="Control" parent="M/Graphics/Group/H"]
+margin_top = 224.0
+margin_right = 606.0
+margin_bottom = 256.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="Sensitivity" type="SpinBox" parent="M/Graphics/Group/H/TargetFPS"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+rect_pivot_offset = Vector2( 286, -176 )
+focus_mode = 2
+theme = ExtResource( 1 )
+allow_greater = true
+suffix = "fps"
+script = ExtResource( 60 )
+
+[node name="Label" type="Label" parent="M/Graphics/Group/H/TargetFPS/Sensitivity"]
+margin_left = -115.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "FPS Limit"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="Desc" type="Label" parent="M/Graphics/Group/H/TargetFPS/Sensitivity"]
+margin_left = 215.0
+margin_right = 562.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 4 )
+text = "[0 = no limit] puts a limit on the framerate; use this if ss+ is using 100% gpu"
+valign = 1
+
 [node name="Experimental" type="VBoxContainer" parent="M"]
-margin_top = 4432.0
+margin_top = 5098.0
 margin_right = 1280.0
-margin_bottom = 4677.0
+margin_bottom = 5403.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Experimental"]
@@ -5766,16 +6378,16 @@ flat = true
 [node name="Group" type="MarginContainer" parent="M/Experimental"]
 margin_top = 36.0
 margin_right = 1280.0
-margin_bottom = 245.0
+margin_bottom = 337.0
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="M/Experimental/Group"]
 margin_left = 180.0
 margin_right = 1280.0
-margin_bottom = 209.0
+margin_bottom = 301.0
 
 [node name="ExpWarning" type="MarginContainer" parent="M/Experimental/Group/H"]
-margin_right = 702.0
+margin_right = 827.0
 margin_bottom = 105.0
 custom_constants/margin_right = 60
 custom_constants/margin_top = 15
@@ -5785,7 +6397,7 @@ custom_constants/margin_bottom = 18
 [node name="Main" type="PanelContainer" parent="M/Experimental/Group/H/ExpWarning"]
 margin_left = -125.0
 margin_top = 15.0
-margin_right = 642.0
+margin_right = 767.0
 margin_bottom = 87.0
 rect_min_size = Vector2( 0, 72 )
 custom_styles/panel = SubResource( 48 )
@@ -5793,7 +6405,7 @@ custom_styles/panel = SubResource( 48 )
 [node name="H" type="HBoxContainer" parent="M/Experimental/Group/H/ExpWarning/Main"]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 765.0
+margin_right = 890.0
 margin_bottom = 70.0
 
 [node name="Icon" type="MarginContainer" parent="M/Experimental/Group/H/ExpWarning/Main/H"]
@@ -5813,20 +6425,20 @@ expand = true
 stretch_mode = 6
 
 [node name="Text" type="MarginContainer" parent="M/Experimental/Group/H/ExpWarning/Main/H"]
-margin_right = 763.0
+margin_right = 888.0
 margin_bottom = 68.0
 custom_constants/margin_right = 15
 custom_constants/margin_left = 6
 
 [node name="V" type="VBoxContainer" parent="M/Experimental/Group/H/ExpWarning/Main/H/Text"]
 margin_left = 6.0
-margin_right = 748.0
+margin_right = 873.0
 margin_bottom = 68.0
 alignment = 1
 
 [node name="Title" type="Label" parent="M/Experimental/Group/H/ExpWarning/Main/H/Text/V"]
 margin_top = 11.0
-margin_right = 742.0
+margin_right = 867.0
 margin_bottom = 33.0
 custom_colors/font_color = Color( 1, 0.482353, 0.482353, 1 )
 custom_colors/font_color_shadow = Color( 1, 1, 1, 0 )
@@ -5835,17 +6447,177 @@ text = "WARNING"
 
 [node name="Body" type="Label" parent="M/Experimental/Group/H/ExpWarning/Main/H/Text/V"]
 margin_top = 37.0
-margin_right = 742.0
+margin_right = 867.0
 margin_bottom = 57.0
 custom_colors/font_color = Color( 1, 0.854902, 0.854902, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
 custom_fonts/font = SubResource( 49 )
-text = "These features aren't completely ready yet, and could be very buggy and unstable. Use them at your own risk."
+text = "These features aren't completely ready yet, and could be very buggy, unstable, or just not work at all. Use them at your own risk."
+
+[node name="HitSync" type="CheckBox" parent="M/Experimental/Group/H"]
+margin_top = 109.0
+margin_right = 827.0
+margin_bottom = 137.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_fonts/font = SubResource( 4 )
+action_mode = 0
+text = "ensure that hitsounds are always (near-perfectly) synced to the map"
+flat = true
+script = ExtResource( 54 )
+target = "ensure_hitsync"
+
+[node name="Label" type="Label" parent="M/Experimental/Group/H/HitSync"]
+anchor_bottom = 1.0
+margin_left = -165.0
+margin_right = -10.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Ensure Hitsync"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="RetainSongPitch" type="CheckBox" parent="M/Experimental/Group/H"]
+margin_top = 141.0
+margin_right = 827.0
+margin_bottom = 169.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_fonts/font = SubResource( 4 )
+action_mode = 0
+text = "while this is enabled, speed modifiers will not impact the pitch of the beatmap's music"
+flat = true
+script = ExtResource( 54 )
+target = "retain_song_pitch"
+
+[node name="Label" type="Label" parent="M/Experimental/Group/H/RetainSongPitch"]
+anchor_bottom = 1.0
+margin_left = -165.0
+margin_right = -10.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Retain Song Pitch"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="DoNotePushback" type="CheckBox" parent="M/Experimental/Group/H"]
+margin_top = 173.0
+margin_right = 827.0
+margin_bottom = 201.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_fonts/font = SubResource( 4 )
+action_mode = 0
+text = "while enabled, notes will go past the grid when you miss, instead of always vanishing 0.1 units past the grid"
+flat = true
+script = ExtResource( 54 )
+target = "do_note_pushback"
+
+[node name="Label" type="Label" parent="M/Experimental/Group/H/DoNotePushback"]
+anchor_bottom = 1.0
+margin_left = -165.0
+margin_right = -10.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Do Note Pushback"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="ShowStats" type="CheckBox" parent="M/Experimental/Group/H"]
+margin_top = 205.0
+margin_right = 827.0
+margin_bottom = 233.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_fonts/font = SubResource( 4 )
+action_mode = 0
+text = "[UNFINISHED] displays some additional statistics about your gameplay while ingame"
+flat = true
+script = ExtResource( 54 )
+target = "show_stats"
+
+[node name="Label" type="Label" parent="M/Experimental/Group/H/ShowStats"]
+anchor_bottom = 1.0
+margin_left = -165.0
+margin_right = -10.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Show Extensive Stats"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="HalfGhost" type="CheckBox" parent="M/Experimental/Group/H"]
+margin_top = 237.0
+margin_right = 827.0
+margin_bottom = 265.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_fonts/font = SubResource( 4 )
+action_mode = 0
+text = "useful for patterns that fill the whole screen"
+flat = true
+script = ExtResource( 54 )
+target = "half_ghost"
+
+[node name="Label" type="Label" parent="M/Experimental/Group/H/HalfGhost"]
+anchor_bottom = 1.0
+margin_left = -165.0
+margin_right = -10.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Half Ghost"
+align = 2
+valign = 1
+clip_text = true
 
 [node name="Avatar" type="Control" parent="M/Experimental/Group/H"]
-margin_top = 109.0
-margin_right = 702.0
-margin_bottom = 141.0
+margin_top = 269.0
+margin_right = 827.0
+margin_bottom = 301.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="Editor" type="Button" parent="M/Experimental/Group/H/Avatar"]
@@ -5894,6 +6666,7 @@ custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
 custom_fonts/font = SubResource( 4 )
 text = "literally you | experimental avatar editor. nowhere near done. visible in replays"
 valign = 1
+
 
 [node name="Intro" type="Control" parent="M/Experimental/Group/H"]
 margin_top = 145.0
@@ -5948,40 +6721,9 @@ custom_fonts/font = SubResource( 4 )
 text = "replays the intro cutscene"
 valign = 1
 
-[node name="ApproachSquares" type="CheckBox" parent="M/Experimental/Group/H"]
-margin_top = 181.0
-margin_right = 702.0
-margin_bottom = 209.0
-rect_min_size = Vector2( 0, 28 )
-theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_fonts/font = SubResource( 4 )
-action_mode = 0
-text = "(no description)"
-flat = true
-script = ExtResource( 54 )
-target = "note_visual_approach"
-
-[node name="Label" type="Label" parent="M/Experimental/Group/H/ApproachSquares"]
-anchor_bottom = 1.0
-margin_left = -165.0
-margin_right = -10.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Approach Squares"
-align = 2
-valign = 1
-clip_text = true
-
 [node name="BottomMargin" type="Control" parent="."]
-margin_top = 4740.0
+margin_top = 5466.0
 margin_right = 1280.0
-margin_bottom = 4836.0
+margin_bottom = 5562.0
+
 rect_min_size = Vector2( 0, 96 )

@@ -1,9 +1,10 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://errors/userfolder.gd" type="Script" id=1]
-[ext_resource path="res://content/sfx/music/error_loop.ogg" type="AudioStream" id=2]
-[ext_resource path="res://content/ui/user_folder_error.png" type="Texture" id=3]
+[ext_resource path="res://error_loop.ogg" type="AudioStream" id=2]
+[ext_resource path="res://assets/ui/user_folder_error.png" type="Texture" id=3]
 [ext_resource path="res://font/UbuntuMono/Regular.ttf" type="DynamicFontData" id=4]
+
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends AudioStreamPlayer

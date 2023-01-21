@@ -33,6 +33,7 @@ func confirm(v:int):
 				yield(Globals.confirm_prompt,"done_closing")
 				get_node("../BlackFade").target = true
 				yield(get_node("../BlackFade"),"done_fading")
+				Engine.target_fps = 0
 				get_tree().change_scene("res://init.tscn")
 				return
 		else:

@@ -14,6 +14,7 @@ var step:int = 0
 var path:String = ""
 var musicPath:String = ""
 var dataPath:String = ""
+var difficulty_id:int = -1
 
 enum {
 	T_TXT
@@ -50,7 +51,7 @@ func check_txt_requirements():
 		$TxtFile/done.disabled = true
 		$TxtFile/done/Title.text = "Mapper required"
 	else:
-		if SSP.registry_song.idx_id.has(song.id):
+		if SSP.registry_song.idx_id.has(song.id) and !SSP.registry_song.get_item(song.id).is_online:
 			$TxtFile/done.disabled = true
 			$TxtFile/done/Title.text = "ID in use"
 		else:
@@ -140,7 +141,7 @@ func reset_text_edit_screen():
 		get_node("../MenuSong").play()
 	$TxtFile/H/audio/player.stop()
 	
-	$TxtFile/H/E/Cover/T.texture = load("res://content/ui/placeholder_dark.jpg")
+	$TxtFile/H/E/Cover/T.texture = load("res://assets/ui/placeholder_dark.jpg")
 	$TxtFile/H/E/Cover/C.disabled = true
 	$TxtFile/H/E/Cover/C.pressed = false
 	
@@ -191,7 +192,7 @@ func sel_filetype(type:int):
 			
 			Globals.file_sel.open_folder(
 				self,
-				"file_selected",
+				"folder_selected",
 				"~/Downloads"
 			)
 	elif maptype == T_TXT:
@@ -231,6 +232,26 @@ func generate_id(sname:String,mapper:String):
 		elif sname[i] == " " and txt[txt.length()-1] != "_": txt += "_"
 	return txt.trim_prefix("_").trim_suffix("_")
 
+func generate_id_with_dname(sname:String,mapper:String,dname:String):
+	var txt:String = ""
+	if mapper.length() != 0:
+		for i in range(mapper.length()):
+			if mapper.to_lower()[i].is_subsequence_of(valid_chars):
+				txt += mapper.to_lower()[i]
+			elif mapper[i] == " " and txt[txt.length()-1] != "_":
+				txt += "_"
+		if txt[txt.length()-1] != "_": txt += "_"
+	for i in range(sname.length()):
+		if sname.to_lower()[i].is_subsequence_of(valid_chars):
+			txt += sname.to_lower()[i]
+		elif sname[i] == " " and txt[txt.length()-1] != "_": txt += "_"
+	txt += "_"
+	for i in range(dname.length()):
+		if dname.to_lower()[i].is_subsequence_of(valid_chars):
+			txt += dname.to_lower()[i]
+		elif dname[i] == " " and txt[txt.length()-1] != "_": txt += "_"
+	return txt.trim_prefix("_").trim_suffix("_")
+
 
 var edit_pop:bool = false
 func populate_edit_screen():
@@ -248,7 +269,7 @@ func populate_edit_screen():
 		$Edit/Cover/C.disabled = false
 		$Edit/Cover/C.pressed = true
 	else:
-		$Edit/Cover/T.texture = load("res://content/ui/placeholder_dark.jpg")
+		$Edit/Cover/T.texture = load("res://assets/ui/placeholder_dark.jpg")
 		$Edit/Cover/C.disabled = true
 		$Edit/Cover/C.pressed = false
 	
@@ -269,27 +290,34 @@ func import_vulnus_folder():
 	
 	dir.open(path)
 	if !dir.file_exists("meta.json"):
-		print("Possible nested folder - searching for meta.json")
+		print("Possible nested folder - searching for meta.json AAAAAAAAAAAAAAAAAAAA")
 		yield(get_tree(),"idle_frame")
+		print('list_dir_begin before')
+		dir.list_dir_begin()
 		var n = dir.get_next()
 		while n:
+			n = dir.get_next()
+			print(n)
 			if dir.file_exists(n.plus_file("meta.json")):
 				print("Found meta.json in '%s'" % n)
 				yield(get_tree(),"idle_frame")
 				path = path.plus_file(n)
 				break
-		if path == "user://temp": # Meta.json wasn't found anywhere
+		dir.list_dir_end()
+		if path == Globals.p("user://temp"): # Meta.json wasn't found anywhere
 			print("couldn't find meta.json")
 			$VulnusFile/Error.text = "Missing meta.json (check if the zip file contains a folder, and, if it does, extract it)"
 			$VulnusFile/Error.visible = true
 			return
+		else:
+			print("found meta.json at %s" % path)
 	
 	print("Located! Loading meta.json...")
 	yield(get_tree(),"idle_frame")
 	var res = file.open(path.plus_file("meta.json"),File.READ)
 	if res != OK:
 		print("meta.json: file open error %s" % res)
-		$VulnusFile/Error.text = "meta.json: error opening file (file error %s) % res"
+		$VulnusFile/Error.text = "meta.json: error opening file (file error %s)" % res
 		$VulnusFile/Error.visible = true
 		return
 	
@@ -325,11 +353,6 @@ func import_vulnus_folder():
 		$VulnusFile/Error.text = "Music file does not exist (%s)" % [music_path]
 		$VulnusFile/Error.visible = true
 		return
-	if !file.file_exists(path.plus_file(difficulties[0])):
-		print("map data file doesn't exist")
-		$VulnusFile/Error.text = "Map data file does not exist (%s)" % [difficulties[0]]
-		$VulnusFile/Error.visible = true
-		return
 	
 	print("Everything seems to be present!")
 	print("Building metadata...")
@@ -346,21 +369,155 @@ func import_vulnus_folder():
 	yield(get_tree(),"idle_frame")
 	
 	song = Song.new(id,songname,conc)
-	song.setup_from_vulnus_json("%s/%s" % [path,difficulties[0]], "%s/%s" % [path,music_path])
 	
-	var cover = Globals.imageLoader.load_if_exists(path.plus_file("cover"))
-	if cover:
-		song.cover = cover
-		song.has_cover = true
+	if difficulties.size() == 1:
+		if !file.file_exists(path.plus_file(difficulties[0])):
+			print("map data file doesn't exist")
+			$VulnusFile/Error.text = "Map data file does not exist (%s)" % [difficulties[0]]
+			$VulnusFile/Error.visible = true
+			return
+		song.setup_from_vulnus_json("%s/%s" % [path,difficulties[0]], "%s/%s" % [path,music_path])
+		
+		var cover = Globals.imageLoader.load_if_exists(path.plus_file("cover"))
+		if cover:
+			song.cover = cover
+			song.has_cover = true
+		
+		print("IMPORTED SUCCESS!!! PARTY TIME!")
+		$VulnusFile/Success.text = "map imported as %s!" % [id]
+		$VulnusFile/Success.visible = true
+		yield(get_tree(),"idle_frame")
+		
+		$VulnusFile.visible = false
+		populate_edit_screen()
+		$Edit.visible = true
+	else:
+		$VulnusFile.visible = false
+		populate_vmap_difficulty_sel()
+		$SelectDifficulty.visible = true
+
+func populate_vmap_difficulty_sel():
+	for n in $SelectDifficulty/S/V/L.get_children():
+		if n.name != "Item":
+			n.queue_free()
+	var dlist:Array = song.get_vulnus_map_difficulty_list(path)
+	for i in range(dlist.size()):
+		var btn = $SelectDifficulty/S/V/L/Item.duplicate()
+		$SelectDifficulty/S/V/L.add_child(btn)
+		btn.get_node("L").text = dlist[i]
+		btn.visible = true
+		btn.connect("pressed",self,"vmap_difficulty_sel",[i])
+
+func import_vmap_with_difficulty(difficulty_id:int,is_loop:bool=true):
+	var result = song.load_from_vulnus_map(path,difficulty_id)
+	if result:
+		if difficulty_id == 0:
+			song.id = generate_id(song.song,song.creator)
+		else:
+			song.id = generate_id_with_dname(song.song,song.creator,song.custom_data.difficulty_name)
+		
+		if is_loop:
+			result = song.convert_to_sspm()
+			
+			if result == "Converted!":
+				SSP.registry_song.check_and_remove_id(song.id)
+				SSP.registry_song.add_sspm_map("user://maps/%s.sspm" % song.id)
+				return 1
+			else:
+				$Finish/Error.text = result + (" (%s)" % song.custom_data.difficulty_name)
+				$Finish/Error.visible = true
+				$Finish/Success.visible = false
+				$Finish/Wait.visible = false
+				$Finish/ok.visible = true
+				$SelectDifficulty.visible = false
+				$Finish.visible = true
+				return -1
+		else:
+			$SelectDifficulty.visible = false
+			finish_map()
+			return 1
+	else:
+		return 0
+
+func vmap_difficulty_sel(i:int):
+	var res = file.open(path.plus_file("meta.json"),File.READ)
+	if res != OK:
+		print("meta.json: file open error %s" % res)
+		$Finish/Error.text = "meta.json: error opening file (file error %s)" % res
+		$Finish/Error.visible = true
+		$Finish/Success.visible = false
+		$Finish/Wait.visible = false
+		$Finish/ok.visible = true
+		$SelectDifficulty.visible = false
+		$Finish.visible = true
+		return
 	
-	print("IMPORTED SUCCESS!!! PARTY TIME!")
-	$VulnusFile/Success.text = "map imported as %s!" % [id]
-	$VulnusFile/Success.visible = true
+	var metatxt:String = file.get_as_text()
+	file.close()
+	print("Loaded! Reading metadata now...")
 	yield(get_tree(),"idle_frame")
+	var meta:Dictionary = parse_json(metatxt)
+	print("Parsed!")
+	yield(get_tree(),"idle_frame")
+	var difficulties:Array = meta.get("_difficulties",[])
 	
-	$VulnusFile.visible = false
-	populate_edit_screen()
-	$Edit.visible = true
+	if i == -1:
+		for i in range(difficulties.size()):
+			if i != 0: song = Song.new()
+			if !file.file_exists(path.plus_file(difficulties[i])):
+				print("map data file doesn't exist")
+				$Finish/Error.text = "Map data file does not exist (%s)" % [difficulties[i]]
+				$Finish/Error.visible = true
+				$Finish/Success.visible = false
+				$Finish/Wait.visible = false
+				$Finish/ok.visible = true
+				$SelectDifficulty.visible = false
+				$Finish.visible = true
+				return
+			var result:int = import_vmap_with_difficulty(i)
+			if result == 0:
+				print("import failed")
+				$Finish/Error.text = "Import failed (%s)" % [difficulties[i]]
+				$Finish/Error.visible = true
+				$Finish/Success.visible = false
+				$Finish/Wait.visible = false
+				$Finish/ok.visible = true
+				$SelectDifficulty.visible = false
+				$Finish.visible = true
+				return
+			elif result == -1:
+				return
+		$Finish/Success.text = "All maps imported successfully!"
+		$Finish/Error.visible = false
+		$Finish/Success.visible = true
+		$Finish/Wait.visible = false
+		$Finish/ok.visible = true
+		$SelectDifficulty.visible = false
+		$Finish.visible = true
+	else:
+		if !file.file_exists(path.plus_file(difficulties[i])):
+			print("map data file doesn't exist")
+			$Finish/Error.text = "Map data file does not exist (%s)" % [difficulties[i]]
+			$Finish/Error.visible = true
+			$Finish/Success.visible = false
+			$Finish/Wait.visible = false
+			$Finish/ok.visible = true
+			$SelectDifficulty.visible = false
+			$Finish.visible = true
+			return
+		var result:int = import_vmap_with_difficulty(i,false)
+		if result == 0:
+			print("import failed")
+			$Finish/Error.text = "Import failed (%s)" % [difficulties[i]]
+			$Finish/Error.visible = true
+			$Finish/Success.visible = false
+			$Finish/Wait.visible = false
+			$Finish/ok.visible = true
+			$SelectDifficulty.visible = false
+			$Finish.visible = true
+			return
+		elif result == -1:
+			return
 
 func file_selected(files:PoolStringArray):
 	if files.size() == 0: return
@@ -389,12 +546,35 @@ func file_selected(files:PoolStringArray):
 			
 			print("Making temp dir")
 			yield(get_tree(),"idle_frame")
-			dir.open("user://")
-			if dir.dir_exists("user://temp"):
+			dir.open(Globals.p("user://"))
+			if dir.dir_exists(Globals.p("user://temp")):
 				print("Removing old temp dir")
 				yield(get_tree(),"idle_frame")
-				dir.remove("user://temp")
-			dir.make_dir("user://temp")
+				var found = Globals.get_files_recursive(
+					[Globals.p("user://temp")]
+				)
+				for p in found.files:
+					var res:int = dir.remove(p)
+					if res != OK:
+						print("file delete returned error %s for file '%s'" % [res,p])
+						$VulnusFile/Error.text = "failed to delete temp folder, file remove error %s" % [res]
+						$VulnusFile/Error.visible = true
+						return
+				found.folders.invert()
+				for p in found.folders:
+					var res:int = dir.remove(p)
+					if res != OK:
+						print("file delete returned error %s for folder '%s'" % [res,p])
+						$VulnusFile/Error.text = "failed to delete temp folder, folder remove error %s" % [res]
+						$VulnusFile/Error.visible = true
+						return
+				var res:int = dir.remove(Globals.p("user://temp"))
+				if res != OK:
+					print("file delete returned error %s for temp dir" % [res])
+					$VulnusFile/Error.text = "failed to delete temp folder, folder remove error %s" % [res]
+					$VulnusFile/Error.visible = true
+					return
+			dir.make_dir(Globals.p("user://temp"))
 			
 			print("Extracting zip file...")
 			yield(get_tree(),"idle_frame")
@@ -405,7 +585,7 @@ func file_selected(files:PoolStringArray):
 				if binarypath.begins_with("install_dir/"):
 					binarypath = OS.get_executable_path().get_base_dir().plus_file(binarypath.trim_prefix("install_dir/"))
 				
-				var outpath:String = ProjectSettings.globalize_path("user://temp")
+				var outpath:String = ProjectSettings.globalize_path(Globals.p("user://temp"))
 				var inpath:String = ProjectSettings.globalize_path(files[0])
 				
 				if inpath.ends_with(".vmap"):
@@ -420,18 +600,26 @@ func file_selected(files:PoolStringArray):
 				
 				
 				var args = [
-					# x -bb0 -y -bd ./Dimrain47_-_at_the_speed_of_light.zip *
 					'x',
 					'-bb0',
 					'-y',
 					'-bd',
-					'-o"%s"' % [ProjectSettings.globalize_path("user://temp")],
+					'-o"%s"' % [ProjectSettings.globalize_path(Globals.p("user://temp"))],
 					'"%s"' % [files[0].replace("\\","/")],
 					'*'
 				]
-				var exit_code = OS.execute(binarypath, args, true, output)
+				print(binarypath)
+				var exit_code = OS.execute(binarypath, args, true, output, true, OS.has_feature("debug"))
 				
-				if exit_code != 0:
+				for o in output:
+					print(o)
+				
+				if exit_code == -1:
+					print("nonzero exit code of -1 indicateds engine error")
+					$VulnusFile/Error.text = "engine error while extracting zip"
+					$VulnusFile/Error.visible = true
+					return
+				elif exit_code != 0:
 					print("nonzero exit code of %s" % [exit_code])
 					$VulnusFile/Error.text = "error occurred while extracting zip (exit code %s)" % [exit_code]
 					$VulnusFile/Error.visible = true
@@ -442,7 +630,7 @@ func file_selected(files:PoolStringArray):
 				$VulnusFile/Error.visible = true
 				return
 			
-			path = "user://temp"
+			path = Globals.p("user://temp")
 			import_vulnus_folder()
 		FO_VDIR:
 			$VulnusFile/Success.visible = false
@@ -634,6 +822,7 @@ func finish_map():
 	if (maptype == T_TXT and $TxtFile/H/Temp.pressed):
 		song.discard_notes()
 		song.read_notes()
+		SSP.registry_song.check_and_remove_id(song.id)
 		SSP.registry_song.add_item(song)
 		$Finish/Wait.visible = false
 		$Finish/Success.visible = true
@@ -643,6 +832,7 @@ func finish_map():
 	
 		$Finish/Wait.visible = false
 		if result == "Converted!":
+			SSP.registry_song.check_and_remove_id(song.id)
 			SSP.registry_song.add_sspm_map("user://maps/%s.sspm" % song.id)
 			$Finish/Success.visible = true
 		else:
@@ -652,7 +842,7 @@ func finish_map():
 
 func back_to_menu():
 	get_parent().black_fade_target = true
-	yield(get_tree().create_timer(1),"timeout")
+	yield(get_tree().create_timer(0.35),"timeout")
 	SSP.conmgr_transit = null
 	get_tree().change_scene("res://menuload.tscn")
 
@@ -666,6 +856,8 @@ func _ready():
 	
 	$VulnusFile/zip.connect("pressed",self,"sel_filetype",[F_ZIP])
 	$VulnusFile/folder.connect("pressed",self,"sel_filetype",[F_DIR])
+	
+	$SelectDifficulty/S/V/All.connect("pressed",self,"vmap_difficulty_sel",[-1])
 	
 	$TxtFile/H/data/file.connect("pressed",self,"sel_filetype",[FO_TXT])
 	$TxtFile/H/data/paste.connect("pressed",self,"do_txt_paste")
@@ -712,6 +904,7 @@ func _ready():
 	$Edit/cancel.connect("pressed",self,"onopen")
 	$TxtFile/cancel.connect("pressed",self,"onopen")
 	$VulnusFile/cancel.connect("pressed",self,"onopen")
+	$SelectDifficulty/cancel.connect("pressed",self,"onopen")
 	$Finish/ok.connect("pressed",self,"onopen")
 	
 #	call_deferred("add_child",openFile)

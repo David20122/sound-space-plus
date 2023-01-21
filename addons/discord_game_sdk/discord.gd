@@ -259,7 +259,7 @@ func _ready():
 	if ProjectSettings.get_setting("application/config/discord_rpc"):
 		discore_core_ = DiscordCore.new()
 		if discore_core_:
-			discore_core_.create(978085646272983060, CreateFlags.NoRequireDiscord)
+			discore_core_.create(1066457505246486598, CreateFlags.NoRequireDiscord)
 			
 			activity_manager = ActivityManager_.new(discore_core_.get_activity_manager())
 			lobby_manager = LobbyManager_.new(discore_core_.get_lobby_manager())

@@ -1,6 +1,7 @@
 extends ColorRect
 
 func _ready():
+	Engine.target_fps = 30 # Don't use the entire GPU for the error screen
 	$Info.text = """-- user folder open error --
 ss+ version: v%s
 platform: %s
@@ -20,7 +21,7 @@ error code: %s""" % [
 		activity.set_state("(user folder open error %s)" % SSP.errornum)
 
 		var assets = activity.get_assets()
-		assets.set_large_image("icon")
+		assets.set_large_image("icon-bg")
 		assets.set_small_image("error")
 
 		var result = yield(Discord.activity_manager.update_activity(activity), "result").result

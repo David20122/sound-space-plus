@@ -10,8 +10,15 @@ func files_dropped(files:PoolStringArray,_screen:int):
 		SSP.replaying = true
 		SSP.replay_path = files[0]
 		get_viewport().get_node("Menu").black_fade_target = true
-		yield(get_tree().create_timer(1),"timeout")
+		yield(get_tree().create_timer(0.35),"timeout")
 		get_tree().change_scene("res://songload.tscn")
+
+func _input(event:InputEvent):
+	if !disabled && !has_been_pressed && event is InputEventJoypadButton:
+		if event.button_index == JOY_XBOX_A && event.pressed:
+			grab_focus()
+			grab_click_focus()
+			pressed = true
 
 func _pressed():
 	# button functionality
@@ -19,7 +26,7 @@ func _pressed():
 	if has_been_pressed: return
 	has_been_pressed = true
 	get_viewport().get_node("Menu").black_fade_target = true
-	yield(get_tree().create_timer(1),"timeout")
+	yield(get_tree().create_timer(0.35),"timeout")
 	get_tree().change_scene("res://songload.tscn")
 
 func _ready():

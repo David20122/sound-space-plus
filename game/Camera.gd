@@ -5,7 +5,9 @@ func _process(delta):
 	fov += (SSP.fov - fov) / SSP.hit_fov_decay
 	if SSP.cam_unlock:
 		if SSP.replaying:
-			look_at(get_node("../Game/Spawn/Cursor").global_transform.origin,Vector3.UP)
+			look_at(
+				get_node("../Game/Spawn/Cursor").global_transform.origin,
+				Vector3.UP)
 		else:
 			$RayCast.force_raycast_update()
 			var collpoint = $RayCast.get_collision_point()

@@ -1,9 +1,10 @@
 [gd_scene load_steps=17 format=2]
 
-[ext_resource path="res://content/meshes/LowCube.obj" type="ArrayMesh" id=1]
+[ext_resource path="res://assets/meshes/LowCube.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://vr/FakeVRHead.gd" type="Script" id=2]
 [ext_resource path="res://vr/VRPlayer.gd" type="Script" id=3]
 [ext_resource path="res://vr/Pointer.gd" type="Script" id=4]
+
 
 [sub_resource type="Shader" id=83]
 code = "shader_type spatial;
