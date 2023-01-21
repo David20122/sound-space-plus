@@ -249,7 +249,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Sound Space+"
-run/main_scene="res://astroroomlibrary.tscn"
+run/main_scene="res://preinit.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="SoundSpacePlus"
 run/delta_sync_after_draw=true
@@ -287,7 +287,6 @@ networking/mapdb_api="https://soundspaceplus.dev/api/"
 networking/test_url="https://google.com"
 config/discord_rpc.HTML5=false
 config/enable_new_content_mgr.HTML5=false
-
 config/disable_native_file_dialogs=false
 config/disable_native_file_dialogs.Android=true
 config/disable_native_file_dialogs.web=true

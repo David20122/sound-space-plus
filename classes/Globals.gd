@@ -660,7 +660,7 @@ func _ready():
 		ProjectSettings.load_resource_pack(OS.get_executable_path().get_base_dir().plus_file("ui.pck"))
 		ProjectSettings.load_resource_pack(OS.get_executable_path().get_base_dir().plus_file("3dm.pck"))
 		ProjectSettings.load_resource_pack(OS.get_executable_path().get_base_dir().plus_file("worlds.pck"))
-	get_tree().call_deferred("change_scene","res://onboarding/onboardingload.tscn")
+	get_tree().call_deferred("change_scene","res://astroroomlibrary.tscn")
 	
 	url_regex.compile(
 		"((https?)://)[\\w\\-.]{2,256}(:\\d{1,5})?(/[\\w@:%._\\-+~&=]+)+/?"

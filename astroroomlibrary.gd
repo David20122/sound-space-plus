@@ -14,7 +14,7 @@ func _ready():
 	$Avatar/ArmR/Mesh.translation = Vector3(0,0,0)
 	
 	$ColorRect.modulate.a = 1
-	OS.window_fullscreen = true
+#	OS.window_fullscreen = true
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 	yield(get_tree().create_timer(4),"timeout")
 	running = true
