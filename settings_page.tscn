@@ -1,4 +1,4 @@
-[gd_scene load_steps=87 format=2]
+[gd_scene load_steps=88 format=2]
 
 [ext_resource path="res://uitheme.tres" type="Theme" id=1]
 [ext_resource path="res://font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=2]
@@ -58,12 +58,12 @@
 [ext_resource path="res://menu2/ColorPresets.gd" type="Script" id=56]
 [ext_resource path="res://menuButtons/HitFOVModes.gd" type="Script" id=57]
 [ext_resource path="res://menu2/EnumDropdownMenu.gd" type="Script" id=58]
+[ext_resource path="res://IntroButton.gd" type="Script" id=88]
 [ext_resource path="res://menuButtons/ReloadContent.gd" type="Script" id=59]
 [ext_resource path="res://menu2/TargetFPS.gd" type="Script" id=60]
 [ext_resource path="res://menuButtons/NoteSpin.gd" type="Script" id=61]
 [ext_resource path="res://menu2/CursorTrailType.gd" type="Script" id=62]
 [ext_resource path="res://menuButtons/NoteOpacity.gd" type="Script" id=63]
-
 
 [sub_resource type="DynamicFont" id=5]
 size = 18
@@ -3598,7 +3598,7 @@ margin_right = 1280.0
 margin_bottom = 508.0
 
 [node name="Grid" type="CheckBox" parent="M/UI/Group/H"]
-margin_right = 594.0
+margin_right = 582.0
 margin_bottom = 28.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -3635,7 +3635,7 @@ clip_text = true
 
 [node name="Border" type="CheckBox" parent="M/UI/Group/H"]
 margin_top = 32.0
-margin_right = 594.0
+margin_right = 582.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -3675,7 +3675,7 @@ __meta__ = {
 
 [node name="SimpleHud" type="CheckBox" parent="M/UI/Group/H"]
 margin_top = 64.0
-margin_right = 594.0
+margin_right = 582.0
 margin_bottom = 92.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -3712,7 +3712,7 @@ clip_text = true
 
 [node name="LetterGrade" type="CheckBox" parent="M/UI/Group/H"]
 margin_top = 96.0
-margin_right = 594.0
+margin_right = 582.0
 margin_bottom = 124.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -3749,7 +3749,7 @@ clip_text = true
 
 [node name="Config" type="CheckBox" parent="M/UI/Group/H"]
 margin_top = 128.0
-margin_right = 594.0
+margin_right = 582.0
 margin_bottom = 156.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -3789,7 +3789,7 @@ __meta__ = {
 
 [node name="DisplayTrueCombo" type="CheckBox" parent="M/UI/Group/H"]
 margin_top = 160.0
-margin_right = 594.0
+margin_right = 582.0
 margin_bottom = 188.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -3822,7 +3822,7 @@ clip_text = true
 
 [node name="ShowHealth" type="CheckBox" parent="M/UI/Group/H"]
 margin_top = 192.0
-margin_right = 594.0
+margin_right = 582.0
 margin_bottom = 220.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -3855,7 +3855,7 @@ clip_text = true
 
 [node name="ShowTimer" type="CheckBox" parent="M/UI/Group/H"]
 margin_top = 224.0
-margin_right = 594.0
+margin_right = 582.0
 margin_bottom = 252.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -3888,7 +3888,7 @@ clip_text = true
 
 [node name="AccuracyBar" type="CheckBox" parent="M/UI/Group/H"]
 margin_top = 256.0
-margin_right = 594.0
+margin_right = 582.0
 margin_bottom = 284.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -3921,7 +3921,7 @@ clip_text = true
 
 [node name="ShowLeftPanel" type="CheckBox" parent="M/UI/Group/H"]
 margin_top = 288.0
-margin_right = 594.0
+margin_right = 582.0
 margin_bottom = 316.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -3954,7 +3954,7 @@ clip_text = true
 
 [node name="ShowRightPanel" type="CheckBox" parent="M/UI/Group/H"]
 margin_top = 320.0
-margin_right = 594.0
+margin_right = 582.0
 margin_bottom = 348.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -3987,7 +3987,7 @@ clip_text = true
 
 [node name="ShowCursor" type="CheckBox" parent="M/UI/Group/H"]
 margin_top = 352.0
-margin_right = 594.0
+margin_right = 582.0
 margin_bottom = 380.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -4020,7 +4020,7 @@ clip_text = true
 
 [node name="AttachHpToGrid" type="CheckBox" parent="M/UI/Group/H"]
 margin_top = 384.0
-margin_right = 594.0
+margin_right = 582.0
 margin_bottom = 412.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -4052,7 +4052,7 @@ clip_text = true
 
 [node name="AttachTimerToGrid" type="CheckBox" parent="M/UI/Group/H"]
 margin_top = 416.0
-margin_right = 594.0
+margin_right = 582.0
 margin_bottom = 444.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -4084,7 +4084,7 @@ clip_text = true
 
 [node name="Score Popup" type="CheckBox" parent="M/UI/Group/H"]
 margin_top = 448.0
-margin_right = 594.0
+margin_right = 582.0
 margin_bottom = 476.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -4117,7 +4117,7 @@ clip_text = true
 
 [node name="BillboardScore2" type="CheckBox" parent="M/UI/Group/H"]
 margin_top = 480.0
-margin_right = 594.0
+margin_right = 582.0
 margin_bottom = 508.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -6082,7 +6082,7 @@ margin_right = 1280.0
 margin_bottom = 256.0
 
 [node name="VSync" type="CheckBox" parent="M/Graphics/Group/H"]
-margin_right = 606.0
+margin_right = 594.0
 margin_bottom = 28.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -6113,7 +6113,7 @@ clip_text = true
 
 [node name="VSyncCompositor" type="CheckBox" parent="M/Graphics/Group/H"]
 margin_top = 32.0
-margin_right = 606.0
+margin_right = 594.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -6147,7 +6147,7 @@ valign = 1
 
 [node name="Fullscreen" type="CheckBox" parent="M/Graphics/Group/H"]
 margin_top = 64.0
-margin_right = 606.0
+margin_right = 594.0
 margin_bottom = 92.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -6178,7 +6178,7 @@ clip_text = true
 
 [node name="AutoMax" type="CheckBox" parent="M/Graphics/Group/H"]
 margin_top = 96.0
-margin_right = 606.0
+margin_right = 594.0
 margin_bottom = 124.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -6210,7 +6210,7 @@ clip_text = true
 
 [node name="Replays" type="CheckBox" parent="M/Graphics/Group/H"]
 margin_top = 128.0
-margin_right = 606.0
+margin_right = 594.0
 margin_bottom = 156.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -6242,7 +6242,7 @@ clip_text = true
 
 [node name="AltCam" type="CheckBox" parent="M/Graphics/Group/H"]
 margin_top = 160.0
-margin_right = 606.0
+margin_right = 594.0
 margin_bottom = 188.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -6274,7 +6274,7 @@ clip_text = true
 
 [node name="Warnings" type="CheckBox" parent="M/Graphics/Group/H"]
 margin_top = 192.0
-margin_right = 606.0
+margin_right = 594.0
 margin_bottom = 220.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -6667,8 +6667,63 @@ custom_fonts/font = SubResource( 4 )
 text = "literally you | experimental avatar editor. nowhere near done. visible in replays"
 valign = 1
 
+
+[node name="Intro" type="Control" parent="M/Experimental/Group/H"]
+margin_top = 145.0
+margin_right = 702.0
+margin_bottom = 177.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="Play" type="Button" parent="M/Experimental/Group/H/Intro"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+theme = ExtResource( 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+text = "Replay"
+script = ExtResource( 59 )
+
+[node name="OpenFile" type="Node" parent="M/Experimental/Group/H/Intro/Play"]
+script = ExtResource( 46 )
+title = "Select file"
+initial_path = "~/Downloads"
+filters = PoolStringArray( "*.png, *.jpg, *.jpeg, *.webp, *.bmp ; Image files" )
+
+[node name="SaveFile" type="Node" parent="M/Experimental/Group/H/Intro/Play"]
+script = ExtResource( 7 )
+title = "Save file..."
+
+[node name="Label" type="Label" parent="M/Experimental/Group/H/Intro/Play"]
+margin_left = -162.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Play Intro Cutscene"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="Desc" type="Label" parent="M/Experimental/Group/H/Intro/Play"]
+margin_left = 215.0
+margin_right = 578.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 4 )
+text = "replays the intro cutscene"
+valign = 1
+
 [node name="BottomMargin" type="Control" parent="."]
 margin_top = 5466.0
 margin_right = 1280.0
 margin_bottom = 5562.0
+
 rect_min_size = Vector2( 0, 96 )
