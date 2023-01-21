@@ -1,0 +1,123 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://assets/worlds/custombg.gd" type="Script" id=1]
+[ext_resource path="res://assets/worlds/covers/void.png" type="Texture" id=2]
+[ext_resource path="res://error.jpg" type="Texture" id=3]
+
+
+[sub_resource type="CanvasItemMaterial" id=8]
+render_priority = -128
+
+[sub_resource type="Environment" id=5]
+background_mode = 1
+background_energy = 0.0
+
+[sub_resource type="World" id=6]
+environment = SubResource( 5 )
+
+[sub_resource type="Shader" id=3]
+code = "shader_type canvas_item;
+
+uniform sampler2D tex;
+
+vec4 cc(vec4 v) {
+	return vec4(
+		pow(v.r, 2.2),
+		pow(v.g, 2.2),
+		pow(v.b, 2.2),
+		v.a
+	);
+}
+
+void fragment() {
+	COLOR.x = 1.0;
+	float theta = UV.y*3.14159;
+	float phi = UV.x*3.14159*2.0;
+	vec3 unit = vec3(0,0,0);
+	
+	unit.x = sin(phi) * sin(theta) * -1.0;
+	unit.y = cos(theta) * -1.0;
+	unit.z = cos(phi) * sin(theta) * -1.0;
+	unit = normalize(unit);
+	vec2 st = vec2(0.0);
+	if (-unit.y>=abs(unit.x) && -unit.y>=abs(unit.z)) {
+		st = ((vec2(1.0, -1.0)*unit.xz)/abs(unit.y)+1.0)/2.0;
+		COLOR = cc(texture(tex, st));
+	} if (unit.y>=abs(unit.x) && unit.y>=abs(unit.z)) {
+		st = ((unit.xz)/abs(unit.y)+1.0)/2.0;
+		COLOR = cc(texture(tex, st));
+	} if (unit.x>=abs(unit.y) && unit.x>=abs(unit.z)) {
+		st = (-unit.zy/abs(unit.x)+1.0)/2.0;
+		COLOR = cc(texture(tex, st));
+	} if (-unit.x>=abs(unit.y) && -unit.x>=abs(unit.z)) {
+		st = ((vec2(1.0, -1.0)*unit.zy)/abs(unit.x)+1.0)/2.0;
+		COLOR = cc(texture(tex, st));
+	} if (unit.z>=abs(unit.x) && unit.z>=abs(unit.y)) {
+		st = ((vec2(1.0, -1.0)*unit.xy)/abs(unit.z)+1.0)/2.0;
+		COLOR = cc(texture(tex, st));
+	} if (-unit.z>=abs(unit.x) && -unit.z>=abs(unit.y)) {
+		st = ((vec2(-1.0)*unit.xy)/abs(unit.z)+1.0)/2.0;
+		COLOR = cc(texture(tex, st));
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = SubResource( 3 )
+shader_param/tex = ExtResource( 2 )
+
+[sub_resource type="ViewportTexture" id=7]
+viewport_path = NodePath("V")
+
+[sub_resource type="PanoramaSky" id=1]
+resource_local_to_scene = true
+panorama = SubResource( 7 )
+
+[sub_resource type="Environment" id=2]
+resource_local_to_scene = true
+background_mode = 2
+background_sky = SubResource( 1 )
+background_sky_orientation = Basis( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1 )
+background_canvas_max_layer = -128
+ambient_light_color = Color( 0.027451, 0.0627451, 0.0313726, 1 )
+fog_color = Color( 0, 0, 0, 1 )
+fog_sun_color = Color( 0.0573333, 0.0256, 0.08, 1 )
+fog_sun_amount = 1.0
+fog_depth_begin = 20.0
+fog_depth_end = 58.3
+fog_depth_curve = 0.353553
+fog_height_enabled = true
+fog_height_min = 10.4
+fog_height_max = -18.5
+fog_height_curve = 0.68302
+
+[node name="Space" type="Spatial"]
+script = ExtResource( 1 )
+
+[node name="TR" type="TextureRect" parent="."]
+visible = false
+material = SubResource( 8 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="V" type="Viewport" parent="."]
+size = Vector2( 4096, 2048 )
+world = SubResource( 6 )
+hdr = false
+usage = 0
+render_target_update_mode = 3
+
+[node name="R" type="ColorRect" parent="V"]
+material = SubResource( 4 )
+margin_right = 4096.0
+margin_bottom = 2048.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 2 )

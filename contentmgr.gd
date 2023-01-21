@@ -17,7 +17,7 @@ func _ready():
 	$BlackFade.color = Color(0,0,0,black_fade)
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	
-	$MenuSong.stream = SSP.get_stream_with_default("user://content",load("res://content/sfx/music/cm.ogg"))
+	$MenuSong.stream = SSP.get_stream_with_default("user://content",load("res://assets/sfx/music/cm.ogg"))
 	if $MenuSong.stream is AudioStreamSample: $MenuSong.stream.loop_mode = 1
 	else: $MenuSong.stream.loop = true
 	

@@ -1622,137 +1622,137 @@ func register_worlds():
 	# idI:String,nameI:String,pathI:String,creatorI:String="Unknown"
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_space_tunnel", "Neon Corners",
-		"res://content/worlds/space_tunnel.tscn", "Chedski",
-		"res://content/worlds/covers/space_tunnel.png"
+		"res://assets/worlds/space_tunnel.tscn", "Chedski",
+		"res://assets/worlds/covers/space_tunnel.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_neon_tunnel", "Neon Rings",
-		"res://content/worlds/neon_tunnel.tscn", "Chedski",
-		"res://content/worlds/covers/neon_tunnel.png"
+		"res://assets/worlds/neon_tunnel.tscn", "Chedski",
+		"res://assets/worlds/covers/neon_tunnel.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_deep_space", "Deep Space",
-		"res://content/worlds/deep_space.tscn", "Chedski",
-		"res://content/worlds/covers/deep_space.png"
+		"res://assets/worlds/deep_space.tscn", "Chedski",
+		"res://assets/worlds/covers/deep_space.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_void", "VOID",
-		"res://content/worlds/void.tscn", "Chedski",
-		"res://content/worlds/covers/void.png"
+		"res://assets/worlds/void.tscn", "Chedski",
+		"res://assets/worlds/covers/void.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_rainbow_road", "Rainbow Road",
-		"res://content/worlds/rainbow_road.tscn", "Chedski",
-		"res://content/worlds/covers/rainbow_road.png"
+		"res://assets/worlds/rainbow_road.tscn", "Chedski",
+		"res://assets/worlds/covers/rainbow_road.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_rainbow_road_nb", "Rainbow Road (no bloom)",
-		"res://content/worlds/rainbow_road.tscn", "Chedski",
-		"res://content/worlds/covers/rainbow_road.png"
+		"res://assets/worlds/rainbow_road.tscn", "Chedski",
+		"res://assets/worlds/covers/rainbow_road.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_cubic", "Cubic",
-		"res://content/worlds/cubic.tscn", "Chedski",
-		"res://content/worlds/covers/cubic.png"
+		"res://assets/worlds/cubic.tscn", "Chedski",
+		"res://assets/worlds/covers/cubic.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_classic", "Beyond",
-		"res://content/worlds/classic.tscn", "Chedski",
-		"res://content/worlds/covers/classic.png"
+		"res://assets/worlds/classic.tscn", "Chedski",
+		"res://assets/worlds/covers/classic.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_reality_dismissed", "Reality Dismissed",
-		"res://content/worlds/reality_dismissed.tscn", "pyrule",
-		"res://content/worlds/covers/custom.png"
+		"res://assets/worlds/reality_dismissed.tscn", "pyrule",
+		"res://assets/worlds/covers/custom.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_reality_dismissed_dark", "Reality Dismissed (Dark)",
-		"res://content/worlds/reality_dismissed_dark.tscn", "pyrule",
-		"res://content/worlds/covers/custom.png"
+		"res://assets/worlds/reality_dismissed_dark.tscn", "pyrule",
+		"res://assets/worlds/covers/custom.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_baseplate", "Baseplate (Day)",
-		"res://content/worlds/baseplate.tscn", "pyrule",
-		"res://content/worlds/covers/baseplate.png"
+		"res://assets/worlds/baseplate.tscn", "pyrule",
+		"res://assets/worlds/covers/baseplate.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_baseplate_night", "Baseplate (Night)",
-		"res://content/worlds/baseplate_night.tscn", "pyrule",
-		"res://content/worlds/covers/baseplate.png"
+		"res://assets/worlds/baseplate_night.tscn", "pyrule",
+		"res://assets/worlds/covers/baseplate.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_event_horizon", "Event Horizon",
-		"res://content/worlds/event_horizon.tscn", "Chedski",
-		"res://content/worlds/covers/custom.png"
+		"res://assets/worlds/event_horizon.tscn", "Chedski",
+		"res://assets/worlds/covers/custom.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_vaporwave", "v a p o r w a v e",
-		"res://content/worlds/vaporwave.tscn", "balt",
-		"res://content/worlds/covers/vaporwave.png"
+		"res://assets/worlds/vaporwave.tscn", "balt",
+		"res://assets/worlds/covers/vaporwave.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_seifuku", "Seifuku (TW: Gore)",
-		"res://content/worlds/seifuku.tscn", "pyrule",
-		"res://content/worlds/seifuku/scum.png"
+		"res://assets/worlds/seifuku.tscn", "pyrule",
+		"res://assets/worlds/seifuku/scum.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_seifuku_blurred", "Seifuku Blurred",
-		"res://content/worlds/seifukub.tscn", "pyrule",
-		"res://content/worlds/seifuku/scumb.png"
+		"res://assets/worlds/seifukub.tscn", "pyrule",
+		"res://assets/worlds/seifuku/scumb.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_tri_tunnel", "Tri-Tunnel",
-		"res://content/worlds/tri_tunnel.tscn", "Lexus, pyrule",
-		"res://content/worlds/tri_tunnel/cover.png"
+		"res://assets/worlds/tri_tunnel.tscn", "Lexus, pyrule",
+		"res://assets/worlds/tri_tunnel/cover.png"
 	))
 #	registry_world.add_item(BackgroundWorld.new(
 #		"ssp_seethrough", "Seethrough",
-#		"res://content/worlds/seethrough.tscn", "pyrule",
-#		"res://content/worlds/covers/void.png"
+#		"res://assets/worlds/seethrough.tscn", "pyrule",
+#		"res://assets/worlds/covers/void.png"
 #	))
 	# doesn't work :(
 	# registry_world.add_item(BackgroundWorld.new(
 	# 	"ssp_security_room", "Security Room",
-	# 	"res://content/worlds/security_room.tscn", "balt",
-	# 	"res://content/worlds/covers/vaporwave.png"
+	# 	"res://assets/worlds/security_room.tscn", "balt",
+	# 	"res://assets/worlds/covers/vaporwave.png"
 	# ))
 	# ----------------------------------------------------
 	# Custom content
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_custombg", "Custom Background",
-		"res://content/worlds/custombg.tscn", "Someone",
+		"res://assets/worlds/custombg.tscn", "Someone",
 		"res://error.jpg"
 	))
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_custom", "Modworld (info in the discord)",
-		"res://content/worlds/custom.tscn", "Someone",
-		"res://content/worlds/covers/custom.png"
+		"res://assets/worlds/custom.tscn", "Someone",
+		"res://assets/worlds/covers/custom.png"
 	))
 
 func register_meshes():
 	registry_mesh.add_item(NoteMesh.new(
 		"ssp_rounded", "Rounded",
-		"res://content/blocks/rounded.obj", "Chedski"
+		"res://assets/blocks/rounded.obj", "Chedski"
 	))
 	registry_mesh.add_item(NoteMesh.new(
 		"ssp_square", "Square",
-		"res://content/blocks/default.obj", "Chedski"
+		"res://assets/blocks/default.obj", "Chedski"
 	))
 	registry_mesh.add_item(NoteMesh.new(
 		"ssp_circle", "Circle",
-		"res://content/blocks/circle.obj", "Chedski"
+		"res://assets/blocks/circle.obj", "Chedski"
 	))
 	registry_mesh.add_item(NoteMesh.new(
 		"ssp_block", "Block",
-		"res://content/blocks/cube.obj", "Chedski"
+		"res://assets/blocks/cube.obj", "Chedski"
 	))
 	registry_mesh.add_item(NoteMesh.new(
 		"ssp_plane", "Front of Block",
-		"res://content/blocks/plane.obj", "Chedski"
+		"res://assets/blocks/plane.obj", "Chedski"
 	))
 	registry_mesh.add_item(NoteMesh.new(
 		"ssp_realplane", "Plane",
-		"res://content/blocks/quad.tres", "Chedski"
+		"res://assets/blocks/quad.tres", "Chedski"
 	))
 	var dir = Directory.new()
 	if dir.open(user_mesh_dir) == OK:
@@ -1768,36 +1768,36 @@ func register_meshes():
 			mesh_name = dir.get_next()
 func register_effects():
 	registry_effect.add_item(NoteEffect.new(
-		"ssp_ripple", "Ripple* (no color)", "res://content/notefx/ripple.tscn", "Chedski"
+		"ssp_ripple", "Ripple* (no color)", "res://assets/notefx/ripple.tscn", "Chedski"
 	))
 	registry_effect.add_item(NoteEffect.new(
-		"ssp_ripple_n", "Ripple* (note color)", "res://content/notefx/ripple.tscn", "Chedski"
+		"ssp_ripple_n", "Ripple* (note color)", "res://assets/notefx/ripple.tscn", "Chedski"
 	))
 	registry_effect.add_item(NoteEffect.new(
-		"ssp_ripple_r", "Ripple* (rainbow)", "res://content/notefx/ripple.tscn", "Chedski"
-	))
-	
-	registry_effect.add_item(NoteEffect.new(
-		"ssp_shards", "Shards (note color)", "res://content/notefx/shards.tscn", "Chedski"
-	))
-	registry_effect.add_item(NoteEffect.new(
-		"ssp_shards_r", "Shards (rainbow)", "res://content/notefx/shards.tscn", "Chedski"
-	))
-	registry_effect.add_item(NoteEffect.new(
-		"ssp_shards_w", "Shards (no color)", "res://content/notefx/shards.tscn", "Chedski"
+		"ssp_ripple_r", "Ripple* (rainbow)", "res://assets/notefx/ripple.tscn", "Chedski"
 	))
 	
 	registry_effect.add_item(NoteEffect.new(
-		"ssp_miss", "Miss* (red)", "res://content/notefx/miss.tscn", "Chedski"
+		"ssp_shards", "Shards (note color)", "res://assets/notefx/shards.tscn", "Chedski"
 	))
 	registry_effect.add_item(NoteEffect.new(
-		"ssp_miss_n", "Miss* (note color)", "res://content/notefx/miss.tscn", "Chedski"
+		"ssp_shards_r", "Shards (rainbow)", "res://assets/notefx/shards.tscn", "Chedski"
 	))
 	registry_effect.add_item(NoteEffect.new(
-		"ssp_miss_r", "Miss* (rainbow)", "res://content/notefx/miss.tscn", "Chedski"
+		"ssp_shards_w", "Shards (no color)", "res://assets/notefx/shards.tscn", "Chedski"
+	))
+	
+	registry_effect.add_item(NoteEffect.new(
+		"ssp_miss", "Miss* (red)", "res://assets/notefx/miss.tscn", "Chedski"
 	))
 	registry_effect.add_item(NoteEffect.new(
-		"ssp_miss_w", "Miss* (no color)", "res://content/notefx/miss.tscn", "Chedski"
+		"ssp_miss_n", "Miss* (note color)", "res://assets/notefx/miss.tscn", "Chedski"
+	))
+	registry_effect.add_item(NoteEffect.new(
+		"ssp_miss_r", "Miss* (rainbow)", "res://assets/notefx/miss.tscn", "Chedski"
+	))
+	registry_effect.add_item(NoteEffect.new(
+		"ssp_miss_w", "Miss* (no color)", "res://assets/notefx/miss.tscn", "Chedski"
 	))
 
 
@@ -2009,11 +2009,11 @@ func do_init(_ud=null):
 	emit_signal("init_stage_reached","Loading content 1/3\nBuilt-in & DLC")
 	yield(get_tree(),"idle_frame")
 	if first_init_done:
-		mapreg.append(["built-in","res://content/songs/built_in_maps.sspmr"])
+		mapreg.append(["built-in","res://assets/songs/built_in_maps.sspmr"])
 		if installed_dlc.has("ssp_testcontent"): mapreg.append(["test maps","res://test_assets/test_maps.sspmr"])
 	else:
 		print("loaded ssp_content DLC")
-		mapreg.append(["built-in","res://content/songs/built_in_maps.sspmr"])
+		mapreg.append(["built-in","res://assets/songs/built_in_maps.sspmr"])
 		installed_dlc.append("ssp_content")
 		if OS.has_feature("editor") or ProjectSettings.load_resource_pack("res://testcontent.pck"):
 			print("loaded ssp_testcontent DLC")
@@ -2169,24 +2169,24 @@ func do_init(_ud=null):
 	
 	emit_signal("init_stage_reached","Init default assets 2/6")
 	if lp: yield(get_tree(),"idle_frame")
-	def_miss_snd = load("res://content/sfx/miss.wav")
+	def_miss_snd = load("res://assets/sfx/miss.wav")
 	
 	emit_signal("init_stage_reached","Init default assets 3/6")
 	if lp: yield(get_tree(),"idle_frame")
-	def_hit_snd = load("res://content/sfx/hit.wav")
+	def_hit_snd = load("res://assets/sfx/hit.wav")
 	
 	emit_signal("init_stage_reached","Init default assets 4/6")
 	if lp: yield(get_tree(),"idle_frame")
-	def_fail_snd = load("res://content/sfx/fail.wav")
+	def_fail_snd = load("res://assets/sfx/fail.wav")
 	
 	emit_signal("init_stage_reached","Init default assets 5/6")
 	if lp: yield(get_tree(),"idle_frame")
-	def_pb_snd = load("res://content/sfx/new_best.wav")
+	def_pb_snd = load("res://assets/sfx/new_best.wav")
 	normal_pb_sound = def_pb_snd
 	
 	emit_signal("init_stage_reached","Init default assets 6/6")
 	if lp: yield(get_tree(),"idle_frame")
-	def_menu_bgm = load("res://content/sfx/music/menu_loop.ogg")
+	def_menu_bgm = load("res://assets/sfx/music/menu_loop.ogg")
 	
 	# Read settings
 	emit_signal("init_stage_reached","Read user settings")

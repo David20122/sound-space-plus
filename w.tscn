@@ -1,8 +1,9 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://content/ui/bedrock.webm" type="VideoStream" id=1]
+[ext_resource path="res://assets/ui/bedrock.webm" type="VideoStream" id=1]
 [ext_resource path="res://w.gd" type="Script" id=2]
-[ext_resource path="res://content/ui/arcw.png" type="Texture" id=3]
+[ext_resource path="res://assets/ui/arcw.png" type="Texture" id=3]
+
 
 [node name="w" type="Control"]
 anchor_right = 1.0

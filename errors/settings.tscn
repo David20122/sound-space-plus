@@ -1,11 +1,12 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://content/ui/settings_error.png" type="Texture" id=1]
-[ext_resource path="res://content/error_loop.ogg" type="AudioStream" id=2]
+[ext_resource path="res://assets/ui/settings_error.png" type="Texture" id=1]
+[ext_resource path="res://error_loop.ogg" type="AudioStream" id=2]
 [ext_resource path="res://errors/settings.gd" type="Script" id=3]
 [ext_resource path="res://font/UbuntuMono/Regular.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://uitheme.tres" type="Theme" id=5]
 [ext_resource path="res://errors/DeleteSettingsFile.gd" type="Script" id=6]
+
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends AudioStreamPlayer

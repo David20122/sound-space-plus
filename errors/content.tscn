@@ -1,7 +1,8 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://errors/missing_critical_files.png" type="Texture" id=1]
-[ext_resource path="res://content/error_loop.ogg" type="AudioStream" id=2]
+[ext_resource path="res://error_loop.ogg" type="AudioStream" id=2]
+
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends AudioStreamPlayer

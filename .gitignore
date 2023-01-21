@@ -3,6 +3,7 @@ export_presets.cfg
 .import
 .import/
 .import/*
+*.import
 *.translation
 .mono/
 addons/discord_game_sdk/discord_game_sdk.dll

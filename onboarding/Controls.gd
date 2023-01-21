@@ -92,7 +92,7 @@ var trail_t = 0
 func cache_trail(part:Spatial):
 	trail_cache.append(part)
 
-var ripple = preload("res://content/notefx/ripple.tscn")
+var ripple = preload("res://assets/notefx/ripple.tscn")
 
 func on_click():
 	if !SSP.selected_colorset: return

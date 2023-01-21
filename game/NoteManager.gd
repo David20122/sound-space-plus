@@ -24,7 +24,7 @@ var noteQueue:Array = []
 var colors:Array = SSP.selected_colorset.colors
 var hitEffect:Spatial = load(SSP.selected_hit_effect.path).instance()
 var missEffect:Spatial = load(SSP.selected_miss_effect.path).instance()
-var scoreEffect:Spatial = load("res://content/notefx/score.tscn").instance()
+var scoreEffect:Spatial = load("res://assets/notefx/score.tscn").instance()
 var hit_id:String = SSP.selected_hit_effect.id
 var miss_id:String = SSP.selected_miss_effect.id
 var chaos_rng:RandomNumberGenerator = RandomNumberGenerator.new()
@@ -436,7 +436,7 @@ func _ready():
 		if m != null:
 			mesh = m
 		else:
-			mesh = load("res://content/blocks/rounded.obj")
+			mesh = load("res://assets/blocks/rounded.obj")
 	else:
 		mesh = load(SSP.selected_mesh.path)
 	

@@ -5,16 +5,16 @@
 [ext_resource path="res://game/Game.gd" type="Script" id=3]
 [ext_resource path="res://classes/Note.gd" type="Script" id=4]
 [ext_resource path="res://game/HUD.tscn" type="PackedScene" id=5]
-[ext_resource path="res://content/cursors/circle.png" type="Texture" id=6]
+[ext_resource path="res://assets/cursors/circle.png" type="Texture" id=6]
 [ext_resource path="res://grid_inner.png" type="Texture" id=7]
 [ext_resource path="res://spawn_effect.png" type="Texture" id=8]
 [ext_resource path="res://grid_outer.png" type="Texture" id=9]
-[ext_resource path="res://content/ui/flashlight.svg" type="Texture" id=10]
+[ext_resource path="res://assets/ui/flashlight.svg" type="Texture" id=10]
 [ext_resource path="res://Avatar.tscn" type="PackedScene" id=11]
-[ext_resource path="res://content/blocks/cube.obj" type="ArrayMesh" id=12]
+[ext_resource path="res://assets/blocks/cube.obj" type="ArrayMesh" id=12]
 [ext_resource path="res://MaskedModifier.gd" type="Script" id=13]
 [ext_resource path="res://game/Cursor.gd" type="Script" id=14]
-[ext_resource path="res://content/blocks/default.obj" type="ArrayMesh" id=15]
+[ext_resource path="res://assets/blocks/default.obj" type="ArrayMesh" id=15]
 [ext_resource path="res://font/debug2.tres" type="DynamicFont" id=16]
 [ext_resource path="res://font/UbuntuMono/Regular.ttf" type="DynamicFontData" id=22]
 [ext_resource path="res://cam_handler.gd" type="Script" id=23]
@@ -24,6 +24,7 @@
 [ext_resource path="res://game/CameraControl.gd" type="Script" id=30]
 [ext_resource path="res://approach.svg" type="Texture" id=44]
 [ext_resource path="res://FaceNote.gd" type="Script" id=45]
+
 
 [sub_resource type="BoxShape" id=29]
 extents = Vector3( 40, 40, 1 )

@@ -141,7 +141,7 @@ func reset_text_edit_screen():
 		get_node("../MenuSong").play()
 	$TxtFile/H/audio/player.stop()
 	
-	$TxtFile/H/E/Cover/T.texture = load("res://content/ui/placeholder_dark.jpg")
+	$TxtFile/H/E/Cover/T.texture = load("res://assets/ui/placeholder_dark.jpg")
 	$TxtFile/H/E/Cover/C.disabled = true
 	$TxtFile/H/E/Cover/C.pressed = false
 	
@@ -269,7 +269,7 @@ func populate_edit_screen():
 		$Edit/Cover/C.disabled = false
 		$Edit/Cover/C.pressed = true
 	else:
-		$Edit/Cover/T.texture = load("res://content/ui/placeholder_dark.jpg")
+		$Edit/Cover/T.texture = load("res://assets/ui/placeholder_dark.jpg")
 		$Edit/Cover/C.disabled = true
 		$Edit/Cover/C.pressed = false
 	

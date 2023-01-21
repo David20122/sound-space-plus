@@ -1,9 +1,10 @@
 [gd_scene load_steps=16 format=2]
 
-[ext_resource path="res://content/accessories/alt_cubella_hair/hair.obj" type="ArrayMesh" id=1]
-[ext_resource path="res://content/accessories/cubella_hair/alt_mouth.obj" type="ArrayMesh" id=2]
-[ext_resource path="res://content/meshes/LowCube.obj" type="ArrayMesh" id=3]
-[ext_resource path="res://content/accessories/alt_cubella_hair/ears.obj" type="ArrayMesh" id=4]
+[ext_resource path="res://assets/accessories/alt_cubella_hair/hair.obj" type="ArrayMesh" id=1]
+[ext_resource path="res://assets/accessories/cubella_hair/alt_mouth.obj" type="ArrayMesh" id=2]
+[ext_resource path="res://assets/meshes/LowCube.obj" type="ArrayMesh" id=3]
+[ext_resource path="res://assets/accessories/alt_cubella_hair/ears.obj" type="ArrayMesh" id=4]
+
 
 [sub_resource type="Gradient" id=75]
 offsets = PoolRealArray( 0.00621118, 0.534162 )
