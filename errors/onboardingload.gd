@@ -3,7 +3,7 @@ extends ColorRect
 func _ready():
 	Engine.target_fps = 30 # Don't use the entire GPU for the error screen
 	$Info.text = """-- onboarding load error --
-ss+ version: v%s
+ssp version: v%s
 platform: %s
 error info: %s
 menu target: %s""" % [

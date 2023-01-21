@@ -2,7 +2,7 @@ extends ColorRect
 
 func _ready():
 	Engine.target_fps = 30 # Don't use the entire GPU for the error screen
-	$Info.text = """ss+ version: v%s
+	$Info.text = """ssp version: v%s
 %s""" % [
 		ProjectSettings.get_setting("application/config/version"),
 		SSP.errorstr,

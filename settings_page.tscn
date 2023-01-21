@@ -6343,7 +6343,7 @@ theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
 custom_fonts/font = SubResource( 4 )
-text = "[0 = no limit] puts a limit on the framerate; use this if ss+ is using 100% gpu"
+text = "[0 = no limit] puts a limit on the framerate; use this if ssp is using 100% gpu"
 valign = 1
 
 [node name="Experimental" type="VBoxContainer" parent="M"]

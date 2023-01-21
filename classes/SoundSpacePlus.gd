@@ -2078,7 +2078,7 @@ func do_init(_ud=null):
 		SSP.selected_song = song
 	else:
 		var smaps:Array = []
-		emit_signal("init_stage_reached","Register content 1/4\nImport SS+ maps\nLocating files")
+		emit_signal("init_stage_reached","Register content 1/4\nImport SSP maps\nLocating files")
 		yield(get_tree(),"idle_frame")
 		var sd:Array = []
 		dir.change_dir(user_map_dir)
@@ -2096,7 +2096,7 @@ func do_init(_ud=null):
 		emit_signal("init_stage_num",2)
 		
 		for i in range(smaps.size()):
-			emit_signal("init_stage_reached","Register content 1/4\nImport SS+ maps\n%.0f%%" % (
+			emit_signal("init_stage_reached","Register content 1/4\nImport SSP maps\n%.0f%%" % (
 				100*(float(i)/float(smaps.size()))
 			))
 			if (OS.get_ticks_msec() - lt) >= load_target_frame_time * 1000:
@@ -2309,4 +2309,3 @@ func do_init(_ud=null):
 		Globals.confirm_prompt.close()
 		yield(Globals.confirm_prompt,"done_closing")
 	emit_signal("init_stage_reached","Waiting for menu",true)
-

@@ -66,7 +66,7 @@ margin_top = 15.0
 margin_right = 276.0
 margin_bottom = 100.0
 custom_fonts/font = SubResource( 3 )
-text = "ss+ version: v%s
+text = "ssp version: v%s
 platform: %s
 error code: %s
 https://discord.gg/ttPys6Jajs"
