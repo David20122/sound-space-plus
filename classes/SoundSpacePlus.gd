@@ -2308,4 +2308,5 @@ func do_init(_ud=null):
 		Globals.confirm_prompt.s_next.play()
 		Globals.confirm_prompt.close()
 		yield(Globals.confirm_prompt,"done_closing")
+	is_init = false
 	emit_signal("init_stage_reached","Waiting for menu",true)

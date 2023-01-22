@@ -660,6 +660,11 @@ func _ready():
 		ProjectSettings.load_resource_pack(OS.get_executable_path().get_base_dir().plus_file("ui.pck"))
 		ProjectSettings.load_resource_pack(OS.get_executable_path().get_base_dir().plus_file("3dm.pck"))
 		ProjectSettings.load_resource_pack(OS.get_executable_path().get_base_dir().plus_file("worlds.pck"))
+	
+	var thread = Thread.new()
+	SSP.is_init = true
+	thread.start(SSP,"do_init")
+	
 	get_tree().call_deferred("change_scene","res://astroroomlibrary.tscn")
 	
 	url_regex.compile(

@@ -19,6 +19,6 @@ func _pressed():
 		get_viewport().get_node("Menu").black_fade_target = true
 		yield(get_tree().create_timer(0.35),"timeout")
 		SSP.is_init = true
-		get_tree().change_scene("res://onboarding/onboarding.tscn")
+		get_tree().change_scene("res://init.tscn")
 	else:
 		Globals.confirm_prompt.s_back.play()
