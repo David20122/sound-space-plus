@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/rounded.obj-be008f826ff1c005cf59837f8c5a08df.mesh"
+
+[deps]
+
+files=[ "res://.import/rounded.obj-be008f826ff1c005cf59837f8c5a08df.mesh" ]
+
+source_file="res://assets/blocks/rounded.obj"
+dest_files=[ "res://.import/rounded.obj-be008f826ff1c005cf59837f8c5a08df.mesh", "res://.import/rounded.obj-be008f826ff1c005cf59837f8c5a08df.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

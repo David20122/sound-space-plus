@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Meganeko - Feral (osu! edit).mp3-eb737f9b97c72fd9e4c113828b1cd4e3.mp3str"
+
+[deps]
+
+source_file="res://assets/songs/Meganeko - Feral (osu! edit).mp3"
+dest_files=[ "res://.import/Meganeko - Feral (osu! edit).mp3-eb737f9b97c72fd9e4c113828b1cd4e3.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -1,0 +1,38 @@
+[remap]
+
+importer="texture"
+type="StreamTexture"
+path.s3tc="res://.import/r_road01.png-bf8a040b755b9f82cc43cc9b72f9594c.s3tc.stex"
+path.etc2="res://.import/r_road01.png-bf8a040b755b9f82cc43cc9b72f9594c.etc2.stex"
+path.etc="res://.import/r_road01.png-bf8a040b755b9f82cc43cc9b72f9594c.etc.stex"
+metadata={
+"imported_formats": [ "s3tc", "etc2", "etc" ],
+"vram_texture": true
+}
+
+[deps]
+
+source_file="res://assets/worlds/space/r_road01.png"
+dest_files=[ "res://.import/r_road01.png-bf8a040b755b9f82cc43cc9b72f9594c.s3tc.stex", "res://.import/r_road01.png-bf8a040b755b9f82cc43cc9b72f9594c.etc2.stex", "res://.import/r_road01.png-bf8a040b755b9f82cc43cc9b72f9594c.etc.stex" ]
+
+[params]
+
+compress/mode=2
+compress/lossy_quality=0.7
+compress/hdr_mode=0
+compress/bptc_ldr=0
+compress/normal_map=0
+flags/repeat=1
+flags/filter=true
+flags/mipmaps=true
+flags/anisotropic=false
+flags/srgb=1
+process/fix_alpha_border=false
+process/premult_alpha=false
+process/HDR_as_SRGB=false
+process/invert_color=false
+process/normal_map_invert_y=false
+stream=false
+size_limit=0
+detect_3d=false
+svg/scale=1.0

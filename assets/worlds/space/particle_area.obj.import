@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/particle_area.obj-29e644825b791e3037b9cd757ebc7863.mesh"
+
+[deps]
+
+files=[ "res://.import/particle_area.obj-29e644825b791e3037b9cd757ebc7863.mesh" ]
+
+source_file="res://assets/worlds/space/particle_area.obj"
+dest_files=[ "res://.import/particle_area.obj-29e644825b791e3037b9cd757ebc7863.mesh", "res://.import/particle_area.obj-29e644825b791e3037b9cd757ebc7863.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286
