@@ -292,6 +292,7 @@ config/disable_native_file_dialogs.web=true
 config/disable_native_file_dialogs.OSX=true
 config/is_using_controller=true
 config/discord_rpc=true
+config/discord_rpc.editor=false
 
 [audio]
 
