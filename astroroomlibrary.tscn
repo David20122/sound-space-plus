@@ -512,15 +512,18 @@ script = ExtResource( 27 )
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform( 1, 0.000560265, -2.44899e-11, 0, -4.37114e-08, -1, -0.000560265, 1, -4.37114e-08, 0, 5, 0 )
 modulate = Color( 1, 1, 1, 0.0980392 )
+pixel_size = 0.0025
 texture = ExtResource( 25 )
 
 [node name="Sprite3D2" type="Sprite3D" parent="."]
 transform = Transform( 1.06125, -1.06007, -2.4413e-11, -4.63629e-08, -4.63629e-08, -1, 1.06007, 1.06125, -4.37114e-08, 0, 5.5, 0 )
 modulate = Color( 1, 1, 1, 0.196078 )
+pixel_size = 0.0025
 texture = ExtResource( 25 )
 
 [node name="Sprite3D3" type="Sprite3D" parent="."]
 transform = Transform( 2, 0.00112053, -2.44899e-11, 0, -8.74228e-08, -1, -0.00112053, 2, -4.37114e-08, 0, 6, 0 )
+pixel_size = 0.0025
 texture = ExtResource( 25 )
 
 [node name="Avatar" type="Spatial" parent="."]
