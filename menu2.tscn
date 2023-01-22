@@ -3,7 +3,7 @@
 [ext_resource path="res://uitheme.tres" type="Theme" id=1]
 [ext_resource path="res://font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://VersionNumber.gd" type="Script" id=3]
-[ext_resource path="res://assets/branding/icon.svg" type="Texture" id=4]
+[ext_resource path="res://assets/branding/icon.png" type="Texture" id=4]
 [ext_resource path="res://assets/sfx/hit.wav" type="AudioStream" id=5]
 [ext_resource path="res://menuButtons/Quit.gd" type="Script" id=6]
 [ext_resource path="res://assets/branding/logo.png" type="Texture" id=7]
@@ -97,7 +97,6 @@
 [ext_resource path="res://menu2/WarningBar.gd" type="Script" id=95]
 [ext_resource path="res://menuButtons/ModFlashlight.gd" type="Script" id=96]
 [ext_resource path="res://menuButtons/InvertMouse.gd" type="Script" id=97]
-
 
 [sub_resource type="StyleBoxFlat" id=59]
 draw_center = false
@@ -2689,7 +2688,7 @@ clip_text = true
 
 [node name="Normal" type="CheckBox" parent="Main/Results/Results/ModsHolder/Mods/SpeedMod/C"]
 margin_left = 108.0
-margin_right = 136.0
+margin_right = 124.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 16, 0 )
 theme = ExtResource( 1 )
@@ -2728,8 +2727,8 @@ __meta__ = {
 }
 
 [node name="P" type="Button" parent="Main/Results/Results/ModsHolder/Mods/SpeedMod/C"]
-margin_left = 140.0
-margin_right = 172.0
+margin_left = 128.0
+margin_right = 160.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 32, 32 )
 focus_mode = 1
@@ -2771,8 +2770,8 @@ __meta__ = {
 }
 
 [node name="PP" type="Button" parent="Main/Results/Results/ModsHolder/Mods/SpeedMod/C"]
-margin_left = 176.0
-margin_right = 208.0
+margin_left = 164.0
+margin_right = 196.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 32, 32 )
 focus_mode = 1
@@ -2814,8 +2813,8 @@ __meta__ = {
 }
 
 [node name="PPP" type="Button" parent="Main/Results/Results/ModsHolder/Mods/SpeedMod/C"]
-margin_left = 212.0
-margin_right = 244.0
+margin_left = 200.0
+margin_right = 232.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 32, 32 )
 focus_mode = 1
@@ -2857,8 +2856,8 @@ __meta__ = {
 }
 
 [node name="PPPP" type="Button" parent="Main/Results/Results/ModsHolder/Mods/SpeedMod/C"]
-margin_left = 248.0
-margin_right = 280.0
+margin_left = 236.0
+margin_right = 268.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 32, 32 )
 focus_mode = 1
@@ -2897,8 +2896,8 @@ align = 1
 clip_text = true
 
 [node name="Custom" type="CheckBox" parent="Main/Results/Results/ModsHolder/Mods/SpeedMod/C"]
-margin_left = 284.0
-margin_right = 312.0
+margin_left = 272.0
+margin_right = 296.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 24, 0 )
 theme = ExtResource( 1 )
@@ -4152,7 +4151,7 @@ scroll_horizontal_enabled = false
 [node name="F" parent="Main/Settings/S" instance=ExtResource( 49 )]
 anchor_right = 0.0
 margin_right = 1210.0
-margin_bottom = 5594.0
+margin_bottom = 5630.0
 rect_clip_content = true
 
 [node name="Credits" type="ReferenceRect" parent="Main"]
@@ -4926,40 +4925,46 @@ grow_vertical = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 1, 0.705882, 0.945098, 1 )
 custom_fonts/font = SubResource( 7 )
-text = "Sound Space Plus   vX.Y.Z-stage"
+text = "Sound Space Plus vX.Y.Z-branch"
 valign = 1
 script = ExtResource( 3 )
 
 [node name="TextureRect" type="TextureRect" parent="VersionNumber"]
 anchor_bottom = 1.0
 margin_left = -55.0
-margin_right = -25.0
-rect_min_size = Vector2( 30, 30 )
+margin_top = -4.0
+margin_right = -19.0
+margin_bottom = 2.0
+rect_min_size = Vector2( 36, 36 )
 texture = ExtResource( 4 )
 expand = true
 
 [node name="VersionNumberB" type="Label" parent="."]
-visible = false
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -327.069
+margin_left = -24.0
 margin_top = -45.0
-margin_right = -38.0693
+margin_right = -24.0
 margin_bottom = -15.0
+grow_horizontal = 0
 grow_vertical = 2
+rect_min_size = Vector2( 0, 30 )
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 1, 0.705882, 0.945098, 1 )
 custom_fonts/font = SubResource( 7 )
-text = "Sound Space Plus   vX.Y.Z-stage"
+text = "Sound Space Plus vX.Y.Z-branch"
+align = 2
 valign = 1
 script = ExtResource( 3 )
 
 [node name="TextureRect" type="TextureRect" parent="VersionNumberB"]
 anchor_bottom = 1.0
-margin_left = -40.0
-margin_right = -10.0
+margin_left = -42.0
+margin_top = -4.0
+margin_right = -6.0
+margin_bottom = 2.0
 rect_min_size = Vector2( 30, 30 )
 texture = ExtResource( 4 )
 expand = true
