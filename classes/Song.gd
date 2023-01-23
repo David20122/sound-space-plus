@@ -176,15 +176,17 @@ func load_pbs():
 			print("invalid file version for pb file (%s)" % id)
 			file.close()
 			return
+			
+		if sv < 3: has_combo = false
+		else: has_combo = true
 		
 		var amt:int = file.get_64() # number of bests stored
 		
 		for i in range(amt):
 			var pb:Dictionary = {}
 			var s:String = file.get_line()
-			if sv == 1: s = s.replace("1.27","1.14") # handle the default hitbox change
-			if sv < 3: has_combo = false
-			else: has_combo = true
+			# if sv == 1: s = s.replace("1.27","1.14") # handle the default hitbox change
+			# this line was literally giving people free silent aim what
 			
 			pb.has_passed = bool(file.get_8())
 			pb.pauses = file.get_16()
@@ -193,7 +195,9 @@ func load_pbs():
 			pb.position = file.get_32()
 			pb.length = file.get_32()
 			
-			pb.max_combo = file.get_16()
+			if has_combo: pb.max_combo = file.get_16()
+			else: pb.max_combo = -1
+			
 			pb_data[s] = pb
 			
 		file.close()
