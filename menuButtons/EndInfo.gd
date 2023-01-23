@@ -84,13 +84,10 @@ func show_pb(_s=null):
 				(float(pb.hit_notes)/float(pb.total_notes))*100
 			]
 			
-
-			if pb.max_combo < SSP.selected_song.note_count:
-				$MaxCombo.text = comma_sep(pb.max_combo)
-			elif pb.max_combo == SSP.selected_song.note_count:
-				$MaxCombo.text = "FULL COMBO"
+			if pb.max_combo < 0:
+				$MaxCombo.text = "?"
 			else:
-				$MaxCombo.text = "NO COMBO"
+				$MaxCombo.text = comma_sep(pb.max_combo)
 			$MaxCombo.text += "\n"
 			
 			update_letter_grade(float(pb.hit_notes)/float(pb.total_notes))
