@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=42 format=2]
 
 [ext_resource path="res://assets/blocks/cube.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://assets/meshes/LowCube.obj" type="ArrayMesh" id=15]
@@ -433,11 +433,13 @@ colors = PoolColorArray( 0, 0.705882, 1, 0, 0.465705, 0.34611, 1, 1, 0.913725, 0
 gradient = SubResource( 94 )
 
 [sub_resource type="ParticlesMaterial" id=96]
+emission_shape = 1
+emission_sphere_radius = 0.5
 spread = 180.0
 gravity = Vector3( 0, 0, 0 )
 initial_velocity = 0.15
 scale = 0.25
-color = Color( 1, 1, 1, 0.00784314 )
+color = Color( 1, 1, 1, 0.0156863 )
 color_ramp = SubResource( 95 )
 
 [sub_resource type="SpatialMaterial" id=97]
@@ -505,6 +507,47 @@ angular_velocity_random = 1.0
 scale = 0.5
 scale_random = 1.0
 color_ramp = SubResource( 93 )
+
+[sub_resource type="Gradient" id=99]
+offsets = PoolRealArray( 0, 0.5, 1 )
+colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=100]
+gradient = SubResource( 99 )
+
+[sub_resource type="ParticlesMaterial" id=101]
+emission_shape = 2
+emission_box_extents = Vector3( 10, 10, 10 )
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 0.15
+scale = 2.0
+color = Color( 1, 0, 0.984314, 0.00392157 )
+color_ramp = SubResource( 100 )
+hue_variation = 1.0
+hue_variation_random = 1.0
+
+[sub_resource type="SphereMesh" id=102]
+material = SubResource( 97 )
+
+[sub_resource type="CubeMesh" id=103]
+size = Vector3( 2, 2, 0 )
+
+[sub_resource type="Gradient" id=104]
+interpolation_mode = 2
+colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 1 )
+
+[sub_resource type="GradientTexture2D" id=105]
+gradient = SubResource( 104 )
+fill_from = Vector2( 0.5, 0.3 )
+fill_to = Vector2( 0.5, 0 )
+
+[sub_resource type="SpatialMaterial" id=106]
+flags_transparent = true
+flags_unshaded = true
+flags_albedo_tex_force_srgb = true
+albedo_color = Color( 1, 1, 1, 0.392157 )
+albedo_texture = SubResource( 105 )
 
 [node name="astroroomlibrary" type="Spatial"]
 script = ExtResource( 27 )
@@ -613,13 +656,13 @@ anims/Sleepy = SubResource( 83 )
 
 [node name="Aura" type="Particles" parent="Avatar"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 2 )
-amount = 512
+amount = 1024
 lifetime = 4.0
 process_material = SubResource( 96 )
 draw_pass_1 = SubResource( 98 )
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( -0.849232, -0.365279, 0.381283, -0.11695, 0.834285, 0.538786, -0.514906, 0.412963, -0.751221, 1.73735, 2.85, -3.5011 )
+transform = Transform( -0.849232, -0.365279, 0.381282, -0.11695, 0.834286, 0.538786, -0.514906, 0.412963, -0.751221, 1.73735, 2.85, -3.5011 )
 current = true
 
 [node name="Camera2" type="Camera" parent="."]
@@ -653,3 +696,177 @@ amount = 256
 lifetime = 4.0
 process_material = SubResource( 90 )
 draw_pass_1 = ExtResource( 1 )
+
+[node name="Aura" type="Particles" parent="."]
+amount = 1024
+lifetime = 4.0
+visibility_aabb = AABB( 0, 0, 0, 100, 100, 100 )
+process_material = SubResource( 101 )
+draw_pass_1 = SubResource( 102 )
+
+[node name="Structures" type="Spatial" parent="."]
+
+[node name="Pack" type="Spatial" parent="Structures"]
+
+[node name="Group" type="Spatial" parent="Structures/Pack"]
+
+[node name="Pillar" type="MeshInstance" parent="Structures/Pack/Group"]
+transform = Transform( 1.85435, -2.71789, -0.515668, 0.515668, 9.6225, -0.174311, 0.543578, 0.143301, 1.9245, 4, -8, 9 )
+mesh = SubResource( 103 )
+skeleton = NodePath("../../..")
+material/0 = SubResource( 106 )
+
+[node name="Pillar2" type="MeshInstance" parent="Structures/Pack/Group"]
+transform = Transform( 1.41765, -0.369132, -1.40883, -0.0695334, 9.95588, -0.174311, 1.40905, 0.862685, 1.40883, -9, -8, 9 )
+mesh = SubResource( 103 )
+skeleton = NodePath("../../..")
+material/0 = SubResource( 106 )
+
+[node name="Pillar3" type="MeshInstance" parent="Structures/Pack/Group"]
+transform = Transform( 1.41421, -0.616284, -1.40883, 0, 9.96195, -0.174311, 1.41421, 0.616284, 1.40883, -9, -8, 25 )
+mesh = SubResource( 103 )
+skeleton = NodePath("../../..")
+material/0 = SubResource( 106 )
+
+[node name="Pillar4" type="MeshInstance" parent="Structures/Pack/Group"]
+transform = Transform( 1.81262, 0.368336, 0.84202, 0, 9.96195, -0.174311, -0.845236, 0.789899, 1.80572, 10, -8, 20 )
+mesh = SubResource( 103 )
+skeleton = NodePath("../../..")
+material/0 = SubResource( 106 )
+
+[node name="Group2" type="Spatial" parent="Structures/Pack"]
+transform = Transform( 0.766044, -0.111619, -0.633022, 0, 0.984808, -0.173648, 0.642788, 0.133022, 0.754407, -20, 0, -10 )
+
+[node name="Pillar" type="MeshInstance" parent="Structures/Pack/Group2"]
+transform = Transform( 1.85435, -2.71789, -0.515668, 0.515668, 9.6225, -0.174311, 0.543578, 0.143301, 1.9245, 4, -8, 9 )
+mesh = SubResource( 103 )
+skeleton = NodePath("../../..")
+material/0 = SubResource( 106 )
+
+[node name="Pillar2" type="MeshInstance" parent="Structures/Pack/Group2"]
+transform = Transform( 1.41765, -0.369132, -1.40883, -0.0695334, 9.95588, -0.174311, 1.40905, 0.862685, 1.40883, -9, -8, 9 )
+mesh = SubResource( 103 )
+skeleton = NodePath("../../..")
+material/0 = SubResource( 106 )
+
+[node name="Pillar3" type="MeshInstance" parent="Structures/Pack/Group2"]
+transform = Transform( 1.41421, -0.616284, -1.40883, 0, 9.96195, -0.174311, 1.41421, 0.616284, 1.40883, -9, -8, 25 )
+mesh = SubResource( 103 )
+skeleton = NodePath("../../..")
+material/0 = SubResource( 106 )
+
+[node name="Pillar4" type="MeshInstance" parent="Structures/Pack/Group2"]
+transform = Transform( 1.81262, 0.368336, 0.84202, 0, 9.96195, -0.174311, -0.845236, 0.789899, 1.80572, 10, -8, 20 )
+mesh = SubResource( 103 )
+skeleton = NodePath("../../..")
+material/0 = SubResource( 106 )
+
+[node name="Group3" type="Spatial" parent="Structures/Pack"]
+transform = Transform( 0.766044, 0.111619, 0.633022, 0, 0.984808, -0.173648, -0.642788, 0.133022, 0.754407, 20, 0, -10 )
+
+[node name="Pillar" type="MeshInstance" parent="Structures/Pack/Group3"]
+transform = Transform( 1.85435, -2.71789, -0.515668, 0.515668, 9.6225, -0.174311, 0.543578, 0.143301, 1.9245, 4, -8, 9 )
+mesh = SubResource( 103 )
+skeleton = NodePath("../../..")
+material/0 = SubResource( 106 )
+
+[node name="Pillar2" type="MeshInstance" parent="Structures/Pack/Group3"]
+transform = Transform( 1.41765, -0.369132, -1.40883, -0.0695334, 9.95588, -0.174311, 1.40905, 0.862685, 1.40883, -9, -8, 9 )
+mesh = SubResource( 103 )
+skeleton = NodePath("../../..")
+material/0 = SubResource( 106 )
+
+[node name="Pillar3" type="MeshInstance" parent="Structures/Pack/Group3"]
+transform = Transform( 1.41421, -0.616284, -1.40883, 0, 9.96195, -0.174311, 1.41421, 0.616284, 1.40883, -9, -8, 25 )
+mesh = SubResource( 103 )
+skeleton = NodePath("../../..")
+material/0 = SubResource( 106 )
+
+[node name="Pillar4" type="MeshInstance" parent="Structures/Pack/Group3"]
+transform = Transform( 1.81262, 0.368336, 0.84202, 0, 9.96195, -0.174311, -0.845236, 0.789899, 1.80572, 10, -8, 20 )
+mesh = SubResource( 103 )
+skeleton = NodePath("../../..")
+material/0 = SubResource( 106 )
+
+[node name="Pack2" type="Spatial" parent="Structures"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -30 )
+
+[node name="Group" type="Spatial" parent="Structures/Pack2"]
+
+[node name="Pillar" type="MeshInstance" parent="Structures/Pack2/Group"]
+transform = Transform( 1.85435, -2.71789, -0.515668, 0.515668, 9.6225, -0.174311, 0.543578, 0.143301, 1.9245, 4, -8, 9 )
+mesh = SubResource( 103 )
+skeleton = NodePath("../../..")
+material/0 = SubResource( 106 )
+
+[node name="Pillar2" type="MeshInstance" parent="Structures/Pack2/Group"]
+transform = Transform( 1.41765, -0.369132, -1.40883, -0.0695334, 9.95588, -0.174311, 1.40905, 0.862685, 1.40883, -9, -8, 9 )
+mesh = SubResource( 103 )
+skeleton = NodePath("../../..")
+material/0 = SubResource( 106 )
+
+[node name="Pillar3" type="MeshInstance" parent="Structures/Pack2/Group"]
+transform = Transform( 1.41421, -0.616284, -1.40883, 0, 9.96195, -0.174311, 1.41421, 0.616284, 1.40883, -9, -8, 25 )
+mesh = SubResource( 103 )
+skeleton = NodePath("../../..")
+material/0 = SubResource( 106 )
+
+[node name="Pillar4" type="MeshInstance" parent="Structures/Pack2/Group"]
+transform = Transform( 1.81262, 0.368336, 0.84202, 0, 9.96195, -0.174311, -0.845236, 0.789899, 1.80572, 10, -8, 20 )
+mesh = SubResource( 103 )
+skeleton = NodePath("../../..")
+material/0 = SubResource( 106 )
+
+[node name="Group2" type="Spatial" parent="Structures/Pack2"]
+transform = Transform( 0.766044, -0.111619, -0.633022, 0, 0.984808, -0.173648, 0.642788, 0.133022, 0.754407, -20, 0, -10 )
+
+[node name="Pillar" type="MeshInstance" parent="Structures/Pack2/Group2"]
+transform = Transform( 1.85435, -2.71789, -0.515668, 0.515668, 9.6225, -0.174311, 0.543578, 0.143301, 1.9245, 4, -8, 9 )
+mesh = SubResource( 103 )
+skeleton = NodePath("../../..")
+material/0 = SubResource( 106 )
+
+[node name="Pillar2" type="MeshInstance" parent="Structures/Pack2/Group2"]
+transform = Transform( 1.41765, -0.369132, -1.40883, -0.0695334, 9.95588, -0.174311, 1.40905, 0.862685, 1.40883, -9, -8, 9 )
+mesh = SubResource( 103 )
+skeleton = NodePath("../../..")
+material/0 = SubResource( 106 )
+
+[node name="Pillar3" type="MeshInstance" parent="Structures/Pack2/Group2"]
+transform = Transform( 1.41421, -0.616284, -1.40883, 0, 9.96195, -0.174311, 1.41421, 0.616284, 1.40883, -9, -8, 25 )
+mesh = SubResource( 103 )
+skeleton = NodePath("../../..")
+material/0 = SubResource( 106 )
+
+[node name="Pillar4" type="MeshInstance" parent="Structures/Pack2/Group2"]
+transform = Transform( 1.81262, 0.368336, 0.84202, 0, 9.96195, -0.174311, -0.845236, 0.789899, 1.80572, 10, -8, 20 )
+mesh = SubResource( 103 )
+skeleton = NodePath("../../..")
+material/0 = SubResource( 106 )
+
+[node name="Group3" type="Spatial" parent="Structures/Pack2"]
+transform = Transform( 0.766044, 0.111619, 0.633022, 0, 0.984808, -0.173648, -0.642788, 0.133022, 0.754407, 20, 0, -10 )
+
+[node name="Pillar" type="MeshInstance" parent="Structures/Pack2/Group3"]
+transform = Transform( 1.85435, -2.71789, -0.515668, 0.515668, 9.6225, -0.174311, 0.543578, 0.143301, 1.9245, 4, -8, 9 )
+mesh = SubResource( 103 )
+skeleton = NodePath("../../..")
+material/0 = SubResource( 106 )
+
+[node name="Pillar2" type="MeshInstance" parent="Structures/Pack2/Group3"]
+transform = Transform( 1.41765, -0.369132, -1.40883, -0.0695334, 9.95588, -0.174311, 1.40905, 0.862685, 1.40883, -9, -8, 9 )
+mesh = SubResource( 103 )
+skeleton = NodePath("../../..")
+material/0 = SubResource( 106 )
+
+[node name="Pillar3" type="MeshInstance" parent="Structures/Pack2/Group3"]
+transform = Transform( 1.41421, -0.616284, -1.40883, 0, 9.96195, -0.174311, 1.41421, 0.616284, 1.40883, -9, -8, 25 )
+mesh = SubResource( 103 )
+skeleton = NodePath("../../..")
+material/0 = SubResource( 106 )
+
+[node name="Pillar4" type="MeshInstance" parent="Structures/Pack2/Group3"]
+transform = Transform( 1.81262, 0.368336, 0.84202, 0, 9.96195, -0.174311, -0.845236, 0.789899, 1.80572, 10, -8, 20 )
+mesh = SubResource( 103 )
+skeleton = NodePath("../../..")
+material/0 = SubResource( 106 )
