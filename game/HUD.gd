@@ -276,8 +276,6 @@ func _process(delta:float):
 			
 		get_node("GiveUpVP/Control").percent = Game.giving_up
 		get_node("GiveUpHud").opacity = min(Game.giving_up*2,1)
-	if Input.is_action_just_pressed("retry"):
-		get_tree().reload_current_scene()
 	else:
 		get_node("GiveUpHud").visible = false
 		get_node("GiveUpHud").opacity = 0
