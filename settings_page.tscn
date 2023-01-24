@@ -63,7 +63,7 @@
 [ext_resource path="res://menuButtons/NoteSpin.gd" type="Script" id=61]
 [ext_resource path="res://menu2/CursorTrailType.gd" type="Script" id=62]
 [ext_resource path="res://menuButtons/NoteOpacity.gd" type="Script" id=63]
-[ext_resource path="res://ReplayIntro.gd" type="Script" id=64]
+[ext_resource path="res://menuButtons/ReplayIntro.gd" type="Script" id=64]
 
 [sub_resource type="DynamicFont" id=5]
 size = 18
