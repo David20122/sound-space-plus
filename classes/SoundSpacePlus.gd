@@ -137,7 +137,7 @@ var errornum:int = 0 # Used by settings file errors
 var errorstr:String = "" # Used by loading errors (ie. errors/songload and errors/menuload)
 var first_init_done = false # Don't reload mods as that can cause problems
 var loaded_world = null # Holds the bg world for transit between songload and song player
-var was_map_screen_centered:bool = false
+var was_map_screen_centered:bool = true
 var menu_target:String = ProjectSettings.get_setting("application/config/default_menu_target")
 var is_init:bool = true # Used to check if Onboarding is being used for game startup
 

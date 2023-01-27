@@ -1,4 +1,4 @@
-[gd_scene load_steps=202 format=2]
+[gd_scene load_steps=209 format=2]
 
 [ext_resource path="res://uitheme.tres" type="Theme" id=1]
 [ext_resource path="res://font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=2]
@@ -97,6 +97,48 @@
 [ext_resource path="res://menu2/WarningBar.gd" type="Script" id=95]
 [ext_resource path="res://menuButtons/ModFlashlight.gd" type="Script" id=96]
 [ext_resource path="res://menuButtons/InvertMouse.gd" type="Script" id=97]
+[ext_resource path="res://assets/cursors/circle.png" type="Texture" id=98]
+
+[sub_resource type="Gradient" id=163]
+offsets = PoolRealArray( 0, 0.5, 1 )
+colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=164]
+gradient = SubResource( 163 )
+
+[sub_resource type="Curve" id=165]
+_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.5, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=166]
+curve = SubResource( 165 )
+
+[sub_resource type="ParticlesMaterial" id=167]
+emission_shape = 2
+emission_box_extents = Vector3( 1080, 720, 1 )
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 24.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 0.1
+scale_curve = SubResource( 166 )
+color = Color( 1, 1, 1, 0.196078 )
+color_ramp = SubResource( 164 )
+
+[sub_resource type="ParticlesMaterial" id=168]
+emission_shape = 2
+emission_box_extents = Vector3( 1080, 720, 1 )
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 24.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 0.4
+scale_curve = SubResource( 166 )
+color = Color( 1, 1, 1, 0.0392157 )
+color_ramp = SubResource( 164 )
 
 [sub_resource type="StyleBoxFlat" id=59]
 draw_center = false
@@ -652,8 +694,30 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 rect_pivot_offset = Vector2( 401.518, 42 )
 theme = ExtResource( 1 )
-color = Color( 0.0156863, 0.0156863, 0.0156863, 1 )
+color = Color( 0.0156863, 0.0156863, 0.0156863, 0.392157 )
 script = ExtResource( 13 )
+
+[node name="Particles" type="Particles2D" parent="."]
+position = Vector2( 1024, 720 )
+z_index = -1024
+amount = 1024
+lifetime = 2.0
+speed_scale = 0.5
+visibility_rect = Rect2( 0, 0, 1920, 1080 )
+local_coords = false
+process_material = SubResource( 167 )
+texture = ExtResource( 98 )
+
+[node name="Particles2" type="Particles2D" parent="."]
+position = Vector2( 1024, 720 )
+z_index = -1024
+amount = 1024
+lifetime = 2.0
+speed_scale = 0.5
+visibility_rect = Rect2( 0, 0, 1920, 1080 )
+local_coords = false
+process_material = SubResource( 168 )
+texture = ExtResource( 98 )
 
 [node name="Press" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
@@ -4098,17 +4162,17 @@ __meta__ = {
 
 [node name="LeftPush" type="HBoxContainer" parent="Main/Results"]
 margin_left = 1215.0
-margin_right = 1344.0
+margin_right = 1219.0
 margin_bottom = 681.0
 size_flags_horizontal = 3
 
 [node name="CenterContainer" type="VBoxContainer" parent="Main/Results/LeftPush"]
-margin_right = 125.0
 margin_bottom = 681.0
 size_flags_horizontal = 3
 alignment = 2
 
 [node name="Button" type="Button" parent="Main/Results/LeftPush/CenterContainer"]
+visible = false
 margin_top = 654.0
 margin_right = 125.0
 margin_bottom = 681.0
@@ -4128,8 +4192,8 @@ text = "Move to center"
 clip_text = true
 
 [node name="Control" type="Control" parent="Main/Results/LeftPush"]
-margin_left = 129.0
-margin_right = 129.0
+margin_left = 4.0
+margin_right = 4.0
 margin_bottom = 681.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
@@ -4180,7 +4244,7 @@ scroll_deadzone = 45
 
 [node name="L" type="VBoxContainer" parent="Main/Credits/C/S"]
 margin_right = 1216.0
-margin_bottom = 1120.0
+margin_bottom = 1153.0
 grow_horizontal = 2
 rect_min_size = Vector2( 700, 0 )
 size_flags_horizontal = 3
@@ -4225,17 +4289,17 @@ margin_right = 1204.0
 margin_bottom = 82.0
 
 [node name="H" type="HBoxContainer" parent="Main/Credits/C/S/L/DevTeam/C"]
-margin_left = 471.0
-margin_right = 732.0
+margin_left = 474.0
+margin_right = 729.0
 margin_bottom = 30.0
 alignment = 1
 
 [node name="Label" type="Label" parent="Main/Credits/C/S/L/DevTeam/C/H"]
-margin_right = 261.0
+margin_right = 255.0
 margin_bottom = 30.0
 custom_colors/font_color = Color( 0.670588, 0.901961, 0.898039, 1 )
 custom_fonts/font = SubResource( 159 )
-text = "Basil \"Chedski\" Cyathea"
+text = "Paisley \"pyrule\" Raylan"
 align = 1
 
 [node name="C2" type="CenterContainer" parent="Main/Credits/C/S/L/DevTeam"]
@@ -4244,17 +4308,17 @@ margin_right = 1204.0
 margin_bottom = 120.0
 
 [node name="H" type="HBoxContainer" parent="Main/Credits/C/S/L/DevTeam/C2"]
-margin_left = 474.0
-margin_right = 729.0
+margin_left = 530.0
+margin_right = 673.0
 margin_bottom = 30.0
 alignment = 1
 
 [node name="Label" type="Label" parent="Main/Credits/C/S/L/DevTeam/C2/H"]
-margin_right = 255.0
+margin_right = 143.0
 margin_bottom = 30.0
 custom_colors/font_color = Color( 0.670588, 0.901961, 0.898039, 1 )
 custom_fonts/font = SubResource( 159 )
-text = "Paisley \"pyrule\" Raylan"
+text = "Jayden Jones"
 align = 1
 
 [node name="C3" type="CenterContainer" parent="Main/Credits/C/S/L/DevTeam"]
@@ -4263,17 +4327,17 @@ margin_right = 1204.0
 margin_bottom = 158.0
 
 [node name="H" type="HBoxContainer" parent="Main/Credits/C/S/L/DevTeam/C3"]
-margin_left = 580.0
-margin_right = 623.0
+margin_left = 503.0
+margin_right = 701.0
 margin_bottom = 30.0
 alignment = 1
 
 [node name="Label" type="Label" parent="Main/Credits/C/S/L/DevTeam/C3/H"]
-margin_right = 43.0
+margin_right = 198.0
 margin_bottom = 30.0
 custom_colors/font_color = Color( 0.670588, 0.901961, 0.898039, 1 )
 custom_fonts/font = SubResource( 159 )
-text = "balt"
+text = "David \"kiwie\" Guy"
 align = 1
 
 [node name="PatronTitle" type="Label" parent="Main/Credits/C/S/L"]
@@ -4369,7 +4433,7 @@ autowrap = true
 [node name="SpecialThanks" type="VBoxContainer" parent="Main/Credits/C/S/L"]
 margin_top = 618.0
 margin_right = 1204.0
-margin_bottom = 983.0
+margin_bottom = 1016.0
 grow_horizontal = 2
 custom_constants/separation = 8
 alignment = 1
@@ -4382,10 +4446,29 @@ custom_fonts/font = SubResource( 158 )
 text = "-- special thanks --"
 align = 1
 
-[node name="C7" type="CenterContainer" parent="Main/Credits/C/S/L/SpecialThanks"]
+[node name="C13" type="CenterContainer" parent="Main/Credits/C/S/L/SpecialThanks"]
 margin_top = 52.0
 margin_right = 1204.0
 margin_bottom = 77.0
+
+[node name="H" type="HBoxContainer" parent="Main/Credits/C/S/L/SpecialThanks/C13"]
+margin_left = 253.0
+margin_right = 950.0
+margin_bottom = 25.0
+alignment = 1
+
+[node name="Label" type="Label" parent="Main/Credits/C/S/L/SpecialThanks/C13/H"]
+margin_right = 697.0
+margin_bottom = 25.0
+custom_colors/font_color = Color( 0.878431, 0.858824, 0.682353, 1 )
+custom_fonts/font = SubResource( 160 )
+text = "Basil \"Chedski\" Cyathea - The person that started it all; unfortunately gone now"
+align = 1
+
+[node name="C7" type="CenterContainer" parent="Main/Credits/C/S/L/SpecialThanks"]
+margin_top = 85.0
+margin_right = 1204.0
+margin_bottom = 110.0
 
 [node name="H" type="HBoxContainer" parent="Main/Credits/C/S/L/SpecialThanks/C7"]
 margin_left = 398.0
@@ -4402,9 +4485,9 @@ text = "Morphox - Creator of the original Sound Space"
 align = 1
 
 [node name="C12" type="CenterContainer" parent="Main/Credits/C/S/L/SpecialThanks"]
-margin_top = 85.0
+margin_top = 118.0
 margin_right = 1204.0
-margin_bottom = 110.0
+margin_bottom = 143.0
 
 [node name="H" type="HBoxContainer" parent="Main/Credits/C/S/L/SpecialThanks/C12"]
 margin_left = 318.0
@@ -4421,9 +4504,9 @@ text = "ARCW - Singlehandedly starting a new era of community growth"
 align = 1
 
 [node name="C11" type="CenterContainer" parent="Main/Credits/C/S/L/SpecialThanks"]
-margin_top = 118.0
+margin_top = 151.0
 margin_right = 1204.0
-margin_bottom = 143.0
+margin_bottom = 176.0
 
 [node name="H" type="HBoxContainer" parent="Main/Credits/C/S/L/SpecialThanks/C11"]
 margin_left = 336.0
@@ -4440,9 +4523,9 @@ text = "frostlines - Provided massive amounts of feedback and ideas"
 align = 1
 
 [node name="C4" type="CenterContainer" parent="Main/Credits/C/S/L/SpecialThanks"]
-margin_top = 151.0
+margin_top = 184.0
 margin_right = 1204.0
-margin_bottom = 176.0
+margin_bottom = 209.0
 
 [node name="H" type="HBoxContainer" parent="Main/Credits/C/S/L/SpecialThanks/C4"]
 margin_left = 389.0
@@ -4459,28 +4542,28 @@ text = "Jayden Jones - Feedback and code contributions"
 align = 1
 
 [node name="C8" type="CenterContainer" parent="Main/Credits/C/S/L/SpecialThanks"]
-margin_top = 184.0
+margin_top = 217.0
 margin_right = 1204.0
-margin_bottom = 209.0
+margin_bottom = 242.0
 
 [node name="H" type="HBoxContainer" parent="Main/Credits/C/S/L/SpecialThanks/C8"]
-margin_left = 338.0
-margin_right = 866.0
+margin_left = 312.0
+margin_right = 892.0
 margin_bottom = 25.0
 alignment = 1
 
 [node name="Label" type="Label" parent="Main/Credits/C/S/L/SpecialThanks/C8/H"]
-margin_right = 528.0
+margin_right = 580.0
 margin_bottom = 25.0
 custom_colors/font_color = Color( 0.878431, 0.858824, 0.682353, 1 )
 custom_fonts/font = SubResource( 160 )
-text = "david20122 - Created SSQE (map editor) and gave feedback"
+text = "David \"kiwie\" Guy - Created SSQE (map editor) and gave feedback"
 align = 1
 
 [node name="C9" type="CenterContainer" parent="Main/Credits/C/S/L/SpecialThanks"]
-margin_top = 217.0
+margin_top = 250.0
 margin_right = 1204.0
-margin_bottom = 242.0
+margin_bottom = 275.0
 
 [node name="H" type="HBoxContainer" parent="Main/Credits/C/S/L/SpecialThanks/C9"]
 margin_left = 380.0
@@ -4498,9 +4581,9 @@ align = 1
 
 [node name="C10" type="CenterContainer" parent="Main/Credits/C/S/L/SpecialThanks"]
 visible = false
-margin_top = 217.0
+margin_top = 283.0
 margin_right = 1204.0
-margin_bottom = 242.0
+margin_bottom = 308.0
 
 [node name="H" type="HBoxContainer" parent="Main/Credits/C/S/L/SpecialThanks/C10"]
 margin_left = 396.0
@@ -4517,9 +4600,9 @@ text = "Omega - Created the Circuit background world"
 align = 1
 
 [node name="C6" type="CenterContainer" parent="Main/Credits/C/S/L/SpecialThanks"]
-margin_top = 250.0
+margin_top = 283.0
 margin_right = 1204.0
-margin_bottom = 266.0
+margin_bottom = 299.0
 
 [node name="MarginContainer" type="MarginContainer" parent="Main/Credits/C/S/L/SpecialThanks/C6"]
 margin_left = 242.0
@@ -4536,9 +4619,9 @@ rect_min_size = Vector2( 720, 0 )
 custom_styles/panel = SubResource( 161 )
 
 [node name="C5" type="CenterContainer" parent="Main/Credits/C/S/L/SpecialThanks"]
-margin_top = 274.0
+margin_top = 307.0
 margin_right = 1204.0
-margin_bottom = 299.0
+margin_bottom = 332.0
 
 [node name="H" type="HBoxContainer" parent="Main/Credits/C/S/L/SpecialThanks/C5"]
 margin_left = 294.0
@@ -4555,9 +4638,9 @@ text = "Past and present patrons - Quite literally paying for our Steam release"
 align = 1
 
 [node name="C" type="CenterContainer" parent="Main/Credits/C/S/L/SpecialThanks"]
-margin_top = 307.0
+margin_top = 340.0
 margin_right = 1204.0
-margin_bottom = 332.0
+margin_bottom = 365.0
 
 [node name="H" type="HBoxContainer" parent="Main/Credits/C/S/L/SpecialThanks/C"]
 margin_left = 276.0
@@ -4574,9 +4657,9 @@ text = "Community staff - Helping people & keeping the community under control"
 align = 1
 
 [node name="C2" type="CenterContainer" parent="Main/Credits/C/S/L/SpecialThanks"]
-margin_top = 340.0
+margin_top = 373.0
 margin_right = 1204.0
-margin_bottom = 365.0
+margin_bottom = 398.0
 
 [node name="H" type="HBoxContainer" parent="Main/Credits/C/S/L/SpecialThanks/C2"]
 margin_left = 289.0
@@ -4593,9 +4676,9 @@ text = "The playtester team - Catching major bugs before they reach the public"
 align = 1
 
 [node name="SPACER" type="Control" parent="Main/Credits/C/S/L"]
-margin_top = 995.0
+margin_top = 1028.0
 margin_right = 1204.0
-margin_bottom = 1120.0
+margin_bottom = 1153.0
 rect_min_size = Vector2( 0, 125 )
 
 [node name="Quit" type="Button" parent="."]
@@ -4814,6 +4897,7 @@ text = "Content Manager"
 valign = 1
 
 [node name="StartVR" type="Button" parent="Sidebar/L"]
+visible = false
 margin_top = 290.0
 margin_right = 58.0
 margin_bottom = 348.0
@@ -4877,9 +4961,9 @@ text = "Switch to Old Menu"
 valign = 1
 
 [node name="Quit" type="Button" parent="Sidebar/L"]
-margin_top = 348.0
+margin_top = 290.0
 margin_right = 58.0
-margin_bottom = 406.0
+margin_bottom = 348.0
 rect_min_size = Vector2( 0, 58 )
 custom_styles/hover = SubResource( 4 )
 custom_styles/pressed = SubResource( 2 )
