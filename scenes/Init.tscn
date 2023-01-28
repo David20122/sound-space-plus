@@ -1,0 +1,54 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://scripts/Init.gd" type="Script" id=1]
+[ext_resource path="res://assets/fonts/Roboto/Medium.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://assets/fonts/Roboto/Regular.ttf" type="DynamicFontData" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 18
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=2]
+font_data = ExtResource( 3 )
+
+[node name="Init" type="ColorRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+script = ExtResource( 1 )
+
+[node name="Pre" type="Control" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -256.0
+margin_top = -128.0
+margin_right = 256.0
+margin_bottom = 128.0
+
+[node name="Warning" type="Label" parent="Pre"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_vertical = 2
+custom_fonts/font = SubResource( 1 )
+text = "Health and Safety Notice
+
+A small percentage of people may experience seizures when exposed to certain lights, patterns or images even with no history of epilepsy or seizures.
+Immediately stop playing and consult a doctor if you begin to experience discomfort, disorientation or other symptoms."
+align = 1
+valign = 1
+autowrap = true
+
+[node name="Continue" type="Button" parent="Pre"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -64.0
+margin_right = 64.0
+margin_bottom = 24.0
+custom_fonts/font = SubResource( 2 )
+text = "Continue"
+
+[node name="Tween" type="Tween" parent="."]

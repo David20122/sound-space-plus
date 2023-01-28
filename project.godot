@@ -117,7 +117,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Sound Space Plus"
-run/main_scene="res://preinit.tscn"
+run/main_scene="res://scenes/Init.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="SoundSpacePlus"
 run/delta_sync_after_draw=true
@@ -139,12 +139,9 @@ channel_disable_time=15.0
 
 [autoload]
 
-Globals="*res://classes/Globals.gd"
-Online="*res://classes/Online.gd"
-SSP="*res://classes/SoundSpacePlus.gd"
-RQueue="*res://classes/ResourceQueue.gd"
+Globals="*res://scripts/Globals.gd"
+SoundSpacePlus="*res://scripts/SoundSpacePlus.gd"
 Discord="*res://addons/discord_game_sdk/discord.gd"
-Dance="*res://classes/Dance.gd"
 
 [debug]
 
