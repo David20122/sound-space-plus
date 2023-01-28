@@ -2,12 +2,12 @@
 
 importer="mp3"
 type="AudioStreamMP3"
-path="res://.import/yay.mp3-d1937ad4e05cd53f4021c1ea799f2c07.mp3str"
+path="res://.import/yay.mp3-cc8c0add45e54fbcc2f8dab3800e966e.mp3str"
 
 [deps]
 
-source_file="res://assets/sfx/music/yay.mp3"
-dest_files=[ "res://.import/yay.mp3-d1937ad4e05cd53f4021c1ea799f2c07.mp3str" ]
+source_file="res://assets/sounds/music/yay.mp3"
+dest_files=[ "res://.import/yay.mp3-cc8c0add45e54fbcc2f8dab3800e966e.mp3str" ]
 
 [params]
 

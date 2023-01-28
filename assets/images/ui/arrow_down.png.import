@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/arrow_down.png-b540709f39a69b09909609c9352934d2.stex"
+path="res://.import/arrow_down.png-33307a3fc7edca949bddd26bcc73d6f1.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/arrow_down.png"
-dest_files=[ "res://.import/arrow_down.png-b540709f39a69b09909609c9352934d2.stex" ]
+source_file="res://assets/images/ui/arrow_down.png"
+dest_files=[ "res://.import/arrow_down.png-33307a3fc7edca949bddd26bcc73d6f1.stex" ]
 
 [params]
 

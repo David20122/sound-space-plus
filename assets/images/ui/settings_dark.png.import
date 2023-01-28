@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/settings_dark.png-2caf38ae5461843938cc48a93ee7421d.stex"
+path="res://.import/settings_dark.png-ec69eae45503bc2a1c7c9e72536c44a1.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/settings_dark.png"
-dest_files=[ "res://.import/settings_dark.png-2caf38ae5461843938cc48a93ee7421d.stex" ]
+source_file="res://assets/images/ui/settings_dark.png"
+dest_files=[ "res://.import/settings_dark.png-ec69eae45503bc2a1c7c9e72536c44a1.stex" ]
 
 [params]
 

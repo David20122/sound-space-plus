@@ -2,12 +2,12 @@
 
 importer="ogg_vorbis"
 type="AudioStreamOGGVorbis"
-path="res://.import/mkwii_load_short.ogg-1b32da8777d55c3c0d34c816de4fe5c2.oggstr"
+path="res://.import/mkwii_load_short.ogg-41db02e3865ab841a11c42d407cfb36b.oggstr"
 
 [deps]
 
-source_file="res://assets/sfx/mkwii_load_short.ogg"
-dest_files=[ "res://.import/mkwii_load_short.ogg-1b32da8777d55c3c0d34c816de4fe5c2.oggstr" ]
+source_file="res://assets/sounds/sfx/mkwii_load_short.ogg"
+dest_files=[ "res://.import/mkwii_load_short.ogg-41db02e3865ab841a11c42d407cfb36b.oggstr" ]
 
 [params]
 

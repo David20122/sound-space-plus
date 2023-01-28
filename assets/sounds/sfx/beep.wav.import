@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/beep.wav-b2e5e8d3174d132e5bedbecf4546ff11.sample"
+path="res://.import/beep.wav-920f5f1ee59a70bc69a59a25cec316bb.sample"
 
 [deps]
 
-source_file="res://assets/sfx/beep.wav"
-dest_files=[ "res://.import/beep.wav-b2e5e8d3174d132e5bedbecf4546ff11.sample" ]
+source_file="res://assets/sounds/sfx/beep.wav"
+dest_files=[ "res://.import/beep.wav-920f5f1ee59a70bc69a59a25cec316bb.sample" ]
 
 [params]
 

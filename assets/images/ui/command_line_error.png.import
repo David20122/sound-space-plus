@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/command_line_error.png-c6d787f69e47cece59606564d1249c1e.stex"
+path="res://.import/command_line_error.png-d8d929a180ad585ef508d77a74a5fce8.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/command_line_error.png"
-dest_files=[ "res://.import/command_line_error.png-c6d787f69e47cece59606564d1249c1e.stex" ]
+source_file="res://assets/images/ui/command_line_error.png"
+dest_files=[ "res://.import/command_line_error.png-d8d929a180ad585ef508d77a74a5fce8.stex" ]
 
 [params]
 

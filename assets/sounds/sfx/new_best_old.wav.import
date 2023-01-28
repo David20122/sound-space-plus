@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/new_best_old.wav-c83c8f093ecf6e896242f3a9ca9349f5.sample"
+path="res://.import/new_best_old.wav-443b477539ca5f02add3b902807c195e.sample"
 
 [deps]
 
-source_file="res://assets/sfx/new_best_old.wav"
-dest_files=[ "res://.import/new_best_old.wav-c83c8f093ecf6e896242f3a9ca9349f5.sample" ]
+source_file="res://assets/sounds/sfx/new_best_old.wav"
+dest_files=[ "res://.import/new_best_old.wav-443b477539ca5f02add3b902807c195e.sample" ]
 
 [params]
 

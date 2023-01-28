@@ -2,9 +2,9 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/icon.svg-c395f8ce7e884e609e48d1202735c824.s3tc.stex"
-path.etc2="res://.import/icon.svg-c395f8ce7e884e609e48d1202735c824.etc2.stex"
-path.etc="res://.import/icon.svg-c395f8ce7e884e609e48d1202735c824.etc.stex"
+path.s3tc="res://.import/icon.svg-a566acdfa255516260691384a755b52d.s3tc.stex"
+path.etc2="res://.import/icon.svg-a566acdfa255516260691384a755b52d.etc2.stex"
+path.etc="res://.import/icon.svg-a566acdfa255516260691384a755b52d.etc.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc2", "etc" ],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/branding/icon.svg"
-dest_files=[ "res://.import/icon.svg-c395f8ce7e884e609e48d1202735c824.s3tc.stex", "res://.import/icon.svg-c395f8ce7e884e609e48d1202735c824.etc2.stex", "res://.import/icon.svg-c395f8ce7e884e609e48d1202735c824.etc.stex" ]
+source_file="res://assets/images/branding/icon.svg"
+dest_files=[ "res://.import/icon.svg-a566acdfa255516260691384a755b52d.s3tc.stex", "res://.import/icon.svg-a566acdfa255516260691384a755b52d.etc2.stex", "res://.import/icon.svg-a566acdfa255516260691384a755b52d.etc.stex" ]
 
 [params]
 

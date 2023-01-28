@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/miss.wav-00e797a0ebd031105bc32b05316d3648.sample"
+path="res://.import/miss.wav-d8de80b4cf35d49d6354d8effcd3d798.sample"
 
 [deps]
 
-source_file="res://assets/sfx/miss.wav"
-dest_files=[ "res://.import/miss.wav-00e797a0ebd031105bc32b05316d3648.sample" ]
+source_file="res://assets/sounds/sfx/miss.wav"
+dest_files=[ "res://.import/miss.wav-d8de80b4cf35d49d6354d8effcd3d798.sample" ]
 
 [params]
 

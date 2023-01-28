@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/arcw.png-b09f35ef91728ecb99c0b8bb95c83133.stex"
+path="res://.import/arcw.png-14c33e059d7f8cddbad592e4c0f0fdc0.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/arcw.png"
-dest_files=[ "res://.import/arcw.png-b09f35ef91728ecb99c0b8bb95c83133.stex" ]
+source_file="res://assets/images/ui/arcw.png"
+dest_files=[ "res://.import/arcw.png-14c33e059d7f8cddbad592e4c0f0fdc0.stex" ]
 
 [params]
 

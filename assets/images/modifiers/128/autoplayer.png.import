@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/song_load_error.png-578ac038d4e22cd0a3e64cb60c0d65a4.stex"
+path="res://.import/autoplayer.png-03029163f3ccad9ef634716730015ac2.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/ui/song_load_error.png"
-dest_files=[ "res://.import/song_load_error.png-578ac038d4e22cd0a3e64cb60c0d65a4.stex" ]
+source_file="res://assets/images/modifiers/128/autoplayer.png"
+dest_files=[ "res://.import/autoplayer.png-03029163f3ccad9ef634716730015ac2.stex" ]
 
 [params]
 

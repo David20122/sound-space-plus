@@ -2,12 +2,12 @@
 
 importer="mp3"
 type="AudioStreamMP3"
-path="res://.import/menu_full.mp3-2b1671e677b1c2e94817daea330be0d0.mp3str"
+path="res://.import/menu_full.mp3-738408cbf78edd3be3972518e9603d48.mp3str"
 
 [deps]
 
-source_file="res://assets/sfx/menu_full.mp3"
-dest_files=[ "res://.import/menu_full.mp3-2b1671e677b1c2e94817daea330be0d0.mp3str" ]
+source_file="res://assets/sounds/sfx/menu_full.mp3"
+dest_files=[ "res://.import/menu_full.mp3-738408cbf78edd3be3972518e9603d48.mp3str" ]
 
 [params]
 

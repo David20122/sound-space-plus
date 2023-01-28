@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/spinner_thick.png-3eb8ad6173039cced2019afe31876ea7.stex"
+path="res://.import/spinner_thick.png-842ae167b11c6657dc84619f33d04277.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/spinner_thick.png"
-dest_files=[ "res://.import/spinner_thick.png-3eb8ad6173039cced2019afe31876ea7.stex" ]
+source_file="res://assets/images/ui/spinner_thick.png"
+dest_files=[ "res://.import/spinner_thick.png-842ae167b11c6657dc84619f33d04277.stex" ]
 
 [params]
 

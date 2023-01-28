@@ -2,9 +2,9 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/miss.png-f6edb315fcda5a0e911a7c3516f5a0b1.s3tc.stex"
-path.etc2="res://.import/miss.png-f6edb315fcda5a0e911a7c3516f5a0b1.etc2.stex"
-path.etc="res://.import/miss.png-f6edb315fcda5a0e911a7c3516f5a0b1.etc.stex"
+path.s3tc="res://.import/miss.png-2aa3662a78954c354a19ff66e46b954e.s3tc.stex"
+path.etc2="res://.import/miss.png-2aa3662a78954c354a19ff66e46b954e.etc2.stex"
+path.etc="res://.import/miss.png-2aa3662a78954c354a19ff66e46b954e.etc.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc2", "etc" ],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/notefx/miss.png"
-dest_files=[ "res://.import/miss.png-f6edb315fcda5a0e911a7c3516f5a0b1.s3tc.stex", "res://.import/miss.png-f6edb315fcda5a0e911a7c3516f5a0b1.etc2.stex", "res://.import/miss.png-f6edb315fcda5a0e911a7c3516f5a0b1.etc.stex" ]
+source_file="res://assets/images/notefx/miss.png"
+dest_files=[ "res://.import/miss.png-2aa3662a78954c354a19ff66e46b954e.s3tc.stex", "res://.import/miss.png-2aa3662a78954c354a19ff66e46b954e.etc2.stex", "res://.import/miss.png-2aa3662a78954c354a19ff66e46b954e.etc.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/user_folder_error.png-952e2f259c76c5a0afd58bb7e6637dd8.stex"
+path="res://.import/user_folder_error.png-a17ff989458afc85d7487b2830303b75.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/user_folder_error.png"
-dest_files=[ "res://.import/user_folder_error.png-952e2f259c76c5a0afd58bb7e6637dd8.stex" ]
+source_file="res://assets/images/ui/user_folder_error.png"
+dest_files=[ "res://.import/user_folder_error.png-a17ff989458afc85d7487b2830303b75.stex" ]
 
 [params]
 

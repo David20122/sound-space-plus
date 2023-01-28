@@ -127,40 +127,10 @@ boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://assets/branding/icon.png"
 config/windows_native_icon="res://icon.ico"
 config/quit_on_go_back=false
-config/version="jan23-rabbit"
-config/autoload_map_registries="test maps|res://test_assets/test_maps.sspmr;built in|res://content/songs/built_in_maps.sspmr"
-config/enable_new_content_mgr=true
-config/default_menu_target="res://menu2.tscn"
-config/default_menu_target.mobile="res://menu2.tscn"
-config/default_menu_target.editor="res://menu2.tscn"
-config/7zip_binary_path=""
-config/7zip_binary_path.Windows="install_dir/util/7z.exe"
-config/7zip_binary_path.X11="install_dir/util/7zz"
-config/auto_maximize=true
-config/auto_maximize.editor=false
-config/use_custom_user_dir.Android=false
-config/discord_rpc.OSX=false
-config/save_dir="user://"
-config/save_dir.Android="user://"
-config/fov=70.0
-config/enable_new_content_mgr.mobile=false
-config/discord_rpc.mobile=false
-config/replays=true
-config/replays.editor=true
-config/show_trail_debug=false
-config/project_settings_override.standalone="user://override.cfg"
+config/version="rewrite"
 networking/enabled=true
-networking/mapdb_api="https://soundspaceplus.dev/api/"
 networking/test_url="https://google.com"
-config/discord_rpc.HTML5=false
-config/enable_new_content_mgr.HTML5=false
-config/disable_native_file_dialogs=false
-config/disable_native_file_dialogs.Android=true
-config/disable_native_file_dialogs.web=true
-config/disable_native_file_dialogs.OSX=true
-config/is_using_controller=true
-config/discord_rpc=true
-config/discord_rpc.editor=false
+networking/api_url="https://soundspaceplus.dev/api/"
 
 [audio]
 
@@ -183,11 +153,6 @@ gdscript/warnings/narrowing_conversion=false
 gdscript/warnings/unused_signal=false
 gdscript/warnings/return_value_discarded=false
 
-[discord_presence]
-
-first_button/label="go to godot's website lol"
-settings/change_time_per_screen=true
-
 [display]
 
 window/size/width=1280
@@ -196,6 +161,10 @@ window/vsync/use_vsync=false
 window/handheld/orientation="sensor_landscape"
 window/stretch/mode.mobile="2d"
 window/stretch/aspect.mobile="keep_height"
+
+[editor]
+
+script_templates_search_path="res://templates"
 
 [editor_plugins]
 
@@ -376,10 +345,11 @@ retry={
 
 [logging]
 
-file_logging/max_log_files=1
+file_logging/max_log_files=4
 
 [physics]
 
+common/physics_fps=120
 common/enable_pause_aware_picking=true
 
 [rendering]
@@ -395,6 +365,7 @@ quality/shadows/filter_mode=0
 quality/reflections/texture_array_reflections=false
 quality/filters/anisotropic_filter_level=2
 2d/options/use_software_skinning=false
+gles3/shaders/shader_compilation_mode=2
 quality/lightmapping/use_bicubic_sampling=false
 environment/default_clear_color=Color( 0.137255, 0.137255, 0.137255, 1 )
 quality/filters/msaa=1
