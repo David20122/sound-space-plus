@@ -614,7 +614,7 @@ func _process(delta:float):
 	else: do_half_lock()
 	var newpos = $Cursor.transform.origin
 	var diff = last_cursor_position.distance_to(newpos)
-	rec_interval = round(min(24+(diff/(pow(delta,1.2)))*2,60))
+	rec_interval = round(min(24+(diff/(pow(delta,1.2)))*2,144))
 	last_cursor_position = newpos
 	if active and notes_loaded:
 		if !notes_loaded: return
