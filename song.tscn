@@ -25,7 +25,6 @@
 [ext_resource path="res://approach.svg" type="Texture" id=44]
 [ext_resource path="res://FaceNote.gd" type="Script" id=45]
 
-
 [sub_resource type="BoxShape" id=29]
 extents = Vector3( 40, 40, 1 )
 
