@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/hair.obj-b123744770abbc5d11494e8d6b029d87.mesh"
+
+[deps]
+
+files=[ "res://.import/hair.obj-b123744770abbc5d11494e8d6b029d87.mesh" ]
+
+source_file="res://assets/meshes/accessories/cubella_hair/hair.obj"
+dest_files=[ "res://.import/hair.obj-b123744770abbc5d11494e8d6b029d87.mesh", "res://.import/hair.obj-b123744770abbc5d11494e8d6b029d87.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

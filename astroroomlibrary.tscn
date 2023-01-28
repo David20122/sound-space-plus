@@ -1,12 +1,13 @@
 [gd_scene load_steps=42 format=2]
 
-[ext_resource path="res://assets/blocks/cube.obj" type="ArrayMesh" id=1]
+[ext_resource path="res://assets/meshes/blocks/cube.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://assets/meshes/LowCube.obj" type="ArrayMesh" id=15]
 [ext_resource path="res://assets/meshes/Happy.obj" type="ArrayMesh" id=16]
 [ext_resource path="res://assets/branding/icon.svg" type="Texture" id=25]
 [ext_resource path="res://assets/animations/Idle.tres" type="Animation" id=26]
 [ext_resource path="res://astroroomlibrary.gd" type="Script" id=27]
 [ext_resource path="res://assets/sfx/music/yay.mp3" type="AudioStream" id=28]
+
 
 [sub_resource type="SpatialMaterial" id=60]
 flags_unshaded = true
