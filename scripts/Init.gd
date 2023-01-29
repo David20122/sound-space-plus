@@ -1,27 +1,53 @@
 extends Node
 
+onready var skip_intro:bool = ProjectSettings.get_setting("application/config/disable_intro")
+
 func _ready():
 	$Pre.modulate.a = 0
+	yield(get_tree().create_timer(2),"timeout")
+	if SoundSpacePlus.need_menu or SoundSpacePlus.loading:
+		post()
+		return
 	if SoundSpacePlus.first_load:
-		SoundSpacePlus.init()
 		pre()
 		return
+	SoundSpacePlus.init()
 	post()
 
 func pre():
 	$Pre/Continue.disabled = true
-	$Tween.interpolate_property($Pre,"modulate:a",0,1,1,Tween.TRANS_EXPO,Tween.EASE_IN)
+	$Tween.remove_all()
+	$Tween.interpolate_property($Pre,"modulate:a",0,1,2,Tween.TRANS_EXPO,Tween.EASE_IN)
+	$Tween.interpolate_property($Piano,"volume_db",-80,-8,3,Tween.TRANS_QUAD,Tween.EASE_OUT)
 	$Tween.start()
-	yield($Tween,"tween_all_completed")
-	yield(get_tree().create_timer(2),"tween_all_completed")
+	yield($Tween,"tween_completed")
+	yield(get_tree().create_timer(2),"timeout")
 	$Pre/Continue.connect("pressed",self,"precontinue")
 	$Pre/Continue.disabled = false
 
 func precontinue():
+	$Pre/Continue.disabled = true
+	SoundSpacePlus.init()
+	$Tween.remove_all()
 	$Tween.interpolate_property($Pre,"modulate:a",1,0,1,Tween.TRANS_EXPO,Tween.EASE_OUT)
 	$Tween.start()
 	yield($Tween,"tween_all_completed")
-	get_tree().change_scene("res://scenes/Intro.tscn")
+	if skip_intro:
+		post()
+		return
+	intro()
 
 func post():
-	pass
+	$Tween.remove_all()
+	$Tween.interpolate_property($Piano,"volume_db",$Piano.volume_db,-8,1,Tween.TRANS_QUAD,Tween.EASE_OUT)
+	$Tween.interpolate_property($Drums,"volume_db",-80,-8,4,Tween.TRANS_QUAD,Tween.EASE_OUT)
+	$Tween.interpolate_property($Phaser,"volume_db",-80,-8,3,Tween.TRANS_QUAD,Tween.EASE_OUT)
+	$Tween.interpolate_property($Strings,"volume_db",-80,-8,2,Tween.TRANS_QUAD,Tween.EASE_OUT)
+	$Tween.start()
+
+func intro():
+	$Tween.remove_all()
+	$Tween.interpolate_property($Piano,"volume_db",$Piano.volume_db,-80,1,Tween.TRANS_SINE,Tween.EASE_OUT)
+	$Tween.start()
+	yield($Tween,"tween_all_completed")
+	get_tree().change_scene("res://scenes/Intro.tscn")

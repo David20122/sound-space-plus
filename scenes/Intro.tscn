@@ -1,14 +1,13 @@
 [gd_scene load_steps=42 format=2]
 
 [ext_resource path="res://assets/meshes/blocks/cube.obj" type="ArrayMesh" id=1]
+[ext_resource path="res://assets/fonts/Lato/Lato-Italic.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://assets/meshes/LowCube.obj" type="ArrayMesh" id=15]
 [ext_resource path="res://assets/meshes/Happy.obj" type="ArrayMesh" id=16]
-[ext_resource path="res://assets/branding/icon.svg" type="Texture" id=25]
+[ext_resource path="res://assets/images/branding/icon.svg" type="Texture" id=25]
 [ext_resource path="res://assets/animations/Idle.tres" type="Animation" id=26]
 [ext_resource path="res://scripts/Intro.gd" type="Script" id=27]
-[ext_resource path="res://assets/sfx/music/yay.mp3" type="AudioStream" id=28]
-
-
+[ext_resource path="res://assets/sounds/music/yay.mp3" type="AudioStream" id=28]
 
 [sub_resource type="SpatialMaterial" id=60]
 flags_unshaded = true
@@ -461,12 +460,9 @@ material = SubResource( 97 )
 [sub_resource type="CanvasItemMaterial" id=86]
 render_priority = 100
 
-[sub_resource type="DynamicFontData" id=84]
-font_path = "res://font/Lato/Lato-Italic.ttf"
-
 [sub_resource type="DynamicFont" id=85]
 size = 64
-font_data = SubResource( 84 )
+font_data = ExtResource( 2 )
 
 [sub_resource type="Environment" id=87]
 background_mode = 1

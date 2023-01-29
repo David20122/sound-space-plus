@@ -16,7 +16,7 @@ func _ready():
 	$ColorRect.modulate.a = 1
 #	OS.window_fullscreen = true
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
-	yield(get_tree().create_timer(4),"timeout")
+	yield(get_tree().create_timer(1),"timeout")
 	running = true
 	$Avatar/Animations.play("Float")
 	$Avatar/Animations.playback_speed = 1
@@ -32,11 +32,11 @@ func _ready():
 	yield(get_tree().create_timer(14),"timeout")
 	fading = true
 	yield(get_tree().create_timer(4),"timeout")
-	get_tree().change_scene("res://init.tscn")
+	get_tree().change_scene("res://scenes/Init.tscn")
 
 func _input(event):
 	if Input.is_action_just_pressed("pause") and can_skip:
-		get_tree().change_scene("res://init.tscn")
+		get_tree().change_scene("res://scenes/Init.tscn")
 
 func _process(delta):
 	
@@ -54,3 +54,6 @@ func _process(delta):
 		$Skip.modulate.a += (0 - $Skip.modulate.a) * 2 * delta
 	if can_skip2 and not fading:
 		$Skip.modulate.a += (0.5 - $Skip.modulate.a) * 1 * delta
+
+func _exit_tree():
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
