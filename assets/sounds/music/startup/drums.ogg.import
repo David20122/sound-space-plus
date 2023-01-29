@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/drums.ogg-97f24ac6a66b4283cce6a919c7dd85a0.oggstr"
+
+[deps]
+
+source_file="res://assets/sounds/music/startup/drums.ogg"
+dest_files=[ "res://.import/drums.ogg-97f24ac6a66b4283cce6a919c7dd85a0.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
