@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=2]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://assets/blocks/cube.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://assets/meshes/LowCube.obj" type="ArrayMesh" id=15]
@@ -493,7 +493,7 @@ distance_fade_max_distance = 10.0
 offsets = PoolRealArray( 0, 0.503226, 1 )
 colors = PoolColorArray( 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0 )
 
-[sub_resource type="GradientTexture" id=93]
+[sub_resource type="GradientTexture" id=107]
 gradient = SubResource( 92 )
 
 [sub_resource type="ParticlesMaterial" id=90]
@@ -506,13 +506,13 @@ angular_velocity = 80.0
 angular_velocity_random = 1.0
 scale = 0.5
 scale_random = 1.0
-color_ramp = SubResource( 93 )
+color_ramp = SubResource( 107 )
 
 [sub_resource type="Gradient" id=99]
 offsets = PoolRealArray( 0, 0.5, 1 )
 colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0 )
 
-[sub_resource type="GradientTexture" id=100]
+[sub_resource type="GradientTexture" id=108]
 gradient = SubResource( 99 )
 
 [sub_resource type="ParticlesMaterial" id=101]
@@ -523,12 +523,23 @@ gravity = Vector3( 0, 0, 0 )
 initial_velocity = 0.15
 scale = 2.0
 color = Color( 1, 0, 0.984314, 0.00392157 )
-color_ramp = SubResource( 100 )
+color_ramp = SubResource( 108 )
 hue_variation = 1.0
 hue_variation_random = 1.0
 
+[sub_resource type="SpatialMaterial" id=109]
+flags_transparent = true
+flags_unshaded = true
+vertex_color_use_as_albedo = true
+params_blend_mode = 1
+params_billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+albedo_color = Color( 1, 1, 1, 0.196078 )
+
 [sub_resource type="SphereMesh" id=102]
-material = SubResource( 97 )
+material = SubResource( 109 )
 
 [sub_resource type="CubeMesh" id=103]
 size = Vector3( 2, 2, 0 )

@@ -265,7 +265,7 @@ script = ExtResource( 59 )
 [node name="M" type="VBoxContainer" parent="."]
 margin_top = 59.0
 margin_right = 1280.0
-margin_bottom = 5530.0
+margin_bottom = 5494.0
 custom_constants/separation = 0
 
 [node name="Modifiers" type="VBoxContainer" parent="M"]
@@ -454,7 +454,7 @@ valign = 1
 [node name="Notes" type="VBoxContainer" parent="M"]
 margin_top = 154.0
 margin_right = 1280.0
-margin_bottom = 574.0
+margin_bottom = 538.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Notes"]
@@ -482,13 +482,13 @@ flat = true
 [node name="Group" type="MarginContainer" parent="M/Notes"]
 margin_top = 36.0
 margin_right = 1280.0
-margin_bottom = 420.0
+margin_bottom = 384.0
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="M/Notes/Group"]
 margin_left = 180.0
 margin_right = 1280.0
-margin_bottom = 384.0
+margin_bottom = 348.0
 
 [node name="ColorSet2" type="VBoxContainer" parent="M/Notes/Group/H"]
 margin_right = 1100.0
@@ -702,6 +702,7 @@ text = "[def. 1] the visual size of the notes (doesn't affect hitboxes)"
 valign = 1
 
 [node name="NoteSpin" type="Control" parent="M/Notes/Group/H"]
+visible = false
 margin_top = 148.0
 margin_right = 1100.0
 margin_bottom = 180.0
@@ -814,9 +815,9 @@ text = "[def. (0,0,0)] note rotation speed (visual only)"
 valign = 1
 
 [node name="NoteOpacity" type="Control" parent="M/Notes/Group/H"]
-margin_top = 184.0
+margin_top = 148.0
 margin_right = 1100.0
-margin_bottom = 216.0
+margin_bottom = 180.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="NoteOpacity" type="SpinBox" parent="M/Notes/Group/H/NoteOpacity"]
@@ -861,16 +862,16 @@ text = "[def. 100%] how opaque/transparent/visible the note appears"
 valign = 1
 
 [node name="SEPARATOR2" type="HSeparator" parent="M/Notes/Group/H"]
-margin_top = 220.0
+margin_top = 184.0
 margin_right = 1100.0
-margin_bottom = 230.0
+margin_bottom = 194.0
 rect_min_size = Vector2( 0, 10 )
 custom_styles/separator = SubResource( 55 )
 
 [node name="ApproachRate" type="Control" parent="M/Notes/Group/H"]
-margin_top = 234.0
+margin_top = 198.0
 margin_right = 1100.0
-margin_bottom = 266.0
+margin_bottom = 230.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="ApproachRate" type="SpinBox" parent="M/Notes/Group/H/ApproachRate"]
@@ -918,9 +919,9 @@ text = "[def. 40] the speed that notes move towards the grid. (note: this will b
 valign = 1
 
 [node name="SpawnDist" type="Control" parent="M/Notes/Group/H"]
-margin_top = 270.0
+margin_top = 234.0
 margin_right = 1100.0
-margin_bottom = 302.0
+margin_bottom = 266.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="SpawnDist" type="SpinBox" parent="M/Notes/Group/H/SpawnDist"]
@@ -967,9 +968,9 @@ text = "[def. 40] distance from the grid that notes spawn (approach time = SD/AR
 valign = 1
 
 [node name="FadeLength" type="Control" parent="M/Notes/Group/H"]
-margin_top = 306.0
+margin_top = 270.0
 margin_right = 1100.0
-margin_bottom = 338.0
+margin_bottom = 302.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="FadeLength" type="SpinBox" parent="M/Notes/Group/H/FadeLength"]
@@ -1013,16 +1014,16 @@ text = "[def. 50%] percentage of the spawn distance that notes take to fade from
 valign = 1
 
 [node name="SEPARATOR" type="HSeparator" parent="M/Notes/Group/H"]
-margin_top = 342.0
+margin_top = 306.0
 margin_right = 1100.0
-margin_bottom = 352.0
+margin_bottom = 316.0
 rect_min_size = Vector2( 0, 10 )
 custom_styles/separator = SubResource( 55 )
 
 [node name="NoteSpawnEffect" type="CheckBox" parent="M/Notes/Group/H"]
-margin_top = 356.0
+margin_top = 320.0
 margin_right = 1100.0
-margin_bottom = 384.0
+margin_bottom = 348.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
@@ -1053,9 +1054,9 @@ valign = 1
 clip_text = true
 
 [node name="Camera" type="VBoxContainer" parent="M"]
-margin_top = 574.0
+margin_top = 538.0
 margin_right = 1280.0
-margin_bottom = 1230.0
+margin_bottom = 1194.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Camera"]
@@ -1150,12 +1151,11 @@ custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
 custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
 custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
 custom_fonts/font = SubResource( 4 )
-pressed = true
 action_mode = 0
-text = "turning this off will unlock the mouse while playing - useful for tablets"
+text = "turning this on will unlock the mouse while playing - useful for tablets"
 flat = true
 script = ExtResource( 54 )
-target = "lock_mouse"
+target = "absolute_mode"
 
 [node name="Label" type="Label" parent="M/Camera/Group/H/LockMouse"]
 anchor_bottom = 1.0
@@ -1166,7 +1166,7 @@ focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 3 )
-text = "Lock Mouse"
+text = "Absolute Mode"
 align = 2
 valign = 1
 clip_text = true
@@ -1799,9 +1799,9 @@ valign = 1
 clip_text = true
 
 [node name="Customization" type="VBoxContainer" parent="M"]
-margin_top = 1230.0
+margin_top = 1194.0
 margin_right = 1280.0
-margin_bottom = 2122.0
+margin_bottom = 2086.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Customization"]
@@ -2944,9 +2944,9 @@ icon = ExtResource( 4 )
 expand_icon = true
 
 [node name="Audio" type="VBoxContainer" parent="M"]
-margin_top = 2122.0
+margin_top = 2086.0
 margin_right = 1280.0
-margin_bottom = 2594.0
+margin_bottom = 2558.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Audio"]
@@ -3559,9 +3559,9 @@ __meta__ = {
 }
 
 [node name="UI" type="VBoxContainer" parent="M"]
-margin_top = 2594.0
+margin_top = 2558.0
 margin_right = 1280.0
-margin_bottom = 3138.0
+margin_bottom = 3102.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/UI"]
@@ -4148,9 +4148,9 @@ valign = 1
 clip_text = true
 
 [node name="UIColor" type="VBoxContainer" parent="M"]
-margin_top = 3138.0
+margin_top = 3102.0
 margin_right = 1280.0
-margin_bottom = 4806.0
+margin_bottom = 4770.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/UIColor"]
@@ -6042,9 +6042,9 @@ text = "[def. ##DEFAULT##] color of text when grade is F"
 valign = 1
 
 [node name="Graphics" type="VBoxContainer" parent="M"]
-margin_top = 4806.0
+margin_top = 4770.0
 margin_right = 1280.0
-margin_bottom = 5098.0
+margin_bottom = 5062.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Graphics"]
@@ -6347,9 +6347,9 @@ text = "[0 = no limit] puts a limit on the framerate; use this if ssp is using 1
 valign = 1
 
 [node name="Experimental" type="VBoxContainer" parent="M"]
-margin_top = 5098.0
+margin_top = 5062.0
 margin_right = 1280.0
-margin_bottom = 5471.0
+margin_bottom = 5435.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Experimental"]
@@ -6721,9 +6721,9 @@ text = "replays the intro cutscene"
 valign = 1
 
 [node name="BottomMargin" type="Control" parent="."]
-margin_top = 5534.0
+margin_top = 5498.0
 margin_right = 1280.0
-margin_bottom = 5630.0
+margin_bottom = 5594.0
 rect_min_size = Vector2( 0, 96 )
 
 [connection signal="pressed" from="M/Experimental/Group/H/Intro/Play" to="M/Experimental/Group/H/Intro/Play" method="_on_Play_pressed"]

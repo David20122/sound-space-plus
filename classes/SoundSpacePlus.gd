@@ -577,6 +577,7 @@ var hit_fov_decay:float = 20
 var camera_mode:int = Globals.CAMERA_HALF_LOCK
 var cam_unlock:bool = false
 var lock_mouse:bool = true
+var absolute_mode:bool = false
 var edge_drift:float = 0
 
 # Settings - Replays
@@ -1027,6 +1028,8 @@ func load_saved_settings():
 			show_hit_effect = data.show_hit_effect
 		if data.has("lock_mouse"): 
 			lock_mouse = data.lock_mouse
+		if data.has("absolute_mode"):
+			absolute_mode = data.absolute_mode
 		if data.has("cursor_trail"): 
 			cursor_trail = data.cursor_trail
 		if data.has("trail_mode_scale"):
@@ -1451,6 +1454,7 @@ func save_settings():
 			fade_length = fade_length,
 			show_hit_effect = show_hit_effect,
 			lock_mouse = lock_mouse,
+			absolute_mode = absolute_mode,
 			cursor_trail = cursor_trail,
 			trail_detail = trail_detail,
 			trail_time = trail_time,

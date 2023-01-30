@@ -8,6 +8,7 @@ var rawMapData:String
 var notes:Array
 var last_ms:float = 0
 onready var colors:Array = SSP.selected_colorset.colors
+onready var speed_multi = Globals.speed_multi[SSP.mod_speed_level]
 
 var score:int = 0
 var combo:int = 0
@@ -202,7 +203,6 @@ func linstep(a:float,b:float,x:float):
 	return clamp(abs((x - a) / (b - a)),0,1)
 
 func get_point_amt() -> int:
-	var speed_multi = Globals.speed_multi[SSP.mod_speed_level]
 	var spd = clamp(((speed_multi - 1) * 1.5) + 1, 0, 1.9)
 	
 	var hitbox_diff = SSP.note_hitbox_size - 1.140

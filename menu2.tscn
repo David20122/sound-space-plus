@@ -1,4 +1,4 @@
-[gd_scene load_steps=209 format=2]
+[gd_scene load_steps=215 format=2]
 
 [ext_resource path="res://uitheme.tres" type="Theme" id=1]
 [ext_resource path="res://font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=2]
@@ -98,6 +98,7 @@
 [ext_resource path="res://menuButtons/ModFlashlight.gd" type="Script" id=96]
 [ext_resource path="res://menuButtons/InvertMouse.gd" type="Script" id=97]
 [ext_resource path="res://assets/cursors/circle.png" type="Texture" id=98]
+[ext_resource path="res://MenuMouse.gd" type="Script" id=99]
 
 [sub_resource type="Gradient" id=163]
 offsets = PoolRealArray( 0, 0.5, 1 )
@@ -125,6 +126,7 @@ scale = 0.1
 scale_curve = SubResource( 166 )
 color = Color( 1, 1, 1, 0.196078 )
 color_ramp = SubResource( 164 )
+hue_variation = 0.04
 
 [sub_resource type="ParticlesMaterial" id=168]
 emission_shape = 2
@@ -135,9 +137,9 @@ gravity = Vector3( 0, 0, 0 )
 initial_velocity = 24.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
-scale = 0.4
+scale = 0.8
 scale_curve = SubResource( 166 )
-color = Color( 1, 1, 1, 0.0392157 )
+color = Color( 1, 1, 1, 0.0156863 )
 color_ramp = SubResource( 164 )
 
 [sub_resource type="StyleBoxFlat" id=59]
@@ -689,6 +691,28 @@ font_data = ExtResource( 2 )
 fallback/0 = ExtResource( 65 )
 fallback/1 = ExtResource( 15 )
 
+[sub_resource type="Gradient" id=174]
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=175]
+gradient = SubResource( 174 )
+
+[sub_resource type="Curve" id=171]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=172]
+curve = SubResource( 171 )
+
+[sub_resource type="ParticlesMaterial" id=173]
+flag_disable_z = true
+gravity = Vector3( 0, 0, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 0.1
+scale_curve = SubResource( 172 )
+color = Color( 1, 1, 1, 0.392157 )
+color_ramp = SubResource( 175 )
+
 [node name="Menu" type="ColorRect"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -698,6 +722,7 @@ color = Color( 0.0156863, 0.0156863, 0.0156863, 0.392157 )
 script = ExtResource( 13 )
 
 [node name="Particles" type="Particles2D" parent="."]
+visible = false
 position = Vector2( 1024, 720 )
 z_index = -1024
 amount = 1024
@@ -709,9 +734,10 @@ process_material = SubResource( 167 )
 texture = ExtResource( 98 )
 
 [node name="Particles2" type="Particles2D" parent="."]
+visible = false
 position = Vector2( 1024, 720 )
 z_index = -1024
-amount = 1024
+amount = 2048
 lifetime = 2.0
 speed_scale = 0.5
 visibility_rect = Rect2( 0, 0, 1920, 1080 )
@@ -2095,9 +2121,6 @@ margin_right = -6.0
 margin_bottom = -6.0
 texture = ExtResource( 16 )
 expand = true
-__meta__ = {
-"_edit_use_anchors_": true
-}
 
 [node name="Cover" type="TextureRect" parent="Main/Results/Results/ButtonDisp/NODIF"]
 visible = false
@@ -2786,9 +2809,6 @@ custom_fonts/font = SubResource( 94 )
 text = "="
 align = 1
 clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="P" type="Button" parent="Main/Results/Results/ModsHolder/Mods/SpeedMod/C"]
 margin_left = 128.0
@@ -3090,9 +3110,6 @@ custom_fonts/font = SubResource( 92 )
 action_mode = 0
 flat = true
 script = ExtResource( 33 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Label" type="Label" parent="Main/Results/Results/ModsHolder/Mods/NoFail"]
 margin_left = -115.0
@@ -3106,9 +3123,6 @@ text = "Nofail"
 align = 2
 valign = 1
 clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="SuddenDeath" type="CheckBox" parent="Main/Results/Results/ModsHolder/Mods"]
 margin_left = 310.0
@@ -3124,9 +3138,6 @@ custom_fonts/font = SubResource( 92 )
 action_mode = 0
 flat = true
 script = ExtResource( 44 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Label" type="Label" parent="Main/Results/Results/ModsHolder/Mods/SuddenDeath"]
 margin_left = -115.0
@@ -3140,9 +3151,6 @@ text = "Sudden Death"
 align = 2
 valign = 1
 clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="EasyMode" type="CheckBox" parent="Main/Results/Results/ModsHolder/Mods"]
 margin_left = 130.0
@@ -3159,9 +3167,6 @@ action_mode = 0
 text = "Easy Mode"
 flat = true
 script = ExtResource( 35 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Label" type="Label" parent="Main/Results/Results/ModsHolder/Mods/EasyMode"]
 margin_left = -115.0
@@ -3175,9 +3180,6 @@ text = "Extra Energy"
 align = 2
 valign = 1
 clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="HardMode" type="CheckBox" parent="Main/Results/Results/ModsHolder/Mods"]
 margin_left = 310.0
@@ -3194,9 +3196,6 @@ action_mode = 0
 text = "Hard Mode"
 flat = true
 script = ExtResource( 34 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Label" type="Label" parent="Main/Results/Results/ModsHolder/Mods/HardMode"]
 margin_left = -89.0
@@ -3210,9 +3209,6 @@ text = "No Regen"
 align = 2
 valign = 1
 clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="MirrorX" type="CheckBox" parent="Main/Results/Results/ModsHolder/Mods"]
 margin_left = 130.0
@@ -3228,9 +3224,6 @@ custom_fonts/font = SubResource( 92 )
 action_mode = 0
 flat = true
 script = ExtResource( 36 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Label" type="Label" parent="Main/Results/Results/ModsHolder/Mods/MirrorX"]
 margin_left = -115.0
@@ -3244,9 +3237,6 @@ text = "Mirror X"
 align = 2
 valign = 1
 clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="MirrorY" type="CheckBox" parent="Main/Results/Results/ModsHolder/Mods"]
 margin_left = 310.0
@@ -3262,9 +3252,6 @@ custom_fonts/font = SubResource( 92 )
 action_mode = 0
 flat = true
 script = ExtResource( 37 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Label" type="Label" parent="Main/Results/Results/ModsHolder/Mods/MirrorY"]
 margin_left = -115.0
@@ -3278,9 +3265,6 @@ text = "Mirror Y"
 align = 2
 valign = 1
 clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Nearsight" type="CheckBox" parent="Main/Results/Results/ModsHolder/Mods"]
 visible = false
@@ -3341,9 +3325,6 @@ text = "Earthquake"
 align = 2
 valign = 1
 clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Chaos" type="CheckBox" parent="Main/Results/Results/ModsHolder/Mods"]
 margin_left = 130.0
@@ -3415,9 +3396,6 @@ custom_fonts/font = SubResource( 92 )
 action_mode = 0
 flat = true
 script = ExtResource( 45 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Label" type="Label" parent="Main/Results/Results/ModsHolder/Mods/Ghost"]
 margin_left = -115.0
@@ -3431,9 +3409,6 @@ text = "Ghost"
 align = 2
 valign = 1
 clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="VisualMode" type="CheckBox" parent="Main/Results/Results/ModsHolder/Mods"]
 margin_left = 310.0
@@ -3927,9 +3902,6 @@ custom_fonts/font = SubResource( 105 )
 text = "-"
 align = 1
 valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Title" type="Label" parent="Main/Results/Results/EndInfo/Misses"]
 margin_top = -24.0
@@ -3941,9 +3913,6 @@ custom_fonts/font = SubResource( 106 )
 text = "MISSES"
 align = 1
 valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="FullCombo" type="Label" parent="Main/Results/Results/EndInfo"]
 visible = false
@@ -3988,9 +3957,6 @@ custom_fonts/font = SubResource( 105 )
 text = "-"
 align = 1
 valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Title" type="Label" parent="Main/Results/Results/EndInfo/Pauses"]
 margin_top = -24.0
@@ -4002,9 +3968,6 @@ custom_fonts/font = SubResource( 106 )
 text = "PAUSES"
 align = 1
 valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="NoPauses" type="Label" parent="Main/Results/Results/EndInfo"]
 visible = false
@@ -4050,9 +4013,6 @@ text = "-
 -"
 align = 1
 valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Title" type="Label" parent="Main/Results/Results/EndInfo/Progress"]
 margin_top = -24.0
@@ -4064,9 +4024,6 @@ custom_fonts/font = SubResource( 106 )
 text = "PROGRESS"
 align = 1
 valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Accuracy" type="Label" parent="Main/Results/Results/EndInfo"]
 margin_left = 144.0
@@ -4081,9 +4038,6 @@ text = "-
 -"
 align = 1
 valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Title" type="Label" parent="Main/Results/Results/EndInfo/Accuracy"]
 margin_top = -24.0
@@ -4095,9 +4049,6 @@ custom_fonts/font = SubResource( 106 )
 text = "ACCURACY"
 align = 1
 valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="MaxCombo" type="Label" parent="Main/Results/Results/EndInfo"]
 modulate = Color( 0.572549, 1, 0.568627, 1 )
@@ -5427,3 +5378,15 @@ color = Color( 0, 0, 0, 0 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Mouse" type="Particles2D" parent="."]
+emitting = false
+amount = 256
+lifetime = 0.5
+fixed_fps = 240
+visibility_rect = Rect2( -2048, -2048, 4096, 4096 )
+local_coords = false
+draw_order = 1
+process_material = SubResource( 173 )
+texture = ExtResource( 98 )
+script = ExtResource( 99 )

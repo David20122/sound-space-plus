@@ -120,7 +120,7 @@ func note_reposition(i:int):
 		nt.basis = nt.basis.rotated(Vector3(0,1,0),SSP.note_spin_y / 2000)
 		nt.basis = nt.basis.rotated(Vector3(0,0,1),SSP.note_spin_z / 2000)
 		
-		var alpha:float = 1
+		var alpha:float = SSP.note_opacity
 		var fade_in:float = 1
 		var fade_out:float = 1
 		

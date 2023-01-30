@@ -4,7 +4,7 @@ var centered:bool = false
 
 func upd():
 	if centered:
-		$CenterPush.visible = true
+		$CenterPush.visible = false
 		$LeftPush/CenterContainer/Button.visible = false
 	else:
 		$CenterPush.visible = false

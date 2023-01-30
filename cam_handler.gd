@@ -28,3 +28,5 @@ func _process(delta):
 	if Input.is_action_just_pressed("debug_freecam_toggle"):
 		state = !state
 		_ready()
+	if Input.is_action_just_pressed("retry"):
+		get_tree().reload_current_scene()

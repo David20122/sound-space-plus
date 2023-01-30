@@ -99,7 +99,7 @@ func _ready():
 	$L/Quit.connect("pressed",self,"quit")
 	
 	$L/ContentMgr.visible = not SSP.vr
-	$L/StartVR.visible = SSP.vr_available and not SSP.vr
+#	$L/StartVR.visible = SSP.vr_available and not SSP.vr
 	if SSP.vr or !OS.has_feature("pc"):
 		$L/Quit/Label.text = "Quit to Home"
 	

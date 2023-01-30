@@ -83,10 +83,17 @@ func _input(event:InputEvent):
 			visible = true
 			if (event is InputEventMouseMotion):
 				face = event.relative
+				var aoff = Vector2(-750,-500)
 				if SSP.invert_mouse:
-					move_cursor((event.relative * 0.018 * SSP.sensitivity) * -1)
+					if SSP.absolute_mode:
+						move_cursor_abs((get_viewport().get_mouse_position() + aoff) * (-1 * (SSP.sensitivity * 0.05)))
+					else:
+						move_cursor((event.relative * 0.018 * SSP.sensitivity) * -1)
 				else:
-					move_cursor(event.relative * 0.018 * SSP.sensitivity)
+					if SSP.absolute_mode:
+						move_cursor_abs((get_viewport().get_mouse_position() + aoff) * (SSP.sensitivity * 0.05))
+					else:
+						move_cursor(event.relative * 0.018 * SSP.sensitivity)
 			
 		if (event is InputEventScreenDrag):
 			$VisualPos.visible = true
@@ -173,7 +180,7 @@ func _ready():
 	if !SSP.show_cursor: visible = false
 	
 	if !SSP.replaying:
-		if SSP.lock_mouse:
+		if not SSP.absolute_mode:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		else:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
