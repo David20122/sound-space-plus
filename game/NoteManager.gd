@@ -593,7 +593,7 @@ func do_note_queue():
 
 var rec_t:float = 0
 var rms:float = 0
-var rec_interval:float = 35
+var rec_interval:float = 12
 var pause_state:float = 0
 var pause_cooldown:float = 0
 var pause_ms:float = 0
@@ -612,6 +612,10 @@ func _process(delta:float):
 	if SSP.vr: do_vr_cursor()
 	elif SSP.cam_unlock: do_spin()
 	else: do_half_lock()
+	var newpos = $Cursor.transform.origin
+	var diff = last_cursor_position.distance_to(newpos)
+	rec_interval = round(min(32+(diff/(pow(delta,1.1)))*4,144))
+	last_cursor_position = newpos
 	if active and notes_loaded:
 		if !notes_loaded: return
 	
@@ -742,7 +746,7 @@ func _process(delta:float):
 			if should_giveup: get_parent().end(Globals.END_GIVEUP)
 		
 		rms += delta * 1000
-		rec_t += delta * 1000
+		rec_t += delta
 		if pause_state == 0 or (pause_state > 0 and (Input.is_action_pressed("pause") or replay_unpause)):
 			ms += delta * 1000 * speed_multi
 			emit_signal("ms_change",ms)
@@ -770,8 +774,8 @@ func _process(delta:float):
 		var rn_res:bool = reposition_notes()
 		if !SSP.replaying and SSP.record_replays:
 			var should_write_pos:bool = rn_res
-			var ri = rec_interval
-			if pause_state == -1: ri *= 3
+			var ri = 1/rec_interval
+			if pause_state == -1: ri /= 3
 			if rn_res or rec_t >= ri:
 				rec_t = 0
 				should_write_pos = true

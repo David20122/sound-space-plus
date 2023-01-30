@@ -321,11 +321,12 @@ func _process(delta:float):
 	if gtimer >= 2:
 		calculating = true
 	
-	var fstr = "cursor speed\n{current} m/sec\n\ntop speed\n{top} m/sec"
+	var fstr = "cursor speed\n{current} m/sec\n\ntop speed\n{top} m/sec\n\nrec interval\n{rec}"
 	$Stats/Label.text = fstr.format(
 		{
 			"current": stepify(s_curspd,0.1),
-			"top": stepify(s_tcurspd,0.1)
+			"top": stepify(s_tcurspd,0.1),
+			"rec": Spawn.rec_interval
 		}
 	)
 	
@@ -498,6 +499,3 @@ func _ready():
 		ms += "HW: %.0f ms | HB: %.02f m" % [SSP.hitwindow_ms,SSP.note_hitbox_size]
 	
 	modtxt.text = ms
-
-
-

@@ -1,6 +1,6 @@
 # sound-space-plus
 Play your favorite Sound Space maps again!  
-[Discord](https://discord.gg/ttPys6Jajs) | [Patreon](https://www.patreon.com/soundspaceplus)
+[Discord](https://discord.gg/ssp) | [Patreon](https://www.patreon.com/soundspaceplus)
 
 ## Development
 After cloning the repository download the Discord Game SDK and put the following files into addons/discord_game_sdk:  
