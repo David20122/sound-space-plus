@@ -62,6 +62,14 @@ func move_cursor_abs(mdel:Vector2):
 			$Mesh2.transform.origin.y = -(ry - cy)
 		else: $Mesh2.visible = false
 
+func get_absolute_position():
+	var vpSize = get_viewport().size
+	var mPos = get_viewport().get_mouse_position()
+	var tangen = 3.75*tan(SSP.fov)
+	var vpCenter = vpSize / 2
+	var centerPos = mPos - vpCenter
+	var absPos = (centerPos / vpSize.y) * tangen
+	return Vector2(1,1) + absPos
 func _input(event:InputEvent):
 	if !SSP.replaying and !SSP.vr:
 		if can_switch_move_modes:
@@ -83,15 +91,14 @@ func _input(event:InputEvent):
 			visible = true
 			if (event is InputEventMouseMotion):
 				face = event.relative
-				var aoff = Vector2(-750,-500)
 				if SSP.invert_mouse:
 					if SSP.absolute_mode:
-						move_cursor_abs((get_viewport().get_mouse_position() + aoff) * (-1 * (SSP.sensitivity * 0.05)))
+						move_cursor_abs(get_absolute_position() * -1)
 					else:
 						move_cursor((event.relative * 0.018 * SSP.sensitivity) * -1)
 				else:
 					if SSP.absolute_mode:
-						move_cursor_abs((get_viewport().get_mouse_position() + aoff) * (SSP.sensitivity * 0.05))
+						move_cursor_abs(get_absolute_position())
 					else:
 						move_cursor(event.relative * 0.018 * SSP.sensitivity)
 			
@@ -179,14 +186,15 @@ func _process(delta):
 func _ready():
 	if !SSP.show_cursor: visible = false
 	
-	if !SSP.replaying:
-		if not SSP.absolute_mode:
-			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-		else:
-			Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
-			Input.set_custom_mouse_cursor(load("res://assets/ui/blank.png"))
-	else:
-		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	# if !SSP.replaying:
+	# 	if not SSP.absolute_mode:
+	# 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	# 	else:
+	# 		Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
+	# 		Input.set_custom_mouse_cursor(load("res://assets/ui/blank.png"))
+	# else:
+	# 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	
 	var mat:SpatialMaterial = $Mesh.get("material/0")
 	$Mesh.scale = Vector3(SSP.cursor_scale,SSP.cursor_scale,SSP.cursor_scale)
