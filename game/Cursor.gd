@@ -186,15 +186,14 @@ func _process(delta):
 func _ready():
 	if !SSP.show_cursor: visible = false
 	
-	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	# if !SSP.replaying:
-	# 	if not SSP.absolute_mode:
-	# 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	# 	else:
-	# 		Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
-	# 		Input.set_custom_mouse_cursor(load("res://assets/ui/blank.png"))
-	# else:
-	# 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	if !SSP.replaying:
+		if not SSP.absolute_mode:
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		else:
+			Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
+			Input.set_custom_mouse_cursor(load("res://assets/ui/blank.png"))
+	else:
+		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	
 	var mat:SpatialMaterial = $Mesh.get("material/0")
 	$Mesh.scale = Vector3(SSP.cursor_scale,SSP.cursor_scale,SSP.cursor_scale)
