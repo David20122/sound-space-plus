@@ -529,16 +529,12 @@ func do_spin():
 	var hlm = 0.25
 	var uim = SSP.ui_parallax * 0.1
 	var grm = SSP.grid_parallax * 0.1
-	cam.transform.origin = Vector3(
-		centeroff.x*hlpower*hlm, centeroff.y*hlpower*hlm, 3.5
-	) + cam.transform.basis.z / 4
 	Grid.transform.origin = Vector3(
 		-centeroff.x*hlm*uim, -centeroff.y*hlm*uim, Grid.transform.origin.z
 	)
 	transform.origin = Vector3(
 		-(centeroff.x*hlm*grm)-1, -(centeroff.y*hlm*grm)+1, 0
 	)
-	get_node("Cursor").transform.origin = centeroff + cursor_offset
 
 func do_vr_cursor():
 	var centeroff = SSP.vr_player.primary_ray.get_collision_point() + cursor_offset
