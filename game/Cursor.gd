@@ -65,11 +65,11 @@ func move_cursor_abs(mdel:Vector2):
 func get_absolute_position():
 	var vpSize = get_viewport().size
 	var mPos = get_viewport().get_mouse_position()
-	var tangen = 3.75*tan(SSP.fov)
+	var tangen = 3.75*tan(deg2rad(SSP.fov))
 	var vpCenter = vpSize / 2
 	var centerPos = mPos - vpCenter
 	var absPos = (centerPos / vpSize.y) * tangen
-	return Vector2(1,1) + absPos
+	return Vector2(1,1) + absPos / 2
 func _input(event:InputEvent):
 	if !SSP.replaying and !SSP.vr:
 		if can_switch_move_modes:
