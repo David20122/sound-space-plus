@@ -128,10 +128,22 @@ func cache_trail(part:Spatial):
 func recolor(col:Color):
 	$Mesh.get("material/0").albedo_color = Color(col.r,col.g,col.b,col.a)
 
+var mt = 0
 func _process(delta):
-	
 	if Input.is_action_just_pressed("debug_enable_mouse"):
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		mt = mt + 1
+		if mt == 1:
+			Input.set_custom_mouse_cursor(null)
+			Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		if mt == 2:
+			Input.set_custom_mouse_cursor(load("res://assets/ui/blank.png"))
+			Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+			if SSP.absolute_mode:
+				Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
+			else:
+				Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+			mt = 0
 	frame = Engine.get_frames_drawn()
 	if SSP.cursor_spin != 0 and !SSP.cursor_face_velocity:
 		$Mesh.rotate_z(deg2rad(-delta*SSP.cursor_spin))
