@@ -1,6 +1,7 @@
 extends Camera
 
 var cursor_offset = Vector3(1,-1,0)
+var replay_offset = Vector3(1,-1,0)
 var sh:Vector2 = Vector2(-0.5,-0.5)
 
 var phase:int = 0
@@ -10,14 +11,18 @@ func _process(delta):
 		var hlpower = (0.1 * SSP.parallax)
 		var hlm = 0.25
 		var ppos = get_node("../Game/Spawn/Cursor").transform.origin - cursor_offset
-		transform.origin = Vector3(
-			ppos.x*hlpower*hlm, ppos.y*hlpower*hlm, 3.5
-		) + transform.basis.z / 4
 		if SSP.replaying:
-			look_at(
-				get_node("../Game/Spawn/Cursor").global_transform.origin,
-				Vector3.UP)
+			var replay_pos = SSP.replay.get_cursor_position(get_node("../Game/Spawn").rms)
+			ppos = Vector3(replay_pos.x,replay_pos.y,0) - replay_offset
+			look_at(ppos, Vector3.UP)
+			transform.origin = Vector3(
+				ppos.x*hlpower*hlm, ppos.y*hlpower*hlm, 3.5
+			)
+			transform.origin = transform.origin  + transform.basis.z / 4
 		else:
+			transform.origin = Vector3(
+				ppos.x*hlpower*hlm, ppos.y*hlpower*hlm, 3.5
+			) + transform.basis.z / 4
 			$RayCast.force_raycast_update()
 			var collpoint = $RayCast.get_collision_point()
 			if collpoint:
