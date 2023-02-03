@@ -15,6 +15,14 @@ var face:Vector2
 var move_mode:int = C_MOUSE
 var can_switch_move_modes:bool = true
 
+func drift_cursor(rx,ry,cx,cy):
+	if SSP.enable_drift_cursor:
+		if cx != rx or cy != ry:
+			$Mesh2.visible = true
+			$Mesh2.transform.origin.x = rx - cx
+			$Mesh2.transform.origin.y = -(ry - cy)
+		else: $Mesh2.visible = false
+
 func move_cursor(mdel:Vector2):
 	var rx = rpos.x
 	var ry = rpos.y
@@ -35,6 +43,8 @@ func move_cursor(mdel:Vector2):
 	transform.origin.x = cx
 	transform.origin.y = -cy
 
+	drift_cursor(rx,ry,cx,cy)
+
 func move_cursor_abs(mdel:Vector2):
 	var rx = rpos.x
 	var ry = rpos.y
@@ -54,22 +64,16 @@ func move_cursor_abs(mdel:Vector2):
 	
 	transform.origin.x = cx
 	transform.origin.y = -cy
-	
-	if SSP.enable_drift_cursor:
-		if cx != rx or cy != ry:
-			$Mesh2.visible = true
-			$Mesh2.transform.origin.x = rx - cx
-			$Mesh2.transform.origin.y = -(ry - cy)
-		else: $Mesh2.visible = false
 
+	drift_cursor(rx,ry,cx,cy)
+
+
+onready var absCamera = get_node("../../../AbsCamera")
 func get_absolute_position():
-	var vpSize = get_viewport().size
-	var mPos = get_viewport().get_mouse_position()
-	var tangen = 3.75*tan(deg2rad(SSP.fov))
-	var vpCenter = vpSize / 2
-	var centerPos = mPos - vpCenter
-	var absPos = (centerPos / vpSize.y) * tangen
-	return Vector2(1,1) + absPos / 2
+	absCamera.fov = SSP.fov
+	var pos = absCamera.project_position(get_viewport().get_mouse_position(),3.75)
+	return Vector2(pos.x,-pos.y) + Vector2(1,1)
+
 func _input(event:InputEvent):
 	if !SSP.replaying and !SSP.vr:
 		if can_switch_move_modes:
