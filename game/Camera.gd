@@ -39,8 +39,9 @@ func _process(delta):
 		else:
 			var abs_pos = cursor.get_absolute_position()
 			cursor.move_cursor_abs(abs_pos)
+			abs_pos = Vector3(abs_pos.x, abs_pos.y, 0)
 			transform.origin = Vector3(
-				ppos.x*hlpower*hlm, ppos.y*hlpower*hlm, 3.5
+				abs_pos.x*hlpower*hlm, abs_pos.y*hlpower*hlm, 3.5
 			)
 			look_at(abs_pos, Vector3.UP)
 			transform.origin += transform.basis.z / 4
