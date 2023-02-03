@@ -6,8 +6,9 @@
 [ext_resource path="res://assets/meshes/Happy.obj" type="ArrayMesh" id=16]
 [ext_resource path="res://assets/images/branding/icon.svg" type="Texture" id=25]
 [ext_resource path="res://assets/animations/Idle.tres" type="Animation" id=26]
-[ext_resource path="res://scripts/Intro.gd" type="Script" id=27]
+[ext_resource path="res://scripts/menu/loading/Intro.gd" type="Script" id=27]
 [ext_resource path="res://assets/sounds/music/yay.mp3" type="AudioStream" id=28]
+
 
 [sub_resource type="SpatialMaterial" id=60]
 flags_unshaded = true

@@ -132,7 +132,7 @@ networking/enabled=true
 networking/test_url="https://google.com"
 networking/api_url="https://soundspaceplus.dev/api/"
 config/disable_intro=false
-config/disable_intro.debug=false
+config/disable_intro.debug=true
 
 [audio]
 

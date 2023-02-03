@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://scripts/Init.gd" type="Script" id=1]
+[ext_resource path="res://scripts/menu/loading/Init.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/Roboto/Medium.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://assets/fonts/Roboto/Regular.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://assets/sounds/music/startup/drums.ogg" type="AudioStream" id=4]
@@ -56,7 +56,11 @@ margin_bottom = 24.0
 custom_fonts/font = SubResource( 2 )
 text = "Continue"
 
-[node name="VersionNumber" parent="." instance=ExtResource( 8 )]
+[node name="Post" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="VersionNumberL" parent="." instance=ExtResource( 8 )]
 
 [node name="Tween" type="Tween" parent="."]
 
