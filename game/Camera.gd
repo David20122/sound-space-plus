@@ -4,22 +4,23 @@ var cursor_offset = Vector3(1,-1,0)
 var replay_offset = Vector3(1,-1,0)
 var sh:Vector2 = Vector2(-0.5,-0.5)
 
+onready var cursor = get_node("../Game/Spawn/Cursor")
+
 var phase:int = 0
 func _process(delta):
 	fov += (SSP.fov - fov) / SSP.hit_fov_decay
 	if SSP.cam_unlock:
 		var hlpower = (0.1 * SSP.parallax)
 		var hlm = 0.25
-		var ppos = get_node("../Game/Spawn/Cursor").transform.origin - cursor_offset
+		var ppos = cursor.transform.origin - cursor_offset
 		if SSP.replaying:
 			var replay_pos = SSP.replay.get_cursor_position(get_node("../Game/Spawn").rms)
 			ppos = Vector3(replay_pos.x,replay_pos.y,0) - replay_offset
 			look_at(ppos, Vector3.UP)
 			transform.origin = Vector3(
 				ppos.x*hlpower*hlm, ppos.y*hlpower*hlm, 3.5
-			)
-			transform.origin = transform.origin  + transform.basis.z / 4
-		else:
+			) + transform.basis.z / 4
+		elif !SSP.absolute_mode:
 			transform.origin = Vector3(
 				ppos.x*hlpower*hlm, ppos.y*hlpower*hlm, 3.5
 			) + transform.basis.z / 4
@@ -34,13 +35,20 @@ func _process(delta):
 				cy = clamp(cy, (0 + sh.y), (3 + sh.y))
 				centeroff.x = cx - cursor_offset.x
 				centeroff.y = -cy - cursor_offset.y
-				get_node("../Game/Spawn/Cursor").transform.origin = centeroff + cursor_offset
+				cursor.transform.origin = centeroff + cursor_offset
+		else:
+			cursor.move_cursor_abs(cursor.get_absolute_position())
+			transform.origin = Vector3(
+				ppos.x*hlpower*hlm, ppos.y*hlpower*hlm, 3.5
+			)
+			look_at(cursor.global_transform.origin, Vector3.UP)
+			transform.origin += transform.basis.z / 4
 
 var yaw = 0
 var pitch = 0
 
 func _input(event):
-	if SSP.cam_unlock and !SSP.replaying:
+	if SSP.cam_unlock and !SSP.replaying and !SSP.absolute_mode:
 		if (event is InputEventMouseMotion) or (event is InputEventScreenDrag):
 			yaw = fmod(yaw - event.relative.x * SSP.sensitivity * 0.2, 360)
 			pitch = max(min(pitch - event.relative.y * SSP.sensitivity * 0.2, 89), -89)
