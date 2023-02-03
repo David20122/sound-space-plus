@@ -37,11 +37,12 @@ func _process(delta):
 				centeroff.y = -cy - cursor_offset.y
 				cursor.transform.origin = centeroff + cursor_offset
 		else:
-			cursor.move_cursor_abs(cursor.get_absolute_position())
+			var abs_pos = cursor.get_absolute_position()
+			cursor.move_cursor_abs(abs_pos)
 			transform.origin = Vector3(
 				ppos.x*hlpower*hlm, ppos.y*hlpower*hlm, 3.5
 			)
-			look_at(cursor.global_transform.origin, Vector3.UP)
+			look_at(abs_pos, Vector3.UP)
 			transform.origin += transform.basis.z / 4
 
 var yaw = 0
