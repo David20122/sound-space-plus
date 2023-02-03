@@ -72,7 +72,7 @@ onready var absCamera = get_node("../../../AbsCamera")
 func get_absolute_position():
 	absCamera.fov = SSP.fov
 	var pos = absCamera.project_position(get_viewport().get_mouse_position(),3.75)
-	return Vector2(pos.x,-pos.y) + Vector2(1,1)
+	return (Vector2(pos.x,-pos.y) + Vector2(1,1)) * SSP.absolute_scale
 
 func _input(event:InputEvent):
 	if !SSP.replaying and !SSP.vr:
