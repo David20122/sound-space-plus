@@ -33,8 +33,15 @@ func _exec_initialiser(initialiser:String):
 	assert(err == OK,"Thread failed")
 	emit_signal("on_init_start",initialiser)
 	return thread
+
+
+func _load_content():
+	# Import maps
+	var map_count = 0
+	emit_signal("on_init_stage","Import content (1/1)",[{text="Import maps (0/%s)" % map_count,max=map_count,value=0}])
 func _do_init():
-	emit_signal("on_init_stage","Init")
+	emit_signal("on_init_stage","Import content")
+	_load_content()
 	emit_signal("on_init_complete")
 func _reload():
 	emit_signal("on_init_stage","Reloading content")

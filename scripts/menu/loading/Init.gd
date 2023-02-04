@@ -9,6 +9,7 @@ func _ready():
 	if !SoundSpacePlus.is_init:
 		finish()
 		return
+	SoundSpacePlus.connect("on_init_complete",self,"finish",[],4)
 	if !SoundSpacePlus.warning_seen:
 		pre()
 		return
@@ -24,7 +25,8 @@ func pre():
 	$Pre/Continue.disabled = true
 	$Tween.remove_all()
 	$Tween.interpolate_property($Pre,"modulate:a",0,1,2,Tween.TRANS_EXPO,Tween.EASE_IN)
-	$Tween.interpolate_property($Piano,"volume_db",-80,-8,3,Tween.TRANS_QUAD,Tween.EASE_OUT)
+	$Tween.interpolate_property($Piano,"volume_db",-80,-12,3,Tween.TRANS_QUAD,Tween.EASE_OUT)
+	$Tween.interpolate_property($Strings,"volume_db",-80,-8,2,Tween.TRANS_QUAD,Tween.EASE_IN_OUT)
 	$Tween.start()
 	yield($Tween,"tween_completed")
 	yield(get_tree().create_timer(2),"timeout")
@@ -48,10 +50,10 @@ func post():
 	$Post.visible = true
 	$Tween.remove_all()
 	$Tween.interpolate_property($Post,"modulate:a",0,1,2,Tween.TRANS_EXPO,Tween.EASE_IN)
-	$Tween.interpolate_property($Piano,"volume_db",$Piano.volume_db,-8,1,Tween.TRANS_QUAD,Tween.EASE_OUT)
-	$Tween.interpolate_property($Drums,"volume_db",-80,-8,4,Tween.TRANS_QUAD,Tween.EASE_OUT)
-	$Tween.interpolate_property($Phaser,"volume_db",-80,-8,3,Tween.TRANS_QUAD,Tween.EASE_OUT)
-	$Tween.interpolate_property($Strings,"volume_db",-80,-8,2,Tween.TRANS_QUAD,Tween.EASE_OUT)
+	$Tween.interpolate_property($Piano,"volume_db",$Piano.volume_db,-12,1,Tween.TRANS_QUAD,Tween.EASE_OUT)
+	$Tween.interpolate_property($Drums,"volume_db",$Drums.volume_db,-8,4,Tween.TRANS_QUAD,Tween.EASE_OUT)
+	$Tween.interpolate_property($Phaser,"volume_db",$Phaser.volume_db,-12,3,Tween.TRANS_QUAD,Tween.EASE_OUT)
+	$Tween.interpolate_property($Strings,"volume_db",$Strings.volume_db,-8,2,Tween.TRANS_QUAD,Tween.EASE_OUT)
 	$Tween.start()
 
 func finish():
