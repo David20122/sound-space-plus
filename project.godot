@@ -93,6 +93,11 @@ _global_script_classes=[ {
 "class": "Member",
 "language": "GDScript",
 "path": "res://addons/discord_game_sdk/example/lobby/member.gd"
+}, {
+"base": "SceneTree",
+"class": "SceneTreePlus",
+"language": "GDScript",
+"path": "res://scripts/SceneTreePlus.gd"
 } ]
 _global_script_class_icons={
 "ChatMessage": "",
@@ -111,7 +116,8 @@ _global_script_class_icons={
 "DiscordResult": "",
 "DiscordUser": "",
 "GameState": "",
-"Member": ""
+"Member": "",
+"SceneTreePlus": ""
 }
 
 [application]
@@ -126,6 +132,7 @@ boot_splash/fullsize=false
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://assets/branding/icon.png"
 config/windows_native_icon="res://icon.ico"
+run/main_loop_type="SceneTreePlus"
 config/quit_on_go_back=false
 config/version="rewrite"
 networking/enabled=true

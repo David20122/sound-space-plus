@@ -4,17 +4,23 @@ onready var skip_intro:bool = ProjectSettings.get_setting("application/config/di
 
 func _ready():
 	$Pre.modulate.a = 0
+	$Post.modulate.a = 0
 	yield(get_tree().create_timer(2),"timeout")
-	if SoundSpacePlus.need_menu or SoundSpacePlus.loading:
-		post()
+	if !SoundSpacePlus.is_init:
+		finish()
 		return
-	if SoundSpacePlus.first_load:
+	if !SoundSpacePlus.warning_seen:
 		pre()
+		return
+	if SoundSpacePlus.loading:
+		post()
 		return
 	SoundSpacePlus.init()
 	post()
 
 func pre():
+	$Post.visible = false
+	$Pre.visible = true
 	$Pre/Continue.disabled = true
 	$Tween.remove_all()
 	$Tween.interpolate_property($Pre,"modulate:a",0,1,2,Tween.TRANS_EXPO,Tween.EASE_IN)
@@ -38,12 +44,17 @@ func precontinue():
 	intro()
 
 func post():
+	$Pre.visible = false
+	$Post.visible = true
 	$Tween.remove_all()
 	$Tween.interpolate_property($Piano,"volume_db",$Piano.volume_db,-8,1,Tween.TRANS_QUAD,Tween.EASE_OUT)
 	$Tween.interpolate_property($Drums,"volume_db",-80,-8,4,Tween.TRANS_QUAD,Tween.EASE_OUT)
 	$Tween.interpolate_property($Phaser,"volume_db",-80,-8,3,Tween.TRANS_QUAD,Tween.EASE_OUT)
 	$Tween.interpolate_property($Strings,"volume_db",-80,-8,2,Tween.TRANS_QUAD,Tween.EASE_OUT)
 	$Tween.start()
+
+func finish():
+	pass
 
 func intro():
 	$Tween.remove_all()
