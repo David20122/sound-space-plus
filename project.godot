@@ -84,6 +84,11 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_user.gdns"
 }, {
+"base": "Node",
+"class": "GameScene",
+"language": "GDScript",
+"path": "res://scripts/game/GameScene.gd"
+}, {
 "base": "Resource",
 "class": "GameState",
 "language": "GDScript",
@@ -115,6 +120,7 @@ _global_script_class_icons={
 "DiscordPartySize": "",
 "DiscordResult": "",
 "DiscordUser": "",
+"GameScene": "",
 "GameState": "",
 "Member": "",
 "SceneTreePlus": ""

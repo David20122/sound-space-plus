@@ -4,8 +4,7 @@ class_name SceneTreePlus
 var fps_limit:int = 0
 
 func _is_game_scene(scene):
-	return false
-	# return current_scene is GameScene
+	return current_scene is GameScene
 func _idle(delta):
 	var fps = 90
 	if _is_game_scene(current_scene):
