@@ -1,4 +1,4 @@
-[gd_scene load_steps=88 format=2]
+[gd_scene load_steps=89 format=2]
 
 [ext_resource path="res://uitheme.tres" type="Theme" id=1]
 [ext_resource path="res://font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=2]
@@ -64,6 +64,7 @@
 [ext_resource path="res://menu2/CursorTrailType.gd" type="Script" id=62]
 [ext_resource path="res://menuButtons/NoteOpacity.gd" type="Script" id=63]
 [ext_resource path="res://menuButtons/ReplayIntro.gd" type="Script" id=64]
+[ext_resource path="res://menuButtons/LockMouseResize.gd" type="Script" id=65]
 
 [sub_resource type="DynamicFont" id=5]
 size = 18
@@ -265,7 +266,7 @@ script = ExtResource( 59 )
 [node name="M" type="VBoxContainer" parent="."]
 margin_top = 59.0
 margin_right = 1280.0
-margin_bottom = 5494.0
+margin_bottom = 5530.0
 custom_constants/separation = 0
 
 [node name="Modifiers" type="VBoxContainer" parent="M"]
@@ -1056,7 +1057,7 @@ clip_text = true
 [node name="Camera" type="VBoxContainer" parent="M"]
 margin_top = 538.0
 margin_right = 1280.0
-margin_bottom = 1194.0
+margin_bottom = 1230.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Camera"]
@@ -1084,13 +1085,13 @@ flat = true
 [node name="Group" type="MarginContainer" parent="M/Camera"]
 margin_top = 36.0
 margin_right = 1280.0
-margin_bottom = 656.0
+margin_bottom = 692.0
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="M/Camera/Group"]
 margin_left = 180.0
 margin_right = 1280.0
-margin_bottom = 620.0
+margin_bottom = 656.0
 
 [node name="Sensitivity" type="Control" parent="M/Camera/Group/H"]
 margin_right = 471.0
@@ -1122,9 +1123,6 @@ text = "Sensitivity"
 align = 2
 valign = 1
 clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Desc" type="Label" parent="M/Camera/Group/H/Sensitivity/Sensitivity"]
 margin_left = 215.0
@@ -1171,17 +1169,61 @@ align = 2
 valign = 1
 clip_text = true
 
-[node name="SEPARATOR4" type="HSeparator" parent="M/Camera/Group/H"]
+[node name="LockMouseResize" type="Control" parent="M/Camera/Group/H"]
 margin_top = 68.0
 margin_right = 471.0
-margin_bottom = 78.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="LockMouseResize" type="SpinBox" parent="M/Camera/Group/H/LockMouseResize"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+rect_pivot_offset = Vector2( 286, -176 )
+focus_mode = 2
+theme = ExtResource( 1 )
+step = 0.01
+value = 1.0
+allow_greater = true
+allow_lesser = true
+script = ExtResource( 65 )
+
+[node name="Label" type="Label" parent="M/Camera/Group/H/LockMouseResize/LockMouseResize"]
+margin_left = -115.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Absolute Scale"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="Desc" type="Label" parent="M/Camera/Group/H/LockMouseResize/LockMouseResize"]
+margin_left = 215.0
+margin_right = 562.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 4 )
+text = "[def. 1] changes how much the cursor/camera move with absolute mode"
+valign = 1
+
+[node name="SEPARATOR4" type="HSeparator" parent="M/Camera/Group/H"]
+margin_top = 104.0
+margin_right = 471.0
+margin_bottom = 114.0
 rect_min_size = Vector2( 0, 10 )
 custom_styles/separator = SubResource( 55 )
 
 [node name="Presets" type="Control" parent="M/Camera/Group/H"]
-margin_top = 82.0
+margin_top = 118.0
 margin_right = 471.0
-margin_bottom = 122.0
+margin_bottom = 158.0
 rect_min_size = Vector2( 200, 40 )
 
 [node name="Presets" type="MenuButton" parent="M/Camera/Group/H/Presets"]
@@ -1214,9 +1256,9 @@ valign = 1
 clip_text = true
 
 [node name="Parallax" type="Control" parent="M/Camera/Group/H"]
-margin_top = 126.0
+margin_top = 162.0
 margin_right = 471.0
-margin_bottom = 158.0
+margin_bottom = 194.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="Parallax" type="SpinBox" parent="M/Camera/Group/H/Parallax"]
@@ -1261,16 +1303,16 @@ text = "how much the camera moves with the cursor - affects everything"
 valign = 1
 
 [node name="SEPARATOR" type="HSeparator" parent="M/Camera/Group/H"]
-margin_top = 162.0
+margin_top = 198.0
 margin_right = 471.0
-margin_bottom = 172.0
+margin_bottom = 208.0
 rect_min_size = Vector2( 0, 10 )
 custom_styles/separator = SubResource( 55 )
 
 [node name="UIParallax" type="Control" parent="M/Camera/Group/H"]
-margin_top = 176.0
+margin_top = 212.0
 margin_right = 471.0
-margin_bottom = 208.0
+margin_bottom = 244.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="UIParallax" type="SpinBox" parent="M/Camera/Group/H/UIParallax"]
@@ -1315,9 +1357,9 @@ text = "how much the hud moves with the cursor - added on top of camera parallax
 valign = 1
 
 [node name="GridParallax" type="Control" parent="M/Camera/Group/H"]
-margin_top = 212.0
+margin_top = 248.0
 margin_right = 471.0
-margin_bottom = 244.0
+margin_bottom = 280.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="GridParallax" type="SpinBox" parent="M/Camera/Group/H/GridParallax"]
@@ -1362,16 +1404,16 @@ text = "how much the note grid moves with the cursor - added on top of camera pa
 valign = 1
 
 [node name="SEPARATOR2" type="HSeparator" parent="M/Camera/Group/H"]
-margin_top = 248.0
+margin_top = 284.0
 margin_right = 471.0
-margin_bottom = 258.0
+margin_bottom = 294.0
 rect_min_size = Vector2( 0, 10 )
 custom_styles/separator = SubResource( 55 )
 
 [node name="Spin" type="CheckBox" parent="M/Camera/Group/H"]
-margin_top = 262.0
+margin_top = 298.0
 margin_right = 471.0
-margin_bottom = 290.0
+margin_bottom = 326.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
@@ -1402,9 +1444,9 @@ valign = 1
 clip_text = true
 
 [node name="FarawayHud" type="CheckBox" parent="M/Camera/Group/H"]
-margin_top = 294.0
+margin_top = 330.0
 margin_right = 471.0
-margin_bottom = 322.0
+margin_bottom = 358.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
@@ -1435,9 +1477,9 @@ valign = 1
 clip_text = true
 
 [node name="EdgeBuffer" type="Control" parent="M/Camera/Group/H"]
-margin_top = 326.0
+margin_top = 362.0
 margin_right = 471.0
-margin_bottom = 358.0
+margin_bottom = 394.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="EdgeBuffer" type="SpinBox" parent="M/Camera/Group/H/EdgeBuffer"]
@@ -1481,9 +1523,9 @@ text = "[def. 0] aka cursor drift; makes the cursor \"stick\" to the edges by le
 valign = 1
 
 [node name="BufferCursor" type="CheckBox" parent="M/Camera/Group/H"]
-margin_top = 362.0
+margin_top = 398.0
 margin_right = 471.0
-margin_bottom = 390.0
+margin_bottom = 426.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
@@ -1518,9 +1560,9 @@ __meta__ = {
 }
 
 [node name="BufferParallax" type="CheckBox" parent="M/Camera/Group/H"]
-margin_top = 394.0
+margin_top = 430.0
 margin_right = 471.0
-margin_bottom = 422.0
+margin_bottom = 458.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
@@ -1552,16 +1594,16 @@ valign = 1
 clip_text = true
 
 [node name="SEPARATOR3" type="HSeparator" parent="M/Camera/Group/H"]
-margin_top = 426.0
+margin_top = 462.0
 margin_right = 471.0
-margin_bottom = 436.0
+margin_bottom = 472.0
 rect_min_size = Vector2( 0, 10 )
 custom_styles/separator = SubResource( 55 )
 
 [node name="FOV" type="Control" parent="M/Camera/Group/H"]
-margin_top = 440.0
+margin_top = 476.0
 margin_right = 471.0
-margin_bottom = 472.0
+margin_bottom = 508.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="FOV" type="SpinBox" parent="M/Camera/Group/H/FOV"]
@@ -1606,9 +1648,9 @@ text = "[def. 70] you know what this does"
 valign = 1
 
 [node name="HitFOV" type="CheckBox" parent="M/Camera/Group/H"]
-margin_top = 476.0
+margin_top = 512.0
 margin_right = 471.0
-margin_bottom = 504.0
+margin_bottom = 540.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
@@ -1639,9 +1681,9 @@ valign = 1
 clip_text = true
 
 [node name="HitFOVMode" type="Control" parent="M/Camera/Group/H"]
-margin_top = 508.0
+margin_top = 544.0
 margin_right = 471.0
-margin_bottom = 548.0
+margin_bottom = 584.0
 rect_min_size = Vector2( 200, 40 )
 
 [node name="Presets" type="MenuButton" parent="M/Camera/Group/H/HitFOVMode"]
@@ -1685,9 +1727,9 @@ text = "Mode: Additive"
 valign = 1
 
 [node name="HitFOVAmplifier" type="SpinBox" parent="M/Camera/Group/H"]
-margin_top = 552.0
+margin_top = 588.0
 margin_right = 200.0
-margin_bottom = 584.0
+margin_bottom = 620.0
 rect_min_size = Vector2( 200, 32 )
 rect_pivot_offset = Vector2( 286, -108 )
 focus_mode = 2
@@ -1726,9 +1768,9 @@ text = "[def. 2] how intense is the hit FOV pulsing is"
 valign = 1
 
 [node name="HitFOVDecay" type="SpinBox" parent="M/Camera/Group/H"]
-margin_top = 588.0
+margin_top = 624.0
 margin_right = 200.0
-margin_bottom = 620.0
+margin_bottom = 656.0
 rect_min_size = Vector2( 200, 32 )
 rect_pivot_offset = Vector2( 286, -108 )
 focus_mode = 2
@@ -1799,9 +1841,9 @@ valign = 1
 clip_text = true
 
 [node name="Customization" type="VBoxContainer" parent="M"]
-margin_top = 1194.0
+margin_top = 1230.0
 margin_right = 1280.0
-margin_bottom = 2086.0
+margin_bottom = 2122.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Customization"]
@@ -2944,9 +2986,9 @@ icon = ExtResource( 4 )
 expand_icon = true
 
 [node name="Audio" type="VBoxContainer" parent="M"]
-margin_top = 2086.0
+margin_top = 2122.0
 margin_right = 1280.0
-margin_bottom = 2558.0
+margin_bottom = 2594.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Audio"]
@@ -3559,9 +3601,9 @@ __meta__ = {
 }
 
 [node name="UI" type="VBoxContainer" parent="M"]
-margin_top = 2558.0
+margin_top = 2594.0
 margin_right = 1280.0
-margin_bottom = 3102.0
+margin_bottom = 3138.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/UI"]
@@ -4148,9 +4190,9 @@ valign = 1
 clip_text = true
 
 [node name="UIColor" type="VBoxContainer" parent="M"]
-margin_top = 3102.0
+margin_top = 3138.0
 margin_right = 1280.0
-margin_bottom = 4770.0
+margin_bottom = 4806.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/UIColor"]
@@ -6042,9 +6084,9 @@ text = "[def. ##DEFAULT##] color of text when grade is F"
 valign = 1
 
 [node name="Graphics" type="VBoxContainer" parent="M"]
-margin_top = 4770.0
+margin_top = 4806.0
 margin_right = 1280.0
-margin_bottom = 5062.0
+margin_bottom = 5098.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Graphics"]
@@ -6347,9 +6389,9 @@ text = "[0 = no limit] puts a limit on the framerate; use this if ssp is using 1
 valign = 1
 
 [node name="Experimental" type="VBoxContainer" parent="M"]
-margin_top = 5062.0
+margin_top = 5098.0
 margin_right = 1280.0
-margin_bottom = 5435.0
+margin_bottom = 5471.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Experimental"]
@@ -6721,9 +6763,9 @@ text = "replays the intro cutscene"
 valign = 1
 
 [node name="BottomMargin" type="Control" parent="."]
-margin_top = 5498.0
+margin_top = 5534.0
 margin_right = 1280.0
-margin_bottom = 5594.0
+margin_bottom = 5630.0
 rect_min_size = Vector2( 0, 96 )
 
 [connection signal="pressed" from="M/Experimental/Group/H/Intro/Play" to="M/Experimental/Group/H/Intro/Play" method="_on_Play_pressed"]

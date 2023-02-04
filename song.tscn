@@ -254,6 +254,11 @@ script = ExtResource( 23 )
 
 [node name="SpinPos" type="Position3D" parent="."]
 
+[node name="AbsCamera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.75 )
+current = true
+far = 500.0
+
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.5 )
 current = true

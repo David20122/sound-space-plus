@@ -15,6 +15,14 @@ var face:Vector2
 var move_mode:int = C_MOUSE
 var can_switch_move_modes:bool = true
 
+func drift_cursor(rx,ry,cx,cy):
+	if SSP.enable_drift_cursor:
+		if cx != rx or cy != ry:
+			$Mesh2.visible = true
+			$Mesh2.transform.origin.x = rx - cx
+			$Mesh2.transform.origin.y = -(ry - cy)
+		else: $Mesh2.visible = false
+
 func move_cursor(mdel:Vector2):
 	var rx = rpos.x
 	var ry = rpos.y
@@ -35,6 +43,8 @@ func move_cursor(mdel:Vector2):
 	transform.origin.x = cx
 	transform.origin.y = -cy
 
+	drift_cursor(rx,ry,cx,cy)
+
 func move_cursor_abs(mdel:Vector2):
 	var rx = rpos.x
 	var ry = rpos.y
@@ -54,13 +64,15 @@ func move_cursor_abs(mdel:Vector2):
 	
 	transform.origin.x = cx
 	transform.origin.y = -cy
-	
-	if SSP.enable_drift_cursor:
-		if cx != rx or cy != ry:
-			$Mesh2.visible = true
-			$Mesh2.transform.origin.x = rx - cx
-			$Mesh2.transform.origin.y = -(ry - cy)
-		else: $Mesh2.visible = false
+
+	drift_cursor(rx,ry,cx,cy)
+
+
+onready var absCamera = get_node("../../../AbsCamera")
+func get_absolute_position():
+	absCamera.fov = SSP.fov
+	var pos = absCamera.project_position(get_viewport().get_mouse_position(),3.75) * SSP.absolute_scale
+	return Vector2(pos.x,-pos.y) + Vector2(1,1)
 
 func _input(event:InputEvent):
 	if !SSP.replaying and !SSP.vr:
@@ -83,15 +95,14 @@ func _input(event:InputEvent):
 			visible = true
 			if (event is InputEventMouseMotion):
 				face = event.relative
-				var aoff = Vector2(-750,-500)
 				if SSP.invert_mouse:
 					if SSP.absolute_mode:
-						move_cursor_abs((get_viewport().get_mouse_position() + aoff) * (-1 * (SSP.sensitivity * 0.05)))
+						move_cursor_abs(get_absolute_position() * -1)
 					else:
 						move_cursor((event.relative * 0.018 * SSP.sensitivity) * -1)
 				else:
 					if SSP.absolute_mode:
-						move_cursor_abs((get_viewport().get_mouse_position() + aoff) * (SSP.sensitivity * 0.05))
+						move_cursor_abs(get_absolute_position())
 					else:
 						move_cursor(event.relative * 0.018 * SSP.sensitivity)
 			
@@ -121,10 +132,22 @@ func cache_trail(part:Spatial):
 func recolor(col:Color):
 	$Mesh.get("material/0").albedo_color = Color(col.r,col.g,col.b,col.a)
 
+var mt = 0
 func _process(delta):
-	
 	if Input.is_action_just_pressed("debug_enable_mouse"):
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		mt = mt + 1
+		if mt == 1:
+			Input.set_custom_mouse_cursor(null)
+			Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		if mt == 2:
+			Input.set_custom_mouse_cursor(load("res://assets/ui/blank.png"))
+			Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+			if SSP.absolute_mode:
+				Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
+			else:
+				Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+			mt = 0
 	frame = Engine.get_frames_drawn()
 	if SSP.cursor_spin != 0 and !SSP.cursor_face_velocity:
 		$Mesh.rotate_z(deg2rad(-delta*SSP.cursor_spin))
