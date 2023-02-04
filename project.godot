@@ -124,7 +124,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/content/songs/Song.gd"
 }, {
-"base": "Reference",
+"base": "Object",
 "class": "SongReader",
 "language": "GDScript",
 "path": "res://scripts/content/songs/io/SongReader.gd"

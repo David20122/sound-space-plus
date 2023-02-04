@@ -36,8 +36,9 @@ func _exec_initialiser(initialiser:String):
 	emit_signal("on_init_start",initialiser)
 	return thread
 
-func _load_content():
+func _load_content(full_reload=true):
 	# Import maps
+	if full_reload: songs.clear()
 	var song_reader = SongReader.new()
 	var map_files = []
 	var maps_dir = Directory.new()
@@ -66,11 +67,12 @@ func _load_content():
 		])
 		songs.add_song(song)
 		map_idx += 1
-	emit_signal("on_init_stage",null,[{text="Queue free SongReader" % [map_idx,map_count],max=map_count,value=map_idx}])
+	emit_signal("on_init_stage",null,[{text="Queue free SongReader",max=map_count,value=map_idx}])
 	song_reader.free()
 
 func _do_init():
-	emit_signal("on_init_stage","Import content")
+	emit_signal("on_init_stage","Waiting for engine")
+	yield(get_tree().create_timer(1),"timeout")
 	_load_content()
 	emit_signal("on_init_complete")
 func _reload():

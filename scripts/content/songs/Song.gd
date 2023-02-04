@@ -25,6 +25,7 @@ var notes:Array
 
 class Note:
 	extends Reference
+	var index:int
 	var x:float
 	var y:float
 	var time:float

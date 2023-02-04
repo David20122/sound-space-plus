@@ -1,4 +1,4 @@
-extends Reference
+extends Object
 class_name SongReader
 
 const SIGNATURE = PoolByteArray([0x53,0x53,0x2b,0x6d])
@@ -92,7 +92,7 @@ func _sspmv1(file:File,song:Song):
 	song.notes = []
 	for i in range(note_count):
 		var note = Song.Note.new()
-		note.index = i
+		note.index = i + 1
 		note.time = float(file.get_32())/1000
 		if file.get_8() == 1:
 			note.x = file.get_float()
@@ -172,7 +172,7 @@ func _sspmv2(file:File,song:Song):
 	file.seek(marker_def_offset)
 	var markers = {}
 	var types = []
-	for _i in range(types.get_size()):
+	for _i in range(file.get_8()):
 		var type = []
 		types.append(type)
 		type.append(file.get_buffer(file.get_16()).get_string_from_utf8())
@@ -192,15 +192,19 @@ func _sspmv2(file:File,song:Song):
 			var data_type = type[i]
 			var v = _read_data_type(file,true,false,data_type)
 			marker.append_array([data_type,v])
-		markers.append(marker)
+		markers[type[0]].append(marker)
 	if !markers.has("ssp_note"):
 		song.broken = true
 		return
 	song.notes = []
+	var i = 1
 	for note_data in markers.get("ssp_note"):
 		if note_data[1] != 7: continue
 		var note = Song.Note.new()
+		note.index = i
 		note.time = float(note_data[0])/1000
 		note.x = note_data[2].x
 		note.y = note_data[2].y
 		song.notes.append(note)
+		i += 1
+	print("sspmv2 has %s notes" % song.notes.size())
