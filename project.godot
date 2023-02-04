@@ -99,25 +99,40 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/discord_game_sdk/example/lobby/member.gd"
 }, {
-"base": "Resource",
+"base": "Reference",
+"class": "Registry",
+"language": "GDScript",
+"path": "res://scripts/content/Registry.gd"
+}, {
+"base": "ResourcePlus",
 "class": "Replay",
 "language": "GDScript",
 "path": "res://scripts/content/replays/Replay.gd"
+}, {
+"base": "Resource",
+"class": "ResourcePlus",
+"language": "GDScript",
+"path": "res://scripts/content/ResourcePlus.gd"
 }, {
 "base": "SceneTree",
 "class": "SceneTreePlus",
 "language": "GDScript",
 "path": "res://scripts/SceneTreePlus.gd"
 }, {
-"base": "Resource",
+"base": "ResourcePlus",
 "class": "Song",
 "language": "GDScript",
-"path": "res://scripts/content/maps/Song.gd"
+"path": "res://scripts/content/songs/Song.gd"
 }, {
 "base": "Reference",
 "class": "SongReader",
 "language": "GDScript",
-"path": "res://scripts/content/maps/io/SongReader.gd"
+"path": "res://scripts/content/songs/io/SongReader.gd"
+}, {
+"base": "Registry",
+"class": "SongRegistry",
+"language": "GDScript",
+"path": "res://scripts/content/songs/SongRegistry.gd"
 } ]
 _global_script_class_icons={
 "ChatMessage": "",
@@ -138,10 +153,13 @@ _global_script_class_icons={
 "GameScene": "",
 "GameState": "",
 "Member": "",
+"Registry": "",
 "Replay": "",
+"ResourcePlus": "",
 "SceneTreePlus": "",
 "Song": "",
-"SongReader": ""
+"SongReader": "",
+"SongRegistry": ""
 }
 
 [application]

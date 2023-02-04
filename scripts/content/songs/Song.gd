@@ -1,4 +1,4 @@
-extends Resource
+extends ResourcePlus
 class_name Song
 
 enum Difficulty {
@@ -16,12 +16,8 @@ enum AudioFormat {
 	WAV
 }
 
-var broken:bool = false
-
-var id:String
 var name:String
 var song:String
-var creator:String
 var difficulty:int = Difficulty.UNKNOWN
 var cover:ImageTexture
 var audio:AudioStream
