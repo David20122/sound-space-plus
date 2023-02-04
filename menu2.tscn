@@ -4164,7 +4164,7 @@ scroll_horizontal_enabled = false
 [node name="F" parent="Main/Settings/S" instance=ExtResource( 49 )]
 anchor_right = 0.0
 margin_right = 1210.0
-margin_bottom = 5630.0
+margin_bottom = 5594.0
 rect_clip_content = true
 
 [node name="Credits" type="ReferenceRect" parent="Main"]
@@ -5380,6 +5380,7 @@ __meta__ = {
 }
 
 [node name="Mouse" type="Particles2D" parent="."]
+z_index = 900
 emitting = false
 amount = 256
 lifetime = 0.5

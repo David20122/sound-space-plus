@@ -5,6 +5,7 @@
 [ext_resource path="res://assets/blocks/cube.obj" type="ArrayMesh" id=3]
 
 [sub_resource type="ViewportTexture" id=172]
+flags = 4
 viewport_path = NodePath("container/viewport")
 
 [sub_resource type="Environment" id=173]
@@ -33,7 +34,7 @@ colors = PoolColorArray( 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0 )
 [sub_resource type="GradientTexture" id=93]
 gradient = SubResource( 175 )
 
-[sub_resource type="ParticlesMaterial" id=176]
+[sub_resource type="ParticlesMaterial" id=180]
 emission_shape = 1
 emission_sphere_radius = 16.0
 spread = 180.0
@@ -44,6 +45,8 @@ angular_velocity_random = 1.0
 scale = 0.5
 scale_random = 1.0
 color_ramp = SubResource( 93 )
+hue_variation = 0.15
+hue_variation_random = 1.0
 
 [sub_resource type="Gradient" id=177]
 offsets = PoolRealArray( 0, 0.5, 1 )
@@ -52,16 +55,16 @@ colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0 )
 [sub_resource type="GradientTexture" id=108]
 gradient = SubResource( 177 )
 
-[sub_resource type="ParticlesMaterial" id=180]
+[sub_resource type="ParticlesMaterial" id=181]
 emission_shape = 2
 emission_box_extents = Vector3( 10, 10, 10 )
 spread = 180.0
 gravity = Vector3( 0, 0, 0 )
 initial_velocity = 0.15
 scale = 2.0
-color = Color( 1, 0, 0.984314, 0.0313726 )
+color = Color( 1, 1, 1, 0.0156863 )
 color_ramp = SubResource( 108 )
-hue_variation = 1.0
+hue_variation = 0.15
 hue_variation_random = 1.0
 
 [sub_resource type="SpatialMaterial" id=109]
@@ -103,9 +106,6 @@ mouse_filter = 1
 size = Vector2( 1280, 720 )
 transparent_bg = true
 handle_input_locally = false
-msaa = 1
-fxaa = true
-debanding = true
 hdr = false
 usage = 0
 render_target_update_mode = 3
@@ -124,7 +124,7 @@ material_override = SubResource( 174 )
 cast_shadow = 0
 amount = 128
 lifetime = 4.0
-process_material = SubResource( 176 )
+process_material = SubResource( 180 )
 draw_pass_1 = ExtResource( 3 )
 
 [node name="Aura" type="Particles" parent="."]
@@ -132,5 +132,5 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8 )
 amount = 256
 lifetime = 4.0
 visibility_aabb = AABB( 0, 0, 0, 100, 100, 100 )
-process_material = SubResource( 180 )
+process_material = SubResource( 181 )
 draw_pass_1 = SubResource( 179 )

@@ -259,11 +259,11 @@ boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://assets/branding/icon.png"
 config/windows_native_icon="res://icon.ico"
 config/quit_on_go_back=false
-config/version="jan23-rabbit"
+config/version="jan29-rabbit"
 config/autoload_map_registries="test maps|res://test_assets/test_maps.sspmr;built in|res://content/songs/built_in_maps.sspmr"
 config/enable_new_content_mgr=true
-config/default_menu_target="res://menu2.tscn"
-config/default_menu_target.mobile="res://menu2.tscn"
+config/default_menu_target="res://menu3d.tscn"
+config/default_menu_target.mobile="res://menu3d.tscn"
 config/default_menu_target.editor="res://menu3d.tscn"
 config/7zip_binary_path=""
 config/7zip_binary_path.Windows="install_dir/util/7z.exe"
@@ -292,7 +292,7 @@ config/disable_native_file_dialogs.web=true
 config/disable_native_file_dialogs.OSX=true
 config/is_using_controller=true
 config/discord_rpc=true
-config/discord_rpc.editor=false
+config/discord_rpc.editor=true
 
 [audio]
 
@@ -528,6 +528,6 @@ quality/reflections/texture_array_reflections=false
 quality/filters/anisotropic_filter_level=2
 2d/options/use_software_skinning=false
 quality/lightmapping/use_bicubic_sampling=false
-environment/default_clear_color=Color( 0.137255, 0.137255, 0.137255, 1 )
+environment/default_clear_color=Color( 0, 0, 0, 1 )
 quality/filters/msaa=1
 environment/default_environment="res://default_env.tres"

@@ -1,5 +1,7 @@
 extends Node
 
+onready var rootg = get_tree().root
+
 # Signals
 signal mods_changed
 signal speed_mod_changed
@@ -276,7 +278,7 @@ func start_vr():
 		InputMap.action_add_event("vr_click",ev)
 	
 	var vr_av:VRPlayer = load("res://vr/VRPlayer.tscn").instance()
-	get_tree().root.add_child(vr_av)
+	rootg.add_child(vr_av)
 	vr_av.name = "VRPlayer"
 	vr_player = vr_av
 	

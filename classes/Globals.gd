@@ -1,5 +1,7 @@
 extends Node
 
+onready var rootg = get_tree().root
+
 enum {
 	CAMERA_HALF_LOCK
 	CAMERA_FULL_LOCK
@@ -637,7 +639,7 @@ func _process(delta):
 	
 	if Input.is_action_just_pressed("fps"):
 		if !fps_disp.is_inside_tree():
-			get_tree().root.add_child(fps_disp)
+			rootg.add_child(fps_disp)
 		fps_visible = !fps_visible
 		fps_disp.visible = fps_visible
 
@@ -672,13 +674,13 @@ func _ready():
 	)
 	
 	confirm_prompt = load("res://confirm.tscn").instance()
-	get_tree().root.call_deferred("add_child",confirm_prompt)
+	rootg.call_deferred("add_child",confirm_prompt)
 	
 	file_sel = load("res://filesel.tscn").instance()
-	get_tree().root.call_deferred("add_child",file_sel)
+	rootg.call_deferred("add_child",file_sel)
 	
 	notify_gui = load("res://notification_gui.tscn").instance()
-	get_tree().root.call_deferred("add_child",notify_gui)
+	rootg.call_deferred("add_child",notify_gui)
 	
 	fps_disp.margin_left = 15
 	fps_disp.margin_top = 15
@@ -694,5 +696,5 @@ func _ready():
 			cmdline[arg.lstrip("--")] = ""
 	
 	if OS.has_feature("debug"):
-		get_tree().root.call_deferred("add_child",fps_disp)
+		rootg.call_deferred("add_child",fps_disp)
 		fps_visible = true

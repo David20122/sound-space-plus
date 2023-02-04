@@ -1,5 +1,6 @@
 extends Node
 
+onready var rootg = get_tree().root
 onready var real_console = $ConsoleWindow
 #var fake_consoles = []
 
@@ -9,9 +10,9 @@ onready var real_console = $ConsoleWindow
 func ensure_console_is_in_world(_n):
 	if get_parent().get_child(0) != self: raise()
 
-##	var world = get_tree().root.get_child(get_tree().root.get_child_count()-1)
+##	var world = rootg.get_child(rootg.get_child_count()-1)
 #	if node:
-#		if node.get_path_to(get_tree().root) == "..":
+#		if node.get_path_to(rootg) == "..":
 #			#if fake_consoles.size():
 #				for i in range(fake_consoles.size()): 
 #					fake_consoles.remove(0)
@@ -30,4 +31,4 @@ func close():
 func _ready():
 	get_tree().connect("node_added",self,"ensure_console_is_in_world")
 	call_deferred("raise")
-#	ensure_console_is_in_world(get_tree().root.get_child(get_tree().root.get_child_count()-1))
+#	ensure_console_is_in_world(rootg.get_child(rootg.get_child_count()-1))
