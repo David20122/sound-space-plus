@@ -34,11 +34,34 @@ func _exec_initialiser(initialiser:String):
 	emit_signal("on_init_start",initialiser)
 	return thread
 
-
 func _load_content():
 	# Import maps
-	var map_count = 0
+	var maps_start = Time.get_ticks_usec()
+	var temp_maps = []
+	var song_reader = SongReader.new()
+	var map_files = []
+	var maps_dir = Directory.new()
+	if !maps_dir.dir_exists(Globals.Folders.get("maps")):
+		maps_dir.make_dir(Globals.Folders.get("maps"))
+	maps_dir.open(Globals.Folders.get("maps"))
+	maps_dir.list_dir_begin(true,true)
+	var file_name = maps_dir.get_next()
+	while file_name != "":
+		map_files.append(Globals.Folders.get("maps").plus_file(file_name))
+		file_name = maps_dir.get_next()
+	var map_count = map_files.size()
 	emit_signal("on_init_stage","Import content (1/1)",[{text="Import maps (0/%s)" % map_count,max=map_count,value=0}])
+	var map_idx = 1
+	for map_file in map_files:
+		emit_signal("on_init_stage",null,
+		[{text="Import maps (%s/%s)" % [map_idx,map_count],value=map_idx,max=map_count}])
+		temp_maps.append(song_reader.read_from_file(map_file))
+		map_idx += 1
+	var maps_took = Time.get_ticks_usec()-maps_start
+	print("Took %s usecs" % maps_took)
+	emit_signal("on_init_stage",null,[{text="Queue free SongReader" % [map_idx,map_count],max=map_count,value=map_idx}])
+	song_reader.queue_free()
+
 func _do_init():
 	emit_signal("on_init_stage","Import content")
 	_load_content()

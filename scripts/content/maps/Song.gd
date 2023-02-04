@@ -9,6 +9,12 @@ enum Difficulty {
 	LOGIC
 	TASUKETE
 }
+enum AudioFormat {
+	UNKNOWN
+	MP3
+	OGG
+	WAV
+}
 
 var broken:bool = false
 
@@ -18,6 +24,7 @@ var song:String
 var creator:String
 var difficulty:int = Difficulty.UNKNOWN
 var cover:ImageTexture
+var audio:AudioStream
 var notes:Array
 
 class Note:

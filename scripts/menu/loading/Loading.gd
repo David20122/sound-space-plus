@@ -3,7 +3,7 @@ extends Node
 func _ready():
 	SoundSpacePlus.connect("on_init_stage",self,"_on_init_stage")
 
-func _on_init_stage(stage:String,progress:Array=[]):
+func _on_init_stage(stage,progress=[]):
 	if stage != null: $Container/Label.text = stage
 	$Container/ProgressBar1.visible = false
 	$Container/ProgressBar2.visible = false

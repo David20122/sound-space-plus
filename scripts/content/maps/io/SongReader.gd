@@ -5,7 +5,7 @@ const SIGNATURE = PoolByteArray([0x53,0x53,0x2b,0x6d])
 
 func read_from_file(path:String) -> Song:
 	var file = File.new()
-	var err = file.open(path)
+	var err = file.open(path,File.READ)
 	assert(err == OK,"Couldn't read file: %s" % err)
 	assert(file.get_buffer(4) == SIGNATURE,"This isn't a map")
 	var song = Song.new()
@@ -16,18 +16,48 @@ func read_from_file(path:String) -> Song:
 	file.close()
 	return song
 
+func get_audio_format(buffer:PoolByteArray):
+	if buffer.subarray(0,3) == PoolByteArray([0x4F,0x67,0x67,0x53]): return Song.AudioFormat.OGG
+
+	if (buffer.subarray(0,3) == PoolByteArray([0x52,0x49,0x46,0x46])
+	and buffer.subarray(8,11) == PoolByteArray([0x57,0x41,0x56,0x45])): return Song.AudioFormat.WAV
+
+	if (buffer.subarray(0,1) == PoolByteArray([0xFF,0xFB])
+	or buffer.subarray(0,1) == PoolByteArray([0xFF,0xF3])
+	or buffer.subarray(0,1) == PoolByteArray([0xFF,0xFA])
+	or buffer.subarray(0,1) == PoolByteArray([0xFF,0xF2])
+	or buffer.subarray(0,2) == PoolByteArray([0x49,0x44,0x33])): return Song.AudioFormat.MP3
+	
+	return Song.AudioFormat.UNKNOWN
+
 func _cover(image:Image,song:Song):
 	var texture = ImageTexture.new()
 	texture.create_from_image(image)
 	song.cover = texture
+func _audio(buffer:PoolByteArray,song:Song):
+	var format = get_audio_format(buffer)
+	match format:
+		Song.AudioFormat.WAV:
+			var stream = AudioStreamSample.new()
+			stream.data = buffer
+			song.audio = stream
+		Song.AudioFormat.OGG:
+			var stream = AudioStreamOGGVorbis.new()
+			stream.data = buffer
+			song.audio = stream
+		Song.AudioFormat.MP3:
+			var stream = AudioStreamMP3.new()
+			stream.data = buffer
+			song.audio = stream
+		_: song.broken = true
 
 func _sspmv1(file:File,song:Song):
-	file.get_16() # Header reserved space or something
+	file.seek(file.get_position()+2) # Header reserved space or something
 	song.id = file.get_line()
 	song.name = file.get_line()
 	song.song = song.name
 	song.creator = file.get_line()
-	file.get_32() # skip last_ms
+	file.seek(file.get_position()+4) # skip last_ms
 	var note_count = file.get_32()
 	song.difficulty = file.get_8() - 1
 	# Cover
@@ -52,13 +82,13 @@ func _sspmv1(file:File,song:Song):
 		return
 	var music_length = file.get_64()
 	var music_signature = file.get_buffer(12)
-	var music_format = Globals.get_audio_format(music_signature)
-	if !music_format:
+	var music_format = get_audio_format(music_signature)
+	if music_format == Song.AudioFormat.UNKNOWN:
 		song.broken = true
 		return
 	file.seek(file.get_position()-12)
-	var music_buffer = file.get_buffer(music_length)
-	file.get_8()
+	_audio(file.get_buffer(music_length),song)
+	file.seek(file.get_position()+1)
 	song.notes = []
 	for i in range(note_count):
 		var note = Song.Note.new()
@@ -71,7 +101,6 @@ func _sspmv1(file:File,song:Song):
 			note.x = float(file.get_8())
 			note.y = float(file.get_8())
 		song.notes.append(note)
-
 
 func _read_data_type(file:File,skip_type:bool=false,skip_array_type:bool=false,type:int=0,array_type:int=0):
 	if !skip_type:
@@ -104,9 +133,7 @@ func _read_data_type(file:File,skip_type:bool=false,skip_array_type:bool=false,t
 				array[i] = _read_data_type(file,true,false,array_type)
 			return array
 func _sspmv2(file:File,song:Song):
-	file.get_buffer(4) # More header reserved bs
-	var map_hash = file.get_buffer(20)
-	var note_count = file.get_32()
+	file.seek(0x26)
 	var marker_count = file.get_32()
 	song.difficulty = file.get_8() - 1
 	file.get_16() # Why on earth did he think star rating would be stored in the file thats actually so ridiculous
@@ -114,16 +141,15 @@ func _sspmv2(file:File,song:Song):
 		song.broken = true
 		return
 	var cover_exists = bool(file.get_8())
-	var custom_data_offset = file.get_64()
-	var custom_data_length = file.get_64()
+	file.seek(0x40)
 	var audio_offset = file.get_64()
 	var audio_length = file.get_64()
 	var cover_offset = file.get_64()
 	var cover_length = file.get_64()
 	var marker_def_offset = file.get_64()
-	var marker_def_length = file.get_64()
+	file.seek(0x70)
 	var markers_offset = file.get_64()
-	var markers_length = file.get_64()
+	file.seek(0x80)
 	song.id = file.get_buffer(file.get_16()).get_string_from_utf8()
 	song.name = file.get_buffer(file.get_16()).get_string_from_utf8()
 	song.song = file.get_buffer(file.get_16()).get_string_from_utf8()
@@ -133,15 +159,16 @@ func _sspmv2(file:File,song:Song):
 		if i != 0:
 			song.creator += " & "
 		song.creator += creator
-	file.seek(custom_data_offset)
-	for _i in range(file.get_16()):
-		file.get_buffer(file.get_16())
-		_read_data_type(file,false,false)
+	# Cover
 	if cover_exists:
 		file.seek(cover_offset)
 		var image = Image.new()
 		image.load_png_from_buffer(file.get_buffer(cover_length))
 		_cover(image,song)
+	# Audio
+	file.seek(audio_offset)
+	_audio(file.get_buffer(audio_length),song)
+	# Markers
 	file.seek(marker_def_offset)
 	var markers = {}
 	var types = []
