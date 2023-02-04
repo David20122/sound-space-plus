@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://scripts/menu/loading/Init.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/Roboto/Medium.ttf" type="DynamicFontData" id=2]
@@ -19,10 +19,15 @@ font_data = ExtResource( 2 )
 [sub_resource type="DynamicFont" id=2]
 font_data = ExtResource( 3 )
 
+[sub_resource type="DynamicFont" id=5]
+size = 32
+use_filter = true
+font_data = ExtResource( 9 )
+
 [sub_resource type="DynamicFont" id=3]
 size = 24
 use_filter = true
-font_data = ExtResource( 9 )
+font_data = ExtResource( 10 )
 
 [sub_resource type="DynamicFont" id=4]
 use_filter = true
@@ -73,6 +78,17 @@ text = "Continue"
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 11 )
+
+[node name="Label" type="Label" parent="Post"]
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -192.0
+margin_right = 192.0
+custom_fonts/font = SubResource( 5 )
+text = "Loading"
+align = 1
+valign = 2
 
 [node name="Container" type="VBoxContainer" parent="Post"]
 anchor_left = 0.5
