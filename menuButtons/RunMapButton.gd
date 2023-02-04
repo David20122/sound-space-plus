@@ -19,6 +19,12 @@ func _input(event:InputEvent):
 			grab_focus()
 			grab_click_focus()
 			pressed = true
+	if !disabled && !has_been_pressed && event is InputEventKey:
+		if event.pressed and event.scancode == KEY_SPACE:
+			grab_focus()
+			grab_click_focus()
+			pressed = true
+
 
 func _pressed():
 	# button functionality
