@@ -12,13 +12,9 @@ var loading:bool = false
 var warning_seen:bool = false
 
 func _ready():
-	OS.min_window_size = Vector2(640,480)
-	OS.center_window()
 	connect("on_init_complete",self,"_on_init_complete")
 
 func _on_init_complete():
-	_thread.wait_to_finish()
-	_thread.queue_free()
 	is_init = false
 	loading = false
 
@@ -35,8 +31,14 @@ func _exec_initialiser(initialiser:String):
 	var thread = Thread.new()
 	var err = thread.start(self,initialiser,null,2)
 	assert(err == OK,"Thread failed")
+	emit_signal("on_init_start",initialiser)
 	return thread
 func _do_init():
+	emit_signal("on_init_stage","Init")
 	emit_signal("on_init_complete")
 func _reload():
+	emit_signal("on_init_stage","Reloading content")
 	emit_signal("on_init_complete")
+
+func _exit_tree():
+	if _thread != null: _thread.wait_to_finish()

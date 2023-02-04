@@ -47,6 +47,7 @@ func post():
 	$Pre.visible = false
 	$Post.visible = true
 	$Tween.remove_all()
+	$Tween.interpolate_property($Post,"modulate:a",0,1,2,Tween.TRANS_EXPO,Tween.EASE_IN)
 	$Tween.interpolate_property($Piano,"volume_db",$Piano.volume_db,-8,1,Tween.TRANS_QUAD,Tween.EASE_OUT)
 	$Tween.interpolate_property($Drums,"volume_db",-80,-8,4,Tween.TRANS_QUAD,Tween.EASE_OUT)
 	$Tween.interpolate_property($Phaser,"volume_db",-80,-8,3,Tween.TRANS_QUAD,Tween.EASE_OUT)

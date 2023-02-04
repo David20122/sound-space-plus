@@ -137,7 +137,6 @@ boot_splash/image="res://assets/branding/splash.png"
 boot_splash/fullsize=false
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://assets/branding/icon.png"
-config/windows_native_icon="res://icon.ico"
 run/main_loop_type="SceneTreePlus"
 config/quit_on_go_back=false
 config/version="rewrite"

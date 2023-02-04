@@ -3,6 +3,12 @@ class_name SceneTreePlus
 
 var fps_limit:int = 0
 
+func _init():
+	OS.min_window_size = Vector2(640,480)
+	OS.center_window()
+	
+	._init()
+
 func _is_game_scene(scene):
 	return current_scene is GameScene
 func _idle(delta):
