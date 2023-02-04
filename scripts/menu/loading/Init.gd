@@ -59,7 +59,7 @@ func post():
 	$Tween.start()
 
 func finish():
-	pass
+	get_tree().change_scene(ProjectSettings.get_setting("application/config/menu_scene"))
 
 func intro():
 	$Tween.remove_all()

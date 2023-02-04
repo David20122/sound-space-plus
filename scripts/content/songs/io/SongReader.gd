@@ -207,4 +207,3 @@ func _sspmv2(file:File,song:Song):
 		note.y = note_data[2].y
 		song.notes.append(note)
 		i += 1
-	print("sspmv2 has %s notes" % song.notes.size())

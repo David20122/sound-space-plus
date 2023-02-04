@@ -65,6 +65,7 @@ func _load_content(full_reload=true):
 			{text="Import maps (%s/%s)" % [map_idx,map_count],value=map_idx,max=map_count},
 			{text=song.name,max=1,value=1}
 		])
+		yield(get_tree(),"idle_frame")
 		songs.add_song(song)
 		map_idx += 1
 	emit_signal("on_init_stage",null,[{text="Queue free SongReader",max=map_count,value=map_idx}])
