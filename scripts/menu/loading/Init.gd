@@ -18,8 +18,8 @@ func _ready():
 	if SoundSpacePlus.loading:
 		post()
 		return
-	SoundSpacePlus.init()
 	post()
+	SoundSpacePlus.init()
 
 func pre():
 	$Post.visible = false
@@ -52,7 +52,7 @@ func post():
 	$Pre.visible = false
 	$Post.visible = true
 	$Tween.remove_all()
-	$Tween.interpolate_property($Post,"modulate:a",0,1,0.3,Tween.TRANS_EXPO,Tween.EASE_IN)
+	$Tween.interpolate_property($Post,"modulate:a",0,1,0.2,Tween.TRANS_EXPO,Tween.EASE_IN)
 	$Tween.interpolate_property($Piano,"volume_db",$Piano.volume_db,-8,0.5,Tween.TRANS_QUAD,Tween.EASE_OUT)
 	$Tween.interpolate_property($Drums,"volume_db",$Drums.volume_db,-8,2,Tween.TRANS_QUAD,Tween.EASE_OUT)
 	$Tween.interpolate_property($Phaser,"volume_db",$Phaser.volume_db,-12,1.5,Tween.TRANS_QUAD,Tween.EASE_OUT)

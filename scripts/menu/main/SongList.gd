@@ -1,5 +1,9 @@
 extends Control
 
+signal on_song_selected
+
+var selected_song:Song
+
 var page = 0
 var max_page = 0
 
@@ -21,6 +25,24 @@ func _ready():
 	$List/Paginator/Prev.connect("pressed",self,"page_dn")
 	$List/Paginator/Begin.connect("pressed",self,"page_unskip")
 	$List/Paginator/End.connect("pressed",self,"page_skip")
+	$Search/Broken.connect("pressed",self,"update_all",[true])
+	$Search/Filter/NA/Select.connect("pressed",self,"update_all",[true])
+	$Search/Filter/Easy/Select.connect("pressed",self,"update_all",[true])
+	$Search/Filter/Medium/Select.connect("pressed",self,"update_all",[true])
+	$Search/Filter/Hard/Select.connect("pressed",self,"update_all",[true])
+	$Search/Filter/Logic/Select.connect("pressed",self,"update_all",[true])
+	$Search/Filter/Tasukete/Select.connect("pressed",self,"update_all",[true])
+	$Search/Search.connect("text_changed",self,"_search_update")
+	$Search/Author.connect("text_changed",self,"_search_update")
+func _search_update(text):
+	update_all(true)
+
+func _gui_input(event):
+	if event is InputEventMouseButton and event.is_pressed():
+		if event.button_index == BUTTON_WHEEL_UP:
+			page_dn()
+		elif event.button_index == BUTTON_WHEEL_DOWN:
+			page_up()
 
 func _notification(what):
 	if what == NOTIFICATION_RESIZED: should_update = true
@@ -28,27 +50,43 @@ func _notification(what):
 func _process(delta):
 	if should_update: update_all(true)
 
+func select_song(button):
+	if buttons[button] == selected_song:
+		emit_signal("on_song_selected",selected_song)
+		return
+	selected_song = buttons[button]
+	if selected_song.broken:
+		return
+	$Preview.stream = selected_song.audio
+	$Preview.play($Preview.stream.get_length()/3)
+
 func page_up():
 	page += 1
-	should_update = true
+	update_all(true)
 func page_dn():
 	page -= 1
-	should_update = true
+	update_all(true)
 func page_unskip():
 	page = 0
-	should_update = true
+	update_all(true)
 func page_skip():
 	calculate()
 	page = max_page
-	should_update = true
+	update_all(false)
 
 func update_all(recalculate:bool=false):
+	should_update = false
 	if recalculate: calculate()
 	$List/Paginator/Label.text = "Page %s of %s" % [page+1,max_page+1]
 	if $Search.rect_size.x < 696:
 		$Search/Filter.rect_position.y = 44
 	else:
 		$Search/Filter.rect_position.y = 4
+	for button in $Search/Filter.get_children():
+		if button.get_node("Select").pressed:
+			button.modulate = Color.white
+		else:
+			button.modulate = Color("#808080")
 	update_buttons()
 
 func calculate():
@@ -61,11 +99,55 @@ func calculate():
 	var scaled_size = (button_size * button_scale) + 4
 	rows = floor(grid_height / scaled_size)
 	rows = max(rows,1)
-	songs = SoundSpacePlus.songs.items
+	songs = []
+	var filter = {
+		Song.Difficulty.UNKNOWN: $Search/Filter/NA/Select.pressed,
+		Song.Difficulty.EASY: $Search/Filter/Easy/Select.pressed,
+		Song.Difficulty.MEDIUM: $Search/Filter/Medium/Select.pressed,
+		Song.Difficulty.HARD: $Search/Filter/Hard/Select.pressed,
+		Song.Difficulty.LOGIC: $Search/Filter/Logic/Select.pressed,
+		Song.Difficulty.TASUKETE: $Search/Filter/Tasukete/Select.pressed
+	}
+	for song in SoundSpacePlus.songs.items:
+		if !filter[song.difficulty]:
+			continue
+		if song.broken and !$Search/Broken.pressed:
+			continue
+		var search = $Search/Search.text.strip_edges().to_lower()
+		var author_search = $Search/Author.text.strip_edges().to_lower()
+		var lower_name = song.name.to_lower()
+		var lower_author = song.creator.to_lower()
+		var matches = (search == "") or (search in lower_name) or lower_name.similarity(search) > 0.2
+		var matches_author = (author_search == "") or (author_search in lower_author) or lower_author.similarity(author_search) > 0.2
+		if !(matches and matches_author):
+			continue
+		songs.append(song)
+	songs.sort_custom(self,"sort_maps")
 	var grid_area = cols * rows
 	max_page = floor(songs.size()/grid_area)
 	page = min(max(page,0),max_page)
 
+func sort_maps(a,b):
+	if a.difficulty == b.difficulty:
+		return a.name.to_lower() < b.name.to_lower()
+	return a.difficulty < b.difficulty
+
+func update_button(button,song):
+	button.get_node("Label").text = song.name
+	if song.broken:
+		button.get_node("Label").modulate = Color("#ff3344")
+	else:
+		button.get_node("Label").modulate = Color.white
+	var cover_exists = song.cover != null
+	button.get_node("Label").visible = !cover_exists
+	button.get_node("Image/Tiles").visible = !cover_exists
+	button.get_node("Image/Cover").visible = cover_exists
+	if cover_exists:
+		button.get_node("Image").modulate = Color.white
+		button.get_node("Image/Cover").texture = song.cover
+	else:
+		button.get_node("Image").modulate = Song.DifficultyColours[song.difficulty]
+	button.color = Song.DifficultyColours[song.difficulty]
 func update_buttons():
 	$List/Grid.columns = cols
 	var grid_area = cols * rows
@@ -83,15 +165,11 @@ func update_buttons():
 			button = button_list[i]
 		else:
 			button = template_button.duplicate()
+			button.get_node("Select").connect("pressed",self,"select_song",[button])
 			button.visible = true
 			$List/Grid.add_child(button)
 		$List/Grid.move_child(button,i+1)
 		button.rect_min_size = Vector2(scaled_size,scaled_size)
 		var song = songs[offset+i]
 		buttons[button] = song
-		button.get_node("Label").text = song.name
-		var cover_exists = song.cover != null
-		button.get_node("Label").visible = !cover_exists
-		button.get_node("Image/Tiles").visible = !cover_exists
-		button.get_node("Image/Cover").visible = cover_exists
-		if cover_exists: button.get_node("Image/Cover").texture = song.cover
+		update_button(button,song)

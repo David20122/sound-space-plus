@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=22 format=2]
+[gd_resource type="Theme" load_steps=23 format=2]
 
 [ext_resource path="res://assets/fonts/Lato/Lato-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/fonts/Noto_Sans_JP/NotoSansJP-Medium.otf" type="DynamicFontData" id=2]
@@ -17,22 +17,7 @@ corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 
-[sub_resource type="StyleBoxFlat" id=2]
-bg_color = Color( 0.87451, 0.87451, 0.87451, 1 )
-draw_center = false
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color( 0, 0.976471, 1, 0.313726 )
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
-expand_margin_left = 1.0
-expand_margin_right = 1.0
-expand_margin_top = 1.0
-expand_margin_bottom = 1.0
+[sub_resource type="StyleBoxEmpty" id=19]
 
 [sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.913725, 0.74902, 0.94902, 1 )
@@ -95,6 +80,23 @@ corner_radius_top_left = 6
 corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.87451, 0.87451, 0.87451, 1 )
+draw_center = false
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color( 0, 0.976471, 1, 0.313726 )
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+expand_margin_left = 1.0
+expand_margin_right = 1.0
+expand_margin_top = 1.0
+expand_margin_bottom = 1.0
 
 [sub_resource type="StyleBoxFlat" id=9]
 content_margin_left = 5.0
@@ -183,7 +185,7 @@ Button/colors/font_color_pressed = Color( 0, 0, 0, 1 )
 Button/constants/hseparation = 2
 Button/fonts/font = SubResource( 17 )
 Button/styles/disabled = SubResource( 1 )
-Button/styles/focus = SubResource( 2 )
+Button/styles/focus = SubResource( 19 )
 Button/styles/hover = SubResource( 3 )
 Button/styles/normal = SubResource( 4 )
 Button/styles/pressed = SubResource( 4 )

@@ -118,7 +118,9 @@ custom_constants/separation = 0
 margin_right = 384.0
 margin_bottom = 20.0
 custom_fonts/font = SubResource( 4 )
+text = "rahhhhhh really long text rn this text is soooooo long its unbelievable"
 valign = 2
+clip_text = true
 
 [node name="Bar" type="ProgressBar" parent="Post/Container/ProgressBar1"]
 margin_top = 20.0
@@ -140,6 +142,7 @@ margin_right = 384.0
 margin_bottom = 20.0
 custom_fonts/font = SubResource( 4 )
 valign = 2
+clip_text = true
 
 [node name="Bar" type="ProgressBar" parent="Post/Container/ProgressBar2"]
 margin_top = 20.0
@@ -161,6 +164,7 @@ margin_right = 384.0
 margin_bottom = 20.0
 custom_fonts/font = SubResource( 4 )
 valign = 2
+clip_text = true
 
 [node name="Bar" type="ProgressBar" parent="Post/Container/ProgressBar3"]
 margin_top = 20.0
