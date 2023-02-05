@@ -13,7 +13,7 @@ var cols:int = 0
 var rows:int = 0
 
 var buttons = {}
-var button_size = 124
+var button_size = 115
 var button_scale = 1
 onready var template_button = $List/Grid/Song
 
@@ -92,11 +92,16 @@ func update_all(recalculate:bool=false):
 func calculate():
 	var grid_width = $List.rect_size.x
 	var grid_height = $List.rect_size.y - 56
-	cols = floor((grid_width / (button_size + 4))-0.1)
+	cols = floor((grid_width / (button_size + 4))-0.2)
 	cols = max(cols,1)
-	var buttons_width = (button_size + 4) * cols
-	button_scale = grid_width / buttons_width
+	rows = ceil((grid_height / (button_size + 4))-0.2)
+	rows = max(rows,1)
+	var buttons_width = ((button_size + 4) * cols) - 4
+	var buttons_height = ((button_size + 4) * rows) - 4
+	button_scale = max(grid_width / buttons_width, grid_height / buttons_height)
 	var scaled_size = (button_size * button_scale) + 4
+	cols = round(grid_width / scaled_size)
+	cols = max(cols,1)
 	rows = floor(grid_height / scaled_size)
 	rows = max(rows,1)
 	songs = []
