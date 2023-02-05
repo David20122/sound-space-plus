@@ -58,22 +58,26 @@ func _load_content(full_reload=true):
 	for map_file in map_files:
 		emit_signal("on_init_stage",null,[
 			{text="Import maps (%s/%s)" % [map_idx,map_count],value=map_idx,max=map_count},
-			{text=map_file.get_basename(),max=1,value=0}
+			{text=map_file.get_file(),max=1,value=0}
 		])
 		var song = song_reader.read_from_file(map_file)
+		yield(get_tree(),"idle_frame")
 		emit_signal("on_init_stage",null,[
 			{text="Import maps (%s/%s)" % [map_idx,map_count],value=map_idx,max=map_count},
 			{text=song.name,max=1,value=1}
 		])
 		songs.add_song(song)
 		map_idx += 1
-	emit_signal("on_init_stage",null,[{text="Queue free SongReader",max=map_count,value=map_idx}])
+	yield(get_tree().create_timer(1),"timeout")
+	emit_signal("on_init_stage",null,[{text="Free SongReader",max=map_count,value=map_idx}])
 	song_reader.free()
+	yield(get_tree(),"idle_frame")
 
 func _do_init():
-	emit_signal("on_init_stage","Waiting for engine")
+	emit_signal("on_init_stage","Waiting")
 	yield(get_tree(),"idle_frame")
 	_load_content()
+	yield(get_tree().create_timer(1),"timeout")
 	emit_signal("on_init_complete")
 func _reload():
 	emit_signal("on_init_stage","Reloading content")
