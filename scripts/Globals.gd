@@ -4,15 +4,18 @@ enum RootFolder {
 	USER
 	RES
 	EXECUTABLE
+	SKIN
 }
 
 const Folders = {
 	user = "user://",
 	res = "res://",
-	executable = ""
+	executable = "",
+	skin = ""
 }
 const _folders = {
-	maps = [RootFolder.USER,"maps"]
+	maps = [RootFolder.USER,"maps"],
+	murder = [RootFolder.RES,"assets/sounds/death.mp3"]
 }
 
 func update_folders():
@@ -23,6 +26,7 @@ func update_folders():
 			RootFolder.USER: Folders[key] = Folders.user.plus_file(value[1])
 			RootFolder.RES: Folders[key] = Folders.res.plus_file(value[1])
 			RootFolder.EXECUTABLE: Folders[key] = Folders.executable.plus_file(value[1])
+			RootFolder.SKIN: Folders[key] = Folders.skin.plus_file(value[1])
 
 enum AudioFormat {
 	UNKNOWN

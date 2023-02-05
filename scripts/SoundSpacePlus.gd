@@ -36,7 +36,7 @@ func _exec_initialiser(initialiser:String):
 	call_deferred("emit_signal","on_init_start",initialiser)
 	return thread
 
-func _load_content(full_reload=true):
+func _load_content(full_reload=false):
 	# Import maps
 	if full_reload: songs.clear()
 	var song_reader = SongReader.new()
@@ -64,14 +64,17 @@ func _load_content(full_reload=true):
 		songs.add_song(song)
 		map_idx += 1
 	call_deferred("emit_signal","on_init_stage",null,[{text="Free SongReader",max=map_count,value=map_idx}])
-	song_reader.free()
+	song_reader.call_deferred("free")
 
 func _do_init():
 	call_deferred("emit_signal","on_init_stage","Waiting")
-	_load_content()
+	_load_content(true)
+	call_deferred("emit_signal","on_init_stage","Update folders")
+	Globals.call_deferred("update_folders")
 	call_deferred("emit_signal","on_init_complete")
 func _reload():
 	call_deferred("emit_signal","on_init_stage","Reloading content")
+	_load_content(false)
 	call_deferred("emit_signal","on_init_complete")
 
 func _exit_tree():
