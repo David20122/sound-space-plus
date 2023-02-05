@@ -11,6 +11,7 @@ func apply_warning(status):
 	if status == null:
 		visible = false
 		return
+	visible = true
 	var message = Globals.StatusMessages[status]
 	color = message[0]
 	$Slider/LabelA.text = message[1]
