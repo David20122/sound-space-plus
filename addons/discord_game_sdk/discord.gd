@@ -250,17 +250,10 @@ var lobby_manager:LobbyManager_
 var overlay_manager:OverlayManager_
 
 func _ready():
-	# uncomment to test against a second canary discord client
-	#if OS.has_feature("standalone"):
-	#	OS.set_environment("DISCORD_INSTANCE_ID", "1")
-	#else:
-	#	OS.set_environment("DISCORD_INSTANCE_ID", "0")
-	
-	if ProjectSettings.get_setting("application/config/discord_rpc"):
+	if !ProjectSettings.get_setting("application/rich_presence/disabled"):
 		discore_core_ = DiscordCore.new()
 		if discore_core_:
 			discore_core_.create(1066457505246486598, CreateFlags.NoRequireDiscord)
-			
 			activity_manager = ActivityManager_.new(discore_core_.get_activity_manager())
 			lobby_manager = LobbyManager_.new(discore_core_.get_lobby_manager())
 			overlay_manager = OverlayManager_.new(discore_core_.get_overlay_manager())

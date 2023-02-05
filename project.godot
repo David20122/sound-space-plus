@@ -169,7 +169,7 @@ run/main_scene="res://scenes/Init.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="SoundSpacePlus"
 run/delta_sync_after_draw=true
-boot_splash/image="res://assets/branding/splash.png"
+boot_splash/image="res://assets/images/branding/splash.png"
 boot_splash/fullsize=false
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://assets/images/branding/icon.png"
@@ -184,6 +184,9 @@ startup/disable_intro=false
 startup/disable_intro.debug=true
 startup/disable_health_warning=false
 startup/disable_health_warning.editor=true
+rich_presence/disabled=true
+rich_presence/disabled.Windows=false
+rich_presence/disabled.editor=true
 
 [audio]
 
