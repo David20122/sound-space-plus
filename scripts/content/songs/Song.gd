@@ -9,11 +9,13 @@ enum Difficulty {
 	LOGIC
 	TASUKETE
 }
-enum AudioFormat {
-	UNKNOWN
-	MP3
-	OGG
-	WAV
+const DifficultyColours = {
+	Difficulty.UNKNOWN: Color("#ffffff"),
+	Difficulty.EASY: Color("#00ff00"),
+	Difficulty.MEDIUM: Color("#ffb800"),
+	Difficulty.HARD: Color("#ff0000"),
+	Difficulty.LOGIC: Color("#d76aff"),
+	Difficulty.TASUKETE: Color("#36304f"),
 }
 
 var name:String

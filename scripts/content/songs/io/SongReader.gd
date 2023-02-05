@@ -17,18 +17,18 @@ func read_from_file(path:String) -> Song:
 	return song
 
 func get_audio_format(buffer:PoolByteArray):
-	if buffer.subarray(0,3) == PoolByteArray([0x4F,0x67,0x67,0x53]): return Song.AudioFormat.OGG
+	if buffer.subarray(0,3) == PoolByteArray([0x4F,0x67,0x67,0x53]): return Globals.AudioFormat.OGG
 
 	if (buffer.subarray(0,3) == PoolByteArray([0x52,0x49,0x46,0x46])
-	and buffer.subarray(8,11) == PoolByteArray([0x57,0x41,0x56,0x45])): return Song.AudioFormat.WAV
+	and buffer.subarray(8,11) == PoolByteArray([0x57,0x41,0x56,0x45])): return Globals.AudioFormat.WAV
 
 	if (buffer.subarray(0,1) == PoolByteArray([0xFF,0xFB])
 	or buffer.subarray(0,1) == PoolByteArray([0xFF,0xF3])
 	or buffer.subarray(0,1) == PoolByteArray([0xFF,0xFA])
 	or buffer.subarray(0,1) == PoolByteArray([0xFF,0xF2])
-	or buffer.subarray(0,2) == PoolByteArray([0x49,0x44,0x33])): return Song.AudioFormat.MP3
+	or buffer.subarray(0,2) == PoolByteArray([0x49,0x44,0x33])): return Globals.AudioFormat.MP3
 	
-	return Song.AudioFormat.UNKNOWN
+	return Globals.AudioFormat.UNKNOWN
 
 func _cover(image:Image,song:Song):
 	var texture = ImageTexture.new()
@@ -37,15 +37,15 @@ func _cover(image:Image,song:Song):
 func _audio(buffer:PoolByteArray,song:Song):
 	var format = get_audio_format(buffer)
 	match format:
-		Song.AudioFormat.WAV:
+		Globals.AudioFormat.WAV:
 			var stream = AudioStreamSample.new()
 			stream.data = buffer
 			song.audio = stream
-		Song.AudioFormat.OGG:
+		Globals.AudioFormat.OGG:
 			var stream = AudioStreamOGGVorbis.new()
 			stream.data = buffer
 			song.audio = stream
-		Song.AudioFormat.MP3:
+		Globals.AudioFormat.MP3:
 			var stream = AudioStreamMP3.new()
 			stream.data = buffer
 			song.audio = stream
@@ -59,7 +59,7 @@ func _sspmv1(file:File,song:Song):
 	song.creator = file.get_line()
 	file.seek(file.get_position()+4) # skip last_ms
 	var note_count = file.get_32()
-	song.difficulty = file.get_8() - 1
+	song.difficulty = file.get_8()
 	# Cover
 	var cover_type = file.get_8()
 	match cover_type:
@@ -83,7 +83,7 @@ func _sspmv1(file:File,song:Song):
 	var music_length = file.get_64()
 	var music_signature = file.get_buffer(12)
 	var music_format = get_audio_format(music_signature)
-	if music_format == Song.AudioFormat.UNKNOWN:
+	if music_format == Globals.AudioFormat.UNKNOWN:
 		song.broken = true
 		return
 	file.seek(file.get_position()-12)
@@ -135,7 +135,7 @@ func _read_data_type(file:File,skip_type:bool=false,skip_array_type:bool=false,t
 func _sspmv2(file:File,song:Song):
 	file.seek(0x26)
 	var marker_count = file.get_32()
-	song.difficulty = file.get_8() - 1
+	song.difficulty = file.get_8()
 	file.get_16() # Why on earth did he think star rating would be stored in the file thats actually so ridiculous
 	if !bool(file.get_8()): # Does the map have music?
 		song.broken = true
