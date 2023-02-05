@@ -59,6 +59,7 @@ func select_song(button):
 		return
 	$Preview.stream = selected_song.audio
 	$Preview.play($Preview.stream.get_length()/3)
+	$"../../../Sidebar/Buttons/Play".emit_signal("pressed")
 
 func page_up():
 	page += 1

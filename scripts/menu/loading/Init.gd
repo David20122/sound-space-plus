@@ -10,7 +10,6 @@ func _ready():
 	if !SoundSpacePlus.is_init:
 		finish()
 		return
-	SoundSpacePlus.connect("on_init_complete",self,"finish",[],4)
 	if !SoundSpacePlus.warning_seen:
 		SoundSpacePlus.warning_seen = true
 		pre()
