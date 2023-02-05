@@ -172,16 +172,18 @@ run/delta_sync_after_draw=true
 boot_splash/image="res://assets/branding/splash.png"
 boot_splash/fullsize=false
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
-config/icon="res://assets/branding/icon.png"
+config/icon="res://assets/images/branding/icon.png"
 run/main_loop_type="SceneTreePlus"
 config/quit_on_go_back=false
 config/version="rewrite"
 networking/enabled=true
 networking/test_url="https://google.com"
 networking/api_url="https://soundspaceplus.dev/api/"
-config/disable_intro=false
-config/disable_intro.debug=true
 config/menu_scene="res://scenes/Menu.tscn"
+startup/disable_intro=false
+startup/disable_intro.debug=true
+startup/disable_health_warning=false
+startup/disable_health_warning.editor=true
 
 [audio]
 

@@ -1,8 +1,9 @@
 extends Node
 
-onready var skip_intro:bool = ProjectSettings.get_setting("application/config/disable_intro")
+onready var skip_intro:bool = ProjectSettings.get_setting("application/startup/disable_intro")
 
 func _ready():
+	SoundSpacePlus.warning_seen = ProjectSettings.get_setting("application/startup/disable_health_warning")
 	$Pre.modulate.a = 0
 	$Post.modulate.a = 0
 	yield(get_tree().create_timer(1),"timeout")
