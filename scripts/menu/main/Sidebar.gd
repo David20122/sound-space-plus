@@ -4,16 +4,21 @@ onready var tween = $Tween
 var showing = false
 
 onready var tabs = $"../Main/Tabs"
-onready var pages = [ $Buttons/Select, $Buttons/Credits ]
+onready var pages = [ $Buttons/Play, $Buttons/Select, $Buttons/Content, $Buttons/Credits, $Buttons/Settings ]
 
 func _ready():
 	$Open.connect("mouse_entered",self,"show_bar")
 	$"../SidebarClose".connect("mouse_entered",self,"hide_bar")
+
+	tabs.current_tab = 1
 	$Highlight.rect_position.y = pages[tabs.current_tab].rect_global_position.y
+
 	for i in range(pages.size()):
 		var button = pages[i]
 		button.connect("pressed",self,"_move_highlight",[button])
 		button.connect("pressed",tabs,"set",["current_tab",i])
+
+	$Buttons/Quit.connect("pressed",get_tree(),"quit")
 func _move_highlight(button):
 	var origin_y = $Highlight.rect_position.y
 	var dest_y = button.rect_global_position.y

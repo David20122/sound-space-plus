@@ -14,7 +14,7 @@
 [ext_resource path="res://assets/images/ui/arrow_up_white.png" type="Texture" id=12]
 [ext_resource path="res://assets/images/ui/arrow_down_white.png" type="Texture" id=13]
 [ext_resource path="res://assets/images/tiles.png" type="Texture" id=14]
-[ext_resource path="res://assets/images/ui/placeholder.jpg" type="Texture" id=15]
+[ext_resource path="res://assets/images/ui/user_folder_error.png" type="Texture" id=15]
 [ext_resource path="res://assets/fonts/Lato/Lato-Black.ttf" type="DynamicFontData" id=16]
 [ext_resource path="res://scripts/menu/main/SongList.gd" type="Script" id=17]
 [ext_resource path="res://scripts/menu/main/Sidebar.gd" type="Script" id=18]
@@ -32,9 +32,9 @@ fallback/1 = ExtResource( 6 )
 code = "shader_type canvas_item;
 
 void fragment() {
-	vec2 muv = (UV - vec2(0.5)) * 2.0;
-	float m = 1.0 - max(abs(muv.x),abs(muv.y));
-	COLOR = texture(TEXTURE,UV)*(1.0 + clamp((m*1.5+0.5),0,1.0))/2.0;
+	vec2 muv = (UV - vec2(0.5)) * 2.2;
+	float m = 0.9 - max(abs(muv.x),abs(muv.y));
+	COLOR = texture(TEXTURE,UV)*(1.1 + clamp((m*1.2+0.5),0,1.0))/2.0;
 }"
 
 [sub_resource type="ShaderMaterial" id=5]
@@ -118,6 +118,11 @@ anchor_bottom = 1.0
 custom_styles/panel = SubResource( 1 )
 tabs_visible = false
 
+[node name="SongDetails" type="Control" parent="Main/Tabs"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+
 [node name="SongList" type="Control" parent="Main/Tabs"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -159,7 +164,7 @@ margin_bottom = -4.0
 color = Color( 0, 0, 0, 1 )
 
 [node name="Tiles" type="TextureRect" parent="Main/Tabs/SongList/List/Grid/Song/Image"]
-modulate = Color( 0.5, 0.5, 0.5, 1 )
+modulate = Color( 1, 1, 1, 0.509804 )
 material = SubResource( 5 )
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -174,6 +179,7 @@ anchor_bottom = 1.0
 rect_pivot_offset = Vector2( -120, 56 )
 texture = ExtResource( 15 )
 expand = true
+stretch_mode = 7
 
 [node name="Select" type="Button" parent="Main/Tabs/SongList/List/Grid/Song"]
 anchor_right = 1.0
@@ -624,7 +630,17 @@ flat = true
 volume_db = -8.0
 bus = "Menu Music"
 
+[node name="Content" type="Control" parent="Main/Tabs"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+
 [node name="Credits" type="Control" parent="Main/Tabs"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Settings" type="Control" parent="Main/Tabs"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -717,7 +733,7 @@ custom_fonts/font = SubResource( 2 )
 text = "Song Select"
 valign = 1
 
-[node name="ContentManager" type="Button" parent="Sidebar/Buttons"]
+[node name="Content" type="Button" parent="Sidebar/Buttons"]
 margin_top = 136.0
 margin_right = 64.0
 margin_bottom = 196.0
@@ -725,7 +741,7 @@ rect_min_size = Vector2( 60, 60 )
 mouse_default_cursor_shape = 2
 flat = true
 
-[node name="Icon" type="TextureRect" parent="Sidebar/Buttons/ContentManager"]
+[node name="Icon" type="TextureRect" parent="Sidebar/Buttons/Content"]
 anchor_bottom = 1.0
 margin_top = 8.0
 margin_right = 64.0
@@ -734,7 +750,7 @@ texture = ExtResource( 10 )
 expand = true
 stretch_mode = 6
 
-[node name="Label" type="Label" parent="Sidebar/Buttons/ContentManager"]
+[node name="Label" type="Label" parent="Sidebar/Buttons/Content"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 64.0
