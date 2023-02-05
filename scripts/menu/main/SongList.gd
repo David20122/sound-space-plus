@@ -17,6 +17,10 @@ var should_update = true
 
 func _ready():
 	template_button.visible = false
+	$List/Paginator/Next.connect("pressed",self,"page_up")
+	$List/Paginator/Prev.connect("pressed",self,"page_dn")
+	$List/Paginator/Begin.connect("pressed",self,"page_unskip")
+	$List/Paginator/End.connect("pressed",self,"page_skip")
 
 func _notification(what):
 	if what == NOTIFICATION_RESIZED: should_update = true
@@ -24,8 +28,23 @@ func _notification(what):
 func _process(delta):
 	if should_update: update_all(true)
 
+func page_up():
+	page += 1
+	should_update = true
+func page_dn():
+	page -= 1
+	should_update = true
+func page_unskip():
+	page = 0
+	should_update = true
+func page_skip():
+	calculate()
+	page = max_page
+	should_update = true
+
 func update_all(recalculate:bool=false):
 	if recalculate: calculate()
+	$List/Paginator/Label.text = "Page %s of %s" % [page+1,max_page+1]
 	if $Search.rect_size.x < 696:
 		$Search/Filter.rect_position.y = 44
 	else:
@@ -45,7 +64,7 @@ func calculate():
 	songs = SoundSpacePlus.songs.items
 	var grid_area = cols * rows
 	max_page = floor(songs.size()/grid_area)
-	page = min(page,max_page)
+	page = min(max(page,0),max_page)
 
 func update_buttons():
 	$List/Grid.columns = cols
@@ -66,6 +85,7 @@ func update_buttons():
 			button = template_button.duplicate()
 			button.visible = true
 			$List/Grid.add_child(button)
+		$List/Grid.move_child(button,i+1)
 		button.rect_min_size = Vector2(scaled_size,scaled_size)
 		var song = songs[offset+i]
 		buttons[button] = song
