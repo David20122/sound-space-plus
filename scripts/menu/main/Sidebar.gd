@@ -18,7 +18,7 @@ func _ready():
 		button.connect("pressed",self,"_move_highlight",[button])
 		button.connect("pressed",tabs,"set",["current_tab",i])
 
-	$Buttons/Quit.connect("pressed",get_tree(),"quit")
+	$Buttons/Quit.connect("pressed",get_tree(),"call_deferred",["quit"])
 func _move_highlight(button):
 	var origin_y = $Highlight.rect_position.y
 	var dest_y = button.rect_global_position.y

@@ -1,39 +1,57 @@
-[gd_resource type="AudioBusLayout" format=2]
+[gd_resource type="AudioBusLayout" load_steps=2 format=2]
+
+[sub_resource type="AudioEffectReverb" id=1]
+resource_name = "Reverb"
+room_size = 1.0
 
 [resource]
-bus/1/name = "Menu"
+bus/1/name = "Sound Space Plus"
 bus/1/solo = false
 bus/1/mute = false
 bus/1/bypass_fx = false
 bus/1/volume_db = 0.0
 bus/1/send = "Master"
-bus/2/name = "Menu Music"
+bus/2/name = "Awesome!"
 bus/2/solo = false
 bus/2/mute = false
 bus/2/bypass_fx = false
 bus/2/volume_db = 0.0
-bus/2/send = "Menu"
-bus/3/name = "Menu SFX"
+bus/2/send = "Master"
+bus/2/effect/0/effect = SubResource( 1 )
+bus/2/effect/0/enabled = true
+bus/3/name = "Menu"
 bus/3/solo = false
 bus/3/mute = false
 bus/3/bypass_fx = false
 bus/3/volume_db = 0.0
-bus/3/send = "Menu"
-bus/4/name = "Game"
+bus/3/send = "Sound Space Plus"
+bus/4/name = "Menu Music"
 bus/4/solo = false
 bus/4/mute = false
 bus/4/bypass_fx = false
 bus/4/volume_db = 0.0
-bus/4/send = "Master"
-bus/5/name = "Game Music"
+bus/4/send = "Menu"
+bus/5/name = "Menu SFX"
 bus/5/solo = false
 bus/5/mute = false
 bus/5/bypass_fx = false
 bus/5/volume_db = 0.0
-bus/5/send = "Game"
-bus/6/name = "Game SFX"
+bus/5/send = "Menu"
+bus/6/name = "Game"
 bus/6/solo = false
 bus/6/mute = false
 bus/6/bypass_fx = false
 bus/6/volume_db = 0.0
-bus/6/send = "Game"
+bus/6/send = "Sound Space Plus"
+bus/7/name = "Game Music"
+bus/7/solo = false
+bus/7/mute = false
+bus/7/bypass_fx = false
+bus/7/volume_db = 0.0
+bus/7/send = "Game"
+bus/8/name = "Game SFX"
+bus/8/solo = false
+bus/8/mute = false
+bus/8/bypass_fx = false
+bus/8/volume_db = 0.0
+bus/8/send = "Game"

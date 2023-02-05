@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://prefabs/menu/VersionNumberR.tscn" type="PackedScene" id=1]
 [ext_resource path="res://uitheme.tres" type="Theme" id=2]
@@ -19,6 +19,7 @@
 [ext_resource path="res://scripts/menu/main/SongList.gd" type="Script" id=17]
 [ext_resource path="res://scripts/menu/main/Sidebar.gd" type="Script" id=18]
 [ext_resource path="res://scripts/menu/main/Warning.gd" type="Script" id=19]
+[ext_resource path="res://assets/sounds/death.mp3" type="AudioStream" id=20]
 
 [sub_resource type="DynamicFont" id=8]
 use_filter = true
@@ -854,3 +855,7 @@ anchor_bottom = 1.0
 flat = true
 
 [node name="Tween" type="Tween" parent="Sidebar"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 20 )
+bus = "Awesome!"
