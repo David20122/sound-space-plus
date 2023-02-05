@@ -84,7 +84,7 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_user.gdns"
 }, {
-"base": "Node",
+"base": "Spatial",
 "class": "GameScene",
 "language": "GDScript",
 "path": "res://scripts/game/GameScene.gd"
