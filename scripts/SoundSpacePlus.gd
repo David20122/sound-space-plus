@@ -33,7 +33,7 @@ func _exec_initialiser(initialiser:String):
 	var thread = Thread.new()
 	var err = thread.start(self,initialiser,null,2)
 	assert(err == OK,"Thread failed")
-	emit_signal("on_init_start",initialiser)
+	call_deferred("emit_signal","on_init_start",initialiser)
 	return thread
 
 func _load_content(full_reload=true):
@@ -51,37 +51,28 @@ func _load_content(full_reload=true):
 		map_files.append(Globals.Folders.get("maps").plus_file(file_name))
 		file_name = maps_dir.get_next()
 	var map_count = map_files.size()
-	emit_signal("on_init_stage","Import content (1/1)",[
+	call_deferred("emit_signal","on_init_stage","Import content (1/1)",[
 		{text="Import maps (0/%s)" % map_count,max=map_count,value=0}
 	])
 	var map_idx = 1
 	for map_file in map_files:
-		emit_signal("on_init_stage",null,[
+		call_deferred("emit_signal","on_init_stage",null,[
 			{text="Import maps (%s/%s)" % [map_idx,map_count],value=map_idx,max=map_count},
 			{text=map_file.get_file(),max=1,value=0}
 		])
 		var song = song_reader.read_from_file(map_file)
-		yield(get_tree(),"idle_frame")
-		emit_signal("on_init_stage",null,[
-			{text="Import maps (%s/%s)" % [map_idx,map_count],value=map_idx,max=map_count},
-			{text=song.name,max=1,value=1}
-		])
 		songs.add_song(song)
 		map_idx += 1
-	yield(get_tree().create_timer(1),"timeout")
-	emit_signal("on_init_stage",null,[{text="Free SongReader",max=map_count,value=map_idx}])
+	call_deferred("emit_signal","on_init_stage",null,[{text="Free SongReader",max=map_count,value=map_idx}])
 	song_reader.free()
-	yield(get_tree(),"idle_frame")
 
 func _do_init():
-	emit_signal("on_init_stage","Waiting")
-	yield(get_tree(),"idle_frame")
+	call_deferred("emit_signal","on_init_stage","Waiting")
 	_load_content()
-	yield(get_tree().create_timer(1),"timeout")
-	emit_signal("on_init_complete")
+	call_deferred("emit_signal","on_init_complete")
 func _reload():
-	emit_signal("on_init_stage","Reloading content")
-	emit_signal("on_init_complete")
+	call_deferred("emit_signal","on_init_stage","Reloading content")
+	call_deferred("emit_signal","on_init_complete")
 
 func _exit_tree():
 	if _thread != null: _thread.wait_to_finish()
