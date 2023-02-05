@@ -582,6 +582,7 @@ var lock_mouse:bool = true
 var absolute_mode:bool = false
 var absolute_scale:float = 1
 var edge_drift:float = 0
+var disable_intro:bool = false
 
 # Settings - Replays
 var record_replays:bool = false
@@ -1131,6 +1132,8 @@ func load_saved_settings():
 		
 		if data.has("target_fps"):
 			Engine.target_fps = data.target_fps
+		if data.has("disable_intro"):
+			disable_intro = data.disable_intro
 		
 		
 		if data.has("master_volume"):
@@ -1494,6 +1497,7 @@ func save_settings():
 			cursor_color_type = cursor_color_type,
 			half_ghost = half_ghost,
 			target_fps = Engine.target_fps,
+			disable_intro = disable_intro,
 			
 			master_volume = ser_float(clamp(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Master")),-80,1000000)),
 			music_volume = ser_float(clamp(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Music")),-80,1000000)),

@@ -445,6 +445,7 @@ color_ramp = SubResource( 95 )
 [sub_resource type="SpatialMaterial" id=97]
 flags_transparent = true
 flags_unshaded = true
+flags_vertex_lighting = true
 vertex_color_use_as_albedo = true
 params_blend_mode = 1
 params_billboard_mode = 3
@@ -455,6 +456,8 @@ albedo_color = Color( 1, 1, 1, 0.196078 )
 
 [sub_resource type="SphereMesh" id=98]
 material = SubResource( 97 )
+radial_segments = 4
+rings = 4
 
 [sub_resource type="CanvasItemMaterial" id=86]
 render_priority = 100
@@ -470,11 +473,10 @@ font_data = SubResource( 84 )
 background_mode = 1
 glow_enabled = true
 glow_intensity = 0.25
-glow_bloom = 1.0
+glow_strength = 0.9
+glow_bloom = 0.9
 glow_blend_mode = 0
-glow_bicubic_upscale = true
-glow_high_quality = true
-adjustment_enabled = true
+glow_hdr_scale = 1.5
 
 [sub_resource type="SpatialMaterial" id=91]
 flags_transparent = true
@@ -498,7 +500,7 @@ gradient = SubResource( 92 )
 
 [sub_resource type="ParticlesMaterial" id=90]
 emission_shape = 1
-emission_sphere_radius = 16.0
+emission_sphere_radius = 12.0
 spread = 180.0
 gravity = Vector3( 0, 0, 0 )
 initial_velocity = 2.0
@@ -517,7 +519,7 @@ gradient = SubResource( 99 )
 
 [sub_resource type="ParticlesMaterial" id=101]
 emission_shape = 2
-emission_box_extents = Vector3( 10, 10, 10 )
+emission_box_extents = Vector3( 12, 12, 12 )
 spread = 180.0
 gravity = Vector3( 0, 0, 0 )
 initial_velocity = 0.15
@@ -540,6 +542,8 @@ albedo_color = Color( 1, 1, 1, 0.196078 )
 
 [sub_resource type="SphereMesh" id=102]
 material = SubResource( 109 )
+radial_segments = 4
+rings = 4
 
 [sub_resource type="CubeMesh" id=103]
 size = Vector3( 2, 2, 0 )
@@ -667,8 +671,9 @@ anims/Sleepy = SubResource( 83 )
 
 [node name="Aura" type="Particles" parent="Avatar"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 2 )
-amount = 1024
+amount = 64
 lifetime = 4.0
+fract_delta = false
 process_material = SubResource( 96 )
 draw_pass_1 = SubResource( 98 )
 
@@ -703,15 +708,16 @@ environment = SubResource( 87 )
 [node name="Particles" type="Particles" parent="."]
 material_override = SubResource( 91 )
 cast_shadow = 0
-amount = 256
+amount = 64
 lifetime = 4.0
 process_material = SubResource( 90 )
 draw_pass_1 = ExtResource( 1 )
 
 [node name="Aura" type="Particles" parent="."]
-amount = 1024
+amount = 512
 lifetime = 4.0
-visibility_aabb = AABB( 0, 0, 0, 100, 100, 100 )
+fract_delta = false
+visibility_aabb = AABB( -6, 0, -6, 12, 12, 12 )
 process_material = SubResource( 101 )
 draw_pass_1 = SubResource( 102 )
 

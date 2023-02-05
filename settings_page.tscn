@@ -266,7 +266,7 @@ script = ExtResource( 59 )
 [node name="M" type="VBoxContainer" parent="."]
 margin_top = 59.0
 margin_right = 1280.0
-margin_bottom = 5530.0
+margin_bottom = 5562.0
 custom_constants/separation = 0
 
 [node name="Modifiers" type="VBoxContainer" parent="M"]
@@ -6391,7 +6391,7 @@ valign = 1
 [node name="Experimental" type="VBoxContainer" parent="M"]
 margin_top = 5098.0
 margin_right = 1280.0
-margin_bottom = 5471.0
+margin_bottom = 5503.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Experimental"]
@@ -6420,13 +6420,13 @@ flat = true
 [node name="Group" type="MarginContainer" parent="M/Experimental"]
 margin_top = 36.0
 margin_right = 1280.0
-margin_bottom = 373.0
+margin_bottom = 405.0
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="M/Experimental/Group"]
 margin_left = 180.0
 margin_right = 1280.0
-margin_bottom = 337.0
+margin_bottom = 369.0
 
 [node name="ExpWarning" type="MarginContainer" parent="M/Experimental/Group/H"]
 margin_right = 827.0
@@ -6762,10 +6762,42 @@ custom_fonts/font = SubResource( 4 )
 text = "replays the intro cutscene"
 valign = 1
 
+[node name="DisableIntro" type="CheckBox" parent="M/Experimental/Group/H"]
+margin_top = 341.0
+margin_right = 827.0
+margin_bottom = 369.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_fonts/font = SubResource( 4 )
+action_mode = 0
+text = "disables the intro cutscene"
+flat = true
+script = ExtResource( 54 )
+target = "disable_intro"
+
+[node name="Label" type="Label" parent="M/Experimental/Group/H/DisableIntro"]
+anchor_bottom = 1.0
+margin_left = -172.0
+margin_right = -10.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Disable Intro Cutscene"
+align = 2
+valign = 1
+clip_text = true
+
 [node name="BottomMargin" type="Control" parent="."]
-margin_top = 5534.0
+margin_top = 5566.0
 margin_right = 1280.0
-margin_bottom = 5630.0
+margin_bottom = 5662.0
 rect_min_size = Vector2( 0, 96 )
 
 [connection signal="pressed" from="M/Experimental/Group/H/Intro/Play" to="M/Experimental/Group/H/Intro/Play" method="_on_Play_pressed"]

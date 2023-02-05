@@ -667,7 +667,18 @@ func _ready():
 	SSP.is_init = true
 	thread.start(SSP,"do_init")
 	
-	get_tree().call_deferred("change_scene","res://astroroomlibrary.tscn")
+	var disable_intro = false
+	var file:File = File.new()
+	if file.file_exists(Globals.p("user://settings.json")):
+		var err = file.open(Globals.p("user://settings.json"),File.READ)
+		if err != OK:
+			print("file.open failed"); return -2
+		var decode = JSON.parse(file.get_as_text())
+		file.close()
+		if !decode.error:
+			disable_intro = decode.result.has("disable_intro") and decode.result.disable_intro
+	if !disable_intro: get_tree().call_deferred("change_scene","res://astroroomlibrary.tscn")
+	else: get_tree().call_deferred("change_scene","res://init.tscn")
 	
 	url_regex.compile(
 		"((https?)://)[\\w\\-.]{2,256}(:\\d{1,5})?(/[\\w@:%._\\-+~&=]+)+/?"
