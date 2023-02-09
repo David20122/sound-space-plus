@@ -44,9 +44,13 @@ func _init(song:Song):
 				var new:Vector3 = (note + notes[notes.size()-1]) / 2
 				notes[notes.size()-1] = Vector3(new.x, new.y, notes[notes.size()-1].z)
 			else:
-				notes.append(Vector3(n[0],n[1],n[2]))
+				if SSP.mod_mirror_x: note.x = 2 - note.x
+				if SSP.mod_mirror_y: note.y = 2 - note.y
+				notes.append(note)
 		else:
-			notes.append(Vector3(n[0],n[1],n[2]))
+			if SSP.mod_mirror_x: note.x = 2 - note.x
+			if SSP.mod_mirror_y: note.y = 2 - note.y
+			notes.append(note)
 
 
 var noteNum = 1
