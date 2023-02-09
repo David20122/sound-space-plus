@@ -79,6 +79,7 @@ func _process(delta):
 #		load_pg()
 
 func select_random():
+	if disp.size() == 0: return
 	on_pressed(randi()%disp.size())
 	for b in btns:
 		if b.song == SSP.selected_song: b.get_node("Select").pressed = true
