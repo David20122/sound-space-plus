@@ -3526,7 +3526,7 @@ theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
 custom_fonts/font = SubResource( 4 )
-text = "[def. 0 ms] offsets the music from the actual map (positive = music starts later)"
+text = "[def. 0 ms] offsets the music from the actual map (positive = music starts earlier)"
 valign = 1
 
 [node name="MenuMusic" type="CheckBox" parent="M/Audio/Group/H"]
