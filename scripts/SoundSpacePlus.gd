@@ -72,6 +72,7 @@ func _do_init():
 	call_deferred("emit_signal","on_init_stage","Update folders")
 	Globals.call_deferred("update_folders")
 	call_deferred("emit_signal","on_init_complete")
+	OS.call_deferred("request_attention")
 func _reload():
 	call_deferred("emit_signal","on_init_stage","Reloading content")
 	_load_content(false)
