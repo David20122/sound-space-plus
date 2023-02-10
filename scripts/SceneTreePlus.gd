@@ -5,7 +5,7 @@ var fps_limit:int = 0
 
 func _init():
 	OS.set_window_title("Sound Space Plus Rewritten")
-	OS.min_window_size = Vector2(640,480)
+	OS.min_window_size = Vector2(480,360)
 	OS.center_window()
 	._init()
 
