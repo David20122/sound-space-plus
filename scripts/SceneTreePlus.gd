@@ -54,12 +54,13 @@ func quit(exit_code:int=0):
 	voice_player.play()
 	var tween = Tween.new()
 	viewport.add_child(tween)
-	tween.interpolate_property(container,"modulate:a",1,0,2,Tween.TRANS_SINE,Tween.EASE_IN_OUT)
-	tween.interpolate_method(self,"_set_master_volume",linear2db(1),linear2db(0),1.5,Tween.TRANS_EXPO,Tween.EASE_OUT)
+	tween.interpolate_property(container,"modulate:a",1,0,1.5,Tween.TRANS_SINE,Tween.EASE_IN_OUT)
+	tween.interpolate_method(self,"_set_master_volume",linear2db(1),linear2db(0),0.5,Tween.TRANS_EXPO,Tween.EASE_OUT)
 	tween.start()
 	print("Quitting!")
 	yield(tween,"tween_all_completed")
-	print("Animation finished")
-	if voice_player.playing:
-		yield(voice_player,"finished")
 	.quit(exit_code)
+func _notification(what):
+	if what == NOTIFICATION_WM_QUIT_REQUEST and not quitting:
+		quit()
+		return
