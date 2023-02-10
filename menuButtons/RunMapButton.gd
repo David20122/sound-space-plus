@@ -14,17 +14,17 @@ func files_dropped(files:PoolStringArray,_screen:int):
 		get_tree().change_scene("res://songload.tscn")
 
 func _input(event:InputEvent):
-	if !disabled && !has_been_pressed && event is InputEventJoypadButton:
-		if event.button_index == JOY_XBOX_A && event.pressed:
-			grab_focus()
-			grab_click_focus()
-			pressed = true
-	if !disabled && !has_been_pressed && event is InputEventKey:
-		if event.pressed and event.scancode == KEY_SPACE:
-			grab_focus()
-			grab_click_focus()
-			pressed = true
-
+	if get_viewport().get_node("Menu/Main/Results").visible == true:
+		if !disabled && !has_been_pressed && event is InputEventJoypadButton:
+			if event.button_index == JOY_XBOX_A && event.pressed:
+				grab_focus()
+				grab_click_focus()
+				pressed = true
+		if !disabled && !has_been_pressed && event is InputEventKey:
+			if event.pressed and event.scancode == KEY_SPACE:
+				grab_focus()
+				grab_click_focus()
+				pressed = true
 
 func _pressed():
 	# button functionality
