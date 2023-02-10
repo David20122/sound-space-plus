@@ -24,10 +24,6 @@ func _idle(delta):
 func _set_master_volume(volume_db:float):
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Sound Space Plus"),volume_db)
 func quit(exit_code:int=0):
-	# if exit_code != 0:
-	# 	.quit(exit_code)
-	# 	return
-	# paused = true
 	var viewport = root
 	var container = ViewportContainer.new()
 	var fakeport = Viewport.new()
