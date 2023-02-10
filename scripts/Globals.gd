@@ -14,8 +14,8 @@ const Folders = {
 	skin = ""
 }
 const _folders = {
+	skin = [RootFolder.RES,"assets"],
 	maps = [RootFolder.USER,"maps"],
-	murder = [RootFolder.RES,"assets/sounds/death.mp3"]
 }
 
 func update_folders():
