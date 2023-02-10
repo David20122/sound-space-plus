@@ -3,12 +3,11 @@
 [sub_resource type="AudioEffectReverb" id=1]
 resource_name = "Reverb"
 room_size = 0.6
-hipass = 0.15
-dry = 0.8
-wet = 0.4
+hipass = 0.5
+wet = 0.2
 
 [resource]
-bus/0/volume_db = -8.0
+bus/0/volume_db = -4.003
 bus/1/name = "Sound Space Plus"
 bus/1/solo = false
 bus/1/mute = false

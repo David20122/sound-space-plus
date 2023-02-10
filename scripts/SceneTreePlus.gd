@@ -21,9 +21,13 @@ func _idle(delta):
 		fps = 30
 	Engine.target_fps = fps
 
+var quitting = false
 func _set_master_volume(volume_db:float):
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Sound Space Plus"),volume_db)
 func quit(exit_code:int=0):
+	if quitting:
+		return
+	quitting = true
 	var viewport = root
 	var container = ViewportContainer.new()
 	var fakeport = Viewport.new()
@@ -46,17 +50,16 @@ func quit(exit_code:int=0):
 	voice_player.bus = "Awesome!"
 	var voice = preload("res://assets/sounds/death.mp3") as AudioStream
 	voice_player.stream = voice
-	# var sound_player = AudioStreamPlayer.new()
-	# sound_player.bus = "Awesome!"
 	viewport.add_child(voice_player)
 	voice_player.play()
-	# sound_player.play()
 	var tween = Tween.new()
 	viewport.add_child(tween)
 	tween.interpolate_property(container,"modulate:a",1,0,2,Tween.TRANS_SINE,Tween.EASE_IN_OUT)
 	tween.interpolate_method(self,"_set_master_volume",linear2db(1),linear2db(0),1.5,Tween.TRANS_EXPO,Tween.EASE_OUT)
 	tween.start()
+	print("Quitting!")
 	yield(tween,"tween_all_completed")
+	print("Animation finished")
 	if voice_player.playing:
 		yield(voice_player,"finished")
 	.quit(exit_code)
