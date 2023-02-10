@@ -4,10 +4,10 @@ class_name SceneTreePlus
 var fps_limit:int = 0
 
 func _init():
-	OS.set_window_title("Sound Space Plus Rewritten")
-	OS.min_window_size = Vector2(512,512)
+	get_window().set_title("Sound Space Plus Rewritten")
+
 	OS.center_window()
-	._init()
+	super._init()
 
 func _is_game_scene(scene):
 	return current_scene is GameScene
@@ -17,7 +17,7 @@ func _idle(delta):
 		fps = fps_limit
 	elif fps_limit != 0:
 		fps = min(fps_limit,90)
-	if !OS.is_window_focused():
+	if !get_window().has_focus():
 		fps = 30
 	Engine.target_fps = fps
 
@@ -29,18 +29,18 @@ func quit(exit_code:int=0):
 		return
 	quitting = true
 	var viewport = root
-	var container = ViewportContainer.new()
-	var fakeport = Viewport.new()
+	var container = SubViewportContainer.new()
+	var fakeport = SubViewport.new()
 	fakeport.size = viewport.size
 	container.add_child(fakeport)
 	container.anchor_top = 0
 	container.anchor_left = 0
 	container.anchor_bottom = 1
 	container.anchor_right = 1
-	container.margin_top = 0
-	container.margin_left = 0
-	container.margin_bottom = 0
-	container.margin_right = 0
+	container.offset_top = 0
+	container.offset_left = 0
+	container.offset_bottom = 0
+	container.offset_right = 0
 	viewport.add_child(container)
 	var scene = current_scene
 	viewport.remove_child(scene)
@@ -55,11 +55,11 @@ func quit(exit_code:int=0):
 	var tween = Tween.new()
 	viewport.add_child(tween)
 	tween.interpolate_property(container,"modulate:a",1,0,1.5,Tween.TRANS_SINE,Tween.EASE_IN_OUT)
-	tween.interpolate_method(self,"_set_master_volume",linear2db(1),linear2db(0),0.5,Tween.TRANS_EXPO,Tween.EASE_OUT)
+	tween.interpolate_method(self,"_set_master_volume",linear_to_db(1),linear_to_db(0),0.5,Tween.TRANS_EXPO,Tween.EASE_OUT)
 	tween.start()
 	print("Quitting!")
-	yield(tween,"tween_all_completed")
-	.quit(exit_code)
+	await tween.tween_all_completed
+	super.quit(exit_code)
 func _notification(what):
 	if what == NOTIFICATION_WM_QUIT_REQUEST and not quitting:
 		quit()

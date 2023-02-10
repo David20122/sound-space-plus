@@ -1,20 +1,21 @@
 [remap]
 
 importer="wavefront_obj"
+importer_version=1
 type="Mesh"
-path="res://.import/circle.obj-0dcb995b557d733320c9c5cf2ece4c14.mesh"
+uid="uid://w811ewkimu1a"
+path="res://.godot/imported/circle.obj-0dcb995b557d733320c9c5cf2ece4c14.mesh"
 
 [deps]
 
-files=[ "res://.import/circle.obj-0dcb995b557d733320c9c5cf2ece4c14.mesh" ]
+files=["res://.godot/imported/circle.obj-0dcb995b557d733320c9c5cf2ece4c14.mesh"]
 
 source_file="res://assets/meshes/blocks/circle.obj"
-dest_files=[ "res://.import/circle.obj-0dcb995b557d733320c9c5cf2ece4c14.mesh", "res://.import/circle.obj-0dcb995b557d733320c9c5cf2ece4c14.mesh" ]
+dest_files=["res://.godot/imported/circle.obj-0dcb995b557d733320c9c5cf2ece4c14.mesh", "res://.godot/imported/circle.obj-0dcb995b557d733320c9c5cf2ece4c14.mesh"]
 
 [params]
 
 generate_tangents=true
-scale_mesh=Vector3( 1, 1, 1 )
-offset_mesh=Vector3( 0, 0, 0 )
-octahedral_compression=true
-optimize_mesh_flags=4286
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

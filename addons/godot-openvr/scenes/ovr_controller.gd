@@ -1,8 +1,8 @@
-extends ARVRController
+extends XRController3D
 
 signal controller_activated(controller)
 
-export var show_controller_mesh = true setget set_show_controller_mesh, get_show_controller_mesh
+@export var show_controller_mesh = true : get = get_show_controller_mesh, set = set_show_controller_mesh
 
 func set_show_controller_mesh(p_show):
 	show_controller_mesh = p_show

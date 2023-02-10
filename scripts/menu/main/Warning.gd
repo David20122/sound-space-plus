@@ -19,7 +19,7 @@ func apply_warning(status):
 
 func _process(delta):
 	_scroll_position += scroll_speed * delta
-	var width = $Slider.rect_size.x / 2
+	var width = $Slider.size.x / 2
 	if _scroll_position >= width:
 		_scroll_position -= width
-	$Slider.rect_position.x = _scroll_position-width
+	$Slider.position.x = _scroll_position-width

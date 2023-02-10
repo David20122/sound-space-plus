@@ -6,12 +6,12 @@ var game_state_:GameState
 
 func _ready() -> void:
 	game_state_ = get_parent().game_state_
-	Discord.discore_core_.connect("log", self, "log_")
-	Discord.activity_manager.connect("activity_join", self, "activity_join_")
-	Discord.activity_manager.connect("activity_invite", self, "activity_invite_")
-	Discord.activity_manager.connect("activity_join_request", self, "activity_join_request_")
-	Discord.lobby_manager.connect("lobby_message", self, "lobby_message_")
-	Discord.lobby_manager.connect("member_connect", self, "member_connect_")
+	Discord.discore_core_.connect("log",Callable(self,"log_"))
+	Discord.activity_manager.connect("activity_join",Callable(self,"activity_join_"))
+	Discord.activity_manager.connect("activity_invite",Callable(self,"activity_invite_"))
+	Discord.activity_manager.connect("activity_join_request",Callable(self,"activity_join_request_"))
+	Discord.lobby_manager.connect("lobby_message",Callable(self,"lobby_message_"))
+	Discord.lobby_manager.connect("member_connect",Callable(self,"member_connect_"))
 	
 	var res = Discord.activity_manager.register_command("/media/sam/adffc9be-fe94-4c6b-87db-cca9cb566739/work/godot-discord/app/export/game.x86_64")
 	if res != Discord.Result.Ok:
@@ -22,7 +22,7 @@ func log_(message) -> void:
 	#$debug.text += message + "\n"
 
 func activity_join_(secret:String) -> void:
-	var result = yield(Discord.lobby_manager.connect_lobby_with_activity_secret(secret), "result")
+	var result = await Discord.lobby_manager.connect_lobby_with_activity_secret(secret).result
 	if result.result == Discord.Result.Ok:
 		lobby_id_ = result.data.get_id()
 		refresh_members(lobby_id_)
@@ -73,19 +73,19 @@ func update_activity_() -> void:
 	party.get_size().set_current_size(1)
 	party.get_size().set_max_size(6)
 
-	var result = yield(Discord.activity_manager.update_activity(activity), "result").result
+	var result = await Discord.activity_manager.update_activity(activity).result.result
 	if result != Discord.Result.Ok:
 		push_error(result)
 		
 	invite_to_join_()
 
 func invite_to_join_() -> void:
-	var result = yield(Discord.overlay_manager.open_activity_invite(Discord.ActivityActionType.Join), "result").result
+	var result = await Discord.overlay_manager.open_activity_invite(Discord.ActivityActionType.Join).result.result
 	if result != Discord.Result.Ok:
 		push_error(result)
 
 func send_message(new_text:String):
-	var result = yield(Discord.lobby_manager.send_lobby_message(lobby_id_, new_text), "result").result
+	var result = await Discord.lobby_manager.send_lobby_message(lobby_id_, new_text).result.result
 	if result != Discord.Result.Ok:
 		push_error(result)
 
@@ -96,7 +96,7 @@ func _on_create_game_pressed():
 	transaction.set_type(Discord.LobbyType.Private)
 	transaction.set_locked(false)
 
-	var result = yield(Discord.lobby_manager.create_lobby(transaction), "result")
+	var result = await Discord.lobby_manager.create_lobby(transaction).result
 	if result.result != Discord.Result.Ok:
 		push_error(result.result)
 		return

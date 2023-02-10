@@ -1,13 +1,13 @@
 extends Object
 class_name SongReader
 
-const SIGNATURE = PoolByteArray([0x53,0x53,0x2b,0x6d])
+const SIGNATURE = PackedByteArray([0x53,0x53,0x2b,0x6d])
 
 func read_from_file(path:String) -> Song:
 	var file = File.new()
 	var err = file.open(path,File.READ)
-	assert(err == OK,"Couldn't read file: %s" % err)
-	assert(file.get_buffer(4) == SIGNATURE,"This isn't a map")
+	assert(err == OK) #,"Couldn't read file: %s" % err)
+	assert(file.get_buffer(4) == SIGNATURE) #,"This isn't a map")
 	var song = Song.new()
 	var file_version = file.get_16()
 	match file_version:
@@ -16,17 +16,17 @@ func read_from_file(path:String) -> Song:
 	file.close()
 	return song
 
-func get_audio_format(buffer:PoolByteArray):
-	if buffer.subarray(0,3) == PoolByteArray([0x4F,0x67,0x67,0x53]): return Globals.AudioFormat.OGG
+func get_audio_format(buffer:PackedByteArray):
+	if buffer.subarray(0,3) == PackedByteArray([0x4F,0x67,0x67,0x53]): return Globals.AudioFormat.OGG
 
-	if (buffer.subarray(0,3) == PoolByteArray([0x52,0x49,0x46,0x46])
-	and buffer.subarray(8,11) == PoolByteArray([0x57,0x41,0x56,0x45])): return Globals.AudioFormat.WAV
+	if (buffer.subarray(0,3) == PackedByteArray([0x52,0x49,0x46,0x46])
+	and buffer.subarray(8,11) == PackedByteArray([0x57,0x41,0x56,0x45])): return Globals.AudioFormat.WAV
 
-	if (buffer.subarray(0,1) == PoolByteArray([0xFF,0xFB])
-	or buffer.subarray(0,1) == PoolByteArray([0xFF,0xF3])
-	or buffer.subarray(0,1) == PoolByteArray([0xFF,0xFA])
-	or buffer.subarray(0,1) == PoolByteArray([0xFF,0xF2])
-	or buffer.subarray(0,2) == PoolByteArray([0x49,0x44,0x33])): return Globals.AudioFormat.MP3
+	if (buffer.subarray(0,1) == PackedByteArray([0xFF,0xFB])
+	or buffer.subarray(0,1) == PackedByteArray([0xFF,0xF3])
+	or buffer.subarray(0,1) == PackedByteArray([0xFF,0xFA])
+	or buffer.subarray(0,1) == PackedByteArray([0xFF,0xF2])
+	or buffer.subarray(0,2) == PackedByteArray([0x49,0x44,0x33])): return Globals.AudioFormat.MP3
 	
 	return Globals.AudioFormat.UNKNOWN
 
@@ -34,15 +34,15 @@ func _cover(image:Image,song:Song):
 	var texture = ImageTexture.new()
 	texture.create_from_image(image)
 	song.cover = texture
-func _audio(buffer:PoolByteArray,song:Song):
+func _audio(buffer:PackedByteArray,song:Song):
 	var format = get_audio_format(buffer)
 	match format:
 		Globals.AudioFormat.WAV:
-			var stream = AudioStreamSample.new()
+			var stream = AudioStreamWAV.new()
 			stream.data = buffer
 			song.audio = stream
 		Globals.AudioFormat.OGG:
-			var stream = AudioStreamOGGVorbis.new()
+			var stream = AudioStreamOggVorbis.new()
 			stream.data = buffer
 			song.audio = stream
 		Globals.AudioFormat.MP3:
@@ -136,7 +136,7 @@ func _sspmv2(file:File,song:Song):
 	file.seek(0x26)
 	var marker_count = file.get_32()
 	song.difficulty = file.get_8()
-	file.get_16() # Why on earth did he think star rating would be stored in the file thats actually so ridiculous
+	file.get_16() # Why checked earth did he think star rating would be stored in the file thats actually so ridiculous
 	if !bool(file.get_8()): # Does the map have music?
 		song.broken = true
 		return

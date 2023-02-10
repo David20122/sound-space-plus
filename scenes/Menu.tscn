@@ -2,26 +2,26 @@
 
 [ext_resource path="res://prefabs/menu/VersionNumberR.tscn" type="PackedScene" id=1]
 [ext_resource path="res://uitheme.tres" type="Theme" id=2]
-[ext_resource path="res://assets/fonts/NotoColorEmoji.ttf" type="DynamicFontData" id=3]
-[ext_resource path="res://assets/images/ui/play_circle.png" type="Texture" id=4]
-[ext_resource path="res://assets/fonts/Lato/Lato-Regular.ttf" type="DynamicFontData" id=5]
-[ext_resource path="res://assets/fonts/Noto_Sans_JP/NotoSansJP-Medium.otf" type="DynamicFontData" id=6]
-[ext_resource path="res://assets/images/ui/quit_to_desktop.png" type="Texture" id=7]
-[ext_resource path="res://assets/images/ui/settings.png" type="Texture" id=8]
-[ext_resource path="res://assets/images/ui/favorite.png" type="Texture" id=9]
-[ext_resource path="res://assets/images/ui/add_icon.png" type="Texture" id=10]
-[ext_resource path="res://assets/images/ui/home.png" type="Texture" id=11]
-[ext_resource path="res://assets/images/ui/arrow_up_white.png" type="Texture" id=12]
-[ext_resource path="res://assets/images/ui/arrow_down_white.png" type="Texture" id=13]
-[ext_resource path="res://assets/images/tiles.png" type="Texture" id=14]
-[ext_resource path="res://assets/images/ui/user_folder_error.png" type="Texture" id=15]
-[ext_resource path="res://assets/fonts/Lato/Lato-Black.ttf" type="DynamicFontData" id=16]
+[ext_resource path="res://assets/fonts/NotoColorEmoji.ttf" type="FontFile" id=3]
+[ext_resource path="res://assets/images/ui/play_circle.png" type="Texture2D" id=4]
+[ext_resource path="res://assets/fonts/Lato/Lato-Regular.ttf" type="FontFile" id=5]
+[ext_resource path="res://assets/fonts/Noto_Sans_JP/NotoSansJP-Medium.otf" type="FontFile" id=6]
+[ext_resource path="res://assets/images/ui/quit_to_desktop.png" type="Texture2D" id=7]
+[ext_resource path="res://assets/images/ui/settings.png" type="Texture2D" id=8]
+[ext_resource path="res://assets/images/ui/favorite.png" type="Texture2D" id=9]
+[ext_resource path="res://assets/images/ui/add_icon.png" type="Texture2D" id=10]
+[ext_resource path="res://assets/images/ui/home.png" type="Texture2D" id=11]
+[ext_resource path="res://assets/images/ui/arrow_up_white.png" type="Texture2D" id=12]
+[ext_resource path="res://assets/images/ui/arrow_down_white.png" type="Texture2D" id=13]
+[ext_resource path="res://assets/images/tiles.png" type="Texture2D" id=14]
+[ext_resource path="res://assets/images/ui/user_folder_error.png" type="Texture2D" id=15]
+[ext_resource path="res://assets/fonts/Lato/Lato-Black.ttf" type="FontFile" id=16]
 [ext_resource path="res://scripts/menu/main/SongList.gd" type="Script" id=17]
 [ext_resource path="res://scripts/menu/main/Sidebar.gd" type="Script" id=18]
 [ext_resource path="res://scripts/menu/main/Warning.gd" type="Script" id=19]
 [ext_resource path="res://assets/sounds/death.mp3" type="AudioStream" id=20]
 
-[sub_resource type="DynamicFont" id=8]
+[sub_resource type="FontFile" id=8]
 use_filter = true
 font_data = ExtResource( 5 )
 fallback/0 = ExtResource( 3 )
@@ -41,29 +41,29 @@ void fragment() {
 [sub_resource type="ShaderMaterial" id=5]
 shader = SubResource( 4 )
 
-[sub_resource type="DynamicFont" id=6]
+[sub_resource type="FontFile" id=6]
 size = 14
 outline_size = 1
 outline_color = Color( 1, 1, 1, 0.2 )
 use_filter = true
-extra_spacing_top = -1
-extra_spacing_bottom = -1
+spacing_top = -1
+spacing_bottom = -1
 font_data = ExtResource( 5 )
 fallback/0 = ExtResource( 6 )
 
-[sub_resource type="DynamicFont" id=7]
+[sub_resource type="FontFile" id=7]
 size = 18
 outline_size = 1
 outline_color = Color( 1, 1, 1, 0.2 )
 use_filter = true
-extra_spacing_top = -1
-extra_spacing_bottom = -1
+spacing_top = -1
+spacing_bottom = -1
 font_data = ExtResource( 16 )
 fallback/0 = ExtResource( 6 )
 
 [sub_resource type="StyleBoxEmpty" id=3]
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="FontFile" id=2]
 size = 22
 use_filter = true
 font_data = ExtResource( 5 )
@@ -80,7 +80,7 @@ color = Color( 0.0941176, 0.0941176, 0.0941176, 1 )
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -24.0
+offset_top = -24.0
 color = Color( 0.141176, 0.513726, 0.701961, 1 )
 script = ExtResource( 19 )
 
@@ -89,8 +89,8 @@ anchor_right = 2.0
 anchor_bottom = 1.0
 
 [node name="LabelA" type="Label" parent="Warning/Slider"]
-margin_right = 1278.0
-margin_bottom = 24.0
+offset_right = 1278.0
+offset_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 8 )
@@ -98,9 +98,9 @@ text = "This is a warning banner. It appears sometimes, for example if the serve
 align = 1
 
 [node name="LabelB" type="Label" parent="Warning/Slider"]
-margin_left = 1282.0
-margin_right = 2560.0
-margin_bottom = 24.0
+offset_left = 1282.0
+offset_right = 2560.0
+offset_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 8 )
@@ -110,61 +110,61 @@ align = 1
 [node name="Main" type="ReferenceRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 64.0
-margin_bottom = -24.0
+offset_left = 64.0
+offset_bottom = -24.0
 
-[node name="Tabs" type="TabContainer" parent="Main"]
+[node name="TabBar" type="TabContainer" parent="Main"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_styles/panel = SubResource( 1 )
 tabs_visible = false
 
-[node name="SongDetails" type="Control" parent="Main/Tabs"]
+[node name="SongDetails" type="Control" parent="Main/TabBar"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="SongList" type="Control" parent="Main/Tabs"]
+[node name="SongList" type="Control" parent="Main/TabBar"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 17 )
 
-[node name="List" type="ReferenceRect" parent="Main/Tabs/SongList"]
+[node name="List" type="ReferenceRect" parent="Main/TabBar/SongList"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 8.0
-margin_top = 56.0
-margin_right = -8.0
-margin_bottom = -8.0
+offset_left = 8.0
+offset_top = 56.0
+offset_right = -8.0
+offset_bottom = -8.0
 
-[node name="Random" type="Button" parent="Main/Tabs/SongList/List"]
-margin_right = 120.0
-margin_bottom = 24.0
+[node name="Random" type="Button" parent="Main/TabBar/SongList/List"]
+offset_right = 120.0
+offset_bottom = 24.0
 text = "Select random"
 
-[node name="Grid" type="GridContainer" parent="Main/Tabs/SongList/List"]
+[node name="Grid" type="GridContainer" parent="Main/TabBar/SongList/List"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = 32.0
-margin_bottom = -24.0
-custom_constants/vseparation = 4
-custom_constants/hseparation = 4
+offset_top = 32.0
+offset_bottom = -24.0
+custom_constants/v_separation = 4
+custom_constants/h_separation = 4
 
-[node name="Song" type="ColorRect" parent="Main/Tabs/SongList/List/Grid"]
-margin_right = 112.0
-margin_bottom = 112.0
-rect_min_size = Vector2( 112, 112 )
+[node name="Song" type="ColorRect" parent="Main/TabBar/SongList/List/Grid"]
+offset_right = 112.0
+offset_bottom = 112.0
+custom_minimum_size = Vector2( 112, 112 )
 
-[node name="Image" type="ColorRect" parent="Main/Tabs/SongList/List/Grid/Song"]
+[node name="Image" type="ColorRect" parent="Main/TabBar/SongList/List/Grid/Song"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 4.0
-margin_right = -4.0
-margin_bottom = -4.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
 color = Color( 0, 0, 0, 1 )
 
-[node name="Tiles" type="TextureRect" parent="Main/Tabs/SongList/List/Grid/Song/Image"]
+[node name="Tiles" type="TextureRect" parent="Main/TabBar/SongList/List/Grid/Song/Image"]
 modulate = Color( 1, 1, 1, 0.509804 )
 material = SubResource( 5 )
 anchor_right = 1.0
@@ -172,28 +172,28 @@ anchor_bottom = 1.0
 texture = ExtResource( 14 )
 expand = true
 
-[node name="Cover" type="TextureRect" parent="Main/Tabs/SongList/List/Grid/Song/Image"]
+[node name="Cover" type="TextureRect" parent="Main/TabBar/SongList/List/Grid/Song/Image"]
 visible = false
 material = SubResource( 5 )
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_pivot_offset = Vector2( -120, 56 )
+pivot_offset = Vector2( -120, 56 )
 texture = ExtResource( 15 )
 expand = true
 stretch_mode = 7
 
-[node name="Select" type="Button" parent="Main/Tabs/SongList/List/Grid/Song"]
+[node name="Select" type="Button" parent="Main/TabBar/SongList/List/Grid/Song"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 flat = true
 
-[node name="Label" type="Label" parent="Main/Tabs/SongList/List/Grid/Song"]
+[node name="Label" type="Label" parent="Main/TabBar/SongList/List/Grid/Song"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 8.0
-margin_top = 4.0
-margin_right = -8.0
-margin_bottom = -4.0
+offset_left = 8.0
+offset_top = 4.0
+offset_right = -8.0
+offset_bottom = -4.0
 custom_constants/line_spacing = 0
 custom_fonts/font = SubResource( 6 )
 text = "the map the map the map the map the map the map"
@@ -202,172 +202,172 @@ valign = 1
 autowrap = true
 clip_text = true
 
-[node name="Paginator" type="HBoxContainer" parent="Main/Tabs/SongList/List"]
+[node name="Paginator" type="HBoxContainer" parent="Main/TabBar/SongList/List"]
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -24.0
+offset_top = -24.0
 alignment = 1
 
-[node name="Begin" type="Button" parent="Main/Tabs/SongList/List/Paginator"]
-margin_left = 480.0
-margin_right = 504.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 24, 0 )
+[node name="Begin" type="Button" parent="Main/TabBar/SongList/List/Paginator"]
+offset_left = 480.0
+offset_right = 504.0
+offset_bottom = 24.0
+custom_minimum_size = Vector2( 24, 0 )
 flat = true
 
-[node name="Icon" type="TextureRect" parent="Main/Tabs/SongList/List/Paginator/Begin"]
+[node name="Icon" type="TextureRect" parent="Main/TabBar/SongList/List/Paginator/Begin"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -12.0
-margin_top = -8.0
-margin_right = 4.0
-margin_bottom = 8.0
-rect_rotation = 90.0
-rect_pivot_offset = Vector2( 8, 8 )
+offset_left = -12.0
+offset_top = -8.0
+offset_right = 4.0
+offset_bottom = 8.0
+rotation = 90.0
+pivot_offset = Vector2( 8, 8 )
 texture = ExtResource( 13 )
 expand = true
 stretch_mode = 4
 
-[node name="Icon2" type="TextureRect" parent="Main/Tabs/SongList/List/Paginator/Begin"]
+[node name="Icon2" type="TextureRect" parent="Main/TabBar/SongList/List/Paginator/Begin"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -4.0
-margin_top = -8.0
-margin_right = 12.0
-margin_bottom = 8.0
-rect_rotation = 90.0
-rect_pivot_offset = Vector2( 8, 8 )
+offset_left = -4.0
+offset_top = -8.0
+offset_right = 12.0
+offset_bottom = 8.0
+rotation = 90.0
+pivot_offset = Vector2( 8, 8 )
 texture = ExtResource( 13 )
 expand = true
 stretch_mode = 4
 
-[node name="Prev" type="Button" parent="Main/Tabs/SongList/List/Paginator"]
-margin_left = 508.0
-margin_right = 532.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 24, 0 )
+[node name="Prev" type="Button" parent="Main/TabBar/SongList/List/Paginator"]
+offset_left = 508.0
+offset_right = 532.0
+offset_bottom = 24.0
+custom_minimum_size = Vector2( 24, 0 )
 flat = true
 
-[node name="Icon" type="TextureRect" parent="Main/Tabs/SongList/List/Paginator/Prev"]
+[node name="Icon" type="TextureRect" parent="Main/TabBar/SongList/List/Paginator/Prev"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -8.0
-margin_top = -8.0
-margin_right = 8.0
-margin_bottom = 8.0
-rect_rotation = 90.0
-rect_pivot_offset = Vector2( 8, 8 )
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+rotation = 90.0
+pivot_offset = Vector2( 8, 8 )
 texture = ExtResource( 13 )
 expand = true
 stretch_mode = 4
 
-[node name="Label" type="Label" parent="Main/Tabs/SongList/List/Paginator"]
-margin_left = 536.0
-margin_top = 2.0
-margin_right = 664.0
-margin_bottom = 22.0
-rect_min_size = Vector2( 128, 0 )
+[node name="Label" type="Label" parent="Main/TabBar/SongList/List/Paginator"]
+offset_left = 536.0
+offset_top = 2.0
+offset_right = 664.0
+offset_bottom = 22.0
+custom_minimum_size = Vector2( 128, 0 )
 text = "Page 000 of 999"
 align = 1
 
-[node name="Next" type="Button" parent="Main/Tabs/SongList/List/Paginator"]
-margin_left = 668.0
-margin_right = 692.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 24, 0 )
+[node name="Next" type="Button" parent="Main/TabBar/SongList/List/Paginator"]
+offset_left = 668.0
+offset_right = 692.0
+offset_bottom = 24.0
+custom_minimum_size = Vector2( 24, 0 )
 flat = true
 
-[node name="Icon" type="TextureRect" parent="Main/Tabs/SongList/List/Paginator/Next"]
+[node name="Icon" type="TextureRect" parent="Main/TabBar/SongList/List/Paginator/Next"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -8.0
-margin_top = -8.0
-margin_right = 8.0
-margin_bottom = 8.0
-rect_rotation = 90.0
-rect_pivot_offset = Vector2( 8, 8 )
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+rotation = 90.0
+pivot_offset = Vector2( 8, 8 )
 texture = ExtResource( 12 )
 expand = true
 stretch_mode = 4
 
-[node name="End" type="Button" parent="Main/Tabs/SongList/List/Paginator"]
-margin_left = 696.0
-margin_right = 720.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 24, 0 )
+[node name="End" type="Button" parent="Main/TabBar/SongList/List/Paginator"]
+offset_left = 696.0
+offset_right = 720.0
+offset_bottom = 24.0
+custom_minimum_size = Vector2( 24, 0 )
 flat = true
 
-[node name="Icon" type="TextureRect" parent="Main/Tabs/SongList/List/Paginator/End"]
+[node name="Icon" type="TextureRect" parent="Main/TabBar/SongList/List/Paginator/End"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -12.0
-margin_top = -8.0
-margin_right = 4.0
-margin_bottom = 8.0
-rect_rotation = 90.0
-rect_pivot_offset = Vector2( 8, 8 )
+offset_left = -12.0
+offset_top = -8.0
+offset_right = 4.0
+offset_bottom = 8.0
+rotation = 90.0
+pivot_offset = Vector2( 8, 8 )
 texture = ExtResource( 12 )
 expand = true
 stretch_mode = 4
 
-[node name="Icon2" type="TextureRect" parent="Main/Tabs/SongList/List/Paginator/End"]
+[node name="Icon2" type="TextureRect" parent="Main/TabBar/SongList/List/Paginator/End"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -4.0
-margin_top = -8.0
-margin_right = 12.0
-margin_bottom = 8.0
-rect_rotation = 90.0
-rect_pivot_offset = Vector2( 8, 8 )
+offset_left = -4.0
+offset_top = -8.0
+offset_right = 12.0
+offset_bottom = 8.0
+rotation = 90.0
+pivot_offset = Vector2( 8, 8 )
 texture = ExtResource( 12 )
 expand = true
 stretch_mode = 4
 
-[node name="Search" type="ReferenceRect" parent="Main/Tabs/SongList"]
+[node name="Search" type="ReferenceRect" parent="Main/TabBar/SongList"]
 anchor_right = 1.0
-margin_left = 8.0
-margin_right = -8.0
-margin_bottom = 48.0
+offset_left = 8.0
+offset_right = -8.0
+offset_bottom = 48.0
 
-[node name="Filter" type="HBoxContainer" parent="Main/Tabs/SongList/Search"]
+[node name="Filter" type="HBoxContainer" parent="Main/TabBar/SongList/Search"]
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -260.0
-margin_top = 4.0
-margin_bottom = -4.0
+offset_left = -260.0
+offset_top = 4.0
+offset_bottom = -4.0
 grow_horizontal = 0
 size_flags_horizontal = 3
 alignment = 2
 
-[node name="NA" type="ColorRect" parent="Main/Tabs/SongList/Search/Filter"]
-margin_right = 40.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 40, 40 )
+[node name="NA" type="ColorRect" parent="Main/TabBar/SongList/Search/Filter"]
+offset_right = 40.0
+offset_bottom = 40.0
+custom_minimum_size = Vector2( 40, 40 )
 
-[node name="Image" type="ColorRect" parent="Main/Tabs/SongList/Search/Filter/NA"]
+[node name="Image" type="ColorRect" parent="Main/TabBar/SongList/Search/Filter/NA"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 2.0
-margin_top = 2.0
-margin_right = -2.0
-margin_bottom = -2.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = -2.0
 color = Color( 0, 0, 0, 1 )
 
-[node name="Tiles" type="TextureRect" parent="Main/Tabs/SongList/Search/Filter/NA/Image"]
+[node name="Tiles" type="TextureRect" parent="Main/TabBar/SongList/Search/Filter/NA/Image"]
 modulate = Color( 0.5, 0.5, 0.5, 1 )
 material = SubResource( 5 )
 anchor_right = 1.0
@@ -375,7 +375,7 @@ anchor_bottom = 1.0
 texture = ExtResource( 14 )
 expand = true
 
-[node name="Label" type="Label" parent="Main/Tabs/SongList/Search/Filter/NA"]
+[node name="Label" type="Label" parent="Main/TabBar/SongList/Search/Filter/NA"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_constants/line_spacing = 0
@@ -384,31 +384,31 @@ text = "N/A"
 align = 1
 valign = 1
 
-[node name="Select" type="Button" parent="Main/Tabs/SongList/Search/Filter/NA"]
+[node name="Select" type="Button" parent="Main/TabBar/SongList/Search/Filter/NA"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 toggle_mode = true
 pressed = true
 flat = true
 
-[node name="Easy" type="ColorRect" parent="Main/Tabs/SongList/Search/Filter"]
-margin_left = 44.0
-margin_right = 84.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 40, 40 )
+[node name="Easy" type="ColorRect" parent="Main/TabBar/SongList/Search/Filter"]
+offset_left = 44.0
+offset_right = 84.0
+offset_bottom = 40.0
+custom_minimum_size = Vector2( 40, 40 )
 color = Color( 0, 1, 0, 1 )
 
-[node name="Image" type="ColorRect" parent="Main/Tabs/SongList/Search/Filter/Easy"]
+[node name="Image" type="ColorRect" parent="Main/TabBar/SongList/Search/Filter/Easy"]
 modulate = Color( 0, 1, 0, 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 2.0
-margin_top = 2.0
-margin_right = -2.0
-margin_bottom = -2.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = -2.0
 color = Color( 0, 0, 0, 1 )
 
-[node name="Tiles" type="TextureRect" parent="Main/Tabs/SongList/Search/Filter/Easy/Image"]
+[node name="Tiles" type="TextureRect" parent="Main/TabBar/SongList/Search/Filter/Easy/Image"]
 modulate = Color( 0.5, 0.5, 0.5, 1 )
 material = SubResource( 5 )
 anchor_right = 1.0
@@ -416,7 +416,7 @@ anchor_bottom = 1.0
 texture = ExtResource( 14 )
 expand = true
 
-[node name="Label" type="Label" parent="Main/Tabs/SongList/Search/Filter/Easy"]
+[node name="Label" type="Label" parent="Main/TabBar/SongList/Search/Filter/Easy"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_constants/line_spacing = 0
@@ -425,31 +425,31 @@ text = "E"
 align = 1
 valign = 1
 
-[node name="Select" type="Button" parent="Main/Tabs/SongList/Search/Filter/Easy"]
+[node name="Select" type="Button" parent="Main/TabBar/SongList/Search/Filter/Easy"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 toggle_mode = true
 pressed = true
 flat = true
 
-[node name="Medium" type="ColorRect" parent="Main/Tabs/SongList/Search/Filter"]
-margin_left = 88.0
-margin_right = 128.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 40, 40 )
+[node name="Medium" type="ColorRect" parent="Main/TabBar/SongList/Search/Filter"]
+offset_left = 88.0
+offset_right = 128.0
+offset_bottom = 40.0
+custom_minimum_size = Vector2( 40, 40 )
 color = Color( 1, 0.721569, 0, 1 )
 
-[node name="Image" type="ColorRect" parent="Main/Tabs/SongList/Search/Filter/Medium"]
+[node name="Image" type="ColorRect" parent="Main/TabBar/SongList/Search/Filter/Medium"]
 modulate = Color( 1, 0.721569, 0, 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 2.0
-margin_top = 2.0
-margin_right = -2.0
-margin_bottom = -2.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = -2.0
 color = Color( 0, 0, 0, 1 )
 
-[node name="Tiles" type="TextureRect" parent="Main/Tabs/SongList/Search/Filter/Medium/Image"]
+[node name="Tiles" type="TextureRect" parent="Main/TabBar/SongList/Search/Filter/Medium/Image"]
 modulate = Color( 0.5, 0.5, 0.5, 1 )
 material = SubResource( 5 )
 anchor_right = 1.0
@@ -457,7 +457,7 @@ anchor_bottom = 1.0
 texture = ExtResource( 14 )
 expand = true
 
-[node name="Label" type="Label" parent="Main/Tabs/SongList/Search/Filter/Medium"]
+[node name="Label" type="Label" parent="Main/TabBar/SongList/Search/Filter/Medium"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_constants/line_spacing = 0
@@ -466,31 +466,31 @@ text = "M"
 align = 1
 valign = 1
 
-[node name="Select" type="Button" parent="Main/Tabs/SongList/Search/Filter/Medium"]
+[node name="Select" type="Button" parent="Main/TabBar/SongList/Search/Filter/Medium"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 toggle_mode = true
 pressed = true
 flat = true
 
-[node name="Hard" type="ColorRect" parent="Main/Tabs/SongList/Search/Filter"]
-margin_left = 132.0
-margin_right = 172.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 40, 40 )
+[node name="Hard" type="ColorRect" parent="Main/TabBar/SongList/Search/Filter"]
+offset_left = 132.0
+offset_right = 172.0
+offset_bottom = 40.0
+custom_minimum_size = Vector2( 40, 40 )
 color = Color( 1, 0, 0, 1 )
 
-[node name="Image" type="ColorRect" parent="Main/Tabs/SongList/Search/Filter/Hard"]
+[node name="Image" type="ColorRect" parent="Main/TabBar/SongList/Search/Filter/Hard"]
 modulate = Color( 1, 0, 0, 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 2.0
-margin_top = 2.0
-margin_right = -2.0
-margin_bottom = -2.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = -2.0
 color = Color( 0, 0, 0, 1 )
 
-[node name="Tiles" type="TextureRect" parent="Main/Tabs/SongList/Search/Filter/Hard/Image"]
+[node name="Tiles" type="TextureRect" parent="Main/TabBar/SongList/Search/Filter/Hard/Image"]
 modulate = Color( 0.5, 0.5, 0.5, 1 )
 material = SubResource( 5 )
 anchor_right = 1.0
@@ -498,7 +498,7 @@ anchor_bottom = 1.0
 texture = ExtResource( 14 )
 expand = true
 
-[node name="Label" type="Label" parent="Main/Tabs/SongList/Search/Filter/Hard"]
+[node name="Label" type="Label" parent="Main/TabBar/SongList/Search/Filter/Hard"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_constants/line_spacing = 0
@@ -507,32 +507,32 @@ text = "H"
 align = 1
 valign = 1
 
-[node name="Select" type="Button" parent="Main/Tabs/SongList/Search/Filter/Hard"]
+[node name="Select" type="Button" parent="Main/TabBar/SongList/Search/Filter/Hard"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 toggle_mode = true
 pressed = true
 flat = true
 
-[node name="Logic" type="ColorRect" parent="Main/Tabs/SongList/Search/Filter"]
+[node name="Logic" type="ColorRect" parent="Main/TabBar/SongList/Search/Filter"]
 modulate = Color( 0.5, 0.5, 0.5, 1 )
-margin_left = 176.0
-margin_right = 216.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 40, 40 )
+offset_left = 176.0
+offset_right = 216.0
+offset_bottom = 40.0
+custom_minimum_size = Vector2( 40, 40 )
 color = Color( 0.843137, 0.415686, 1, 1 )
 
-[node name="Image" type="ColorRect" parent="Main/Tabs/SongList/Search/Filter/Logic"]
+[node name="Image" type="ColorRect" parent="Main/TabBar/SongList/Search/Filter/Logic"]
 modulate = Color( 0.843137, 0.415686, 1, 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 2.0
-margin_top = 2.0
-margin_right = -2.0
-margin_bottom = -2.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = -2.0
 color = Color( 0, 0, 0, 1 )
 
-[node name="Tiles" type="TextureRect" parent="Main/Tabs/SongList/Search/Filter/Logic/Image"]
+[node name="Tiles" type="TextureRect" parent="Main/TabBar/SongList/Search/Filter/Logic/Image"]
 modulate = Color( 0.5, 0.5, 0.5, 1 )
 material = SubResource( 5 )
 anchor_right = 1.0
@@ -540,7 +540,7 @@ anchor_bottom = 1.0
 texture = ExtResource( 14 )
 expand = true
 
-[node name="Label" type="Label" parent="Main/Tabs/SongList/Search/Filter/Logic"]
+[node name="Label" type="Label" parent="Main/TabBar/SongList/Search/Filter/Logic"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_constants/line_spacing = 0
@@ -549,31 +549,31 @@ text = "L"
 align = 1
 valign = 1
 
-[node name="Select" type="Button" parent="Main/Tabs/SongList/Search/Filter/Logic"]
+[node name="Select" type="Button" parent="Main/TabBar/SongList/Search/Filter/Logic"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 toggle_mode = true
 pressed = true
 flat = true
 
-[node name="Tasukete" type="ColorRect" parent="Main/Tabs/SongList/Search/Filter"]
-margin_left = 220.0
-margin_right = 260.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 40, 40 )
+[node name="Tasukete" type="ColorRect" parent="Main/TabBar/SongList/Search/Filter"]
+offset_left = 220.0
+offset_right = 260.0
+offset_bottom = 40.0
+custom_minimum_size = Vector2( 40, 40 )
 color = Color( 0.211765, 0.188235, 0.309804, 1 )
 
-[node name="Image" type="ColorRect" parent="Main/Tabs/SongList/Search/Filter/Tasukete"]
+[node name="Image" type="ColorRect" parent="Main/TabBar/SongList/Search/Filter/Tasukete"]
 modulate = Color( 0.211765, 0.188235, 0.309804, 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 2.0
-margin_top = 2.0
-margin_right = -2.0
-margin_bottom = -2.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = -2.0
 color = Color( 0, 0, 0, 1 )
 
-[node name="Tiles" type="TextureRect" parent="Main/Tabs/SongList/Search/Filter/Tasukete/Image"]
+[node name="Tiles" type="TextureRect" parent="Main/TabBar/SongList/Search/Filter/Tasukete/Image"]
 modulate = Color( 0.5, 0.5, 0.5, 1 )
 material = SubResource( 5 )
 anchor_right = 1.0
@@ -581,7 +581,7 @@ anchor_bottom = 1.0
 texture = ExtResource( 14 )
 expand = true
 
-[node name="Label" type="Label" parent="Main/Tabs/SongList/Search/Filter/Tasukete"]
+[node name="Label" type="Label" parent="Main/TabBar/SongList/Search/Filter/Tasukete"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_constants/line_spacing = 0
@@ -590,34 +590,34 @@ text = "助"
 align = 1
 valign = 1
 
-[node name="Select" type="Button" parent="Main/Tabs/SongList/Search/Filter/Tasukete"]
+[node name="Select" type="Button" parent="Main/TabBar/SongList/Search/Filter/Tasukete"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 toggle_mode = true
 pressed = true
 flat = true
 
-[node name="Search" type="LineEdit" parent="Main/Tabs/SongList/Search"]
+[node name="Search" type="LineEdit" parent="Main/TabBar/SongList/Search"]
 anchor_bottom = 1.0
-margin_top = 8.0
-margin_right = 184.0
-margin_bottom = -8.0
+offset_top = 8.0
+offset_right = 184.0
+offset_bottom = -8.0
 placeholder_text = "Search"
 
-[node name="Author" type="LineEdit" parent="Main/Tabs/SongList/Search"]
+[node name="Author" type="LineEdit" parent="Main/TabBar/SongList/Search"]
 anchor_bottom = 1.0
-margin_left = 192.0
-margin_top = 8.0
-margin_right = 312.0
-margin_bottom = -8.0
+offset_left = 192.0
+offset_top = 8.0
+offset_right = 312.0
+offset_bottom = -8.0
 placeholder_text = "Author"
 
-[node name="Broken" type="CheckBox" parent="Main/Tabs/SongList/Search"]
+[node name="Broken" type="CheckBox" parent="Main/TabBar/SongList/Search"]
 anchor_bottom = 1.0
-margin_left = 320.0
-margin_top = 8.0
-margin_right = 440.0
-margin_bottom = -8.0
+offset_left = 320.0
+offset_top = 8.0
+offset_right = 440.0
+offset_bottom = -8.0
 custom_colors/font_color_disabled = Color( 1, 1, 1, 1 )
 custom_colors/font_color_focus = Color( 1, 1, 1, 1 )
 custom_colors/font_color_hover_pressed = Color( 1, 1, 1, 1 )
@@ -627,28 +627,28 @@ custom_colors/font_color_pressed = Color( 1, 1, 1, 1 )
 text = "show broken"
 flat = true
 
-[node name="Preview" type="AudioStreamPlayer" parent="Main/Tabs/SongList"]
+[node name="Preview" type="AudioStreamPlayer" parent="Main/TabBar/SongList"]
 volume_db = -8.0
 bus = "Menu Music"
 
-[node name="Content" type="Control" parent="Main/Tabs"]
+[node name="Content" type="Control" parent="Main/TabBar"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="Credits" type="Control" parent="Main/Tabs"]
+[node name="Credits" type="Control" parent="Main/TabBar"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="Settings" type="Control" parent="Main/Tabs"]
+[node name="Settings" type="Control" parent="Main/TabBar"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="VersionNumberR" parent="Main" instance=ExtResource( 1 )]
-margin_top = -24.0
-margin_bottom = 16.0
+offset_top = -24.0
+offset_bottom = 16.0
 
 [node name="SidebarClose" type="Button" parent="."]
 visible = false
@@ -658,16 +658,16 @@ flat = true
 
 [node name="Sidebar" type="ColorRect" parent="."]
 anchor_bottom = 1.0
-margin_right = 64.0
-rect_min_size = Vector2( 64, 0 )
-rect_clip_content = true
+offset_right = 64.0
+custom_minimum_size = Vector2( 64, 0 )
+clip_contents = true
 color = Color( 0.0470588, 0.0470588, 0.0470588, 1 )
 script = ExtResource( 18 )
 
 [node name="Highlight" type="ColorRect" parent="Sidebar"]
 anchor_right = 1.0
-margin_top = 8.0
-margin_bottom = 68.0
+offset_top = 8.0
+offset_bottom = 68.0
 mouse_filter = 2
 color = Color( 0.3, 0.3, 0.3, 0.196078 )
 
@@ -678,24 +678,24 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="TopSeparator" type="HSeparator" parent="Sidebar/Buttons"]
-margin_right = 64.0
-margin_bottom = 4.0
+offset_right = 64.0
+offset_bottom = 4.0
 custom_constants/separation = 4
 custom_styles/separator = SubResource( 3 )
 
 [node name="Play" type="Button" parent="Sidebar/Buttons"]
-margin_top = 8.0
-margin_right = 64.0
-margin_bottom = 68.0
-rect_min_size = Vector2( 60, 60 )
+offset_top = 8.0
+offset_right = 64.0
+offset_bottom = 68.0
+custom_minimum_size = Vector2( 60, 60 )
 mouse_default_cursor_shape = 2
 flat = true
 
 [node name="Icon" type="TextureRect" parent="Sidebar/Buttons/Play"]
 anchor_bottom = 1.0
-margin_top = 8.0
-margin_right = 64.0
-margin_bottom = -8.0
+offset_top = 8.0
+offset_right = 64.0
+offset_bottom = -8.0
 texture = ExtResource( 4 )
 expand = true
 stretch_mode = 6
@@ -703,25 +703,25 @@ stretch_mode = 6
 [node name="Label" type="Label" parent="Sidebar/Buttons/Play"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 64.0
+offset_left = 64.0
 size_flags_horizontal = 2
 custom_fonts/font = SubResource( 2 )
 text = "Play Song"
 valign = 1
 
 [node name="Select" type="Button" parent="Sidebar/Buttons"]
-margin_top = 72.0
-margin_right = 64.0
-margin_bottom = 132.0
-rect_min_size = Vector2( 60, 60 )
+offset_top = 72.0
+offset_right = 64.0
+offset_bottom = 132.0
+custom_minimum_size = Vector2( 60, 60 )
 mouse_default_cursor_shape = 2
 flat = true
 
 [node name="Icon" type="TextureRect" parent="Sidebar/Buttons/Select"]
 anchor_bottom = 1.0
-margin_top = 8.0
-margin_right = 64.0
-margin_bottom = -8.0
+offset_top = 8.0
+offset_right = 64.0
+offset_bottom = -8.0
 texture = ExtResource( 11 )
 expand = true
 stretch_mode = 6
@@ -729,24 +729,24 @@ stretch_mode = 6
 [node name="Label" type="Label" parent="Sidebar/Buttons/Select"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 64.0
+offset_left = 64.0
 custom_fonts/font = SubResource( 2 )
 text = "Song Select"
 valign = 1
 
 [node name="Content" type="Button" parent="Sidebar/Buttons"]
-margin_top = 136.0
-margin_right = 64.0
-margin_bottom = 196.0
-rect_min_size = Vector2( 60, 60 )
+offset_top = 136.0
+offset_right = 64.0
+offset_bottom = 196.0
+custom_minimum_size = Vector2( 60, 60 )
 mouse_default_cursor_shape = 2
 flat = true
 
 [node name="Icon" type="TextureRect" parent="Sidebar/Buttons/Content"]
 anchor_bottom = 1.0
-margin_top = 8.0
-margin_right = 64.0
-margin_bottom = -8.0
+offset_top = 8.0
+offset_right = 64.0
+offset_bottom = -8.0
 texture = ExtResource( 10 )
 expand = true
 stretch_mode = 6
@@ -754,24 +754,24 @@ stretch_mode = 6
 [node name="Label" type="Label" parent="Sidebar/Buttons/Content"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 64.0
+offset_left = 64.0
 custom_fonts/font = SubResource( 2 )
 text = "Content Manager"
 valign = 1
 
 [node name="Credits" type="Button" parent="Sidebar/Buttons"]
-margin_top = 200.0
-margin_right = 64.0
-margin_bottom = 260.0
-rect_min_size = Vector2( 60, 60 )
+offset_top = 200.0
+offset_right = 64.0
+offset_bottom = 260.0
+custom_minimum_size = Vector2( 60, 60 )
 mouse_default_cursor_shape = 2
 flat = true
 
 [node name="Icon" type="TextureRect" parent="Sidebar/Buttons/Credits"]
 anchor_bottom = 1.0
-margin_top = 8.0
-margin_right = 64.0
-margin_bottom = -8.0
+offset_top = 8.0
+offset_right = 64.0
+offset_bottom = -8.0
 texture = ExtResource( 9 )
 expand = true
 stretch_mode = 6
@@ -779,32 +779,32 @@ stretch_mode = 6
 [node name="Label" type="Label" parent="Sidebar/Buttons/Credits"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 64.0
+offset_left = 64.0
 custom_fonts/font = SubResource( 2 )
 text = "Credits"
 valign = 1
 
 [node name="TopBottomSeparator" type="HSeparator" parent="Sidebar/Buttons"]
-margin_top = 264.0
-margin_right = 64.0
-margin_bottom = 584.0
+offset_top = 264.0
+offset_right = 64.0
+offset_bottom = 584.0
 size_flags_vertical = 3
 custom_constants/separation = 0
 custom_styles/separator = SubResource( 3 )
 
 [node name="Settings" type="Button" parent="Sidebar/Buttons"]
-margin_top = 588.0
-margin_right = 64.0
-margin_bottom = 648.0
-rect_min_size = Vector2( 60, 60 )
+offset_top = 588.0
+offset_right = 64.0
+offset_bottom = 648.0
+custom_minimum_size = Vector2( 60, 60 )
 mouse_default_cursor_shape = 2
 flat = true
 
 [node name="Icon" type="TextureRect" parent="Sidebar/Buttons/Settings"]
 anchor_bottom = 1.0
-margin_top = 8.0
-margin_right = 64.0
-margin_bottom = -8.0
+offset_top = 8.0
+offset_right = 64.0
+offset_bottom = -8.0
 texture = ExtResource( 8 )
 expand = true
 stretch_mode = 6
@@ -812,24 +812,24 @@ stretch_mode = 6
 [node name="Label" type="Label" parent="Sidebar/Buttons/Settings"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 64.0
+offset_left = 64.0
 custom_fonts/font = SubResource( 2 )
 text = "Settings"
 valign = 1
 
 [node name="Quit" type="Button" parent="Sidebar/Buttons"]
-margin_top = 652.0
-margin_right = 64.0
-margin_bottom = 712.0
-rect_min_size = Vector2( 60, 60 )
+offset_top = 652.0
+offset_right = 64.0
+offset_bottom = 712.0
+custom_minimum_size = Vector2( 60, 60 )
 mouse_default_cursor_shape = 2
 flat = true
 
 [node name="Icon" type="TextureRect" parent="Sidebar/Buttons/Quit"]
 anchor_bottom = 1.0
-margin_top = 8.0
-margin_right = 64.0
-margin_bottom = -8.0
+offset_top = 8.0
+offset_right = 64.0
+offset_bottom = -8.0
 texture = ExtResource( 7 )
 expand = true
 stretch_mode = 6
@@ -837,15 +837,15 @@ stretch_mode = 6
 [node name="Label" type="Label" parent="Sidebar/Buttons/Quit"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 64.0
+offset_left = 64.0
 custom_fonts/font = SubResource( 2 )
 text = "Quit to Desktop"
 valign = 1
 
 [node name="BottomSeparator" type="HSeparator" parent="Sidebar/Buttons"]
-margin_top = 716.0
-margin_right = 64.0
-margin_bottom = 720.0
+offset_top = 716.0
+offset_right = 64.0
+offset_bottom = 720.0
 custom_constants/separation = 4
 custom_styles/separator = SubResource( 3 )
 

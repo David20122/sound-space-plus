@@ -72,7 +72,7 @@ enum LobbyType {
 class Proxy_:
 	var object_to_proxy_
 
-	func _init(object_to_proxy) -> void:
+	func _init(object_to_proxy):
 		object_to_proxy_ = object_to_proxy
 
 	func call_(func_name, args := []):
@@ -91,7 +91,7 @@ class Proxy_:
 		return object_to_proxy_.callv(func_name, args)
 
 class User extends Proxy_:
-	func _init(user:DiscordUser).(user) -> void:
+	func _init(user:DiscordUser,user):
 		pass
 
 	func get_id() -> int:
@@ -101,7 +101,7 @@ class User extends Proxy_:
 		return object_to_proxy_.get_username()
 
 class LobbyTransaction extends Proxy_:
-	func _init(lobby_transaction:DiscordLobbyTransaction).(lobby_transaction) -> void:
+	func _init(lobby_transaction:DiscordLobbyTransaction,lobby_transaction):
 		pass
 
 	func set_type(type:int) -> int:
@@ -123,7 +123,7 @@ class LobbyTransaction extends Proxy_:
 		return object_to_proxy_.set_locked(locked)
 
 class Activity extends Proxy_:
-	func _init().(DiscordActivity.new()) -> void:
+	func _init(DiscordActivity.new()):
 		pass
 
 	func set_type(value:int) -> void:
@@ -158,11 +158,11 @@ class ActivityManager_ extends Proxy_:
 	signal activity_invite
 	signal activity_join_request
 
-	func _init(activity_manager).(activity_manager) -> void:
+	func _init(activity_manager,activity_manager):
 		if activity_manager:
-			activity_manager.connect("activity_join", self, "_on_activity_join")
-			activity_manager.connect("activity_invite", self, "_on_activity_invite")
-			activity_manager.connect("activity_join_request", self, "_on_activity_join_request")
+			activity_manager.connect("activity_join",Callable(self,"_on_activity_join"))
+			activity_manager.connect("activity_invite",Callable(self,"_on_activity_invite"))
+			activity_manager.connect("activity_join_request",Callable(self,"_on_activity_join_request"))
 
 	func _on_activity_join(secret:String) -> void:
 		emit_signal("activity_join", secret)
@@ -186,10 +186,10 @@ class LobbyManager_ extends Proxy_:
 	signal lobby_message
 	signal member_connect
 
-	func _init(lobby_manager).(lobby_manager) -> void:
+	func _init(lobby_manager,lobby_manager):
 		if lobby_manager:
-			lobby_manager.connect("lobby_message", self, "_on_lobby_message")
-			lobby_manager.connect("member_connect", self, "_on_member_connect")
+			lobby_manager.connect("lobby_message",Callable(self,"_on_lobby_message"))
+			lobby_manager.connect("member_connect",Callable(self,"_on_member_connect"))
 
 	func _on_lobby_message(lobby_id:int, user_id:int, string:String) -> void:
 		emit_signal("lobby_message", lobby_id, user_id, string)
@@ -213,7 +213,7 @@ class LobbyManager_ extends Proxy_:
 		return callback_("create_lobby", [transaction.object_to_proxy_])
 
 	func send_lobby_message(lobby_id:int, message:String) -> DiscordResult:
-		return callback_("send_lobby_message", [lobby_id, message.to_utf8()])
+		return callback_("send_lobby_message", [lobby_id, message.to_utf8_buffer()])
 
 	func get_member_count(lobby_id:int) -> int:
 		return call_("get_member_count", [lobby_id])
@@ -238,7 +238,7 @@ class LobbyManager_ extends Proxy_:
 		return res
 		
 class OverlayManager_ extends Proxy_:
-	func _init(overlay_manager).(overlay_manager) -> void:
+	func _init(overlay_manager,overlay_manager):
 		pass
 
 	func open_activity_invite(activation_type:int) -> DiscordResult:

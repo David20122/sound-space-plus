@@ -4,7 +4,7 @@
 [ext_resource path="res://assets/worlds/tri_tunnel/tunnel.gd" type="Script" id=2]
 
 
-[sub_resource type="SpatialMaterial" id=1]
+[sub_resource type="StandardMaterial3D" id=1]
 flags_transparent = true
 flags_unshaded = true
 distance_fade_mode = 1
@@ -17,7 +17,7 @@ background_mode = 1
 [sub_resource type="PrismMesh" id=3]
 size = Vector3( 2, 2, 0 )
 
-[sub_resource type="SpatialMaterial" id=4]
+[sub_resource type="StandardMaterial3D" id=4]
 flags_transparent = true
 flags_unshaded = true
 vertex_color_use_as_albedo = true
@@ -28,19 +28,19 @@ detail_enabled = true
 detail_blend_mode = 3
 detail_uv_layer = 0
 
-[node name="tri_tunnel" type="Spatial"]
+[node name="tri_tunnel" type="Node3D"]
 script = ExtResource( 2 )
 
-[node name="tunnel" type="MeshInstance" parent="."]
-transform = Transform( -4.37114e-09, 0, -0.1, 0, 0.1, 0, 0.1, 0, -4.37114e-09, 0, -1, -26 )
+[node name="tunnel" type="MeshInstance3D" parent="."]
+transform = Transform3D( -4.37114e-09, 0, -0.1, 0, 0.1, 0, 0.1, 0, -4.37114e-09, 0, -1, -26 )
 material_override = SubResource( 1 )
 mesh = ExtResource( 1 )
 
 [node name="env" type="WorldEnvironment" parent="."]
 environment = SubResource( 2 )
 
-[node name="fade" type="MeshInstance" parent="."]
-transform = Transform( 24, 0, 0, 0, 12, 0, 0, 0, 1, 0, 0, -24 )
+[node name="fade" type="MeshInstance3D" parent="."]
+transform = Transform3D( 24, 0, 0, 0, 12, 0, 0, 0, 1, 0, 0, -24 )
 visible = false
 mesh = SubResource( 3 )
 material/0 = SubResource( 4 )

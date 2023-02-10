@@ -1,7 +1,7 @@
-tool
+@tool
 extends EditorExportPlugin
 
-func _export_begin(features: PoolStringArray, is_debug: bool, path: String, flags: int ):
+func _export_begin(features: PackedStringArray, is_debug: bool, path: String, flags: int ):
 	var dir = Directory.new()
 	
 	# we just want the path
@@ -22,7 +22,7 @@ func _export_begin(features: PoolStringArray, is_debug: bool, path: String, flag
 		dir.make_dir(export_to)
 	
 	if dir.open(export_from) == OK:
-		dir.list_dir_begin(true, true)
+		dir.list_dir_begin() # TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 		
 		var filename = dir.get_next()
 		while filename != "":
@@ -36,5 +36,5 @@ func _export_begin(features: PoolStringArray, is_debug: bool, path: String, flag
 #func _export_end():
 #	print("Export ended")
 
-#func _export_file(path: String, type: String, features: PoolStringArray):
+#func _export_file(path: String, type: String, features: PackedStringArray):
 #	print("Export " + path)

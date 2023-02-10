@@ -8,7 +8,7 @@ background_mode = 1
 background_color = Color( 0, 0, 0, 0 )
 ambient_light_color = Color( 0, 0, 0, 0 )
 
-[node name="seethrough" type="Spatial"]
+[node name="seethrough" type="Node3D"]
 script = ExtResource( 1 )
 
 [node name="env" type="WorldEnvironment" parent="."]

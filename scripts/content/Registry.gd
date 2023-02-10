@@ -1,4 +1,4 @@
-extends Reference
+extends RefCounted
 class_name Registry
 
 var items = []
@@ -15,12 +15,12 @@ func add_item(item:ResourcePlus):
 	return true
 
 func remove_item(item:ResourcePlus):
-	items.remove(items_ids[item.id])
+	items.remove_at(items_ids[item.id])
 	_reset_ids()
 	item.free()
 func remove_by_id(id:String):
 	var item = items_ids[id]
-	items.remove(items_ids[id])
+	items.remove_at(items_ids[id])
 	_reset_ids()
 	item.free()
 

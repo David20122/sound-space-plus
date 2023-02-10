@@ -1,4 +1,4 @@
-extends Spatial
+extends Node3D
 
 var rate:float = SSP.approach_rate / 6
 var s:float = -26
@@ -11,10 +11,10 @@ func hit(col:Color):
 	color = col
 
 func _ready():
-	get_parent().get_node("Game").connect("hit",self,"hit")
+	get_parent().get_node("Game").connect("hit",Callable(self,"hit"))
 
 func _process(delta):
-	$tunnel.translation.z += rate * delta
-	$tunnel.translation.z = wrapf($tunnel.translation.z,s,e)
+	$tunnel.position.z += rate * delta
+	$tunnel.position.z = wrapf($tunnel.position.z,s,e)
 	tcol = color
 	$tunnel.material_override.albedo_color = lerp($tunnel.material_override.albedo_color,tcol,ratec)

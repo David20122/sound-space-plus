@@ -2,14 +2,18 @@
 
 importer="mp3"
 type="AudioStreamMP3"
-path="res://.import/menu_full.mp3-738408cbf78edd3be3972518e9603d48.mp3str"
+uid="uid://dt6iwt8s2a1mm"
+path="res://.godot/imported/menu_full.mp3-738408cbf78edd3be3972518e9603d48.mp3str"
 
 [deps]
 
 source_file="res://assets/sounds/sfx/menu_full.mp3"
-dest_files=[ "res://.import/menu_full.mp3-738408cbf78edd3be3972518e9603d48.mp3str" ]
+dest_files=["res://.godot/imported/menu_full.mp3-738408cbf78edd3be3972518e9603d48.mp3str"]
 
 [params]
 
 loop=true
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

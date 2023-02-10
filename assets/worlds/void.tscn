@@ -16,7 +16,7 @@ fog_height_min = 10.4
 fog_height_max = -18.5
 fog_height_curve = 0.68302
 
-[node name="Space" type="Spatial"]
+[node name="Space" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 1 )

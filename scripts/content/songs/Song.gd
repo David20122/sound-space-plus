@@ -26,7 +26,7 @@ var audio:AudioStream
 var notes:Array
 
 class Note:
-	extends Reference
+	extends RefCounted
 	var index:int
 	var x:float
 	var y:float

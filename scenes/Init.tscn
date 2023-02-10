@@ -1,206 +1,154 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=8 format=3 uid="uid://eobt2fotkbfh"]
 
-[ext_resource path="res://scripts/menu/loading/Init.gd" type="Script" id=1]
-[ext_resource path="res://assets/fonts/Roboto/Medium.ttf" type="DynamicFontData" id=2]
-[ext_resource path="res://assets/fonts/Roboto/Regular.ttf" type="DynamicFontData" id=3]
-[ext_resource path="res://assets/sounds/music/startup/drums.ogg" type="AudioStream" id=4]
-[ext_resource path="res://assets/sounds/music/startup/strings.ogg" type="AudioStream" id=5]
-[ext_resource path="res://assets/sounds/music/startup/phaser.ogg" type="AudioStream" id=6]
-[ext_resource path="res://assets/sounds/music/startup/piano.ogg" type="AudioStream" id=7]
-[ext_resource path="res://prefabs/menu/VersionNumberL.tscn" type="PackedScene" id=8]
-[ext_resource path="res://assets/fonts/Lato/Lato-Bold.ttf" type="DynamicFontData" id=9]
-[ext_resource path="res://assets/fonts/Lato/Lato-Regular.ttf" type="DynamicFontData" id=10]
-[ext_resource path="res://scripts/menu/loading/Loading.gd" type="Script" id=11]
-
-[sub_resource type="DynamicFont" id=1]
-size = 18
-font_data = ExtResource( 2 )
-
-[sub_resource type="DynamicFont" id=2]
-font_data = ExtResource( 3 )
-
-[sub_resource type="DynamicFont" id=5]
-size = 32
-use_filter = true
-font_data = ExtResource( 9 )
-
-[sub_resource type="DynamicFont" id=3]
-size = 24
-use_filter = true
-font_data = ExtResource( 10 )
-
-[sub_resource type="DynamicFont" id=4]
-use_filter = true
-font_data = ExtResource( 10 )
+[ext_resource type="Script" path="res://scripts/menu/loading/Init.gd" id="1"]
+[ext_resource type="AudioStream" uid="uid://gg651sab0hgj" path="res://assets/sounds/music/startup/drums.ogg" id="4"]
+[ext_resource type="AudioStream" uid="uid://djuomv3q6djrc" path="res://assets/sounds/music/startup/strings.ogg" id="5"]
+[ext_resource type="AudioStream" uid="uid://dlr6rhfrvtqe2" path="res://assets/sounds/music/startup/phaser.ogg" id="6"]
+[ext_resource type="AudioStream" uid="uid://c82uiavmaobmd" path="res://assets/sounds/music/startup/piano.ogg" id="7"]
+[ext_resource type="PackedScene" path="res://prefabs/menu/VersionNumberL.tscn" id="8"]
+[ext_resource type="Script" path="res://scripts/menu/loading/Loading.gd" id="11"]
 
 [node name="Init" type="ColorRect"]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 0, 0, 0, 1 )
-script = ExtResource( 1 )
+color = Color(0, 0, 0, 1)
+script = ExtResource("1")
 
 [node name="Pre" type="Control" parent="."]
 visible = false
+anchors_preset = 0
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -256.0
-margin_top = -128.0
-margin_right = 256.0
-margin_bottom = 128.0
+offset_left = -256.0
+offset_top = -128.0
+offset_right = 256.0
+offset_bottom = 128.0
 
 [node name="Warning" type="Label" parent="Pre"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_vertical = 2
-custom_fonts/font = SubResource( 1 )
 text = "Health and Safety Notice
 
 A small percentage of people may experience seizures when exposed to certain lights, patterns or images even with no history of epilepsy or seizures.
 Immediately stop playing and consult a doctor if you begin to experience discomfort, disorientation or other symptoms."
-align = 1
-valign = 1
-autowrap = true
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="Continue" type="Button" parent="Pre"]
+layout_mode = 0
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -64.0
-margin_right = 64.0
-margin_bottom = 24.0
-custom_fonts/font = SubResource( 2 )
+offset_left = -64.0
+offset_right = 64.0
+offset_bottom = 24.0
 text = "Continue"
 
 [node name="Post" type="Control" parent="."]
+anchors_preset = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource( 11 )
+script = ExtResource("11")
 
 [node name="Label" type="Label" parent="Post"]
+layout_mode = 0
 anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -192.0
-margin_right = 192.0
-custom_fonts/font = SubResource( 5 )
+offset_left = -192.0
+offset_right = 192.0
 text = "Loading"
-align = 1
-valign = 2
 
 [node name="Container" type="VBoxContainer" parent="Post"]
+layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -256.0
-margin_right = 256.0
-custom_constants/separation = 0
+offset_left = -256.0
+offset_right = 256.0
 
 [node name="Label" type="Label" parent="Post/Container"]
-margin_right = 512.0
-margin_bottom = 30.0
-custom_fonts/font = SubResource( 3 )
+layout_mode = 2
 text = "Waiting for Engine"
-align = 1
-valign = 1
 
 [node name="ProgressBar1" type="VBoxContainer" parent="Post/Container"]
 visible = false
-margin_top = 30.0
-margin_right = 512.0
-margin_bottom = 91.0
-custom_constants/separation = 0
+layout_mode = 2
 
 [node name="Label" type="Label" parent="Post/Container/ProgressBar1"]
-margin_right = 512.0
-margin_bottom = 43.0
-custom_fonts/font = SubResource( 4 )
+layout_mode = 2
 text = "rahhhhhh really long text rn this text is soooooo long its unbelievable raaaaaaaaaaaaaaaaaaaaahhhhh"
-align = 1
-valign = 2
-autowrap = true
 
 [node name="Bar" type="ProgressBar" parent="Post/Container/ProgressBar1"]
-margin_top = 43.0
-margin_right = 512.0
-margin_bottom = 61.0
-rect_min_size = Vector2( 0, 18 )
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
 step = 1.0
-percent_visible = false
 
 [node name="ProgressBar2" type="VBoxContainer" parent="Post/Container"]
 visible = false
-margin_top = 30.0
-margin_right = 512.0
-margin_bottom = 68.0
-custom_constants/separation = 0
+layout_mode = 2
 
 [node name="Label" type="Label" parent="Post/Container/ProgressBar2"]
-margin_right = 512.0
-margin_bottom = 20.0
-custom_fonts/font = SubResource( 4 )
-align = 1
-valign = 2
+layout_mode = 2
 clip_text = true
 
 [node name="Bar" type="ProgressBar" parent="Post/Container/ProgressBar2"]
-margin_top = 20.0
-margin_right = 512.0
-margin_bottom = 38.0
-rect_min_size = Vector2( 0, 18 )
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
 step = 1.0
-percent_visible = false
 
 [node name="ProgressBar3" type="VBoxContainer" parent="Post/Container"]
 visible = false
-margin_top = 30.0
-margin_right = 512.0
-margin_bottom = 68.0
-custom_constants/separation = 0
+layout_mode = 2
 
 [node name="Label" type="Label" parent="Post/Container/ProgressBar3"]
-margin_right = 512.0
-margin_bottom = 20.0
-custom_fonts/font = SubResource( 4 )
-align = 1
-valign = 2
+layout_mode = 2
 clip_text = true
 
 [node name="Bar" type="ProgressBar" parent="Post/Container/ProgressBar3"]
-margin_top = 20.0
-margin_right = 512.0
-margin_bottom = 38.0
-rect_min_size = Vector2( 0, 18 )
+custom_minimum_size = Vector2(0, 18)
+layout_mode = 2
 step = 1.0
-percent_visible = false
 
-[node name="VersionNumberL" parent="." instance=ExtResource( 8 )]
+[node name="VersionNumberL" parent="." instance=ExtResource("8")]
+anchors_preset = 0
 
 [node name="Tween" type="Tween" parent="."]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+editor_description = ""
+script = null
 
 [node name="Piano" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 7 )
+stream = ExtResource("7")
 volume_db = -80.0
 autoplay = true
-bus = "Sound Space Plus"
+bus = &"Sound Space Plus"
 
 [node name="Phaser" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 6 )
+stream = ExtResource("6")
 volume_db = -80.0
 autoplay = true
-bus = "Sound Space Plus"
+bus = &"Sound Space Plus"
 
 [node name="Drums" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 4 )
+stream = ExtResource("4")
 volume_db = -80.0
 autoplay = true
-bus = "Sound Space Plus"
+bus = &"Sound Space Plus"
 
 [node name="Strings" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 5 )
+stream = ExtResource("5")
 volume_db = -80.0
 autoplay = true
-bus = "Sound Space Plus"
+bus = &"Sound Space Plus"

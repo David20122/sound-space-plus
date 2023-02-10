@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/menu_loop.ogg-972f45466f50bda18098c1996eb0896b.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://chricmmpsvuxi"
+path="res://.godot/imported/menu_loop.ogg-972f45466f50bda18098c1996eb0896b.oggvorbisstr"
 
 [deps]
 
 source_file="res://assets/sounds/music/menu_loop.ogg"
-dest_files=[ "res://.import/menu_loop.ogg-972f45466f50bda18098c1996eb0896b.oggstr" ]
+dest_files=["res://.godot/imported/menu_loop.ogg-972f45466f50bda18098c1996eb0896b.oggvorbisstr"]
 
 [params]
 
 loop=true
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

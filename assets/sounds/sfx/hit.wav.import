@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/hit.wav-8f6665d620f4484f044e870d8a0554b9.sample"
+type="AudioStreamWAV"
+uid="uid://clk4tkuh7l4sc"
+path="res://.godot/imported/hit.wav-8f6665d620f4484f044e870d8a0554b9.sample"
 
 [deps]
 
 source_file="res://assets/sounds/sfx/hit.wav"
-dest_files=[ "res://.import/hit.wav-8f6665d620f4484f044e870d8a0554b9.sample" ]
+dest_files=["res://.godot/imported/hit.wav-8f6665d620f4484f044e870d8a0554b9.sample"]
 
 [params]
 

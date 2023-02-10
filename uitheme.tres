@@ -1,10 +1,10 @@
 [gd_resource type="Theme" load_steps=23 format=2]
 
-[ext_resource path="res://assets/fonts/Lato/Lato-Regular.ttf" type="DynamicFontData" id=1]
-[ext_resource path="res://assets/fonts/Noto_Sans_JP/NotoSansJP-Medium.otf" type="DynamicFontData" id=2]
-[ext_resource path="res://assets/fonts/NotoColorEmoji.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://assets/fonts/Lato/Lato-Regular.ttf" type="FontFile" id=1]
+[ext_resource path="res://assets/fonts/Noto_Sans_JP/NotoSansJP-Medium.otf" type="FontFile" id=2]
+[ext_resource path="res://assets/fonts/NotoColorEmoji.ttf" type="FontFile" id=3]
 
-[sub_resource type="DynamicFont" id=17]
+[sub_resource type="FontFile" id=17]
 use_filter = true
 font_data = ExtResource( 1 )
 fallback/0 = ExtResource( 3 )
@@ -399,7 +399,7 @@ OptionButton/styles/normal = null
 OptionButton/styles/pressed = null
 Panel/styles/panel = null
 PanelContainer/styles/panel = null
-PopupDialog/styles/panel = null
+Popup/styles/panel = null
 PopupMenu/colors/font_color = Color( 0.768627, 0.768627, 0.768627, 1 )
 PopupMenu/colors/font_color_accel = Color( 0.768627, 0.768627, 0.768627, 1 )
 PopupMenu/colors/font_color_disabled = Color( 0.462745, 0.462745, 0.462745, 1 )
@@ -463,25 +463,25 @@ TabContainer/styles/panel = null
 TabContainer/styles/tab_bg = null
 TabContainer/styles/tab_disabled = null
 TabContainer/styles/tab_fg = null
-Tabs/colors/font_color_bg = Color( 0, 0, 0, 1 )
-Tabs/colors/font_color_disabled = Color( 0, 0, 0, 1 )
-Tabs/colors/font_color_fg = Color( 0, 0, 0, 1 )
-Tabs/constants/hseparation = 4
-Tabs/constants/label_valign_bg = 2
-Tabs/constants/label_valign_fg = 0
-Tabs/constants/top_margin = 24
-Tabs/fonts/font = SubResource( 17 )
-Tabs/icons/close = null
-Tabs/icons/decrement = null
-Tabs/icons/decrement_highlight = null
-Tabs/icons/increment = null
-Tabs/icons/increment_highlight = null
-Tabs/styles/button = null
-Tabs/styles/button_pressed = null
-Tabs/styles/panel = null
-Tabs/styles/tab_bg = null
-Tabs/styles/tab_disabled = null
-Tabs/styles/tab_fg = null
+TabBar/colors/font_color_bg = Color( 0, 0, 0, 1 )
+TabBar/colors/font_color_disabled = Color( 0, 0, 0, 1 )
+TabBar/colors/font_color_fg = Color( 0, 0, 0, 1 )
+TabBar/constants/hseparation = 4
+TabBar/constants/label_valign_bg = 2
+TabBar/constants/label_valign_fg = 0
+TabBar/constants/top_margin = 24
+TabBar/fonts/font = SubResource( 17 )
+TabBar/icons/close = null
+TabBar/icons/decrement = null
+TabBar/icons/decrement_highlight = null
+TabBar/icons/increment = null
+TabBar/icons/increment_highlight = null
+TabBar/styles/button = null
+TabBar/styles/button_pressed = null
+TabBar/styles/panel = null
+TabBar/styles/tab_bg = null
+TabBar/styles/tab_disabled = null
+TabBar/styles/tab_fg = null
 TextEdit/colors/background_color = Color( 0, 0, 0, 1 )
 TextEdit/colors/bookmark_color = Color( 0, 0, 0, 1 )
 TextEdit/colors/brace_mismatch_color = Color( 0, 0, 0, 1 )
@@ -521,18 +521,18 @@ TextEdit/styles/completion = null
 TextEdit/styles/focus = SubResource( 5 )
 TextEdit/styles/normal = SubResource( 6 )
 TextEdit/styles/read_only = SubResource( 7 )
-ToolButton/colors/font_color = Color( 1, 1, 1, 1 )
-ToolButton/colors/font_color_disabled = Color( 1, 1, 1, 1 )
-ToolButton/colors/font_color_focus = Color( 1, 1, 1, 1 )
-ToolButton/colors/font_color_hover = Color( 1, 1, 1, 1 )
-ToolButton/colors/font_color_pressed = Color( 1, 1, 1, 1 )
-ToolButton/constants/hseparation = 3
-ToolButton/fonts/font = SubResource( 17 )
-ToolButton/styles/disabled = null
-ToolButton/styles/focus = null
-ToolButton/styles/hover = null
-ToolButton/styles/normal = null
-ToolButton/styles/pressed = null
+Button/colors/font_color = Color( 1, 1, 1, 1 )
+Button/colors/font_color_disabled = Color( 1, 1, 1, 1 )
+Button/colors/font_color_focus = Color( 1, 1, 1, 1 )
+Button/colors/font_color_hover = Color( 1, 1, 1, 1 )
+Button/colors/font_color_pressed = Color( 1, 1, 1, 1 )
+Button/constants/hseparation = 3
+Button/fonts/font = SubResource( 17 )
+Button/styles/disabled = null
+Button/styles/focus = null
+Button/styles/hover = null
+Button/styles/normal = null
+Button/styles/pressed = null
 TooltipLabel/colors/font_color = Color( 1, 1, 1, 1 )
 TooltipLabel/colors/font_color_shadow = Color( 0, 0, 0, 0 )
 TooltipLabel/constants/shadow_offset_x = 1
@@ -598,12 +598,12 @@ VSplitContainer/constants/autohide = 1
 VSplitContainer/constants/separation = 12
 VSplitContainer/icons/grabber = null
 VSplitContainer/styles/bg = null
-WindowDialog/colors/title_color = Color( 0, 0, 0, 1 )
-WindowDialog/constants/close_h_ofs = 18
-WindowDialog/constants/close_v_ofs = 18
-WindowDialog/constants/scaleborder_size = 4
-WindowDialog/constants/title_height = 20
-WindowDialog/fonts/title_font = SubResource( 17 )
-WindowDialog/icons/close = null
-WindowDialog/icons/close_highlight = null
-WindowDialog/styles/panel = null
+Window/colors/title_color = Color( 0, 0, 0, 1 )
+Window/constants/close_h_ofs = 18
+Window/constants/close_v_ofs = 18
+Window/constants/scaleborder_size = 4
+Window/constants/title_height = 20
+Window/fonts/title_font = SubResource( 17 )
+Window/icons/close = null
+Window/icons/close_highlight = null
+Window/styles/panel = null

@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/miss.wav-d8de80b4cf35d49d6354d8effcd3d798.sample"
+type="AudioStreamWAV"
+uid="uid://c2rmv8akf3ais"
+path="res://.godot/imported/miss.wav-d8de80b4cf35d49d6354d8effcd3d798.sample"
 
 [deps]
 
 source_file="res://assets/sounds/sfx/miss.wav"
-dest_files=[ "res://.import/miss.wav-d8de80b4cf35d49d6354d8effcd3d798.sample" ]
+dest_files=["res://.godot/imported/miss.wav-d8de80b4cf35d49d6354d8effcd3d798.sample"]
 
 [params]
 

@@ -5,6 +5,9 @@ export_presets.cfg
 .import
 .import/
 .import/*
+.godot
+.godot/
+.godot/*
 *.translation
 .mono/
 addons/discord_game_sdk/bin

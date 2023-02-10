@@ -1,8 +1,8 @@
 extends Node
 
 func _ready():
-	SoundSpacePlus.connect("on_init_stage",self,"_on_init_stage")
-	SoundSpacePlus.connect("on_init_complete",self,"_finish",[],4)
+	SoundSpacePlus.connect("on_init_stage",Callable(self,"_on_init_stage"))
+	SoundSpacePlus.connect("on_init_complete",Callable(self,"_finish").bind(),4)
 
 func _on_init_stage(stage,progress=[]):
 	if stage != null: $Container/Label.text = stage

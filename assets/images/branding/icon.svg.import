@@ -1,38 +1,38 @@
 [remap]
 
 importer="texture"
-type="StreamTexture"
-path.s3tc="res://.import/icon.svg-a566acdfa255516260691384a755b52d.s3tc.stex"
-path.etc2="res://.import/icon.svg-a566acdfa255516260691384a755b52d.etc2.stex"
-path.etc="res://.import/icon.svg-a566acdfa255516260691384a755b52d.etc.stex"
+type="CompressedTexture2D"
+uid="uid://l6ugdbcno343"
+path.s3tc="res://.godot/imported/icon.svg-a566acdfa255516260691384a755b52d.s3tc.ctex"
 metadata={
-"imported_formats": [ "s3tc", "etc2", "etc" ],
+"imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/images/branding/icon.svg"
-dest_files=[ "res://.import/icon.svg-a566acdfa255516260691384a755b52d.s3tc.stex", "res://.import/icon.svg-a566acdfa255516260691384a755b52d.etc2.stex", "res://.import/icon.svg-a566acdfa255516260691384a755b52d.etc.stex" ]
+dest_files=["res://.godot/imported/icon.svg-a566acdfa255516260691384a755b52d.s3tc.ctex"]
 
 [params]
 
 compress/mode=2
+compress/high_quality=false
 compress/lossy_quality=0.7
-compress/hdr_mode=0
-compress/bptc_ldr=0
+compress/hdr_compression=1
 compress/normal_map=2
-flags/repeat=0
-flags/filter=true
-flags/mipmaps=true
-flags/anisotropic=false
-flags/srgb=0
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
 process/fix_alpha_border=true
 process/premult_alpha=true
-process/HDR_as_SRGB=true
-process/invert_color=false
 process/normal_map_invert_y=false
-stream=false
-size_limit=0
-detect_3d=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=1
 svg/scale=4.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false

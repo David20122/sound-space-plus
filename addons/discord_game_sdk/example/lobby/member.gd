@@ -1,5 +1,5 @@
 extends Resource
 class_name Member
 
-export(int) var id
-export(String) var username
+@export var id: int
+@export var username: String

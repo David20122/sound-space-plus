@@ -3,7 +3,7 @@
 [sub_resource type="Shader" id=39]
 code = "shader_type spatial;
 render_mode blend_mix,cull_back,diffuse_burley,specular_disabled,unshaded;
-uniform vec4 notecolor : hint_color = vec4(1,1,1,1);
+uniform vec4 notecolor : source_color = vec4(1,1,1,1);
 
 uniform float alpha_multi = 1;
 uniform float fade = 1;

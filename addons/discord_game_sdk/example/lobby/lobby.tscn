@@ -12,39 +12,39 @@ __meta__ = {
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-margin_right = 640.0
-margin_bottom = 480.0
+offset_right = 640.0
+offset_bottom = 480.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="buttons" type="HBoxContainer" parent="VBoxContainer"]
-margin_right = 640.0
-margin_bottom = 20.0
+offset_right = 640.0
+offset_bottom = 20.0
 
 [node name="create_game" type="Button" parent="VBoxContainer/buttons"]
-margin_right = 93.0
-margin_bottom = 20.0
+offset_right = 93.0
+offset_bottom = 20.0
 text = "create_game"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 24.0
-margin_right = 640.0
-margin_bottom = 480.0
+offset_top = 24.0
+offset_right = 640.0
+offset_bottom = 480.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2"]
-margin_right = 536.0
-margin_bottom = 456.0
+offset_right = 536.0
+offset_bottom = 456.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="chat" type="TextEdit" parent="VBoxContainer/HBoxContainer2/VBoxContainer"]
-margin_right = 536.0
-margin_bottom = 226.0
+offset_right = 536.0
+offset_bottom = 226.0
 size_flags_vertical = 11
 readonly = true
 __meta__ = {
@@ -52,30 +52,30 @@ __meta__ = {
 }
 
 [node name="line_edit" type="LineEdit" parent="VBoxContainer/HBoxContainer2/VBoxContainer"]
-margin_top = 432.0
-margin_right = 536.0
-margin_bottom = 456.0
+offset_top = 432.0
+offset_right = 536.0
+offset_bottom = 456.0
 size_flags_horizontal = 9
 size_flags_vertical = 10
 caret_blink = true
-caret_blink_speed = 0.5
+caret_blink_interval = 0.5
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="members" type="Label" parent="VBoxContainer/HBoxContainer2"]
-margin_left = 540.0
-margin_right = 640.0
-margin_bottom = 14.0
-rect_min_size = Vector2( 100, 0 )
+offset_left = 540.0
+offset_right = 640.0
+offset_bottom = 14.0
+custom_minimum_size = Vector2( 100, 0 )
 size_flags_vertical = 0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="lobby" type="Control" parent="."]
-margin_right = 640.0
-margin_bottom = 480.0
+offset_right = 640.0
+offset_bottom = 480.0
 mouse_filter = 2
 script = ExtResource( 1 )
 __meta__ = {
@@ -83,4 +83,4 @@ __meta__ = {
 }
 
 [connection signal="pressed" from="VBoxContainer/buttons/create_game" to="lobby" method="_on_create_game_pressed"]
-[connection signal="text_entered" from="VBoxContainer/HBoxContainer2/VBoxContainer/line_edit" to="." method="_on_text_entered"]
+[connection signal="text_submitted" from="VBoxContainer/HBoxContainer2/VBoxContainer/line_edit" to="." method="_on_text_entered"]

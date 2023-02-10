@@ -11,8 +11,8 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2, 4 ),
-"transitions": PoolRealArray( 0.5, 1e-05, 1 ),
+"times": PackedFloat32Array( 0, 0.2, 4 ),
+"transitions": PackedFloat32Array( 0.5, 1e-05, 1 ),
 "update": 0,
 "values": [ Vector3( 0.05, 0.01, 0.01 ), Vector3( 0.05, 0.5, 0.01 ), Vector3( 0.05, 0.5, 0.01 ) ]
 }
@@ -23,8 +23,8 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.2, 4 ),
-"transitions": PoolRealArray( 0.5, 1e-05, 1 ),
+"times": PackedFloat32Array( 0, 0.2, 4 ),
+"transitions": PackedFloat32Array( 0.5, 1e-05, 1 ),
 "update": 0,
 "values": [ Vector3( 0.05, 0.01, 0.01 ), Vector3( 0.05, 0.5, 0.01 ), Vector3( 0.05, 0.5, 0.01 ) ]
 }
@@ -35,8 +35,8 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.2, 4 ),
-"transitions": PoolRealArray( 0.5, 1, 1 ),
+"times": PackedFloat32Array( 0, 0.2, 4 ),
+"transitions": PackedFloat32Array( 0.5, 1, 1 ),
 "update": 0,
 "values": [ Vector3( 0.3, -0.4, -1 ), Vector3( 0.3, 0.25, -1 ), Vector3( 0.3, 0.25, -1 ) ]
 }
@@ -47,8 +47,8 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.2, 4 ),
-"transitions": PoolRealArray( 0.5, 1, 1 ),
+"times": PackedFloat32Array( 0, 0.2, 4 ),
+"transitions": PackedFloat32Array( 0.5, 1, 1 ),
 "update": 0,
 "values": [ Vector3( -0.3, -0.4, -1 ), Vector3( -0.3, 0.25, -1 ), Vector3( -0.3, 0.25, -1 ) ]
 }

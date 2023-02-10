@@ -1,12 +1,12 @@
 extends Node
 
-onready var skip_intro:bool = ProjectSettings.get_setting("application/startup/disable_intro")
+@onready var skip_intro:bool = ProjectSettings.get_setting("application/startup/disable_intro")
 
 func _ready():
 	SoundSpacePlus.warning_seen = ProjectSettings.get_setting("application/startup/disable_health_warning")
 	$Pre.modulate.a = 0
 	$Post.modulate.a = 0
-	yield(get_tree().create_timer(1),"timeout")
+	await get_tree().create_timer(1).timeout
 	if !SoundSpacePlus.is_init:
 		finish()
 		return
@@ -30,9 +30,9 @@ func pre():
 	$Tween.interpolate_property($Pre,"modulate:a",0,1,2,Tween.TRANS_EXPO,Tween.EASE_IN)
 	$Tween.interpolate_property($Strings,"volume_db",-80,-12,2,Tween.TRANS_QUAD,Tween.EASE_IN_OUT)
 	$Tween.start()
-	yield($Tween,"tween_completed")
-	yield(get_tree().create_timer(1),"timeout")
-	$Pre/Continue.connect("pressed",self,"precontinue")
+	await $Tween.finished
+	await get_tree().create_timer(1).timeout
+	$Pre/Continue.connect("pressed",Callable(self,"precontinue"))
 	$Pre/Continue.disabled = false
 
 func precontinue():
@@ -40,7 +40,7 @@ func precontinue():
 	$Tween.remove_all()
 	$Tween.interpolate_property($Pre,"modulate:a",1,0,1,Tween.TRANS_EXPO,Tween.EASE_OUT)
 	$Tween.start()
-	yield($Tween,"tween_all_completed")
+	await $Tween.tween_all_completed
 	SoundSpacePlus.init()
 	if skip_intro:
 		post()
@@ -59,11 +59,11 @@ func post():
 	$Tween.start()
 
 func finish():
-	get_tree().change_scene(ProjectSettings.get_setting("application/config/menu_scene"))
+	get_tree().change_scene_to_file(ProjectSettings.get_setting("application/config/menu_scene"))
 
 func intro():
 	$Tween.remove_all()
 	$Tween.interpolate_property($Piano,"volume_db",$Piano.volume_db,-80,1,Tween.TRANS_SINE,Tween.EASE_OUT)
 	$Tween.start()
-	yield($Tween,"tween_all_completed")
-	get_tree().change_scene("res://scenes/Intro.tscn")
+	await $Tween.tween_all_completed
+	get_tree().change_scene_to_file("res://scenes/Intro.tscn")

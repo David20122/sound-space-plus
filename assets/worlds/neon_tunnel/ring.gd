@@ -1,4 +1,4 @@
-extends MeshInstance
+extends MeshInstance3D
 
 func _process(delta):
 	transform.origin += Vector3(0,0,delta*(SSP.approach_rate*0.1))

@@ -1,20 +1,21 @@
 [remap]
 
 importer="wavefront_obj"
+importer_version=1
 type="Mesh"
-path="res://.import/cube.obj-66a585875d77b06114f1ec9f0ab7c714.mesh"
+uid="uid://o8qaywrhkgih"
+path="res://.godot/imported/cube.obj-66a585875d77b06114f1ec9f0ab7c714.mesh"
 
 [deps]
 
-files=[ "res://.import/cube.obj-66a585875d77b06114f1ec9f0ab7c714.mesh" ]
+files=["res://.godot/imported/cube.obj-66a585875d77b06114f1ec9f0ab7c714.mesh"]
 
 source_file="res://assets/meshes/blocks/cube.obj"
-dest_files=[ "res://.import/cube.obj-66a585875d77b06114f1ec9f0ab7c714.mesh", "res://.import/cube.obj-66a585875d77b06114f1ec9f0ab7c714.mesh" ]
+dest_files=["res://.godot/imported/cube.obj-66a585875d77b06114f1ec9f0ab7c714.mesh", "res://.godot/imported/cube.obj-66a585875d77b06114f1ec9f0ab7c714.mesh"]
 
 [params]
 
 generate_tangents=true
-scale_mesh=Vector3( 1, 1, 1 )
-offset_mesh=Vector3( 0, 0, 0 )
-octahedral_compression=true
-optimize_mesh_flags=4286
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
