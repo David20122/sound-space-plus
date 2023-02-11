@@ -1,9 +1,11 @@
 extends Node
 
-@onready var skip_intro:bool = ProjectSettings.get_setting("application/startup/disable_intro")
+@onready var skip_intro:bool = ProjectSettings.get_setting_with_override("application/startup/disable_intro")
+
+@onready var tween:Tween = self.create_tween()
 
 func _ready():
-	SoundSpacePlus.warning_seen = ProjectSettings.get_setting("application/startup/disable_health_warning")
+	SoundSpacePlus.warning_seen = ProjectSettings.get_setting_with_override("application/startup/disable_health_warning")
 	$Pre.modulate.a = 0
 	$Post.modulate.a = 0
 	await get_tree().create_timer(1).timeout
@@ -26,21 +28,23 @@ func pre():
 	$Pre/Continue.disabled = true
 	$Piano.volume_db = -8
 	$Piano.seek(0)
-	$Tween.remove_all()
-	$Tween.interpolate_property($Pre,"modulate:a",0,1,2,Tween.TRANS_EXPO,Tween.EASE_IN)
-	$Tween.interpolate_property($Strings,"volume_db",-80,-12,2,Tween.TRANS_QUAD,Tween.EASE_IN_OUT)
-	$Tween.start()
-	await $Tween.finished
+	tween.kill()
+	tween = create_tween()
+	tween.parallel().tween_property($Pre,"modulate:a",1,2).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
+	tween.parallel().tween_property($Strings,"volume_db",-12,2).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
+	tween.play()
+	await tween.finished
 	await get_tree().create_timer(1).timeout
 	$Pre/Continue.connect("pressed",Callable(self,"precontinue"))
 	$Pre/Continue.disabled = false
 
 func precontinue():
 	$Pre/Continue.disabled = true
-	$Tween.remove_all()
-	$Tween.interpolate_property($Pre,"modulate:a",1,0,1,Tween.TRANS_EXPO,Tween.EASE_OUT)
-	$Tween.start()
-	await $Tween.tween_all_completed
+	tween.kill()
+	tween = create_tween()
+	tween.parallel().tween_property($Pre,"modulate:a",0,1).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+	tween.play()
+	await tween.finished
 	SoundSpacePlus.init()
 	if skip_intro:
 		post()
@@ -50,20 +54,22 @@ func precontinue():
 func post():
 	$Pre.visible = false
 	$Post.visible = true
-	$Tween.remove_all()
-	$Tween.interpolate_property($Post,"modulate:a",0,1,0.2,Tween.TRANS_EXPO,Tween.EASE_IN)
-	$Tween.interpolate_property($Piano,"volume_db",$Piano.volume_db,-8,0.5,Tween.TRANS_QUAD,Tween.EASE_OUT)
-	$Tween.interpolate_property($Drums,"volume_db",$Drums.volume_db,-8,2,Tween.TRANS_QUAD,Tween.EASE_OUT)
-	$Tween.interpolate_property($Phaser,"volume_db",$Phaser.volume_db,-12,1.5,Tween.TRANS_QUAD,Tween.EASE_OUT)
-	$Tween.interpolate_property($Strings,"volume_db",$Strings.volume_db,-12,1,Tween.TRANS_QUAD,Tween.EASE_OUT)
-	$Tween.start()
+	tween.kill()
+	tween = create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tween.parallel().tween_property($Post,"modulate:a",1,0.2).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
+	tween.parallel().tween_property($Piano,"volume_db",-8,0.5)
+	tween.parallel().tween_property($Drums,"volume_db",-8,2)
+	tween.parallel().tween_property($Phaser,"volume_db",-12,1.5)
+	tween.parallel().tween_property($Strings,"volume_db",-12,1)
+	tween.play()
 
 func finish():
 	get_tree().change_scene_to_file(ProjectSettings.get_setting("application/config/menu_scene"))
 
 func intro():
-	$Tween.remove_all()
-	$Tween.interpolate_property($Piano,"volume_db",$Piano.volume_db,-80,1,Tween.TRANS_SINE,Tween.EASE_OUT)
-	$Tween.start()
-	await $Tween.tween_all_completed
+	tween.kill()
+	tween = create_tween()
+	tween.parallel().tween_property($Piano,"volume_db",-80,1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tween.play()
+	await tween.finished
 	get_tree().change_scene_to_file("res://scenes/Intro.tscn")

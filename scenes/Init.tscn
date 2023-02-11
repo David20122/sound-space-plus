@@ -1,17 +1,20 @@
-[gd_scene load_steps=8 format=3 uid="uid://eobt2fotkbfh"]
+[gd_scene load_steps=10 format=3 uid="uid://eobt2fotkbfh"]
 
 [ext_resource type="Script" path="res://scripts/menu/loading/Init.gd" id="1"]
+[ext_resource type="Theme" uid="uid://diarojdcbhxg8" path="res://uitheme.tres" id="1_ixw77"]
 [ext_resource type="AudioStream" uid="uid://gg651sab0hgj" path="res://assets/sounds/music/startup/drums.ogg" id="4"]
+[ext_resource type="FontFile" uid="uid://b13iyosmvgqik" path="res://assets/fonts/Lato/Lato-Bold.ttf" id="4_awb3p"]
 [ext_resource type="AudioStream" uid="uid://djuomv3q6djrc" path="res://assets/sounds/music/startup/strings.ogg" id="5"]
 [ext_resource type="AudioStream" uid="uid://dlr6rhfrvtqe2" path="res://assets/sounds/music/startup/phaser.ogg" id="6"]
 [ext_resource type="AudioStream" uid="uid://c82uiavmaobmd" path="res://assets/sounds/music/startup/piano.ogg" id="7"]
-[ext_resource type="PackedScene" path="res://prefabs/menu/VersionNumberL.tscn" id="8"]
+[ext_resource type="PackedScene" uid="uid://lsgq5t65pdtf" path="res://prefabs/menu/VersionNumberL.tscn" id="8"]
 [ext_resource type="Script" path="res://scripts/menu/loading/Loading.gd" id="11"]
 
 [node name="Init" type="ColorRect"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+theme = ExtResource("1_ixw77")
 color = Color(0, 0, 0, 1)
 script = ExtResource("1")
 
@@ -64,7 +67,10 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -192.0
 offset_right = 192.0
+theme_override_font_sizes/font_size = 22
 text = "Loading"
+horizontal_alignment = 1
+vertical_alignment = 2
 
 [node name="Container" type="VBoxContainer" parent="Post"]
 layout_mode = 0
@@ -77,15 +83,22 @@ offset_right = 256.0
 
 [node name="Label" type="Label" parent="Post/Container"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("4_awb3p")
+theme_override_font_sizes/font_size = 24
 text = "Waiting for Engine"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="ProgressBar1" type="VBoxContainer" parent="Post/Container"]
-visible = false
 layout_mode = 2
 
 [node name="Label" type="Label" parent="Post/Container/ProgressBar1"]
 layout_mode = 2
-text = "rahhhhhh really long text rn this text is soooooo long its unbelievable raaaaaaaaaaaaaaaaaaaaahhhhh"
+theme_override_constants/line_spacing = -4
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="Bar" type="ProgressBar" parent="Post/Container/ProgressBar1"]
 custom_minimum_size = Vector2(0, 18)
@@ -93,12 +106,15 @@ layout_mode = 2
 step = 1.0
 
 [node name="ProgressBar2" type="VBoxContainer" parent="Post/Container"]
-visible = false
 layout_mode = 2
 
 [node name="Label" type="Label" parent="Post/Container/ProgressBar2"]
 layout_mode = 2
-clip_text = true
+theme_override_constants/line_spacing = -4
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="Bar" type="ProgressBar" parent="Post/Container/ProgressBar2"]
 custom_minimum_size = Vector2(0, 18)
@@ -106,12 +122,15 @@ layout_mode = 2
 step = 1.0
 
 [node name="ProgressBar3" type="VBoxContainer" parent="Post/Container"]
-visible = false
 layout_mode = 2
 
 [node name="Label" type="Label" parent="Post/Container/ProgressBar3"]
 layout_mode = 2
-clip_text = true
+theme_override_constants/line_spacing = -4
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="Bar" type="ProgressBar" parent="Post/Container/ProgressBar3"]
 custom_minimum_size = Vector2(0, 18)
@@ -119,15 +138,8 @@ layout_mode = 2
 step = 1.0
 
 [node name="VersionNumberL" parent="." instance=ExtResource("8")]
-anchors_preset = 0
-
-[node name="Tween" type="Tween" parent="."]
-_import_path = NodePath("")
-unique_name_in_owner = false
-process_mode = 0
-process_priority = 0
-editor_description = ""
-script = null
+layout_mode = 1
+grow_vertical = 0
 
 [node name="Piano" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7")

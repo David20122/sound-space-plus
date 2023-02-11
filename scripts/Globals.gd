@@ -1,13 +1,13 @@
 extends Node
 
 enum RootFolder {
-	USER
-	RES
-	EXECUTABLE
+	USER,
+	RES,
+	EXECUTABLE,
 	SKIN
 }
 
-const Folders = {
+var Folders = {
 	user = "user://",
 	res = "res://",
 	executable = "",
@@ -23,15 +23,15 @@ func update_folders():
 	for key in _folders.keys():
 		var value = _folders[key]
 		match value[0]:
-			RootFolder.USER: Folders[key] = Folders.user.plus_file(value[1])
-			RootFolder.RES: Folders[key] = Folders.res.plus_file(value[1])
-			RootFolder.EXECUTABLE: Folders[key] = Folders.executable.plus_file(value[1])
-			RootFolder.SKIN: Folders[key] = Folders.skin.plus_file(value[1])
+			RootFolder.USER: Folders[key] = Folders.user.path_join(value[1])
+			RootFolder.RES: Folders[key] = Folders.res.path_join(value[1])
+			RootFolder.EXECUTABLE: Folders[key] = Folders.executable.path_join(value[1])
+			RootFolder.SKIN: Folders[key] = Folders.skin.path_join(value[1])
 
 enum AudioFormat {
-	UNKNOWN
-	MP3
-	OGG
+	UNKNOWN,
+	MP3,
+	OGG,
 	WAV
 }
 

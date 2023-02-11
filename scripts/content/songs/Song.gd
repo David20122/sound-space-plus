@@ -2,11 +2,11 @@ extends ResourcePlus
 class_name Song
 
 enum Difficulty {
-	UNKNOWN
-	EASY
-	MEDIUM
-	HARD
-	LOGIC
+	UNKNOWN,
+	EASY,
+	MEDIUM,
+	HARD,
+	LOGIC,
 	TASUKETE
 }
 const DifficultyColours = {

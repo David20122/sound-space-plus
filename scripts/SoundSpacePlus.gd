@@ -31,7 +31,7 @@ func init():
 
 func _exec_initialiser(initialiser:String):
 	var thread = Thread.new()
-	var err = thread.start(Callable(self,initialiser).bind(null),2)
+	var err = thread.start(Callable(self,initialiser),Thread.PRIORITY_HIGH)
 	assert(err == OK) #,"Thread failed")
 	call_deferred("emit_signal","on_init_start",initialiser)
 	return thread
@@ -41,14 +41,13 @@ func _load_content(full_reload=false):
 	if full_reload: songs.clear()
 	var song_reader = SongReader.new()
 	var map_files = []
-	var maps_dir = Directory.new()
-	if !maps_dir.dir_exists(Globals.Folders.get("maps")):
-		maps_dir.make_dir(Globals.Folders.get("maps"))
-	maps_dir.open(Globals.Folders.get("maps"))
+	if !DirAccess.dir_exists_absolute(Globals.Folders.get("maps")):
+		DirAccess.make_dir_recursive_absolute(Globals.Folders.get("maps"))
+	var maps_dir = DirAccess.open(Globals.Folders.get("maps"))
 	maps_dir.list_dir_begin() # TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 	var file_name = maps_dir.get_next()
 	while file_name != "":
-		map_files.append(Globals.Folders.get("maps").plus_file(file_name))
+		map_files.append(Globals.Folders.get("maps").path_join(file_name))
 		file_name = maps_dir.get_next()
 	var map_count = map_files.size()
 	call_deferred("emit_signal","on_init_stage","Import content (1/1)",[
@@ -72,7 +71,6 @@ func _do_init():
 	call_deferred("emit_signal","on_init_stage","Update folders")
 	Globals.call_deferred("update_folders")
 	call_deferred("emit_signal","on_init_complete")
-	OS.call_deferred("request_attention")
 func _reload():
 	call_deferred("emit_signal","on_init_stage","Reloading content")
 	_load_content(false)

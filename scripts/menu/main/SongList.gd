@@ -17,8 +17,6 @@ var button_size = 115
 var button_scale = 1
 @onready var template_button = $List/Grid/Song
 
-var should_update = true
-
 func _ready():
 	template_button.visible = false
 	$List/Paginator/Next.connect("pressed",Callable(self,"page_up"))
@@ -34,7 +32,8 @@ func _ready():
 	$Search/Filter/Tasukete/Select.connect("pressed",Callable(self,"update_all").bind(true))
 	$Search/Search.connect("text_changed",Callable(self,"_search_update"))
 	$Search/Author.connect("text_changed",Callable(self,"_search_update"))
-func _search_update(text):
+	call_deferred("update_all",true)
+func _search_update(_text):
 	update_all(true)
 
 func _gui_input(event):
@@ -45,10 +44,7 @@ func _gui_input(event):
 			page_up()
 
 func _notification(what):
-	if what == NOTIFICATION_RESIZED: should_update = true
-
-func _process(delta):
-	if should_update: update_all(true)
+	if what == NOTIFICATION_RESIZED: call_deferred("update_all",true)
 
 func select_song(button):
 	if buttons[button] == selected_song:
@@ -76,10 +72,9 @@ func page_skip():
 	update_all(false)
 
 func update_all(recalculate:bool=false):
-	should_update = false
 	if recalculate: calculate()
 	$List/Paginator/Label.text = "Page %s of %s" % [page+1,max_page+1]
-	if $Search.size.x < 696:
+	if $Search.size.x < 720:
 		$Search/Filter.position.y = 44
 	else:
 		$Search/Filter.position.y = 4
@@ -107,17 +102,17 @@ func calculate():
 	rows = max(rows,1)
 	songs = []
 	var filter = {
-		Song.Difficulty.UNKNOWN: $Search/Filter/NA/Select.pressed,
-		Song.Difficulty.EASY: $Search/Filter/Easy/Select.pressed,
-		Song.Difficulty.MEDIUM: $Search/Filter/Medium/Select.pressed,
-		Song.Difficulty.HARD: $Search/Filter/Hard/Select.pressed,
-		Song.Difficulty.LOGIC: $Search/Filter/Logic/Select.pressed,
-		Song.Difficulty.TASUKETE: $Search/Filter/Tasukete/Select.pressed
+		Song.Difficulty.UNKNOWN: $Search/Filter/NA/Select.button_pressed,
+		Song.Difficulty.EASY: $Search/Filter/Easy/Select.button_pressed,
+		Song.Difficulty.MEDIUM: $Search/Filter/Medium/Select.button_pressed,
+		Song.Difficulty.HARD: $Search/Filter/Hard/Select.button_pressed,
+		Song.Difficulty.LOGIC: $Search/Filter/Logic/Select.button_pressed,
+		Song.Difficulty.TASUKETE: $Search/Filter/Tasukete/Select.button_pressed
 	}
 	for song in SoundSpacePlus.songs.items:
 		if !filter[song.difficulty]:
 			continue
-		if song.broken and !$Search/Broken.pressed:
+		if song.broken and !$Search/Broken.button_pressed:
 			continue
 		var search = $Search/Search.text.strip_edges().to_lower()
 		var author_search = $Search/Author.text.strip_edges().to_lower()
@@ -130,7 +125,7 @@ func calculate():
 		songs.append(song)
 	songs.sort_custom(Callable(self,"sort_maps"))
 	var grid_area = cols * rows
-	max_page = floor(songs.size()/grid_area)
+	max_page = floor(songs.size() as float/grid_area)
 	page = min(max(page,0),max_page)
 
 func sort_maps(a,b):

@@ -29,12 +29,13 @@ networking/test_url="https://google.com"
 networking/api_url="https://soundspaceplus.dev/api/"
 config/menu_scene="res://scenes/Menu.tscn"
 startup/disable_intro=false
-startup/disable_intro.debug=true
 startup/disable_health_warning=false
-startup/disable_health_warning.editor=true
 rich_presence/disabled=true
 rich_presence/disabled.Windows=false
 rich_presence/disabled.editor=true
+startup/disable_intro.debug=true
+startup/disable_health_warning.editor=true
+config/version.debug="debug"
 
 [audio]
 
@@ -52,14 +53,19 @@ Discord="*res://addons/discord_game_sdk/discord.gd"
 gdscript/warnings/narrowing_conversion=false
 gdscript/warnings/unused_signal=false
 gdscript/warnings/return_value_discarded=false
+gdscript/warnings/assert_always_true=0
+gdscript/warnings/onready_with_export=1
 gdscript/warnings/unused_argument=false
 
 [display]
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
+window/size/extend_to_title=true
 window/per_pixel_transparency/allowed=true
 window/handheld/orientation="sensor_landscape"
+window/vsync/vsync_mode=3
+window/subwindows/embed_subwindows=false
 window/vsync/use_vsync=false
 window/per_pixel_transparency/enabled=true
 window/stretch/mode.mobile="2d"

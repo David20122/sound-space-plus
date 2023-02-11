@@ -4,27 +4,32 @@ class_name SceneTreePlus
 var fps_limit:int = 0
 
 func _init():
-	get_window().set_title("Sound Space Plus Rewritten")
-
-	OS.center_window()
+	root.set_script(preload("res://scripts/ViewportPlus.gd") as Script)
 	super._init()
+	root.get_window().title = "Sound Space Plus Rewritten"
+	root.get_window().min_size = Vector2(512,512)
+	root.get_window().move_to_foreground()
 
 func _is_game_scene(scene):
-	return current_scene is GameScene
-func _idle(delta):
+	return scene is GameScene
+func _idle(_delta):
 	var fps = 90
 	if _is_game_scene(current_scene):
 		fps = fps_limit
 	elif fps_limit != 0:
 		fps = min(fps_limit,90)
-	if !get_window().has_focus():
+	if !root.get_window().has_focus():
 		fps = 30
-	Engine.target_fps = fps
+	Engine.max_fps = fps
 
 var quitting = false
-func _set_master_volume(volume_db:float):
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Sound Space Plus"),volume_db)
-func quit(exit_code:int=0):
+func _set_master_volume(volume:float):
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Sound Space Plus"),linear_to_db(volume))
+func quit_animated(exit_code:int=0):
+	if OS.has_feature("editor"):
+		quit()
+		return
+	print("Quit fired!")
 	if quitting:
 		return
 	quitting = true
@@ -37,10 +42,10 @@ func quit(exit_code:int=0):
 	container.anchor_left = 0
 	container.anchor_bottom = 1
 	container.anchor_right = 1
-	container.offset_top = 0
-	container.offset_left = 0
-	container.offset_bottom = 0
-	container.offset_right = 0
+	container.margin_top = 0
+	container.margin_left = 0
+	container.margin_bottom = 0
+	container.margin_right = 0
 	viewport.add_child(container)
 	var scene = current_scene
 	viewport.remove_child(scene)
@@ -52,15 +57,11 @@ func quit(exit_code:int=0):
 	voice_player.stream = voice
 	viewport.add_child(voice_player)
 	voice_player.play()
-	var tween = Tween.new()
-	viewport.add_child(tween)
-	tween.interpolate_property(container,"modulate:a",1,0,1.5,Tween.TRANS_SINE,Tween.EASE_IN_OUT)
-	tween.interpolate_method(self,"_set_master_volume",linear_to_db(1),linear_to_db(0),0.5,Tween.TRANS_EXPO,Tween.EASE_OUT)
-	tween.start()
+	var tween = create_tween()
+	tween.set_parallel()
+	tween.parallel().tween_property(container,"modulate:a",0,1.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	tween.parallel().tween_method(Callable(self,"_set_master_volume"),1,0,0.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN_OUT)
+	tween.play()
 	print("Quitting!")
-	await tween.tween_all_completed
-	super.quit(exit_code)
-func _notification(what):
-	if what == NOTIFICATION_WM_QUIT_REQUEST and not quitting:
-		quit()
-		return
+	await tween.finished
+	quit(exit_code)

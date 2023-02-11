@@ -1,38 +1,35 @@
 extends Object
 class_name SongReader
 
-const SIGNATURE = PackedByteArray([0x53,0x53,0x2b,0x6d])
+const SIGNATURE:PackedByteArray = [0x53,0x53,0x2b,0x6d]
 
 func read_from_file(path:String) -> Song:
-	var file = File.new()
-	var err = file.open(path,File.READ)
-	assert(err == OK) #,"Couldn't read file: %s" % err)
+	var file = FileAccess.open(path,FileAccess.READ)
+	assert(file != null) #,"Couldn't read file: %s" % err)
 	assert(file.get_buffer(4) == SIGNATURE) #,"This isn't a map")
 	var song = Song.new()
 	var file_version = file.get_16()
 	match file_version:
 		1: _sspmv1(file,song)
 		2: _sspmv2(file,song)
-	file.close()
 	return song
 
 func get_audio_format(buffer:PackedByteArray):
-	if buffer.subarray(0,3) == PackedByteArray([0x4F,0x67,0x67,0x53]): return Globals.AudioFormat.OGG
+	if buffer.slice(0,4) == PackedByteArray([0x4F,0x67,0x67,0x53]): return Globals.AudioFormat.OGG
 
-	if (buffer.subarray(0,3) == PackedByteArray([0x52,0x49,0x46,0x46])
-	and buffer.subarray(8,11) == PackedByteArray([0x57,0x41,0x56,0x45])): return Globals.AudioFormat.WAV
-
-	if (buffer.subarray(0,1) == PackedByteArray([0xFF,0xFB])
-	or buffer.subarray(0,1) == PackedByteArray([0xFF,0xF3])
-	or buffer.subarray(0,1) == PackedByteArray([0xFF,0xFA])
-	or buffer.subarray(0,1) == PackedByteArray([0xFF,0xF2])
-	or buffer.subarray(0,2) == PackedByteArray([0x49,0x44,0x33])): return Globals.AudioFormat.MP3
+	if (buffer.slice(0,4) == PackedByteArray([0x52,0x49,0x46,0x46])
+	and buffer.slice(8,12) == PackedByteArray([0x57,0x41,0x56,0x45])): return Globals.AudioFormat.WAV
+	
+	if (buffer.slice(0,2) == PackedByteArray([0xFF,0xFB])
+	or buffer.slice(0,2) == PackedByteArray([0xFF,0xF3])
+	or buffer.slice(0,2) == PackedByteArray([0xFF,0xFA])
+	or buffer.slice(0,2) == PackedByteArray([0xFF,0xF2])
+	or buffer.slice(0,3) == PackedByteArray([0x49,0x44,0x33])): return Globals.AudioFormat.MP3
 	
 	return Globals.AudioFormat.UNKNOWN
 
 func _cover(image:Image,song:Song):
-	var texture = ImageTexture.new()
-	texture.create_from_image(image)
+	var texture = ImageTexture.create_from_image(image)
 	song.cover = texture
 func _audio(buffer:PackedByteArray,song:Song):
 	var format = get_audio_format(buffer)
@@ -49,9 +46,11 @@ func _audio(buffer:PackedByteArray,song:Song):
 			var stream = AudioStreamMP3.new()
 			stream.data = buffer
 			song.audio = stream
-		_: song.broken = true
+		_: 
+			print("I don't recognise this format! %s" % buffer.slice(0,3))
+			song.broken = true
 
-func _sspmv1(file:File,song:Song):
+func _sspmv1(file:FileAccess,song:Song):
 	file.seek(file.get_position()+2) # Header reserved space or something
 	song.id = file.get_line()
 	song.name = file.get_line()
@@ -64,13 +63,12 @@ func _sspmv1(file:File,song:Song):
 	var cover_type = file.get_8()
 	match cover_type:
 		1:
-			var image = Image.new()
 			var height = file.get_16()
 			var width = file.get_16()
 			var mipmaps = bool(file.get_8())
 			var format = file.get_8()
 			var length = file.get_64()
-			image.create_from_data(width,height,mipmaps,format,file.get_buffer(length))
+			var image = Image.create_from_data(width,height,mipmaps,format,file.get_buffer(length))
 			_cover(image,song)
 		2:
 			var image = Image.new()
@@ -102,7 +100,7 @@ func _sspmv1(file:File,song:Song):
 			note.y = float(file.get_8())
 		song.notes.append(note)
 
-func _read_data_type(file:File,skip_type:bool=false,skip_array_type:bool=false,type:int=0,array_type:int=0):
+func _read_data_type(file:FileAccess,skip_type:bool=false,skip_array_type:bool=false,type:int=0,array_type:int=0):
 	if !skip_type:
 		type = file.get_8()
 	match type:
@@ -132,7 +130,7 @@ func _read_data_type(file:File,skip_type:bool=false,skip_array_type:bool=false,t
 			for i in range(array.size()):
 				array[i] = _read_data_type(file,true,false,array_type)
 			return array
-func _sspmv2(file:File,song:Song):
+func _sspmv2(file:FileAccess,song:Song):
 	file.seek(0x26)
 	var marker_count = file.get_32()
 	song.difficulty = file.get_8()
