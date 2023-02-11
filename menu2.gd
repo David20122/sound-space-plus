@@ -16,6 +16,8 @@ func _ready():
 	get_tree().paused = false
 	if SSP.arcw_mode:
 		get_tree().change_scene("res://w.tscn")
+	if SSP.sex_mode:
+		get_tree().change_scene("res://sex.tscn")
 	
 	# fix audio pitchshifts
 	if AudioServer.get_bus_effect_count(AudioServer.get_bus_index("Music")) > 0:
