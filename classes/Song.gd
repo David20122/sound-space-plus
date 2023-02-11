@@ -1592,7 +1592,7 @@ func export_text(path:String):
 		return "no notes"
 	else:
 		for n in read_notes():
-			txt += "%s|%s|%s," % [2 - n[0], n[1], n[2]]
+			txt += "%s|%s|%s," % [2 - n[0], 2 - n[1], n[2]]
 
 	var file:File = File.new()
 	var err:int = file.open(path,File.WRITE)
