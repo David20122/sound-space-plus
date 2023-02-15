@@ -3214,12 +3214,12 @@ margin_left = 180.0
 margin_right = 1280.0
 margin_bottom = 228.0
 
-[node name="Resolution" type="Control" parent="M/Graphics/Group/H"]
+[node name="RenderScale" type="Control" parent="M/Graphics/Group/H"]
 margin_right = 594.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 200, 32 )
 
-[node name="Scale" type="SpinBox" parent="M/Graphics/Group/H/Resolution"]
+[node name="Scale" type="SpinBox" parent="M/Graphics/Group/H/RenderScale"]
 margin_right = 200.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 200, 32 )
@@ -3230,11 +3230,10 @@ min_value = 0.5
 max_value = 2.0
 step = 0.1
 value = 1.0
-allow_greater = true
 suffix = "x"
 script = ExtResource( 66 )
 
-[node name="Label" type="Label" parent="M/Graphics/Group/H/Resolution"]
+[node name="Label" type="Label" parent="M/Graphics/Group/H/RenderScale"]
 margin_left = -115.0
 margin_right = -10.0
 margin_bottom = 32.0
@@ -3247,7 +3246,7 @@ align = 2
 valign = 1
 clip_text = true
 
-[node name="Desc" type="Label" parent="M/Graphics/Group/H/Resolution"]
+[node name="Desc" type="Label" parent="M/Graphics/Group/H/RenderScale"]
 margin_left = 215.0
 margin_right = 562.0
 margin_bottom = 32.0
@@ -6971,5 +6970,5 @@ margin_right = 1280.0
 margin_bottom = 5802.0
 rect_min_size = Vector2( 0, 96 )
 
-[connection signal="value_changed" from="M/Graphics/Group/H/Resolution/Scale" to="M/Graphics/Group/H/Resolution/Scale" method="_on_Scale_value_changed"]
+[connection signal="value_changed" from="M/Graphics/Group/H/RenderScale/Scale" to="M/Graphics/Group/H/RenderScale/Scale" method="_on_Scale_value_changed"]
 [connection signal="pressed" from="M/Experimental/Group/H/Intro/Play" to="M/Experimental/Group/H/Intro/Play" method="_on_Play_pressed"]
