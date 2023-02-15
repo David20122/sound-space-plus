@@ -698,6 +698,9 @@ func _set_music_volume(v:float):
 var show_warnings:bool = true
 var auto_maximize:bool = false
 
+# Settings - Graphics & Advanced
+var render_scale:float = 1
+
 # Settings - Experimental
 var ensure_hitsync:bool = false
 var hitsync_offset:float = 0 # don't save this yet; probably not even a necessary setting
@@ -948,6 +951,9 @@ func load_saved_settings():
 			play_miss_snd = data.play_miss_snd
 		if data.has("auto_preview_song"): 
 			auto_preview_song = data.auto_preview_song
+		if data.has("render_scale"):
+			render_scale = data.render_scale
+			get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_VIEWPORT, SceneTree.STRETCH_ASPECT_EXPAND, OS.window_size * render_scale)
 		if data.has("vsync_enabled"): 
 			OS.vsync_enabled = data.vsync_enabled
 		if data.has("vsync_via_compositor"): 
@@ -1421,6 +1427,7 @@ func save_settings():
 			play_hit_snd = play_hit_snd,
 			play_miss_snd = play_miss_snd,
 			auto_preview_song = auto_preview_song,
+			render_scale = render_scale,
 			vsync_enabled = OS.vsync_enabled,
 			vsync_via_compositor = OS.vsync_via_compositor,
 			window_fullscreen = OS.window_fullscreen,

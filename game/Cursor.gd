@@ -99,12 +99,12 @@ func _input(event:InputEvent):
 					if SSP.absolute_mode:
 						move_cursor_abs(get_absolute_position() * -1)
 					else:
-						move_cursor((event.relative * 0.018 * SSP.sensitivity) * -1)
+						move_cursor((event.relative * 0.018 * SSP.sensitivity / SSP.render_scale) * -1)
 				else:
 					if SSP.absolute_mode:
 						move_cursor_abs(get_absolute_position())
 					else:
-						move_cursor(event.relative * 0.018 * SSP.sensitivity)
+						move_cursor(event.relative * 0.018 * SSP.sensitivity / SSP.render_scale)
 			
 		if (event is InputEventScreenDrag):
 			$VisualPos.visible = true
