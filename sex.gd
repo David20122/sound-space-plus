@@ -16,7 +16,7 @@ var possible = [
 	"Hustle in silence, and let your success make the noise.",
 	"zee! - HATE",
 	"I'll knock all of this shit over - pyrule 2023",
-	"aHR0cHM6Ly90d2l0dGVyLmNvbS9zc0RyYW1hRGF5cw==",
+	"aHR0cHM6Ly90d2l0dGVyLmNvbS9zc0RyYW1hRGF5cw=="
 ]
 
 func _ready():
