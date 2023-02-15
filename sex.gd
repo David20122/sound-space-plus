@@ -8,7 +8,6 @@ var possible = [
 	"kermeet",
 	"Do any top players in Sound Space+ use mouses?",
 	"You will rip SS+ out of my cold, dead hands.",
-	"The missile knows where it is at all times. It knows this because it knows where it isn't.",
 	"This.. experiment, has taught me a lot.",
 	"Ridiculous.",
 	"Drama is in the air? Wrong! Delete Server.",
@@ -16,7 +15,8 @@ var possible = [
 	"Hustle in silence, and let your success make the noise.",
 	"zee! - HATE",
 	"I'll knock all of this shit over - pyrule 2023",
-	"aHR0cHM6Ly90d2l0dGVyLmNvbS9zc0RyYW1hRGF5cw=="
+	"aHR0cHM6Ly90d2l0dGVyLmNvbS9zc0RyYW1hRGF5cw==",
+	"I just love koisu styling on these LITTLE GIRLS"
 ]
 
 func _ready():
@@ -27,17 +27,14 @@ func _ready():
 		$kermeet.visible = true
 		$kermeet.play()
 	else:
-		$Real.text = rand
-		$Real.anchor_bottom = 0.5
-		$Real.anchor_top = 0.5
-		$Real.anchor_left = 0.5
-		$Real.anchor_right = 0.5
+		$AudioStreamPlayer.play()
+		$CenterContainer/Real.text = rand
 		yield(get_tree().create_timer(2),"timeout")
 		fading = true
 
 func _physics_process(delta):
 	if fading:
-		$Real.modulate.a = lerp($Real.modulate.a, 1, 0.05)
+		$CenterContainer/Real.modulate.a = lerp($CenterContainer/Real.modulate.a, 1, 0.05)
 	if vfading:
 		$kermeet.modulate.a = lerp($kermeet.modulate.a, 1, 0.05)
 
