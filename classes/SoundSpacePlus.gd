@@ -955,7 +955,6 @@ func load_saved_settings():
 			auto_preview_song = data.auto_preview_song
 		if data.has("render_scale"):
 			render_scale = data.render_scale
-			get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_VIEWPORT, SceneTree.STRETCH_ASPECT_EXPAND, OS.window_size * render_scale)
 		if data.has("vsync_enabled"): 
 			OS.vsync_enabled = data.vsync_enabled
 		if data.has("vsync_via_compositor"): 
