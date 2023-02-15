@@ -326,7 +326,7 @@ func _process(delta:float):
 		{
 			"current": stepify(s_curspd,0.1),
 			"top": stepify(s_tcurspd,0.1),
-			"rec": Spawn.rec_interval
+			"rec": round(Spawn.rec_interval)
 		}
 	)
 	

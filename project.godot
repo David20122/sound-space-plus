@@ -324,7 +324,6 @@ settings/change_time_per_screen=true
 
 window/size/width=1280
 window/size/height=720
-window/size/fullscreen=true
 window/vsync/use_vsync=false
 window/handheld/orientation="sensor_landscape"
 window/stretch/mode.mobile="2d"
@@ -513,6 +512,7 @@ file_logging/max_log_files=1
 
 [physics]
 
+common/physics_fps=120
 common/enable_pause_aware_picking=true
 
 [rendering]

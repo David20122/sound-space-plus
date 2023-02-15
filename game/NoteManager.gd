@@ -600,6 +600,35 @@ var ms_offset:float = 0
 var replay_sig:Array = []
 var last_usec = OS.get_ticks_usec()
 
+func _set_rec_interval(delta:float):
+	var newpos = $Cursor.transform.origin
+	var diff = last_cursor_position.distance_to(newpos)/delta
+	
+	var min_interval = 30
+	var max_interval = 144
+	match SSP.record_limit:
+		1:
+			min_interval = 60
+			max_interval = 240
+	if Engine.target_fps != 0:
+		max_interval = min(max_interval,Engine.target_fps)
+		min_interval = min(min_interval,max_interval)
+	var target_interval = min_interval+((diff/12)*(max_interval-min_interval))
+	var new_interval = rec_interval
+	if rec_interval != target_interval:
+		match SSP.record_mode:
+			0:
+				new_interval = target_interval
+			1:
+				if target_interval > rec_interval: new_interval += (target_interval-rec_interval) * (delta / 0.2)
+				else: new_interval += (target_interval-rec_interval) * (delta / 2)
+			2:
+				if target_interval > rec_interval: new_interval += (target_interval-rec_interval) * (delta / 2)
+				else: new_interval = target_interval
+	rec_interval = clamp(new_interval,min_interval,max_interval)
+	
+	last_cursor_position = newpos
+
 func _process(delta:float):
 	var u = OS.get_ticks_usec()
 	delta = float(u - last_usec) / 1_000_000.0
@@ -608,10 +637,9 @@ func _process(delta:float):
 	if SSP.vr: do_vr_cursor()
 	elif SSP.cam_unlock: do_spin()
 	else: do_half_lock()
-	var newpos = $Cursor.transform.origin
-	var diff = last_cursor_position.distance_to(newpos)
-	rec_interval = round(min(32+(diff/(pow(delta,1.1)))*4,144))
-	last_cursor_position = newpos
+	
+	_set_rec_interval(delta)
+	
 	if active and notes_loaded:
 		if !notes_loaded: return
 	
@@ -770,7 +798,7 @@ func _process(delta:float):
 		var rn_res:bool = reposition_notes()
 		if !SSP.replaying and SSP.record_replays:
 			var should_write_pos:bool = rn_res
-			var ri = 1/rec_interval
+			var ri = 1/round(max(32,rec_interval))
 			if pause_state == -1: ri /= 3
 			if rn_res or rec_t >= ri:
 				rec_t = 0

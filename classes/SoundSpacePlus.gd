@@ -587,6 +587,8 @@ var disable_intro:bool = false
 # Settings - Replays
 var record_replays:bool = false
 var alt_cam:bool = false
+var record_limit:int = 0
+var record_mode:int = 1
 
 # Settings - Cursor
 var cursor_color_type:int = Globals.CURSOR_CUSTOM_COLOR
@@ -1085,6 +1087,10 @@ func load_saved_settings():
 			record_replays = data.record_replays
 		if data.has("alt_cam"): 
 			alt_cam = data.alt_cam
+		if data.has("record_mode"):
+			record_mode = data.record_mode
+		if data.has("record_limit"):
+			record_limit = data.record_limit
 		if data.has("show_accuracy_bar"): 
 			show_accuracy_bar = data.show_accuracy_bar
 		if data.has("show_letter_grade"): 
@@ -1489,6 +1495,8 @@ func save_settings():
 			show_warnings = show_warnings,
 			record_replays = record_replays,
 			alt_cam = alt_cam,
+			record_mode = record_mode,
+			record_limit = record_limit,
 			show_accuracy_bar = show_accuracy_bar,
 			show_letter_grade = show_letter_grade,
 			simple_hud = simple_hud,
@@ -2330,6 +2338,9 @@ func do_init(_ud=null):
 		Globals.confirm_prompt.open("Would you like to record replays? This can be changed in settings later.","Replays",[{text="No"},{text="Yes"}])
 		var sel = yield(Globals.confirm_prompt,"option_selected")
 		record_replays = bool(sel)
+		Globals.confirm_prompt.open("Do you favor high quality or low file size replays? This can be changed in settings later.","Replays",[{text="File Size"},{text="Quality"}])
+		sel = yield(Globals.confirm_prompt,"option_selected")
+		record_limit = sel
 		save_settings()
 		Globals.confirm_prompt.s_next.play()
 		Globals.confirm_prompt.close()
