@@ -1,6 +1,21 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://b4y2530a4qslb"]
 
-[ext_resource path="res://scripts/game/GameScene.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://scripts/game/GameScene.gd" id="1"]
+
+[sub_resource type="Environment" id="Environment_fuarx"]
+resource_local_to_scene = true
+background_mode = 1
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
 
 [node name="GameScene" type="Node3D"]
-script = ExtResource( 1 )
+top_level = true
+script = ExtResource("1")
+camera_path = NodePath("Camera")
+environment_path = NodePath("Environment")
+
+[node name="Environment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_fuarx")
+
+[node name="Camera" type="Camera3D" parent="."]
+fov = 70.0

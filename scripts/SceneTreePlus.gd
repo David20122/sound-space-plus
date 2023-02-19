@@ -26,10 +26,9 @@ var quitting = false
 func _set_master_volume(volume:float):
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Sound Space Plus"),linear_to_db(volume))
 func quit_animated(exit_code:int=0):
-	if OS.has_feature("editor"):
+	if ProjectSettings.get_setting_with_override("application/outro/disabled"):
 		quit()
 		return
-	print("Quit fired!")
 	if quitting:
 		return
 	quitting = true
@@ -42,26 +41,23 @@ func quit_animated(exit_code:int=0):
 	container.anchor_left = 0
 	container.anchor_bottom = 1
 	container.anchor_right = 1
-	container.margin_top = 0
-	container.margin_left = 0
-	container.margin_bottom = 0
-	container.margin_right = 0
+	container.size = viewport.size
 	viewport.add_child(container)
 	var scene = current_scene
 	viewport.remove_child(scene)
 	fakeport.add_child(scene)
 	viewport.transparent_bg = true
-	var voice_player = AudioStreamPlayer.new()
-	voice_player.bus = "Awesome!"
-	var voice = preload("res://assets/sounds/death.mp3") as AudioStream
-	voice_player.stream = voice
-	viewport.add_child(voice_player)
-	voice_player.play()
+	if ProjectSettings.get_setting_with_override("application/outro/play_sound"):
+		var voice_player = AudioStreamPlayer.new()
+		voice_player.bus = "Awesome!"
+		var voice = preload("res://assets/sounds/death.mp3") as AudioStream
+		voice_player.stream = voice
+		viewport.add_child(voice_player)
+		voice_player.play()
 	var tween = create_tween()
 	tween.set_parallel()
 	tween.parallel().tween_property(container,"modulate:a",0,1.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	tween.parallel().tween_method(Callable(self,"_set_master_volume"),1,0,0.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN_OUT)
 	tween.play()
-	print("Quitting!")
 	await tween.finished
 	quit(exit_code)

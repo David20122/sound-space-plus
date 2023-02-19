@@ -2,7 +2,7 @@ extends Control
 
 signal on_song_selected
 
-var selected_song:Song
+var selected_song:Mapset
 
 var page = 0
 var max_page = 0
@@ -13,7 +13,7 @@ var cols:int = 0
 var rows:int = 0
 
 var buttons = {}
-var button_size = 115
+var button_size = 128
 var button_scale = 1
 @onready var template_button = $List/Grid/Song
 
@@ -102,12 +102,12 @@ func calculate():
 	rows = max(rows,1)
 	songs = []
 	var filter = {
-		Song.Difficulty.UNKNOWN: $Search/Filter/NA/Select.button_pressed,
-		Song.Difficulty.EASY: $Search/Filter/Easy/Select.button_pressed,
-		Song.Difficulty.MEDIUM: $Search/Filter/Medium/Select.button_pressed,
-		Song.Difficulty.HARD: $Search/Filter/Hard/Select.button_pressed,
-		Song.Difficulty.LOGIC: $Search/Filter/Logic/Select.button_pressed,
-		Song.Difficulty.TASUKETE: $Search/Filter/Tasukete/Select.button_pressed
+		Map.Difficulty.UNKNOWN: $Search/Filter/NA/Select.button_pressed,
+		Map.Difficulty.EASY: $Search/Filter/Easy/Select.button_pressed,
+		Map.Difficulty.MEDIUM: $Search/Filter/Medium/Select.button_pressed,
+		Map.Difficulty.HARD: $Search/Filter/Hard/Select.button_pressed,
+		Map.Difficulty.LOGIC: $Search/Filter/Logic/Select.button_pressed,
+		Map.Difficulty.TASUKETE: $Search/Filter/Tasukete/Select.button_pressed
 	}
 	for song in SoundSpacePlus.songs.items:
 		if !filter[song.difficulty]:
@@ -147,8 +147,8 @@ func update_button(button,song):
 		button.get_node("Image").modulate = Color.WHITE
 		button.get_node("Image/Cover").texture = song.cover
 	else:
-		button.get_node("Image").modulate = Song.DifficultyColours[song.difficulty]
-	button.color = Song.DifficultyColours[song.difficulty]
+		button.get_node("Image").modulate = Map.DifficultyColours[song.difficulty]
+	button.color = Map.DifficultyColours[song.difficulty]
 func update_buttons():
 	$List/Grid.columns = cols
 	var grid_area = cols * rows

@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=20 format=3 uid="uid://diarojdcbhxg8"]
+[gd_resource type="Theme" load_steps=21 format=3 uid="uid://diarojdcbhxg8"]
 
 [ext_resource type="FontFile" uid="uid://c56v11c0s2px" path="res://assets/fonts/Lato/Lato-Regular.ttf" id="1"]
 [ext_resource type="FontFile" uid="uid://bf8h1hxdvj8x8" path="res://assets/fonts/Noto_Sans_JP/NotoSansJP-Medium.otf" id="2"]
@@ -18,15 +18,26 @@ cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
 cache/0/16/0/kerning_overrides/18/0 = Vector2(0, 0)
 cache/0/16/0/kerning_overrides/22/0 = Vector2(0, 0)
 cache/0/16/0/kerning_overrides/24/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/17/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/18/3 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/18/4 = Vector2(0, 0)
 cache/0/18/0/ascent = 0.0
 cache/0/18/0/descent = 0.0
 cache/0/18/0/underline_position = 0.0
 cache/0/18/0/underline_thickness = 0.0
 cache/0/18/0/scale = 1.0
+cache/0/18/0/glyphs/0/advance = Vector2(0, 0)
+cache/0/18/0/glyphs/0/offset = Vector2(0, 0)
+cache/0/18/0/glyphs/0/size = Vector2(0, 0)
+cache/0/18/0/glyphs/0/uv_rect = Rect2(0, 0, 0, 0)
+cache/0/18/0/glyphs/0/texture_idx = -1
 cache/0/18/0/kerning_overrides/16/0 = Vector2(0, 0)
 cache/0/18/0/kerning_overrides/18/0 = Vector2(0, 0)
 cache/0/18/0/kerning_overrides/22/0 = Vector2(0, 0)
 cache/0/18/0/kerning_overrides/24/0 = Vector2(0, 0)
+cache/0/18/0/kerning_overrides/17/0 = Vector2(0, 0)
+cache/0/18/0/kerning_overrides/18/3 = Vector2(0, 0)
+cache/0/18/0/kerning_overrides/18/4 = Vector2(0, 0)
 cache/0/22/0/ascent = 0.0
 cache/0/22/0/descent = 0.0
 cache/0/22/0/underline_position = 0.0
@@ -36,6 +47,9 @@ cache/0/22/0/kerning_overrides/16/0 = Vector2(0, 0)
 cache/0/22/0/kerning_overrides/18/0 = Vector2(0, 0)
 cache/0/22/0/kerning_overrides/22/0 = Vector2(0, 0)
 cache/0/22/0/kerning_overrides/24/0 = Vector2(0, 0)
+cache/0/22/0/kerning_overrides/17/0 = Vector2(0, 0)
+cache/0/22/0/kerning_overrides/18/3 = Vector2(0, 0)
+cache/0/22/0/kerning_overrides/18/4 = Vector2(0, 0)
 cache/0/24/0/ascent = 0.0
 cache/0/24/0/descent = 0.0
 cache/0/24/0/underline_position = 0.0
@@ -45,8 +59,40 @@ cache/0/24/0/kerning_overrides/16/0 = Vector2(0, 0)
 cache/0/24/0/kerning_overrides/18/0 = Vector2(0, 0)
 cache/0/24/0/kerning_overrides/22/0 = Vector2(0, 0)
 cache/0/24/0/kerning_overrides/24/0 = Vector2(0, 0)
+cache/0/24/0/kerning_overrides/17/0 = Vector2(0, 0)
+cache/0/24/0/kerning_overrides/18/3 = Vector2(0, 0)
+cache/0/24/0/kerning_overrides/18/4 = Vector2(0, 0)
+cache/0/17/0/ascent = 0.0
+cache/0/17/0/descent = 0.0
+cache/0/17/0/underline_position = 0.0
+cache/0/17/0/underline_thickness = 0.0
+cache/0/17/0/scale = 1.0
+cache/0/17/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/17/0/kerning_overrides/18/0 = Vector2(0, 0)
+cache/0/17/0/kerning_overrides/22/0 = Vector2(0, 0)
+cache/0/17/0/kerning_overrides/24/0 = Vector2(0, 0)
+cache/0/17/0/kerning_overrides/17/0 = Vector2(0, 0)
+cache/0/17/0/kerning_overrides/18/3 = Vector2(0, 0)
+cache/0/17/0/kerning_overrides/18/4 = Vector2(0, 0)
+cache/0/18/3/glyphs/0/offset = Vector2(0, 0)
+cache/0/18/3/glyphs/0/size = Vector2(0, 0)
+cache/0/18/3/glyphs/0/uv_rect = Rect2(0, 0, 0, 0)
+cache/0/18/3/glyphs/0/texture_idx = -1
+cache/0/18/4/glyphs/0/offset = Vector2(0, 0)
+cache/0/18/4/glyphs/0/size = Vector2(0, 0)
+cache/0/18/4/glyphs/0/uv_rect = Rect2(0, 0, 0, 0)
+cache/0/18/4/glyphs/0/texture_idx = -1
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sp767"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jrsj5"]
+content_margin_left = 8.0
+content_margin_right = 8.0
+bg_color = Color(0.188235, 0.188235, 0.188235, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [sub_resource type="StyleBoxFlat" id="5"]
 bg_color = Color(0.87451, 0.87451, 0.87451, 1)
@@ -198,12 +244,12 @@ Button/colors/font_color_focus = Color(1, 1, 1, 1)
 Button/colors/font_color_hover = Color(1, 1, 1, 1)
 Button/colors/font_color_pressed = Color(1, 1, 1, 1)
 Button/colors/font_outline_color = Color(0, 0, 0, 0.8)
-Button/constants/outline_size = 2
+Button/constants/outline_size = 0
 Button/fonts/font = SubResource("17")
 Button/styles/disabled = null
 Button/styles/focus = SubResource("StyleBoxEmpty_sp767")
 Button/styles/hover = null
-Button/styles/normal = null
+Button/styles/normal = SubResource("StyleBoxFlat_jrsj5")
 Button/styles/pressed = null
 CheckBox/constants/check_vadjust = 0
 CheckBox/constants/hseparation = 4
@@ -337,7 +383,7 @@ Label/colors/font_color = Color(1, 1, 1, 1)
 Label/colors/font_outline_color = Color(0, 0, 0, 0.5)
 Label/colors/font_shadow_color = Color(0, 0, 0, 0.8)
 Label/constants/line_spacing = 3
-Label/constants/outline_size = 2
+Label/constants/outline_size = 4
 Label/constants/shadow_as_outline = 0
 Label/constants/shadow_offset_x = 1
 Label/constants/shadow_offset_y = 1

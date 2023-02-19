@@ -36,6 +36,9 @@ rich_presence/disabled.editor=true
 startup/disable_intro.debug=true
 startup/disable_health_warning.editor=true
 config/version.debug="debug"
+outro/disabled=false
+outro/play_sound=true
+outro/disabled.editor=true
 
 [audio]
 
@@ -61,6 +64,7 @@ gdscript/warnings/unused_argument=false
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
+window/size/transparent=true
 window/size/extend_to_title=true
 window/per_pixel_transparency/allowed=true
 window/handheld/orientation="sensor_landscape"

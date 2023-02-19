@@ -4,7 +4,7 @@ signal on_init_start
 signal on_init_stage
 signal on_init_complete
 
-@onready var songs:SongRegistry = SongRegistry.new()
+@onready var songs:MapsetRegistry = MapsetRegistry.new()
 
 var _initialised:bool = false
 var _thread:Thread
@@ -39,7 +39,7 @@ func _exec_initialiser(initialiser:String):
 func _load_content(full_reload=false):
 	# Import maps
 	if full_reload: songs.clear()
-	var song_reader = SongReader.new()
+	var song_reader = MapsetReader.new()
 	var map_files = []
 	if !DirAccess.dir_exists_absolute(Globals.Folders.get("maps")):
 		DirAccess.make_dir_recursive_absolute(Globals.Folders.get("maps"))

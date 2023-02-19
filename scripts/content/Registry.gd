@@ -9,6 +9,7 @@ func get_by_id(id:String):
 	return items[items_ids[id]]
 
 func add_item(item:ResourcePlus):
+	assert(item.id)
 	if items_ids.has(item.id): return false
 	items.append(item)
 	items_ids[item.id] = items.size() - 1

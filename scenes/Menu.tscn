@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bshr65rflo0sg"]
+[gd_scene load_steps=19 format=3 uid="uid://bshr65rflo0sg"]
 
 [ext_resource type="PackedScene" uid="uid://de1sj0rkm2iu7" path="res://prefabs/menu/VersionNumberR.tscn" id="1"]
 [ext_resource type="Theme" uid="uid://diarojdcbhxg8" path="res://uitheme.tres" id="2"]
@@ -17,18 +17,6 @@
 [ext_resource type="Script" path="res://scripts/menu/main/Sidebar.gd" id="18"]
 [ext_resource type="Script" path="res://scripts/menu/main/Warning.gd" id="19"]
 [ext_resource type="AudioStream" uid="uid://7a4m03sb8st5" path="res://assets/sounds/death.mp3" id="20"]
-
-[sub_resource type="Shader" id="4"]
-code = "shader_type canvas_item;
-
-void fragment() {
-	vec2 muv = (UV - vec2(0.5)) * 2.2;
-	float m = 0.9 - max(abs(muv.x),abs(muv.y));
-	COLOR = texture(TEXTURE,UV)*(1.1 + clamp((m*1.2+0.5),0,1.0))/2.0;
-}"
-
-[sub_resource type="ShaderMaterial" id="5"]
-shader = SubResource("4")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4g6xw"]
 
@@ -127,8 +115,7 @@ offset_bottom = -4.0
 color = Color(0, 0, 0, 1)
 
 [node name="Tiles" type="TextureRect" parent="Main/TabBar/SongList/List/Grid/Song/Image"]
-modulate = Color(1, 1, 1, 0.509804)
-material = SubResource("5")
+modulate = Color(0.784314, 0.784314, 0.784314, 0.588235)
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -137,14 +124,13 @@ expand_mode = 1
 
 [node name="Cover" type="TextureRect" parent="Main/TabBar/SongList/List/Grid/Song/Image"]
 visible = false
-material = SubResource("5")
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 pivot_offset = Vector2(-120, 56)
 texture = ExtResource("15")
 expand_mode = 1
-stretch_mode = 7
+stretch_mode = 6
 
 [node name="Select" type="Button" parent="Main/TabBar/SongList/List/Grid/Song"]
 layout_mode = 0
@@ -153,19 +139,23 @@ anchor_bottom = 1.0
 flat = true
 
 [node name="Label" type="Label" parent="Main/TabBar/SongList/List/Grid/Song"]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 8.0
 offset_top = 4.0
 offset_right = -8.0
 offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_constants/line_spacing = -4
-theme_override_font_sizes/font_size = 18
-text = "the map the map the map the map the map the map"
+theme_override_font_sizes/font_size = 16
+text = "the map the map the map the map the map the map the map the map the map the map the map the map the map the map the map "
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
+clip_text = true
 text_overrun_behavior = 3
 
 [node name="Paginator" type="HBoxContainer" parent="Main/TabBar/SongList/List"]
@@ -331,8 +321,7 @@ offset_bottom = -2.0
 color = Color(0, 0, 0, 1)
 
 [node name="Tiles" type="TextureRect" parent="Main/TabBar/SongList/Search/Filter/NA/Image"]
-modulate = Color(0.5, 0.5, 0.5, 1)
-material = SubResource("5")
+modulate = Color(0.784314, 0.784314, 0.784314, 0.588235)
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -374,8 +363,7 @@ offset_bottom = -2.0
 color = Color(0, 0, 0, 1)
 
 [node name="Tiles" type="TextureRect" parent="Main/TabBar/SongList/Search/Filter/Easy/Image"]
-modulate = Color(0.5, 0.5, 0.5, 1)
-material = SubResource("5")
+modulate = Color(0.784314, 0.784314, 0.784314, 0.588235)
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -417,8 +405,7 @@ offset_bottom = -2.0
 color = Color(0, 0, 0, 1)
 
 [node name="Tiles" type="TextureRect" parent="Main/TabBar/SongList/Search/Filter/Medium/Image"]
-modulate = Color(0.5, 0.5, 0.5, 1)
-material = SubResource("5")
+modulate = Color(0.784314, 0.784314, 0.784314, 0.588235)
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -460,8 +447,7 @@ offset_bottom = -2.0
 color = Color(0, 0, 0, 1)
 
 [node name="Tiles" type="TextureRect" parent="Main/TabBar/SongList/Search/Filter/Hard/Image"]
-modulate = Color(0.5, 0.5, 0.5, 1)
-material = SubResource("5")
+modulate = Color(0.784314, 0.784314, 0.784314, 0.588235)
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -504,8 +490,7 @@ offset_bottom = -2.0
 color = Color(0, 0, 0, 1)
 
 [node name="Tiles" type="TextureRect" parent="Main/TabBar/SongList/Search/Filter/Logic/Image"]
-modulate = Color(0.5, 0.5, 0.5, 1)
-material = SubResource("5")
+modulate = Color(0.784314, 0.784314, 0.784314, 0.588235)
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -547,8 +532,7 @@ offset_bottom = -2.0
 color = Color(0, 0, 0, 1)
 
 [node name="Tiles" type="TextureRect" parent="Main/TabBar/SongList/Search/Filter/Tasukete/Image"]
-modulate = Color(0.5, 0.5, 0.5, 1)
-material = SubResource("5")
+modulate = Color(0.784314, 0.784314, 0.784314, 0.588235)
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -629,6 +613,7 @@ layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 flat = true
+metadata/_edit_lock_ = true
 
 [node name="Sidebar" type="ColorRect" parent="."]
 clip_contents = true
@@ -638,6 +623,7 @@ anchor_bottom = 1.0
 offset_right = 64.0
 color = Color(0.0470588, 0.0470588, 0.0470588, 1)
 script = ExtResource("18")
+metadata/_edit_group_ = true
 
 [node name="Highlight" type="ColorRect" parent="Sidebar"]
 layout_mode = 0
