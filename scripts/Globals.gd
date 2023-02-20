@@ -37,7 +37,7 @@ enum AudioFormat {
 
 const StatusMessages = {
 	DEBUG = [Color("#2483b3"),"This is a development build. Some features may not function correctly."],
-	EDITOR = [Color("#c85050"),"You are running the game from the editor. Some features may be disabled."]
+	EDITOR = [Color("#2483b3"),"You are running the game from the editor. Some features may be disabled."]
 }
 
 func _ready():

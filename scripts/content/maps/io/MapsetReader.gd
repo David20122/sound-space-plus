@@ -130,7 +130,7 @@ func _sspmv1(file:FileAccess,set:Mapset,full:bool):
 	map.creator = set.creator
 	file.seek(file.get_position()+4) # skip last_ms
 	var note_count = file.get_32()
-	map.difficulty = file.get_8()
+	map.name = Map.DifficultyNames[file.get_8()]
 	# Cover
 	var cover_type = file.get_8()
 	match cover_type:
@@ -209,7 +209,7 @@ func _sspmv2(file:FileAccess,set:Mapset,full:bool):
 	file.seek(0x26)
 	var marker_count = file.get_32()
 	map.difficulty = file.get_8()
-	file.get_16() # Why checked earth did he think star rating would be stored in the file thats actually so ridiculous
+	file.get_16()
 	if !bool(file.get_8()): # Does the map have music?
 		map.broken = true
 		return
@@ -234,6 +234,12 @@ func _sspmv2(file:FileAccess,set:Mapset,full:bool):
 			set.creator += " & "
 		set.creator += creator
 	map.creator = set.creator
+	for i in range(file.get_16()):
+		var key_length = file.get_16()
+		var key = file.get_buffer(key_length).get_string_from_utf8()
+		var value = _read_data_type(file)
+		if key == "difficulty_name" and typeof(value) == TYPE_STRING:
+			map.name = str(value)
 	# Cover
 	if cover_exists:
 		file.seek(cover_offset)

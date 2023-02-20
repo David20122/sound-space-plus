@@ -10,6 +10,7 @@ var selected_mapset:Mapset
 var buttons = []
 
 func _ready():
+	origin_button.visible = false
 	call_deferred("update_list")
 
 func update_list():
@@ -29,6 +30,8 @@ func update_list():
 func mapset_button_pressed(button:MapsetButton):
 	button.update(true)
 	if selected_mapset == button.mapset: return
+	selected_mapset = button.mapset
+	on_mapset_selected.emit(selected_mapset)
 	for btn in buttons:
 		if btn == button: continue
 		btn.update()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bshr65rflo0sg"]
+[gd_scene load_steps=25 format=3 uid="uid://dqfr55fh4k83s"]
 
 [ext_resource type="PackedScene" uid="uid://de1sj0rkm2iu7" path="res://prefabs/menu/VersionNumberR.tscn" id="1"]
 [ext_resource type="Theme" uid="uid://diarojdcbhxg8" path="res://uitheme.tres" id="2"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://ciuxvgefpjrm1" path="res://assets/images/ui/command_line_error.png" id="4_oas34"]
 [ext_resource type="Script" path="res://scripts/menu/main/MapsetButton.gd" id="5_sf84h"]
 [ext_resource type="Texture2D" uid="uid://bk8ninr63d836" path="res://assets/images/ui/quit_to_desktop.png" id="7"]
+[ext_resource type="Script" path="res://scripts/menu/main/MapDetails.gd" id="7_nesqj"]
 [ext_resource type="Texture2D" uid="uid://b21p2flel8ywr" path="res://assets/images/ui/settings.png" id="8"]
 [ext_resource type="Texture2D" uid="uid://b7v0bqlxe7ew4" path="res://assets/images/ui/favorite.png" id="9"]
 [ext_resource type="Texture2D" uid="uid://bae4xwfedhtyw" path="res://assets/images/ui/add_icon.png" id="10"]
@@ -33,6 +34,13 @@ colors = PackedColorArray(0.0941176, 0.0941176, 0.0941176, 1, 0, 0, 0, 0, 0.0941
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_6pvy0"]
 gradient = SubResource("Gradient_204lt")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_syg7m"]
+bg_color = Color(0.0941176, 0.0941176, 0.0941176, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_floo6"]
 bg_color = Color(1, 1, 1, 1)
@@ -142,9 +150,8 @@ texture = ExtResource("3_8w5xr")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="MapList" type="ReferenceRect" parent="Main/TabBar/Solo"]
+[node name="MapList" type="Control" parent="Main/TabBar/Solo"]
 layout_mode = 1
-anchors_preset = -1
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = 16.0
@@ -196,7 +203,6 @@ theme_override_constants/separation = 0
 theme_override_styles/separator = SubResource("StyleBoxEmpty_swdcm")
 
 [node name="Mapset" type="Button" parent="Main/TabBar/Solo/MapList/Maps/List/Contents"]
-visible = false
 custom_minimum_size = Vector2(0, 72)
 layout_mode = 2
 theme_type_variation = &"MapsetButton"
@@ -204,6 +210,7 @@ toggle_mode = true
 script = ExtResource("5_sf84h")
 
 [node name="Cover" type="TextureRect" parent="Main/TabBar/Solo/MapList/Maps/List/Contents/Mapset"]
+self_modulate = Color(0.8, 0.8, 0.8, 0.784314)
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.4
@@ -229,10 +236,10 @@ texture = SubResource("GradientTexture1D_6pvy0")
 [node name="Song" type="Label" parent="Main/TabBar/Solo/MapList/Maps/List/Contents/Mapset"]
 clip_contents = true
 layout_mode = 1
-anchors_preset = 10
+anchors_preset = -1
 anchor_right = 1.0
 offset_left = 8.0
-offset_right = -8.0
+offset_right = -136.0
 offset_bottom = 44.0
 grow_horizontal = 2
 theme_override_constants/line_spacing = -4
@@ -244,11 +251,11 @@ clip_text = true
 [node name="Creator" type="Label" parent="Main/TabBar/Solo/MapList/Maps/List/Contents/Mapset"]
 clip_contents = true
 layout_mode = 1
-anchors_preset = 10
+anchors_preset = -1
 anchor_right = 1.0
 offset_left = 8.0
 offset_top = 36.0
-offset_right = -8.0
+offset_right = -136.0
 offset_bottom = 72.0
 grow_horizontal = 2
 theme_override_constants/line_spacing = -4
@@ -257,12 +264,32 @@ text = "Some mapper"
 autowrap_mode = 2
 clip_text = true
 
+[node name="Length" type="Label" parent="Main/TabBar/Solo/MapList/Maps/List/Contents/Mapset"]
+clip_contents = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -120.0
+offset_top = 12.0
+offset_right = -24.0
+offset_bottom = 60.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/line_spacing = -4
+theme_override_font_sizes/font_size = 18
+text = "3:00"
+horizontal_alignment = 2
+vertical_alignment = 2
+autowrap_mode = 2
+clip_text = true
+
 [node name="BottomSeparator" type="HSeparator" parent="Main/TabBar/Solo/MapList/Maps/List/Contents"]
 layout_mode = 2
 theme_override_constants/separation = 0
 theme_override_styles/separator = SubResource("StyleBoxEmpty_swdcm")
 
-[node name="MapDetails" type="ReferenceRect" parent="Main/TabBar/Solo"]
+[node name="MapDetails" type="VBoxContainer" parent="Main/TabBar/Solo"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -275,57 +302,57 @@ offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Top" type="Panel" parent="Main/TabBar/Solo/MapDetails"]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 0.4
-offset_bottom = -8.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Details" type="Panel" parent="Main/TabBar/Solo/MapDetails"]
+custom_minimum_size = Vector2(0, 256)
+layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_tvhpi")
+script = ExtResource("7_nesqj")
+maplist_path = NodePath("../../MapList")
 
-[node name="CoverContainer" type="AspectRatioContainer" parent="Main/TabBar/Solo/MapDetails/Top"]
+[node name="CoverContainer" type="AspectRatioContainer" parent="Main/TabBar/Solo/MapDetails/Details"]
 layout_mode = 1
 anchors_preset = -1
-anchor_bottom = 1.0
+anchor_bottom = 0.5
 offset_left = 8.0
 offset_top = 8.0
 offset_right = 136.0
-offset_bottom = -8.0
+offset_bottom = 8.0
 alignment_horizontal = 0
 alignment_vertical = 0
 
-[node name="Cover" type="TextureRect" parent="Main/TabBar/Solo/MapDetails/Top/CoverContainer"]
+[node name="Cover" type="TextureRect" parent="Main/TabBar/Solo/MapDetails/Details/CoverContainer"]
 layout_mode = 2
-texture = ExtResource("3_8w5xr")
+texture = ExtResource("4_oas34")
 expand_mode = 1
 
-[node name="Song" type="Label" parent="Main/TabBar/Solo/MapDetails/Top"]
+[node name="Song" type="Label" parent="Main/TabBar/Solo/MapDetails/Details"]
 layout_mode = 1
-anchors_preset = 10
+anchors_preset = -1
 anchor_right = 1.0
-offset_left = 136.0
-offset_top = 24.0
-offset_right = -8.0
-offset_bottom = 80.0
+anchor_bottom = 0.5
+offset_left = 144.0
+offset_top = 8.0
+offset_right = -104.0
+offset_bottom = -32.0
 grow_horizontal = 2
 theme_override_constants/line_spacing = -4
 theme_override_font_sizes/font_size = 22
 text = "xi - Freedom Dive
-newline"
+newline
+newer line"
 vertical_alignment = 1
 autowrap_mode = 3
 clip_text = true
 
-[node name="Creator" type="Label" parent="Main/TabBar/Solo/MapDetails/Top"]
+[node name="Creator" type="Label" parent="Main/TabBar/Solo/MapDetails/Details"]
 layout_mode = 1
-anchors_preset = 10
+anchors_preset = -1
 anchor_right = 1.0
-offset_left = 136.0
-offset_top = 80.0
-offset_right = -8.0
-offset_bottom = 128.0
+anchor_bottom = 0.5
+offset_left = 144.0
+offset_top = 88.0
+offset_right = -104.0
+offset_bottom = 8.0
 grow_horizontal = 2
 theme_override_constants/line_spacing = -4
 theme_override_font_sizes/font_size = 16
@@ -334,17 +361,74 @@ newline"
 autowrap_mode = 3
 clip_text = true
 
-[node name="Label" type="Label" parent="Main/TabBar/Solo/MapDetails/Top"]
-modulate = Color(1, 1, 1, 0.501961)
+[node name="Length" type="Label" parent="Main/TabBar/Solo/MapDetails/Details"]
+clip_contents = true
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.534
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -104.0
+offset_top = 8.0
+offset_right = -24.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/line_spacing = -4
+theme_override_font_sizes/font_size = 22
+text = "3:00"
+horizontal_alignment = 2
+vertical_alignment = 1
+autowrap_mode = 2
+clip_text = true
+
+[node name="Maps" type="Panel" parent="Main/TabBar/Solo/MapDetails/Details"]
+layout_mode = 1
+anchors_preset = -1
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 0.143982
-offset_top = -24.0
+offset_left = 8.0
+offset_top = -64.0
 offset_right = -8.0
+offset_bottom = -32.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_syg7m")
+
+[node name="Buttons" type="HBoxContainer" parent="Main/TabBar/Solo/MapDetails/Details/Maps"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="Button" type="Button" parent="Main/TabBar/Solo/MapDetails/Details/Maps/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.5
+theme_override_colors/font_color = Color(1, 1, 1, 0.588235)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+toggle_mode = true
+button_pressed = true
+text = "A B C D E F G H"
+flat = true
+text_overrun_behavior = 4
+
+[node name="Id" type="Label" parent="Main/TabBar/Solo/MapDetails/Details"]
+modulate = Color(1, 1, 1, 0.501961)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -120.0
+offset_top = -32.0
+offset_right = -8.0
+offset_bottom = -8.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_font_sizes/font_size = 14
@@ -352,17 +436,12 @@ text = "id: a4b3c2d1"
 horizontal_alignment = 2
 vertical_alignment = 2
 
-[node name="Bottom" type="Panel" parent="Main/TabBar/Solo/MapDetails"]
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.4
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Play" type="Panel" parent="Main/TabBar/Solo/MapDetails"]
+layout_mode = 2
+size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_tvhpi")
 
-[node name="Tabs" type="TabContainer" parent="Main/TabBar/Solo/MapDetails/Bottom"]
+[node name="Tabs" type="TabContainer" parent="Main/TabBar/Solo/MapDetails/Play"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -372,14 +451,14 @@ offset_top = 8.0
 offset_right = -8.0
 offset_bottom = -8.0
 
-[node name="Play" type="Control" parent="Main/TabBar/Solo/MapDetails/Bottom/Tabs"]
+[node name="Play" type="Control" parent="Main/TabBar/Solo/MapDetails/Play/Tabs"]
 layout_mode = 2
 
-[node name="Leaderboard" type="Control" parent="Main/TabBar/Solo/MapDetails/Bottom/Tabs"]
+[node name="Leaderboard" type="Control" parent="Main/TabBar/Solo/MapDetails/Play/Tabs"]
 visible = false
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Main/TabBar/Solo/MapDetails/Bottom/Tabs/Leaderboard"]
+[node name="Label" type="Label" parent="Main/TabBar/Solo/MapDetails/Play/Tabs/Leaderboard"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
