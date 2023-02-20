@@ -5,7 +5,7 @@ extends Control
 var showing = false
 
 @onready var tabs = $"../Main/TabBar"
-@onready var pages = [ $Buttons/Play, $Buttons/Select, $Buttons/Content, $Buttons/Credits, $Buttons/Settings ]
+@onready var pages = [ $Buttons/Play, $Buttons/Content, $Buttons/Credits, $Buttons/Settings ]
 
 func _ready():
 	$Open.connect("mouse_entered",Callable(self,"show_bar"))
@@ -18,8 +18,7 @@ func _ready():
 
 	$Buttons/Quit.connect("pressed",Callable(get_tree(),"call_deferred").bind("quit_animated"))
 	
-	tabs.current_tab = 1
-	call_deferred("_move_highlight", pages[1])
+	call_deferred("_move_highlight", pages[tabs.current_tab])
 func _move_highlight(button):
 	var dest_y = button.global_position.y
 	highlight_tween.kill()

@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=21 format=3 uid="uid://diarojdcbhxg8"]
+[gd_resource type="Theme" load_steps=32 format=3 uid="uid://diarojdcbhxg8"]
 
 [ext_resource type="FontFile" uid="uid://c56v11c0s2px" path="res://assets/fonts/Lato/Lato-Regular.ttf" id="1"]
 [ext_resource type="FontFile" uid="uid://bf8h1hxdvj8x8" path="res://assets/fonts/Noto_Sans_JP/NotoSansJP-Medium.otf" id="2"]
@@ -21,6 +21,9 @@ cache/0/16/0/kerning_overrides/24/0 = Vector2(0, 0)
 cache/0/16/0/kerning_overrides/17/0 = Vector2(0, 0)
 cache/0/16/0/kerning_overrides/18/3 = Vector2(0, 0)
 cache/0/16/0/kerning_overrides/18/4 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/14/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/12/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/15/0 = Vector2(0, 0)
 cache/0/18/0/ascent = 0.0
 cache/0/18/0/descent = 0.0
 cache/0/18/0/underline_position = 0.0
@@ -38,6 +41,9 @@ cache/0/18/0/kerning_overrides/24/0 = Vector2(0, 0)
 cache/0/18/0/kerning_overrides/17/0 = Vector2(0, 0)
 cache/0/18/0/kerning_overrides/18/3 = Vector2(0, 0)
 cache/0/18/0/kerning_overrides/18/4 = Vector2(0, 0)
+cache/0/18/0/kerning_overrides/14/0 = Vector2(0, 0)
+cache/0/18/0/kerning_overrides/12/0 = Vector2(0, 0)
+cache/0/18/0/kerning_overrides/15/0 = Vector2(0, 0)
 cache/0/22/0/ascent = 0.0
 cache/0/22/0/descent = 0.0
 cache/0/22/0/underline_position = 0.0
@@ -50,6 +56,9 @@ cache/0/22/0/kerning_overrides/24/0 = Vector2(0, 0)
 cache/0/22/0/kerning_overrides/17/0 = Vector2(0, 0)
 cache/0/22/0/kerning_overrides/18/3 = Vector2(0, 0)
 cache/0/22/0/kerning_overrides/18/4 = Vector2(0, 0)
+cache/0/22/0/kerning_overrides/14/0 = Vector2(0, 0)
+cache/0/22/0/kerning_overrides/12/0 = Vector2(0, 0)
+cache/0/22/0/kerning_overrides/15/0 = Vector2(0, 0)
 cache/0/24/0/ascent = 0.0
 cache/0/24/0/descent = 0.0
 cache/0/24/0/underline_position = 0.0
@@ -62,6 +71,9 @@ cache/0/24/0/kerning_overrides/24/0 = Vector2(0, 0)
 cache/0/24/0/kerning_overrides/17/0 = Vector2(0, 0)
 cache/0/24/0/kerning_overrides/18/3 = Vector2(0, 0)
 cache/0/24/0/kerning_overrides/18/4 = Vector2(0, 0)
+cache/0/24/0/kerning_overrides/14/0 = Vector2(0, 0)
+cache/0/24/0/kerning_overrides/12/0 = Vector2(0, 0)
+cache/0/24/0/kerning_overrides/15/0 = Vector2(0, 0)
 cache/0/17/0/ascent = 0.0
 cache/0/17/0/descent = 0.0
 cache/0/17/0/underline_position = 0.0
@@ -74,6 +86,9 @@ cache/0/17/0/kerning_overrides/24/0 = Vector2(0, 0)
 cache/0/17/0/kerning_overrides/17/0 = Vector2(0, 0)
 cache/0/17/0/kerning_overrides/18/3 = Vector2(0, 0)
 cache/0/17/0/kerning_overrides/18/4 = Vector2(0, 0)
+cache/0/17/0/kerning_overrides/14/0 = Vector2(0, 0)
+cache/0/17/0/kerning_overrides/12/0 = Vector2(0, 0)
+cache/0/17/0/kerning_overrides/15/0 = Vector2(0, 0)
 cache/0/18/3/glyphs/0/offset = Vector2(0, 0)
 cache/0/18/3/glyphs/0/size = Vector2(0, 0)
 cache/0/18/3/glyphs/0/uv_rect = Rect2(0, 0, 0, 0)
@@ -82,6 +97,51 @@ cache/0/18/4/glyphs/0/offset = Vector2(0, 0)
 cache/0/18/4/glyphs/0/size = Vector2(0, 0)
 cache/0/18/4/glyphs/0/uv_rect = Rect2(0, 0, 0, 0)
 cache/0/18/4/glyphs/0/texture_idx = -1
+cache/0/14/0/ascent = 0.0
+cache/0/14/0/descent = 0.0
+cache/0/14/0/underline_position = 0.0
+cache/0/14/0/underline_thickness = 0.0
+cache/0/14/0/scale = 1.0
+cache/0/14/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/14/0/kerning_overrides/18/0 = Vector2(0, 0)
+cache/0/14/0/kerning_overrides/22/0 = Vector2(0, 0)
+cache/0/14/0/kerning_overrides/24/0 = Vector2(0, 0)
+cache/0/14/0/kerning_overrides/17/0 = Vector2(0, 0)
+cache/0/14/0/kerning_overrides/18/3 = Vector2(0, 0)
+cache/0/14/0/kerning_overrides/18/4 = Vector2(0, 0)
+cache/0/14/0/kerning_overrides/14/0 = Vector2(0, 0)
+cache/0/14/0/kerning_overrides/12/0 = Vector2(0, 0)
+cache/0/14/0/kerning_overrides/15/0 = Vector2(0, 0)
+cache/0/12/0/ascent = 0.0
+cache/0/12/0/descent = 0.0
+cache/0/12/0/underline_position = 0.0
+cache/0/12/0/underline_thickness = 0.0
+cache/0/12/0/scale = 1.0
+cache/0/12/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/12/0/kerning_overrides/18/0 = Vector2(0, 0)
+cache/0/12/0/kerning_overrides/22/0 = Vector2(0, 0)
+cache/0/12/0/kerning_overrides/24/0 = Vector2(0, 0)
+cache/0/12/0/kerning_overrides/17/0 = Vector2(0, 0)
+cache/0/12/0/kerning_overrides/18/3 = Vector2(0, 0)
+cache/0/12/0/kerning_overrides/18/4 = Vector2(0, 0)
+cache/0/12/0/kerning_overrides/14/0 = Vector2(0, 0)
+cache/0/12/0/kerning_overrides/12/0 = Vector2(0, 0)
+cache/0/12/0/kerning_overrides/15/0 = Vector2(0, 0)
+cache/0/15/0/ascent = 0.0
+cache/0/15/0/descent = 0.0
+cache/0/15/0/underline_position = 0.0
+cache/0/15/0/underline_thickness = 0.0
+cache/0/15/0/scale = 1.0
+cache/0/15/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/15/0/kerning_overrides/18/0 = Vector2(0, 0)
+cache/0/15/0/kerning_overrides/22/0 = Vector2(0, 0)
+cache/0/15/0/kerning_overrides/24/0 = Vector2(0, 0)
+cache/0/15/0/kerning_overrides/17/0 = Vector2(0, 0)
+cache/0/15/0/kerning_overrides/18/3 = Vector2(0, 0)
+cache/0/15/0/kerning_overrides/18/4 = Vector2(0, 0)
+cache/0/15/0/kerning_overrides/14/0 = Vector2(0, 0)
+cache/0/15/0/kerning_overrides/12/0 = Vector2(0, 0)
+cache/0/15/0/kerning_overrides/15/0 = Vector2(0, 0)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sp767"]
 
@@ -132,6 +192,64 @@ corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p338h"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.0941176, 0.0941176, 0.0941176, 1)
+border_width_bottom = 2
+border_color = Color(0.784314, 0.313726, 0.313726, 1)
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t6ygv"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.0941176, 0.0941176, 0.0941176, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_75poe"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.0941176, 0.0941176, 0.0941176, 1)
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_re2od"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.0941176, 0.0941176, 0.0941176, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [sub_resource type="StyleBoxFlat" id="8"]
 content_margin_left = 5.0
@@ -186,6 +304,53 @@ corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w0ohq"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.0705882, 0.0705882, 0.0705882, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.352941, 0.588235, 1, 0.588235)
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2sp2r"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.0705882, 0.0705882, 0.0705882, 1)
+border_color = Color(0.352941, 0.588235, 1, 1)
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dejjn"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.0705882, 0.0705882, 0.0705882, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.352941, 0.588235, 1, 1)
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
 [sub_resource type="StyleBoxFlat" id="12"]
 content_margin_left = 3.0
 content_margin_top = 2.0
@@ -225,6 +390,45 @@ shadow_size = 6
 [sub_resource type="StyleBoxLine" id="16"]
 color = Color(0.305882, 0.2, 0.32549, 0.847059)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0p3k1"]
+bg_color = Color(0.0941176, 0.0941176, 0.0941176, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xy5qe"]
+content_margin_left = 10.0
+content_margin_top = 4.0
+content_margin_right = 10.0
+content_margin_bottom = 4.0
+bg_color = Color(0.0470588, 0.0470588, 0.0470588, 1)
+border_width_bottom = 2
+border_color = Color(0.784314, 0.313726, 0.313726, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x370q"]
+content_margin_left = 10.0
+content_margin_top = 4.0
+content_margin_right = 10.0
+content_margin_bottom = 4.0
+bg_color = Color(0.0941176, 0.0941176, 0.0941176, 1)
+border_width_top = 2
+border_color = Color(1, 1, 1, 0.75)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hv7es"]
+content_margin_left = 10.0
+content_margin_top = 4.0
+content_margin_right = 10.0
+content_margin_bottom = 4.0
+bg_color = Color(0.0470588, 0.0470588, 0.0470588, 1)
+border_color = Color(1, 1, 1, 0.75)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+
 [sub_resource type="StyleBoxFlat" id="18"]
 bg_color = Color(0, 0, 0, 0.705882)
 corner_radius_top_left = 8
@@ -240,9 +444,6 @@ expand_margin_bottom = 4.0
 default_font = ExtResource("1")
 default_font_size = 18
 Button/colors/font_color = Color(1, 1, 1, 1)
-Button/colors/font_color_focus = Color(1, 1, 1, 1)
-Button/colors/font_color_hover = Color(1, 1, 1, 1)
-Button/colors/font_color_pressed = Color(1, 1, 1, 1)
 Button/colors/font_outline_color = Color(0, 0, 0, 0.8)
 Button/constants/outline_size = 0
 Button/fonts/font = SubResource("17")
@@ -410,6 +611,11 @@ LinkButton/colors/font_color_pressed = Color(0, 0, 0, 1)
 LinkButton/constants/underline_spacing = 2
 LinkButton/fonts/font = SubResource("17")
 LinkButton/styles/focus = null
+MapsetButton/base_type = &"Button"
+MapsetButton/styles/disabled = SubResource("StyleBoxFlat_p338h")
+MapsetButton/styles/hover = SubResource("StyleBoxFlat_t6ygv")
+MapsetButton/styles/normal = SubResource("StyleBoxFlat_75poe")
+MapsetButton/styles/pressed = SubResource("StyleBoxFlat_re2od")
 MarginContainer/constants/margin_bottom = 0
 MarginContainer/constants/margin_left = 0
 MarginContainer/constants/margin_right = 0
@@ -436,6 +642,10 @@ OptionButton/styles/normal = null
 OptionButton/styles/pressed = null
 Panel/styles/panel = null
 PanelContainer/styles/panel = null
+PlaylistButton/base_type = &"Button"
+PlaylistButton/styles/hover = SubResource("StyleBoxFlat_w0ohq")
+PlaylistButton/styles/normal = SubResource("StyleBoxFlat_2sp2r")
+PlaylistButton/styles/pressed = SubResource("StyleBoxFlat_dejjn")
 Popup/styles/panel = null
 PopupMenu/colors/font_color = Color(0.768627, 0.768627, 0.768627, 1)
 PopupMenu/colors/font_color_accel = Color(0.768627, 0.768627, 0.768627, 1)
@@ -491,12 +701,6 @@ TabBar/icons/decrement = null
 TabBar/icons/decrement_highlight = null
 TabBar/icons/increment = null
 TabBar/icons/increment_highlight = null
-TabBar/styles/button = null
-TabBar/styles/button_pressed = null
-TabBar/styles/panel = null
-TabBar/styles/tab_bg = null
-TabBar/styles/tab_disabled = null
-TabBar/styles/tab_fg = null
 TabContainer/colors/font_color_bg = Color(0, 0, 0, 1)
 TabContainer/colors/font_color_disabled = Color(0, 0, 0, 1)
 TabContainer/colors/font_color_fg = Color(0, 0, 0, 1)
@@ -512,10 +716,10 @@ TabContainer/icons/increment = null
 TabContainer/icons/increment_highlight = null
 TabContainer/icons/menu = null
 TabContainer/icons/menu_highlight = null
-TabContainer/styles/panel = null
-TabContainer/styles/tab_bg = null
-TabContainer/styles/tab_disabled = null
-TabContainer/styles/tab_fg = null
+TabContainer/styles/panel = SubResource("StyleBoxFlat_0p3k1")
+TabContainer/styles/tab_disabled = SubResource("StyleBoxFlat_xy5qe")
+TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_x370q")
+TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_hv7es")
 TextEdit/colors/background_color = Color(0, 0, 0, 1)
 TextEdit/colors/bookmark_color = Color(0, 0, 0, 1)
 TextEdit/colors/brace_mismatch_color = Color(0, 0, 0, 1)

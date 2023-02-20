@@ -4,7 +4,7 @@ signal on_init_start
 signal on_init_stage
 signal on_init_complete
 
-@onready var songs:MapsetRegistry = MapsetRegistry.new()
+@onready var mapsets:MapsetRegistry = MapsetRegistry.new()
 
 var _initialised:bool = false
 var _thread:Thread
@@ -38,7 +38,7 @@ func _exec_initialiser(initialiser:String):
 
 func _load_content(full_reload=false):
 	# Import maps
-	if full_reload: songs.clear()
+	if full_reload: mapsets.clear()
 	var song_reader = MapsetReader.new()
 	var map_files = []
 	if !DirAccess.dir_exists_absolute(Globals.Folders.get("maps")):
@@ -53,16 +53,16 @@ func _load_content(full_reload=false):
 	call_deferred("emit_signal","on_init_stage","Import content (1/1)",[
 		{text="Import maps (0/%s)" % map_count,max=map_count,value=0}
 	])
-	var map_idx = 1
+	var map_idx = 0
 	for map_file in map_files:
+		map_idx += 1
+		var song = song_reader.read_from_file(map_file)
 		call_deferred("emit_signal","on_init_stage",null,[
 			{text="Import maps (%s/%s)" % [map_idx,map_count],value=map_idx,max=map_count},
-			{text=map_file.get_file(),max=1,value=0}
+			{text=song.name,max=1,value=1}
 		])
-		var song = song_reader.read_from_file(map_file)
-		songs.add_song(song)
-		map_idx += 1
-	call_deferred("emit_signal","on_init_stage",null,[{text="Free SongReader",max=map_count,value=map_idx}])
+		mapsets.add_mapset(song)
+	call_deferred("emit_signal","on_init_stage",null,[{text="Free MapsetReader",max=map_count,value=map_idx}])
 	song_reader.call_deferred("free")
 
 func _do_init():

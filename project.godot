@@ -28,17 +28,17 @@ networking/enabled=true
 networking/test_url="https://google.com"
 networking/api_url="https://soundspaceplus.dev/api/"
 config/menu_scene="res://scenes/Menu.tscn"
-startup/disable_intro=false
+startup/disable_intro=true
 startup/disable_health_warning=false
 rich_presence/disabled=true
 rich_presence/disabled.Windows=false
 rich_presence/disabled.editor=true
-startup/disable_intro.debug=true
-startup/disable_health_warning.editor=true
 config/version.debug="debug"
 outro/disabled=false
 outro/play_sound=true
 outro/disabled.editor=true
+startup/disable_intro.debug=true
+startup/disable_health_warning.editor=true
 
 [audio]
 
@@ -74,6 +74,7 @@ window/vsync/use_vsync=false
 window/per_pixel_transparency/enabled=true
 window/stretch/mode.mobile="2d"
 window/stretch/aspect.mobile="keep_height"
+window/stretch/scale.mobile=1.5
 
 [editor]
 
