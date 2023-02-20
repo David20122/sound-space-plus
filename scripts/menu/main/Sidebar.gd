@@ -29,20 +29,24 @@ func _move_highlight(button):
 func show_bar():
 	if showing: return
 	showing = true
-	$"../SidebarClose".visible = true
+	$"../SidebarClose".mouse_filter = MOUSE_FILTER_STOP
 	$Open.visible = false
+	$"../SidebarClose".modulate.a = 0
+	$"../SidebarClose".visible = true
 	tween.kill()
 	tween = create_tween()
 	tween.parallel().tween_property(self,"size:x",256,0.4).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
-	tween.parallel().tween_property($"../Main","modulate:a",0.4,0.2).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+	tween.parallel().tween_property($"../SidebarClose","modulate:a",0.4,0.2).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 	tween.play()
 func hide_bar():
 	if !showing: return
 	showing = false
-	$"../SidebarClose".visible = false
+	$"../SidebarClose".mouse_filter = MOUSE_FILTER_IGNORE
 	$Open.visible = true
 	tween.kill()
 	tween = create_tween()
 	tween.parallel().tween_property(self,"size:x",64,0.4).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
-	tween.parallel().tween_property($"../Main","modulate:a",1,0.2).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+	tween.parallel().tween_property($"../SidebarClose","modulate:a",0,0.2).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 	tween.play()
+	await tween.finished
+	$"../SidebarClose".visible = false

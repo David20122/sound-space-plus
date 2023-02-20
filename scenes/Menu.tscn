@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bshr65rflo0sg"]
+[gd_scene load_steps=23 format=3 uid="uid://bshr65rflo0sg"]
 
 [ext_resource type="PackedScene" uid="uid://de1sj0rkm2iu7" path="res://prefabs/menu/VersionNumberR.tscn" id="1"]
 [ext_resource type="Theme" uid="uid://diarojdcbhxg8" path="res://uitheme.tres" id="2"]
@@ -33,6 +33,9 @@ colors = PackedColorArray(0.0941176, 0.0941176, 0.0941176, 1, 0, 0, 0, 0, 0.0941
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_6pvy0"]
 gradient = SubResource("Gradient_204lt")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_floo6"]
+bg_color = Color(1, 1, 1, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xhego"]
 
@@ -406,10 +409,15 @@ grow_vertical = 0
 
 [node name="SidebarClose" type="Button" parent="."]
 visible = false
+modulate = Color(0, 0, 0, 0)
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-flat = true
+theme_override_styles/normal = SubResource("StyleBoxFlat_floo6")
+theme_override_styles/hover = SubResource("StyleBoxFlat_floo6")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_floo6")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_floo6")
+theme_override_styles/focus = SubResource("StyleBoxFlat_floo6")
 metadata/_edit_lock_ = true
 
 [node name="Sidebar" type="ColorRect" parent="."]

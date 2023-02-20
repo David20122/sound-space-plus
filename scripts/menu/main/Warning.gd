@@ -9,7 +9,8 @@ var last_switch
 var switch_interval = 24
 
 func _ready():
-	last_switch = -switch_interval
+	visible = false
+	last_switch = Time.get_ticks_msec()/1000
 	if OS.has_feature("debug"): active_warnings.append("DEBUG")
 	if OS.has_feature("editor"): active_warnings.append("EDITOR")
 
