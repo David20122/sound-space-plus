@@ -7,12 +7,15 @@ func _init():
 	root.set_script(preload("res://scripts/ViewportPlus.gd") as Script)
 	super._init()
 	root.get_window().title = "Sound Space Plus Rewritten"
-	root.get_window().min_size = Vector2(512,512)
+	root.get_window().min_size = Vector2(640,640)
 	root.get_window().move_to_foreground()
 
 func change_scene_to_node(node:Node):
-	root.call_deferred("add_child",node)
-	call_deferred("unload_current_scene")
+	call_deferred("_change_scene_to_node",node)
+func _change_scene_to_node(node:Node):
+	unload_current_scene()
+	current_scene = node
+	root.add_child(node)
 
 func _is_game_scene(scene=current_scene):
 	return scene is GameScene
