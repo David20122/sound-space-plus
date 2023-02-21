@@ -14,8 +14,8 @@ func change_scene_to_node(node:Node):
 	call_deferred("_change_scene_to_node",node)
 func _change_scene_to_node(node:Node):
 	unload_current_scene()
-	current_scene = node
 	root.add_child(node)
+	current_scene = node
 
 func _is_game_scene(scene=current_scene):
 	return scene is GameScene

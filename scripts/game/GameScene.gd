@@ -23,12 +23,13 @@ var map:Map
 
 func _ready():
 	map = mapset.maps[map_index]
-	print("Now playing %s from %s (%s)" % [map.name, mapset.name, mapset.id])
+	print("Now playing %s [%s] - %s" % [mapset.name, map.name, mapset.id])
+	print("This is a SSPM v%s map" % mapset.format)
 	
 	object_manager.build_map(map)
 	
 	sync_manager.audio_stream = mapset.audio
-	sync_manager.call_deferred("start",-2)
+	sync_manager.call_deferred("start",-1)
 	sync_manager.connect("finished",Callable(self,"finish"))
 
 func finish(failed:bool=false):
