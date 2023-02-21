@@ -3,6 +3,7 @@ class_name GameScene
 
 var mapset:Mapset
 var map_index:int
+var map:Map
 
 @export_category("Game Managers")
 @export var sync_manager_path:NodePath
@@ -21,4 +22,14 @@ var map_index:int
 @onready var environment:WorldEnvironment = get_node(environment_path)
 
 func _ready():
-	pass
+	map = mapset.maps[map_index]
+	print("Now playing %s from %s (%s)" % [map.name, mapset.name, mapset.id])
+	
+	object_manager.build_map(map)
+	
+	sync_manager.audio_stream = mapset.audio
+	sync_manager.call_deferred("start",-2)
+	sync_manager.connect("finished",Callable(self,"finish"))
+
+func finish(failed:bool=false):
+	print("Finished")
