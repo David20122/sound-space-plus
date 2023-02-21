@@ -64,14 +64,12 @@ gdscript/warnings/unused_argument=false
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
-window/size/transparent=true
 window/size/extend_to_title=true
 window/per_pixel_transparency/allowed=true
 window/handheld/orientation="sensor_landscape"
 window/vsync/vsync_mode=3
 window/subwindows/embed_subwindows=false
 window/vsync/use_vsync=false
-window/per_pixel_transparency/enabled=true
 window/stretch/mode.mobile="2d"
 window/stretch/aspect.mobile="keep_height"
 window/stretch/scale.mobile=1.5
@@ -268,24 +266,13 @@ file_logging/max_log_files=4
 
 [physics]
 
-common/physics_fps=120
-common/enable_pause_aware_picking=true
+3d/run_on_separate_thread=true
+common/physics_ticks_per_second=120
+common/max_physics_steps_per_frame=4
 
 [rendering]
 
 occlusion_culling/bvh_build_quality=1
-quality/driver/fallback_to_gles2=true
-threads/thread_model=2
-vram_compression/import_etc=true
-quality/directional_shadow/size=1024
-quality/directional_shadow/size.mobile=512
-quality/shadow_atlas/size=2048
-quality/shadow_atlas/size.mobile=1024
-quality/shadows/filter_mode=0
-quality/reflections/texture_array_reflections=false
-quality/filters/anisotropic_filter_level=2
 2d/options/use_software_skinning=false
-quality/lightmapping/use_bicubic_sampling=false
 environment/default_clear_color=Color(0.137255, 0.137255, 0.137255, 1)
-quality/filters/msaa=1
 environment/default_environment="res://default_env.tres"
