@@ -1,14 +1,14 @@
-[gd_scene load_steps=25 format=3 uid="uid://dqfr55fh4k83s"]
+[gd_scene load_steps=25 format=3 uid="uid://poepyf1rd5o4"]
 
 [ext_resource type="PackedScene" uid="uid://de1sj0rkm2iu7" path="res://prefabs/menu/VersionNumberR.tscn" id="1"]
 [ext_resource type="Theme" uid="uid://diarojdcbhxg8" path="res://uitheme.tres" id="2"]
 [ext_resource type="Texture2D" uid="uid://c54ide18equ4n" path="res://assets/images/branding/icon.png" id="3_8w5xr"]
 [ext_resource type="Texture2D" uid="uid://cmx7ntw62nhki" path="res://assets/images/ui/play_circle.png" id="4"]
-[ext_resource type="Script" path="res://scripts/menu/main/MapList.gd" id="4_8ve3k"]
+[ext_resource type="Script" path="res://scripts/menu/maplist/MapList.gd" id="4_hproy"]
 [ext_resource type="Texture2D" uid="uid://ciuxvgefpjrm1" path="res://assets/images/ui/command_line_error.png" id="4_oas34"]
-[ext_resource type="Script" path="res://scripts/menu/main/MapsetButton.gd" id="5_sf84h"]
+[ext_resource type="Script" path="res://scripts/menu/maplist/MapsetButton.gd" id="5_h0d55"]
 [ext_resource type="Texture2D" uid="uid://bk8ninr63d836" path="res://assets/images/ui/quit_to_desktop.png" id="7"]
-[ext_resource type="Script" path="res://scripts/menu/main/MapDetails.gd" id="7_nesqj"]
+[ext_resource type="Script" path="res://scripts/menu/maplist/MapDetails.gd" id="7_xwb6e"]
 [ext_resource type="Texture2D" uid="uid://b21p2flel8ywr" path="res://assets/images/ui/settings.png" id="8"]
 [ext_resource type="Texture2D" uid="uid://b7v0bqlxe7ew4" path="res://assets/images/ui/favorite.png" id="9"]
 [ext_resource type="Texture2D" uid="uid://bae4xwfedhtyw" path="res://assets/images/ui/add_icon.png" id="10"]
@@ -160,7 +160,7 @@ offset_right = -8.0
 offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("4_8ve3k")
+script = ExtResource("4_hproy")
 
 [node name="Filters" type="Panel" parent="Main/TabBar/Solo/MapList"]
 layout_mode = 1
@@ -207,7 +207,7 @@ custom_minimum_size = Vector2(0, 72)
 layout_mode = 2
 theme_type_variation = &"MapsetButton"
 toggle_mode = true
-script = ExtResource("5_sf84h")
+script = ExtResource("5_h0d55")
 
 [node name="Cover" type="TextureRect" parent="Main/TabBar/Solo/MapList/Maps/List/Contents/Mapset"]
 self_modulate = Color(0.8, 0.8, 0.8, 0.784314)
@@ -311,7 +311,7 @@ grow_vertical = 2
 custom_minimum_size = Vector2(0, 256)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_tvhpi")
-script = ExtResource("7_nesqj")
+script = ExtResource("7_xwb6e")
 maplist_path = NodePath("../../MapList")
 
 [node name="CoverContainer" type="AspectRatioContainer" parent="Main/TabBar/Solo/MapDetails/Details"]
