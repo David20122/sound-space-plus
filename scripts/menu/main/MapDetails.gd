@@ -13,10 +13,12 @@ var mapset:Mapset
 var map_index:int
 
 func _ready():
+	origin_map_button.visible = false
+	$"../".visible = false
 	maplist.connect("on_mapset_selected",Callable(self,"mapset_selected"))
 
 func mapset_selected(selected_mapset:Mapset):
-	origin_map_button.visible = false
+	$"../".visible = true
 	mapset = selected_mapset
 	update()
 	map_selected(0)
@@ -29,6 +31,16 @@ func update():
 		$CoverContainer/Cover.texture = mapset.cover
 	$Song.text = mapset.name
 	$Creator.text = mapset.creator
+	var online_id = mapset.online_id
+	if online_id == null:
+		online_id = "N/A"
+	$Id.text = "id: %s" % online_id
+	if !mapset.local:
+		$Length.visible = false
+		$Maps.visible = false
+		return
+	$Length.visible = true
+	$Maps.visible = true
 	var song_length:String
 	if mapset.broken or mapset.audio == null:
 		song_length = "N/A"
@@ -42,10 +54,6 @@ func update():
 			seconds_t = "0" + seconds_t
 		song_length = "%s:%s" % [minutes_t, seconds_t]
 	$Length.text = song_length
-	var online_id = mapset.online_id
-	if online_id == null:
-		online_id = "N/A"
-	$Id.text = "id: %s" % online_id
 	for button in map_buttons:
 		button.queue_free()
 	map_buttons = []
