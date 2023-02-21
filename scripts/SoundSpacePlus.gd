@@ -78,3 +78,21 @@ func _reload():
 
 func _exit_tree():
 	if _thread != null: _thread.wait_to_finish()
+
+enum GameType {
+	SOLO,
+	MULTI
+}
+const GameSceneTypes = {
+	GameType.SOLO: "res://scenes/Solo.tscn"
+}
+func load_game_scene(game_type:int,mapset:Mapset,map_index:int=0):
+	var reader = MapsetReader.new()
+	var full_mapset = reader.read_from_file(mapset.path,true,map_index)
+	reader.call_deferred("free")
+	assert(full_mapset.id == mapset.id)
+	var packed_scene:PackedScene = load(GameSceneTypes.get(game_type,"res://scenes/Solo.tscn"))
+	var scene:GameScene = packed_scene.instantiate() as GameScene
+	scene.mapset = full_mapset
+	scene.map_index = map_index
+	return scene

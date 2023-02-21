@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://poepyf1rd5o4"]
+[gd_scene load_steps=26 format=3 uid="uid://poepyf1rd5o4"]
 
 [ext_resource type="PackedScene" uid="uid://de1sj0rkm2iu7" path="res://prefabs/menu/VersionNumberR.tscn" id="1"]
 [ext_resource type="Theme" uid="uid://diarojdcbhxg8" path="res://uitheme.tres" id="2"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://bk8ninr63d836" path="res://assets/images/ui/quit_to_desktop.png" id="7"]
 [ext_resource type="Script" path="res://scripts/menu/maplist/MapDetails.gd" id="7_xwb6e"]
 [ext_resource type="Texture2D" uid="uid://b21p2flel8ywr" path="res://assets/images/ui/settings.png" id="8"]
+[ext_resource type="Script" path="res://scripts/menu/maplist/Play.gd" id="8_mf8ee"]
 [ext_resource type="Texture2D" uid="uid://b7v0bqlxe7ew4" path="res://assets/images/ui/favorite.png" id="9"]
 [ext_resource type="Texture2D" uid="uid://bae4xwfedhtyw" path="res://assets/images/ui/add_icon.png" id="10"]
 [ext_resource type="Script" path="res://scripts/menu/main/Sidebar.gd" id="18"]
@@ -455,6 +456,15 @@ offset_bottom = -8.0
 
 [node name="Play" type="Control" parent="Main/TabBar/Solo/MapDetails/Play/Tabs"]
 layout_mode = 2
+script = ExtResource("8_mf8ee")
+
+[node name="Play" type="Button" parent="Main/TabBar/Solo/MapDetails/Play/Tabs/Play"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 6.0
+offset_right = 72.0
+offset_bottom = 46.0
+text = "PLAY"
 
 [node name="Leaderboard" type="Control" parent="Main/TabBar/Solo/MapDetails/Play/Tabs"]
 visible = false

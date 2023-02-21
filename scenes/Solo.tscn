@@ -1,6 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://b4y2530a4qslb"]
+[gd_scene load_steps=7 format=3 uid="uid://b4y2530a4qslb"]
 
 [ext_resource type="Script" path="res://scripts/game/GameScene.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/game/managers/SyncManager.gd" id="2_kp2am"]
+[ext_resource type="Script" path="res://scripts/game/managers/ObjectManager.gd" id="3_6ip3k"]
+[ext_resource type="Script" path="res://scripts/game/managers/HUDManager.gd" id="4_k7mvy"]
+[ext_resource type="Texture2D" uid="uid://d1mkaxv1bs88f" path="res://assets/images/grid_outer.png" id="5_ub0p0"]
 
 [sub_resource type="Environment" id="Environment_fuarx"]
 resource_local_to_scene = true
@@ -11,6 +15,7 @@ ambient_light_color = Color(1, 1, 1, 1)
 [node name="GameScene" type="Node3D"]
 top_level = true
 script = ExtResource("1")
+sync_manager_path = NodePath("SyncManager")
 camera_path = NodePath("Camera")
 environment_path = NodePath("Environment")
 
@@ -18,4 +23,25 @@ environment_path = NodePath("Environment")
 environment = SubResource("Environment_fuarx")
 
 [node name="Camera" type="Camera3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -3)
+current = true
 fov = 70.0
+
+[node name="SyncManager" type="Node" parent="."]
+process_priority = 2
+script = ExtResource("2_kp2am")
+
+[node name="ObjectManager" type="Node" parent="."]
+process_mode = 3
+process_priority = 1
+script = ExtResource("3_6ip3k")
+origin_path = NodePath("../Origin")
+
+[node name="HUDManager" type="Node" parent="."]
+script = ExtResource("4_k7mvy")
+
+[node name="Origin" type="Node3D" parent="."]
+
+[node name="Grid" type="Sprite3D" parent="Origin"]
+pixel_size = 0.0025
+texture = ExtResource("5_ub0p0")

@@ -10,7 +10,11 @@ func _init():
 	root.get_window().min_size = Vector2(512,512)
 	root.get_window().move_to_foreground()
 
-func _is_game_scene(scene):
+func change_scene_to_node(node:Node):
+	root.call_deferred("add_child",node)
+	call_deferred("unload_current_scene")
+
+func _is_game_scene(scene=current_scene):
 	return scene is GameScene
 func _idle(_delta):
 	var fps = 90
