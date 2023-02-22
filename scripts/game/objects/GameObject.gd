@@ -6,8 +6,8 @@ var manager:ObjectManager
 
 @export var id:String
 
-func _init(id:String):
-	self.id = id
+func _init(_id:String=name):
+	id = _id
 
 func _process(_delta):
 	if game == null or manager == null: return
