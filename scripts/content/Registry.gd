@@ -1,37 +1,30 @@
-extends RefCounted
+extends Resource
 class_name Registry
 
-var items = []
-var items_ids = {}
+@export var items:Array[ResourcePlus] = []
 
 func get_by_id(id:String):
-	if !items_ids.has(id): return false
-	return items[items_ids[id]]
+	if !items.any(func(item): item.id == id): return false
+	return items.filter(func(item): item.id == id)[0]
+func get_by_online_id(id:String):
+	return items.filter(func(item): item.online_id == id)
 
 func add_item(item:ResourcePlus):
 	assert(item.id)
-	if items_ids.has(item.id): return false
+	if items.has(item): return false
 	items.append(item)
-	items_ids[item.id] = items.size() - 1
 	return true
 
 func remove_item(item:ResourcePlus):
-	items.remove_at(items_ids[item.id])
-	_reset_ids()
+	items.remove_at(items.find(item))
 	item.free()
 func remove_by_id(id:String):
-	var item = items_ids[id]
-	items.remove_at(items_ids[id])
-	_reset_ids()
+	var item = get_by_id(id)
+	if !item: return
+	items.remove_at(items.find(item))
 	item.free()
 
 func clear():
 	for item in items:
 		item.free()
 	items.clear()
-	items_ids.clear()
-
-func _reset_ids():
-	items_ids = {}
-	for i in range(items.size()):
-		items_ids[items[i].id] = i

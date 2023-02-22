@@ -1,25 +1,30 @@
 extends Node
 
-signal on_init_start
-signal on_init_stage
-signal on_init_complete
+@onready var playlists:Registry = preload("res://assets/content/Playlists.tres")
+@onready var mapsets:Registry = preload("res://assets/content/Mapsets.tres")
+@onready var blocks:Registry = preload("res://assets/content/Blocks.tres")
 
-@onready var mapsets:MapsetRegistry = MapsetRegistry.new()
-
-var _initialised:bool = false
-var _thread:Thread
-
-var is_init:bool = true
-var loading:bool = false
-var warning_seen:bool = false
+# VR Vars
+@onready var vr_allowed:bool = ProjectSettings.get_setting_with_override("xr/openxr/enabled")
+var vr_enabled:bool = false
+var vr_interface:XRInterface
 
 func _ready():
 	connect("on_init_complete",Callable(self,"_on_init_complete"))
 
+# Init
+var _initialised:bool = false
+var _thread:Thread
+var is_init:bool = true
+var loading:bool = false
+var warning_seen:bool = false
+signal on_init_start
+signal on_init_stage
+signal on_init_complete
+
 func _on_init_complete():
 	is_init = false
 	loading = false
-
 func init():
 	assert(!loading) #,"Already loading")
 	loading = true
@@ -28,14 +33,12 @@ func init():
 		_thread = _exec_initialiser("_do_init")
 		return
 	_thread = _exec_initialiser("_reload")
-
 func _exec_initialiser(initialiser:String):
 	var thread = Thread.new()
 	var err = thread.start(Callable(self,initialiser),Thread.PRIORITY_HIGH)
 	assert(err == OK) #,"Thread failed")
 	call_deferred("emit_signal","on_init_start",initialiser)
 	return thread
-
 func _load_content(full_reload=false):
 	# Import maps
 	if full_reload: mapsets.clear()
@@ -64,7 +67,6 @@ func _load_content(full_reload=false):
 		mapsets.add_mapset(song)
 	call_deferred("emit_signal","on_init_stage",null,[{text="Free MapsetReader",max=map_count,value=map_idx}])
 	song_reader.call_deferred("free")
-
 func _do_init():
 	call_deferred("emit_signal","on_init_stage","Waiting")
 	_load_content(true)
@@ -76,9 +78,7 @@ func _reload():
 	_load_content(false)
 	call_deferred("emit_signal","on_init_complete")
 
-func _exit_tree():
-	if _thread != null: _thread.wait_to_finish()
-
+# Game Scene
 enum GameType {
 	SOLO,
 	MULTI
@@ -96,3 +96,6 @@ func load_game_scene(game_type:int,mapset:Mapset,map_index:int=0):
 	scene.mapset = full_mapset
 	scene.map_index = map_index
 	return scene
+
+func _exit_tree():
+	if _thread != null: _thread.wait_to_finish()

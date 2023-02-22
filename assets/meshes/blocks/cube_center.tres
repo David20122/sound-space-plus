@@ -1,0 +1,28 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dylshod0cttj3"]
+
+[sub_resource type="Shader" id="39"]
+code = "shader_type spatial;
+render_mode blend_mix;
+
+uniform float alpha_multi = 1;
+
+uniform bool use_image = false;
+uniform sampler2D image;
+
+void fragment() {
+	vec2 base_uv = UV;
+	vec4 img = vec4(1.0);
+	if (use_image) {
+		img = texture(image,UV);
+	}
+	ALBEDO = COLOR.rgb * img.rgb;
+	float fade = COLOR.a;
+	ALPHA = alpha_multi*fade;
+}
+"
+
+[resource]
+render_priority = 0
+shader = SubResource("39")
+shader_parameter/alpha_multi = 0.1
+shader_parameter/use_image = false

@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="Registry" load_steps=2 format=3 uid="uid://d4cvos24use81"]
+
+[ext_resource type="Script" path="res://scripts/content/Registry.gd" id="1_g8dy1"]
+
+[resource]
+script = ExtResource("1_g8dy1")
+items = Array[Resource("res://scripts/content/ResourcePlus.gd")]([])
