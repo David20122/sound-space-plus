@@ -1,6 +1,9 @@
 build
 build/
 build/*
+android
+android/
+android/*
 export_presets.cfg
 .import
 .import/
@@ -9,7 +12,6 @@ export_presets.cfg
 .godot/
 .godot/*
 *.translation
-.mono/
 addons/discord_game_sdk/bin
 addons/discord_game_sdk/bin/
 addons/discord_game_sdk/bin/*
