@@ -1,7 +1,6 @@
 extends ResourcePlus
 class_name Mapset
 
-var path:String
 var format:int
 
 var name:String
