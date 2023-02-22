@@ -10,16 +10,16 @@ var map:Map
 @export var object_manager_path:NodePath
 @export var hud_manager_path:NodePath
 
-@export_category("Player Objects")
-@export_node_path("Camera3D") var camera_path
+@export_category("Other Nodes")
 @export_node_path("WorldEnvironment") var environment_path
+@export_node_path("Node3D") var player_path
 
 @onready var sync_manager:SyncManager = get_node(sync_manager_path)
 @onready var object_manager:ObjectManager = get_node(object_manager_path)
 @onready var hud_manager:HUDManager = get_node(hud_manager_path)
 
-@onready var camera:Camera3D = get_node(camera_path)
 @onready var environment:WorldEnvironment = get_node(environment_path)
+@onready var local_player:PlayerObject = get_node(player_path) as PlayerObject
 
 func _ready():
 	map = mapset.maps[map_index]

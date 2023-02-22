@@ -1,10 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://b4y2530a4qslb"]
+[gd_scene load_steps=12 format=3 uid="uid://b7mcbl6s1l3cb"]
 
 [ext_resource type="Script" path="res://scripts/game/GameScene.gd" id="1"]
 [ext_resource type="Script" path="res://scripts/game/managers/SyncManager.gd" id="2_kp2am"]
+[ext_resource type="Script" path="res://scripts/game/objects/PlayerObject.gd" id="2_owl32"]
 [ext_resource type="Script" path="res://scripts/game/managers/ObjectManager.gd" id="3_6ip3k"]
+[ext_resource type="Script" path="res://scripts/game/objects/GameObject.gd" id="3_pci65"]
 [ext_resource type="Script" path="res://scripts/game/managers/HUDManager.gd" id="4_k7mvy"]
 [ext_resource type="Script" path="res://scripts/game/renderers/NoteRenderer.gd" id="4_tvxv6"]
+[ext_resource type="ArrayMesh" uid="uid://o8qaywrhkgih" path="res://assets/meshes/blocks/cube.obj" id="5_ttljx"]
 [ext_resource type="Texture2D" uid="uid://d1mkaxv1bs88f" path="res://assets/images/grid_outer.png" id="5_ub0p0"]
 
 [sub_resource type="Environment" id="Environment_fuarx"]
@@ -13,15 +16,11 @@ background_mode = 1
 ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_6xl0w"]
-lightmap_size_hint = Vector2i(5, 5)
-flip_faces = true
-size = Vector2(0.6, 0.6)
-orientation = 2
-
 [sub_resource type="MultiMesh" id="MultiMesh_t5tpd"]
 transform_format = 1
-mesh = SubResource("PlaneMesh_6xl0w")
+use_colors = true
+use_custom_data = true
+mesh = ExtResource("5_ttljx")
 
 [node name="GameScene" type="Node3D"]
 top_level = true
@@ -29,16 +28,11 @@ script = ExtResource("1")
 sync_manager_path = NodePath("SyncManager")
 object_manager_path = NodePath("ObjectManager")
 hud_manager_path = NodePath("HUDManager")
-camera_path = NodePath("Camera")
 environment_path = NodePath("Environment")
+player_path = NodePath("Origin/Player")
 
 [node name="Environment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_fuarx")
-
-[node name="Camera" type="Camera3D" parent="."]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -3)
-current = true
-fov = 70.0
 
 [node name="SyncManager" type="Node" parent="."]
 process_priority = 2
@@ -61,7 +55,35 @@ script = ExtResource("4_k7mvy")
 [node name="Origin" type="Node3D" parent="."]
 process_mode = 1
 
+[node name="Player" type="Node3D" parent="Origin"]
+process_priority = 5
+script = ExtResource("2_owl32")
+local_player = true
+camera_path = NodePath("Camera")
+cursor_path = NodePath("Cursor")
+id = "Player"
+
+[node name="Camera" type="Camera3D" parent="Origin/Player"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -3.5)
+fov = 70.0
+
+[node name="Cursor" type="Node3D" parent="Origin/Player"]
+
+[node name="XROrigin" type="XROrigin3D" parent="Origin/Player"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, -1.7, -3.5)
+
+[node name="Camera" type="XRCamera3D" parent="Origin/Player/XROrigin"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+
+[node name="LHand" type="XRController3D" parent="Origin/Player/XROrigin"]
+tracker = &"left_hand"
+
+[node name="RHand" type="XRController3D" parent="Origin/Player/XROrigin"]
+tracker = &"right_hand"
+
 [node name="HUD" type="Node3D" parent="Origin"]
+script = ExtResource("3_pci65")
+id = "HUD"
 
 [node name="Grid" type="Sprite3D" parent="Origin/HUD"]
 pixel_size = 0.0025

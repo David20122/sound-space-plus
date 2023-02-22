@@ -10,12 +10,17 @@ var objects_dict = {}
 func _ready():
 	pass
 
-func append_object(object:GameObject):
-	assert(!objects_dict.has(object.id))
+func append_object(object:GameObject,parent:bool=true):
+	if objects_dict.has(object.id): return
 	object.game = game
+	object.manager = self
 	objects.append(object)
 	objects_dict[object.id] = object
-	origin.add_child(object)
+	var current_parent = object.get_parent()
+	if parent and current_parent != origin:
+		if current_parent != null:
+			current_parent.remove_child(object)
+		origin.add_child(object)
 
 func build_map(map:Map):
 	for note in map.notes:

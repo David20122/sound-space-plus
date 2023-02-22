@@ -151,15 +151,13 @@ func _sspmv1(file:FileAccess,set:Mapset,full:bool):
 		set.broken = true
 		return
 	var music_length = file.get_64()
-	var music_signature = file.get_buffer(12)
-	var music_format = get_audio_format(music_signature)
+	var music_buffer = file.get_buffer(music_length)
+	var music_format = get_audio_format(music_buffer)
 	if music_format == Globals.AudioFormat.UNKNOWN:
 		set.broken = true
-		return
-	file.seek(file.get_position()-12)
-	_audio(file.get_buffer(music_length),set)
+	else:
+		_audio(music_buffer,set)
 	if not full: return
-	file.seek(file.get_position()+1)
 	map.notes = []
 	for i in range(note_count):
 		var note = Map.Note.new()

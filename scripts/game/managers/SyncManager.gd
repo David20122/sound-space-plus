@@ -9,6 +9,7 @@ signal finished
 var audio_stream:AudioStream
 
 var playing:bool = false
+var playback_speed:float = 1
 
 var time_delay:float = 0
 var start_offset:float = 0
@@ -30,12 +31,13 @@ func _start_audio():
 	if audio_stream is AudioStreamWAV:
 		(audio_stream as AudioStreamWAV).loop_mode = AudioStreamWAV.LOOP_DISABLED
 	audio_player.stream = audio_stream
+	audio_player.pitch_scale = playback_speed
 	time_delay = AudioServer.get_time_to_next_mix() + AudioServer.get_output_latency()
 	audio_player.play(current_time)
 
 func _process(delta):
 	if !playing: return
-	var time = (Time.get_ticks_usec() - start_time) / 1000000.0
+	var time = playback_speed * (Time.get_ticks_usec() - start_time) / 1000000.0
 	time -= time_delay
 	time += start_offset
 	if time > audio_stream.get_length():
