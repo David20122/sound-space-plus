@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="MeshPlus" load_steps=5 format=3 uid="uid://bwyg27bphlbd4"]
 
-[ext_resource type="Script" path="res://scripts/content/MeshPlus.gd" id="1_rhh8o"]
-[ext_resource type="ArrayMesh" uid="uid://o8qaywrhkgih" path="res://assets/meshes/blocks/cube.obj" id="1_sg76m"]
-[ext_resource type="Material" uid="uid://mo14d60r0wa8" path="res://assets/meshes/blocks/default.tres" id="1_yqxw2"]
-[ext_resource type="Material" uid="uid://dylshod0cttj3" path="res://assets/meshes/blocks/cube_center.tres" id="2_5osrd"]
+[ext_resource type="Material" uid="uid://mo14d60r0wa8" path="res://assets/meshes/blocks/default.tres" id="1_vcinw"]
+[ext_resource type="Material" uid="uid://dylshod0cttj3" path="res://assets/meshes/blocks/cube_center.tres" id="2_80ce0"]
+[ext_resource type="ArrayMesh" uid="uid://o8qaywrhkgih" path="res://assets/meshes/blocks/cube.obj" id="3_bv6sy"]
+[ext_resource type="Script" path="res://scripts/content/MeshPlus.gd" id="4_rhhwv"]
 
 [resource]
-script = ExtResource("1_rhh8o")
-mesh = ExtResource("1_sg76m")
-materials = [ExtResource("1_yqxw2"), ExtResource("2_5osrd")]
+script = ExtResource("4_rhhwv")
+mesh = ExtResource("3_bv6sy")
+materials = [ExtResource("1_vcinw"), ExtResource("2_80ce0")]
 id = "cube"
 creator = "Sound Space Plus"

@@ -3,9 +3,13 @@ class_name Registry
 
 @export var items:Array[ResourcePlus] = []
 
+func get_ids():
+	return items.map(func(item): return item.id)
+
 func get_by_id(id:String):
-	if !items.any(func(item): item.id == id): return false
-	return items.filter(func(item): item.id == id)[0]
+	var ids = get_ids()
+	if !ids.has(id): return null
+	return items[ids.find(id)]
 func get_by_online_id(id:String):
 	return items.filter(func(item): item.online_id == id)
 
@@ -19,9 +23,11 @@ func remove_item(item:ResourcePlus):
 	items.remove_at(items.find(item))
 	item.free()
 func remove_by_id(id:String):
-	var item = get_by_id(id)
-	if !item: return
-	items.remove_at(items.find(item))
+	var ids = get_ids()
+	if !ids.has(id): return
+	var index = ids.find(id)
+	var item = items[index]
+	items.remove_at(index)
 	item.free()
 
 func clear():
