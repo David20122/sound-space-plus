@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="MeshPlus" load_steps=5 format=3 uid="uid://24aphlbvabs7"]
+
+[ext_resource type="Material" uid="uid://mo14d60r0wa8" path="res://assets/meshes/blocks/default.tres" id="1_ll5ae"]
+[ext_resource type="Material" uid="uid://dylshod0cttj3" path="res://assets/meshes/blocks/cube_center.tres" id="2_hlunn"]
+[ext_resource type="ArrayMesh" uid="uid://dsmkacamscxei" path="res://assets/meshes/blocks/plane.obj" id="3_bri8k"]
+[ext_resource type="Script" path="res://scripts/content/MeshPlus.gd" id="4_0xurs"]
+
+[resource]
+script = ExtResource("4_0xurs")
+mesh = ExtResource("3_bri8k")
+materials = Array[Material]([ExtResource("1_ll5ae"), ExtResource("2_hlunn")])
+id = "plane"
+creator = "Sound Space Plus"
+online_id = ""
+built_in = true

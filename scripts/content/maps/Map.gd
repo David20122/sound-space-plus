@@ -18,7 +18,6 @@ const DifficultyNames = { # LEGACY SUPPORT
 	Difficulty.TASUKETE: "Tasukete",
 }
 
-var name:String
 var unsupported:bool = false
 
 var notes:Array

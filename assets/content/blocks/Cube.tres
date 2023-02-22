@@ -8,6 +8,9 @@
 [resource]
 script = ExtResource("4_rhhwv")
 mesh = ExtResource("3_bv6sy")
-materials = [ExtResource("1_vcinw"), ExtResource("2_80ce0")]
+materials = Array[Material]([ExtResource("1_vcinw"), ExtResource("2_80ce0")])
 id = "cube"
 creator = "Sound Space Plus"
+online_id = ""
+local = null
+path = null

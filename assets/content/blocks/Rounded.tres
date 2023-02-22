@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="MeshPlus" load_steps=4 format=3 uid="uid://s180my2qtfi0"]
+
+[ext_resource type="Material" uid="uid://mo14d60r0wa8" path="res://assets/meshes/blocks/default.tres" id="1_mjdkp"]
+[ext_resource type="ArrayMesh" uid="uid://cdt2so3qqxps" path="res://assets/meshes/blocks/rounded.obj" id="2_15kng"]
+[ext_resource type="Script" path="res://scripts/content/MeshPlus.gd" id="3_5galj"]
+
+[resource]
+script = ExtResource("3_5galj")
+mesh = ExtResource("2_15kng")
+materials = Array[Material]([ExtResource("1_mjdkp")])
+id = "rounded"
+creator = "Sound Space Plus"
+online_id = ""
+built_in = true

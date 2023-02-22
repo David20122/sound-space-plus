@@ -16,6 +16,6 @@ dest_files=["res://.godot/imported/rounded.obj-f94b3aee0d9947fe112f4f92eee4e8f1.
 [params]
 
 generate_tangents=true
-scale_mesh=Vector3(1, 1, 1)
-offset_mesh=Vector3(0, 0, 0)
+scale_mesh=Vector3(0.5, 0.5, 0.5)
+offset_mesh=Vector3(0, 0, 0.05)
 optimize_mesh=true

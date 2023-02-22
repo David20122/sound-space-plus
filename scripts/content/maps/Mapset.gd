@@ -3,7 +3,6 @@ class_name Mapset
 
 var format:int
 
-var name:String
 var song:String
 
 var cover:ImageTexture

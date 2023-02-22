@@ -16,6 +16,6 @@ dest_files=["res://.godot/imported/plane.obj-40c2ccf1d825c9e68bffda7d323e6df3.me
 [params]
 
 generate_tangents=true
-scale_mesh=Vector3(1, 1, 1)
-offset_mesh=Vector3(0, 0, 0)
+scale_mesh=Vector3(0.5, 0.5, 0.5)
+offset_mesh=Vector3(0, 0, 0.05)
 optimize_mesh=true
