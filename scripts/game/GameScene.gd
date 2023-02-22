@@ -12,21 +12,21 @@ var map:Map
 
 @export_category("Other Nodes")
 @export_node_path("WorldEnvironment") var environment_path
-@export_node_path("Node3D") var player_path
+@export var player_path:NodePath
 
 @onready var sync_manager:SyncManager = get_node(sync_manager_path)
 @onready var object_manager:ObjectManager = get_node(object_manager_path)
 @onready var hud_manager:HUDManager = get_node(hud_manager_path)
 
 @onready var environment:WorldEnvironment = get_node(environment_path)
-@onready var local_player:PlayerObject = get_node(player_path) as PlayerObject
+@onready var local_player:PlayerObject = get_node(player_path)
 
 func _ready():
 	map = mapset.maps[map_index]
 	print("Now playing %s [%s] - %s" % [mapset.name, map.name, mapset.id])
 	print("This is a SSPM v%s map" % mapset.format)
 	
-	object_manager.build_map(map)
+	object_manager.call_deferred("build_map",map)
 	
 	sync_manager.audio_stream = mapset.audio
 	sync_manager.call_deferred("start",-1)

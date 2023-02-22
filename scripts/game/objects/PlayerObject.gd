@@ -10,6 +10,8 @@ class_name PlayerObject
 @export_node_path("Node3D") var cursor_path
 @onready var cursor:Node3D = get_node(cursor_path)
 
+var cursor_position:Vector2
+
 func _ready():
 	if local_player: camera.make_current()
 	

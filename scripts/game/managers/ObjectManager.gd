@@ -8,7 +8,8 @@ var objects = []
 var objects_dict = {}
 
 func _ready():
-	pass
+	append_object(origin.get_node("Player"),false)
+	append_object(origin.get_node("HUD"),false)
 
 func append_object(object:GameObject,parent:bool=true):
 	if objects_dict.has(object.id): return
