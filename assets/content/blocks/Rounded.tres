@@ -9,6 +9,7 @@ script = ExtResource("3_5galj")
 mesh = ExtResource("2_15kng")
 materials = Array[Material]([ExtResource("1_mjdkp")])
 id = "rounded"
+name = "Rounded"
 creator = "Sound Space Plus"
 online_id = ""
 built_in = true

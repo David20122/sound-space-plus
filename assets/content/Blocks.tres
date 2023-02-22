@@ -1,8 +1,12 @@
-[gd_resource type="Resource" script_class="Registry" load_steps=3 format=3]
+[gd_resource type="Resource" script_class="Registry" load_steps=7 format=3 uid="uid://ds1k478nh3c8o"]
 
+[ext_resource type="Resource" uid="uid://bmu58tan3vxmk" path="res://assets/content/blocks/Circle.tres" id="1_esc8i"]
 [ext_resource type="Script" path="res://scripts/content/Registry.gd" id="1_jlhbl"]
 [ext_resource type="Resource" uid="uid://bwyg27bphlbd4" path="res://assets/content/blocks/Cube.tres" id="1_qmpc6"]
+[ext_resource type="Resource" uid="uid://24aphlbvabs7" path="res://assets/content/blocks/Plane.tres" id="3_452j2"]
+[ext_resource type="Resource" uid="uid://s180my2qtfi0" path="res://assets/content/blocks/Rounded.tres" id="4_moucw"]
+[ext_resource type="Resource" uid="uid://dexct00i1ko0d" path="res://assets/content/blocks/Square.tres" id="5_gcx31"]
 
 [resource]
 script = ExtResource("1_jlhbl")
-items = Array[Resource("res://scripts/content/ResourcePlus.gd")]([ExtResource("1_qmpc6")])
+items = Array[Resource("res://scripts/content/ResourcePlus.gd")]([ExtResource("1_esc8i"), ExtResource("1_qmpc6"), ExtResource("3_452j2"), ExtResource("4_moucw"), ExtResource("5_gcx31")])

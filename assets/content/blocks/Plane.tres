@@ -10,6 +10,7 @@ script = ExtResource("4_0xurs")
 mesh = ExtResource("3_bri8k")
 materials = Array[Material]([ExtResource("1_ll5ae"), ExtResource("2_hlunn")])
 id = "plane"
+name = "Plane"
 creator = "Sound Space Plus"
 online_id = ""
 built_in = true
