@@ -263,7 +263,7 @@ file_logging/max_log_files=4
 
 3d/run_on_separate_thread=true
 common/physics_ticks_per_second=120
-common/max_physics_steps_per_frame=4
+common/max_physics_steps_per_frame=1
 
 [rendering]
 

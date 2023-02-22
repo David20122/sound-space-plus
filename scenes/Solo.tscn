@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b7mcbl6s1l3cb"]
+[gd_scene load_steps=15 format=3 uid="uid://b7mcbl6s1l3cb"]
 
 [ext_resource type="Script" path="res://scripts/game/GameScene.gd" id="1"]
 [ext_resource type="Script" path="res://scripts/game/managers/SyncManager.gd" id="2_kp2am"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://scripts/game/renderers/NoteRenderer.gd" id="4_tvxv6"]
 [ext_resource type="ArrayMesh" uid="uid://o8qaywrhkgih" path="res://assets/meshes/blocks/cube.obj" id="5_ttljx"]
 [ext_resource type="Texture2D" uid="uid://d1mkaxv1bs88f" path="res://assets/images/grid_outer.png" id="5_ub0p0"]
+[ext_resource type="Texture2D" uid="uid://ctmjd7r2b7750" path="res://assets/images/default_cursor.png" id="8_y20xf"]
 
 [sub_resource type="Environment" id="Environment_fuarx"]
 resource_local_to_scene = true
@@ -21,6 +22,14 @@ transform_format = 1
 use_colors = true
 use_custom_data = true
 mesh = ExtResource("5_ttljx")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y2xxy"]
+transparency = 1
+albedo_texture = ExtResource("8_y20xf")
+
+[sub_resource type="QuadMesh" id="QuadMesh_rq05a"]
+flip_faces = true
+size = Vector2(0.525, 0.525)
 
 [node name="GameScene" type="Node3D"]
 top_level = true
@@ -62,12 +71,24 @@ local_player = true
 camera_path = NodePath("Camera")
 cursor_path = NodePath("Cursor")
 id = "Player"
+permanent = true
 
 [node name="Camera" type="Camera3D" parent="Origin/Player"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -3.5)
 fov = 70.0
 
 [node name="Cursor" type="Node3D" parent="Origin/Player"]
+
+[node name="Real" type="MeshInstance3D" parent="Origin/Player/Cursor"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_y2xxy")
+mesh = SubResource("QuadMesh_rq05a")
+
+[node name="Ghost" type="MeshInstance3D" parent="Origin/Player/Cursor"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_y2xxy")
+transparency = 1.0
+mesh = SubResource("QuadMesh_rq05a")
 
 [node name="XROrigin" type="XROrigin3D" parent="Origin/Player"]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, -1.7, -3.5)
@@ -84,6 +105,7 @@ tracker = &"right_hand"
 [node name="HUD" type="Node3D" parent="Origin"]
 script = ExtResource("3_pci65")
 id = "HUD"
+permanent = true
 
 [node name="Grid" type="Sprite3D" parent="Origin/HUD"]
 pixel_size = 0.0025

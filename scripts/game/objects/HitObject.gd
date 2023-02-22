@@ -10,7 +10,7 @@ enum HitState {
 }
 
 var hittable:bool = true
-var can_hit:bool = true
+var can_hit:bool = false
 var hit_state:int = HitState.NONE
 
 func hit():
