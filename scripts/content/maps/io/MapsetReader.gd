@@ -107,7 +107,6 @@ func _audio(buffer:PackedByteArray,set:Mapset):
 			set.audio = stream
 		Globals.AudioFormat.OGG:
 			var stream = AudioStreamOggVorbis.new()
-#			stream.data = buffer
 			set.audio = stream
 			set.broken = true
 		Globals.AudioFormat.MP3:

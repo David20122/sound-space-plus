@@ -8,6 +8,7 @@ var objects = []
 var objects_dict = {}
 
 func _ready():
+	append_object(origin.get_node("World"),false)
 	append_object(origin.get_node("Player"),false)
 	append_object(origin.get_node("HUD"),false)
 
@@ -22,9 +23,13 @@ func append_object(object:GameObject,parent:bool=true):
 		if current_parent != null:
 			current_parent.remove_child(object)
 		origin.add_child(object)
+	for child in object.get_children():
+		if child is GameObject:
+			append_object(child,false)
 
 func build_map(map:Map):
 	map.notes.sort_custom(func(a,b): return a.time < b.time)
+	var note_objects = []
 	for note in map.notes:
 		note = note as Map.Note
 		var id = "note-%s" % note.index
@@ -36,7 +41,9 @@ func build_map(map:Map):
 		object.despawn_time = note.time + 1
 		object.visible = false
 		append_object(object)
+		note_objects.append(object)
 	objects.sort_custom(func(a,b): return a.spawn_time < b.spawn_time)
+	return note_objects
 
 func _process(_delta):
 	for object in objects:

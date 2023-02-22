@@ -36,7 +36,6 @@ var latest_passed_note_index:int = 0
 func _physics_process(_delta):
 	var hitbox = 0.56875
 	var hit_objects = manager.objects
-#	var hit_objects = manager.objects.filter(func(object): return (object is HitObject) and object.can_hit)
 	for object in hit_objects.slice(latest_passed_note_index):
 		if game.sync_manager.current_time < object.spawn_time:
 			break

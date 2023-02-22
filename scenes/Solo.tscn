@@ -110,6 +110,14 @@ permanent = true
 [node name="Grid" type="Sprite3D" parent="Origin/HUD"]
 pixel_size = 0.0025
 texture = ExtResource("5_ub0p0")
+script = ExtResource("3_pci65")
+id = "HUD.Grid"
+permanent = true
+
+[node name="World" type="Node3D" parent="Origin"]
+script = ExtResource("3_pci65")
+id = "World"
+permanent = true
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 bus = &"Game Music"

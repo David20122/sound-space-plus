@@ -4,9 +4,9 @@ class_name NoteObject
 var note:Map.Note
 var colour:Color
 
-func _init(_id:String=name,note:Map.Note=null):
+func _init(_id:String="",_note:Map.Note=null):
 	super._init(_id)
-	self.note = note
+	self.note = _note
 	var colours = [Color.RED,Color.DEEP_SKY_BLUE]
 	colour = colours[wrap(note.index,0,colours.size())]
 	scale = Vector3.ONE*0.865
@@ -18,9 +18,7 @@ func _physics_process(_delta):
 		call_deferred("miss")
 
 func update(current_time:float):
-	visible = visible_at(current_time)
-	if !visible: return
-	var time = note.time-current_time
+	var time = (note.time-current_time)/(note.time-spawn_time)
 	transform.origin = Vector3(-note.x+1,-note.y+1,time*50)
 
 func visible_at(current_time:float):

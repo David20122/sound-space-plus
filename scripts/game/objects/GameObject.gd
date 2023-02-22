@@ -9,12 +9,16 @@ var manager:ObjectManager
 @export var spawn_time:float = 0
 @export var despawn_time:float = 0
 
-func _init(_id:String=name):
+func _init(_id:String=str(Time.get_ticks_usec())):
 	id = _id
 
 func _process(_delta):
 	if game == null or manager == null: return
+	visible = visible_at(game.sync_manager.current_time)
+	if !visible: return
 	update(game.sync_manager.current_time)
 
-func update(current_time:float):
+func update(_current_time:float):
 	pass
+func visible_at(current_time:float):
+	return permanent or (spawn_time <= current_time and despawn_time >= current_time)
