@@ -130,7 +130,8 @@ func _sspmv1(file:FileAccess,set:Mapset,full:bool):
 	map.creator = set.creator
 	file.seek(file.get_position()+4) # skip last_ms
 	var note_count = file.get_32()
-	map.name = Map.DifficultyNames[file.get_8()]
+	var difficulty = file.get_8()
+	map.name = Map.DifficultyNames[difficulty]
 	# Cover
 	var cover_type = file.get_8()
 	match cover_type:
@@ -147,6 +148,8 @@ func _sspmv1(file:FileAccess,set:Mapset,full:bool):
 			var length = file.get_64()
 			image.load_png_from_buffer(file.get_buffer(length))
 			_cover(image,set)
+		_:
+			set.cover = Map.LegacyCovers.get(difficulty)
 	if file.get_8() != 1: # No music
 		set.broken = true
 		return
@@ -206,7 +209,8 @@ func _sspmv2(file:FileAccess,set:Mapset,full:bool):
 	set.maps = [map]
 	file.seek(0x26)
 	var marker_count = file.get_32()
-	map.difficulty = file.get_8()
+	var difficulty = file.get_8()
+	map.name = Map.DifficultyNames[difficulty]
 	file.get_16()
 	if !bool(file.get_8()): # Does the map have music?
 		map.broken = true
@@ -244,6 +248,8 @@ func _sspmv2(file:FileAccess,set:Mapset,full:bool):
 		var image = Image.new()
 		image.load_png_from_buffer(file.get_buffer(cover_length))
 		_cover(image,set)
+	else:
+		set.cover = Map.LegacyCovers.get(difficulty)
 	# Audio
 	file.seek(audio_offset)
 	_audio(file.get_buffer(audio_length),set)

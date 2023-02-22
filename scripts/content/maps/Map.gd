@@ -17,6 +17,14 @@ const DifficultyNames = { # LEGACY SUPPORT
 	Difficulty.LOGIC: "Logic?!",
 	Difficulty.TASUKETE: "Tasukete",
 }
+const LegacyCovers = { # LEGACY SUPPORT
+	Difficulty.UNKNOWN: null,
+	Difficulty.EASY: preload("res://assets/images/covers/easy.png"),
+	Difficulty.MEDIUM: preload("res://assets/images/covers/medium.png"),
+	Difficulty.HARD: preload("res://assets/images/covers/hard.png"),
+	Difficulty.LOGIC: preload("res://assets/images/covers/logic.jpg"),
+	Difficulty.TASUKETE: preload("res://assets/images/covers/tasukete.png"),
+}
 
 var unsupported:bool = false
 
