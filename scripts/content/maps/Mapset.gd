@@ -5,7 +5,7 @@ var format:int
 
 var song:String
 
-var cover:ImageTexture
+var cover:Texture
 var audio:AudioStream
 
 var maps:Array
