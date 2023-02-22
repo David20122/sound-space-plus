@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://6rr71esnckyl"
 path.s3tc="res://.godot/imported/miss.png-2aa3662a78954c354a19ff66e46b954e.s3tc.ctex"
+path.etc2="res://.godot/imported/miss.png-2aa3662a78954c354a19ff66e46b954e.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/images/notefx/miss.png"
-dest_files=["res://.godot/imported/miss.png-2aa3662a78954c354a19ff66e46b954e.s3tc.ctex"]
+dest_files=["res://.godot/imported/miss.png-2aa3662a78954c354a19ff66e46b954e.s3tc.ctex", "res://.godot/imported/miss.png-2aa3662a78954c354a19ff66e46b954e.etc2.ctex"]
 
 [params]
 

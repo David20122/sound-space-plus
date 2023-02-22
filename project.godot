@@ -269,6 +269,7 @@ common/max_physics_steps_per_frame=4
 
 occlusion_culling/bvh_build_quality=1
 driver/threads/thread_model=2
+textures/vram_compression/import_etc2_astc=true
 anti_aliasing/quality/msaa_2d=1
 anti_aliasing/quality/msaa_3d=1
 mesh_lod/lod_change/threshold_pixels=0.0

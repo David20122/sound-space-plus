@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bg4xhkftn52ev"
 path.s3tc="res://.godot/imported/shard.png-0186305e8a13c1401c35bbca20553913.s3tc.ctex"
+path.etc2="res://.godot/imported/shard.png-0186305e8a13c1401c35bbca20553913.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/images/notefx/shard.png"
-dest_files=["res://.godot/imported/shard.png-0186305e8a13c1401c35bbca20553913.s3tc.ctex"]
+dest_files=["res://.godot/imported/shard.png-0186305e8a13c1401c35bbca20553913.s3tc.ctex", "res://.godot/imported/shard.png-0186305e8a13c1401c35bbca20553913.etc2.ctex"]
 
 [params]
 

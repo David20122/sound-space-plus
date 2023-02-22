@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://c8u00yw538c6g"
 path.s3tc="res://.godot/imported/spawn_effect.png-8fc9936e82d6cb99ab2796af8d99d52c.s3tc.ctex"
+path.etc2="res://.godot/imported/spawn_effect.png-8fc9936e82d6cb99ab2796af8d99d52c.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/images/spawn_effect.png"
-dest_files=["res://.godot/imported/spawn_effect.png-8fc9936e82d6cb99ab2796af8d99d52c.s3tc.ctex"]
+dest_files=["res://.godot/imported/spawn_effect.png-8fc9936e82d6cb99ab2796af8d99d52c.s3tc.ctex", "res://.godot/imported/spawn_effect.png-8fc9936e82d6cb99ab2796af8d99d52c.etc2.ctex"]
 
 [params]
 

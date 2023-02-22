@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cj8j0qaailg5x"
 path.s3tc="res://.godot/imported/approach.svg-315f169122271c0dd3d0c4b0bcaf20ab.s3tc.ctex"
+path.etc2="res://.godot/imported/approach.svg-315f169122271c0dd3d0c4b0bcaf20ab.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/images/approach.svg"
-dest_files=["res://.godot/imported/approach.svg-315f169122271c0dd3d0c4b0bcaf20ab.s3tc.ctex"]
+dest_files=["res://.godot/imported/approach.svg-315f169122271c0dd3d0c4b0bcaf20ab.s3tc.ctex", "res://.godot/imported/approach.svg-315f169122271c0dd3d0c4b0bcaf20ab.etc2.ctex"]
 
 [params]
 

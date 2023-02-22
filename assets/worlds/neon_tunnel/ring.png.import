@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cgx1mxv2mnctd"
 path.s3tc="res://.godot/imported/ring.png-77ae938df42732b3d081048ee8f88c01.s3tc.ctex"
+path.etc2="res://.godot/imported/ring.png-77ae938df42732b3d081048ee8f88c01.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/worlds/neon_tunnel/ring.png"
-dest_files=["res://.godot/imported/ring.png-77ae938df42732b3d081048ee8f88c01.s3tc.ctex"]
+dest_files=["res://.godot/imported/ring.png-77ae938df42732b3d081048ee8f88c01.s3tc.ctex", "res://.godot/imported/ring.png-77ae938df42732b3d081048ee8f88c01.etc2.ctex"]
 
 [params]
 
