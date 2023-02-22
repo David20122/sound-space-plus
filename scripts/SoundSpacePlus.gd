@@ -64,7 +64,7 @@ func _load_content(full_reload=false):
 			{text="Import maps (%s/%s)" % [map_idx,map_count],value=map_idx,max=map_count},
 			{text=song.name,max=1,value=1}
 		])
-		mapsets.add_mapset(song)
+		mapsets.add_item(song)
 	call_deferred("emit_signal","on_init_stage",null,[{text="Free MapsetReader",max=map_count,value=map_idx}])
 	song_reader.call_deferred("free")
 func _do_init():

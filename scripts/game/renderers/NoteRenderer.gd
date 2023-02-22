@@ -4,7 +4,7 @@ class_name NoteRenderer
 func _ready():
 	multimesh.instance_count = 0
 	multimesh.use_colors = true
-	var mesh = load("res://assets/content/blocks/Cube.tres")
+	var mesh = SoundSpacePlus.blocks.get_by_id("cube") as MeshPlus
 	multimesh.mesh = mesh.mesh
 
 func render_objects(objects:Array):
