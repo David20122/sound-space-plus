@@ -64,7 +64,6 @@ gdscript/warnings/unused_argument=false
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
-window/size/extend_to_title=true
 window/per_pixel_transparency/allowed=true
 window/handheld/orientation="sensor_landscape"
 window/vsync/vsync_mode=3
@@ -82,10 +81,6 @@ script_templates_search_path="res://templates"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/discord_game_sdk/plugin.cfg")
-
-[gdnative]
-
-singletons=["res://addons/godot-openvr/godot_openvr.gdnlib"]
 
 [gui]
 
@@ -273,6 +268,14 @@ common/max_physics_steps_per_frame=4
 [rendering]
 
 occlusion_culling/bvh_build_quality=1
+driver/threads/thread_model=2
+anti_aliasing/quality/msaa_2d=1
+anti_aliasing/quality/msaa_3d=1
+mesh_lod/lod_change/threshold_pixels=0.0
 2d/options/use_software_skinning=false
-environment/default_clear_color=Color(0.137255, 0.137255, 0.137255, 1)
+environment/default_clear_color=Color(0, 0, 0, 1)
 environment/default_environment="res://default_env.tres"
+
+[xr]
+
+shaders/enabled=true
