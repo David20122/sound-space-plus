@@ -32,11 +32,10 @@ func read_from_file(path:String):
 	# Data
 	var map_count = file.get_16()
 	playlist._mapsets = []
-	playlist._mapsets.resize(map_count)
 	for i in range(map_count):
 		var type = file.get_8()
 		var ptr_length = file.get_16()
 		var ptr = file.get_buffer(ptr_length).get_string_from_utf8()
-		playlist._mapsets[i] = {type=type, pointer=ptr}
+		playlist._mapsets.append({type=type, pointer=ptr})
 		
 	return playlist

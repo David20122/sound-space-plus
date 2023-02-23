@@ -11,11 +11,12 @@ var Folders = {
 	user = "user://",
 	res = "res://",
 	executable = "",
-	skin = ""
+	skin = "",
 }
 const _folders = {
 	skin = [RootFolder.RES,"assets"],
 	maps = [RootFolder.USER,"maps"],
+	playlists = [RootFolder.USER,"playlists"]
 }
 
 func update_folders():

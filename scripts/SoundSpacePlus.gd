@@ -53,7 +53,7 @@ func _load_content(full_reload=false):
 		map_files.append(Globals.Folders.get("maps").path_join(file_name))
 		file_name = maps_dir.get_next()
 	var map_count = map_files.size()
-	call_deferred("emit_signal","on_init_stage","Import content (1/1)",[
+	call_deferred("emit_signal","on_init_stage","Import content (1/2)",[
 		{text="Import maps (0/%s)" % map_count,max=map_count,value=0}
 	])
 	var map_idx = 0
@@ -67,6 +67,33 @@ func _load_content(full_reload=false):
 		mapsets.add_item(song)
 	call_deferred("emit_signal","on_init_stage",null,[{text="Free MapsetReader",max=map_count,value=map_idx}])
 	song_reader.call_deferred("free")
+	# Import playlists
+	if full_reload: playlists.clear()
+	var list_reader = PlaylistReader.new()
+	var list_files = []
+	if !DirAccess.dir_exists_absolute(Globals.Folders.get("playlists")):
+		DirAccess.make_dir_recursive_absolute(Globals.Folders.get("playlists"))
+	var lists_dir = DirAccess.open(Globals.Folders.get("playlists"))
+	maps_dir.list_dir_begin() # TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
+	var list_name = lists_dir.get_next()
+	while list_name != "":
+		list_files.append(Globals.Folders.get("playlists").path_join(file_name))
+		list_name = maps_dir.get_next()
+	var list_count = map_files.size()
+	call_deferred("emit_signal","on_init_stage","Import content (2/2)",[
+		{text="Import playlists (0/%s)" % list_count,max=list_count,value=0}
+	])
+	var list_idx = 0
+	for list_file in list_files:
+		list_idx += 1
+		var list = list_reader.read_from_file(list_file)
+		call_deferred("emit_signal","on_init_stage",null,[
+			{text="Import lists (%s/%s)" % [map_idx,map_count],value=map_idx,max=map_count}
+		])
+		list.load_mapsets()
+		playlists.add_item(list)
+	call_deferred("emit_signal","on_init_stage",null,[{text="Free PlaylistReader",max=map_count,value=map_idx}])
+	list_reader.call_deferred("free")
 func _do_init():
 	call_deferred("emit_signal","on_init_stage","Waiting")
 	_load_content(true)
@@ -86,6 +113,7 @@ enum GameType {
 const GameSceneTypes = {
 	GameType.SOLO: "res://scenes/Solo.tscn"
 }
+var game_scene:GameScene
 func load_game_scene(game_type:int,mapset:Mapset,map_index:int=0):
 	var reader = MapsetReader.new()
 	var full_mapset = reader.read_from_file(mapset.path,true,map_index)
@@ -95,6 +123,7 @@ func load_game_scene(game_type:int,mapset:Mapset,map_index:int=0):
 	var scene:GameScene = packed_scene.instantiate() as GameScene
 	scene.mapset = full_mapset
 	scene.map_index = map_index
+	game_scene = scene
 	return scene
 
 func _exit_tree():

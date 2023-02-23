@@ -10,7 +10,7 @@ var selected_mapset:Mapset
 @onready var btm_separator:HSeparator = $Maps/List/Contents/BottomSeparator
 @onready var origin_button:Button = $Maps/List/Contents/Mapset
 
-var listed_items:Array
+@onready var listed_items:Array = SoundSpacePlus.mapsets.items
 
 var buttons = {}
 
@@ -26,7 +26,6 @@ func _process(_delta):
 		update_list()
 
 func update_items():
-	listed_items = SoundSpacePlus.mapsets.items
 	listed_items.sort_custom(
 	func(a:Mapset,b:Mapset):
 		return a.name.naturalnocasecmp_to(b.name) < 0

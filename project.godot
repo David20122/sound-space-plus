@@ -72,6 +72,7 @@ window/vsync/use_vsync=false
 window/stretch/mode.mobile="2d"
 window/stretch/aspect.mobile="keep_height"
 window/stretch/scale.mobile=1.5
+window/subwindows/embed_subwindows.mobile=true
 
 [editor]
 

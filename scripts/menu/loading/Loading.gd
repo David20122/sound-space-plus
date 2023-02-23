@@ -19,5 +19,4 @@ func _on_init_stage(stage,progress=[]):
 		node.visible = true
 		i += 1
 func _finish():
-
 	get_parent().finish()

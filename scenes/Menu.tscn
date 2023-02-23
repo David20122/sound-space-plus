@@ -1,8 +1,9 @@
-[gd_scene load_steps=26 format=3 uid="uid://poepyf1rd5o4"]
+[gd_scene load_steps=27 format=3]
 
 [ext_resource type="PackedScene" uid="uid://de1sj0rkm2iu7" path="res://prefabs/menu/VersionNumberR.tscn" id="1"]
 [ext_resource type="Theme" uid="uid://diarojdcbhxg8" path="res://uitheme.tres" id="2"]
 [ext_resource type="Texture2D" uid="uid://c54ide18equ4n" path="res://assets/images/branding/icon.png" id="3_8w5xr"]
+[ext_resource type="Script" path="res://scripts/menu/maplist/PlaylistList.gd" id="3_ajis4"]
 [ext_resource type="Texture2D" uid="uid://cmx7ntw62nhki" path="res://assets/images/ui/play_circle.png" id="4"]
 [ext_resource type="Script" path="res://scripts/menu/maplist/MapList.gd" id="4_hproy"]
 [ext_resource type="Texture2D" uid="uid://ciuxvgefpjrm1" path="res://assets/images/ui/command_line_error.png" id="4_oas34"]
@@ -122,6 +123,7 @@ grow_horizontal = 2
 follow_focus = true
 horizontal_scroll_mode = 2
 vertical_scroll_mode = 0
+script = ExtResource("3_ajis4")
 
 [node name="List" type="HBoxContainer" parent="Main/TabBar/Solo/Playlists"]
 layout_mode = 2
@@ -133,8 +135,10 @@ theme_override_constants/separation = 8
 custom_minimum_size = Vector2(104, 104)
 layout_mode = 2
 size_flags_vertical = 0
+tooltip_text = "All Maps"
 theme_type_variation = &"PlaylistButton"
 toggle_mode = true
+button_pressed = true
 
 [node name="Image" type="TextureRect" parent="Main/TabBar/Solo/Playlists/List/All"]
 layout_mode = 1
@@ -444,7 +448,7 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_tvhpi")
 
-[node name="Tabs" type="TabContainer" parent="Main/TabBar/Solo/MapDetails/Play"]
+[node name="Local" type="TabContainer" parent="Main/TabBar/Solo/MapDetails/Play"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -454,11 +458,11 @@ offset_top = 8.0
 offset_right = -8.0
 offset_bottom = -8.0
 
-[node name="Play" type="Control" parent="Main/TabBar/Solo/MapDetails/Play/Tabs"]
+[node name="Play" type="Control" parent="Main/TabBar/Solo/MapDetails/Play/Local"]
 layout_mode = 2
 script = ExtResource("8_mf8ee")
 
-[node name="Play" type="Button" parent="Main/TabBar/Solo/MapDetails/Play/Tabs/Play"]
+[node name="Play" type="Button" parent="Main/TabBar/Solo/MapDetails/Play/Local/Play"]
 layout_mode = 0
 offset_left = 8.0
 offset_top = 6.0
@@ -466,11 +470,30 @@ offset_right = 72.0
 offset_bottom = 46.0
 text = "PLAY"
 
-[node name="Leaderboard" type="Control" parent="Main/TabBar/Solo/MapDetails/Play/Tabs"]
+[node name="Leaderboard" type="Control" parent="Main/TabBar/Solo/MapDetails/Play/Local"]
 visible = false
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Main/TabBar/Solo/MapDetails/Play/Tabs/Leaderboard"]
+[node name="Label" type="Label" parent="Main/TabBar/Solo/MapDetails/Play/Local/Leaderboard"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "There's nothing here."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Online" type="Control" parent="Main/TabBar/Solo/MapDetails/Play"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Main/TabBar/Solo/MapDetails/Play/Online"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
