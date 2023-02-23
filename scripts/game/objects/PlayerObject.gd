@@ -12,10 +12,30 @@ class_name PlayerObject
 @onready var cursor:Node3D = get_node(cursor_path)
 @onready var ghost:MeshInstance3D = cursor.get_node("Ghost")
 
+@onready var score:Score = Score.new()
+
 var cursor_position:Vector2 = Vector2.ZERO
 var clamped_cursor_position:Vector2 = Vector2.ZERO
 
+func hit_object_state_changed(state:int,object:HitObject):
+	match state:
+		HitObject.HitState.HIT:
+			score.hits += 1
+			score.combo += 1
+			score.sub_multiplier += 1
+			if score.sub_multiplier == 8 and score.multiplier < 8:
+				score.sub_multiplier = 0
+				score.multiplier += 1
+			score.score += 25 * score.multiplier
+		HitObject.HitState.MISS:
+			score.misses += 1
+			score.combo = 0
+			score.sub_multiplier = 1
+			score.multiplier -= 1
+
 func _ready():
+	set_process_input(local_player)
+	set_physics_process(local_player)
 	if local_player:
 		camera.make_current()
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -23,6 +43,13 @@ func _exit_tree():
 	if local_player:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
+func _input(event):
+	if event is InputEventMouseMotion:
+		var clamp_value = 1.36875
+		cursor_position -= event.relative / 100.0
+		clamped_cursor_position = Vector2(
+			clamp(cursor_position.x,-clamp_value,clamp_value),
+			clamp(cursor_position.y,-clamp_value,clamp_value))
 func _process(_delta):
 	var difference = cursor_position - clamped_cursor_position
 	cursor.position = Vector3(clamped_cursor_position.x,clamped_cursor_position.y,0)
@@ -34,23 +61,22 @@ func _process(_delta):
 
 var latest_passed_note_index:int = 0
 func _physics_process(_delta):
-	var hitbox = 0.56875
-	var hit_objects = manager.objects
-	for object in hit_objects.slice(latest_passed_note_index):
+	var cursor_hitbox = 0.2625
+	var hitwindow = 1.75/30
+	var objects = manager.objects
+	for object in objects.slice(latest_passed_note_index):
 		if game.sync_manager.current_time < object.spawn_time:
 			break
-		if game.sync_manager.current_time >= object.despawn_time:
-			latest_passed_note_index = hit_objects.find(object)
-			continue
-		if !((object is HitObject) and object.can_hit): continue
-		var x = abs(object.position.x - clamped_cursor_position.x)
-		var y = abs(object.position.y - clamped_cursor_position.y)
-		if x <= hitbox and y <= hitbox: object.hit()
-
-func _input(event):
-	if event is InputEventMouseMotion:
-		var clamp_value = 1.36875
-		cursor_position -= event.relative / 200.0
-		clamped_cursor_position = Vector2(
-			clamp(cursor_position.x,-clamp_value,clamp_value),
-			clamp(cursor_position.y,-clamp_value,clamp_value))
+		if game.sync_manager.current_time > object.despawn_time:
+			latest_passed_note_index = objects.find(object)
+		if !(object is HitObject and object.can_hit and object.hit_state == HitObject.HitState.NONE): continue
+		var x = abs(object.global_position.x - clamped_cursor_position.x)
+		var y = abs(object.global_position.y - clamped_cursor_position.y)
+		var object_scale = object.global_transform.basis.get_scale()
+		var hitbox_x = (object_scale.x + cursor_hitbox) / 2.0
+		var hitbox_y = (object_scale.y + cursor_hitbox) / 2.0
+		if x <= hitbox_x and y <= hitbox_y: object.hit()
+		elif object is NoteObject:
+			if game.sync_manager.current_time > (object as NoteObject).note.time + hitwindow:
+				object.miss()
+		elif game.sync_manager.current_time >= object.despawn_time: object.miss()

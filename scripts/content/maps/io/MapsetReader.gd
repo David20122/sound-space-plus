@@ -78,6 +78,7 @@ func deserialise_v3_data(data:String,map:Map):
 		note.x = note_data.position.x
 		note.y = note_data.position.y
 		note.time = note_data.time
+		note.data = note_data
 		map.notes.append(note)
 	map.data = parsed
 

@@ -36,3 +36,4 @@ class Note:
 	var x:float
 	var y:float
 	var time:float
+	var data:Dictionary = {}

@@ -17,11 +17,9 @@ func _change_scene_to_node(node:Node):
 	root.add_child(node)
 	current_scene = node
 
-func _is_game_scene(scene=current_scene):
-	return scene is GameScene
 func _idle(_delta):
 	var fps = 90
-	if _is_game_scene(current_scene):
+	if current_scene is GameScene:
 		fps = fps_limit
 	elif fps_limit != 0:
 		fps = min(fps_limit,90)

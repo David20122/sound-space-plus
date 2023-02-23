@@ -14,8 +14,6 @@ func _init(_id:String="",_note:Map.Note=null):
 func _physics_process(_delta):
 	var time = note.time-game.sync_manager.current_time
 	can_hit = hittable and time <= 0 and hit_state == HitState.NONE
-	if can_hit and time < -1.75/30:
-		call_deferred("miss")
 
 func update(current_time:float):
 	var time = (note.time-current_time)/(note.time-spawn_time)

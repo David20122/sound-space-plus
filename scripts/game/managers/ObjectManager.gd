@@ -7,17 +7,24 @@ class_name ObjectManager
 var objects = []
 var objects_dict = {}
 
+var player:PlayerObject
+
 func _ready():
-	append_object(origin.get_node("World"),false)
 	append_object(origin.get_node("Player"),false)
+	player = objects_dict.get("Player")
+	origin.set_physics_process(player.local_player)
+	append_object(origin.get_node("World"),false)
 	append_object(origin.get_node("HUD"),false)
 
 func append_object(object:GameObject,parent:bool=true):
 	if objects_dict.has(object.id): return
 	object.game = game
 	object.manager = self
+	if player != null: object.set_physics_process(player.local_player)
 	objects.append(object)
 	objects_dict[object.id] = object
+	if object is HitObject:
+		object.connect("on_hit_state_changed",Callable(player,"hit_object_state_changed").bind(object))
 	var current_parent = object.get_parent()
 	if parent and current_parent != origin:
 		if current_parent != null:
@@ -32,7 +39,7 @@ func build_map(map:Map):
 	var note_objects = []
 	for note in map.notes:
 		note = note as Map.Note
-		var id = "note-%s" % note.index
+		var id = note.data.get("id","note-%s" % note.index)
 		var object = NoteObject.new(id,note)
 		object.process_mode = Node.PROCESS_MODE_DISABLED
 		object.process_priority = 4
@@ -41,9 +48,7 @@ func build_map(map:Map):
 		object.despawn_time = note.time + 1
 		object.visible = false
 		append_object(object)
-		note_objects.append(object)
 	objects.sort_custom(func(a,b): return a.spawn_time < b.spawn_time)
-	return note_objects
 
 func _process(_delta):
 	for object in objects:

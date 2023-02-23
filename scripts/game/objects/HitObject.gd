@@ -11,14 +11,16 @@ enum HitState {
 
 var hittable:bool = true
 var can_hit:bool = false
-var hit_state:int = HitState.NONE
+var hit_state:int = HitState.NONE:
+	get: return hit_state
+	set(value):
+		hit_state = value
+		on_hit_state_changed.emit(value)
 
 func hit():
 	if hit_state != HitState.NONE: return
 	if !can_hit: return
-	hit_state = HitState.HIT
-	on_hit_state_changed.emit(hit_state)
+	self.hit_state = HitState.HIT
 func miss():
 	if hit_state != HitState.NONE: return
-	hit_state = HitState.MISS
-	on_hit_state_changed.emit(hit_state)
+	self.hit_state = HitState.MISS
