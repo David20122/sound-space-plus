@@ -28,7 +28,8 @@ func _ready():
 	print("Now playing %s [%s] - %s" % [mapset.name, map.name, mapset.id])
 	print("This is a SSPM v%s map" % mapset.format)
 	
-	var world = SoundSpacePlus.worlds.get_by_id("tunnel")
+#	var world = SoundSpacePlus.worlds.get_by_id("tunnel")
+	var world = null
 	if world != null:
 		var world_node = world.world.instance()
 		world_parent.add_child(world_node)

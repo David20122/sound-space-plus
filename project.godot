@@ -47,8 +47,8 @@ channel_disable_time=15.0
 
 [autoload]
 
-Globals="*res://scripts/Globals.gd"
 SoundSpacePlus="*res://scripts/SoundSpacePlus.gd"
+Globals="*res://scripts/Globals.gd"
 Discord="*res://addons/discord_game_sdk/discord.gd"
 
 [debug]
@@ -76,6 +76,8 @@ window/subwindows/embed_subwindows.mobile=true
 
 [editor]
 
+version_control/plugin_name="GitPlugin"
+version_control/autoload_on_startup=true
 scene_naming=1
 script_templates_search_path="res://templates"
 

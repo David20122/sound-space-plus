@@ -6,6 +6,9 @@ signal on_item_removed
 
 @export var items:Array[ResourcePlus] = []
 
+func _init(_items:Array[ResourcePlus]=[]):
+	items = _items
+
 func get_ids():
 	return items.map(func(item): return item.id)
 
