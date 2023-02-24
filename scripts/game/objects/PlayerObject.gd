@@ -1,6 +1,9 @@
 extends GameObject
 class_name PlayerObject
 
+signal score_changed
+signal failed
+
 @export_category("Configuration")
 @export var local_player:bool = false
 @export var camera_origin:Vector3 = Vector3(0,0,-3.5)
@@ -13,11 +16,14 @@ class_name PlayerObject
 @onready var ghost:MeshInstance3D = cursor.get_node("Ghost")
 
 @onready var score:Score = Score.new()
+var health:float = 1
+var did_fail:bool = false
 
 var cursor_position:Vector2 = Vector2.ZERO
 var clamped_cursor_position:Vector2 = Vector2.ZERO
 
 func hit_object_state_changed(state:int,object:HitObject):
+	if did_fail: return
 	match state:
 		HitObject.HitState.HIT:
 			score.hits += 1
@@ -27,11 +33,21 @@ func hit_object_state_changed(state:int,object:HitObject):
 				score.sub_multiplier = 0
 				score.multiplier += 1
 			score.score += 25 * score.multiplier
+			health = minf(health+0.125,1)
 		HitObject.HitState.MISS:
 			score.misses += 1
 			score.combo = 0
 			score.sub_multiplier = 1
 			score.multiplier -= 1
+			health = maxf(health-0.2,0)
+	score_changed.emit(score,health)
+	if health == 0 and !did_fail:
+		fail()
+
+func fail():
+	did_fail = true
+	set_physics_process(false)
+	failed.emit()
 
 func _ready():
 	set_process_input(local_player)

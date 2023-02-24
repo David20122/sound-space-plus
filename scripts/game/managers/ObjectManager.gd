@@ -1,15 +1,15 @@
 extends BaseManager
 class_name ObjectManager
 
-@export_node_path("Node3D") var origin_path
-@onready var origin = get_node(origin_path)
+var origin
 
 var objects = []
 var objects_dict = {}
 
 var player:PlayerObject
 
-func _ready():
+func prepare(_origin):
+	origin = _origin
 	append_object(origin.get_node("Player"),false)
 	player = objects_dict.get("Player")
 	origin.set_physics_process(player.local_player)

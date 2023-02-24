@@ -13,12 +13,15 @@ var playback_speed:float = 1
 
 var time_delay:float = 0
 var start_offset:float = 0
-var start_time:int = 0
+var last_time:int = 0
+
+var real_time:float = 0
 var current_time:float = 0
 
 func start(from:float=0):
-	start_time = Time.get_ticks_usec()
+	last_time = Time.get_ticks_usec()
 	start_offset = from
+	real_time = start_offset
 	playing = true
 
 func finish():
@@ -31,18 +34,24 @@ func _start_audio():
 	if audio_stream is AudioStreamWAV:
 		(audio_stream as AudioStreamWAV).loop_mode = AudioStreamWAV.LOOP_DISABLED
 	audio_player.stream = audio_stream
-	audio_player.pitch_scale = playback_speed
 	time_delay = AudioServer.get_time_to_next_mix() + AudioServer.get_output_latency()
-	audio_player.play(current_time)
+	audio_player.play(real_time)
 
 func _process(delta):
 	if !playing: return
-	var time = playback_speed * (Time.get_ticks_usec() - start_time) / 1000000.0
-	time -= time_delay
-	time += start_offset
-	if time > audio_stream.get_length():
+	var now = Time.get_ticks_usec()
+	var time = playback_speed * (now - last_time) / 1000000.0
+	last_time = now
+#	time -= time_delay
+#	time += start_offset
+	real_time += time
+	current_time = real_time - time_delay
+	if current_time > audio_stream.get_length():
 		finish()
 		return
-	if time >= 0 and !audio_player.playing:
+	if real_time >= 0 and !audio_player.playing and playback_speed > 0:
 		_start_audio()
-	current_time = time
+	if playback_speed > 0:
+		audio_player.pitch_scale = playback_speed
+	elif audio_player.playing:
+		audio_player.stop()
