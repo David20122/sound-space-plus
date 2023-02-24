@@ -46,7 +46,7 @@ skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_bf0r8")
 
 [node name="RHand" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, -0.6, -1, 0)
+transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, -0.7, -1.2, 0)
 mesh = ExtResource("1_2qav5")
 
 [node name="Outline" type="MeshInstance3D" parent="RHand"]
@@ -56,7 +56,7 @@ skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_bf0r8")
 
 [node name="LHand" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0.6, -1, 0)
+transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0.7, -1.2, 0)
 mesh = ExtResource("1_2qav5")
 
 [node name="Outline" type="MeshInstance3D" parent="LHand"]
