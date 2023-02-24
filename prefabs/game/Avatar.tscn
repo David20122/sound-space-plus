@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://pnv05ji1arl8"]
+[gd_scene load_steps=5 format=3 uid="uid://pnv05ji1arl8"]
 
 [ext_resource type="ArrayMesh" uid="uid://sdwkurs7sbq1" path="res://assets/meshes/LowCube.obj" id="1_2qav5"]
 
@@ -6,10 +6,15 @@
 cull_mode = 1
 albedo_color = Color(0, 0, 0, 1)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_64rcf"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_j0vii"]
+
 [node name="Avatar" type="Node3D"]
 
 [node name="Head" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+transform = Transform3D(0.35, 0, 0, 0, 0.35, 0, 0, 0, 0.35, 0, 0, 0)
 mesh = ExtResource("1_2qav5")
 
 [node name="Outline" type="MeshInstance3D" parent="Head"]
@@ -18,32 +23,48 @@ mesh = ExtResource("1_2qav5")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_bf0r8")
 
+[node name="EyeL" type="MeshInstance3D" parent="Head"]
+transform = Transform3D(0.075, 0, 0, 0, 0.4, 0, 0, 0, 0.01, 0.3, 0.1, 1)
+mesh = ExtResource("1_2qav5")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_64rcf")
+
+[node name="EyeR" type="MeshInstance3D" parent="Head"]
+transform = Transform3D(0.075, 0, 0, 0, 0.4, 0, 0, 0, 0.01, -0.3, 0.1, 1)
+mesh = ExtResource("1_2qav5")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_64rcf")
+
 [node name="Torso" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.22, 0, 0, 0, 0.4, 0, 0, 0, 0.22, 0, -0.8, 0)
+transform = Transform3D(0.25, 0, 0, 0, 0.4, 0, 0, 0, 0.25, 0, -1, 0)
 mesh = ExtResource("1_2qav5")
 
 [node name="Outline" type="MeshInstance3D" parent="Torso"]
-transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0, 0)
+transform = Transform3D(1.15, 0, 0, 0, 1.1, 0, 0, 0, 1.15, 0, 0, 0)
 mesh = ExtResource("1_2qav5")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_bf0r8")
 
 [node name="RHand" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.125, 0, 0, 0, 0.125, 0, 0, 0, 0.125, -0.5, -0.8, 0)
+transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, -0.6, -1, 0)
 mesh = ExtResource("1_2qav5")
 
 [node name="Outline" type="MeshInstance3D" parent="RHand"]
-transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0, 0)
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 0, 0)
 mesh = ExtResource("1_2qav5")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_bf0r8")
 
 [node name="LHand" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.125, 0, 0, 0, 0.125, 0, 0, 0, 0.125, 0.5, -0.8, 0)
+transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0.6, -1, 0)
 mesh = ExtResource("1_2qav5")
 
 [node name="Outline" type="MeshInstance3D" parent="LHand"]
-transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0, 0)
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 0, 0)
 mesh = ExtResource("1_2qav5")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_bf0r8")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.7, 0)
+mesh = SubResource("PlaneMesh_j0vii")
