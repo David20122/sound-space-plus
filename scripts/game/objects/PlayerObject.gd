@@ -1,6 +1,8 @@
 extends GameObject
 class_name PlayerObject
 
+signal hit
+signal missed
 signal score_changed
 signal failed
 
@@ -26,18 +28,20 @@ func hit_object_state_changed(state:int,object:HitObject):
 	if did_fail: return
 	match state:
 		HitObject.HitState.HIT:
+			hit.emit(object)
 			score.hits += 1
 			score.combo += 1
 			score.sub_multiplier += 1
 			if score.sub_multiplier == 8 and score.multiplier < 8:
-				score.sub_multiplier = 0
+				score.sub_multiplier = 1
 				score.multiplier += 1
 			score.score += 25 * score.multiplier
 			health = minf(health+0.125,1)
 		HitObject.HitState.MISS:
+			missed.emit(object)
 			score.misses += 1
 			score.combo = 0
-			score.sub_multiplier = 1
+			score.sub_multiplier = 0
 			score.multiplier -= 1
 			health = maxf(health-0.2,0)
 	score_changed.emit(score,health)
@@ -83,11 +87,12 @@ func _physics_process(_delta):
 	for object in objects.slice(latest_passed_note_index):
 		if game.sync_manager.current_time < object.spawn_time:
 			break
+		if !(object is HitObject and object.hittable): continue
 		if game.sync_manager.current_time > object.despawn_time:
 			latest_passed_note_index = objects.find(object)
-		if !(object is HitObject and object.can_hit and object.hit_state == HitObject.HitState.NONE): continue
-		var x = abs(object.global_position.x - clamped_cursor_position.x)
-		var y = abs(object.global_position.y - clamped_cursor_position.y)
+		if object.hit_state != HitObject.HitState.NONE: continue
+		var x = abs(object.position.x - clamped_cursor_position.x)
+		var y = abs(object.position.y - clamped_cursor_position.y)
 		var object_scale = object.global_transform.basis.get_scale()
 		var hitbox_x = (object_scale.x + cursor_hitbox) / 2.0
 		var hitbox_y = (object_scale.y + cursor_hitbox) / 2.0

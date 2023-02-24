@@ -22,7 +22,7 @@ const LegacyCovers = { # LEGACY SUPPORT
 	Difficulty.EASY: preload("res://assets/images/covers/easy.png"),
 	Difficulty.MEDIUM: preload("res://assets/images/covers/medium.png"),
 	Difficulty.HARD: preload("res://assets/images/covers/hard.png"),
-	Difficulty.LOGIC: preload("res://assets/images/covers/logic.jpg"),
+	Difficulty.LOGIC: preload("res://assets/images/covers/logic-alt.png"),
 	Difficulty.TASUKETE: preload("res://assets/images/covers/tasukete.png"),
 }
 

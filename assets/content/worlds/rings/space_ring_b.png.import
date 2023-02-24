@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bsxpcj61ug7o6"
-path.s3tc="res://.godot/imported/space_ring_b.png-e5836931aa110ebfe22415cf819cec47.s3tc.ctex"
-path.etc2="res://.godot/imported/space_ring_b.png-e5836931aa110ebfe22415cf819cec47.etc2.ctex"
+path.s3tc="res://.godot/imported/space_ring_b.png-c812f648184240de8b63c5358dc1da84.s3tc.ctex"
+path.etc2="res://.godot/imported/space_ring_b.png-c812f648184240de8b63c5358dc1da84.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/worlds/neon_tunnel/space_ring_b.png"
-dest_files=["res://.godot/imported/space_ring_b.png-e5836931aa110ebfe22415cf819cec47.s3tc.ctex", "res://.godot/imported/space_ring_b.png-e5836931aa110ebfe22415cf819cec47.etc2.ctex"]
+source_file="res://assets/content/worlds/rings/space_ring_b.png"
+dest_files=["res://.godot/imported/space_ring_b.png-c812f648184240de8b63c5358dc1da84.s3tc.ctex", "res://.godot/imported/space_ring_b.png-c812f648184240de8b63c5358dc1da84.etc2.ctex"]
 
 [params]
 

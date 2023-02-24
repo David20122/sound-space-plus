@@ -1,9 +1,9 @@
-[gd_resource type="Resource" script_class="MeshPlus" load_steps=5 format=3 uid="uid://bwyg27bphlbd4"]
+[gd_resource type="Resource" script_class="MeshPlus" load_steps=5 format=3]
 
-[ext_resource type="Material" uid="uid://mo14d60r0wa8" path="res://assets/meshes/blocks/default.tres" id="1_vcinw"]
-[ext_resource type="Material" uid="uid://dylshod0cttj3" path="res://assets/meshes/blocks/cube_center.tres" id="2_80ce0"]
-[ext_resource type="ArrayMesh" uid="uid://o8qaywrhkgih" path="res://assets/meshes/blocks/cube.obj" id="3_bv6sy"]
-[ext_resource type="Script" path="res://scripts/content/MeshPlus.gd" id="4_rhhwv"]
+[ext_resource type="Material" uid="uid://mo14d60r0wa8" path="res://assets/content/blocks/meshes/default.tres" id="1_vcinw"]
+[ext_resource type="Material" uid="uid://dylshod0cttj3" path="res://assets/content/blocks/meshes/cube_center.tres" id="2_80ce0"]
+[ext_resource type="ArrayMesh" uid="uid://o8qaywrhkgih" path="res://assets/content/blocks/meshes/cube.obj" id="3_bv6sy"]
+[ext_resource type="Script" path="res://scripts/content/resources/MeshPlus.gd" id="4_rhhwv"]
 
 [resource]
 script = ExtResource("4_rhhwv")

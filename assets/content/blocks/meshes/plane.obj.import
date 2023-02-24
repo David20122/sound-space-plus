@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dsmkacamscxei"
+path="res://.godot/imported/plane.obj-b208fa95462fc02760e16b4fc8e1b2c1.mesh"
+
+[deps]
+
+files=["res://.godot/imported/plane.obj-b208fa95462fc02760e16b4fc8e1b2c1.mesh"]
+
+source_file="res://assets/content/blocks/meshes/plane.obj"
+dest_files=["res://.godot/imported/plane.obj-b208fa95462fc02760e16b4fc8e1b2c1.mesh", "res://.godot/imported/plane.obj-b208fa95462fc02760e16b4fc8e1b2c1.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(0.5, 0.5, 0.5)
+offset_mesh=Vector3(0, 0, 0.05)
+optimize_mesh=true

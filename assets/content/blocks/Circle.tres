@@ -1,13 +1,13 @@
-[gd_resource type="Resource" script_class="MeshPlus" load_steps=4 format=3 uid="uid://bmu58tan3vxmk"]
+[gd_resource type="Resource" script_class="MeshPlus" load_steps=4 format=3 uid="uid://canx07ll1t7po"]
 
-[ext_resource type="Material" uid="uid://mo14d60r0wa8" path="res://assets/meshes/blocks/default.tres" id="1_5wt0s"]
-[ext_resource type="ArrayMesh" uid="uid://w811ewkimu1a" path="res://assets/meshes/blocks/circle.obj" id="2_4v442"]
-[ext_resource type="Script" path="res://scripts/content/MeshPlus.gd" id="3_j3ylg"]
+[ext_resource type="Material" uid="uid://mo14d60r0wa8" path="res://assets/content/blocks/meshes/default.tres" id="1_lhd5y"]
+[ext_resource type="ArrayMesh" uid="uid://w811ewkimu1a" path="res://assets/content/blocks/meshes/circle.obj" id="2_s3bq1"]
+[ext_resource type="Script" path="res://scripts/content/resources/MeshPlus.gd" id="3_j3ylg"]
 
 [resource]
 script = ExtResource("3_j3ylg")
-mesh = ExtResource("2_4v442")
-materials = Array[Material]([ExtResource("1_5wt0s")])
+mesh = ExtResource("2_s3bq1")
+materials = Array[Material]([ExtResource("1_lhd5y")])
 id = "circle"
 name = "Circle"
 creator = "Sound Space Plus"

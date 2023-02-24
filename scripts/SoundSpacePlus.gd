@@ -3,6 +3,7 @@ extends Node
 @onready var playlists:Registry = preload("res://assets/content/Playlists.tres")
 @onready var mapsets:Registry = preload("res://assets/content/Mapsets.tres")
 @onready var blocks:Registry = preload("res://assets/content/Blocks.tres")
+@onready var worlds:Registry = preload("res://assets/content/Worlds.tres")
 
 # VR Vars
 @onready var vr_allowed:bool = ProjectSettings.get_setting_with_override("xr/openxr/enabled")

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cdt2so3qqxps"
+path="res://.godot/imported/rounded.obj-a3f1c29dc1fb9eeab513a34aa0a6313a.mesh"
+
+[deps]
+
+files=["res://.godot/imported/rounded.obj-a3f1c29dc1fb9eeab513a34aa0a6313a.mesh"]
+
+source_file="res://assets/content/blocks/meshes/rounded.obj"
+dest_files=["res://.godot/imported/rounded.obj-a3f1c29dc1fb9eeab513a34aa0a6313a.mesh", "res://.godot/imported/rounded.obj-a3f1c29dc1fb9eeab513a34aa0a6313a.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(0.5, 0.5, 0.5)
+offset_mesh=Vector3(0, 0, 0.05)
+optimize_mesh=true

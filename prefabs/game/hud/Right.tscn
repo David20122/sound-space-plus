@@ -1,0 +1,131 @@
+[gd_scene load_steps=7 format=3 uid="uid://y0h0ei541c0x"]
+
+[ext_resource type="Script" path="res://scripts/game/hud/RightHUD.gd" id="1_rkhlq"]
+[ext_resource type="FontFile" uid="uid://daxk4ur5wb382" path="res://assets/fonts/Lato/Lato-Light.ttf" id="2_koii4"]
+[ext_resource type="Texture2D" uid="uid://dphia0ore0m3o" path="res://assets/images/progress.png" id="3_5xons"]
+[ext_resource type="FontFile" uid="uid://c56v11c0s2px" path="res://assets/fonts/Lato/Lato-Regular.ttf" id="4_nx0qh"]
+
+[sub_resource type="Gradient" id="Gradient_gwmgs"]
+interpolation_mode = 2
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1uofr"]
+gradient = SubResource("Gradient_gwmgs")
+width = 420
+height = 1200
+use_hdr = true
+fill_from = Vector2(0.5, 1)
+fill_to = Vector2(0.5, 0)
+
+[node name="Control" type="TextureRect"]
+self_modulate = Color(1, 1, 1, 0.862745)
+offset_top = 2.0
+offset_right = 420.0
+offset_bottom = 1202.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_1uofr")
+expand_mode = 1
+script = ExtResource("1_rkhlq")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_bottom = 8.0
+grow_horizontal = 2
+
+[node name="Multiplier" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 35.0
+offset_top = 50.0
+offset_right = 385.0
+offset_bottom = 400.0
+
+[node name="Label" type="Label" parent="Multiplier"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/shadow_offset_x = 6
+theme_override_constants/shadow_offset_y = 6
+theme_override_constants/outline_size = 0
+theme_override_fonts/font = ExtResource("2_koii4")
+theme_override_font_sizes/font_size = 128
+text = "8x"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Progress" type="TextureProgressBar" parent="Multiplier"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+max_value = 7.0
+step = 0.0
+value = 3.0
+fill_mode = 4
+nine_patch_stretch = true
+texture_under = ExtResource("3_5xons")
+texture_progress = ExtResource("3_5xons")
+tint_under = Color(0.5, 0.5, 0.5, 0.5)
+
+[node name="Combo" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -64.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_nx0qh")
+theme_override_font_sizes/font_size = 72
+text = "999,999"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="Combo"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = -64.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_koii4")
+theme_override_font_sizes/font_size = 48
+text = "COMBO"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Misses" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = 104.0
+offset_bottom = 232.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_nx0qh")
+theme_override_font_sizes/font_size = 72
+text = "999,999"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="Misses"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = -64.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_koii4")
+theme_override_font_sizes/font_size = 48
+text = "MISSES"
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://b1plfltoc8it7"]
+
+[ext_resource type="Script" path="res://scripts/game/hud/LeftHUD.gd" id="1_305e3"]
+
+[sub_resource type="Gradient" id="Gradient_gwmgs"]
+interpolation_mode = 2
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1uofr"]
+gradient = SubResource("Gradient_gwmgs")
+width = 420
+height = 1200
+use_hdr = true
+fill_from = Vector2(0.5, 1)
+fill_to = Vector2(0.5, 0)
+
+[node name="Control" type="TextureRect"]
+self_modulate = Color(1, 1, 1, 0.862745)
+offset_top = 2.0
+offset_right = 420.0
+offset_bottom = 1202.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_1uofr")
+expand_mode = 1
+script = ExtResource("1_305e3")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_bottom = 8.0
+grow_horizontal = 2

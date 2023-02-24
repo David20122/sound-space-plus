@@ -1,0 +1,132 @@
+[gd_scene load_steps=12 format=3 uid="uid://2ytv06ccswo1"]
+
+[ext_resource type="Script" path="res://scripts/game/objects/GameObject.gd" id="1_siigk"]
+[ext_resource type="Script" path="res://scripts/game/hud/EnergyHUD.gd" id="2_jjhor"]
+[ext_resource type="PackedScene" uid="uid://y0h0ei541c0x" path="res://prefabs/game/hud/Right.tscn" id="2_lsrsk"]
+[ext_resource type="Texture2D" uid="uid://d1mkaxv1bs88f" path="res://assets/images/grid_outer.png" id="2_tb2s1"]
+[ext_resource type="PackedScene" uid="uid://b1plfltoc8it7" path="res://prefabs/game/hud/Left.tscn" id="3_3kg2m"]
+[ext_resource type="Texture2D" uid="uid://cftumuph2lfnj" path="res://assets/images/grid_inner.png" id="3_ll623"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jc6ms"]
+bg_color = Color(0.784314, 0.313726, 0.313726, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dbnyp"]
+bg_color = Color(0.313726, 1, 0.313726, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_4j1fw"]
+viewport_path = NodePath("EnergyViewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_g8hlh"]
+viewport_path = NodePath("RightViewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_s0bgg"]
+viewport_path = NodePath("LeftViewport")
+
+[node name="HUD" type="Node3D"]
+script = ExtResource("1_siigk")
+id = "HUD"
+permanent = true
+
+[node name="EnergyViewport" type="SubViewport" parent="."]
+disable_3d = true
+transparent_bg = true
+gui_disable_input = true
+gui_embed_subwindows = true
+size = Vector2i(600, 120)
+
+[node name="Control" type="Control" parent="EnergyViewport"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = -1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_jjhor")
+
+[node name="Health" type="ProgressBar" parent="EnergyViewport/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_left = 20.0
+offset_right = -20.0
+offset_bottom = 10.0
+grow_horizontal = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_jc6ms")
+theme_override_styles/fill = SubResource("StyleBoxFlat_dbnyp")
+max_value = 1.0
+step = 0.0
+value = 0.5
+show_percentage = false
+
+[node name="RightViewport" type="SubViewport" parent="."]
+disable_3d = true
+transparent_bg = true
+handle_input_locally = false
+msaa_2d = 1
+canvas_item_default_texture_filter = 3
+gui_disable_input = true
+gui_embed_subwindows = true
+size = Vector2i(422, 1202)
+
+[node name="Control" parent="RightViewport" instance=ExtResource("2_lsrsk")]
+
+[node name="LeftViewport" type="SubViewport" parent="."]
+disable_3d = true
+transparent_bg = true
+handle_input_locally = false
+snap_2d_transforms_to_pixel = true
+canvas_item_default_texture_repeat = 2
+gui_disable_input = true
+gui_embed_subwindows = true
+size = Vector2i(420, 1200)
+size_2d_override_stretch = true
+
+[node name="Control" parent="LeftViewport" instance=ExtResource("3_3kg2m")]
+
+[node name="Grid" type="Node3D" parent="."]
+script = ExtResource("1_siigk")
+id = "HUD.Grid"
+permanent = true
+
+[node name="Outer" type="Sprite3D" parent="Grid"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.01)
+pixel_size = 0.0025
+texture = ExtResource("2_tb2s1")
+
+[node name="Inner" type="Sprite3D" parent="Grid"]
+visible = false
+pixel_size = 0.0025
+texture = ExtResource("3_ll623")
+
+[node name="Energy" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, 0, -1.8, -0.25)
+flip_h = true
+pixel_size = 0.005
+texture = SubResource("ViewportTexture_4j1fw")
+script = ExtResource("1_siigk")
+id = "HUD.Energy"
+permanent = true
+
+[node name="Right" type="Sprite3D" parent="."]
+transform = Transform3D(0.579556, 0, -0.155291, 0, 0.6, 0, 0.155291, 0, 0.579556, -2.8, 0, 1)
+offset = Vector2(0, -100)
+flip_h = true
+pixel_size = 0.005
+texture = SubResource("ViewportTexture_g8hlh")
+script = ExtResource("1_siigk")
+id = "HUD.RPanel"
+permanent = true
+
+[node name="Left" type="Sprite3D" parent="."]
+transform = Transform3D(0.579556, 0, 0.155291, 0, 0.6, 0, -0.155291, 0, 0.579556, 2.8, 0, 1)
+offset = Vector2(0, -100)
+flip_h = true
+pixel_size = 0.005
+texture = SubResource("ViewportTexture_s0bgg")
+script = ExtResource("1_siigk")
+id = "HUD.LPanel"
+permanent = true

@@ -1,27 +1,21 @@
-[gd_scene load_steps=15 format=3 uid="uid://b7mcbl6s1l3cb"]
+[gd_scene load_steps=14 format=3 uid="uid://coxy02rq0td13"]
 
 [ext_resource type="Script" path="res://scripts/game/GameScene.gd" id="1"]
 [ext_resource type="Script" path="res://scripts/game/managers/SyncManager.gd" id="2_kp2am"]
 [ext_resource type="Script" path="res://scripts/game/objects/PlayerObject.gd" id="2_owl32"]
 [ext_resource type="Script" path="res://scripts/game/managers/ObjectManager.gd" id="3_6ip3k"]
 [ext_resource type="Script" path="res://scripts/game/objects/GameObject.gd" id="3_pci65"]
+[ext_resource type="ArrayMesh" uid="uid://o8qaywrhkgih" path="res://assets/content/blocks/meshes/cube.obj" id="4_6o7l0"]
 [ext_resource type="Script" path="res://scripts/game/managers/HUDManager.gd" id="4_k7mvy"]
 [ext_resource type="Script" path="res://scripts/game/renderers/NoteRenderer.gd" id="4_tvxv6"]
-[ext_resource type="ArrayMesh" uid="uid://o8qaywrhkgih" path="res://assets/meshes/blocks/cube.obj" id="5_ttljx"]
-[ext_resource type="Texture2D" uid="uid://d1mkaxv1bs88f" path="res://assets/images/grid_outer.png" id="5_ub0p0"]
 [ext_resource type="Texture2D" uid="uid://ctmjd7r2b7750" path="res://assets/images/default_cursor.png" id="8_y20xf"]
-
-[sub_resource type="Environment" id="Environment_fuarx"]
-resource_local_to_scene = true
-background_mode = 1
-ambient_light_source = 2
-ambient_light_color = Color(1, 1, 1, 1)
+[ext_resource type="PackedScene" uid="uid://2ytv06ccswo1" path="res://prefabs/game/hud/HUD.tscn" id="10_i0uko"]
 
 [sub_resource type="MultiMesh" id="MultiMesh_t5tpd"]
 transform_format = 1
 use_colors = true
 use_custom_data = true
-mesh = ExtResource("5_ttljx")
+mesh = ExtResource("4_6o7l0")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y2xxy"]
 transparency = 1
@@ -37,11 +31,9 @@ script = ExtResource("1")
 sync_manager_path = NodePath("SyncManager")
 object_manager_path = NodePath("ObjectManager")
 hud_manager_path = NodePath("HUDManager")
-environment_path = NodePath("Environment")
+origin_path = NodePath("Origin")
+world_path = NodePath("Origin/World")
 player_path = NodePath("Origin/Player")
-
-[node name="Environment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_fuarx")
 
 [node name="SyncManager" type="Node" parent="."]
 process_priority = 2
@@ -52,14 +44,15 @@ audio_player_path = NodePath("../Music")
 process_mode = 3
 process_priority = 1
 script = ExtResource("3_6ip3k")
-origin_path = NodePath("../Origin")
 
 [node name="NoteRenderer" type="MultiMeshInstance3D" parent="ObjectManager"]
 multimesh = SubResource("MultiMesh_t5tpd")
 script = ExtResource("4_tvxv6")
 
 [node name="HUDManager" type="Node" parent="."]
+process_priority = 1
 script = ExtResource("4_k7mvy")
+hud_path = NodePath("../Origin/HUD")
 
 [node name="Origin" type="Node3D" parent="."]
 process_mode = 1
@@ -102,22 +95,13 @@ tracker = &"left_hand"
 [node name="RHand" type="XRController3D" parent="Origin/Player/XROrigin"]
 tracker = &"right_hand"
 
-[node name="HUD" type="Node3D" parent="Origin"]
-script = ExtResource("3_pci65")
-id = "HUD"
-permanent = true
-
-[node name="Grid" type="Sprite3D" parent="Origin/HUD"]
-pixel_size = 0.0025
-texture = ExtResource("5_ub0p0")
-script = ExtResource("3_pci65")
-id = "HUD.Grid"
-permanent = true
-
 [node name="World" type="Node3D" parent="Origin"]
 script = ExtResource("3_pci65")
 id = "World"
 permanent = true
+
+[node name="HUD" parent="Origin" instance=ExtResource("10_i0uko")]
+process_priority = -1
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 bus = &"Game Music"

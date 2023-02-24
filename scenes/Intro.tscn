@@ -1,13 +1,14 @@
-[gd_scene load_steps=42 format=2]
+[gd_scene load_steps=42 format=3]
 
-[ext_resource path="res://assets/meshes/blocks/cube.obj" type="ArrayMesh" id=1]
-[ext_resource path="res://assets/fonts/Lato/Lato-Italic.ttf" type="FontFile" id=2]
-[ext_resource path="res://assets/meshes/LowCube.obj" type="ArrayMesh" id=15]
-[ext_resource path="res://assets/meshes/Happy.obj" type="ArrayMesh" id=16]
-[ext_resource path="res://assets/images/branding/icon.svg" type="Texture2D" id=25]
-[ext_resource path="res://assets/animations/Idle.tres" type="Animation" id=26]
-[ext_resource path="res://scripts/menu/loading/Intro.gd" type="Script" id=27]
-[ext_resource path="res://assets/sounds/music/yay.mp3" type="AudioStream" id=28]
+[ext_resource type="ArrayMesh" uid="uid://o8qaywrhkgih" path="res://assets/content/blocks/meshes/cube.obj" id="1"]
+[ext_resource type="FontFile" uid="uid://1enqcwmnif2a" path="res://assets/fonts/Lato/Lato-Italic.ttf" id="2"]
+[ext_resource type="ArrayMesh" uid="uid://sdwkurs7sbq1" path="res://assets/meshes/LowCube.obj" id="15"]
+[ext_resource type="ArrayMesh" uid="uid://dct8vm06d2bqs" path="res://assets/meshes/Happy.obj" id="16"]
+[ext_resource type="Texture2D" uid="uid://l6ugdbcno343" path="res://assets/images/branding/icon.svg" id="25"]
+[ext_resource type="Animation" path="res://assets/animations/Idle.tres" id="26"]
+[ext_resource type="Script" path="res://scripts/menu/loading/Intro.gd" id="27"]
+[ext_resource type="AudioStream" uid="uid://4m7ojv7fq40q" path="res://assets/sounds/music/yay.mp3" id="28"]
+
 
 [sub_resource type="StandardMaterial3D" id=60]
 flags_unshaded = true
