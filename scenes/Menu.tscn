@@ -308,21 +308,6 @@ horizontal_alignment = 2
 vertical_alignment = 2
 autowrap_mode = 2
 
-[node name="Favourite" type="TextureRect" parent="Main/TabBar/Solo/MapList/Maps/List/Contents/Mapset"]
-visible = false
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -40.0
-offset_top = 4.0
-offset_right = -16.0
-offset_bottom = 28.0
-grow_horizontal = 0
-texture = ExtResource("9")
-expand_mode = 1
-stretch_mode = 5
-
 [node name="BottomSeparator" type="HSeparator" parent="Main/TabBar/Solo/MapList/Maps/List/Contents"]
 layout_mode = 2
 theme_override_constants/separation = 0
