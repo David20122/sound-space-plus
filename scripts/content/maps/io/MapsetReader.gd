@@ -164,7 +164,6 @@ func _sspmv1(file:FileAccess,set:Mapset,full:bool):
 	map.notes = []
 	for i in range(note_count):
 		var note = Map.Note.new()
-		note.index = i + 1
 		note.time = float(file.get_32())/1000
 		if file.get_8() == 1:
 			note.x = file.get_float()
@@ -173,6 +172,9 @@ func _sspmv1(file:FileAccess,set:Mapset,full:bool):
 			note.x = float(file.get_8())
 			note.y = float(file.get_8())
 		map.notes.append(note)
+	map.notes.sort_custom(func(a,b): return a.time < b.time)
+	for i in range(map.notes.size()):
+		map.notes[i].index = i
 
 func _read_data_type(file:FileAccess,skip_type:bool=false,skip_array_type:bool=false,type:int=0,array_type:int=0):
 	if !skip_type:
@@ -283,13 +285,13 @@ func _sspmv2(file:FileAccess,set:Mapset,full:bool):
 		map.broken = true
 		return
 	map.notes = []
-	var i = 1
 	for note_data in markers.get("ssp_note"):
 		if note_data[1] != 7: continue
 		var note = Map.Note.new()
-		note.index = i
 		note.time = float(note_data[0])/1000
 		note.x = note_data[2].x
 		note.y = note_data[2].y
 		map.notes.append(note)
-		i += 1
+	map.notes.sort_custom(func(a,b): return a.time < b.time)
+	for i in range(map.notes.size()):
+		map.notes[i].index = i
