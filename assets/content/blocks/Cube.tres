@@ -43,6 +43,7 @@ _surfaces = [{
 [resource]
 script = ExtResource("4_rhhwv")
 mesh = SubResource("ArrayMesh_olvlb")
+offset = Vector3(0, 0, 0)
 id = "cube"
 name = "Cube"
 creator = "Sound Space Plus"

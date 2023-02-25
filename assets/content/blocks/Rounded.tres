@@ -20,6 +20,7 @@ _surfaces = [{
 [resource]
 script = ExtResource("3_5galj")
 mesh = SubResource("ArrayMesh_c3gl1")
+offset = Vector3(0, 0, 0)
 id = "rounded"
 name = "Rounded"
 creator = "Sound Space Plus"

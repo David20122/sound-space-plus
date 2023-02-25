@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3]
+[gd_scene load_steps=31 format=3 uid="uid://cu2rno2ef0dtr"]
 
 [ext_resource type="PackedScene" uid="uid://de1sj0rkm2iu7" path="res://prefabs/menu/VersionNumberR.tscn" id="1"]
 [ext_resource type="Theme" uid="uid://diarojdcbhxg8" path="res://uitheme.tres" id="2"]
@@ -14,6 +14,9 @@
 [ext_resource type="Script" path="res://scripts/menu/maplist/Play.gd" id="8_mf8ee"]
 [ext_resource type="Texture2D" uid="uid://b7v0bqlxe7ew4" path="res://assets/images/ui/favorite.png" id="9"]
 [ext_resource type="Texture2D" uid="uid://bae4xwfedhtyw" path="res://assets/images/ui/add_icon.png" id="10"]
+[ext_resource type="Script" path="res://scripts/menu/settings/RegistryControl.gd" id="10_a5lmy"]
+[ext_resource type="Script" path="res://scripts/menu/settings/SettingControl.gd" id="10_qi5v2"]
+[ext_resource type="Script" path="res://scripts/menu/settings/VolumeLabel.gd" id="12_vqp4p"]
 [ext_resource type="Script" path="res://scripts/menu/main/Sidebar.gd" id="18"]
 [ext_resource type="Script" path="res://scripts/menu/main/Warning.gd" id="19"]
 [ext_resource type="AudioStream" uid="uid://7a4m03sb8st5" path="res://assets/sounds/death.mp3" id="20"]
@@ -43,6 +46,8 @@ corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xh06e"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_floo6"]
 bg_color = Color(1, 1, 1, 1)
@@ -108,6 +113,7 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_rnsra")
 tabs_visible = false
 
 [node name="Solo" type="Control" parent="Main/TabBar"]
+visible = false
 layout_mode = 2
 
 [node name="Playlists" type="ScrollContainer" parent="Main/TabBar/Solo"]
@@ -513,8 +519,343 @@ visible = false
 layout_mode = 2
 
 [node name="Settings" type="Control" parent="Main/TabBar"]
+layout_mode = 2
+
+[node name="TabContainer" type="TabContainer" parent="Main/TabBar/Settings"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = 24.0
+offset_right = -24.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Game" type="Control" parent="Main/TabBar/Settings/TabContainer"]
 visible = false
 layout_mode = 2
+
+[node name="Columns" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Game"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = 8.0
+offset_right = -24.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+
+[node name="A" type="VBoxContainer" parent="Main/TabBar/Settings/TabContainer/Game/Columns"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 16
+
+[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Game/Columns/A"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Skin"
+vertical_alignment = 2
+
+[node name="Block" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Game/Columns/A"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_constants/separation = 16
+script = ExtResource("10_a5lmy")
+registry_name = "blocks"
+target = Array[String](["assets", "block"])
+signal_emitter_path = NodePath("OptionButton")
+signal_name = "item_selected"
+property_name = "selected"
+
+[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Game/Columns/A/Block"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Block Mesh"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="OptionButton" type="OptionButton" parent="Main/TabBar/Settings/TabContainer/Game/Columns/A/Block"]
+layout_mode = 2
+size_flags_horizontal = 3
+fit_to_longest_item = false
+
+[node name="World" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Game/Columns/A"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_constants/separation = 16
+script = ExtResource("10_a5lmy")
+registry_name = "worlds"
+target = Array[String](["assets", "world"])
+signal_emitter_path = NodePath("OptionButton")
+signal_name = "item_selected"
+property_name = "selected"
+
+[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Game/Columns/A/World"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Background World"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="OptionButton" type="OptionButton" parent="Main/TabBar/Settings/TabContainer/Game/Columns/A/World"]
+layout_mode = 2
+size_flags_horizontal = 3
+fit_to_longest_item = false
+
+[node name="B" type="VBoxContainer" parent="Main/TabBar/Settings/TabContainer/Game/Columns"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 16
+
+[node name="Audio" type="Control" parent="Main/TabBar/Settings/TabContainer"]
+layout_mode = 2
+
+[node name="Columns" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Audio"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = 8.0
+offset_right = -24.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+
+[node name="LSeparator" type="VSeparator" parent="Main/TabBar/Settings/TabContainer/Audio/Columns"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+theme_override_styles/separator = SubResource("StyleBoxEmpty_xh06e")
+
+[node name="A" type="VBoxContainer" parent="Main/TabBar/Settings/TabContainer/Audio/Columns"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+theme_override_constants/separation = 16
+
+[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/A"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Volume"
+vertical_alignment = 2
+
+[node name="Master" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/A"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_constants/separation = 16
+script = ExtResource("10_qi5v2")
+target = Array[String](["volume", "master"])
+signal_emitter_path = NodePath("HSlider")
+signal_name = "value_changed"
+property_name = "value"
+
+[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/A/Master"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.5
+text = "Master (100%)"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("12_vqp4p")
+label = "Master"
+
+[node name="HSlider" type="HSlider" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/A/Master"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 2.0
+step = 0.01
+value = 1.0
+
+[node name="Menu" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/A"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_constants/separation = 16
+script = ExtResource("10_qi5v2")
+target = Array[String](["volume", "master_menu"])
+signal_emitter_path = NodePath("HSlider")
+signal_name = "value_changed"
+property_name = "value"
+
+[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/A/Menu"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.5
+text = "Master (100%)"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("12_vqp4p")
+label = "Menu Master"
+
+[node name="HSlider" type="HSlider" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/A/Menu"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 2.0
+step = 0.01
+value = 1.0
+
+[node name="MenuMusic" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/A"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_constants/separation = 16
+script = ExtResource("10_qi5v2")
+target = Array[String](["volume", "menu_music"])
+signal_emitter_path = NodePath("HSlider")
+signal_name = "value_changed"
+property_name = "value"
+
+[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/A/MenuMusic"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.5
+text = "Master (100%)"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("12_vqp4p")
+label = "Menu Music"
+
+[node name="HSlider" type="HSlider" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/A/MenuMusic"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 2.0
+step = 0.01
+value = 1.0
+
+[node name="MenuSFX" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/A"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_constants/separation = 16
+script = ExtResource("10_qi5v2")
+target = Array[String](["volume", "menu_sfx"])
+signal_emitter_path = NodePath("HSlider")
+signal_name = "value_changed"
+property_name = "value"
+
+[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/A/MenuSFX"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.5
+text = "Master (100%)"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("12_vqp4p")
+label = "Menu SFX"
+
+[node name="HSlider" type="HSlider" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/A/MenuSFX"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 2.0
+step = 0.01
+value = 1.0
+
+[node name="Game" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/A"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_constants/separation = 16
+script = ExtResource("10_qi5v2")
+target = Array[String](["volume", "master_game"])
+signal_emitter_path = NodePath("HSlider")
+signal_name = "value_changed"
+property_name = "value"
+
+[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/A/Game"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.5
+text = "Master (100%)"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("12_vqp4p")
+label = "Game Master"
+
+[node name="HSlider" type="HSlider" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/A/Game"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 2.0
+step = 0.01
+value = 1.0
+
+[node name="GameMusic" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/A"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_constants/separation = 16
+script = ExtResource("10_qi5v2")
+target = Array[String](["volume", "game_music"])
+signal_emitter_path = NodePath("HSlider")
+signal_name = "value_changed"
+property_name = "value"
+
+[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/A/GameMusic"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.5
+text = "Master (100%)"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("12_vqp4p")
+label = "Game Music"
+
+[node name="HSlider" type="HSlider" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/A/GameMusic"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 2.0
+step = 0.01
+value = 1.0
+
+[node name="GameSFX" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/A"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_constants/separation = 16
+script = ExtResource("10_qi5v2")
+target = Array[String](["volume", "game_sfx"])
+signal_emitter_path = NodePath("HSlider")
+signal_name = "value_changed"
+property_name = "value"
+
+[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/A/GameSFX"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.5
+text = "Master (100%)"
+horizontal_alignment = 2
+vertical_alignment = 1
+script = ExtResource("12_vqp4p")
+label = "Game SFX"
+
+[node name="HSlider" type="HSlider" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/A/GameSFX"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 2.0
+step = 0.01
+value = 1.0
+
+[node name="RSeparator" type="VSeparator" parent="Main/TabBar/Settings/TabContainer/Audio/Columns"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+theme_override_styles/separator = SubResource("StyleBoxEmpty_xh06e")
 
 [node name="VersionNumberR" parent="Main" instance=ExtResource("1")]
 layout_mode = 1

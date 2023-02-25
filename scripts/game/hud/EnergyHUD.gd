@@ -1,13 +1,13 @@
 extends HUDItem
 class_name EnergyHUD
 
-var health:float = 1
-var displayed_health:float = 1
+var health:float = 5
+var displayed_health:float = 5
 
 var tween:Tween
  
 func _ready():
-	$Health.value = 1
+	$Health.value = 5
 
 func _process(_delta):
 	if health != displayed_health:

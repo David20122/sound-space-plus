@@ -5,7 +5,7 @@ extends Node
 @onready var blocks:Registry = load("res://assets/content/Blocks.tres")
 @onready var worlds:Registry = load("res://assets/content/Worlds.tres")
 
-var settings_path = "user://settings.json"
+var settings_path = "user://preferences.json"
 var settings:Settings
 var first_time:bool = false
 
@@ -15,7 +15,7 @@ func _ready():
 
 # Settings
 func load_settings():
-	var exec_settings = OS.get_executable_path().path_join("settings.json")
+	var exec_settings = OS.get_executable_path().path_join("preferences.json")
 	if FileAccess.file_exists(exec_settings):
 		settings_path = exec_settings
 	var data = {}

@@ -18,7 +18,7 @@ signal failed
 @onready var ghost:MeshInstance3D = cursor.get_node("Ghost")
 
 @onready var score:Score = Score.new()
-var health:float = 1
+var health:float = 5
 var did_fail:bool = false
 
 var cursor_position:Vector2 = Vector2.ZERO
@@ -36,14 +36,14 @@ func hit_object_state_changed(state:int,object:HitObject):
 				score.sub_multiplier = 1
 				score.multiplier += 1
 			score.score += 25 * score.multiplier
-			health = minf(health+0.125,1)
+			health = minf(health+0.625,5)
 		HitObject.HitState.MISS:
 			missed.emit(object)
 			score.misses += 1
 			score.combo = 0
 			score.sub_multiplier = 0
 			score.multiplier -= 1
-			health = maxf(health-0.2,0)
+			health = maxf(health-1,0)
 	score_changed.emit(score,health)
 	if health == 0 and !did_fail:
 		fail()

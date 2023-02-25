@@ -20,6 +20,7 @@ _surfaces = [{
 [resource]
 script = ExtResource("3_j3ylg")
 mesh = SubResource("ArrayMesh_nhuju")
+offset = Vector3(0, 0, 0)
 id = "circle"
 name = "Circle"
 creator = "Sound Space Plus"

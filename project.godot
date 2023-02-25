@@ -67,7 +67,6 @@ window/size/viewport_height=720
 window/per_pixel_transparency/allowed=true
 window/handheld/orientation="sensor_landscape"
 window/vsync/vsync_mode=3
-window/subwindows/embed_subwindows=false
 window/vsync/use_vsync=false
 window/stretch/mode.mobile="2d"
 window/stretch/aspect.mobile="keep_height"

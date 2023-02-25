@@ -66,9 +66,11 @@ func validate(origin:Dictionary,template:Array):
 		else:
 			new[setting[0]] = original
 	return new
+func validate_self(_data:Dictionary=data):
+	data = validate(_data,SettingsList)
 
 func _init(_data:Dictionary={}):
-	data = validate(_data,SettingsList)
+	validate_self(_data)
 
 func _get(property):
 	assert(data.has(property))
