@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=41 format=3 uid="uid://diarojdcbhxg8"]
+[gd_resource type="Theme" load_steps=42 format=3 uid="uid://diarojdcbhxg8"]
 
 [ext_resource type="FontFile" uid="uid://c56v11c0s2px" path="res://assets/fonts/Lato/Lato-Regular.ttf" id="1"]
 [ext_resource type="FontFile" uid="uid://bf8h1hxdvj8x8" path="res://assets/fonts/Noto_Sans_JP/NotoSansJP-Medium.otf" id="2"]
@@ -436,6 +436,10 @@ expand_margin_bottom = 4.0
 shadow_color = Color(0, 0, 0, 1)
 shadow_size = 1
 shadow_offset = Vector2(1, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8gwal"]
+content_margin_left = 2.0
+content_margin_right = 2.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3qdx3"]
 
@@ -900,7 +904,7 @@ Label/constants/shadow_offset_x = 1
 Label/constants/shadow_offset_y = 1
 Label/constants/shadow_outline_size = 3
 Label/fonts/font = SubResource("17")
-Label/styles/normal = null
+Label/styles/normal = SubResource("StyleBoxEmpty_8gwal")
 LineEdit/fonts/font = SubResource("17")
 LineEdit/icons/clear = null
 LineEdit/styles/focus = SubResource("StyleBoxEmpty_3qdx3")
