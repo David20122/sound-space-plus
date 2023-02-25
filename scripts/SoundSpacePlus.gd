@@ -13,6 +13,7 @@ func _ready():
 	load_settings()
 	connect("on_init_complete",Callable(self,"_on_init_complete"))
 
+# Settings
 func load_settings():
 	var exec_settings = OS.get_executable_path().path_join("settings.json")
 	if FileAccess.file_exists(exec_settings):
@@ -26,6 +27,23 @@ func load_settings():
 func save_settings():
 	var file = FileAccess.open(settings_path,FileAccess.WRITE)
 	file.store_string(JSON.stringify(settings.data,"",false))
+	
+func _physics_process(delta):
+	var volume = settings.volume
+	AudioServer.set_bus_volume_db(
+		AudioServer.get_bus_index("Master"),linear_to_db(volume.master))
+	AudioServer.set_bus_volume_db(
+		AudioServer.get_bus_index("Menu"),linear_to_db(volume.master_menu))
+	AudioServer.set_bus_volume_db(
+		AudioServer.get_bus_index("Menu Music"),linear_to_db(volume.menu_music))
+	AudioServer.set_bus_volume_db(
+		AudioServer.get_bus_index("Menu SFX"),linear_to_db(volume.menu_sfx))
+	AudioServer.set_bus_volume_db(
+		AudioServer.get_bus_index("Game"),linear_to_db(volume.master_game))
+	AudioServer.set_bus_volume_db(
+		AudioServer.get_bus_index("Game Music"),linear_to_db(volume.game_music))
+	AudioServer.set_bus_volume_db(
+		AudioServer.get_bus_index("Game SFX"),linear_to_db(volume.game_sfx))
 
 # Init
 var _initialised:bool = false

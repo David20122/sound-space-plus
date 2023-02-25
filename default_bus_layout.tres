@@ -7,7 +7,6 @@ hipass = 0.5
 wet = 0.2
 
 [resource]
-bus/0/volume_db = -4.003
 bus/1/name = &"Sound Space Plus"
 bus/1/solo = false
 bus/1/mute = false

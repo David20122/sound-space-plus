@@ -13,7 +13,16 @@ const SettingsList = [
 		["block",Type.STRING,"cube"],
 		["world",Type.STRING,"tunnel"]
 	]],
-	["colorset",Type.ARRAY,["#ff0000","#00ffff"]]
+	["colorset",Type.ARRAY,["#ff0000","#00ffff"]],
+	["volume",Type.CATEGORY,[
+		["master",Type.FLOAT,0.5],
+		["master_menu",Type.FLOAT,1.0],
+		["menu_music",Type.FLOAT,1.0],
+		["menu_sfx",Type.FLOAT,1.0],
+		["master_game",Type.FLOAT,1.0],
+		["game_music",Type.FLOAT,1.0],
+		["game_sfx",Type.FLOAT,1.0]
+	]]
 ]
 
 enum Type {
