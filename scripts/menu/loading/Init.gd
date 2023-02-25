@@ -5,6 +5,7 @@ extends Node
 @onready var tween:Tween = self.create_tween()
 
 func _ready():
+	$Piano.call_deferred("seek",0)
 	SoundSpacePlus.warning_seen = ProjectSettings.get_setting_with_override("application/startup/disable_health_warning")
 	$Pre.modulate.a = 0
 	$Post.modulate.a = 0
@@ -31,7 +32,6 @@ func pre():
 	tween.kill()
 	tween = create_tween()
 	tween.parallel().tween_property($Pre,"modulate:a",1,2).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
-	tween.parallel().tween_property($Strings,"volume_db",-12,2).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
 	tween.play()
 	await tween.finished
 	await get_tree().create_timer(1).timeout
@@ -54,12 +54,16 @@ func precontinue():
 func post():
 	$Pre.visible = false
 	$Post.visible = true
+	var pos = $Piano.get_playback_position()
+	$Phaser.call_deferred("seek",pos)
+	$Drums.call_deferred("seek",pos)
+	$Strings.call_deferred("seek",pos)
 	tween.kill()
 	tween = create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	tween.parallel().tween_property($Post,"modulate:a",1,0.2).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
 	tween.parallel().tween_property($Piano,"volume_db",-8,0.5)
 	tween.parallel().tween_property($Drums,"volume_db",-8,2)
-	tween.parallel().tween_property($Phaser,"volume_db",-12,1.5)
+	tween.parallel().tween_property($Phaser,"volume_db",-16,1.5)
 	tween.parallel().tween_property($Strings,"volume_db",-12,1)
 	tween.play()
 
