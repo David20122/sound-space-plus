@@ -4,4 +4,4 @@
 
 [resource]
 script = ExtResource("1_g8dy1")
-items = Array[Resource("res://scripts/content/ResourcePlus.gd")]([])
+items = Array[Resource("res://scripts/content/resources/ResourcePlus.gd")]([])
