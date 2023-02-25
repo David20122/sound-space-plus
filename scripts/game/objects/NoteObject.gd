@@ -2,6 +2,7 @@ extends HitObject
 class_name NoteObject
 
 var note:Map.Note
+var spawn_distance:float = 50
 var colour:Color
 
 func _init(_id:String="",_note:Map.Note=null,_colour:Color=Color.RED):
@@ -16,7 +17,7 @@ func _physics_process(_delta):
 
 func update(current_time:float):
 	var time = (note.time-current_time)/(note.time-spawn_time)
-	transform.origin = Vector3(-note.x+1,-note.y+1,time*50)
+	transform.origin = Vector3(-note.x+1,-note.y+1,time*spawn_distance)
 
 func visible_at(current_time:float):
 	if hit_state != HitState.NONE: return false

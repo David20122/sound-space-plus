@@ -47,8 +47,9 @@ func build_map(map:Map):
 		var colour_index = wrapi(note.index,0,colorset.size())
 		var colour = colorset[colour_index]
 		object.colour = Color.from_string(colour,Color.RED)
+		object.spawn_distance = game.settings.approach.distance
 		object.hittable = true
-		object.spawn_time = note.time - 1
+		object.spawn_time = note.time - game.settings.approach.time
 		object.despawn_time = note.time + 1
 		object.visible = false
 		append_object(object)

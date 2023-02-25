@@ -1,6 +1,6 @@
 extends Node3D
 class_name GameScene
-
+ 
 var settings:Settings
 var mapset:Mapset
 var map_index:int
@@ -29,8 +29,12 @@ func _ready():
 	map = mapset.maps[map_index]
 	print("Now playing %s [%s] - %s" % [mapset.name, map.name, mapset.id])
 	print("This is a SSPM v%s map" % mapset.format)
-		
-	var world = SoundSpacePlus.worlds.get_by_id("tunnel")
+	
+	var world = SoundSpacePlus.worlds.items.front()
+	var selected_world = settings.assets.world
+	var ids = SoundSpacePlus.worlds.get_ids()
+	if ids.has(selected_world):
+		world = SoundSpacePlus.worlds.get_by_id(selected_world)
 	if world != null:
 		var world_node = world.load_world()
 		world_node.set_meta("game",self)

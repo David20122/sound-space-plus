@@ -5,8 +5,27 @@ extends Node
 @onready var blocks:Registry = load("res://assets/content/Blocks.tres")
 @onready var worlds:Registry = load("res://assets/content/Worlds.tres")
 
+var settings_path = "user://settings.json"
+var settings:Settings
+var first_time:bool = false
+
 func _ready():
+	load_settings()
 	connect("on_init_complete",Callable(self,"_on_init_complete"))
+
+func load_settings():
+	var exec_settings = OS.get_executable_path().path_join("settings.json")
+	if FileAccess.file_exists(exec_settings):
+		settings_path = exec_settings
+	var data = {}
+	if FileAccess.file_exists(ProjectSettings.globalize_path(settings_path)):
+		var file = FileAccess.open(settings_path,FileAccess.READ)
+		data = JSON.parse_string(file.get_as_text())
+	settings = Settings.new(data)
+	first_time = settings.first_time
+func save_settings():
+	var file = FileAccess.open(settings_path,FileAccess.WRITE)
+	file.store_string(JSON.stringify(settings.data,"",false))
 
 # Init
 var _initialised:bool = false
@@ -117,7 +136,7 @@ func load_game_scene(game_type:int,mapset:Mapset,map_index:int=0):
 	assert(full_mapset.id == mapset.id)
 	var packed_scene:PackedScene = load(GameSceneTypes.get(game_type,"res://scenes/Solo.tscn"))
 	var scene:GameScene = packed_scene.instantiate() as GameScene
-	scene.settings = Settings.new()
+	scene.settings = settings
 	scene.mapset = full_mapset
 	scene.map_index = map_index
 	game_scene = scene
