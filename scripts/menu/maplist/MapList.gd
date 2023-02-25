@@ -4,18 +4,33 @@ class_name MapList
 signal on_mapset_selected
 var selected_mapset:Mapset
 
+@export_node_path("Control") var playlists_path
+@onready var playlists:PlaylistList = get_node(playlists_path)
+
 @onready var list:ScrollContainer = $Maps/List
 @onready var list_contents:VBoxContainer = $Maps/List/Contents
 @onready var top_separator:HSeparator = $Maps/List/Contents/TopSeparator
 @onready var btm_separator:HSeparator = $Maps/List/Contents/BottomSeparator
 @onready var origin_button:Button = $Maps/List/Contents/Mapset
 
-@onready var listed_items:Array = SoundSpacePlus.mapsets.items
+@onready var origin_list:Array = SoundSpacePlus.mapsets.items
+var listed_items:Array
 
 var buttons = {}
 
 func _ready():
 	origin_button.visible = false
+	call_deferred("update_items")
+	call_deferred("update_list")
+	playlists.connect("on_playlist_selected",Callable(self,"playlist_selected"))
+
+func playlist_selected(playlist:Playlist=null,all:bool=false):
+	if all or !playlist:
+		origin_list = SoundSpacePlus.mapsets.items
+	else:
+		playlist.load_mapsets()
+		origin_list = playlist.mapsets
+	list.scroll_vertical = 0
 	call_deferred("update_items")
 	call_deferred("update_list")
 
@@ -24,15 +39,20 @@ func _process(_delta):
 	if list.scroll_vertical != _last_scroll:
 		_last_scroll = list.scroll_vertical
 		update_list()
+func _notification(what):
+	if what == NOTIFICATION_RESIZED:
+		call_deferred("update_list")
 
 func update_items():
-	listed_items.sort_custom(
-	func(a:Mapset,b:Mapset):
-		return a.name.naturalnocasecmp_to(b.name) < 0
-	)
+	listed_items = origin_list.filter(Callable(self,"filter_maps"))
+	listed_items.sort_custom(Callable(self,"sort_maps"))
+func filter_maps(_set:Mapset):
+	return true
+func sort_maps(a:Mapset,b:Mapset):
+	return a.name.naturalnocasecmp_to(b.name) < 0
 
 func update_list():
-	var offset = max(0,floori(list.scroll_vertical/76))
+	var offset = max(0,floori(list.scroll_vertical/76.0))
 	var no_items = ceili(list.size.y/76) + 1
 	var end = min(listed_items.size(),offset+no_items)
 	var visible_items = listed_items.slice(offset,end)
