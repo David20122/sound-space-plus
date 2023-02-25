@@ -171,6 +171,7 @@ offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("4_hproy")
+playlists_path = NodePath("../Playlists")
 
 [node name="Filters" type="Panel" parent="Main/TabBar/Solo/MapList"]
 layout_mode = 1
@@ -219,10 +220,10 @@ theme_type_variation = &"MapsetButton"
 toggle_mode = true
 script = ExtResource("5_h0d55")
 
-[node name="Cover" type="TextureRect" parent="Main/TabBar/Solo/MapList/Maps/List/Contents/Mapset"]
+[node name="Cover" type="Control" parent="Main/TabBar/Solo/MapList/Maps/List/Contents/Mapset"]
 self_modulate = Color(0.8, 0.8, 0.8, 0.784314)
+clip_contents = true
 layout_mode = 1
-anchors_preset = -1
 anchor_left = 0.4
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -232,8 +233,18 @@ offset_right = -4.0
 offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Image" type="TextureRect" parent="Main/TabBar/Solo/MapList/Maps/List/Contents/Mapset/Cover"]
+self_modulate = Color(0.8, 0.8, 0.8, 0.784314)
+clip_contents = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("4_oas34")
-expand_mode = 1
+expand_mode = 4
 stretch_mode = 6
 
 [node name="Gradient" type="TextureRect" parent="Main/TabBar/Solo/MapList/Maps/List/Contents/Mapset/Cover"]
@@ -286,8 +297,8 @@ anchors_preset = -1
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -80.0
-offset_top = 12.0
-offset_right = -24.0
+offset_top = 28.0
+offset_right = -16.0
 offset_bottom = 60.0
 grow_horizontal = 0
 grow_vertical = 2
@@ -297,7 +308,21 @@ text = "3:00"
 horizontal_alignment = 2
 vertical_alignment = 2
 autowrap_mode = 2
-clip_text = true
+
+[node name="Favourite" type="TextureRect" parent="Main/TabBar/Solo/MapList/Maps/List/Contents/Mapset"]
+visible = false
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_top = 4.0
+offset_right = -16.0
+offset_bottom = 28.0
+grow_horizontal = 0
+texture = ExtResource("9")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="BottomSeparator" type="HSeparator" parent="Main/TabBar/Solo/MapList/Maps/List/Contents"]
 layout_mode = 2
