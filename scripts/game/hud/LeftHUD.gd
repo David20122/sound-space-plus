@@ -29,8 +29,8 @@ func _process(_delta):
 	if displayed_score != score.score:
 		if tween != null: tween.kill()
 		displayed_score = score.score
-		tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
-		tween.tween_property(self,"visible_score",displayed_score,0.3)
+		tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUINT)
+		tween.tween_property(self,"visible_score",displayed_score,0.35)
 		tween.play()
 	$Score.text = HUDManager.comma_sep(visible_score)
 	if score.total > 0:
