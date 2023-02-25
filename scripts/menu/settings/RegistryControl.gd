@@ -5,7 +5,7 @@ extends SettingControl
 @onready var registry:Registry = SoundSpacePlus.get(registry_name)
 @onready var ids:Array = registry.get_ids()
 
-func reset(value):
+func reset(value=get_setting()):
 	var emitter = signal_emitter as OptionButton
 	emitter.clear()
 	for idx in range(ids.size()):

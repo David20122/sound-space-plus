@@ -22,36 +22,11 @@ func load_settings():
 	if FileAccess.file_exists(ProjectSettings.globalize_path(settings_path)):
 		var file = FileAccess.open(settings_path,FileAccess.READ)
 		data = JSON.parse_string(file.get_as_text())
-	settings = Settings.new(data)
+	settings = Settings.new(self,data)
 	first_time = settings.first_time
 func save_settings():
 	var file = FileAccess.open(settings_path,FileAccess.WRITE)
 	file.store_string(JSON.stringify(settings.data,"",false))
-	
-func _physics_process(delta):
-	var approach = settings.approach
-	match approach.mode:
-		Settings.ApproachMode.DISTANCE_TIME:
-			approach.rate = approach.distance / approach.time
-		Settings.ApproachMode.DISTANCE_RATE:
-			approach.time = approach.distance / approach.rate
-		Settings.ApproachMode.RATE_TIME:
-			approach.distance = approach.rate / approach.time
-	var volume = settings.volume
-	AudioServer.set_bus_volume_db(
-		AudioServer.get_bus_index("Master"),linear_to_db(volume.master))
-	AudioServer.set_bus_volume_db(
-		AudioServer.get_bus_index("Menu"),linear_to_db(volume.master_menu))
-	AudioServer.set_bus_volume_db(
-		AudioServer.get_bus_index("Menu Music"),linear_to_db(volume.menu_music))
-	AudioServer.set_bus_volume_db(
-		AudioServer.get_bus_index("Menu SFX"),linear_to_db(volume.menu_sfx))
-	AudioServer.set_bus_volume_db(
-		AudioServer.get_bus_index("Game"),linear_to_db(volume.master_game))
-	AudioServer.set_bus_volume_db(
-		AudioServer.get_bus_index("Game Music"),linear_to_db(volume.game_music))
-	AudioServer.set_bus_volume_db(
-		AudioServer.get_bus_index("Game SFX"),linear_to_db(volume.game_sfx))
 
 # Init
 var _initialised:bool = false

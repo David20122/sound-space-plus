@@ -15,7 +15,7 @@ func _ready():
 	call_deferred("reset",get_setting())
 	signal_emitter.connect(signal_name,Callable(self,"signal_received"))
 
-func reset(value):
+func reset(value=get_setting()):
 	signal_emitter.set(property_name,value)
 	value_changed.emit(value)
 func signal_received(_value):
@@ -32,7 +32,9 @@ func set_setting(value):
 	if target.size() > 1:
 		for i in range(target.size()-1):
 			pos = pos[target[i]]
-	pos[target.back()] = value
+		pos[target.back()] = value
+	else:
+		pos.set(target.back(),value)
 	value_changed.emit(value)
 	SoundSpacePlus.settings.validate_self()
 	SoundSpacePlus.save_settings()

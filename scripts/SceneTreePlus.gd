@@ -19,7 +19,7 @@ func _init():
 		get_vr_interface()
 		
 	root.get_window().title = "Sound Space Plus Rewritten"
-	root.get_window().min_size = Vector2(640,640)
+	root.get_window().min_size = Vector2(800,600)
 	root.get_window().move_to_foreground()
 
 func change_scene_to_node(node:Node):

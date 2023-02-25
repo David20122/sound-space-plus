@@ -1,6 +1,48 @@
 extends Resource
 class_name Settings
 
+func update():
+	# Update approach rates
+	var approach = data.approach
+	match approach.mode:
+		Settings.ApproachMode.DISTANCE_TIME:
+			approach.rate = approach.distance / approach.time
+		Settings.ApproachMode.DISTANCE_RATE:
+			approach.time = approach.distance / approach.rate
+		Settings.ApproachMode.RATE_TIME:
+			approach.distance = approach.rate * approach.time
+	# Update volumes
+	var volume = data.volume
+	AudioServer.set_bus_volume_db(
+		AudioServer.get_bus_index("Master"),linear_to_db(volume.master))
+	AudioServer.set_bus_volume_db(
+		AudioServer.get_bus_index("Menu"),linear_to_db(volume.master_menu))
+	AudioServer.set_bus_volume_db(
+		AudioServer.get_bus_index("Menu Music"),linear_to_db(volume.menu_music))
+	AudioServer.set_bus_volume_db(
+		AudioServer.get_bus_index("Menu SFX"),linear_to_db(volume.menu_sfx))
+	AudioServer.set_bus_volume_db(
+		AudioServer.get_bus_index("Game"),linear_to_db(volume.master_game))
+	AudioServer.set_bus_volume_db(
+		AudioServer.get_bus_index("Game Music"),linear_to_db(volume.game_music))
+	AudioServer.set_bus_volume_db(
+		AudioServer.get_bus_index("Game SFX"),linear_to_db(volume.game_sfx))
+	# Window mode
+	var window = ssp.get_window()
+	window.borderless = data.window_mode != WindowMode.WINDOWED
+	match data.window_mode:
+		WindowMode.WINDOWED:
+			window.mode = Window.MODE_WINDOWED
+		WindowMode.BORDERLESS:
+			window.mode = Window.MODE_FULLSCREEN
+		WindowMode.FULLSCREEN:
+			window.mode = Window.MODE_EXCLUSIVE_FULLSCREEN
+
+enum WindowMode {
+	WINDOWED,
+	BORDERLESS,
+	FULLSCREEN
+}
 enum ApproachMode {
 	DISTANCE_TIME,
 	DISTANCE_RATE,
@@ -8,6 +50,7 @@ enum ApproachMode {
 }
 const SettingsList = [
 	["first_time",Type.BOOLEAN,true],
+	["window_mode",Type.INT,WindowMode.WINDOWED],
 	["approach",Type.CATEGORY,[
 		["time",Type.FLOAT,1.0],
 		["distance",Type.FLOAT,50.0],
@@ -66,6 +109,8 @@ func validate(origin:Dictionary,template:Array):
 	var new = {}
 	for setting in template:
 		var original = origin.get(setting[0],null)
+		if setting[1] == Type.INT and original is float:
+			original = int(original)
 		var valid = validate_type(original,setting[1])
 		if setting[1] == Type.CATEGORY:
 			if !valid:
@@ -79,10 +124,20 @@ func validate(origin:Dictionary,template:Array):
 	return new
 func validate_self(_data:Dictionary=data):
 	data = validate(_data,SettingsList)
+	update()
 
-func _init(_data:Dictionary={}):
+var ssp:SoundSpacePlus
+func _init(_ssp:SoundSpacePlus=null,_data:Dictionary={}):
+	ssp = _ssp
 	validate_self(_data)
 
 func _get(property):
-	assert(data.has(property))
+	if !data.has(property):
+		print("data doesn't have %s" % property)
+		return null
 	return data.get(property)
+func _set(property,value):
+	if !data.has(property):
+		print("data doesn't have %s" % property)
+		return null
+	data[property] = value
