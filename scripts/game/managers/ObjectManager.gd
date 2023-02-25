@@ -35,7 +35,6 @@ func append_object(object:GameObject,parent:bool=true):
 			append_object(child,false)
 
 func build_map(map:Map):
-	map.notes.sort_custom(func(a,b): return a.time < b.time)
 	var note_objects = []
 	for note in map.notes:
 		note = note as Map.Note
