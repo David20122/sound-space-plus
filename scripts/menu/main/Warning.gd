@@ -10,7 +10,7 @@ var switch_interval = 24
 
 func _ready():
 	visible = false
-	last_switch = Time.get_ticks_msec()/1000
+	last_switch = Time.get_ticks_msec()/1000.0
 	if OS.has_feature("debug"): active_warnings.append("DEBUG")
 	if OS.has_feature("editor"): active_warnings.append("EDITOR")
 
@@ -48,6 +48,6 @@ func _process(delta):
 	$Slider.position.x = _scroll_position-width
 	
 	# Switch
-	var time = Time.get_ticks_msec()/1000
+	var time = Time.get_ticks_msec()/1000.0
 	if time - last_switch > switch_interval:
 		switch(time)

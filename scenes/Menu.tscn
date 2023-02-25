@@ -244,8 +244,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("4_oas34")
-expand_mode = 4
-stretch_mode = 6
+expand_mode = 5
 
 [node name="Gradient" type="TextureRect" parent="Main/TabBar/Solo/MapList/Maps/List/Contents/Mapset/Cover"]
 layout_mode = 1

@@ -8,5 +8,5 @@ func _process(_delta):
 	var objects = (get_parent() as ObjectManager).objects
 	self.render_objects(objects)
 
-func render_objects(objects:Array):
+func render_objects(_objects:Array):
 	pass

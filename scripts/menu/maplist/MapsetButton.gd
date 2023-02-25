@@ -14,7 +14,7 @@ func update(pressed:bool=false):
 		song_length = "N/A"
 	else:
 		var length = ceili(mapset.audio.get_length())
-		var minutes = floori(length / 60)
+		var minutes = floori(length / 60.0)
 		var minutes_t = str(minutes)
 		var seconds = floori(length % 60)
 		var seconds_t = str(seconds)
