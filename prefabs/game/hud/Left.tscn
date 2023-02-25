@@ -1,6 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://b1plfltoc8it7"]
+[gd_scene load_steps=6 format=3 uid="uid://b1plfltoc8it7"]
 
 [ext_resource type="Script" path="res://scripts/game/hud/LeftHUD.gd" id="1_305e3"]
+[ext_resource type="FontFile" uid="uid://c56v11c0s2px" path="res://assets/fonts/Lato/Lato-Regular.ttf" id="3_7hh44"]
+[ext_resource type="FontFile" uid="uid://daxk4ur5wb382" path="res://assets/fonts/Lato/Lato-Light.ttf" id="4_6yhla"]
 
 [sub_resource type="Gradient" id="Gradient_gwmgs"]
 interpolation_mode = 2
@@ -31,3 +33,112 @@ anchors_preset = -1
 anchor_right = 1.0
 offset_bottom = 8.0
 grow_horizontal = 2
+
+[node name="Rank" type="Label" parent="."]
+layout_mode = 0
+offset_left = 35.0
+offset_top = 50.0
+offset_right = 385.0
+offset_bottom = 350.0
+theme_override_fonts/font = ExtResource("3_7hh44")
+theme_override_font_sizes/font_size = 160
+text = "SS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PP" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -232.0
+offset_bottom = -136.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_7hh44")
+theme_override_font_sizes/font_size = 72
+text = "9,999"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="PP"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = -64.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("4_6yhla")
+theme_override_font_sizes/font_size = 48
+text = "PP"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Unranked" type="Label" parent="PP"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_6yhla")
+theme_override_font_sizes/font_size = 64
+text = "UNRANKED"
+horizontal_alignment = 1
+
+[node name="Score" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -64.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_7hh44")
+theme_override_font_sizes/font_size = 72
+text = "999,999,999"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="Score"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = -64.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("4_6yhla")
+theme_override_font_sizes/font_size = 48
+text = "SCORE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Accuracy" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = 104.0
+offset_bottom = 232.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_7hh44")
+theme_override_font_sizes/font_size = 72
+text = "99.99%"
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="Accuracy"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = -64.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("4_6yhla")
+theme_override_font_sizes/font_size = 48
+text = "ACCURACY"
+horizontal_alignment = 1
+vertical_alignment = 1

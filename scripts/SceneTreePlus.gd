@@ -1,11 +1,23 @@
 extends SceneTree
 class_name SceneTreePlus
 
+var vr_enabled:bool = false
+var vr_interface:XRInterface
+func get_vr_interface():
+	vr_interface = XRServer.find_interface("OpenXR")
+	if vr_interface and vr_interface.is_initialized():
+		vr_enabled = true
+
 var fps_limit:int = 0
 
 func _init():
 	root.set_script(preload("res://scripts/ViewportPlus.gd") as Script)
+	
 	super._init()
+	
+	if ProjectSettings.get_setting_with_override("xr/openxr/enabled"):
+		get_vr_interface()
+		
 	root.get_window().title = "Sound Space Plus Rewritten"
 	root.get_window().min_size = Vector2(640,640)
 	root.get_window().move_to_foreground()
@@ -19,7 +31,7 @@ func _change_scene_to_node(node:Node):
 
 func _idle(_delta):
 	var fps = 90
-	if current_scene is GameScene:
+	if current_scene and current_scene.get_meta("is_game",false):
 		fps = fps_limit
 	elif fps_limit != 0:
 		fps = min(fps_limit,90)

@@ -5,7 +5,7 @@ var health:float = 1
 var displayed_health:float = 1
 
 var tween:Tween
-
+ 
 func _ready():
 	$Health.value = 1
 

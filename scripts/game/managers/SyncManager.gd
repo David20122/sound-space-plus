@@ -33,6 +33,8 @@ func _start_audio():
 		(audio_stream as AudioStreamMP3).loop = false
 	if audio_stream is AudioStreamWAV:
 		(audio_stream as AudioStreamWAV).loop_mode = AudioStreamWAV.LOOP_DISABLED
+	if audio_stream is AudioStreamOggVorbis:
+		(audio_stream as AudioStreamOggVorbis).loop = false
 	audio_player.stream = audio_stream
 	time_delay = AudioServer.get_time_to_next_mix() + AudioServer.get_output_latency()
 	audio_player.play(real_time)

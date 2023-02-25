@@ -43,6 +43,10 @@ func build_map(map:Map):
 		var object = NoteObject.new(id,note)
 		object.process_mode = Node.PROCESS_MODE_DISABLED
 		object.process_priority = 4
+		var colorset = game.settings.colorset
+		var colour_index = wrapi(note.index,0,colorset.size())
+		var colour = colorset[colour_index]
+		object.colour = Color.from_string(colour,Color.RED)
 		object.hittable = true
 		object.spawn_time = note.time - 1
 		object.despawn_time = note.time + 1

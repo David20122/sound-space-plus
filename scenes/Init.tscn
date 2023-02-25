@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://eobt2fotkbfh"]
+[gd_scene load_steps=11 format=3 uid="uid://eobt2fotkbfh"]
 
 [ext_resource type="Script" path="res://scripts/menu/loading/Init.gd" id="1"]
 [ext_resource type="Theme" uid="uid://diarojdcbhxg8" path="res://uitheme.tres" id="1_ixw77"]
 [ext_resource type="AudioStream" uid="uid://gg651sab0hgj" path="res://assets/sounds/music/startup/drums.ogg" id="4"]
+[ext_resource type="Texture2D" uid="uid://c54ide18equ4n" path="res://assets/images/branding/icon.png" id="4_2wpeo"]
 [ext_resource type="FontFile" uid="uid://b13iyosmvgqik" path="res://assets/fonts/Lato/Lato-Bold.ttf" id="4_awb3p"]
 [ext_resource type="AudioStream" uid="uid://djuomv3q6djrc" path="res://assets/sounds/music/startup/strings.ogg" id="5"]
 [ext_resource type="AudioStream" uid="uid://dlr6rhfrvtqe2" path="res://assets/sounds/music/startup/phaser.ogg" id="6"]
@@ -59,6 +60,19 @@ anchors_preset = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource("11")
+
+[node name="Logo" type="TextureRect" parent="Post"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = 128.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_2wpeo")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="Label" type="Label" parent="Post"]
 layout_mode = 0

@@ -2,6 +2,7 @@ extends HUDItem
 class_name RightHUD
 
 var score:Score
+
 var displayed_combo:int = 0
 var displayed_misses:int = 0
 var displayed_multiplier:int = 0

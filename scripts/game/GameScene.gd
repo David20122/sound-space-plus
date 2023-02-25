@@ -1,47 +1,51 @@
 extends Node3D
 class_name GameScene
 
+var settings:Settings
 var mapset:Mapset
 var map_index:int
 var map:Map
 
 @export_category("Game Managers")
 @export var sync_manager_path:NodePath
+@onready var sync_manager:SyncManager = get_node(sync_manager_path)
 @export var object_manager_path:NodePath
+@onready var object_manager:ObjectManager = get_node(object_manager_path)
 @export var hud_manager_path:NodePath
+@onready var hud_manager:HUDManager = get_node(hud_manager_path)
 
 @export_category("Other Nodes")
 @export_node_path("Node3D") var origin_path
-@export_node_path("Node3D") var world_path
-@export var player_path:NodePath
-
-@onready var sync_manager:SyncManager = get_node(sync_manager_path)
-@onready var object_manager:ObjectManager = get_node(object_manager_path)
-@onready var hud_manager:HUDManager = get_node(hud_manager_path)
-
 @onready var origin:Node3D = get_node(origin_path)
+@export_node_path("Node3D") var world_path
 @onready var world_parent:Node3D = get_node(world_path)
+@export var player_path:NodePath
 @onready var player:PlayerObject = get_node(player_path)
+@onready var local_player:bool = player.local_player
 
 func _ready():
+	set_meta("is_game",true)
+	
 	map = mapset.maps[map_index]
 	print("Now playing %s [%s] - %s" % [mapset.name, map.name, mapset.id])
 	print("This is a SSPM v%s map" % mapset.format)
-	
-#	var world = SoundSpacePlus.worlds.get_by_id("tunnel")
-	var world = null
+		
+	var world = SoundSpacePlus.worlds.get_by_id("tunnel")
 	if world != null:
-		var world_node = world.world.instance()
+		var world_node = world.load_world()
+		world_node.set_meta("game",self)
 		world_parent.add_child(world_node)
 	
 	object_manager.prepare(origin)
 	object_manager.call_deferred("build_map",map)
 	
 	sync_manager.audio_stream = mapset.audio
-	sync_manager.call_deferred("start",-2)
-	sync_manager.connect("finished",Callable(self,"finish"))
 	
-	player.connect("failed",Callable(self,"finish").bind(true))
+	if local_player:
+		sync_manager.call_deferred("start",-2)
+		sync_manager.connect("finished",Callable(self,"finish"))
+		
+		player.connect("failed",Callable(self,"finish").bind(true))
 
 var finished:bool = false
 func finish(failed:bool=false):

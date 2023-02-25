@@ -77,6 +77,7 @@ func _process(_delta):
 	ghost.transparency = max(0.25,1-(difference.length_squared()*2))
 	
 	var parallax = Vector3(clamped_cursor_position.x,clamped_cursor_position.y,0) / 4
+	parallax *= game.settings.parallax
 	camera.position = camera_origin + parallax + camera.basis.z / 4
 
 var latest_passed_note_index:int = 0

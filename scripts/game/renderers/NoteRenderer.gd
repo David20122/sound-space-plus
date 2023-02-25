@@ -1,10 +1,12 @@
 extends ObjectRenderer
 class_name NoteRenderer
 
+var mesh:MeshPlus
+
 func _ready():
 	multimesh.instance_count = 0
 	multimesh.use_colors = true
-	var mesh = SoundSpacePlus.blocks.get_by_id("cube")
+	mesh = SoundSpacePlus.blocks.get_by_id(game.settings.assets.get("block","cube"))
 	multimesh.mesh = mesh.mesh
 
 func render_objects(objects:Array):
@@ -21,5 +23,5 @@ func render_objects(objects:Array):
 	var i = 0
 	for note in notes:
 		multimesh.set_instance_color(i,note.colour)
-		multimesh.set_instance_transform(i,note.global_transform)
+		multimesh.set_instance_transform(i,note.global_transform.translated(mesh.offset))
 		i += 1

@@ -1,14 +1,9 @@
 extends Node
 
-@onready var playlists:Registry = preload("res://assets/content/Playlists.tres")
-@onready var mapsets:Registry = preload("res://assets/content/Mapsets.tres")
-@onready var blocks:Registry = preload("res://assets/content/Blocks.tres")
-@onready var worlds:Registry = preload("res://assets/content/Worlds.tres")
-
-# VR Vars
-@onready var vr_allowed:bool = ProjectSettings.get_setting_with_override("xr/openxr/enabled")
-var vr_enabled:bool = false
-var vr_interface:XRInterface
+@onready var playlists:Registry = load("res://assets/content/Playlists.tres")
+@onready var mapsets:Registry = load("res://assets/content/Mapsets.tres")
+@onready var blocks:Registry = load("res://assets/content/Blocks.tres")
+@onready var worlds:Registry = load("res://assets/content/Worlds.tres")
 
 func _ready():
 	connect("on_init_complete",Callable(self,"_on_init_complete"))
@@ -122,6 +117,7 @@ func load_game_scene(game_type:int,mapset:Mapset,map_index:int=0):
 	assert(full_mapset.id == mapset.id)
 	var packed_scene:PackedScene = load(GameSceneTypes.get(game_type,"res://scenes/Solo.tscn"))
 	var scene:GameScene = packed_scene.instantiate() as GameScene
+	scene.settings = Settings.new()
 	scene.mapset = full_mapset
 	scene.map_index = map_index
 	game_scene = scene

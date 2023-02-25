@@ -4,11 +4,10 @@ class_name NoteObject
 var note:Map.Note
 var colour:Color
 
-func _init(_id:String="",_note:Map.Note=null):
+func _init(_id:String="",_note:Map.Note=null,_colour:Color=Color.RED):
 	super._init(_id)
 	self.note = _note
-	var colours = [Color.RED,Color.DEEP_SKY_BLUE]
-	colour = colours[wrap(note.index,0,colours.size())]
+	colour = _colour
 	scale = Vector3.ONE*0.865
 
 func _physics_process(_delta):

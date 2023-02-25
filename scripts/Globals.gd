@@ -55,9 +55,6 @@ func get_ogg_packet_sequence(data:PackedByteArray):
 		var granule_position = header.decode_u64(6)
 #		print("granule position: %s" % granule_position)
 		granule_positions.append(granule_position)
-		# Get the bitstream serial number
-		var serial_number = header.decode_u32(14)
-#		print("serial number: %s" % serial_number)
 		# Get the page sequence number
 		var sequence_number = header.decode_u32(18)
 #		print("sequence number: %s" % sequence_number)
