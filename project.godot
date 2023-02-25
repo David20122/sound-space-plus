@@ -273,12 +273,12 @@ common/max_physics_steps_per_frame=1
 occlusion_culling/bvh_build_quality=1
 driver/threads/thread_model=2
 textures/vram_compression/import_etc2_astc=true
+environment/defaults/default_clear_color=Color(0.301961, 0.301961, 0.301961, 1)
 anti_aliasing/quality/msaa_2d=1
 anti_aliasing/quality/msaa_3d=1
 mesh_lod/lod_change/threshold_pixels=0.0
+environment/defaults/default_environment="res://default_env.tres"
 2d/options/use_software_skinning=false
-environment/default_clear_color=Color(0, 0, 0, 1)
-environment/default_environment="res://default_env.tres"
 
 [xr]
 

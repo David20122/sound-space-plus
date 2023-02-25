@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="EnvironmentPlus" load_steps=2 format=3 uid="uid://b0mh5m2y4f6gj"]
+[gd_resource type="Resource" script_class="EnvironmentPlus" load_steps=3 format=3 uid="uid://b0mh5m2y4f6gj"]
 
 [ext_resource type="Script" path="res://scripts/content/resources/EnvironmentPlus.gd" id="1_v8p3w"]
+[ext_resource type="PackedScene" uid="uid://ebiywqexmvd0" path="res://assets/content/worlds/rings/World.tscn" id="2_tscgb"]
 
 [resource]
 script = ExtResource("1_v8p3w")
-world_path = "res://assets/content/worlds/rings/World.tscn"
+world = ExtResource("2_tscgb")
 id = "tunnel"
 name = "Neon Tunnel"
 creator = "Sound Space Plus"

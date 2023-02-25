@@ -1,8 +1,12 @@
 extends Node3D
 
+var game:GameScene
+
+@export var ring_speed:float = 7.5
+
 func _ready():
-	var game = $"../../../".manager.game
+	game = $"../../".get_meta("game")
 
 func _process(delta):
-	transform.origin -= Vector3(0,0,delta*5)
+	transform.origin -= Vector3(0,0,delta*ring_speed*game.sync_manager.playback_speed)
 	if transform.origin.z <= -45: transform.origin.z += 105

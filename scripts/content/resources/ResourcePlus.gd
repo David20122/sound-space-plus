@@ -1,5 +1,5 @@
 extends Resource
-class_name ResourcePlus
+class_name ResourcePlus 
 
 @export var id:String
 @export var name:String
