@@ -5,6 +5,19 @@ extends Node
 @onready var blocks:Registry = load("res://assets/content/Blocks.tres")
 @onready var worlds:Registry = load("res://assets/content/Worlds.tres")
 
+var favourites:Array[String] = []
+func load_favourites():
+	if FileAccess.file_exists(ProjectSettings.globalize_path("user://favorites.txt")):
+		var favorites = FileAccess.open("user://favorites.txt",FileAccess.READ)
+		var line = favorites.get_line()
+		while line != "":
+			favourites.append(line)
+			line = favorites.get_line()
+func save_favourites():
+	var favorites = FileAccess.open("user://favorites.txt",FileAccess.WRITE)
+	for line in favourites:
+		favorites.store_line(line)
+
 var settings_path = "user://preferences.json"
 var settings:Settings
 var first_time:bool = false
@@ -100,6 +113,8 @@ func _load_content(full_reload=false):
 		mapsets.add_item(song)
 	call_deferred("emit_signal","on_init_stage",null,[{text="Free MapsetReader",max=map_count,value=map_idx}])
 	song_reader.call_deferred("free")
+	call_deferred("emit_signal","on_init_stage",null,[{text="Load favorites",max=map_count,value=map_idx}])
+	load_favourites()
 	# Import playlists
 	if full_reload: playlists.clear()
 	var list_reader = PlaylistReader.new()

@@ -6,6 +6,7 @@ var mapset:Mapset
 func update(pressed:bool=false):
 	button_pressed = pressed
 	name = mapset.id
+	$Favourite.visible = SoundSpacePlus.favourites.has(mapset.id)
 	$Song.text = mapset.name
 	$Creator.text = mapset.creator
 	var song_length:String
@@ -25,7 +26,7 @@ func update(pressed:bool=false):
 		$Cover.visible = false
 	else:
 		$Cover.visible = true
-		$Cover.texture = mapset.cover
+		$Cover/Image.texture = mapset.cover
 	if mapset.broken: disabled = true
 
 var pressed_colour:Color = Color8(255,255,255,255)
