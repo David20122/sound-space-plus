@@ -8,6 +8,7 @@ func _ready():
 	multimesh.use_colors = true
 	mesh = SoundSpacePlus.blocks.get_by_id(game.settings.assets.get("block","cube"))
 	multimesh.mesh = mesh.mesh
+	multimesh.instance_count = 64
 
 func render_objects(objects:Array):
 	var notes = []
