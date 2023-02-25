@@ -42,6 +42,14 @@ func save_settings():
 	file.store_string(JSON.stringify(settings.data,"",false))
 	
 func _physics_process(delta):
+	var approach = settings.approach
+	match approach.mode:
+		Settings.ApproachMode.DISTANCE_TIME:
+			approach.rate = approach.distance / approach.time
+		Settings.ApproachMode.DISTANCE_RATE:
+			approach.time = approach.distance / approach.rate
+		Settings.ApproachMode.RATE_TIME:
+			approach.distance = approach.rate / approach.time
 	var volume = settings.volume
 	AudioServer.set_bus_volume_db(
 		AudioServer.get_bus_index("Master"),linear_to_db(volume.master))

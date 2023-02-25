@@ -1,12 +1,18 @@
 extends Resource
 class_name Settings
 
+enum ApproachMode {
+	DISTANCE_TIME,
+	DISTANCE_RATE,
+	RATE_TIME
+}
 const SettingsList = [
 	["first_time",Type.BOOLEAN,true],
 	["approach",Type.CATEGORY,[
 		["time",Type.FLOAT,1.0],
 		["distance",Type.FLOAT,50.0],
-		["rate",Type.FLOAT,50.0]
+		["rate",Type.FLOAT,50.0],
+		["mode",Type.INT,ApproachMode.RATE_TIME]
 	]],
 	["parallax",Type.FLOAT,1.0],
 	["assets",Type.CATEGORY,[
