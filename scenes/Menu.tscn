@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://cu2rno2ef0dtr"]
+[gd_scene load_steps=34 format=3 uid="uid://cu2rno2ef0dtr"]
 
 [ext_resource type="PackedScene" uid="uid://de1sj0rkm2iu7" path="res://prefabs/menu/VersionNumberR.tscn" id="1"]
 [ext_resource type="Theme" uid="uid://diarojdcbhxg8" path="res://uitheme.tres" id="2"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://scripts/menu/maplist/MapList.gd" id="4_hproy"]
 [ext_resource type="Texture2D" uid="uid://ciuxvgefpjrm1" path="res://assets/images/ui/command_line_error.png" id="4_oas34"]
 [ext_resource type="Script" path="res://scripts/menu/maplist/MapsetButton.gd" id="5_h0d55"]
+[ext_resource type="FontFile" uid="uid://b13iyosmvgqik" path="res://assets/fonts/Lato/Lato-Bold.ttf" id="5_sfmcr"]
 [ext_resource type="Texture2D" uid="uid://bk8ninr63d836" path="res://assets/images/ui/quit_to_desktop.png" id="7"]
 [ext_resource type="Script" path="res://scripts/menu/maplist/MapDetails.gd" id="7_xwb6e"]
 [ext_resource type="Texture2D" uid="uid://b21p2flel8ywr" path="res://assets/images/ui/settings.png" id="8"]
@@ -47,6 +48,46 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lykwc"]
+
+[sub_resource type="GDScript" id="GDScript_b8xuh"]
+resource_name = "ApproachModeHandler"
+script/source = "extends VBoxContainer
+
+@onready var mode = $Mode
+@onready var distance = $Distance
+@onready var rate = $Rate
+@onready var time = $Time
+
+func _ready():
+	update_mode(SoundSpacePlus.settings.approach.mode)
+	mode.connect(\"value_changed\",Callable(self,\"update_mode\"))
+
+func update_mode(value:int):
+	match value:
+		Settings.ApproachMode.DISTANCE_RATE:
+			distance.signal_emitter.editable = true
+			distance.reset()
+			rate.signal_emitter.editable = true
+			rate.reset()
+			time.signal_emitter.editable = false
+			time.reset()
+		Settings.ApproachMode.DISTANCE_TIME:
+			distance.signal_emitter.editable = true
+			distance.reset()
+			rate.signal_emitter.editable = false
+			rate.reset()
+			time.signal_emitter.editable = true
+			time.reset()
+		Settings.ApproachMode.RATE_TIME:
+			distance.signal_emitter.editable = false
+			distance.reset()
+			rate.signal_emitter.editable = true
+			rate.reset()
+			time.signal_emitter.editable = true
+			time.reset()
+"
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xh06e"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_floo6"]
@@ -60,6 +101,8 @@ bg_color = Color(1, 1, 1, 1)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme = ExtResource("2")
 color = Color(0.12549, 0.12549, 0.12549, 1)
 
@@ -160,6 +203,28 @@ texture = ExtResource("3_8w5xr")
 expand_mode = 1
 stretch_mode = 6
 
+[node name="Edit" type="VBoxContainer" parent="Main/TabBar/Solo/Playlists/List"]
+layout_mode = 2
+alignment = 1
+
+[node name="Add" type="Button" parent="Main/TabBar/Solo/Playlists/List/Edit"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+size_flags_vertical = 3
+tooltip_text = "Create Playlist"
+theme_override_fonts/font = ExtResource("5_sfmcr")
+theme_override_font_sizes/font_size = 18
+text = "+"
+
+[node name="Remove" type="Button" parent="Main/TabBar/Solo/Playlists/List/Edit"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+size_flags_vertical = 3
+tooltip_text = "Remove Playlist"
+theme_override_fonts/font = ExtResource("5_sfmcr")
+theme_override_font_sizes/font_size = 18
+text = "-"
+
 [node name="MapList" type="Control" parent="Main/TabBar/Solo"]
 layout_mode = 1
 anchor_right = 0.5
@@ -233,6 +298,7 @@ offset_right = -4.0
 offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 
 [node name="Image" type="TextureRect" parent="Main/TabBar/Solo/MapList/Maps/List/Contents/Mapset/Cover"]
 self_modulate = Color(0.8, 0.8, 0.8, 0.784314)
@@ -545,7 +611,7 @@ grow_vertical = 2
 [node name="Game" type="Control" parent="Main/TabBar/Settings/TabContainer"]
 layout_mode = 2
 
-[node name="Columns" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Game"]
+[node name="Columns" type="GridContainer" parent="Main/TabBar/Settings/TabContainer/Game"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -556,34 +622,30 @@ offset_right = -24.0
 offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 16
 
-[node name="A" type="VBoxContainer" parent="Main/TabBar/Settings/TabContainer/Game/Columns"]
+[node name="Controls" type="VBoxContainer" parent="Main/TabBar/Settings/TabContainer/Game/Columns"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/separation = 16
-
-[node name="Controls" type="VBoxContainer" parent="Main/TabBar/Settings/TabContainer/Game/Columns/A"]
-layout_mode = 2
 theme_override_constants/separation = 4
 
-[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Game/Columns/A/Controls"]
+[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Controls"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Controls"
 vertical_alignment = 2
 
-[node name="MouseSensitivity" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Game/Columns/A/Controls"]
+[node name="MouseSensitivity" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Controls"]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 theme_override_constants/separation = 16
+alignment = 1
 script = ExtResource("10_qi5v2")
 target = Array[String](["controls", "sensitivity", "mouse"])
 signal_emitter_path = NodePath("SpinBox")
 signal_name = "value_changed"
 property_name = "value"
 
-[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Game/Columns/A/Controls/MouseSensitivity"]
+[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Controls/MouseSensitivity"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -591,27 +653,35 @@ text = "Mouse Sensitivity"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="SpinBox" type="SpinBox" parent="Main/TabBar/Settings/TabContainer/Game/Columns/A/Controls/MouseSensitivity"]
+[node name="SpinBox" type="SpinBox" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Controls/MouseSensitivity"]
 layout_mode = 2
 size_flags_horizontal = 3
 max_value = 2.0
 step = 0.001
 alignment = 1
 
-[node name="Skin" type="VBoxContainer" parent="Main/TabBar/Settings/TabContainer/Game/Columns/A"]
+[node name="VSeparator" type="VSeparator" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Controls/MouseSensitivity"]
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+theme_override_styles/separator = SubResource("StyleBoxEmpty_lykwc")
+
+[node name="Skin" type="VBoxContainer" parent="Main/TabBar/Settings/TabContainer/Game/Columns"]
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_constants/separation = 4
 
-[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Game/Columns/A/Skin"]
+[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Skin"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Skin"
 vertical_alignment = 2
 
-[node name="Block" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Game/Columns/A/Skin"]
+[node name="Block" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Skin"]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 theme_override_constants/separation = 16
+alignment = 1
 script = ExtResource("10_a5lmy")
 registry_name = "blocks"
 target = Array[String](["assets", "block"])
@@ -619,7 +689,7 @@ signal_emitter_path = NodePath("OptionButton")
 signal_name = "item_selected"
 property_name = "selected"
 
-[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Game/Columns/A/Skin/Block"]
+[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Skin/Block"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -627,15 +697,22 @@ text = "Block Mesh"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="OptionButton" type="OptionButton" parent="Main/TabBar/Settings/TabContainer/Game/Columns/A/Skin/Block"]
+[node name="OptionButton" type="OptionButton" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Skin/Block"]
 layout_mode = 2
 size_flags_horizontal = 3
 fit_to_longest_item = false
 
-[node name="World" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Game/Columns/A/Skin"]
+[node name="VSeparator" type="VSeparator" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Skin/Block"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+theme_override_styles/separator = SubResource("StyleBoxEmpty_lykwc")
+
+[node name="World" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Skin"]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 theme_override_constants/separation = 16
+alignment = 1
 script = ExtResource("10_a5lmy")
 registry_name = "worlds"
 target = Array[String](["assets", "world"])
@@ -643,7 +720,7 @@ signal_emitter_path = NodePath("OptionButton")
 signal_name = "item_selected"
 property_name = "selected"
 
-[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Game/Columns/A/Skin/World"]
+[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Skin/World"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -651,15 +728,228 @@ text = "Background World"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="OptionButton" type="OptionButton" parent="Main/TabBar/Settings/TabContainer/Game/Columns/A/Skin/World"]
+[node name="OptionButton" type="OptionButton" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Skin/World"]
 layout_mode = 2
 size_flags_horizontal = 3
 fit_to_longest_item = false
 
-[node name="B" type="VBoxContainer" parent="Main/TabBar/Settings/TabContainer/Game/Columns"]
+[node name="VSeparator" type="VSeparator" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Skin/World"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/separation = 0
+theme_override_styles/separator = SubResource("StyleBoxEmpty_lykwc")
+
+[node name="Approach" type="VBoxContainer" parent="Main/TabBar/Settings/TabContainer/Game/Columns"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
+script = SubResource("GDScript_b8xuh")
+
+[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Approach"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Approach"
+vertical_alignment = 2
+
+[node name="Mode" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Approach"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
 theme_override_constants/separation = 16
+alignment = 1
+script = ExtResource("10_qi5v2")
+target = Array[String](["approach", "mode"])
+signal_emitter_path = NodePath("OptionButton")
+signal_name = "item_selected"
+property_name = "selected"
+
+[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Approach/Mode"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Approach Mode"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="OptionButton" type="OptionButton" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Approach/Mode"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+item_count = 3
+selected = 0
+popup/item_0/text = "Distance / Time"
+popup/item_0/id = 0
+popup/item_1/text = "Distance / Rate"
+popup/item_1/id = 1
+popup/item_2/text = "Rate / Time"
+popup/item_2/id = 2
+
+[node name="VSeparator" type="VSeparator" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Approach/Mode"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+theme_override_styles/separator = SubResource("StyleBoxEmpty_lykwc")
+
+[node name="Distance" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Approach"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+script = ExtResource("10_qi5v2")
+target = Array[String](["approach", "distance"])
+signal_emitter_path = NodePath("SpinBox")
+signal_name = "value_changed"
+property_name = "value"
+
+[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Approach/Distance"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Approach Distance"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="SpinBox" type="SpinBox" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Approach/Distance"]
+layout_mode = 2
+size_flags_horizontal = 3
+step = 0.01
+allow_greater = true
+alignment = 1
+
+[node name="VSeparator" type="VSeparator" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Approach/Distance"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+theme_override_styles/separator = SubResource("StyleBoxEmpty_lykwc")
+
+[node name="Rate" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Approach"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+script = ExtResource("10_qi5v2")
+target = Array[String](["approach", "rate"])
+signal_emitter_path = NodePath("SpinBox")
+signal_name = "value_changed"
+property_name = "value"
+
+[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Approach/Rate"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Approach Rate
+"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="SpinBox" type="SpinBox" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Approach/Rate"]
+layout_mode = 2
+size_flags_horizontal = 3
+step = 0.01
+allow_greater = true
+alignment = 1
+
+[node name="VSeparator" type="VSeparator" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Approach/Rate"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+theme_override_styles/separator = SubResource("StyleBoxEmpty_lykwc")
+
+[node name="Time" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Approach"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+script = ExtResource("10_qi5v2")
+target = Array[String](["approach", "time"])
+signal_emitter_path = NodePath("SpinBox")
+signal_name = "value_changed"
+property_name = "value"
+
+[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Approach/Time"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Approach Time"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="SpinBox" type="SpinBox" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Approach/Time"]
+layout_mode = 2
+size_flags_horizontal = 3
+step = 0.01
+allow_greater = true
+alignment = 1
+
+[node name="VSeparator" type="VSeparator" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Approach/Time"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+theme_override_styles/separator = SubResource("StyleBoxEmpty_lykwc")
+
+[node name="Video" type="Control" parent="Main/TabBar/Settings/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Columns" type="GridContainer" parent="Main/TabBar/Settings/TabContainer/Video"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = 8.0
+offset_right = -24.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Window" type="VBoxContainer" parent="Main/TabBar/Settings/TabContainer/Video/Columns"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
+
+[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Video/Columns/Window"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Window"
+vertical_alignment = 2
+
+[node name="Mode" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Video/Columns/Window"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+script = ExtResource("10_qi5v2")
+target = Array[String](["window_mode"])
+signal_emitter_path = NodePath("OptionButton")
+signal_name = "item_selected"
+property_name = "selected"
+
+[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Video/Columns/Window/Mode"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Window Mode"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="OptionButton" type="OptionButton" parent="Main/TabBar/Settings/TabContainer/Video/Columns/Window/Mode"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+item_count = 3
+selected = 0
+popup/item_0/text = "Windowed"
+popup/item_0/id = 0
+popup/item_1/text = "Borderless"
+popup/item_1/id = 1
+popup/item_2/text = "Exclusive Fullscreen"
+popup/item_2/id = 2
+
+[node name="VSeparator" type="VSeparator" parent="Main/TabBar/Settings/TabContainer/Video/Columns/Window/Mode"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+theme_override_styles/separator = SubResource("StyleBoxEmpty_lykwc")
 
 [node name="Audio" type="Control" parent="Main/TabBar/Settings/TabContainer"]
 visible = false

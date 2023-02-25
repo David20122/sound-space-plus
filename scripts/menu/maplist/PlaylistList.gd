@@ -24,6 +24,7 @@ func playlist_added(playlist:Playlist):
 	if playlist.cover != null:
 		button.get_node("Image").texture = playlist.cover
 	list.add_child(button)
+	$List/Edit.move_to_front()
 	if playlist.broken: button.disabled = true
 	else: button.connect("pressed",Callable(self,"playlist_selected").bind(playlist))
 	playlists[playlist] = button
@@ -32,6 +33,7 @@ func playlist_removed(playlist:Playlist):
 	playlists.erase(playlist)
 
 func playlist_selected(playlist:Playlist):
+	$List/Edit/Remove.disabled = false
 	for button in list.get_children():
 		if not button is Button: continue
 		button.button_pressed = false
@@ -40,6 +42,7 @@ func playlist_selected(playlist:Playlist):
 	on_playlist_selected.emit(selected_playlist)
 
 func all_selected():
+	$List/Edit/Remove.disabled = true
 	for button in list.get_children():
 		if not button is Button: continue
 		button.button_pressed = false
