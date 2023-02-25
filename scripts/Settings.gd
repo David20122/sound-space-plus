@@ -22,6 +22,11 @@ const SettingsList = [
 		["master_game",Type.FLOAT,1.0],
 		["game_music",Type.FLOAT,1.0],
 		["game_sfx",Type.FLOAT,1.0]
+	]],
+	["controls",Type.CATEGORY,[
+		["sensitivity",Type.CATEGORY,[
+			["mouse",Type.FLOAT,1.0]
+		]]
 	]]
 ]
 

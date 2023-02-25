@@ -113,7 +113,6 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_rnsra")
 tabs_visible = false
 
 [node name="Solo" type="Control" parent="Main/TabBar"]
-visible = false
 layout_mode = 2
 
 [node name="Playlists" type="ScrollContainer" parent="Main/TabBar/Solo"]
@@ -519,6 +518,7 @@ visible = false
 layout_mode = 2
 
 [node name="Settings" type="Control" parent="Main/TabBar"]
+visible = false
 layout_mode = 2
 
 [node name="TabContainer" type="TabContainer" parent="Main/TabBar/Settings"]
@@ -534,7 +534,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Game" type="Control" parent="Main/TabBar/Settings/TabContainer"]
-visible = false
 layout_mode = 2
 
 [node name="Columns" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Game"]
@@ -555,13 +554,52 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 16
 
-[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Game/Columns/A"]
+[node name="Controls" type="VBoxContainer" parent="Main/TabBar/Settings/TabContainer/Game/Columns/A"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Game/Columns/A/Controls"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Controls"
+vertical_alignment = 2
+
+[node name="MouseSensitivity" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Game/Columns/A/Controls"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_constants/separation = 16
+script = ExtResource("10_qi5v2")
+target = Array[String](["controls", "sensitivity", "mouse"])
+signal_emitter_path = NodePath("SpinBox")
+signal_name = "value_changed"
+property_name = "value"
+
+[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Game/Columns/A/Controls/MouseSensitivity"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Mouse Sensitivity"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="SpinBox" type="SpinBox" parent="Main/TabBar/Settings/TabContainer/Game/Columns/A/Controls/MouseSensitivity"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 2.0
+step = 0.001
+alignment = 1
+
+[node name="Skin" type="VBoxContainer" parent="Main/TabBar/Settings/TabContainer/Game/Columns/A"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Game/Columns/A/Skin"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Skin"
 vertical_alignment = 2
 
-[node name="Block" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Game/Columns/A"]
+[node name="Block" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Game/Columns/A/Skin"]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 theme_override_constants/separation = 16
@@ -572,7 +610,7 @@ signal_emitter_path = NodePath("OptionButton")
 signal_name = "item_selected"
 property_name = "selected"
 
-[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Game/Columns/A/Block"]
+[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Game/Columns/A/Skin/Block"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -580,12 +618,12 @@ text = "Block Mesh"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="OptionButton" type="OptionButton" parent="Main/TabBar/Settings/TabContainer/Game/Columns/A/Block"]
+[node name="OptionButton" type="OptionButton" parent="Main/TabBar/Settings/TabContainer/Game/Columns/A/Skin/Block"]
 layout_mode = 2
 size_flags_horizontal = 3
 fit_to_longest_item = false
 
-[node name="World" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Game/Columns/A"]
+[node name="World" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Game/Columns/A/Skin"]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 theme_override_constants/separation = 16
@@ -596,7 +634,7 @@ signal_emitter_path = NodePath("OptionButton")
 signal_name = "item_selected"
 property_name = "selected"
 
-[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Game/Columns/A/World"]
+[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Game/Columns/A/Skin/World"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -604,7 +642,7 @@ text = "Background World"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="OptionButton" type="OptionButton" parent="Main/TabBar/Settings/TabContainer/Game/Columns/A/World"]
+[node name="OptionButton" type="OptionButton" parent="Main/TabBar/Settings/TabContainer/Game/Columns/A/Skin/World"]
 layout_mode = 2
 size_flags_horizontal = 3
 fit_to_longest_item = false
@@ -615,6 +653,7 @@ size_flags_horizontal = 3
 theme_override_constants/separation = 16
 
 [node name="Audio" type="Control" parent="Main/TabBar/Settings/TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="Columns" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Audio"]
@@ -639,7 +678,7 @@ theme_override_styles/separator = SubResource("StyleBoxEmpty_xh06e")
 [node name="A" type="VBoxContainer" parent="Main/TabBar/Settings/TabContainer/Audio/Columns"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 2.0
+size_flags_stretch_ratio = 3.0
 theme_override_constants/separation = 16
 
 [node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/A"]

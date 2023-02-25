@@ -66,7 +66,7 @@ func _exit_tree():
 func _input(event):
 	if event is InputEventMouseMotion:
 		var clamp_value = 1.36875
-		cursor_position -= event.relative / 100.0
+		cursor_position -= event.relative * game.settings.controls.sensitivity.mouse / 100.0
 		clamped_cursor_position = Vector2(
 			clamp(cursor_position.x,-clamp_value,clamp_value),
 			clamp(cursor_position.y,-clamp_value,clamp_value))
