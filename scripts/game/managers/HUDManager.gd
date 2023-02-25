@@ -19,6 +19,10 @@ static func comma_sep(n: int):
 	return result
 
 func _ready():
+	hud.get_node("Right").texture = right.get_parent().get_texture()
+	hud.get_node("Left").texture = left.get_parent().get_texture()
+	hud.get_node("Energy").texture = energy.get_parent().get_texture()
+	hud.get_node("Timer").texture = timer.get_parent().get_texture()
 	right.manager = self
 	left.manager = self
 	energy.manager = self
