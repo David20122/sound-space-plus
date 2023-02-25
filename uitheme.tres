@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=42 format=3 uid="uid://diarojdcbhxg8"]
+[gd_resource type="Theme" load_steps=39 format=3 uid="uid://diarojdcbhxg8"]
 
 [ext_resource type="FontFile" uid="uid://c56v11c0s2px" path="res://assets/fonts/Lato/Lato-Regular.ttf" id="1"]
 [ext_resource type="FontFile" uid="uid://bf8h1hxdvj8x8" path="res://assets/fonts/Noto_Sans_JP/NotoSansJP-Medium.otf" id="2"]
@@ -444,6 +444,8 @@ content_margin_right = 2.0
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3qdx3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7teuy"]
+content_margin_left = 8.0
+content_margin_right = 8.0
 bg_color = Color(0.188235, 0.188235, 0.188235, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
@@ -611,44 +613,23 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="12"]
-content_margin_left = 3.0
-content_margin_top = 2.0
-content_margin_right = 3.0
-content_margin_bottom = 2.0
-bg_color = Color(0.243137, 0.207843, 0.27451, 1)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
-
-[sub_resource type="StyleBoxLine" id="13"]
-color = Color(0.305882, 0.2, 0.32549, 0.847059)
-grow_end = -8.0
-
-[sub_resource type="StyleBoxLine" id="14"]
-color = Color(0.305882, 0.2, 0.32549, 0.847059)
-grow_begin = -8.0
-
 [sub_resource type="StyleBoxFlat" id="15"]
 content_margin_left = 3.0
 content_margin_top = 2.0
 content_margin_right = 3.0
 content_margin_bottom = 2.0
-bg_color = Color(0.176471, 0.152941, 0.2, 1)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
-expand_margin_left = 4.0
-expand_margin_top = 4.0
-expand_margin_right = 4.0
-expand_margin_bottom = 4.0
+bg_color = Color(0.188235, 0.188235, 0.188235, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
 shadow_color = Color(0, 0, 0, 0.145098)
 shadow_size = 6
 
 [sub_resource type="StyleBoxLine" id="16"]
-color = Color(0.305882, 0.2, 0.32549, 0.847059)
+color = Color(1, 1, 1, 0.501961)
+grow_begin = -4.0
+grow_end = -4.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yospl"]
 bg_color = Color(0.0705882, 0.0705882, 0.0705882, 1)
@@ -783,10 +764,10 @@ CheckBox/icons/radio_unchecked = null
 CheckBox/icons/unchecked = null
 CheckBox/styles/disabled = null
 CheckBox/styles/focus = null
-CheckBox/styles/hover = null
-CheckBox/styles/hover_pressed = null
+CheckBox/styles/hover = SubResource("StyleBoxFlat_jrsj5")
+CheckBox/styles/hover_pressed = SubResource("StyleBoxFlat_jrsj5")
 CheckBox/styles/normal = null
-CheckBox/styles/pressed = null
+CheckBox/styles/pressed = SubResource("StyleBoxFlat_jrsj5")
 CheckButton/constants/check_vadjust = 0
 CheckButton/constants/hseparation = 4
 CheckButton/fonts/font = SubResource("17")
@@ -796,10 +777,10 @@ CheckButton/icons/on = null
 CheckButton/icons/on_disabled = null
 CheckButton/styles/disabled = null
 CheckButton/styles/focus = null
-CheckButton/styles/hover = null
-CheckButton/styles/hover_pressed = null
+CheckButton/styles/hover = SubResource("StyleBoxFlat_jrsj5")
+CheckButton/styles/hover_pressed = SubResource("StyleBoxFlat_jrsj5")
 CheckButton/styles/normal = null
-CheckButton/styles/pressed = null
+CheckButton/styles/pressed = SubResource("StyleBoxFlat_jrsj5")
 ColorPicker/constants/h_width = 30
 ColorPicker/constants/label_width = 10
 ColorPicker/constants/margin = 4
@@ -965,9 +946,9 @@ PopupMenu/icons/radio_checked = null
 PopupMenu/icons/radio_unchecked = null
 PopupMenu/icons/submenu = null
 PopupMenu/icons/unchecked = null
-PopupMenu/styles/hover = SubResource("12")
-PopupMenu/styles/labeled_separator_left = SubResource("13")
-PopupMenu/styles/labeled_separator_right = SubResource("14")
+PopupMenu/styles/hover = SubResource("15")
+PopupMenu/styles/labeled_separator_left = SubResource("16")
+PopupMenu/styles/labeled_separator_right = SubResource("16")
 PopupMenu/styles/panel = SubResource("15")
 PopupMenu/styles/panel_disabled = null
 PopupMenu/styles/separator = SubResource("16")
