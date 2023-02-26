@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="EnvironmentPlus" load_steps=3 format=3 uid="uid://8a3w2fn06ihx"]
+
+[ext_resource type="Script" path="res://scripts/content/resources/EnvironmentPlus.gd" id="1_brks8"]
+[ext_resource type="PackedScene" path="res://assets/content/worlds/tri_tunnel/tri_tunnel.tscn" id="2_udx0d"]
+
+[resource]
+script = ExtResource("1_brks8")
+world = ExtResource("2_udx0d")
+id = "tri_tunnel"
+name = "Tri Tunnel"
+creator = "Sound Space"
+online_id = ""
+built_in = true

@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="Registry" load_steps=3 format=3 uid="uid://dmd2c5vcslklv"]
+[gd_resource type="Resource" script_class="Registry" load_steps=4 format=3 uid="uid://dmd2c5vcslklv"]
 
 [ext_resource type="Script" path="res://scripts/content/Registry.gd" id="1_iybmo"]
 [ext_resource type="Resource" uid="uid://b0mh5m2y4f6gj" path="res://assets/content/worlds/Rings.tres" id="1_qe2f2"]
+[ext_resource type="Resource" uid="uid://8a3w2fn06ihx" path="res://assets/content/worlds/Tri.tres" id="2_nwc74"]
 
 [resource]
 script = ExtResource("1_iybmo")
-items = Array[Resource("res://scripts/content/resources/ResourcePlus.gd")]([ExtResource("1_qe2f2")])
+items = Array[Resource("res://scripts/content/resources/ResourcePlus.gd")]([ExtResource("1_qe2f2"), ExtResource("2_nwc74")])
