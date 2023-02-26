@@ -198,20 +198,20 @@ id = "HUD.Timer"
 permanent = true
 
 [node name="Right" type="Sprite3D" parent="."]
-transform = Transform3D(0.579556, 0, -0.155291, 0, 0.6, 0, 0.155291, 0, 0.579556, -2.8, 0, 1)
+transform = Transform3D(0.579556, 0, -0.155291, 0, 0.6, 0, 0.155291, 0, 0.579556, -3.3, 0, 2)
 offset = Vector2(0, -100)
 flip_h = true
-pixel_size = 0.005
+pixel_size = 0.006
 texture = SubResource("ViewportTexture_g8hlh")
 script = ExtResource("1_siigk")
 id = "HUD.RPanel"
 permanent = true
 
 [node name="Left" type="Sprite3D" parent="."]
-transform = Transform3D(0.579556, 0, 0.155291, 0, 0.6, 0, -0.155291, 0, 0.579556, 2.8, 0, 1)
+transform = Transform3D(0.579556, 0, 0.155291, 0, 0.6, 0, -0.155291, 0, 0.579556, 3.3, 0, 2)
 offset = Vector2(0, -100)
 flip_h = true
-pixel_size = 0.005
+pixel_size = 0.006
 texture = SubResource("ViewportTexture_s0bgg")
 script = ExtResource("1_siigk")
 id = "HUD.LPanel"
