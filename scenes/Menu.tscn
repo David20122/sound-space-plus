@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://cu2rno2ef0dtr"]
+[gd_scene load_steps=34 format=3 uid="uid://cu2rno2ef0dtr"]
 
 [ext_resource type="PackedScene" uid="uid://de1sj0rkm2iu7" path="res://prefabs/menu/VersionNumberR.tscn" id="1"]
 [ext_resource type="Theme" uid="uid://diarojdcbhxg8" path="res://uitheme.tres" id="2"]
@@ -18,9 +18,10 @@
 [ext_resource type="Script" path="res://scripts/menu/settings/RegistryControl.gd" id="10_a5lmy"]
 [ext_resource type="Script" path="res://scripts/menu/settings/SettingControl.gd" id="10_qi5v2"]
 [ext_resource type="Script" path="res://scripts/menu/settings/VolumeLabel.gd" id="12_vqp4p"]
+[ext_resource type="Script" path="res://scripts/menu/settings/SliderControl.gd" id="13_5sex8"]
 [ext_resource type="Script" path="res://scripts/menu/main/Sidebar.gd" id="18"]
 [ext_resource type="Script" path="res://scripts/menu/main/Warning.gd" id="19"]
-[ext_resource type="AudioStream" uid="uid://7a4m03sb8st5" path="res://assets/sounds/death.mp3" id="20"]
+[ext_resource type="AudioStream" uid="uid://chricmmpsvuxi" path="res://assets/sounds/music/menu_loop.ogg" id="22_645dr"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rnsra"]
 
@@ -154,6 +155,7 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_rnsra")
 tabs_visible = false
 
 [node name="Solo" type="Control" parent="Main/TabBar"]
+visible = false
 layout_mode = 2
 
 [node name="Playlists" type="ScrollContainer" parent="Main/TabBar/Solo"]
@@ -591,7 +593,6 @@ visible = false
 layout_mode = 2
 
 [node name="Settings" type="Control" parent="Main/TabBar"]
-visible = false
 layout_mode = 2
 
 [node name="TabContainer" type="TabContainer" parent="Main/TabBar/Settings"]
@@ -605,8 +606,10 @@ offset_right = -24.0
 offset_bottom = -24.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_font_sizes/font_size = 22
 
 [node name="Game" type="Control" parent="Main/TabBar/Settings/TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="Columns" type="GridContainer" parent="Main/TabBar/Settings/TabContainer/Game"]
@@ -950,7 +953,6 @@ theme_override_constants/separation = 0
 theme_override_styles/separator = SubResource("StyleBoxEmpty_lykwc")
 
 [node name="Audio" type="Control" parent="Main/TabBar/Settings/TabContainer"]
-visible = false
 layout_mode = 2
 
 [node name="Columns" type="GridContainer" parent="Main/TabBar/Settings/TabContainer/Audio"]
@@ -982,10 +984,10 @@ vertical_alignment = 2
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 theme_override_constants/separation = 16
-script = ExtResource("10_qi5v2")
+script = ExtResource("13_5sex8")
 target = Array[String](["volume", "master"])
 signal_emitter_path = NodePath("HSlider")
-signal_name = "value_changed"
+signal_name = "drag_ended"
 property_name = "value"
 
 [node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume/Master"]
@@ -1011,10 +1013,10 @@ value = 1.0
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 theme_override_constants/separation = 16
-script = ExtResource("10_qi5v2")
+script = ExtResource("13_5sex8")
 target = Array[String](["volume", "master_menu"])
 signal_emitter_path = NodePath("HSlider")
-signal_name = "value_changed"
+signal_name = "drag_ended"
 property_name = "value"
 
 [node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume/Menu"]
@@ -1040,10 +1042,10 @@ value = 1.0
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 theme_override_constants/separation = 16
-script = ExtResource("10_qi5v2")
+script = ExtResource("13_5sex8")
 target = Array[String](["volume", "menu_music"])
 signal_emitter_path = NodePath("HSlider")
-signal_name = "value_changed"
+signal_name = "drag_ended"
 property_name = "value"
 
 [node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume/MenuMusic"]
@@ -1069,10 +1071,10 @@ value = 1.0
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 theme_override_constants/separation = 16
-script = ExtResource("10_qi5v2")
+script = ExtResource("13_5sex8")
 target = Array[String](["volume", "menu_sfx"])
 signal_emitter_path = NodePath("HSlider")
-signal_name = "value_changed"
+signal_name = "drag_ended"
 property_name = "value"
 
 [node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume/MenuSFX"]
@@ -1098,10 +1100,10 @@ value = 1.0
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 theme_override_constants/separation = 16
-script = ExtResource("10_qi5v2")
+script = ExtResource("13_5sex8")
 target = Array[String](["volume", "master_game"])
 signal_emitter_path = NodePath("HSlider")
-signal_name = "value_changed"
+signal_name = "drag_ended"
 property_name = "value"
 
 [node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume/Game"]
@@ -1127,10 +1129,10 @@ value = 1.0
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 theme_override_constants/separation = 16
-script = ExtResource("10_qi5v2")
+script = ExtResource("13_5sex8")
 target = Array[String](["volume", "game_music"])
 signal_emitter_path = NodePath("HSlider")
-signal_name = "value_changed"
+signal_name = "drag_ended"
 property_name = "value"
 
 [node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume/GameMusic"]
@@ -1156,10 +1158,10 @@ value = 1.0
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 theme_override_constants/separation = 16
-script = ExtResource("10_qi5v2")
+script = ExtResource("13_5sex8")
 target = Array[String](["volume", "game_sfx"])
 signal_emitter_path = NodePath("HSlider")
-signal_name = "value_changed"
+signal_name = "drag_ended"
 property_name = "value"
 
 [node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume/GameSFX"]
@@ -1372,5 +1374,6 @@ flat = true
 metadata/_edit_lock_ = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("20")
-bus = &"Awesome!"
+stream = ExtResource("22_645dr")
+autoplay = true
+bus = &"Menu Music"
