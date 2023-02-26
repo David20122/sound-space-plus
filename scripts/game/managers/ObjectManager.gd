@@ -3,33 +3,40 @@ class_name ObjectManager
 
 var origin
 
-var objects = []
-var objects_dict = {}
+var objects:Array[GameObject] = []
+var objects_ids:Dictionary = {}
+
+var hit_objects:Array[HitObject] = []
 
 var player:PlayerObject
 
 func prepare(_origin):
 	origin = _origin
-	append_object(origin.get_node("Player"),false)
-	player = objects_dict.get("Player")
+	player = origin.get_node("Player")
 	origin.set_physics_process(player.local_player)
+	append_object(player,false)
 	append_object(origin.get_node("World"),false)
 	append_object(origin.get_node("HUD"),false)
 
 func append_object(object:GameObject,parent:bool=true):
-	if objects_dict.has(object.id): return
+	if objects_ids.keys().has(object.id): return false
 	object.game = game
 	object.manager = self
 	if player != null: object.set_physics_process(player.local_player)
 	objects.append(object)
-	objects_dict[object.id] = object
+	objects_ids[object.id] = object
 	if object is HitObject:
-		object.connect("on_hit_state_changed",Callable(player,"hit_object_state_changed").bind(object))
-	var current_parent = object.get_parent()
-	if parent and current_parent != origin:
-		if current_parent != null:
-			current_parent.remove_child(object)
-		origin.add_child(object)
+		hit_objects.append(object)
+		if player != null: object.connect(
+			"on_hit_state_changed",
+			Callable(player,"hit_object_state_changed").bind(object)
+		)
+	if parent:
+		var current_parent = object.get_parent()
+		if current_parent != origin:
+			if current_parent != null:
+				current_parent.remove_child(object)
+			origin.add_child(object)
 	for child in object.get_children():
 		if child is GameObject:
 			append_object(child,false)

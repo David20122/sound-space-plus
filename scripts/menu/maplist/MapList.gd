@@ -40,7 +40,7 @@ func _process(_delta):
 		_last_scroll = list.scroll_vertical
 		update_list()
 func _notification(what):
-	if what == NOTIFICATION_RESIZED:
+	if what == NOTIFICATION_WM_SIZE_CHANGED:
 		call_deferred("update_list")
 
 func update_items():

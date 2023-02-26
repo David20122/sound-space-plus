@@ -45,8 +45,8 @@ func hit_object_state_changed(state:int,object:HitObject):
 			score.multiplier -= 1
 			health = maxf(health-1,0)
 	score_changed.emit(score,health)
-	if health == 0 and !did_fail:
-		fail()
+#	if health == 0 and !did_fail:
+#		fail()
 
 func fail():
 	did_fail = true
@@ -84,13 +84,15 @@ var latest_passed_note_index:int = 0
 func _physics_process(_delta):
 	var cursor_hitbox = 0.2625
 	var hitwindow = 1.75/30
-	var objects = manager.objects
-	for object in objects.slice(latest_passed_note_index):
+	var objects = manager.hit_objects.slice(latest_passed_note_index)
+	var latest_passed = 0
+	for i in objects.size():
+		var object = objects[i]
 		if game.sync_manager.current_time < object.spawn_time:
 			break
-		if !(object is HitObject and object.hittable): continue
+		if !object.hittable: continue
 		if game.sync_manager.current_time > object.despawn_time:
-			latest_passed_note_index = objects.find(object)
+			latest_passed = i
 		if object.hit_state != HitObject.HitState.NONE: continue
 		var x = abs(object.position.x - clamped_cursor_position.x)
 		var y = abs(object.position.y - clamped_cursor_position.y)
@@ -102,3 +104,4 @@ func _physics_process(_delta):
 			if game.sync_manager.current_time > (object as NoteObject).note.time + hitwindow:
 				object.miss()
 		elif game.sync_manager.current_time >= object.despawn_time: object.miss()
+	latest_passed_note_index += latest_passed

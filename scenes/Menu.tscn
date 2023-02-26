@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://cu2rno2ef0dtr"]
+[gd_scene load_steps=33 format=3 uid="uid://cu2rno2ef0dtr"]
 
 [ext_resource type="PackedScene" uid="uid://de1sj0rkm2iu7" path="res://prefabs/menu/VersionNumberR.tscn" id="1"]
 [ext_resource type="Theme" uid="uid://diarojdcbhxg8" path="res://uitheme.tres" id="2"]
@@ -87,8 +87,6 @@ func update_mode(value:int):
 			time.signal_emitter.editable = true
 			time.reset()
 "
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xh06e"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_floo6"]
 bg_color = Color(1, 1, 1, 1)
@@ -955,7 +953,7 @@ theme_override_styles/separator = SubResource("StyleBoxEmpty_lykwc")
 visible = false
 layout_mode = 2
 
-[node name="Columns" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Audio"]
+[node name="Columns" type="GridContainer" parent="Main/TabBar/Settings/TabContainer/Audio"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -966,27 +964,21 @@ offset_right = -24.0
 offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 16
+columns = 2
 
-[node name="LSeparator" type="VSeparator" parent="Main/TabBar/Settings/TabContainer/Audio/Columns"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 0
-theme_override_styles/separator = SubResource("StyleBoxEmpty_xh06e")
-
-[node name="A" type="VBoxContainer" parent="Main/TabBar/Settings/TabContainer/Audio/Columns"]
+[node name="Volume" type="VBoxContainer" parent="Main/TabBar/Settings/TabContainer/Audio/Columns"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 3.0
 theme_override_constants/separation = 16
 
-[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/A"]
+[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Volume"
 vertical_alignment = 2
 
-[node name="Master" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/A"]
+[node name="Master" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume"]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 theme_override_constants/separation = 16
@@ -996,7 +988,7 @@ signal_emitter_path = NodePath("HSlider")
 signal_name = "value_changed"
 property_name = "value"
 
-[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/A/Master"]
+[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume/Master"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -1007,7 +999,7 @@ vertical_alignment = 1
 script = ExtResource("12_vqp4p")
 label = "Master"
 
-[node name="HSlider" type="HSlider" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/A/Master"]
+[node name="HSlider" type="HSlider" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume/Master"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -1015,7 +1007,7 @@ max_value = 2.0
 step = 0.01
 value = 1.0
 
-[node name="Menu" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/A"]
+[node name="Menu" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume"]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 theme_override_constants/separation = 16
@@ -1025,7 +1017,7 @@ signal_emitter_path = NodePath("HSlider")
 signal_name = "value_changed"
 property_name = "value"
 
-[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/A/Menu"]
+[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume/Menu"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -1036,7 +1028,7 @@ vertical_alignment = 1
 script = ExtResource("12_vqp4p")
 label = "Menu Master"
 
-[node name="HSlider" type="HSlider" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/A/Menu"]
+[node name="HSlider" type="HSlider" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume/Menu"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -1044,7 +1036,7 @@ max_value = 2.0
 step = 0.01
 value = 1.0
 
-[node name="MenuMusic" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/A"]
+[node name="MenuMusic" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume"]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 theme_override_constants/separation = 16
@@ -1054,7 +1046,7 @@ signal_emitter_path = NodePath("HSlider")
 signal_name = "value_changed"
 property_name = "value"
 
-[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/A/MenuMusic"]
+[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume/MenuMusic"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -1065,7 +1057,7 @@ vertical_alignment = 1
 script = ExtResource("12_vqp4p")
 label = "Menu Music"
 
-[node name="HSlider" type="HSlider" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/A/MenuMusic"]
+[node name="HSlider" type="HSlider" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume/MenuMusic"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -1073,7 +1065,7 @@ max_value = 2.0
 step = 0.01
 value = 1.0
 
-[node name="MenuSFX" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/A"]
+[node name="MenuSFX" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume"]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 theme_override_constants/separation = 16
@@ -1083,7 +1075,7 @@ signal_emitter_path = NodePath("HSlider")
 signal_name = "value_changed"
 property_name = "value"
 
-[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/A/MenuSFX"]
+[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume/MenuSFX"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -1094,7 +1086,7 @@ vertical_alignment = 1
 script = ExtResource("12_vqp4p")
 label = "Menu SFX"
 
-[node name="HSlider" type="HSlider" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/A/MenuSFX"]
+[node name="HSlider" type="HSlider" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume/MenuSFX"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -1102,7 +1094,7 @@ max_value = 2.0
 step = 0.01
 value = 1.0
 
-[node name="Game" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/A"]
+[node name="Game" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume"]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 theme_override_constants/separation = 16
@@ -1112,7 +1104,7 @@ signal_emitter_path = NodePath("HSlider")
 signal_name = "value_changed"
 property_name = "value"
 
-[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/A/Game"]
+[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume/Game"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -1123,7 +1115,7 @@ vertical_alignment = 1
 script = ExtResource("12_vqp4p")
 label = "Game Master"
 
-[node name="HSlider" type="HSlider" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/A/Game"]
+[node name="HSlider" type="HSlider" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume/Game"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -1131,7 +1123,7 @@ max_value = 2.0
 step = 0.01
 value = 1.0
 
-[node name="GameMusic" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/A"]
+[node name="GameMusic" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume"]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 theme_override_constants/separation = 16
@@ -1141,7 +1133,7 @@ signal_emitter_path = NodePath("HSlider")
 signal_name = "value_changed"
 property_name = "value"
 
-[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/A/GameMusic"]
+[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume/GameMusic"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -1152,7 +1144,7 @@ vertical_alignment = 1
 script = ExtResource("12_vqp4p")
 label = "Game Music"
 
-[node name="HSlider" type="HSlider" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/A/GameMusic"]
+[node name="HSlider" type="HSlider" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume/GameMusic"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -1160,7 +1152,7 @@ max_value = 2.0
 step = 0.01
 value = 1.0
 
-[node name="GameSFX" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/A"]
+[node name="GameSFX" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume"]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 theme_override_constants/separation = 16
@@ -1170,7 +1162,7 @@ signal_emitter_path = NodePath("HSlider")
 signal_name = "value_changed"
 property_name = "value"
 
-[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/A/GameSFX"]
+[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume/GameSFX"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -1181,19 +1173,13 @@ vertical_alignment = 1
 script = ExtResource("12_vqp4p")
 label = "Game SFX"
 
-[node name="HSlider" type="HSlider" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/A/GameSFX"]
+[node name="HSlider" type="HSlider" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume/GameSFX"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 max_value = 2.0
 step = 0.01
 value = 1.0
-
-[node name="RSeparator" type="VSeparator" parent="Main/TabBar/Settings/TabContainer/Audio/Columns"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 0
-theme_override_styles/separator = SubResource("StyleBoxEmpty_xh06e")
 
 [node name="VersionNumberR" parent="Main" instance=ExtResource("1")]
 layout_mode = 1

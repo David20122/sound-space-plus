@@ -11,7 +11,6 @@ func _init(_items:Array[ResourcePlus]=[]):
 
 func get_ids():
 	return items.map(func(item): return item.id)
-
 func get_by_id(id:String):
 	var ids = get_ids()
 	if !ids.has(id): return null

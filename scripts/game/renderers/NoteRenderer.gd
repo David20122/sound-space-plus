@@ -10,14 +10,22 @@ func _ready():
 	multimesh.mesh = mesh.mesh
 	multimesh.instance_count = 64
 
+var latest_passed_note_index:int = 0
 func render_objects(objects:Array):
+	objects = objects.slice(latest_passed_note_index)
 	var notes = []
-	for object in objects:
-		if manager.game.sync_manager.current_time < object.spawn_time:
+	var latest_passed = 0
+	for i in objects.size():
+		var object = objects[i]
+		if not object is NoteObject: continue
+		if game.sync_manager.current_time < object.spawn_time:
 			break
-		if not (object is NoteObject and object.visible):
+		if game.sync_manager.current_time > object.despawn_time:
+			latest_passed = i
 			continue
+		if !object.visible: continue
 		notes.append(object)
+	latest_passed_note_index += latest_passed
 	var count = notes.size()
 	if count > multimesh.instance_count: multimesh.instance_count = count
 	multimesh.visible_instance_count = count
