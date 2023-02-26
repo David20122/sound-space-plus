@@ -20,12 +20,13 @@ signal failed
 @onready var score:Score = Score.new()
 var health:float = 5
 var did_fail:bool = false
+var lock_score:bool = false
 
 var cursor_position:Vector2 = Vector2.ZERO
 var clamped_cursor_position:Vector2 = Vector2.ZERO
 
 func hit_object_state_changed(state:int,object:HitObject):
-	if did_fail: return
+	if lock_score: return
 	match state:
 		HitObject.HitState.HIT:
 			hit.emit(object)
@@ -50,6 +51,7 @@ func hit_object_state_changed(state:int,object:HitObject):
 
 func fail():
 	did_fail = true
+	lock_score = true
 	failed.emit()
 
 func _ready():
