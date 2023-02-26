@@ -88,7 +88,7 @@ func _physics_process(_delta):
 	for object in objects:
 		if game.sync_manager.current_time < object.spawn_time: break
 		if object.hit_state != HitObject.HitState.NONE: continue
-		if !object.hittable: continue
+		if !(object.hittable and object.can_hit): continue
 		
 		var x = abs(object.position.x - clamped_cursor_position.x)
 		var y = abs(object.position.y - clamped_cursor_position.y)

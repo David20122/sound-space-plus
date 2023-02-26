@@ -19,7 +19,6 @@ var hit_state:int = HitState.NONE:
 
 func hit():
 	if hit_state != HitState.NONE: return
-	if !can_hit: return
 	self.hit_state = HitState.HIT
 	visible = false
 func miss():
