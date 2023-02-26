@@ -888,7 +888,6 @@ theme_override_constants/separation = 0
 theme_override_styles/separator = SubResource("StyleBoxEmpty_lykwc")
 
 [node name="Video" type="Control" parent="Main/TabBar/Settings/TabContainer"]
-visible = false
 layout_mode = 2
 
 [node name="Columns" type="GridContainer" parent="Main/TabBar/Settings/TabContainer/Video"]
@@ -952,7 +951,39 @@ size_flags_horizontal = 3
 theme_override_constants/separation = 0
 theme_override_styles/separator = SubResource("StyleBoxEmpty_lykwc")
 
+[node name="FPS" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Video/Columns/Window"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+script = ExtResource("10_qi5v2")
+target = Array[String](["fps_limit"])
+signal_emitter_path = NodePath("SpinBox")
+signal_name = "value_changed"
+property_name = "value"
+
+[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Video/Columns/Window/FPS"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "FPS Limit (gameplay)"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="SpinBox" type="SpinBox" parent="Main/TabBar/Settings/TabContainer/Video/Columns/Window/FPS"]
+layout_mode = 2
+size_flags_horizontal = 3
+allow_greater = true
+alignment = 1
+
+[node name="VSeparator" type="VSeparator" parent="Main/TabBar/Settings/TabContainer/Video/Columns/Window/FPS"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+theme_override_styles/separator = SubResource("StyleBoxEmpty_lykwc")
+
 [node name="Audio" type="Control" parent="Main/TabBar/Settings/TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="Columns" type="GridContainer" parent="Main/TabBar/Settings/TabContainer/Audio"]
@@ -966,11 +997,11 @@ offset_right = -24.0
 offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
-columns = 2
 
 [node name="Volume" type="VBoxContainer" parent="Main/TabBar/Settings/TabContainer/Audio/Columns"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
 size_flags_stretch_ratio = 3.0
 theme_override_constants/separation = 16
 
@@ -994,7 +1025,6 @@ property_name = "value"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
-size_flags_stretch_ratio = 0.5
 text = "Master (100%)"
 horizontal_alignment = 2
 vertical_alignment = 1
@@ -1005,9 +1035,16 @@ label = "Master"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
+size_flags_stretch_ratio = 1.5
 max_value = 2.0
 step = 0.01
 value = 1.0
+
+[node name="VSeparator" type="VSeparator" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume/Master"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+theme_override_styles/separator = SubResource("StyleBoxEmpty_lykwc")
 
 [node name="Menu" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume"]
 custom_minimum_size = Vector2(0, 32)
@@ -1023,7 +1060,6 @@ property_name = "value"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
-size_flags_stretch_ratio = 0.5
 text = "Master (100%)"
 horizontal_alignment = 2
 vertical_alignment = 1
@@ -1034,9 +1070,16 @@ label = "Menu Master"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
+size_flags_stretch_ratio = 1.5
 max_value = 2.0
 step = 0.01
 value = 1.0
+
+[node name="VSeparator" type="VSeparator" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume/Menu"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+theme_override_styles/separator = SubResource("StyleBoxEmpty_lykwc")
 
 [node name="MenuMusic" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume"]
 custom_minimum_size = Vector2(0, 32)
@@ -1052,7 +1095,6 @@ property_name = "value"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
-size_flags_stretch_ratio = 0.5
 text = "Master (100%)"
 horizontal_alignment = 2
 vertical_alignment = 1
@@ -1063,9 +1105,16 @@ label = "Menu Music"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
+size_flags_stretch_ratio = 1.5
 max_value = 2.0
 step = 0.01
 value = 1.0
+
+[node name="VSeparator" type="VSeparator" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume/MenuMusic"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+theme_override_styles/separator = SubResource("StyleBoxEmpty_lykwc")
 
 [node name="MenuSFX" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume"]
 custom_minimum_size = Vector2(0, 32)
@@ -1081,7 +1130,6 @@ property_name = "value"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
-size_flags_stretch_ratio = 0.5
 text = "Master (100%)"
 horizontal_alignment = 2
 vertical_alignment = 1
@@ -1092,9 +1140,16 @@ label = "Menu SFX"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
+size_flags_stretch_ratio = 1.5
 max_value = 2.0
 step = 0.01
 value = 1.0
+
+[node name="VSeparator" type="VSeparator" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume/MenuSFX"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+theme_override_styles/separator = SubResource("StyleBoxEmpty_lykwc")
 
 [node name="Game" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume"]
 custom_minimum_size = Vector2(0, 32)
@@ -1110,7 +1165,6 @@ property_name = "value"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
-size_flags_stretch_ratio = 0.5
 text = "Master (100%)"
 horizontal_alignment = 2
 vertical_alignment = 1
@@ -1121,9 +1175,16 @@ label = "Game Master"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
+size_flags_stretch_ratio = 1.5
 max_value = 2.0
 step = 0.01
 value = 1.0
+
+[node name="VSeparator" type="VSeparator" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume/Game"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+theme_override_styles/separator = SubResource("StyleBoxEmpty_lykwc")
 
 [node name="GameMusic" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume"]
 custom_minimum_size = Vector2(0, 32)
@@ -1139,7 +1200,6 @@ property_name = "value"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
-size_flags_stretch_ratio = 0.5
 text = "Master (100%)"
 horizontal_alignment = 2
 vertical_alignment = 1
@@ -1150,9 +1210,16 @@ label = "Game Music"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
+size_flags_stretch_ratio = 1.5
 max_value = 2.0
 step = 0.01
 value = 1.0
+
+[node name="VSeparator" type="VSeparator" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume/GameMusic"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+theme_override_styles/separator = SubResource("StyleBoxEmpty_lykwc")
 
 [node name="GameSFX" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume"]
 custom_minimum_size = Vector2(0, 32)
@@ -1168,20 +1235,25 @@ property_name = "value"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
-size_flags_stretch_ratio = 0.5
 text = "Master (100%)"
 horizontal_alignment = 2
 vertical_alignment = 1
 script = ExtResource("12_vqp4p")
-label = "Game SFX"
 
 [node name="HSlider" type="HSlider" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume/GameSFX"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
+size_flags_stretch_ratio = 1.5
 max_value = 2.0
 step = 0.01
 value = 1.0
+
+[node name="VSeparator" type="VSeparator" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume/GameSFX"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+theme_override_styles/separator = SubResource("StyleBoxEmpty_lykwc")
 
 [node name="VersionNumberR" parent="Main" instance=ExtResource("1")]
 layout_mode = 1

@@ -29,15 +29,14 @@ func _change_scene_to_node(node:Node):
 	root.add_child(node)
 	current_scene = node
 
-func _idle(_delta):
+func _process(_delta):
 	var fps = 90
 	if current_scene and current_scene.get_meta("is_game",false):
 		fps = fps_limit
-	elif fps_limit != 0:
-		fps = min(fps_limit,90)
-	if !root.get_window().has_focus():
-		fps = 30
+	else:
+		fps = 90
 	Engine.max_fps = fps
+	return false
 
 var quitting = false
 func _set_master_volume(volume:float):

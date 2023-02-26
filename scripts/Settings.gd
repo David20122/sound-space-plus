@@ -37,6 +37,8 @@ func update():
 			window.mode = Window.MODE_FULLSCREEN
 		WindowMode.FULLSCREEN:
 			window.mode = Window.MODE_EXCLUSIVE_FULLSCREEN
+	# FPS limit
+	ssp.get_tree().fps_limit = data.fps_limit
 
 enum WindowMode {
 	WINDOWED,
@@ -51,6 +53,7 @@ enum ApproachMode {
 const SettingsList = [
 	["first_time",Type.BOOLEAN,true],
 	["window_mode",Type.INT,WindowMode.WINDOWED],
+	["fps_limit",Type.INT,0],
 	["approach",Type.CATEGORY,[
 		["time",Type.FLOAT,1.0],
 		["distance",Type.FLOAT,50.0],

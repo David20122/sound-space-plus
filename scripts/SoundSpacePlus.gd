@@ -10,7 +10,7 @@ var settings:Settings
 var first_time:bool = false
 
 func _ready():
-	load_settings()
+	call_deferred("load_settings")
 	connect("on_init_complete",Callable(self,"_on_init_complete"))
 
 # Settings
