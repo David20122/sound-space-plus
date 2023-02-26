@@ -50,7 +50,6 @@ func hit_object_state_changed(state:int,object:HitObject):
 
 func fail():
 	did_fail = true
-	set_physics_process(false)
 	failed.emit()
 
 func _ready():
