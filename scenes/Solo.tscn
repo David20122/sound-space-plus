@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://coxy02rq0td13"]
+[gd_scene load_steps=20 format=3 uid="uid://coxy02rq0td13"]
 
 [ext_resource type="Script" path="res://scripts/game/GameScene.gd" id="1"]
 [ext_resource type="Script" path="res://scripts/game/managers/SyncManager.gd" id="2_kp2am"]
@@ -10,6 +10,11 @@
 [ext_resource type="Script" path="res://scripts/game/renderers/NoteRenderer.gd" id="4_tvxv6"]
 [ext_resource type="Texture2D" uid="uid://ctmjd7r2b7750" path="res://assets/images/default_cursor.png" id="8_y20xf"]
 [ext_resource type="PackedScene" uid="uid://2ytv06ccswo1" path="res://prefabs/game/hud/HUD.tscn" id="10_i0uko"]
+[ext_resource type="Theme" uid="uid://diarojdcbhxg8" path="res://uitheme.tres" id="11_e8h1i"]
+[ext_resource type="Texture2D" uid="uid://cmx7ntw62nhki" path="res://assets/images/ui/play_circle.png" id="12_oxpux"]
+[ext_resource type="Script" path="res://scripts/game/PauseHandler.gd" id="12_vk1e3"]
+[ext_resource type="Texture2D" uid="uid://crn45ox0vkija" path="res://assets/images/ui/reset_to_default_white.png" id="13_jftr7"]
+[ext_resource type="Texture2D" uid="uid://bdhb58b2ygaxc" path="res://assets/images/ui/placeholder.jpg" id="14_owers"]
 
 [sub_resource type="MultiMesh" id="MultiMesh_t5tpd"]
 transform_format = 1
@@ -24,6 +29,13 @@ albedo_texture = ExtResource("8_y20xf")
 [sub_resource type="QuadMesh" id="QuadMesh_rq05a"]
 flip_faces = true
 size = Vector2(0.525, 0.525)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h1g1i"]
+bg_color = Color(0.188235, 0.188235, 0.188235, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [node name="GameScene" type="Node3D"]
 top_level = true
@@ -74,11 +86,13 @@ fov = 70.0
 
 [node name="Real" type="MeshInstance3D" parent="Origin/Player/Cursor"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+layers = 2
 material_override = SubResource("StandardMaterial3D_y2xxy")
 mesh = SubResource("QuadMesh_rq05a")
 
 [node name="Ghost" type="MeshInstance3D" parent="Origin/Player/Cursor"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+layers = 2
 material_override = SubResource("StandardMaterial3D_y2xxy")
 transparency = 1.0
 mesh = SubResource("QuadMesh_rq05a")
@@ -105,3 +119,145 @@ process_priority = -1
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 bus = &"Game Music"
+
+[node name="Light" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
+layers = 2
+omni_range = 4096.0
+omni_attenuation = 1.42369e-05
+
+[node name="PauseMenu" type="ColorRect" parent="."]
+process_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("11_e8h1i")
+color = Color(0, 0, 0, 0.501961)
+script = ExtResource("12_vk1e3")
+
+[node name="Panel" type="Panel" parent="PauseMenu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -144.0
+offset_right = 160.0
+offset_bottom = 144.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_h1g1i")
+
+[node name="Title" type="Label" parent="PauseMenu/Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -128.0
+offset_top = -64.0
+offset_right = 128.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 32
+text = "PAUSED"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Buttons" type="VBoxContainer" parent="PauseMenu/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 8
+
+[node name="Resume" type="Button" parent="PauseMenu/Panel/Buttons"]
+self_modulate = Color(0.313726, 0.313726, 0.313726, 1)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TextureRect" type="TextureRect" parent="PauseMenu/Panel/Buttons/Resume"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_right = 64.0
+grow_vertical = 2
+texture = ExtResource("12_oxpux")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="PauseMenu/Panel/Buttons/Resume"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 72.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+text = "RESUME"
+vertical_alignment = 1
+
+[node name="Restart" type="Button" parent="PauseMenu/Panel/Buttons"]
+self_modulate = Color(0.313726, 0.313726, 0.313726, 1)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TextureRect" type="TextureRect" parent="PauseMenu/Panel/Buttons/Restart"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_right = 64.0
+grow_vertical = 2
+texture = ExtResource("13_jftr7")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="PauseMenu/Panel/Buttons/Restart"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 72.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+text = "RESTART"
+vertical_alignment = 1
+
+[node name="Return" type="Button" parent="PauseMenu/Panel/Buttons"]
+self_modulate = Color(0.313726, 0.313726, 0.313726, 1)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TextureRect" type="TextureRect" parent="PauseMenu/Panel/Buttons/Return"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_right = 64.0
+grow_vertical = 2
+texture = ExtResource("14_owers")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="PauseMenu/Panel/Buttons/Return"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 72.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+text = "RETURN TO MENU"
+vertical_alignment = 1

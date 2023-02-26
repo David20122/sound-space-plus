@@ -1188,9 +1188,9 @@ corner_radius_top_left = 64
 corner_radius_top_right = 64
 corner_radius_bottom_right = 64
 corner_radius_bottom_left = 64
-expand_margin_left = 2.0
+expand_margin_left = 12.0
 expand_margin_top = 2.0
-expand_margin_right = 2.0
+expand_margin_right = 12.0
 expand_margin_bottom = 2.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5b5bq"]
@@ -1199,6 +1199,8 @@ corner_radius_top_left = 64
 corner_radius_top_right = 64
 corner_radius_bottom_right = 64
 corner_radius_bottom_left = 64
+expand_margin_left = 10.0
+expand_margin_right = 10.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0p3k1"]
 bg_color = Color(0.0941176, 0.0941176, 0.0941176, 1)

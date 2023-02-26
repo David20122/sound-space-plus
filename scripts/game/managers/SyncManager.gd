@@ -39,9 +39,18 @@ func _start_audio():
 	time_delay = AudioServer.get_time_to_next_mix() + AudioServer.get_output_latency()
 	audio_player.play(real_time)
 
+var paused:bool = false
+func _notification(what):
+	if what == Node.NOTIFICATION_PAUSED:
+		paused = true
+		audio_player.stop()
+
 func _process(delta):
 	if !playing: return
 	var now = Time.get_ticks_usec()
+	if paused:
+		paused = false
+		last_time = now + 0.1
 	var time = playback_speed * (now - last_time) / 1000000.0
 	last_time = now
 #	time -= time_delay
