@@ -619,10 +619,6 @@ content_margin_top = 2.0
 content_margin_right = 3.0
 content_margin_bottom = 2.0
 bg_color = Color(0.188235, 0.188235, 0.188235, 1)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
 shadow_color = Color(0, 0, 0, 0.145098)
 shadow_size = 6
 
