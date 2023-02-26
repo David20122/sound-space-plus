@@ -45,8 +45,8 @@ func hit_object_state_changed(state:int,object:HitObject):
 			score.multiplier -= 1
 			health = maxf(health-1,0)
 	score_changed.emit(score,health)
-#	if health == 0 and !did_fail:
-#		fail()
+	if health == 0 and !did_fail:
+		fail()
 
 func fail():
 	did_fail = true
