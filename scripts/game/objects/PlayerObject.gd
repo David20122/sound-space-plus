@@ -60,9 +60,11 @@ func _ready():
 	if local_player:
 		camera.make_current()
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		Input.use_accumulated_input = false
 func _exit_tree():
 	if local_player:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		Input.use_accumulated_input = true
 
 func _input(event):
 	if event is InputEventMouseMotion:
