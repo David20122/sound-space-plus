@@ -45,8 +45,8 @@ func hit_object_state_changed(state:int,object:HitObject):
 			score.multiplier -= 1
 			health = maxf(health-1,0)
 	score_changed.emit(score,health)
-	if health == 0 and !did_fail:
-		fail()
+#	if health == 0 and !did_fail:
+#		fail()
 
 func fail():
 	did_fail = true
@@ -80,28 +80,23 @@ func _process(_delta):
 	parallax *= game.settings.parallax
 	camera.position = camera_origin + parallax + camera.basis.z / 4
 
-var latest_passed_note_index:int = 0
 func _physics_process(_delta):
 	var cursor_hitbox = 0.2625
 	var hitwindow = 1.75/30
-	var objects = manager.hit_objects.slice(latest_passed_note_index)
-	var latest_passed = 0
-	for i in objects.size():
-		var object = objects[i]
-		if game.sync_manager.current_time < object.spawn_time:
-			break
-		if !object.hittable: continue
-		if game.sync_manager.current_time > object.despawn_time:
-			latest_passed = i
+	
+	var objects = manager.objects_to_process
+	for object in objects:
+		if game.sync_manager.current_time < object.spawn_time: break
 		if object.hit_state != HitObject.HitState.NONE: continue
+		if !object.hittable: continue
+		
 		var x = abs(object.position.x - clamped_cursor_position.x)
 		var y = abs(object.position.y - clamped_cursor_position.y)
 		var object_scale = object.global_transform.basis.get_scale()
 		var hitbox_x = (object_scale.x + cursor_hitbox) / 2.0
 		var hitbox_y = (object_scale.y + cursor_hitbox) / 2.0
-		if x <= hitbox_x and y <= hitbox_y: object.hit()
+		if x <= hitbox_x and y <= hitbox_y:
+			object.hit()
 		elif object is NoteObject:
 			if game.sync_manager.current_time > (object as NoteObject).note.time + hitwindow:
 				object.miss()
-		elif game.sync_manager.current_time >= object.despawn_time: object.miss()
-	latest_passed_note_index += latest_passed

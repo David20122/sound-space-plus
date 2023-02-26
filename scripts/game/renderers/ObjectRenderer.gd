@@ -5,7 +5,7 @@ class_name ObjectRenderer
 @onready var game:GameScene = manager.get_parent()
 
 func _process(_delta):
-	var objects = (get_parent() as ObjectManager).objects
+	var objects = manager.objects_to_process
 	self.render_objects(objects)
 
 func render_objects(_objects:Array):

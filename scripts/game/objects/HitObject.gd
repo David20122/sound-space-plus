@@ -21,6 +21,8 @@ func hit():
 	if hit_state != HitState.NONE: return
 	if !can_hit: return
 	self.hit_state = HitState.HIT
+	visible = false
 func miss():
 	if hit_state != HitState.NONE: return
 	self.hit_state = HitState.MISS
+	visible = false
