@@ -469,12 +469,6 @@ script = ExtResource( 45 )
 look_multi = 2.0
 speed_multi = 0.05
 
-[node name="Accessories" parent="Game/Avatar/Head" index="6"]
-visible = false
-
-[node name="CubellaHair" parent="Game/Avatar/Head/Accessories" index="0"]
-visible = true
-
 [node name="Outline" parent="Game/Avatar/Torso" index="0"]
 visible = true
 

@@ -269,7 +269,7 @@ script = ExtResource( 59 )
 [node name="M" type="VBoxContainer" parent="."]
 margin_top = 59.0
 margin_right = 1280.0
-margin_bottom = 5702.0
+margin_bottom = 5666.0
 custom_constants/separation = 0
 
 [node name="Modifiers" type="VBoxContainer" parent="M"]
@@ -6561,7 +6561,7 @@ valign = 1
 [node name="Experimental" type="VBoxContainer" parent="M"]
 margin_top = 5238.0
 margin_right = 1280.0
-margin_bottom = 5643.0
+margin_bottom = 5607.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Experimental"]
@@ -6590,13 +6590,13 @@ flat = true
 [node name="Group" type="MarginContainer" parent="M/Experimental"]
 margin_top = 36.0
 margin_right = 1280.0
-margin_bottom = 405.0
+margin_bottom = 369.0
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="M/Experimental/Group"]
 margin_left = 180.0
 margin_right = 1280.0
-margin_bottom = 369.0
+margin_bottom = 333.0
 
 [node name="ExpWarning" type="MarginContainer" parent="M/Experimental/Group/H"]
 margin_right = 827.0
@@ -6827,6 +6827,7 @@ valign = 1
 clip_text = true
 
 [node name="Avatar" type="Control" parent="M/Experimental/Group/H"]
+visible = false
 margin_top = 269.0
 margin_right = 827.0
 margin_bottom = 301.0
@@ -6880,9 +6881,9 @@ text = "literally you | experimental avatar editor. nowhere near done. visible i
 valign = 1
 
 [node name="Intro" type="Control" parent="M/Experimental/Group/H"]
-margin_top = 305.0
+margin_top = 269.0
 margin_right = 827.0
-margin_bottom = 337.0
+margin_bottom = 301.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="Play" type="Button" parent="M/Experimental/Group/H/Intro"]
@@ -6933,9 +6934,9 @@ text = "replays the intro cutscene"
 valign = 1
 
 [node name="DisableIntro" type="CheckBox" parent="M/Experimental/Group/H"]
-margin_top = 341.0
+margin_top = 305.0
 margin_right = 827.0
-margin_bottom = 369.0
+margin_bottom = 333.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
@@ -6965,9 +6966,9 @@ valign = 1
 clip_text = true
 
 [node name="BottomMargin" type="Control" parent="."]
-margin_top = 5706.0
+margin_top = 5670.0
 margin_right = 1280.0
-margin_bottom = 5802.0
+margin_bottom = 5766.0
 rect_min_size = Vector2( 0, 96 )
 
 [connection signal="value_changed" from="M/Graphics/Group/H/RenderScale/Scale" to="M/Graphics/Group/H/RenderScale/Scale" method="_on_Scale_value_changed"]

@@ -23,6 +23,10 @@ func _ready():
 		$Game/Mask.visible = true
 	else:
 		$Game/Mask.visible = false # should already be false but just to ensure that it is
+	
+	# lacunella
+	if SSP.is_lacunella_enabled():
+		$Game/Avatar/Head/Accessories/CubellaHair.visible = true
 
 func _process(delta):
 	if Input.is_action_just_pressed("debug_freecam_toggle"):

@@ -13,6 +13,10 @@ func _ready():
 	$Avatar/ArmL/Pointer.translation = Vector3(0,0,0)
 	$Avatar/ArmR/Mesh.translation = Vector3(0,0,0)
 	
+	# lacunella
+	if SSP.is_lacunella_enabled():
+		$Avatar/Head/CubellaHair.visible = true
+	
 	$ColorRect.modulate.a = 1
 #	OS.window_fullscreen = true
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN

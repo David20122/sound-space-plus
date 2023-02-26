@@ -912,6 +912,16 @@ func load_pbs():
 				x = file.get_16() # READ 2
 		file.close()
 
+# dumb lacunella stuff
+func is_lacunella_enabled():
+	var found:bool = false
+	var cdat = File.new()
+	if cdat.file_exists("user://lacunella.dat"):
+		cdat.open("user://lacunella.dat",File.READ)
+		var ctxt = cdat.get_as_text()
+		if ctxt.to_upper() == "MEOW":
+			found = true
+	return found
 
 # Settings save/load helpers
 func scol(c:Color) -> String:

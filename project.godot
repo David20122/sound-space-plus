@@ -292,7 +292,7 @@ config/disable_native_file_dialogs.web=true
 config/disable_native_file_dialogs.OSX=true
 config/is_using_controller=true
 config/discord_rpc=true
-config/discord_rpc.editor=false
+config/discord_rpc.editor=true
 
 [audio]
 
@@ -331,7 +331,7 @@ window/stretch/aspect.mobile="keep_height"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/discord_game_sdk/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/discord_game_sdk/plugin.cfg", "res://addons/godot-openvr/plugin.cfg", "res://addons/native_dialogs/plugin.cfg" )
 
 [gdnative]
 
