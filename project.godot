@@ -281,6 +281,6 @@ environment/defaults/default_environment="res://default_env.tres"
 
 [xr]
 
-openxr/enabled=true
 shaders/enabled=true
 openxr/enabled.force-xr=true
+openxr/enabled.editor=true

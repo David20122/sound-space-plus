@@ -10,13 +10,10 @@ func get_vr_interface():
 
 var fps_limit:int = 0
 
-func _init():
+func _initialize():
 	root.set_script(preload("res://scripts/ViewportPlus.gd") as Script)
-	
-	super._init()
-	
-	if ProjectSettings.get_setting_with_override("xr/openxr/enabled"):
-		get_vr_interface()
+
+	get_vr_interface()
 		
 	root.get_window().title = "Sound Space Plus Rewritten"
 	root.get_window().min_size = Vector2(800,600)
