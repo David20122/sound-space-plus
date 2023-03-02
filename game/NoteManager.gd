@@ -211,7 +211,7 @@ func reposition_notes(force:bool=false,rerun_start:int=-1):
 	
 	for i in range(max(current_note,rerun_start), notes.size()):
 		var notems:float = notes[i][1]
-		
+		next_ms = notems
 		if force:
 #			if is_first: $Label.text += "force\n"
 			note_reposition(i)
@@ -234,7 +234,7 @@ func reposition_notes(force:bool=false,rerun_start:int=-1):
 		if ms < notems and is_first:
 			is_first = false
 #			$Label.text += "next_ms: %s\n" % [ notems ]
-			next_ms = notems
+#			next_ms = notems
 		elif ms >= notems and notes[i][2] == Globals.NSTATE_ACTIVE:
 			var result = SSP.visual_mode or note_check_collision(i)
 
@@ -642,8 +642,7 @@ func _process(delta:float):
 	
 	if active and notes_loaded:
 		if !notes_loaded: return
-	
-		can_skip = ((next_ms-prev_ms) > 5000) and (next_ms >= max(ms+(3000*speed_multi),1100*speed_multi))
+		can_skip = ((next_ms-prev_ms) > 5000) and (next_ms >= max(ms+(3000*speed_multi),1100*speed_multi)) and ($Notes.multimesh.visible_instance_count <= 1)
 		
 		$Cursor.can_switch_move_modes = (ms < SSP.music_offset)
 		
@@ -661,7 +660,7 @@ func _process(delta:float):
 					var prev_ms = ms
 					if SSP.record_replays:
 						SSP.replay.store_sig(rms,Globals.RS_SKIP)
-					ms = next_ms - (1000*speed_multi)
+					ms = next_ms - 1000 - (1000*speed_multi)
 					emit_signal("ms_change",ms)
 					do_note_queue()
 					if (ms + SSP.music_offset) >= SSP.start_offset:
