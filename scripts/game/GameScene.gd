@@ -42,6 +42,7 @@ func _ready():
 		world_node.set_meta("game",self)
 		world_parent.add_child(world_node)
 	
+	sync_manager.playback_speed = mods.speed
 	sync_manager.audio_stream = mapset.audio
 	
 	sync_manager.prepare(self)
@@ -49,7 +50,7 @@ func _ready():
 	object_manager.prepare(self)
 	
 	if local_player:
-		sync_manager.call_deferred("start",-2)
+		sync_manager.call_deferred("start",-2 * sync_manager.playback_speed)
 		sync_manager.connect("finished",Callable(self,"finish"))
 		
 		player.connect("failed",Callable(self,"finish").bind(true))

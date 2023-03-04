@@ -17,3 +17,9 @@ const SpeedPresets = [
 var speed_mod = Speed.PRESET
 var speed_preset = 0
 var speed_custom = 1
+var speed:float:
+	get:
+		if speed_mod == Speed.PRESET:
+			return SpeedPresets[speed_preset]
+		else:
+			return speed_custom
