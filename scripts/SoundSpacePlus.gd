@@ -102,11 +102,12 @@ func _load_content(full_reload=false):
 	call_deferred("emit_signal","on_init_stage","Import content (2/2)",[
 		{text="Import playlists (0/%s)" % list_count,max=list_count,value=0}
 	])
+	var list_idx = 0
 	for list_file in list_files:
 		list_idx += 1
 		var list = list_reader.read_from_file(list_file)
 		call_deferred("emit_signal","on_init_stage",null,[
-			{text="Import lists (%s/%s)" % [map_idx,map_count],value=map_idx,max=map_count}
+			{text="Import lists (%s/%s)" % [list_idx,list_count],value=list_idx,max=list_count}
 		])
 		list.load_mapsets()
 		playlists.add_item(list)
