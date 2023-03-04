@@ -42,7 +42,6 @@ func get_ogg_packet_sequence(data:PackedByteArray):
 	var pos = 0
 	while pos < data.size():
 		# Parse the Ogg packet header
-		var packet_start = pos
 		var header = data.slice(pos, pos + 27)
 		pos += 27
 		# Check the capture pattern
@@ -56,7 +55,7 @@ func get_ogg_packet_sequence(data:PackedByteArray):
 #		print("granule position: %s" % granule_position)
 		granule_positions.append(granule_position)
 		# Get the page sequence number
-		var sequence_number = header.decode_u32(18)
+#		var sequence_number = header.decode_u32(18)
 #		print("sequence number: %s" % sequence_number)
 		# Get the segment table
 		var segment_table_length = header.decode_u8(26)

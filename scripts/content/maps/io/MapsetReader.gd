@@ -21,7 +21,7 @@ func _sspmv3(file:FileAccess,set:Mapset,full:bool,index:int=-1):
 	file.seek(file.get_position()+2)
 	
 	# Metadata
-	var id = file.get_md5(file.get_path())
+	var id = FileAccess.get_md5(file.get_path())
 	set.id = id
 	var online_id_length = file.get_8() # Online ID
 	if online_id_length > 0: set.online_id = file.get_buffer(online_id_length).get_string_from_ascii()

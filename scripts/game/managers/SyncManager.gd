@@ -23,11 +23,17 @@ func start(from:float=0):
 	start_offset = from
 	real_time = start_offset
 	playing = true
-
+func seek(from:float=0):
+	last_time = Time.get_ticks_usec()
+	real_time += from-current_time
+	_set_offset()
 func finish():
 	playing = false
 	finished.emit()
 
+func _set_offset():
+	time_delay = AudioServer.get_time_to_next_mix() + AudioServer.get_output_latency()
+	audio_player.seek(real_time)
 func _start_audio():
 	if audio_stream is AudioStreamMP3:
 		(audio_stream as AudioStreamMP3).loop = false
@@ -36,8 +42,8 @@ func _start_audio():
 	if audio_stream is AudioStreamOggVorbis:
 		(audio_stream as AudioStreamOggVorbis).loop = false
 	audio_player.stream = audio_stream
-	time_delay = AudioServer.get_time_to_next_mix() + AudioServer.get_output_latency()
 	audio_player.play(real_time)
+	_set_offset()
 
 var paused:bool = false
 func _notification(what):
@@ -50,11 +56,9 @@ func _process(delta):
 	var now = Time.get_ticks_usec()
 	if paused:
 		paused = false
-		last_time = now + 0.1
+		seek(current_time-0.1)
 	var time = playback_speed * (now - last_time) / 1000000.0
 	last_time = now
-#	time -= time_delay
-#	time += start_offset
 	real_time += time
 	current_time = real_time - time_delay
 	if current_time > audio_stream.get_length():
@@ -62,7 +66,7 @@ func _process(delta):
 		return
 	if real_time >= 0 and !audio_player.playing and playback_speed > 0:
 		_start_audio()
+	if (real_time < 0 or playback_speed <= 0) and audio_player.playing:
+		audio_player.stop()
 	if playback_speed > 0:
 		audio_player.pitch_scale = playback_speed
-	elif audio_player.playing:
-		audio_player.stop()

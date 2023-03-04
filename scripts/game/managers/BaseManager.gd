@@ -1,4 +1,7 @@
 extends Node
 class_name BaseManager
 
-@onready var game:GameScene = get_parent()
+var game:GameScene
+
+func prepare(_game:GameScene):
+	game = _game

@@ -1,5 +1,7 @@
 extends Node
 
+@onready var selected_mods:Mods = Mods.new()
+
 @onready var playlists:Registry = load("res://assets/content/Playlists.tres")
 @onready var mapsets:Registry = load("res://assets/content/Mapsets.tres")
 @onready var blocks:Registry = load("res://assets/content/Blocks.tres")
@@ -100,7 +102,6 @@ func _load_content(full_reload=false):
 	call_deferred("emit_signal","on_init_stage","Import content (2/2)",[
 		{text="Import playlists (0/%s)" % list_count,max=list_count,value=0}
 	])
-	var list_idx = 0
 	for list_file in list_files:
 		list_idx += 1
 		var list = list_reader.read_from_file(list_file)
@@ -138,6 +139,7 @@ func load_game_scene(game_type:int,mapset:Mapset,map_index:int=0):
 	assert(full_mapset.id == mapset.id)
 	var packed_scene:PackedScene = load(GameSceneTypes.get(game_type,"res://scenes/Solo.tscn"))
 	var scene:GameScene = packed_scene.instantiate() as GameScene
+	scene.mods = selected_mods
 	scene.settings = settings
 	scene.mapset = full_mapset
 	scene.map_index = map_index

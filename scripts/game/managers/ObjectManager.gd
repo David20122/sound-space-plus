@@ -9,20 +9,25 @@ var objects_to_process:Array[GameObject]
 
 var player:PlayerObject
 
-func prepare(_origin):
-	origin = _origin
-	player = origin.get_node("Player")
-	origin.set_physics_process(player.local_player)
+func prepare(_game:GameScene):
+	super.prepare(_game)
+	
+	origin = game.origin
+	player = game.player
+	
+	origin.set_physics_process(game.local_player)
+	
 	append_object(player,false)
 	append_object(origin.get_node("World"),false)
 	append_object(origin.get_node("HUD"),false)
+	build_map(game.map)
 
 func append_object(object:GameObject,parent:bool=true,include_children:bool=false):
 	if objects_ids.keys().has(object.id): return false
 	object.game = game
 	object.manager = self
 	
-	if player != null: object.set_physics_process(player.local_player)
+	object.set_physics_process(game.local_player)
 	if !object.permanent: object.process_mode = Node.PROCESS_MODE_DISABLED
 	object.process_priority = 4
 	
@@ -49,7 +54,6 @@ func append_object(object:GameObject,parent:bool=true,include_children:bool=fals
 	if !object.permanent: objects_to_process.append(object)
 
 func build_map(map:Map):
-	var note_objects = []
 	for note in map.notes:
 		note = note as Map.Note
 		var id = note.data.get("id","note-%s" % note.index)

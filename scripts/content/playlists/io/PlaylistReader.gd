@@ -11,7 +11,7 @@ func read_from_file(path:String):
 	playlist.path = path
 	
 	# Metadata
-	var id = file.get_md5(file.get_path())
+	var id = FileAccess.get_md5(file.get_path())
 	playlist.id = id
 	var online_id_length = file.get_8() # Online ID
 	if online_id_length > 0: playlist.online_id = file.get_buffer(online_id_length).get_string_from_ascii()

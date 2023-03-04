@@ -22,8 +22,8 @@ func _process(_delta):
 
 var tween:Tween
 func attempt_pause():
-	print("Pausing")
 	if get_tree().paused: return
+	print("Pausing")
 	var now = Time.get_ticks_msec()
 	if (now - cooldown) < 150: return
 	get_tree().paused = true
@@ -36,8 +36,8 @@ func attempt_pause():
 	tween.tween_property(self,"modulate:a",1,0.4)
 	tween.play()
 func attempt_resume():
-	print("Resuming")
 	if !get_tree().paused: return
+	print("Resuming")
 	var now = Time.get_ticks_msec()
 	cooldown = now
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -51,8 +51,8 @@ func attempt_resume():
 	await tween.finished
 	get_tree().paused = false
 func attempt_restart():
-	print("Restarting")
 	if !get_tree().paused: return
+	print("Restarting")
 	mouse_filter = Control.MOUSE_FILTER_PASS
 	set_process_input(false)
 	get_parent().process_mode = Node.PROCESS_MODE_DISABLED
@@ -60,6 +60,7 @@ func attempt_restart():
 	var game_scene = SoundSpacePlus.load_game_scene(SoundSpacePlus.GameType.SOLO,get_parent().mapset,get_parent().map_index)
 	get_tree().change_scene_to_node(game_scene)
 func attempt_return():
+	if !get_tree().paused: return
 	print("Returning")
 	get_parent().process_mode = Node.PROCESS_MODE_DISABLED
 	get_tree().paused = false

@@ -3,8 +3,8 @@ class_name MapsetButton
 
 var mapset:Mapset
 
-func update(pressed:bool=false):
-	button_pressed = pressed
+func update(is_pressed:bool=false):
+	button_pressed = is_pressed
 	name = mapset.id
 	$Song.text = mapset.name
 	$Creator.text = mapset.creator

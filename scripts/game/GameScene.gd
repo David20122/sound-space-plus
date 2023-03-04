@@ -1,7 +1,9 @@
 extends Node3D
 class_name GameScene
- 
+
+var mods:Mods
 var settings:Settings
+
 var mapset:Mapset
 var map_index:int
 var map:Map
@@ -40,10 +42,11 @@ func _ready():
 		world_node.set_meta("game",self)
 		world_parent.add_child(world_node)
 	
-	object_manager.prepare(origin)
-	object_manager.call_deferred("build_map",map)
-	
 	sync_manager.audio_stream = mapset.audio
+	
+	sync_manager.prepare(self)
+	hud_manager.prepare(self)
+	object_manager.prepare(self)
 	
 	if local_player:
 		sync_manager.call_deferred("start",-2)
