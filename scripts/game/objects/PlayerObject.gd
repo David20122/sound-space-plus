@@ -37,27 +37,28 @@ func hit_object_state_changed(state:int,object:HitObject):
 				score.sub_multiplier = 1
 				score.multiplier += 1
 			score.score += 25 * score.multiplier
-			health = minf(health+0.625,5)
+			if !did_fail: health = minf(health+0.625,5)
 		HitObject.HitState.MISS:
 			missed.emit(object)
 			score.misses += 1
 			score.combo = 0
 			score.sub_multiplier = 0
 			score.multiplier -= 1
-			health = maxf(health-1,0)
+			if !did_fail: health = maxf(health-1,0)
 	score_changed.emit(score,health)
 	if health == 0 and !did_fail:
 		fail()
 
 func fail():
 	did_fail = true
-	lock_score = true
-	failed.emit()
+	if !game.mods.no_fail:
+		lock_score = true
+		failed.emit()
 
 func _ready():
 	set_process_input(local_player)
 	set_physics_process(local_player)
-	if local_player:
+	if local_player: # and !get_tree().vr_enabled:
 		camera.make_current()
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		Input.use_accumulated_input = false
@@ -79,9 +80,11 @@ func _process(_delta):
 	ghost.position = Vector3(difference.x,difference.y,0.01)
 	ghost.transparency = max(0.25,1-(difference.length_squared()*2))
 	
-	var parallax = Vector3(clamped_cursor_position.x,clamped_cursor_position.y,0) / 4
+	var parallax = Vector3(clamped_cursor_position.x,clamped_cursor_position.y,0)
 	parallax *= game.settings.parallax
-	camera.position = camera_origin + parallax + camera.basis.z / 4
+	camera.position = camera_origin + (parallax + camera.basis.z) / 4
+	if game.settings.controls.spin:
+		camera.look_at(parallax)
 
 func _physics_process(_delta):
 	var cursor_hitbox = 0.2625

@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://cu2rno2ef0dtr"]
+[gd_scene load_steps=37 format=3 uid="uid://cu2rno2ef0dtr"]
 
 [ext_resource type="PackedScene" uid="uid://de1sj0rkm2iu7" path="res://prefabs/menu/VersionNumberR.tscn" id="1"]
 [ext_resource type="Theme" uid="uid://diarojdcbhxg8" path="res://uitheme.tres" id="2"]
@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://bae4xwfedhtyw" path="res://assets/images/ui/add_icon.png" id="10"]
 [ext_resource type="Script" path="res://scripts/menu/settings/RegistryControl.gd" id="10_a5lmy"]
 [ext_resource type="Script" path="res://scripts/menu/settings/SettingControl.gd" id="10_qi5v2"]
+[ext_resource type="Script" path="res://scripts/menu/maplist/SpeedMods.gd" id="11_cs64u"]
 [ext_resource type="Script" path="res://scripts/menu/settings/VolumeLabel.gd" id="12_vqp4p"]
 [ext_resource type="Script" path="res://scripts/menu/settings/SliderControl.gd" id="13_5sex8"]
 [ext_resource type="Script" path="res://scripts/menu/main/Sidebar.gd" id="18"]
@@ -96,6 +97,20 @@ bg_color = Color(1, 1, 1, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4g6xw"]
 
+[sub_resource type="Environment" id="Environment_wnepk"]
+background_mode = 1
+background_color = Color(0.0313726, 0.0313726, 0.0313726, 1)
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+
+[sub_resource type="GDScript" id="GDScript_aejty"]
+resource_name = "RootViewportPath"
+script/source = "extends Sprite3D
+
+func _ready():
+	texture = get_viewport().get_texture()
+"
+
 [node name="Menu" type="ColorRect"]
 anchors_preset = 15
 anchor_right = 1.0
@@ -155,7 +170,6 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_rnsra")
 tabs_visible = false
 
 [node name="Solo" type="Control" parent="Main/TabBar"]
-visible = false
 layout_mode = 2
 
 [node name="Playlists" type="ScrollContainer" parent="Main/TabBar/Solo"]
@@ -542,12 +556,158 @@ offset_bottom = -8.0
 layout_mode = 2
 script = ExtResource("8_mf8ee")
 
-[node name="Play" type="Button" parent="Main/TabBar/Solo/MapDetails/Play/Local/Play"]
+[node name="Speed" type="HBoxContainer" parent="Main/TabBar/Solo/MapDetails/Play/Local/Play"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = 56.0
+grow_horizontal = 2
+alignment = 1
+script = ExtResource("11_cs64u")
+
+[node name="MMM" type="VBoxContainer" parent="Main/TabBar/Solo/MapDetails/Play/Local/Play/Speed"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="CheckBox" type="CheckBox" parent="Main/TabBar/Solo/MapDetails/Play/Local/Play/Speed/MMM"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="Main/TabBar/Solo/MapDetails/Play/Local/Play/Speed/MMM"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "---"
+horizontal_alignment = 1
+
+[node name="MM" type="VBoxContainer" parent="Main/TabBar/Solo/MapDetails/Play/Local/Play/Speed"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="CheckBox" type="CheckBox" parent="Main/TabBar/Solo/MapDetails/Play/Local/Play/Speed/MM"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="Main/TabBar/Solo/MapDetails/Play/Local/Play/Speed/MM"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "--"
+horizontal_alignment = 1
+
+[node name="M" type="VBoxContainer" parent="Main/TabBar/Solo/MapDetails/Play/Local/Play/Speed"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="CheckBox" type="CheckBox" parent="Main/TabBar/Solo/MapDetails/Play/Local/Play/Speed/M"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="Main/TabBar/Solo/MapDetails/Play/Local/Play/Speed/M"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "-"
+horizontal_alignment = 1
+
+[node name="Normal" type="VBoxContainer" parent="Main/TabBar/Solo/MapDetails/Play/Local/Play/Speed"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="CheckBox" type="CheckBox" parent="Main/TabBar/Solo/MapDetails/Play/Local/Play/Speed/Normal"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="Main/TabBar/Solo/MapDetails/Play/Local/Play/Speed/Normal"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "N"
+horizontal_alignment = 1
+
+[node name="P" type="VBoxContainer" parent="Main/TabBar/Solo/MapDetails/Play/Local/Play/Speed"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="CheckBox" type="CheckBox" parent="Main/TabBar/Solo/MapDetails/Play/Local/Play/Speed/P"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="Main/TabBar/Solo/MapDetails/Play/Local/Play/Speed/P"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "+"
+horizontal_alignment = 1
+
+[node name="PP" type="VBoxContainer" parent="Main/TabBar/Solo/MapDetails/Play/Local/Play/Speed"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="CheckBox" type="CheckBox" parent="Main/TabBar/Solo/MapDetails/Play/Local/Play/Speed/PP"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="Main/TabBar/Solo/MapDetails/Play/Local/Play/Speed/PP"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "++"
+horizontal_alignment = 1
+
+[node name="PPP" type="VBoxContainer" parent="Main/TabBar/Solo/MapDetails/Play/Local/Play/Speed"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="CheckBox" type="CheckBox" parent="Main/TabBar/Solo/MapDetails/Play/Local/Play/Speed/PPP"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="Main/TabBar/Solo/MapDetails/Play/Local/Play/Speed/PPP"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "+++"
+horizontal_alignment = 1
+
+[node name="NoFail" type="CheckBox" parent="Main/TabBar/Solo/MapDetails/Play/Local/Play"]
 layout_mode = 0
 offset_left = 8.0
-offset_top = 6.0
-offset_right = 72.0
-offset_bottom = 46.0
+offset_top = 56.0
+offset_right = 144.0
+offset_bottom = 83.0
+text = "No Fail"
+flat = true
+
+[node name="Play" type="Button" parent="Main/TabBar/Solo/MapDetails/Play/Local/Play"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = -48.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
 text = "PLAY"
 
 [node name="Leaderboard" type="Control" parent="Main/TabBar/Solo/MapDetails/Play/Local"]
@@ -566,6 +726,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Online" type="Control" parent="Main/TabBar/Solo/MapDetails/Play"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -593,6 +754,7 @@ visible = false
 layout_mode = 2
 
 [node name="Settings" type="Control" parent="Main/TabBar"]
+visible = false
 layout_mode = 2
 
 [node name="TabContainer" type="TabContainer" parent="Main/TabBar/Settings"]
@@ -609,7 +771,6 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 22
 
 [node name="Game" type="Control" parent="Main/TabBar/Settings/TabContainer"]
-visible = false
 layout_mode = 2
 
 [node name="Columns" type="GridContainer" parent="Main/TabBar/Settings/TabContainer/Game"]
@@ -888,6 +1049,7 @@ theme_override_constants/separation = 0
 theme_override_styles/separator = SubResource("StyleBoxEmpty_lykwc")
 
 [node name="Video" type="Control" parent="Main/TabBar/Settings/TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="Columns" type="GridContainer" parent="Main/TabBar/Settings/TabContainer/Video"]
@@ -1036,6 +1198,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 size_flags_stretch_ratio = 1.5
+theme_override_constants/grabber_offset = 0
 max_value = 2.0
 step = 0.01
 value = 1.0
@@ -1449,3 +1612,13 @@ metadata/_edit_lock_ = true
 stream = ExtResource("22_645dr")
 autoplay = true
 bus = &"Menu Music"
+
+[node name="3D" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="3D"]
+environment = SubResource("Environment_wnepk")
+
+[node name="Screen" type="Sprite3D" parent="3D"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1, 3)
+pixel_size = 0.005
+script = SubResource("GDScript_aejty")

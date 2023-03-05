@@ -16,3 +16,6 @@ func attempt_play():
 	var map_index = map_details.map_index
 	var scene = SoundSpacePlus.load_game_scene(SoundSpacePlus.GameType.SOLO,mapset,map_index)
 	get_tree().change_scene_to_node(scene)
+
+func _process(_delta):
+	SoundSpacePlus.selected_mods.no_fail = $NoFail.button_pressed

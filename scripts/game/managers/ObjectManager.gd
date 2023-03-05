@@ -64,7 +64,7 @@ func build_map(map:Map):
 		object.colour = Color.from_string(colour,Color.RED)
 		object.spawn_distance = game.settings.approach.distance
 		object.hittable = true
-		object.spawn_time = note.time - game.settings.approach.time
+		object.spawn_time = note.time - (game.settings.approach.time * game.mods.speed)
 		object.despawn_time = note.time + 1
 		object.visible = false
 		append_object(object)

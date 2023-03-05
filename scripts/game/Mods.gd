@@ -6,10 +6,10 @@ enum Speed {
 	CUSTOM
 }
 const SpeedPresets = [
-	1,
 	1.0/1.35,
 	1.0/1.25,
 	1.0/1.15,
+	1,
 	1.15,
 	1.25,
 	1.35
@@ -23,3 +23,5 @@ var speed:float:
 			return SpeedPresets[speed_preset]
 		else:
 			return speed_custom
+
+var no_fail:bool = false
