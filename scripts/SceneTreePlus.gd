@@ -14,9 +14,9 @@ func _initialize():
 	root.set_script(preload("res://scripts/ViewportPlus.gd") as Script)
 
 	get_vr_interface()
-		
+	
 	root.get_window().title = "Sound Space Plus Rewritten"
-	root.get_window().min_size = Vector2(800,600)
+	root.get_window().min_size = Vector2(720,720)
 	root.get_window().move_to_foreground()
 
 func change_scene_to_node(node:Node):
@@ -27,6 +27,9 @@ func _change_scene_to_node(node:Node):
 	current_scene = node
 
 func _process(_delta):
+	if vr_enabled:
+		Engine.max_fps = 90
+		return false
 	var fps = 90
 	if current_scene and current_scene.get_meta("is_game",false):
 		fps = fps_limit

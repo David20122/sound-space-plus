@@ -1,0 +1,91 @@
+[gd_scene load_steps=5 format=3 uid="uid://dfuj4djfrngla"]
+
+[ext_resource type="ArrayMesh" uid="uid://sdwkurs7sbq1" path="res://assets/meshes/LowCube.obj" id="1_jfutx"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bf0r8"]
+cull_mode = 1
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_64rcf"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_j0vii"]
+
+[node name="XROrigin3D" type="XROrigin3D"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -1.7, 0)
+current = true
+
+[node name="Camera" type="XRCamera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+current = true
+
+[node name="Head" type="MeshInstance3D" parent="Camera"]
+transform = Transform3D(-0.35, 0, -3.0598e-08, 0, 0.35, 0, 3.0598e-08, 0, -0.35, 0, 0, 0)
+visible = false
+mesh = ExtResource("1_jfutx")
+skeleton = NodePath("")
+
+[node name="Outline" type="MeshInstance3D" parent="Camera/Head"]
+transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0, 0)
+mesh = ExtResource("1_jfutx")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_bf0r8")
+
+[node name="EyeL" type="MeshInstance3D" parent="Camera/Head"]
+transform = Transform3D(0.075, 0, 0, 0, 0.4, 0, 0, 0, 0.01, 0.3, 0.1, 1)
+mesh = ExtResource("1_jfutx")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_64rcf")
+
+[node name="EyeR" type="MeshInstance3D" parent="Camera/Head"]
+transform = Transform3D(0.075, 0, 0, 0, 0.4, 0, 0, 0, 0.01, -0.3, 0.1, 1)
+mesh = ExtResource("1_jfutx")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_64rcf")
+
+[node name="Torso" type="MeshInstance3D" parent="Camera"]
+transform = Transform3D(-0.25, 0, -2.18557e-08, 0, 0.4, 0, 2.18557e-08, 0, -0.25, 0, -1, 0)
+visible = false
+mesh = ExtResource("1_jfutx")
+skeleton = NodePath("")
+
+[node name="Outline" type="MeshInstance3D" parent="Camera/Torso"]
+transform = Transform3D(1.15, 0, 0, 0, 1.1, 0, 0, 0, 1.15, 0, 0, 0)
+mesh = ExtResource("1_jfutx")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_bf0r8")
+
+[node name="LHand" type="XRController3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7, 0.5, 0)
+tracker = &"left_hand"
+
+[node name="LHand" type="MeshInstance3D" parent="LHand"]
+transform = Transform3D(-0.15, 0, -1.31134e-08, 0, 0.15, 0, 1.31134e-08, 0, -0.15, 0, 0, 0)
+mesh = ExtResource("1_jfutx")
+skeleton = NodePath("")
+
+[node name="Outline" type="MeshInstance3D" parent="LHand/LHand"]
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 0, 0)
+mesh = ExtResource("1_jfutx")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_bf0r8")
+
+[node name="RHand" type="XRController3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 0.5, 0)
+tracker = &"right_hand"
+
+[node name="RHand" type="MeshInstance3D" parent="RHand"]
+transform = Transform3D(-0.15, 0, -1.31134e-08, 0, 0.15, 0, 1.31134e-08, 0, -0.15, 0, 0, 0)
+mesh = ExtResource("1_jfutx")
+skeleton = NodePath("")
+
+[node name="Outline" type="MeshInstance3D" parent="RHand/RHand"]
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 0, 0)
+mesh = ExtResource("1_jfutx")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_bf0r8")
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("PlaneMesh_j0vii")
+skeleton = NodePath("")

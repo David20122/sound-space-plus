@@ -38,6 +38,7 @@ corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
 [node name="GameScene" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.5)
 top_level = true
 script = ExtResource("1")
 sync_manager_path = NodePath("SyncManager")
@@ -96,18 +97,6 @@ layers = 2
 material_override = SubResource("StandardMaterial3D_y2xxy")
 transparency = 1.0
 mesh = SubResource("QuadMesh_rq05a")
-
-[node name="XROrigin" type="XROrigin3D" parent="Origin/Player"]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, -1.7, -3.5)
-
-[node name="Camera" type="XRCamera3D" parent="Origin/Player/XROrigin"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
-
-[node name="LHand" type="XRController3D" parent="Origin/Player/XROrigin"]
-tracker = &"left_hand"
-
-[node name="RHand" type="XRController3D" parent="Origin/Player/XROrigin"]
-tracker = &"right_hand"
 
 [node name="World" type="Node3D" parent="Origin"]
 script = ExtResource("3_pci65")

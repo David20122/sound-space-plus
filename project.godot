@@ -49,6 +49,7 @@ channel_disable_time=15.0
 
 SoundSpacePlus="*res://scripts/SoundSpacePlus.gd"
 Globals="*res://scripts/Globals.gd"
+XRViewport="*res://scripts/xr/XRViewport.gd"
 Discord="*res://addons/discord_game_sdk/discord.gd"
 
 [debug]

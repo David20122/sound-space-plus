@@ -78,7 +78,8 @@ const SettingsList = [
 	["controls",Type.CATEGORY,[
 		["sensitivity",Type.CATEGORY,[
 			["mouse",Type.FLOAT,1.0]
-		]]
+		]],
+		["spin",Type.BOOLEAN,false]
 	]]
 ]
 
