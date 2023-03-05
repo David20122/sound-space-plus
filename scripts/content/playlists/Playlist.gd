@@ -6,7 +6,7 @@ enum PointerType {
 	ONLINE
 }
 
-var cover:ImageTexture
+var cover:Texture
 
 var mapsets:Array[Mapset]
 var _mapsets:Array

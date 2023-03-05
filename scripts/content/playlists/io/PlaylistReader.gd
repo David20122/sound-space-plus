@@ -26,7 +26,7 @@ func read_from_file(path:String):
 		var cover_height = file.get_16()
 		var cover_length = file.get_64()
 		var cover_buffer = file.get_buffer(cover_length)
-		var image = Image.create_from_data(cover_width,cover_height,true,Image.FORMAT_RGBA8,cover_buffer)
+		var image = Image.create_from_data(cover_width,cover_height,false,Image.FORMAT_RGBA8,cover_buffer)
 		playlist.cover = ImageTexture.create_from_image(image)
 		
 	# Data

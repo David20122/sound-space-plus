@@ -85,7 +85,6 @@ func _load_content(full_reload=false):
 		mapsets.add_item(song)
 	call_deferred("emit_signal","on_init_stage",null,[{text="Free MapsetReader",max=map_count,value=map_idx}])
 	song_reader.call_deferred("free")
-	call_deferred("emit_signal","on_init_stage",null,[{text="Load favorites",max=map_count,value=map_idx}])
 	# Import playlists
 	if full_reload: playlists.clear()
 	var list_reader = PlaylistReader.new()
@@ -93,12 +92,12 @@ func _load_content(full_reload=false):
 	if !DirAccess.dir_exists_absolute(Globals.Folders.get("playlists")):
 		DirAccess.make_dir_recursive_absolute(Globals.Folders.get("playlists"))
 	var lists_dir = DirAccess.open(Globals.Folders.get("playlists"))
-	maps_dir.list_dir_begin() # TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
+	lists_dir.list_dir_begin() # TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 	var list_name = lists_dir.get_next()
 	while list_name != "":
-		list_files.append(Globals.Folders.get("playlists").path_join(file_name))
-		list_name = maps_dir.get_next()
-	var list_count = map_files.size()
+		list_files.append(Globals.Folders.get("playlists").path_join(list_name))
+		list_name = lists_dir.get_next()
+	var list_count = list_files.size()
 	call_deferred("emit_signal","on_init_stage","Import content (2/2)",[
 		{text="Import playlists (0/%s)" % list_count,max=list_count,value=0}
 	])
@@ -107,10 +106,11 @@ func _load_content(full_reload=false):
 		list_idx += 1
 		var list = list_reader.read_from_file(list_file)
 		call_deferred("emit_signal","on_init_stage",null,[
-			{text="Import lists (%s/%s)" % [list_idx,list_count],value=list_idx,max=list_count}
+			{text="Import playlists (%s/%s)" % [list_idx,list_count],value=list_idx,max=list_count}
 		])
 		list.load_mapsets()
 		playlists.add_item(list)
+		print(list.cover)
 	call_deferred("emit_signal","on_init_stage",null,[{text="Free PlaylistReader",max=map_count,value=map_idx}])
 	list_reader.call_deferred("free")
 func _do_init():

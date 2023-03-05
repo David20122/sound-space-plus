@@ -21,6 +21,7 @@ script = ExtResource("2")
 
 [node name="tunnel" type="MeshInstance3D" parent="."]
 transform = Transform3D(-4.37114e-09, 0, -0.1, 0, 0.1, 0, 0.1, 0, -4.37114e-09, 0, -1, 75)
+sorting_offset = -20.0
 material_override = SubResource("1")
 cast_shadow = 0
 mesh = ExtResource("1")

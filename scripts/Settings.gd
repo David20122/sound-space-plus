@@ -32,7 +32,7 @@ func update():
 #	window.borderless = data.window_mode != WindowMode.WINDOWED
 	match data.window_mode:
 		WindowMode.WINDOWED:
-			window.mode = Window.MODE_WINDOWED
+			window.mode = Window.MODE_MAXIMIZED
 		WindowMode.BORDERLESS:
 			window.mode = Window.MODE_FULLSCREEN
 		WindowMode.FULLSCREEN:
@@ -79,6 +79,7 @@ const SettingsList = [
 		["sensitivity",Type.CATEGORY,[
 			["mouse",Type.FLOAT,1.0]
 		]],
+		["drift",Type.BOOLEAN,false],
 		["spin",Type.BOOLEAN,false]
 	]]
 ]

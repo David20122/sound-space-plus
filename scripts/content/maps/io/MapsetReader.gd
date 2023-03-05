@@ -44,7 +44,7 @@ func _sspmv3(file:FileAccess,set:Mapset,full:bool,index:int=-1):
 		var cover_height = file.get_16()
 		var cover_length = file.get_64()
 		var cover_buffer = file.get_buffer(cover_length)
-		var image = Image.create_from_data(cover_width,cover_height,true,Image.FORMAT_RGBA8,cover_buffer)
+		var image = Image.create_from_data(cover_width,cover_height,false,Image.FORMAT_RGBA8,cover_buffer)
 		_cover(image,set)
 	else:
 		set.broken = true

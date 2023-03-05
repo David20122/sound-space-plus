@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://cu2rno2ef0dtr"]
+[gd_scene load_steps=40 format=3 uid="uid://cu2rno2ef0dtr"]
 
 [ext_resource type="PackedScene" uid="uid://de1sj0rkm2iu7" path="res://prefabs/menu/VersionNumberR.tscn" id="1"]
 [ext_resource type="Theme" uid="uid://diarojdcbhxg8" path="res://uitheme.tres" id="2"]
@@ -8,8 +8,11 @@
 [ext_resource type="Script" path="res://scripts/menu/maplist/MapList.gd" id="4_hproy"]
 [ext_resource type="Texture2D" uid="uid://ciuxvgefpjrm1" path="res://assets/images/ui/command_line_error.png" id="4_oas34"]
 [ext_resource type="Script" path="res://scripts/menu/maplist/MapsetButton.gd" id="5_h0d55"]
+[ext_resource type="Script" path="res://scripts/menu/maplist/PlaylistEdit.gd" id="5_no7rp"]
 [ext_resource type="FontFile" uid="uid://b13iyosmvgqik" path="res://assets/fonts/Lato/Lato-Bold.ttf" id="5_sfmcr"]
 [ext_resource type="Texture2D" uid="uid://bk8ninr63d836" path="res://assets/images/ui/quit_to_desktop.png" id="7"]
+[ext_resource type="Script" path="res://scripts/menu/maplist/AddPlaylist.gd" id="7_h7hq5"]
+[ext_resource type="Texture2D" uid="uid://cdkpjplduhxgs" path="res://assets/images/covers/logic-alt.png" id="7_prc10"]
 [ext_resource type="Script" path="res://scripts/menu/maplist/MapDetails.gd" id="7_xwb6e"]
 [ext_resource type="Texture2D" uid="uid://b21p2flel8ywr" path="res://assets/images/ui/settings.png" id="8"]
 [ext_resource type="Script" path="res://scripts/menu/maplist/Play.gd" id="8_mf8ee"]
@@ -220,6 +223,7 @@ stretch_mode = 6
 [node name="Edit" type="VBoxContainer" parent="Main/TabBar/Solo/Playlists/List"]
 layout_mode = 2
 alignment = 1
+script = ExtResource("5_no7rp")
 
 [node name="Add" type="Button" parent="Main/TabBar/Solo/Playlists/List/Edit"]
 custom_minimum_size = Vector2(32, 0)
@@ -238,6 +242,69 @@ tooltip_text = "Remove Playlist"
 theme_override_fonts/font = ExtResource("5_sfmcr")
 theme_override_font_sizes/font_size = 18
 text = "-"
+
+[node name="AddWindow" type="PopupPanel" parent="Main/TabBar/Solo/Playlists/List/Edit"]
+disable_3d = true
+initial_position = 2
+title = "Create Playlist"
+size = Vector2i(328, 421)
+theme = ExtResource("2")
+script = ExtResource("7_h7hq5")
+
+[node name="Options" type="VBoxContainer" parent="Main/TabBar/Solo/Playlists/List/Edit/AddWindow"]
+custom_minimum_size = Vector2(256, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 324.0
+offset_bottom = 417.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Cover" type="TextureRect" parent="Main/TabBar/Solo/Playlists/List/Edit/AddWindow/Options"]
+custom_minimum_size = Vector2(0, 128)
+layout_mode = 2
+tooltip_text = "Default Cover"
+texture = ExtResource("7_prc10")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CoverSelect" type="Button" parent="Main/TabBar/Solo/Playlists/List/Edit/AddWindow/Options"]
+layout_mode = 2
+text = "Change Cover"
+
+[node name="FileDialog" type="FileDialog" parent="Main/TabBar/Solo/Playlists/List/Edit/AddWindow/Options/CoverSelect"]
+title = "Select an Image"
+size = Vector2i(768, 512)
+ok_button_text = "Open"
+mode_overrides_title = false
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.png;PNG Files", "*.jpg, *.jpeg;JPEG Files")
+
+[node name="Title" type="LineEdit" parent="Main/TabBar/Solo/Playlists/List/Edit/AddWindow/Options"]
+layout_mode = 2
+placeholder_text = "Playlist Name"
+clear_button_enabled = true
+
+[node name="Author" type="LineEdit" parent="Main/TabBar/Solo/Playlists/List/Edit/AddWindow/Options"]
+layout_mode = 2
+placeholder_text = "Playlist Author"
+clear_button_enabled = true
+
+[node name="Confirm" type="Button" parent="Main/TabBar/Solo/Playlists/List/Edit/AddWindow/Options"]
+layout_mode = 2
+text = "Create Playlist"
+
+[node name="DeleteWindow" type="ConfirmationDialog" parent="Main/TabBar/Solo/Playlists/List/Edit"]
+title = "Delete Playlist"
+size = Vector2i(256, 103)
+dialog_text = "Are you sure you want to delete this playlist?"
+dialog_autowrap = true
 
 [node name="MapList" type="Control" parent="Main/TabBar/Solo"]
 layout_mode = 1
@@ -429,6 +496,38 @@ layout_mode = 2
 texture = ExtResource("4_oas34")
 expand_mode = 1
 
+[node name="Playlist" type="HBoxContainer" parent="Main/TabBar/Solo/MapDetails/Details"]
+clip_contents = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -104.0
+offset_top = 8.0
+offset_right = -24.0
+offset_bottom = -88.0
+grow_horizontal = 0
+grow_vertical = 2
+alignment = 2
+
+[node name="Add" type="Button" parent="Main/TabBar/Solo/MapDetails/Details/Playlist"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+flat = true
+
+[node name="TextureRect" type="TextureRect" parent="Main/TabBar/Solo/MapDetails/Details/Playlist/Add"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("10")
+expand_mode = 1
+
+[node name="List" type="PopupMenu" parent="Main/TabBar/Solo/MapDetails/Details/Playlist/Add"]
+
 [node name="Song" type="Label" parent="Main/TabBar/Solo/MapDetails/Details"]
 layout_mode = 1
 anchors_preset = -1
@@ -469,7 +568,7 @@ anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 0.5
 offset_left = -104.0
-offset_top = 8.0
+offset_top = 48.0
 offset_right = -24.0
 offset_bottom = -40.0
 grow_horizontal = 0
@@ -687,14 +786,33 @@ size_flags_vertical = 3
 text = "+++"
 horizontal_alignment = 1
 
+[node name="Custom" type="VBoxContainer" parent="Main/TabBar/Solo/MapDetails/Play/Local/Play/Speed"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="CheckBox" type="CheckBox" parent="Main/TabBar/Solo/MapDetails/Play/Local/Play/Speed/Custom"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+
+[node name="Value" type="SpinBox" parent="Main/TabBar/Solo/MapDetails/Play/Local/Play/Speed/Custom"]
+layout_mode = 2
+size_flags_vertical = 3
+min_value = 50.0
+max_value = 200.0
+value = 100.0
+suffix = "%"
+custom_arrow_step = 5.0
+
 [node name="NoFail" type="CheckBox" parent="Main/TabBar/Solo/MapDetails/Play/Local/Play"]
 layout_mode = 0
-offset_left = 8.0
+offset_left = 16.0
 offset_top = 56.0
 offset_right = 144.0
 offset_bottom = 83.0
 text = "No Fail"
-flat = true
 
 [node name="Play" type="Button" parent="Main/TabBar/Solo/MapDetails/Play/Local/Play"]
 layout_mode = 1
@@ -821,8 +939,39 @@ size_flags_horizontal = 3
 max_value = 2.0
 step = 0.001
 alignment = 1
+custom_arrow_step = 0.1
 
 [node name="VSeparator" type="VSeparator" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Controls/MouseSensitivity"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+theme_override_styles/separator = SubResource("StyleBoxEmpty_lykwc")
+
+[node name="Drift" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Controls"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+script = ExtResource("10_qi5v2")
+target = Array[String](["controls", "drift"])
+signal_emitter_path = NodePath("CheckBox")
+signal_name = "toggled"
+property_name = "button_pressed"
+
+[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Controls/Drift"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Cursor Drift"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="CheckBox" type="CheckBox" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Controls/Drift"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "enable me if you a PUSSY"
+
+[node name="VSeparator" type="VSeparator" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Controls/Drift"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
@@ -976,6 +1125,7 @@ size_flags_horizontal = 3
 step = 0.01
 allow_greater = true
 alignment = 1
+custom_arrow_step = 1.0
 
 [node name="VSeparator" type="VSeparator" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Approach/Distance"]
 layout_mode = 2
@@ -1009,6 +1159,7 @@ size_flags_horizontal = 3
 step = 0.01
 allow_greater = true
 alignment = 1
+custom_arrow_step = 1.0
 
 [node name="VSeparator" type="VSeparator" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Approach/Rate"]
 layout_mode = 2
@@ -1041,6 +1192,7 @@ size_flags_horizontal = 3
 step = 0.01
 allow_greater = true
 alignment = 1
+custom_arrow_step = 0.1
 
 [node name="VSeparator" type="VSeparator" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Approach/Time"]
 layout_mode = 2

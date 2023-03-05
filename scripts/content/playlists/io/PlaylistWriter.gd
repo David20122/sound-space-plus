@@ -4,6 +4,8 @@ class_name PlaylistWriter
 const SIGNATURE:PackedByteArray = [0x53,0x53,0x2b,0x6c]
 
 func write_to_file(playlist:Playlist,path:String):
+	if !path.ends_with(".sspl"): path = "%s.sspl" % path
+	
 	var file = FileAccess.open(path,FileAccess.WRITE)
 	file.store_buffer(SIGNATURE)
 	
