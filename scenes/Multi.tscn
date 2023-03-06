@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bjpvyhxmmga3c"]
+
+[ext_resource type="Script" path="res://scripts/game/multi/MultiScene.gd" id="1_mvm6r"]
+
+[node name="Multi" type="Node3D"]
+script = ExtResource("1_mvm6r")
+metadata/is_game = true

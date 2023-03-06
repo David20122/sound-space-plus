@@ -11,8 +11,6 @@ func setup_managers():
 	hud_manager.prepare(self)
 
 func ready():
-	set_meta("is_game",true)
-	
 	var world = SoundSpacePlus.worlds.items.front()
 	var selected_world = settings.assets.world
 	var ids = SoundSpacePlus.worlds.get_ids()

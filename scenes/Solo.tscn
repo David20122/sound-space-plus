@@ -47,6 +47,7 @@ sync_manager_path = NodePath("AudioSyncManager")
 object_manager_path = NodePath("ObjectManager")
 origin_path = NodePath("Origin")
 player_path = NodePath("Origin/Player")
+metadata/is_game = true
 
 [node name="AudioSyncManager" type="Node" parent="."]
 process_priority = 2
