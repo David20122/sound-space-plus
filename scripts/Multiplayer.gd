@@ -68,6 +68,7 @@ func connected():
 	local_player = Player.new()
 	local_player.id = api.get_unique_id()
 	local_player.name = player_name
+	players[local_player.id] = local_player
 func disconnected():
 	print("Disconnected from server")
 	local_player.connected = false
