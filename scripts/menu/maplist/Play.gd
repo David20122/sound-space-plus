@@ -8,6 +8,7 @@ var attempting:bool = false
 
 func _ready():
 	play_button.connect("pressed",Callable(self,"attempt_play"))
+	$NoFail.button_pressed = SoundSpacePlus.selected_mods.no_fail
 
 func attempt_play():
 	if attempting: return

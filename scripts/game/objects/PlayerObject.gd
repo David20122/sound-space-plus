@@ -74,6 +74,8 @@ func _input(event):
 		clamped_cursor_position = Vector2(
 			clamp(cursor_position.x,-clamp_value,clamp_value),
 			clamp(cursor_position.y,-clamp_value,clamp_value))
+		if game.settings.controls.drift:
+			cursor_position = clamped_cursor_position
 func _process(_delta):
 	var difference = cursor_position - clamped_cursor_position
 	cursor.position = Vector3(clamped_cursor_position.x,clamped_cursor_position.y,0)
