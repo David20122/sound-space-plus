@@ -19,8 +19,6 @@ func _ready():
 
 func mapset_selected(selected_mapset:Mapset):
 	$"../".visible = true
-	$"../Play/Local".visible = selected_mapset.local
-	$"../Play/Online".visible = !selected_mapset.local
 	mapset = selected_mapset
 	update()
 	map_selected(0)

@@ -27,6 +27,7 @@ func _start_audio():
 	_set_offset()
 
 func _process(delta:float):
+	if !playing: return
 	super._process(delta)
 #	current_time = real_time - time_delay
 	if real_time >= 0 and !audio_player.playing and playback_speed > 0:

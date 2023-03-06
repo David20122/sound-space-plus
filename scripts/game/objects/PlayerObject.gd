@@ -57,6 +57,7 @@ func fail():
 
 func _ready():
 	set_process_input(local_player)
+	set_process(local_player)
 	set_physics_process(local_player)
 	if local_player: # and !get_tree().vr_enabled:
 		camera.make_current()

@@ -1,0 +1,102 @@
+[gd_scene load_steps=15 format=3 uid="uid://1ss4csvrfyhn"]
+
+[ext_resource type="Script" path="res://scripts/game/multi/MultiGameScene.gd" id="1_d1cu3"]
+[ext_resource type="Script" path="res://scripts/game/managers/SyncManager.gd" id="2_p4j1d"]
+[ext_resource type="Script" path="res://scripts/game/managers/ObjectManager.gd" id="3_g3nrp"]
+[ext_resource type="ArrayMesh" uid="uid://o8qaywrhkgih" path="res://assets/content/blocks/meshes/cube.obj" id="4_f6t5n"]
+[ext_resource type="Script" path="res://scripts/game/renderers/NoteRenderer.gd" id="5_danis"]
+[ext_resource type="Script" path="res://scripts/game/objects/PlayerObject.gd" id="6_1miqb"]
+[ext_resource type="Texture2D" uid="uid://ctmjd7r2b7750" path="res://assets/images/default_cursor.png" id="7_ljeqw"]
+[ext_resource type="Script" path="res://scripts/game/objects/GameObject.gd" id="8_mlpkq"]
+[ext_resource type="Texture2D" uid="uid://d1mkaxv1bs88f" path="res://assets/images/grid_outer.png" id="9_mw751"]
+[ext_resource type="Texture2D" uid="uid://cftumuph2lfnj" path="res://assets/images/grid_inner.png" id="10_k4uv8"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_nbdvt"]
+properties/0/path = NodePath("SyncManager:real_time")
+properties/0/spawn = false
+properties/0/sync = true
+properties/1/path = NodePath("Origin/Player/Cursor:position")
+properties/1/spawn = false
+properties/1/sync = true
+
+[sub_resource type="MultiMesh" id="MultiMesh_mhkfy"]
+transform_format = 1
+use_colors = true
+use_custom_data = true
+mesh = ExtResource("4_f6t5n")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bcjx1"]
+transparency = 1
+albedo_texture = ExtResource("7_ljeqw")
+
+[sub_resource type="QuadMesh" id="QuadMesh_w03ih"]
+flip_faces = true
+size = Vector2(0.525, 0.525)
+
+[node name="MultiGameScene" type="Node3D"]
+script = ExtResource("1_d1cu3")
+sync_manager_path = NodePath("SyncManager")
+object_manager_path = NodePath("ObjectManager")
+origin_path = NodePath("Origin")
+player_path = NodePath("Origin/Player")
+
+[node name="Sync" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_nbdvt")
+
+[node name="SyncManager" type="Node" parent="."]
+process_priority = 2
+script = ExtResource("2_p4j1d")
+
+[node name="ObjectManager" type="Node" parent="."]
+process_mode = 3
+process_priority = 1
+script = ExtResource("3_g3nrp")
+
+[node name="NoteRenderer" type="MultiMeshInstance3D" parent="ObjectManager"]
+multimesh = SubResource("MultiMesh_mhkfy")
+script = ExtResource("5_danis")
+
+[node name="Origin" type="Node3D" parent="."]
+process_mode = 1
+
+[node name="Player" type="Node3D" parent="Origin"]
+process_priority = 5
+script = ExtResource("6_1miqb")
+camera_path = NodePath("Camera")
+cursor_path = NodePath("Cursor")
+id = "Player"
+permanent = true
+
+[node name="Camera" type="Camera3D" parent="Origin/Player"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -3.5)
+fov = 70.0
+
+[node name="Cursor" type="Node3D" parent="Origin/Player"]
+
+[node name="Real" type="MeshInstance3D" parent="Origin/Player/Cursor"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+layers = 2
+material_override = SubResource("StandardMaterial3D_bcjx1")
+mesh = SubResource("QuadMesh_w03ih")
+
+[node name="Ghost" type="MeshInstance3D" parent="Origin/Player/Cursor"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+layers = 2
+material_override = SubResource("StandardMaterial3D_bcjx1")
+transparency = 1.0
+mesh = SubResource("QuadMesh_w03ih")
+
+[node name="Grid" type="Node3D" parent="Origin"]
+script = ExtResource("8_mlpkq")
+id = "HUD.Grid"
+permanent = true
+
+[node name="Outer" type="Sprite3D" parent="Origin/Grid"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.01)
+pixel_size = 0.0025
+texture = ExtResource("9_mw751")
+
+[node name="Inner" type="Sprite3D" parent="Origin/Grid"]
+visible = false
+pixel_size = 0.0025
+texture = ExtResource("10_k4uv8")

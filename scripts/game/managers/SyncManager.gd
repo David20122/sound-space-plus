@@ -3,13 +3,13 @@ class_name SyncManager
 
 signal finished
 
-var playing:bool = false
-var playback_speed:float = 1
+@export var playing:bool = false
+@export var playback_speed:float = 1
 
 var last_time:int = 0
-var real_time:float = 0
+@export var real_time:float = 0
 var current_time:float = 0
-var length:float = 0
+@export var length:float = 0
 
 func start(from:float=0):
 	last_time = Time.get_ticks_usec()

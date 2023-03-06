@@ -1,7 +1,128 @@
-[gd_scene load_steps=2 format=3 uid="uid://bjpvyhxmmga3c"]
+[gd_scene load_steps=17 format=3 uid="uid://bjpvyhxmmga3c"]
 
 [ext_resource type="Script" path="res://scripts/game/multi/MultiScene.gd" id="1_mvm6r"]
+[ext_resource type="Script" path="res://scripts/game/multi/MultiGameScene.gd" id="2_lmscg"]
+[ext_resource type="Script" path="res://scripts/game/managers/AudioSyncManager.gd" id="3_f1x2j"]
+[ext_resource type="Script" path="res://scripts/game/solo/SoloObjectManager.gd" id="4_7ve8l"]
+[ext_resource type="ArrayMesh" uid="uid://o8qaywrhkgih" path="res://assets/content/blocks/meshes/cube.obj" id="5_ah8cw"]
+[ext_resource type="Script" path="res://scripts/game/renderers/NoteRenderer.gd" id="6_hpfkw"]
+[ext_resource type="Script" path="res://scripts/game/solo/HUDManager.gd" id="7_vdacm"]
+[ext_resource type="Script" path="res://scripts/game/objects/PlayerObject.gd" id="8_efis3"]
+[ext_resource type="Texture2D" uid="uid://ctmjd7r2b7750" path="res://assets/images/default_cursor.png" id="9_7tht2"]
+[ext_resource type="Script" path="res://scripts/game/objects/GameObject.gd" id="11_2i1oo"]
+[ext_resource type="PackedScene" uid="uid://2ytv06ccswo1" path="res://prefabs/game/hud/HUD.tscn" id="11_ihmcu"]
+
+[sub_resource type="Environment" id="Environment_3hc50"]
+background_mode = 1
+background_color = Color(0.0313726, 0.0313726, 0.0313726, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.588235, 0.588235, 0.588235, 1)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_4q80v"]
+properties/0/path = NodePath("SyncManager:real_time")
+properties/0/spawn = false
+properties/0/sync = true
+properties/1/path = NodePath("Origin/Player/Cursor:position")
+properties/1/spawn = false
+properties/1/sync = true
+
+[sub_resource type="MultiMesh" id="MultiMesh_0hitx"]
+transform_format = 1
+use_colors = true
+use_custom_data = true
+mesh = ExtResource("5_ah8cw")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4wu4u"]
+transparency = 1
+albedo_texture = ExtResource("9_7tht2")
+
+[sub_resource type="QuadMesh" id="QuadMesh_gghx6"]
+flip_faces = true
+size = Vector2(0.525, 0.525)
 
 [node name="Multi" type="Node3D"]
 script = ExtResource("1_mvm6r")
 metadata/is_game = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_3hc50")
+
+[node name="Players" type="Node" parent="."]
+
+[node name="LocalPlayer" type="Node3D" parent="Players"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.5)
+script = ExtResource("2_lmscg")
+root_path = NodePath("../..")
+sync_manager_path = NodePath("SyncManager")
+object_manager_path = NodePath("ObjectManager")
+origin_path = NodePath("Origin")
+player_path = NodePath("Origin/Player")
+
+[node name="Sync" type="MultiplayerSynchronizer" parent="Players/LocalPlayer"]
+replication_config = SubResource("SceneReplicationConfig_4q80v")
+
+[node name="SyncManager" type="Node" parent="Players/LocalPlayer"]
+process_priority = 2
+script = ExtResource("3_f1x2j")
+audio_player_path = NodePath("../Music")
+
+[node name="ObjectManager" type="Node" parent="Players/LocalPlayer"]
+process_mode = 3
+process_priority = 1
+script = ExtResource("4_7ve8l")
+
+[node name="NoteRenderer" type="MultiMeshInstance3D" parent="Players/LocalPlayer/ObjectManager"]
+multimesh = SubResource("MultiMesh_0hitx")
+script = ExtResource("6_hpfkw")
+
+[node name="HUDManager" type="Node" parent="Players/LocalPlayer"]
+process_priority = 1
+script = ExtResource("7_vdacm")
+hud_path = NodePath("../Origin/HUD")
+
+[node name="Origin" type="Node3D" parent="Players/LocalPlayer"]
+process_mode = 1
+
+[node name="Player" type="Node3D" parent="Players/LocalPlayer/Origin"]
+process_priority = 5
+script = ExtResource("8_efis3")
+local_player = true
+camera_path = NodePath("Camera")
+cursor_path = NodePath("Cursor")
+id = "Player"
+permanent = true
+
+[node name="Camera" type="Camera3D" parent="Players/LocalPlayer/Origin/Player"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -3.5)
+fov = 70.0
+
+[node name="Cursor" type="Node3D" parent="Players/LocalPlayer/Origin/Player"]
+
+[node name="Real" type="MeshInstance3D" parent="Players/LocalPlayer/Origin/Player/Cursor"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+layers = 2
+material_override = SubResource("StandardMaterial3D_4wu4u")
+mesh = SubResource("QuadMesh_gghx6")
+
+[node name="Ghost" type="MeshInstance3D" parent="Players/LocalPlayer/Origin/Player/Cursor"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+layers = 2
+material_override = SubResource("StandardMaterial3D_4wu4u")
+transparency = 1.0
+mesh = SubResource("QuadMesh_gghx6")
+
+[node name="HUD" parent="Players/LocalPlayer/Origin" instance=ExtResource("11_ihmcu")]
+process_priority = -1
+
+[node name="World" type="Node3D" parent="Players/LocalPlayer/Origin"]
+script = ExtResource("11_2i1oo")
+id = "World"
+permanent = true
+
+[node name="Music" type="AudioStreamPlayer" parent="Players/LocalPlayer"]
+bus = &"Game Music"
+
+[node name="Light" type="OmniLight3D" parent="."]
+layers = 2
+omni_range = 4096.0
+omni_attenuation = 1.42369e-05

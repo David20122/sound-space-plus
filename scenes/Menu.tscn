@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://cu2rno2ef0dtr"]
+[gd_scene load_steps=41 format=3 uid="uid://cu2rno2ef0dtr"]
 
 [ext_resource type="PackedScene" uid="uid://de1sj0rkm2iu7" path="res://prefabs/menu/VersionNumberR.tscn" id="1"]
 [ext_resource type="Theme" uid="uid://diarojdcbhxg8" path="res://uitheme.tres" id="2"]
@@ -52,6 +52,46 @@ corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
+
+[sub_resource type="GDScript" id="GDScript_bo13b"]
+resource_name = "TempOnlineMenu"
+script/source = "extends Control
+
+func _ready():
+	$Connect.pressed.connect(try_connect)
+	$Host.pressed.connect(try_host)
+	$Start.pressed.connect(try_start)
+
+func _process(_delta):
+	var text = '''
+connected? %s
+is server? %s
+peer id? %s
+peers? %s
+	'''
+	var connected = Multiplayer.check_connected()
+	var is_server = Multiplayer.api.is_server()
+	$Connect.visible = !connected
+	$Host.visible = !connected
+	$Address.editable = !connected
+	$Leave.visible = connected
+	$Start.visible = connected and is_server
+	$Stats.text = text % [
+		connected,
+		is_server,
+		Multiplayer.api.get_unique_id(),
+		Multiplayer.api.get_peers().size()
+	]
+
+func try_host():
+	Multiplayer.host()
+func try_connect():
+	Multiplayer.join($Address.text)
+func try_start():
+	Multiplayer.rpc(\"start\",$\"../../Details\".mapset.id,$\"../../Details\".map_index)
+func try_leave():
+	Multiplayer.leave()
+"
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lykwc"]
 
@@ -642,6 +682,7 @@ size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_tvhpi")
 
 [node name="Local" type="TabContainer" parent="Main/TabBar/Solo/MapDetails/Play"]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -844,24 +885,79 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Online" type="Control" parent="Main/TabBar/Solo/MapDetails/Play"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = SubResource("GDScript_bo13b")
 
 [node name="Label" type="Label" parent="Main/TabBar/Solo/MapDetails/Play/Online"]
 layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 48.0
+grow_horizontal = 2
+text = "Online Testing"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Stats" type="Label" parent="Main/TabBar/Solo/MapDetails/Play/Online"]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 84.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "There's nothing here."
-horizontal_alignment = 1
-vertical_alignment = 1
+text = "connected? false
+is server? false
+peer id? 0
+peers? 0"
+
+[node name="Address" type="LineEdit" parent="Main/TabBar/Solo/MapDetails/Play/Online"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 52.0
+offset_right = 216.0
+offset_bottom = 79.0
+text = "127.0.0.1"
+
+[node name="Connect" type="Button" parent="Main/TabBar/Solo/MapDetails/Play/Online"]
+layout_mode = 0
+offset_left = 224.0
+offset_top = 52.0
+offset_right = 344.0
+offset_bottom = 79.0
+text = "Connect"
+
+[node name="Host" type="Button" parent="Main/TabBar/Solo/MapDetails/Play/Online"]
+layout_mode = 0
+offset_left = 352.0
+offset_top = 52.0
+offset_right = 472.0
+offset_bottom = 79.0
+text = "Host"
+
+[node name="Start" type="Button" parent="Main/TabBar/Solo/MapDetails/Play/Online"]
+visible = false
+layout_mode = 0
+offset_left = 224.0
+offset_top = 52.0
+offset_right = 344.0
+offset_bottom = 79.0
+text = "Start"
+
+[node name="Leave" type="Button" parent="Main/TabBar/Solo/MapDetails/Play/Online"]
+visible = false
+layout_mode = 0
+offset_left = 352.0
+offset_top = 52.0
+offset_right = 472.0
+offset_bottom = 79.0
+text = "Leave"
 
 [node name="Content" type="Control" parent="Main/TabBar"]
 visible = false

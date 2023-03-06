@@ -32,7 +32,7 @@ func update():
 #	window.borderless = data.window_mode != WindowMode.WINDOWED
 	match data.window_mode:
 		WindowMode.WINDOWED:
-			window.mode = Window.MODE_MAXIMIZED
+			window.mode = Window.MODE_WINDOWED
 		WindowMode.BORDERLESS:
 			window.mode = Window.MODE_FULLSCREEN
 		WindowMode.FULLSCREEN:

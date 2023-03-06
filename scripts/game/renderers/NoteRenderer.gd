@@ -3,7 +3,7 @@ class_name NoteRenderer
 
 var mesh:MeshPlus
 
-func _ready():
+func prepare():
 	multimesh.instance_count = 0
 	multimesh.use_colors = true
 	mesh = SoundSpacePlus.blocks.get_by_id(game.settings.assets.get("block","cube"))

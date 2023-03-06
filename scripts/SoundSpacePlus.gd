@@ -129,21 +129,27 @@ enum GameType {
 	SOLO,
 	MULTI
 }
-const GameSceneTypes = {
-	GameType.SOLO: "res://scenes/Solo.tscn"
-}
-var game_scene:GameScene
+var game_scene:Node
 func load_game_scene(game_type:int,mapset:Mapset,map_index:int=0):
 	var reader = MapsetReader.new()
 	var full_mapset = reader.read_from_file(mapset.path,true,map_index)
 	reader.call_deferred("free")
 	assert(full_mapset.id == mapset.id)
-	var packed_scene:PackedScene = load(GameSceneTypes.get(game_type,"res://scenes/Solo.tscn"))
-	var scene:GameScene = packed_scene.instantiate() as GameScene
-	scene.mods = selected_mods
-	scene.settings = settings
-	scene.mapset = full_mapset
-	scene.map_index = map_index
+	var scene
+	match game_type:
+		GameType.SOLO:
+			var packed_scene:PackedScene = preload("res://scenes/Solo.tscn")
+			scene = packed_scene.instantiate()
+			scene.mods = selected_mods
+			scene.settings = settings
+			scene.mapset = full_mapset
+			scene.map_index = map_index
+		GameType.MULTI:
+			var packed_scene:PackedScene = preload("res://scenes/Multi.tscn")
+			scene = packed_scene.instantiate()
+#			scene.mods = selected_mods
+			scene.mapset = full_mapset
+			scene.map_index = map_index
 	game_scene = scene
 	return scene
 

@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://scripts/game/solo/SoloGameScene.gd" id="1_ulth4"]
 [ext_resource type="Script" path="res://scripts/game/managers/AudioSyncManager.gd" id="2_o63a0"]
 [ext_resource type="Script" path="res://scripts/game/objects/PlayerObject.gd" id="2_owl32"]
-[ext_resource type="Script" path="res://scripts/game/managers/ObjectManager.gd" id="3_6ip3k"]
 [ext_resource type="Script" path="res://scripts/game/objects/GameObject.gd" id="3_pci65"]
+[ext_resource type="Script" path="res://scripts/game/solo/SoloObjectManager.gd" id="3_ylywr"]
 [ext_resource type="ArrayMesh" uid="uid://o8qaywrhkgih" path="res://assets/content/blocks/meshes/cube.obj" id="4_6o7l0"]
 [ext_resource type="Script" path="res://scripts/game/renderers/NoteRenderer.gd" id="4_tvxv6"]
 [ext_resource type="Script" path="res://scripts/game/solo/HUDManager.gd" id="6_g35bn"]
@@ -57,7 +57,7 @@ audio_player_path = NodePath("../Music")
 [node name="ObjectManager" type="Node" parent="."]
 process_mode = 3
 process_priority = 1
-script = ExtResource("3_6ip3k")
+script = ExtResource("3_ylywr")
 
 [node name="NoteRenderer" type="MultiMeshInstance3D" parent="ObjectManager"]
 multimesh = SubResource("MultiMesh_t5tpd")

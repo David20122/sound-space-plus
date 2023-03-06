@@ -12,15 +12,16 @@ var player:PlayerObject
 func prepare(_game:GameScene):
 	super.prepare(_game)
 	
+	for child in get_children():
+		if child is ObjectRenderer:
+			child.prepare()
+	
 	origin = game.origin
 	player = game.player
 	
 	origin.set_physics_process(game.local_player)
 	
 	append_object(player,false)
-	append_object(origin.get_node("World"),false)
-	append_object(origin.get_node("HUD"),false)
-	build_map(game.map)
 
 func append_object(object:GameObject,parent:bool=true,include_children:bool=false):
 	if objects_ids.keys().has(object.id): return false
