@@ -321,17 +321,18 @@ func _process(delta:float):
 	if gtimer >= 2:
 		calculating = true
 	
-	var fstr = "cursor speed\n{current} m/sec\n\ntop speed\n{top} m/sec\n\nrec interval\n{rec}"
+	var fstr = "cursor speed\n{current} m/sec/{frames}fr\n\ntop speed\n{top} m/sec/{frames}fr\n\nrec interval\n{rec}"
 	$Stats/Label.text = fstr.format(
 		{
 			"current": stepify(s_curspd,0.1),
+			"frames": Engine.get_frames_per_second(),
 			"top": stepify(s_tcurspd,0.1),
 			"rec": round(Spawn.rec_interval)
 		}
 	)
 	
 	# warning
-	if not SSP.fov == 70 and SSP.mod_flashlight and calculating:
+	if SSP.fov < 70 and SSP.mod_flashlight and calculating:
 		$ObnoxiousWarning.trigger = true
 		$ObnoxiousWarning.target = "STOP PLAYING MASKED WITH {fov} FOV PUSSY\njust use the damn default man".format({
 			"fov": SSP.fov
