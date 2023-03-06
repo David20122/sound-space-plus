@@ -1,18 +1,18 @@
-[gd_scene load_steps=20 format=3 uid="uid://coxy02rq0td13"]
+[gd_scene load_steps=20 format=3 uid="uid://utrrws85seld"]
 
-[ext_resource type="Script" path="res://scripts/game/GameScene.gd" id="1"]
-[ext_resource type="Script" path="res://scripts/game/managers/SyncManager.gd" id="2_kp2am"]
+[ext_resource type="Script" path="res://scripts/game/solo/SoloGameScene.gd" id="1_ulth4"]
+[ext_resource type="Script" path="res://scripts/game/managers/AudioSyncManager.gd" id="2_o63a0"]
 [ext_resource type="Script" path="res://scripts/game/objects/PlayerObject.gd" id="2_owl32"]
 [ext_resource type="Script" path="res://scripts/game/managers/ObjectManager.gd" id="3_6ip3k"]
 [ext_resource type="Script" path="res://scripts/game/objects/GameObject.gd" id="3_pci65"]
 [ext_resource type="ArrayMesh" uid="uid://o8qaywrhkgih" path="res://assets/content/blocks/meshes/cube.obj" id="4_6o7l0"]
-[ext_resource type="Script" path="res://scripts/game/managers/HUDManager.gd" id="4_k7mvy"]
 [ext_resource type="Script" path="res://scripts/game/renderers/NoteRenderer.gd" id="4_tvxv6"]
+[ext_resource type="Script" path="res://scripts/game/solo/HUDManager.gd" id="6_g35bn"]
 [ext_resource type="Texture2D" uid="uid://ctmjd7r2b7750" path="res://assets/images/default_cursor.png" id="8_y20xf"]
 [ext_resource type="PackedScene" uid="uid://2ytv06ccswo1" path="res://prefabs/game/hud/HUD.tscn" id="10_i0uko"]
 [ext_resource type="Theme" uid="uid://diarojdcbhxg8" path="res://uitheme.tres" id="11_e8h1i"]
+[ext_resource type="Script" path="res://scripts/game/solo/PauseHandler.gd" id="12_7ktyo"]
 [ext_resource type="Texture2D" uid="uid://cmx7ntw62nhki" path="res://assets/images/ui/play_circle.png" id="12_oxpux"]
-[ext_resource type="Script" path="res://scripts/game/PauseHandler.gd" id="12_vk1e3"]
 [ext_resource type="Texture2D" uid="uid://crn45ox0vkija" path="res://assets/images/ui/reset_to_default_white.png" id="13_jftr7"]
 [ext_resource type="Texture2D" uid="uid://bdhb58b2ygaxc" path="res://assets/images/ui/placeholder.jpg" id="14_owers"]
 
@@ -37,20 +37,20 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[node name="GameScene" type="Node3D"]
+[node name="Solo" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.5)
 top_level = true
-script = ExtResource("1")
-sync_manager_path = NodePath("SyncManager")
-object_manager_path = NodePath("ObjectManager")
+script = ExtResource("1_ulth4")
 hud_manager_path = NodePath("HUDManager")
-origin_path = NodePath("Origin")
 world_path = NodePath("Origin/World")
+sync_manager_path = NodePath("AudioSyncManager")
+object_manager_path = NodePath("ObjectManager")
+origin_path = NodePath("Origin")
 player_path = NodePath("Origin/Player")
 
-[node name="SyncManager" type="Node" parent="."]
+[node name="AudioSyncManager" type="Node" parent="."]
 process_priority = 2
-script = ExtResource("2_kp2am")
+script = ExtResource("2_o63a0")
 audio_player_path = NodePath("../Music")
 
 [node name="ObjectManager" type="Node" parent="."]
@@ -64,7 +64,7 @@ script = ExtResource("4_tvxv6")
 
 [node name="HUDManager" type="Node" parent="."]
 process_priority = 1
-script = ExtResource("4_k7mvy")
+script = ExtResource("6_g35bn")
 hud_path = NodePath("../Origin/HUD")
 
 [node name="Origin" type="Node3D" parent="."]
@@ -124,7 +124,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("11_e8h1i")
 color = Color(0, 0, 0, 0.501961)
-script = ExtResource("12_vk1e3")
+script = ExtResource("12_7ktyo")
 
 [node name="Panel" type="Panel" parent="PauseMenu"]
 layout_mode = 1
