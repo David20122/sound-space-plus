@@ -17,7 +17,7 @@ func _ready():
 	local_player.get_node("Origin/Player").connect("failed",func(): rpc("ended"))
 	
 	for player in Multiplayer.players.values():
-		if player == Multiplayer.local_player: return
+		if player == Multiplayer.local_player: continue
 		var scene = preload("res://prefabs/game/multi/MultiGameScene.tscn").instantiate()
 		scene.root_path = get_path()
 		scene.network_player = player
@@ -30,7 +30,7 @@ func _ready():
 		player_parent.add_child(scene)
 
 var players_ended = {}
-@rpc("any_peer","call_remote","reliable")
+@rpc("any_peer","call_local","reliable")
 func ended():
 	if !Multiplayer.api.is_server(): return
 	var id = Multiplayer.api.get_remote_sender_id()
@@ -43,7 +43,7 @@ func finish():
 	get_tree().change_scene_to_file("res://scenes/Menu.tscn")
 
 var players_done = {}
-@rpc("any_peer","call_remote","reliable")
+@rpc("any_peer","call_local","reliable")
 func done():
 	if !Multiplayer.api.is_server(): return
 	var id = Multiplayer.api.get_remote_sender_id()
