@@ -1,6 +1,7 @@
 extends Node
 
 var player_name:String = "Player"
+var player_color:Color = Color(1,1,1,1)
 
 @onready var api:MultiplayerAPI = get_tree().get_multiplayer()
 @onready var peer:MultiplayerPeer = ENetMultiplayerPeer.new()
@@ -38,6 +39,7 @@ func leave():
 class Player:
 	var id:int
 	var name:String
+	var color:Color
 	var connected:bool = true
 
 signal player_added
@@ -53,13 +55,14 @@ func start(mapset_id:String,map_index:int=0):
 	get_tree().change_scene_to_node(scene)
 
 @rpc("any_peer","call_remote","reliable")
-func register_player(_name:String):
+func register_player(_name:String, _color:Color):
 	var id = api.get_remote_sender_id()
 	if players.has(id): return
 	print("Register player %s %s" % [id,_name])
 	var player = Player.new()
 	player.id = id
 	player.name = _name
+	player.color = _color
 	players[id] = player
 
 func connected():
@@ -68,6 +71,7 @@ func connected():
 	local_player = Player.new()
 	local_player.id = api.get_unique_id()
 	local_player.name = player_name
+	local_player.color = player_color
 	players[local_player.id] = local_player
 func disconnected():
 	print("Disconnected from server")
@@ -77,7 +81,7 @@ func disconnected():
 
 func peer_added(id:int):
 	print("Peer connected %s" % id)
-	rpc_id(id,"register_player",local_player.name)
+	rpc_id(id,"register_player",local_player.name,local_player.color)
 func peer_removed(id:int):
 	print("Peer disconnected %s" % id)
 	if !players.has(id): return

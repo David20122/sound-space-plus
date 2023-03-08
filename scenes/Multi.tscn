@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bjpvyhxmmga3c"]
+[gd_scene load_steps=20 format=3 uid="uid://bjpvyhxmmga3c"]
 
 [ext_resource type="Script" path="res://scripts/game/multi/MultiScene.gd" id="1_mvm6r"]
 [ext_resource type="Script" path="res://scripts/game/multi/MultiGameScene.gd" id="2_lmscg"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://scripts/game/solo/HUDManager.gd" id="7_vdacm"]
 [ext_resource type="Script" path="res://scripts/game/objects/PlayerObject.gd" id="8_efis3"]
 [ext_resource type="Texture2D" uid="uid://ctmjd7r2b7750" path="res://assets/images/default_cursor.png" id="9_7tht2"]
+[ext_resource type="Script" path="res://scripts/game/hud/PlayAnimation.gd" id="10_vi8f1"]
 [ext_resource type="Script" path="res://scripts/game/objects/GameObject.gd" id="11_2i1oo"]
 [ext_resource type="PackedScene" uid="uid://2ytv06ccswo1" path="res://prefabs/game/hud/HUD.tscn" id="11_ihmcu"]
 
@@ -39,6 +40,51 @@ albedo_texture = ExtResource("9_7tht2")
 [sub_resource type="QuadMesh" id="QuadMesh_gghx6"]
 flip_faces = true
 size = Vector2(0.525, 0.525)
+
+[sub_resource type="Animation" id="Animation_4s6j3"]
+resource_name = "anim"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1.5, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.196078), Color(1, 1, 1, 0.196078), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:outline_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.5, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 0.392157), Color(0, 0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5, 1.5, 2),
+"transitions": PackedFloat32Array(0.25, 1, 4, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0.25, 0), Vector3(0, 0.25, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5yjcu"]
+_data = {
+"anim": SubResource("Animation_4s6j3")
+}
 
 [node name="Multi" type="Node3D"]
 script = ExtResource("1_mvm6r")
@@ -110,6 +156,20 @@ layers = 2
 material_override = SubResource("StandardMaterial3D_4wu4u")
 transparency = 1.0
 mesh = SubResource("QuadMesh_gghx6")
+
+[node name="DisplayName" type="Label3D" parent="Players/LocalPlayer/Origin/Player/Cursor"]
+transform = Transform3D(0.996734, 0, -0.0807556, 0, 1, 0, 0.0807556, 0, 0.996734, 0, 0, 0)
+billboard = 1
+modulate = Color(1, 1, 1, 0)
+outline_modulate = Color(0, 0, 0, 0)
+text = "display name"
+font_size = 26
+
+[node name="Fade" type="AnimationPlayer" parent="Players/LocalPlayer/Origin/Player/Cursor/DisplayName"]
+libraries = {
+"": SubResource("AnimationLibrary_5yjcu")
+}
+script = ExtResource("10_vi8f1")
 
 [node name="HUD" parent="Players/LocalPlayer/Origin" instance=ExtResource("11_ihmcu")]
 process_priority = -1

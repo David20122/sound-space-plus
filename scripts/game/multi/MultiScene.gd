@@ -10,7 +10,8 @@ var map_index:int
 
 func _ready():
 	local_player.network_player = Multiplayer.local_player
-	local_player.name = str(Multiplayer.api.get_unique_id())
+	local_player.name = Multiplayer.player_name
+	local_player.get_node_or_null("Origin/Player/Cursor/DisplayName").text = Multiplayer.player_name
 	local_player.set_multiplayer_authority(Multiplayer.api.get_unique_id())
 	
 	local_player.get_node("SyncManager").connect("finished",func(): rpc("ended"))
@@ -25,6 +26,13 @@ func _ready():
 		scene.set_multiplayer_authority(player.id)
 		scene.translate(Vector3(0,0,3.5))
 		var cursor:MeshInstance3D = scene.get_node("Origin/Player/Cursor/Real")
+		cursor.set("material_override/albedo_color", player.color)
+		print(
+			"{name}'s player color is {color}".format({
+				"name": player.name,
+				"color": str(player.color)
+			})
+		)
 		cursor.transparency = 0.8
 		cursor.scale = Vector3.ONE * 0.3
 		player_parent.add_child(scene)
