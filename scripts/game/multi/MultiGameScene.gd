@@ -2,7 +2,7 @@ extends GameScene
 
 @export_node_path("Node3D") var root_path
 @onready var multi_scene:MultiScene = get_node(root_path)
-var network_player:Multiplayer.Player
+var network_player:Player
 
 func setup_managers():
 	super.setup_managers()
@@ -14,4 +14,4 @@ func _ready():
 	map_index = multi_scene.map_index
 	settings = SoundSpacePlus.settings
 	super._ready()
-	if local_player: multi_scene.rpc("done")
+	if local_player: multi_scene.call_deferred("rpc","done")

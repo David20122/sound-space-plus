@@ -77,12 +77,14 @@ IS SERVER  [color=66aaff][tornado radius=2 freq=8]%s[/tornado][/color]
   PEERS    [color=aa66ff][tornado radius=2 freq=8]%s[/tornado][/color]
 	'''
 	var connected = Multiplayer.check_connected()
-	var is_server = Multiplayer.api.is_server()
+	var is_server = connected and Multiplayer.api.is_server()
 	Multiplayer.player_name = get_node_or_null(\"Username\").text
 	Multiplayer.player_color = get_node_or_null(\"Username/Color\").color
 	$Connect.visible = !connected
 	$Host.visible = !connected
 	$Address.editable = !connected
+	$Username.editable = !connected
+	$Username/Color.disabled = connected
 	$Leave.visible = connected
 	$Start.visible = connected and is_server
 	$Stats.text = text % [
@@ -97,7 +99,7 @@ func try_host():
 func try_connect():
 	Multiplayer.join($Address.text)
 func try_start():
-	Multiplayer.rpc(\"start\",$\"../../Details\".mapset.id,$\"../../Details\".map_index)
+	Multiplayer.lobby.rpc(\"start\",$\"../../Details\".mapset.id,$\"../../Details\".map_index)
 func try_leave():
 	Multiplayer.leave()
 func try_edit_display():

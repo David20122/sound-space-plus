@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cg3dmd535x5qe"]
+
+[ext_resource type="Script" path="res://scripts/multi/Player.gd" id="1_li8a1"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_f3qa5"]
+properties/0/path = NodePath(".:nickname")
+properties/0/spawn = true
+properties/0/sync = false
+properties/1/path = NodePath(".:color")
+properties/1/spawn = true
+properties/1/sync = false
+
+[node name="Player" type="Node"]
+script = ExtResource("1_li8a1")
+
+[node name="PlayerSync" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_f3qa5")

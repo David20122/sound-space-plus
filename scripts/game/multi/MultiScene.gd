@@ -17,7 +17,7 @@ func _ready():
 	local_player.get_node("SyncManager").connect("finished",func(): rpc("ended"))
 	local_player.get_node("Origin/Player").connect("failed",func(): rpc("ended"))
 	
-	for player in Multiplayer.players.values():
+	for player in Multiplayer.lobby.players.values():
 		if player == Multiplayer.local_player: continue
 		var scene = preload("res://prefabs/game/multi/MultiGameScene.tscn").instantiate()
 		scene.root_path = get_path()
@@ -29,7 +29,7 @@ func _ready():
 		cursor.set("material_override/albedo_color", player.color)
 		print(
 			"{name}'s player color is {color}".format({
-				"name": player.name,
+				"name": player.nickname,
 				"color": str(player.color)
 			})
 		)
@@ -43,7 +43,7 @@ func ended():
 	if !Multiplayer.api.is_server(): return
 	var id = Multiplayer.api.get_remote_sender_id()
 	players_ended[id] = true
-	if players_ended.has_all(Multiplayer.players.keys()):
+	if players_ended.has_all(Multiplayer.lobby.players.keys()):
 		rpc("finish")
 
 @rpc("authority","call_local","reliable")
@@ -56,7 +56,7 @@ func done():
 	if !Multiplayer.api.is_server(): return
 	var id = Multiplayer.api.get_remote_sender_id()
 	players_done[id] = true
-	if players_done.has_all(Multiplayer.players.keys()):
+	if players_done.has_all(Multiplayer.lobby.players.keys()):
 		rpc("start")
 
 @rpc("authority","call_local","reliable")
