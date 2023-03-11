@@ -99,6 +99,7 @@ func connected():
 func disconnected():
 	mp_print("Disconnected from server")
 	lobby.queue_free()
+	lobby = null
 
 func peer_authenticating(id:int):
 	mp_print("Peer attempting to connect %s" % id)
@@ -109,3 +110,4 @@ func peer_added(id:int):
 	mp_print("Peer connected %s" % id)
 func peer_removed(id:int):
 	mp_print("Peer disconnected %s" % id)
+	lobby.players[id].queue_free()
