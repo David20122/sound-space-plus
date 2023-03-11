@@ -100,8 +100,6 @@ map? [color=aa66ff][tornado radius=2 freq=8]%s[/tornado][/color]
 	$Connect.visible = !connected
 	$Host.visible = !connected
 	$Address.editable = !connected
-	if is_server:
-		$Address.text = Multiplayer.upnp.query_external_address()
 	$Username.editable = !connected
 	$Username/Color.disabled = connected
 	$Leave.visible = connected

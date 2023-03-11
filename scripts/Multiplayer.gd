@@ -89,7 +89,6 @@ func auth_callback(id:int,data:PackedByteArray):
 	player.nickname = player_data.get("nickname","Player")
 	player.color = player_data.get("color",Color.WHITE)
 	api.complete_auth(id)
-	rpc_id(id,"local_player_created")
 
 func connected():
 	mp_print("Connected to a server")
