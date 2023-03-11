@@ -31,6 +31,7 @@ mesh = ExtResource("4_f6t5n")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bcjx1"]
 transparency = 1
+cull_mode = 2
 albedo_texture = ExtResource("7_ljeqw")
 
 [sub_resource type="QuadMesh" id="QuadMesh_w03ih"]
