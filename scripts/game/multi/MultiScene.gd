@@ -10,7 +10,7 @@ var map_index:int
 
 func _ready():
 	local_player.network_player = Multiplayer.local_player
-	local_player.name = Multiplayer.player_name
+	local_player.name = Multiplayer.api.get_unique_id()
 	local_player.get_node_or_null("Origin/Player/Cursor/DisplayName").text = Multiplayer.player_name
 	local_player.set_multiplayer_authority(Multiplayer.api.get_unique_id())
 	
