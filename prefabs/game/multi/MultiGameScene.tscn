@@ -145,6 +145,7 @@ libraries = {
 "": SubResource("AnimationLibrary_5yjcu")
 }
 script = ExtResource("8_d3h5w")
+type = "nametag"
 
 [node name="Grid" type="Node3D" parent="Origin"]
 script = ExtResource("8_mlpkq")
