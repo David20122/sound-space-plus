@@ -29,10 +29,10 @@ func update():
 		AudioServer.get_bus_index("Game SFX"),linear_to_db(volume.game_sfx))
 	# Window mode
 	var window = ssp.get_window()
-#	window.borderless = data.window_mode != WindowMode.WINDOWED
 	match data.window_mode:
 		WindowMode.WINDOWED:
-			window.mode = Window.MODE_WINDOWED
+			if window.mode == Window.MODE_FULLSCREEN or window.mode == Window.MODE_EXCLUSIVE_FULLSCREEN:
+				window.mode = Window.MODE_WINDOWED
 		WindowMode.BORDERLESS:
 			window.mode = Window.MODE_FULLSCREEN
 		WindowMode.FULLSCREEN:

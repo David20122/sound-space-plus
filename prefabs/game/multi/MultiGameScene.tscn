@@ -19,6 +19,9 @@ properties/0/sync = true
 properties/1/path = NodePath("Origin/Player/Cursor:position")
 properties/1/spawn = false
 properties/1/sync = true
+properties/2/path = NodePath("SyncManager:playing")
+properties/2/spawn = false
+properties/2/sync = true
 
 [sub_resource type="MultiMesh" id="MultiMesh_mhkfy"]
 transform_format = 1
@@ -145,7 +148,6 @@ libraries = {
 "": SubResource("AnimationLibrary_5yjcu")
 }
 script = ExtResource("8_d3h5w")
-type = "nametag"
 
 [node name="Grid" type="Node3D" parent="Origin"]
 script = ExtResource("8_mlpkq")

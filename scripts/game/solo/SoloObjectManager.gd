@@ -5,4 +5,4 @@ func prepare(_game:GameScene):
 	
 	append_object(origin.get_node("World"),false)
 	append_object(origin.get_node("HUD"),false)
-	build_map(game.map)
+#	build_map(game.map)

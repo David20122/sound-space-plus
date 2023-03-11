@@ -26,9 +26,11 @@ var cursor_position:Vector2 = Vector2.ZERO
 var clamped_cursor_position:Vector2 = Vector2.ZERO
 
 func hit_object_state_changed(state:int,object:HitObject):
+	if !local_player: return
 	if lock_score: return
 	match state:
 		HitObject.HitState.HIT:
+			rpc("replicate_hit",object.id,true)
 			hit.emit(object)
 			score.hits += 1
 			score.combo += 1
@@ -39,6 +41,7 @@ func hit_object_state_changed(state:int,object:HitObject):
 			score.score += 25 * score.multiplier
 			if !did_fail: health = minf(health+0.625,5)
 		HitObject.HitState.MISS:
+			rpc("replicate_hit",object.id,false)
 			missed.emit(object)
 			score.misses += 1
 			score.combo = 0
@@ -50,6 +53,7 @@ func hit_object_state_changed(state:int,object:HitObject):
 		fail()
 
 func fail():
+	if !local_player: return
 	did_fail = true
 	if !game.mods.no_fail:
 		lock_score = true
@@ -86,19 +90,15 @@ func _process(_delta):
 	var parallax = Vector3(clamped_cursor_position.x,clamped_cursor_position.y,0)
 	parallax *= game.settings.parallax
 	camera.position = camera_origin + (parallax + camera.basis.z) / 4
-	if game.settings.controls.spin:
-		camera.look_at(parallax)
 
 func _physics_process(_delta):
 	var cursor_hitbox = 0.2625
 	var hitwindow = 1.75/30
-	
 	var objects = manager.objects_to_process
 	for object in objects:
 		if game.sync_manager.current_time < object.spawn_time: break
 		if object.hit_state != HitObject.HitState.NONE: continue
 		if !(object.hittable and object.can_hit): continue
-		
 		var x = abs(object.position.x - clamped_cursor_position.x)
 		var y = abs(object.position.y - clamped_cursor_position.y)
 		var object_scale = object.global_transform.basis.get_scale()
@@ -109,3 +109,11 @@ func _physics_process(_delta):
 		elif object is NoteObject:
 			if game.sync_manager.current_time > (object as NoteObject).note.time + hitwindow:
 				object.miss()
+
+@rpc("authority","call_remote","unreliable_ordered")
+func replicate_hit(object_id:String,hit:bool):
+	var object = manager.objects_ids.get(object_id)
+	if object is HitObject:
+		if object.hit_state != HitObject.HitState.NONE: return
+		if hit: object.hit()
+		else: object.miss()

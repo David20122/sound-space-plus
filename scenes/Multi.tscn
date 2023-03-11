@@ -25,6 +25,9 @@ properties/0/sync = true
 properties/1/path = NodePath("Origin/Player/Cursor:position")
 properties/1/spawn = false
 properties/1/sync = true
+properties/2/path = NodePath("SyncManager:playing")
+properties/2/spawn = false
+properties/2/sync = true
 
 [sub_resource type="MultiMesh" id="MultiMesh_0hitx"]
 transform_format = 1
@@ -47,10 +50,10 @@ metadata/is_game = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_3hc50")
 
-[node name="Players" type="Node" parent="."]
+[node name="Players" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.5)
 
 [node name="LocalPlayer" type="Node3D" parent="Players"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.5)
 script = ExtResource("2_lmscg")
 root_path = NodePath("../..")
 sync_manager_path = NodePath("SyncManager")

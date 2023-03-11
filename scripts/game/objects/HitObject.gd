@@ -16,6 +16,7 @@ var hit_state:int = HitState.NONE:
 	set(value):
 		hit_state = value
 		on_hit_state_changed.emit(value)
+		self.force_despawn = hit_state != HitState.NONE
 
 func hit():
 	if hit_state != HitState.NONE: return

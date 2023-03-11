@@ -37,6 +37,9 @@ func just_unpaused():
 
 func _process(delta):
 	if !playing: return
+	if !is_multiplayer_authority():
+		current_time = real_time
+		return
 	var now = Time.get_ticks_usec()
 	var time = playback_speed * (now - last_time) / 1000000.0
 	last_time = now

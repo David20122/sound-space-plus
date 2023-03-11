@@ -1,4 +1,5 @@
 extends GameScene
+class_name MultiGameScene
 
 @export_node_path("Node3D") var root_path
 @onready var multi_scene:MultiScene = get_node(root_path)
