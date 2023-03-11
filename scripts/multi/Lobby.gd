@@ -7,7 +7,13 @@ signal player_removed
 @export var host:Player
 @onready var player_container = $PlayerContainer
 
-var players:Dictionary = {}
+var players:Dictionary:
+	get:
+		var dict = {}
+		for player in get_children():
+			if player is Player:
+				dict[player.id] = player
+		return dict
 func create_player(id:int):
 	var player = preload("res://prefabs/multi/Player.tscn").instantiate()
 	player.id = id
