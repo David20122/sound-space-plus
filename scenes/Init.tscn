@@ -159,22 +159,22 @@ grow_vertical = 0
 stream = ExtResource("7")
 volume_db = -80.0
 autoplay = true
-bus = &"Sound Space Plus"
+bus = &"Menu Music"
 
 [node name="Phaser" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6")
 volume_db = -80.0
 autoplay = true
-bus = &"Sound Space Plus"
+bus = &"Menu Music"
 
 [node name="Drums" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4")
 volume_db = -80.0
 autoplay = true
-bus = &"Sound Space Plus"
+bus = &"Menu Music"
 
 [node name="Strings" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5")
 volume_db = -80.0
 autoplay = true
-bus = &"Sound Space Plus"
+bus = &"Menu Music"

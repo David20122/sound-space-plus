@@ -1,8 +1,12 @@
 extends Node
 class_name Lobby
 
-signal player_added
-signal player_removed
+@export var map_id:String
+
+@rpc("authority","call_local","reliable")
+func set_map_id(_map_id:String):
+	map_id = _map_id
+	Multiplayer.local_player.rpc_id(1,"set_has_map",map_id in SoundSpacePlus.mapsets.get_ids())
 
 @export var host:Player
 @onready var player_container = $PlayerContainer

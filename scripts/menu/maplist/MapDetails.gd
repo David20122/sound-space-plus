@@ -1,6 +1,8 @@
 extends Control
 class_name MapDetails
 
+signal on_map_selected
+
 @export var maplist_path: NodePath
 @onready var maplist:MapList = get_node(maplist_path)
 
@@ -68,6 +70,7 @@ func update():
 		index += 1
 
 func map_selected(selected_index:int=0):
+	on_map_selected.emit(mapset.id,selected_index)
 	map_index = selected_index
 	for button in map_buttons:
 		button.button_pressed = false

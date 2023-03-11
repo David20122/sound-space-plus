@@ -66,20 +66,37 @@ func _ready():
 	$Host.pressed.connect(try_host)
 	$Start.pressed.connect(try_start)
 	$Leave.pressed.connect(try_leave)
+	$\"../../Details\".on_map_selected.connect(try_set_map)
 #	$Username.text_changed.connect(try_edit_display)
 #	$Username/Color.color_changed.connect(try_edit_color)
 
+func try_set_map(map_id:String,_map_index:int):
+	var connected = Multiplayer.check_connected()
+	var is_server = connected and Multiplayer.api.is_server()
+	if !is_server: return
+	Multiplayer.lobby.rpc(\"set_map_id\",map_id)
+
 func _process(_delta):
 	var text = '''
-[color=white]CONNECTED [color=66aaff][tornado radius=2 freq=8]%s[/tornado][/color]
-IS SERVER [color=66aaff][tornado radius=2 freq=8]%s[/tornado][/color]
-PEER ID [color=aa66ff][tornado radius=2 freq=8]%s[/tornado][/color]
-PEERS [color=aa66ff][tornado radius=2 freq=8]%s[/tornado][/color]
+[color=white]connected? [color=66aaff][tornado radius=2 freq=8]%s[/tornado][/color]
+is server? [color=66aaff][tornado radius=2 freq=8]%s[/tornado][/color]
+peer id? [color=aa66ff][tornado radius=2 freq=8]%s[/tornado][/color]
+peers? [color=aa66ff][tornado radius=2 freq=8]%s[/tornado][/color]
+map? [color=aa66ff][tornado radius=2 freq=8]%s[/tornado][/color]
 	'''
 	var connected = Multiplayer.check_connected()
 	var is_server = connected and Multiplayer.api.is_server()
 	Multiplayer.player_name = get_node_or_null(\"Username\").text
 	Multiplayer.player_color = get_node_or_null(\"Username/Color\").color
+	var map_id = \"none\"
+	var all_have_map = false
+	if connected:
+		map_id = Multiplayer.lobby.map_id
+		all_have_map = true
+		for player in Multiplayer.lobby.players.values():
+			if !player.has_map:
+				all_have_map = false
+				break
 	$Connect.visible = !connected
 	$Host.visible = !connected
 	$Address.editable = !connected
@@ -89,15 +106,22 @@ PEERS [color=aa66ff][tornado radius=2 freq=8]%s[/tornado][/color]
 	$Username/Color.disabled = connected
 	$Leave.visible = connected
 	$Start.visible = connected and is_server
+	$Start.disabled = !all_have_map
+	if all_have_map:
+		$Start.tooltip_text = \"\"
+	else:
+		$Start.tooltip_text = \"Some players don't have this map\"
 	$Stats.text = text % [
-		str(connected).to_upper(),
-		str(is_server).to_upper(),
+		str(connected),
+		str(is_server),
 		Multiplayer.api.get_unique_id(),
-		Multiplayer.api.get_peers().size()
+		Multiplayer.api.get_peers().size(),
+		map_id
 	]
 
 func try_host():
 	Multiplayer.host()
+	Multiplayer.lobby.rpc(\"set_map_id\",$\"../../Details\".mapset.id)
 func try_connect():
 	Multiplayer.join($Address.text)
 func try_start():

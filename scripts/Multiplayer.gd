@@ -18,8 +18,8 @@ func mp_print(string):
 func _ready():
 	upnp.discover()
 	if upnp.get_gateway() and upnp.get_gateway().is_valid_gateway():
-		upnp.add_port_mapping(MP_PORT,MP_PORT,"Sound Space Plus","UDP")
-		upnp.add_port_mapping(MP_PORT,MP_PORT,"Sound Space Plus","TCP")
+		print(upnp.add_port_mapping(MP_PORT,MP_PORT,"Sound Space Plus","UDP"))
+		print(upnp.add_port_mapping(MP_PORT,MP_PORT,"Sound Space Plus","TCP"))
 	
 	api.auth_callback = auth_callback
 	api.peer_authenticating.connect(peer_authenticating)
@@ -31,12 +31,11 @@ func _ready():
 	api.peer_connected.connect(peer_added)
 	api.peer_disconnected.connect(peer_removed)
 func _exit_tree():
-	if upnp.get_gateway() and upnp.get_gateway().is_valid_gateway():
-		upnp.delete_port_mapping(MP_PORT,"UDP")
-		upnp.delete_port_mapping(MP_PORT,"TCP")
+	upnp.delete_port_mapping(MP_PORT,"UDP")
+	upnp.delete_port_mapping(MP_PORT,"TCP")
 
 func check_connected():
-	return peer.get_connection_status() != MultiplayerPeer.CONNECTION_DISCONNECTED
+	return lobby and peer.get_connection_status() == MultiplayerPeer.CONNECTION_CONNECTED
 
 func host(port:int=MP_PORT) -> Error:
 	if check_connected():
@@ -47,7 +46,7 @@ func host(port:int=MP_PORT) -> Error:
 	print(err)
 	if err == OK:
 		connected()
-		local_player = lobby.create_player(1)
+		lobby.create_player(1)
 		local_player.nickname = player_name
 		local_player.color = player_color
 	return err
@@ -57,14 +56,14 @@ func join(address:String="127.0.0.1",port:int=MP_PORT) -> Error:
 	var err = peer.create_client(address,port)
 	mp_print("Joining a server %s on port %s" % [address,port])
 	api.multiplayer_peer = peer
-	if err != OK:
-		print(err)
-		peer.close()
 	return err
 func leave():
 	peer.close()
 
-var local_player:Player
+var local_player:Player:
+	get:
+		return lobby.players[api.get_unique_id()]
+
 func send_auth(id:int):
 	var packet = PackedByteArray()
 	packet.resize(128)
@@ -90,10 +89,12 @@ func auth_callback(id:int,data:PackedByteArray):
 	player.nickname = player_data.get("nickname","Player")
 	player.color = player_data.get("color",Color.WHITE)
 	api.complete_auth(id)
+	rpc_id(id,"local_player_created")
 
 func connected():
 	mp_print("Connected to a server")
 	lobby = preload("res://prefabs/multi/Lobby.tscn").instantiate()
+	lobby.set_multiplayer_authority(1)
 	add_child(lobby)
 func disconnected():
 	mp_print("Disconnected from server")
