@@ -110,7 +110,6 @@ func _load_content(full_reload=false):
 		])
 		list.load_mapsets()
 		playlists.add_item(list)
-		print(list.cover)
 	call_deferred("emit_signal","on_init_stage",null,[{text="Free PlaylistReader",max=map_count,value=map_idx}])
 	list_reader.call_deferred("free")
 func _do_init():
