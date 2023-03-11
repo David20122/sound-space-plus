@@ -33,7 +33,7 @@ func _notification(what):
 func just_paused():
 	pass
 func just_unpaused():
-	pass
+	last_time = Time.get_ticks_usec()
 
 func _process(delta):
 	if !playing: return
