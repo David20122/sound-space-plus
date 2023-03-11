@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://cu2rno2ef0dtr"]
+[gd_scene load_steps=40 format=3 uid="uid://cu2rno2ef0dtr"]
 
 [ext_resource type="PackedScene" uid="uid://de1sj0rkm2iu7" path="res://prefabs/menu/VersionNumberR.tscn" id="1"]
 [ext_resource type="Theme" uid="uid://diarojdcbhxg8" path="res://uitheme.tres" id="2"]
@@ -23,7 +23,6 @@
 [ext_resource type="Script" path="res://scripts/menu/maplist/SpeedMods.gd" id="11_cs64u"]
 [ext_resource type="Script" path="res://scripts/menu/settings/VolumeLabel.gd" id="12_vqp4p"]
 [ext_resource type="Script" path="res://scripts/menu/settings/SliderControl.gd" id="13_5sex8"]
-[ext_resource type="Script" path="res://scripts/menu/main/Switch.gd" id="14_qiur1"]
 [ext_resource type="Script" path="res://scripts/menu/main/Sidebar.gd" id="18"]
 [ext_resource type="Script" path="res://scripts/menu/main/Warning.gd" id="19"]
 [ext_resource type="AudioStream" uid="uid://chricmmpsvuxi" path="res://assets/sounds/music/menu_loop.ogg" id="22_645dr"]
@@ -53,100 +52,6 @@ corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
-
-[sub_resource type="GDScript" id="GDScript_bo13b"]
-resource_name = "TempOnlineMenu"
-script/source = "extends Control
-
-var display_param:String = \"Player\"
-var color_param:Color = Color(1,1,1,1)
-
-func _ready():
-	$Connect.pressed.connect(try_connect)
-	$Host.pressed.connect(try_host)
-	$Start.pressed.connect(try_start)
-	$Leave.pressed.connect(try_leave)
-	$\"../../Details\".on_map_selected.connect(try_set_map)
-#	$Username.text_changed.connect(try_edit_display)
-#	$Username/Color.color_changed.connect(try_edit_color)
-
-func try_set_map(map_id:String,_map_index:int):
-	var connected = Multiplayer.check_connected()
-	var is_server = connected and Multiplayer.api.is_server()
-	if !is_server: return
-	Multiplayer.lobby.rpc(\"set_map_id\",map_id)
-
-func _process(_delta):
-	var text = '''
-[color=white]connected? [color=66aaff][tornado radius=2 freq=8]%s[/tornado][/color]
-is server? [color=66aaff][tornado radius=2 freq=8]%s[/tornado][/color]
-peer id? [color=aa66ff][tornado radius=2 freq=8]%s[/tornado][/color]
-peers? [color=aa66ff][tornado radius=2 freq=8]%s[/tornado][/color]
-map? [color=aa66ff][tornado radius=2 freq=8]%s[/tornado][/color]
-	'''
-	var connected = Multiplayer.check_connected()
-	var is_server = connected and Multiplayer.api.is_server()
-	Multiplayer.player_name = get_node_or_null(\"Username\").text
-	Multiplayer.player_color = get_node_or_null(\"Username/Color\").color
-	var map_id = \"none\"
-	var all_have_map = false
-	if connected:
-		map_id = Multiplayer.lobby.map_id
-		all_have_map = true
-		for player in Multiplayer.lobby.players.values():
-			if !player.has_map:
-				all_have_map = false
-				break
-	$Connect.visible = !connected
-	$Host.visible = !connected
-	$Address.editable = !connected
-	$Username.editable = !connected
-	$Username/Color.disabled = connected
-	$Leave.visible = connected
-	$Start.visible = connected and is_server
-	$Start.disabled = !all_have_map
-	if all_have_map:
-		$Start.tooltip_text = \"\"
-	else:
-		$Start.tooltip_text = \"Some players don't have this map\"
-	$Stats.text = text % [
-		str(connected),
-		str(is_server),
-		Multiplayer.api.get_unique_id(),
-		Multiplayer.api.get_peers().size(),
-		map_id
-	]
-
-func try_host():
-	Multiplayer.host()
-	Multiplayer.lobby.rpc(\"set_map_id\",$\"../../Details\".mapset.id)
-func try_connect():
-	Multiplayer.join($Address.text)
-func try_start():
-	Multiplayer.lobby.rpc(\"start\",$\"../../Details\".mapset.id,$\"../../Details\".map_index)
-func try_leave():
-	Multiplayer.leave()
-func try_edit_display():
-	pass
-#	Multiplayer.player_name = display_param
-func try_edit_color():
-	pass
-#	Multiplayer.player_color = color_param
-"
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vdfm4"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h51lb"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_g8llu"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s2xqs"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_30dm7"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_tb08h"]
-font_size = 12
-font_color = Color(1, 1, 1, 0.392157)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lykwc"]
 
@@ -353,8 +258,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 4.0
 offset_top = 4.0
-offset_right = 324.0
-offset_bottom = 417.0
+offset_right = -4.0
+offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
@@ -735,10 +640,8 @@ vertical_alignment = 2
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_tvhpi")
-script = ExtResource("14_qiur1")
 
 [node name="Local" type="TabContainer" parent="Main/TabBar/Solo/MapDetails/Play"]
-visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -925,20 +828,6 @@ grow_horizontal = 2
 grow_vertical = 0
 text = "PLAY"
 
-[node name="Multiplayer" type="Button" parent="Main/TabBar/Solo/MapDetails/Play/Local/Play"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 8.0
-offset_top = -83.0
-offset_right = -325.0
-offset_bottom = -56.0
-grow_horizontal = 2
-grow_vertical = 0
-text = "SWITCH TO MULTIPLAYER"
-
 [node name="Leaderboard" type="Control" parent="Main/TabBar/Solo/MapDetails/Play/Local"]
 visible = false
 layout_mode = 2
@@ -954,141 +843,9 @@ text = "There's nothing here."
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Online" type="Control" parent="Main/TabBar/Solo/MapDetails/Play"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = SubResource("GDScript_bo13b")
-
-[node name="Label" type="Label" parent="Main/TabBar/Solo/MapDetails/Play/Online"]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 48.0
-grow_horizontal = 2
-text = "Online Testing"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Stats" type="RichTextLabel" parent="Main/TabBar/Solo/MapDetails/Play/Online"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 8.0
-offset_top = 84.0
-grow_horizontal = 2
-grow_vertical = 2
-bbcode_enabled = true
-text = "[color=white]connected? [color=66aaff][tornado radius=2 freq=8]false[/tornado][/color]
-is server? [color=66aaff][tornado radius=2 freq=8]false[/tornado][/color]
-peer id? [color=aa66ff][tornado radius=2 freq=8]0[/tornado][/color]
-peers? [color=aa66ff][tornado radius=2 freq=8]0[/tornado][/color]"
-
-[node name="Singleplayer" type="Button" parent="Main/TabBar/Solo/MapDetails/Play/Online/Stats"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 8.0
-offset_top = -36.0
-offset_right = -325.0
-offset_bottom = -9.0
-grow_horizontal = 2
-grow_vertical = 0
-text = "SWITCH TO SINGLEPLAYER"
-
-[node name="Address" type="LineEdit" parent="Main/TabBar/Solo/MapDetails/Play/Online"]
-layout_mode = 0
-offset_left = 16.0
-offset_top = 52.0
-offset_right = 216.0
-offset_bottom = 79.0
-text = "127.0.0.1"
-
-[node name="Connect" type="Button" parent="Main/TabBar/Solo/MapDetails/Play/Online"]
-layout_mode = 0
-offset_left = 224.0
-offset_top = 52.0
-offset_right = 344.0
-offset_bottom = 79.0
-text = "Connect"
-
-[node name="Host" type="Button" parent="Main/TabBar/Solo/MapDetails/Play/Online"]
-layout_mode = 0
-offset_left = 352.0
-offset_top = 52.0
-offset_right = 472.0
-offset_bottom = 79.0
-text = "Host"
-
-[node name="Start" type="Button" parent="Main/TabBar/Solo/MapDetails/Play/Online"]
+[node name="Lobby" type="Control" parent="Main/TabBar"]
 visible = false
-layout_mode = 0
-offset_left = 224.0
-offset_top = 52.0
-offset_right = 344.0
-offset_bottom = 79.0
-text = "Start"
-
-[node name="Leave" type="Button" parent="Main/TabBar/Solo/MapDetails/Play/Online"]
-visible = false
-layout_mode = 0
-offset_left = 352.0
-offset_top = 52.0
-offset_right = 472.0
-offset_bottom = 79.0
-text = "Leave"
-
-[node name="Username" type="LineEdit" parent="Main/TabBar/Solo/MapDetails/Play/Online"]
-layout_mode = 0
-offset_left = 16.0
-offset_top = 223.0
-offset_right = 216.0
-offset_bottom = 250.0
-placeholder_text = "Nickname"
-max_length = 20
-
-[node name="Color" type="ColorPickerButton" parent="Main/TabBar/Solo/MapDetails/Play/Online/Username"]
-layout_mode = 0
-offset_left = 208.0
-offset_right = 235.0
-offset_bottom = 26.0
-theme_override_styles/normal = SubResource("StyleBoxEmpty_vdfm4")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_h51lb")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_g8llu")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_s2xqs")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_30dm7")
-color = Color(1, 1, 1, 1)
-edit_alpha = false
-
-[node name="Label" type="Label" parent="Main/TabBar/Solo/MapDetails/Play/Online/Username/Color"]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_left = 32.0
-offset_right = 112.0
-offset_bottom = 27.0
-grow_horizontal = 2
-text = "Cursor Color"
-vertical_alignment = 1
-
-[node name="Label2" type="Label" parent="Main/TabBar/Solo/MapDetails/Play/Online"]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_left = 16.0
-offset_top = 196.0
-offset_right = -8.0
-offset_bottom = 223.0
-grow_horizontal = 2
-text = "NOTE: These settings only show for other users, not yourself"
-label_settings = SubResource("LabelSettings_tb08h")
-vertical_alignment = 1
+layout_mode = 2
 
 [node name="Content" type="Control" parent="Main/TabBar"]
 visible = false
@@ -1867,7 +1624,34 @@ anchor_bottom = 1.0
 offset_left = 64.0
 size_flags_horizontal = 2
 theme_override_font_sizes/font_size = 24
-text = "Singleplayer"
+text = "Map Select"
+vertical_alignment = 1
+
+[node name="Multi" type="Button" parent="Sidebar/Buttons"]
+visible = false
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+flat = true
+
+[node name="Icon" type="TextureRect" parent="Sidebar/Buttons/Multi"]
+layout_mode = 0
+anchor_bottom = 1.0
+offset_top = 8.0
+offset_right = 64.0
+offset_bottom = -8.0
+texture = ExtResource("4")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Sidebar/Buttons/Multi"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 64.0
+size_flags_horizontal = 2
+theme_override_font_sizes/font_size = 24
+text = "Multiplayer"
 vertical_alignment = 1
 
 [node name="Content" type="Button" parent="Sidebar/Buttons"]
