@@ -1,6 +1,7 @@
 extends Node
 
 const MP_VERSION = 1
+const MP_PORT = 12345
 
 var lobby:Lobby
 
@@ -8,12 +9,18 @@ var player_name:String = "Player"
 var player_color:Color = Color(1,1,1,1)
 
 @onready var api:SceneMultiplayer = get_tree().get_multiplayer()
-@onready var peer:MultiplayerPeer = ENetMultiplayerPeer.new()
+@onready var peer:ENetMultiplayerPeer = ENetMultiplayerPeer.new()
+@onready var upnp:UPNP = UPNP.new()
 
 func mp_print(string):
-	print("%s:" % api.get_unique_id(),string)
+	print("%s : " % api.get_unique_id(),string)
 
 func _ready():
+	upnp.discover()
+	if upnp.get_gateway() and upnp.get_gateway().is_valid_gateway():
+		upnp.add_port_mapping(MP_PORT,MP_PORT,"Sound Space Plus","UDP")
+		upnp.add_port_mapping(MP_PORT,MP_PORT,"Sound Space Plus","TCP")
+	
 	api.auth_callback = auth_callback
 	api.peer_authenticating.connect(peer_authenticating)
 	api.peer_authentication_failed.connect(peer_auth_failed)
@@ -23,28 +30,36 @@ func _ready():
 	
 	api.peer_connected.connect(peer_added)
 	api.peer_disconnected.connect(peer_removed)
+func _exit_tree():
+	if upnp.get_gateway() and upnp.get_gateway().is_valid_gateway():
+		upnp.delete_port_mapping(MP_PORT,"UDP")
+		upnp.delete_port_mapping(MP_PORT,"TCP")
 
 func check_connected():
 	return peer.get_connection_status() != MultiplayerPeer.CONNECTION_DISCONNECTED
 
-func host(port:int=12345) -> Error:
+func host(port:int=MP_PORT) -> Error:
 	if check_connected():
 		peer.close()
 	var err = peer.create_server(port)
 	mp_print("Hosting a server on port %s" % port)
 	api.multiplayer_peer = peer
+	print(err)
 	if err == OK:
 		connected()
 		local_player = lobby.create_player(1)
 		local_player.nickname = player_name
 		local_player.color = player_color
 	return err
-func join(address:String="127.0.0.1",port:int=12345) -> Error:
+func join(address:String="127.0.0.1",port:int=MP_PORT) -> Error:
 	if check_connected():
 		peer.close()
 	var err = peer.create_client(address,port)
-	mp_print("Joining a server on port %s" % port)
+	mp_print("Joining a server %s on port %s" % [address,port])
 	api.multiplayer_peer = peer
+	if err != OK:
+		print(err)
+		peer.close()
 	return err
 func leave():
 	peer.close()

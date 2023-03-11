@@ -71,10 +71,10 @@ func _ready():
 
 func _process(_delta):
 	var text = '''
-[color=white]CONNECTED  [color=66aaff][tornado radius=2 freq=8]%s[/tornado][/color]
-IS SERVER  [color=66aaff][tornado radius=2 freq=8]%s[/tornado][/color]
- PEER ID   [color=aa66ff][tornado radius=2 freq=8]%s[/tornado][/color]
-  PEERS    [color=aa66ff][tornado radius=2 freq=8]%s[/tornado][/color]
+[color=white]CONNECTED [color=66aaff][tornado radius=2 freq=8]%s[/tornado][/color]
+IS SERVER [color=66aaff][tornado radius=2 freq=8]%s[/tornado][/color]
+PEER ID [color=aa66ff][tornado radius=2 freq=8]%s[/tornado][/color]
+PEERS [color=aa66ff][tornado radius=2 freq=8]%s[/tornado][/color]
 	'''
 	var connected = Multiplayer.check_connected()
 	var is_server = connected and Multiplayer.api.is_server()
@@ -83,6 +83,8 @@ IS SERVER  [color=66aaff][tornado radius=2 freq=8]%s[/tornado][/color]
 	$Connect.visible = !connected
 	$Host.visible = !connected
 	$Address.editable = !connected
+	if is_server:
+		$Address.text = Multiplayer.upnp.query_external_address()
 	$Username.editable = !connected
 	$Username/Color.disabled = connected
 	$Leave.visible = connected
