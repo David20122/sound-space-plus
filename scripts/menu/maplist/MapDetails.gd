@@ -71,7 +71,7 @@ func update():
 		map_buttons_list.add_child(button)
 		map_buttons.append(button)
 		index += 1
-	$Convert.visible = mapset.format != 3
+#	$Convert.visible = mapset.format != 3
 
 func map_selected(selected_index:int=0):
 	on_map_selected.emit(mapset.id,selected_index)

@@ -25,7 +25,7 @@ func create_player(id:int):
 	return player
 
 @rpc("authority","call_local","reliable")
-func start(mapset_id:String,map_index:int=0):
-	var mapset = SoundSpacePlus.mapsets.get_by_id(mapset_id)
+func start(map_index:int=0):
+	var mapset = SoundSpacePlus.mapsets.get_by_id(map_id)
 	var scene = SoundSpacePlus.load_game_scene(SoundSpacePlus.GameType.MULTI,mapset,map_index)
 	get_tree().change_scene_to_node(scene)
