@@ -1,7 +1,8 @@
 extends Node3D
 class_name MultiScene
 
-var mods:Mods = Mods.new()
+var mods:Mods
+
 var mapset:Mapset
 var map_index:int
 
@@ -16,8 +17,6 @@ func find_transform(index:int,total:int):
 			return Transform3D.IDENTITY.rotated(Vector3.UP,deg_to_rad(180)).translated(Vector3(3.5,0,SoundSpacePlus.settings.approach.distance/2))
 
 func _ready():
-	mods.no_fail = true
-	
 	local_player.network_player = Multiplayer.local_player
 	local_player.name = str(Multiplayer.api.get_unique_id())
 	local_player.set_multiplayer_authority(Multiplayer.api.get_unique_id())

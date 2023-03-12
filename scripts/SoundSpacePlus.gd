@@ -162,7 +162,7 @@ func load_game_scene(game_type:int,mapset:Mapset,map_index:int=0):
 		GameType.MULTI:
 			var packed_scene:PackedScene = preload("res://scenes/Multi.tscn")
 			scene = packed_scene.instantiate()
-#			scene.mods = selected_mods
+			scene.mods = Multiplayer.lobby.mods
 			scene.mapset = full_mapset
 			scene.map_index = map_index
 	game_scene = scene

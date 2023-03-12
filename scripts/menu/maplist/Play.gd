@@ -17,6 +17,7 @@ func attempt_play():
 	var is_server = connected and Multiplayer.api.is_server()
 	if connected and !is_server: return
 	elif is_server:
+		Multiplayer.lobby.rpc("set_mods",SoundSpacePlus.selected_mods.data)
 		Multiplayer.lobby.rpc("start")
 		return
 	var mapset = map_details.mapset

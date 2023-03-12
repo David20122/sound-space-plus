@@ -9,6 +9,9 @@ properties/0/sync = true
 properties/1/path = NodePath(".:map_id")
 properties/1/spawn = true
 properties/1/sync = true
+properties/2/path = NodePath(".:mods")
+properties/2/spawn = true
+properties/2/sync = true
 
 [node name="Lobby" type="Node"]
 script = ExtResource("1_orl33")
