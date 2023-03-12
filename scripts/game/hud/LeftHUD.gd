@@ -35,4 +35,6 @@ func _process(_delta):
 	$Score.text = HUDManager.comma_sep(visible_score)
 	if score.total > 0:
 		$Accuracy.text = "%.2f%%" % (float(score.hits*100)/float(score.total))
+		Globals.Stats["ACCURACY"] = $Accuracy.text
+		Multiplayer.player_accuracy = Globals.Stats.get("ACCURACY")
 	$Rank.text = score.rank

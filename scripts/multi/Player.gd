@@ -10,6 +10,8 @@ var connected:bool = true
 
 @export var nickname:String
 @export var color:Color
+@export var accuracy:String
+@export var misses:String
 
 @export var has_map:bool = false
 @rpc("any_peer","call_local","reliable")

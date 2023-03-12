@@ -7,6 +7,8 @@ var lobby:Lobby
 
 var player_name:String = "Player"
 var player_color:Color = Color(1,1,1,1)
+var player_accuracy:String = "-"
+var player_misses:String = "0"
 
 @onready var api:SceneMultiplayer = get_tree().get_multiplayer()
 @onready var peer:ENetMultiplayerPeer = ENetMultiplayerPeer.new()
@@ -69,7 +71,9 @@ func send_auth(id:int):
 	packet.resize(128)
 	var player_data = {
 		nickname = player_name,
-		color = player_color
+		color = player_color,
+		accuracy = player_accuracy,
+		misses = player_misses
 	}
 	packet.encode_u8(0,MP_VERSION)
 	packet.encode_var(1,player_data)

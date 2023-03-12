@@ -75,7 +75,31 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.5, 2.5, 3),
 "transitions": PackedFloat32Array(0.25, 1, 4, 1),
 "update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 0.3, 0), Vector3(0, 0.3, 0), Vector3(0, 0, 0)]
+"values": [Vector3(0, 0, 0), Vector3(0, 0.35, 0), Vector3(0, 0.35, 0), Vector3(0, 0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../Accuracy:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.2, 0.7, 2.3, 2.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../Accuracy:outline_modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.2, 0.7, 2.3, 2.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1), Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5yjcu"]
@@ -136,15 +160,27 @@ material_override = SubResource("StandardMaterial3D_bcjx1")
 transparency = 1.0
 mesh = SubResource("QuadMesh_w03ih")
 
-[node name="DisplayName" type="Label3D" parent="Origin/Player/Cursor"]
+[node name="DisplayName" type="Node3D" parent="Origin/Player/Cursor"]
+
+[node name="Tag" type="Label3D" parent="Origin/Player/Cursor/DisplayName"]
 transform = Transform3D(0.996734, 0, -0.0807556, 0, 1, 0, 0.0807556, 0, 0.996734, 0, 0, 0)
 billboard = 1
 modulate = Color(1, 1, 1, 0)
 outline_modulate = Color(0, 0, 0, 0)
-text = "display name"
+text = "Player"
 font_size = 26
 
+[node name="Accuracy" type="Label3D" parent="Origin/Player/Cursor/DisplayName"]
+transform = Transform3D(0.996734, 0, -0.0807556, 0, 1, 0, 0.0807556, 0, 0.996734, 0, 0.2, 0)
+billboard = 1
+modulate = Color(1, 1, 1, 0)
+outline_modulate = Color(0, 0, 0, 0)
+text = "99.99%"
+font_size = 13
+outline_size = 6
+
 [node name="Fade" type="AnimationPlayer" parent="Origin/Player/Cursor/DisplayName"]
+root_node = NodePath("../Tag")
 libraries = {
 "": SubResource("AnimationLibrary_5yjcu")
 }

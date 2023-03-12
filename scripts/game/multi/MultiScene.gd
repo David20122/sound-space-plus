@@ -36,7 +36,8 @@ func _ready():
 		scene.name = str(player.id)
 		scene.set_multiplayer_authority(player.id)
 		scene.transform = find_transform(i,players.size()-1)
-		scene.get_node("Origin/Player/Cursor/DisplayName").text = player.nickname
+		scene.get_node("Origin/Player/Cursor/DisplayName/Tag").text = player.nickname
+		scene.get_node("Origin/Player/Cursor/DisplayName/Accuracy").text = player.accuracy
 		var cursor:MeshInstance3D = scene.get_node("Origin/Player/Cursor/Real")
 		cursor.material_override.albedo_color = player.color
 		var ghost:MeshInstance3D = scene.get_node("Origin/Player/Cursor/Ghost")
