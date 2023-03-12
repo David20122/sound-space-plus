@@ -127,6 +127,7 @@ process_priority = 1
 script = ExtResource("3_g3nrp")
 
 [node name="NoteRenderer" type="MultiMeshInstance3D" parent="ObjectManager"]
+visible = false
 multimesh = SubResource("MultiMesh_mhkfy")
 script = ExtResource("5_danis")
 
@@ -168,16 +169,16 @@ billboard = 1
 modulate = Color(1, 1, 1, 0)
 outline_modulate = Color(0, 0, 0, 0)
 text = "Player"
-font_size = 26
+font_size = 18
+outline_size = 14
 
 [node name="Accuracy" type="Label3D" parent="Origin/Player/Cursor/DisplayName"]
 transform = Transform3D(0.996734, 0, -0.0807556, 0, 1, 0, 0.0807556, 0, 0.996734, 0, 0.2, 0)
 billboard = 1
 modulate = Color(1, 1, 1, 0)
 outline_modulate = Color(0, 0, 0, 0)
-text = "99.99%"
-font_size = 13
-outline_size = 6
+text = "-"
+font_size = 16
 
 [node name="Fade" type="AnimationPlayer" parent="Origin/Player/Cursor/DisplayName"]
 root_node = NodePath("../Tag")
@@ -185,6 +186,7 @@ libraries = {
 "": SubResource("AnimationLibrary_5yjcu")
 }
 script = ExtResource("8_d3h5w")
+type = "nametag"
 
 [node name="Grid" type="Node3D" parent="Origin"]
 script = ExtResource("8_mlpkq")

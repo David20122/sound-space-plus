@@ -33,5 +33,3 @@ func _process(_delta):
 		tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
 		tween.tween_property($Multiplier/Progress,"value",score.sub_multiplier,0.1)
 		tween.play()
-	Globals.Stats["MISSES"] = $Misses.text
-	Multiplayer.player_accuracy = Globals.Stats.get("MISSES")

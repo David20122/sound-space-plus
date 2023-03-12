@@ -57,19 +57,33 @@ func _exec_initialiser(initialiser:String):
 	assert(err == OK) #,"Thread failed")
 	call_deferred("emit_signal","on_init_start",initialiser)
 	return thread
-func _load_content(full_reload=false):
-	# Import maps
-	if full_reload: mapsets.clear()
+func _load_mapsets(reset:bool=false):
+	if reset: mapsets.clear()
 	var song_reader = MapsetReader.new()
 	var map_files = []
 	if !DirAccess.dir_exists_absolute(Globals.Folders.get("maps")):
 		DirAccess.make_dir_recursive_absolute(Globals.Folders.get("maps"))
 	var maps_dir = DirAccess.open(Globals.Folders.get("maps"))
 	maps_dir.list_dir_begin() # TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
+	var paths = mapsets.items.map(func(mapset):
+		if mapset.broken: return "null"
+		return mapset.path
+	)
+	var new_paths = []
 	var file_name = maps_dir.get_next()
 	while file_name != "":
-		map_files.append(Globals.Folders.get("maps").path_join(file_name))
+		var path = Globals.Folders.get("maps").path_join(file_name)
+		new_paths.append(path)
+		if not path in paths: map_files.append(path)
 		file_name = maps_dir.get_next()
+	if !reset:
+		call_deferred("emit_signal","on_init_stage","Import content (1/2)",[
+			{text="Remove missing maps",max=1,value=1}
+		])
+		for path in paths:
+			if path == "null" or path in new_paths:
+				continue
+			mapsets.remove_item(mapsets.items[paths.find(path)])
 	var map_count = map_files.size()
 	call_deferred("emit_signal","on_init_stage","Import content (1/2)",[
 		{text="Import maps (0/%s)" % map_count,max=map_count,value=0}
@@ -85,8 +99,8 @@ func _load_content(full_reload=false):
 		mapsets.add_item(song)
 	call_deferred("emit_signal","on_init_stage",null,[{text="Free MapsetReader",max=map_count,value=map_idx}])
 	song_reader.call_deferred("free")
-	# Import playlists
-	if full_reload: playlists.clear()
+func _load_playlists(reset:bool=false):
+	if reset: playlists.clear()
 	var list_reader = PlaylistReader.new()
 	var list_files = []
 	if !DirAccess.dir_exists_absolute(Globals.Folders.get("playlists")):
@@ -110,17 +124,19 @@ func _load_content(full_reload=false):
 		])
 		list.load_mapsets()
 		playlists.add_item(list)
-	call_deferred("emit_signal","on_init_stage",null,[{text="Free PlaylistReader",max=map_count,value=map_idx}])
+	call_deferred("emit_signal","on_init_stage",null,[{text="Free PlaylistReader",max=list_count,value=list_idx}])
 	list_reader.call_deferred("free")
 func _do_init():
 	call_deferred("emit_signal","on_init_stage","Waiting")
-	_load_content(true)
+	_load_mapsets(true)
+	_load_playlists(true)
 	call_deferred("emit_signal","on_init_stage","Update folders")
 	Globals.call_deferred("update_folders")
 	call_deferred("emit_signal","on_init_complete")
 func _reload():
 	call_deferred("emit_signal","on_init_stage","Reloading content")
-	_load_content(false)
+	_load_mapsets(false)
+	_load_playlists(false)
 	call_deferred("emit_signal","on_init_complete")
 
 # Game Scene

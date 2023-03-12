@@ -8,4 +8,5 @@ func _ready():
 func _input(event):
 	match type.to_lower():
 		"nametag":
+			if !event.is_action_pressed("playerlist"): return
 			play("anim")

@@ -90,10 +90,5 @@ const StatusMessages = {
 	EDITOR = [Color("#2483b3"),"You are running the game from the editor. Some features may be disabled."]
 }
 
-var Stats = { # only adding acc here because this is all we need for now
-	"ACCURACY": "-",
-	"MISSES": "0"
-}
-
 func _ready():
 	update_folders()

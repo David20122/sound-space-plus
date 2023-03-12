@@ -26,11 +26,10 @@ var cursor_position:Vector2 = Vector2.ZERO
 var clamped_cursor_position:Vector2 = Vector2.ZERO
 
 func hit_object_state_changed(state:int,object:HitObject):
-	if !local_player: return
 	if lock_score: return
 	match state:
 		HitObject.HitState.HIT:
-			rpc("replicate_hit",object.id,true)
+			if local_player: rpc("replicate_hit",object.id,true)
 			hit.emit(object)
 			score.hits += 1
 			score.combo += 1
@@ -41,7 +40,7 @@ func hit_object_state_changed(state:int,object:HitObject):
 			score.score += 25 * score.multiplier
 			if !did_fail: health = minf(health+0.625,5)
 		HitObject.HitState.MISS:
-			rpc("replicate_hit",object.id,false)
+			if local_player: rpc("replicate_hit",object.id,false)
 			missed.emit(object)
 			score.misses += 1
 			score.combo = 0
@@ -61,7 +60,6 @@ func fail():
 
 func _ready():
 	set_process_input(local_player)
-	set_process(local_player)
 	set_physics_process(local_player)
 	if local_player: # and !get_tree().vr_enabled:
 		camera.make_current()
@@ -82,6 +80,11 @@ func _input(event):
 		if game.settings.controls.drift:
 			cursor_position = clamped_cursor_position
 func _process(_delta):
+	var display_name = cursor.get_node_or_null("DisplayName")
+	if display_name and score.total > 0:
+		display_name.get_node("Accuracy").text = "%.2f%%" % (float(score.hits*100)/float(score.total))
+	
+	if !local_player: return
 	var difference = cursor_position - clamped_cursor_position
 	cursor.position = Vector3(clamped_cursor_position.x,clamped_cursor_position.y,0)
 	ghost.position = Vector3(difference.x,difference.y,0.01)

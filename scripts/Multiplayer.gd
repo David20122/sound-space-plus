@@ -1,14 +1,13 @@
 extends Node
 
-const MP_VERSION = 1
+const MP_VERSION = 2
 const MP_PORT = 12345
 
 var lobby:Lobby
+var server_ip:String
 
 var player_name:String = "Player"
 var player_color:Color = Color(1,1,1,1)
-var player_accuracy:String = "-"
-var player_misses:String = "0"
 
 @onready var api:SceneMultiplayer = get_tree().get_multiplayer()
 @onready var peer:ENetMultiplayerPeer = ENetMultiplayerPeer.new()
@@ -37,7 +36,7 @@ func _exit_tree():
 	upnp.delete_port_mapping(MP_PORT,"TCP")
 
 func check_connected():
-	return lobby and peer.get_connection_status() == MultiplayerPeer.CONNECTION_CONNECTED
+	return lobby and local_player and peer.get_connection_status() == MultiplayerPeer.CONNECTION_CONNECTED
 
 func host(port:int=MP_PORT) -> Error:
 	if check_connected():
@@ -45,7 +44,7 @@ func host(port:int=MP_PORT) -> Error:
 	var err = peer.create_server(port)
 	mp_print("Hosting a server on port %s" % port)
 	api.multiplayer_peer = peer
-	print(err)
+	server_ip = upnp.query_external_address()
 	if err == OK:
 		connected()
 		lobby.create_player(1)
@@ -56,6 +55,7 @@ func join(address:String="127.0.0.1",port:int=MP_PORT) -> Error:
 	if check_connected():
 		peer.close()
 	var err = peer.create_client(address,port)
+	server_ip = address
 	mp_print("Joining a server %s on port %s" % [address,port])
 	api.multiplayer_peer = peer
 	return err
@@ -64,16 +64,14 @@ func leave():
 
 var local_player:Player:
 	get:
-		return lobby.players[api.get_unique_id()]
+		return lobby.players.get(api.get_unique_id())
 
 func send_auth(id:int):
 	var packet = PackedByteArray()
 	packet.resize(128)
 	var player_data = {
 		nickname = player_name,
-		color = player_color,
-		accuracy = player_accuracy,
-		misses = player_misses
+		color = player_color
 	}
 	packet.encode_u8(0,MP_VERSION)
 	packet.encode_var(1,player_data)
