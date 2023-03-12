@@ -55,8 +55,8 @@ func _sspmv3(file:FileAccess,set:Mapset,full:bool,index:int=-1):
 	set.maps = []
 	set.maps.resize(map_count)
 	for i in range(map_count):
+		print("Reading map %s from mapset" % i)
 		var map = Map.new()
-		map.legacy = false
 		var dname_length = file.get_16()
 		map.name = file.get_buffer(dname_length).get_string_from_utf16()
 		var data_length = file.get_64()
@@ -75,8 +75,8 @@ func deserialise_v3_data(data:String,map:Map):
 	for note_data in parsed.get("notes",[]):
 		var note = Map.Note.new()
 		note.index = note_data.index
-		note.x = note_data.position.x
-		note.y = note_data.position.y
+		note.x = note_data.position[0]
+		note.y = note_data.position[1]
 		note.time = note_data.time
 		note.data = note_data
 		map.notes.append(note)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://utrrws85seld"]
+[gd_scene load_steps=21 format=3 uid="uid://utrrws85seld"]
 
 [ext_resource type="Script" path="res://scripts/game/solo/SoloGameScene.gd" id="1_ulth4"]
 [ext_resource type="Script" path="res://scripts/game/managers/AudioSyncManager.gd" id="2_o63a0"]
@@ -29,6 +29,9 @@ albedo_texture = ExtResource("8_y20xf")
 [sub_resource type="QuadMesh" id="QuadMesh_rq05a"]
 flip_faces = true
 size = Vector2(0.525, 0.525)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_gac3e"]
+viewport_path = NodePath("BackgroundVideo/VideoContainer")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h1g1i"]
 bg_color = Color(0.188235, 0.188235, 0.188235, 1)
@@ -106,6 +109,26 @@ permanent = true
 
 [node name="HUD" parent="Origin" instance=ExtResource("10_i0uko")]
 process_priority = -1
+
+[node name="BackgroundVideo" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+sorting_offset = -1024.0
+texture = SubResource("ViewportTexture_gac3e")
+
+[node name="VideoContainer" type="SubViewport" parent="BackgroundVideo"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(1920, 1080)
+
+[node name="VideoPlayer" type="VideoStreamPlayer" parent="BackgroundVideo/VideoContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+volume_db = -80.0
+expand = true
+buffering_msec = 1000
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 bus = &"Game Music"

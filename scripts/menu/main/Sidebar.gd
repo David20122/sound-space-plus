@@ -5,7 +5,7 @@ extends Control
 var showing = false
 
 @onready var tabs = $"../Main/TabBar"
-@onready var pages = [ $Buttons/Play, $Buttons/Content, $Buttons/Credits, $Buttons/Settings ]
+@onready var pages = [ $Buttons/Play, $Buttons/Multi, $Buttons/Content, $Buttons/Credits, $Buttons/Settings ]
 
 func _ready():
 	$Open.connect("mouse_entered",Callable(self,"show_bar"))

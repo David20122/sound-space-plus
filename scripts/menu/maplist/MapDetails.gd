@@ -17,16 +17,19 @@ var map_index:int
 func _ready():
 	origin_map_button.visible = false
 	$"../".visible = false
-	maplist.connect("on_mapset_selected",Callable(self,"mapset_selected"))
+	maplist.on_mapset_selected.connect(mapset_selected)
+	$Convert.pressed.connect(convert_map)
 
 func mapset_selected(selected_mapset:Mapset):
 	$"../".visible = true
 	mapset = selected_mapset
 	update()
-	map_selected(0)
+	if mapset != null: map_selected(0)
 
 func update():
-	if mapset == null: return
+	if mapset == null:
+		$"../".visible = false
+		return
 	if mapset.cover == null:
 		$CoverContainer/Cover.texture = preload("res://assets/images/branding/icon.png")
 	else:
@@ -68,6 +71,7 @@ func update():
 		map_buttons_list.add_child(button)
 		map_buttons.append(button)
 		index += 1
+	$Convert.visible = mapset.format != 3
 
 func map_selected(selected_index:int=0):
 	on_map_selected.emit(mapset.id,selected_index)
@@ -77,3 +81,14 @@ func map_selected(selected_index:int=0):
 		button.size_flags_stretch_ratio = 1
 	map_buttons[map_index].button_pressed = true
 	map_buttons[map_index].size_flags_stretch_ratio = 1.2
+
+func convert_map():
+	if mapset.format == 3: return
+	var reader = MapsetReader.new()
+	var full_map = reader.read_from_file(mapset.path,true)
+	reader.free()
+	var writer = MapsetWriter.new()
+	writer.write_to_file(full_map,mapset.path)
+	writer.free()
+	mapset.broken = true
+	mapset_selected(null)
