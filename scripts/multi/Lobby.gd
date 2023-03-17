@@ -7,11 +7,11 @@ func set_mods(data:Dictionary):
 	mods = Mods.new()
 	mods.data = data
 
-@export var map_id:String
-@rpc("authority","call_local","reliable")
-func set_map_id(_map_id:String):
-	map_id = _map_id
-	Multiplayer.local_player.rpc_id(1,"set_has_map",map_id in SoundSpacePlus.mapsets.get_ids())
+@export var map_id:String:
+	get: return map_id
+	set(value):
+		Multiplayer.local_player.has_map = value in SoundSpacePlus.mapsets.get_ids()
+		map_id = value
 
 @export var host:int = 1
 @onready var player_container = $PlayerContainer

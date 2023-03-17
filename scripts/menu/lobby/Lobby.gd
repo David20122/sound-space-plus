@@ -45,9 +45,9 @@ func _process(delta):
 		for player in Multiplayer.lobby.players.values():
 			var name = "[color=#%s]%s[/color]" % [player.color.to_html(false),player.nickname]
 			if player.id == 1:
-				name += " [lb][wave amp=8 freq=4] Host [/wave][rb]"
+				name += " [lb][wave amp=32 freq=12] Host [/wave][rb]"
 			if player.id == Multiplayer.api.get_unique_id():
-				name += " [lb][wave amp=8 freq=4] You [/wave][rb]"
+				name += " [lb][wave amp=32 freq=12] You [/wave][rb]"
 			text += name + "\n"
 		$Players/List.text = text
 		$Details.visible = true

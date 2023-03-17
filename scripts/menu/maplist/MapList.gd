@@ -87,7 +87,7 @@ func mapset_button_pressed(button:MapsetButton):
 	selected_mapset = button.mapset
 	on_mapset_selected.emit(selected_mapset)
 	if Multiplayer.check_connected() and Multiplayer.api.is_server():
-		Multiplayer.lobby.rpc("set_map_id",selected_mapset.id)
+		Multiplayer.lobby.map_id = selected_mapset.id
 	for btn in buttons.values():
 		if btn == button: continue
 		btn.update()

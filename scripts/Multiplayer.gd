@@ -64,7 +64,8 @@ func leave():
 
 var local_player:Player:
 	get:
-		return lobby.players.get(api.get_unique_id())
+		if lobby.players: return lobby.players.get(api.get_unique_id())
+		return null
 
 func send_auth(id:int):
 	var packet = PackedByteArray()
@@ -94,13 +95,17 @@ func auth_callback(id:int,data:PackedByteArray):
 
 func connected():
 	mp_print("Connected to a server")
+	get_tree().paused = true
 	lobby = preload("res://prefabs/multi/Lobby.tscn").instantiate()
 	lobby.set_multiplayer_authority(1)
 	add_child(lobby)
+	get_tree().paused = false
 func disconnected():
 	mp_print("Disconnected from server")
+	get_tree().paused = true
 	lobby.queue_free()
 	lobby = null
+	get_tree().paused = false
 
 func peer_authenticating(id:int):
 	mp_print("Peer attempting to connect %s" % id)
@@ -111,4 +116,5 @@ func peer_added(id:int):
 	mp_print("Peer connected %s" % id)
 func peer_removed(id:int):
 	mp_print("Peer disconnected %s" % id)
-	lobby.players[id].queue_free()
+	if api.is_server(): lobby.players[id].queue_free()
+	elif id == 1: peer.close()

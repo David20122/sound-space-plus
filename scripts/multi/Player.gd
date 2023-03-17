@@ -12,8 +12,3 @@ var connected:bool = true
 @export var color:Color
 
 @export var has_map:bool = false
-@rpc("any_peer","call_local","reliable")
-func set_has_map(_has_map:bool):
-	if Multiplayer.api.get_remote_sender_id() != id: return
-	if Multiplayer.api.get_unique_id() != 1: return
-	has_map = _has_map
