@@ -18,11 +18,16 @@ func _init(_id:String=str(Time.get_ticks_usec())):
 
 func _process(_delta):
 	if game == null or manager == null: return
-	visible = visible_at(game.sync_manager.current_time)
+	visible = get_visibility(game.sync_manager.current_time)
 	if !visible: return
 	update(game.sync_manager.current_time)
+	update_transform()
 
 func update(_current_time:float):
 	pass
-func visible_at(current_time:float):
+
+func get_visibility(current_time:float):
 	return permanent or (spawn_time <= current_time and despawn_time >= current_time)
+
+func update_transform():
+	pass

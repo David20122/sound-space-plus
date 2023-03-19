@@ -19,7 +19,5 @@ func update(current_time:float):
 	var time = (note.time-current_time)/(note.time-spawn_time)
 	transform.origin = Vector3(-note.x+1,-note.y+1,time*spawn_distance)
 
-func visible_at(current_time:float):
-	if hit_state != HitState.NONE: return false
-	var time = note.time-current_time
-	return time <= 1
+func get_visibility(current_time:float):
+	return hit_state == HitState.NONE

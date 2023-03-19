@@ -1,14 +1,14 @@
-[gd_scene load_steps=18 format=3 uid="uid://1ss4csvrfyhn"]
+[gd_scene load_steps=18 format=3]
 
 [ext_resource type="Script" path="res://scripts/game/multi/MultiGameScene.gd" id="1_d1cu3"]
 [ext_resource type="Script" path="res://scripts/game/managers/SyncManager.gd" id="2_p4j1d"]
 [ext_resource type="Script" path="res://scripts/game/managers/ObjectManager.gd" id="3_g3nrp"]
 [ext_resource type="ArrayMesh" uid="uid://o8qaywrhkgih" path="res://assets/content/blocks/meshes/cube.obj" id="4_f6t5n"]
 [ext_resource type="Script" path="res://scripts/game/renderers/NoteRenderer.gd" id="5_danis"]
-[ext_resource type="Script" path="res://scripts/game/objects/PlayerObject.gd" id="6_1miqb"]
+[ext_resource type="Script" path="res://scripts/game/map/objects/PlayerObject.gd" id="6_1miqb"]
 [ext_resource type="Texture2D" uid="uid://ctmjd7r2b7750" path="res://assets/images/default_cursor.png" id="7_ljeqw"]
 [ext_resource type="Script" path="res://scripts/game/hud/PlayAnimation.gd" id="8_d3h5w"]
-[ext_resource type="Script" path="res://scripts/game/objects/GameObject.gd" id="8_mlpkq"]
+[ext_resource type="Script" path="res://scripts/game/map/objects/GameObject.gd" id="8_mlpkq"]
 [ext_resource type="Texture2D" uid="uid://d1mkaxv1bs88f" path="res://assets/images/grid_outer.png" id="9_mw751"]
 [ext_resource type="Texture2D" uid="uid://cftumuph2lfnj" path="res://assets/images/grid_inner.png" id="10_k4uv8"]
 

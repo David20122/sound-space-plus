@@ -1,9 +1,9 @@
-[gd_scene load_steps=21 format=3 uid="uid://utrrws85seld"]
+[gd_scene load_steps=21 format=3]
 
 [ext_resource type="Script" path="res://scripts/game/solo/SoloGameScene.gd" id="1_ulth4"]
 [ext_resource type="Script" path="res://scripts/game/managers/AudioSyncManager.gd" id="2_o63a0"]
-[ext_resource type="Script" path="res://scripts/game/objects/PlayerObject.gd" id="2_owl32"]
-[ext_resource type="Script" path="res://scripts/game/objects/GameObject.gd" id="3_pci65"]
+[ext_resource type="Script" path="res://scripts/game/map/objects/PlayerObject.gd" id="2_owl32"]
+[ext_resource type="Script" path="res://scripts/game/map/objects/GameObject.gd" id="3_pci65"]
 [ext_resource type="Script" path="res://scripts/game/solo/SoloObjectManager.gd" id="3_ylywr"]
 [ext_resource type="ArrayMesh" uid="uid://o8qaywrhkgih" path="res://assets/content/blocks/meshes/cube.obj" id="4_6o7l0"]
 [ext_resource type="Script" path="res://scripts/game/renderers/NoteRenderer.gd" id="4_tvxv6"]

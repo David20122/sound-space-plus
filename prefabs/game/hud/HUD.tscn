@@ -1,6 +1,6 @@
-[gd_scene load_steps=17 format=3 uid="uid://2ytv06ccswo1"]
+[gd_scene load_steps=17 format=3]
 
-[ext_resource type="Script" path="res://scripts/game/objects/GameObject.gd" id="1_siigk"]
+[ext_resource type="Script" path="res://scripts/game/map/objects/GameObject.gd" id="1_siigk"]
 [ext_resource type="Script" path="res://scripts/game/hud/EnergyHUD.gd" id="2_jjhor"]
 [ext_resource type="PackedScene" uid="uid://y0h0ei541c0x" path="res://prefabs/game/hud/Right.tscn" id="2_lsrsk"]
 [ext_resource type="Texture2D" uid="uid://d1mkaxv1bs88f" path="res://assets/images/grid_outer.png" id="2_tb2s1"]
