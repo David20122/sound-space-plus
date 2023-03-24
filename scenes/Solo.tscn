@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3]
+[gd_scene load_steps=21 format=3 uid="uid://ddypjfskuxw11"]
 
 [ext_resource type="Script" path="res://scripts/game/solo/SoloGameScene.gd" id="1_ulth4"]
 [ext_resource type="Script" path="res://scripts/game/managers/AudioSyncManager.gd" id="2_o63a0"]
@@ -9,7 +9,7 @@
 [ext_resource type="Script" path="res://scripts/game/renderers/NoteRenderer.gd" id="4_tvxv6"]
 [ext_resource type="Script" path="res://scripts/game/solo/HUDManager.gd" id="6_g35bn"]
 [ext_resource type="Texture2D" uid="uid://ctmjd7r2b7750" path="res://assets/images/default_cursor.png" id="8_y20xf"]
-[ext_resource type="PackedScene" uid="uid://2ytv06ccswo1" path="res://prefabs/game/hud/HUD.tscn" id="10_i0uko"]
+[ext_resource type="PackedScene" path="res://prefabs/game/hud/HUD.tscn" id="10_i0uko"]
 [ext_resource type="Theme" uid="uid://diarojdcbhxg8" path="res://uitheme.tres" id="11_e8h1i"]
 [ext_resource type="Script" path="res://scripts/game/solo/PauseHandler.gd" id="12_7ktyo"]
 [ext_resource type="Texture2D" uid="uid://cmx7ntw62nhki" path="res://assets/images/ui/play_circle.png" id="12_oxpux"]
@@ -112,6 +112,7 @@ process_priority = -1
 
 [node name="BackgroundVideo" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+visible = false
 sorting_offset = -1024.0
 texture = SubResource("ViewportTexture_gac3e")
 

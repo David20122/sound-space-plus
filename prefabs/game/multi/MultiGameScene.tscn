@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3]
+[gd_scene load_steps=18 format=3 uid="uid://bf8e1sbjcnqdd"]
 
 [ext_resource type="Script" path="res://scripts/game/multi/MultiGameScene.gd" id="1_d1cu3"]
 [ext_resource type="Script" path="res://scripts/game/managers/SyncManager.gd" id="2_p4j1d"]

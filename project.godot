@@ -22,11 +22,8 @@ config/icon="res://assets/images/branding/icon.png"
 run/main_loop_type="SceneTreePlus"
 config/auto_accept_quit=false
 config/quit_on_go_back=false
-run/delta_sync_after_draw=true
 config/version="rewrite"
 networking/enabled=true
-networking/test_url="https://google.com"
-networking/api_url="https://soundspaceplus.dev/api/"
 config/menu_scene="res://scenes/Menu.tscn"
 startup/disable_intro=true
 startup/disable_health_warning=true
@@ -39,6 +36,8 @@ outro/play_sound=true
 outro/disabled.editor=true
 startup/disable_intro.debug=true
 startup/disable_health_warning.editor=true
+networking/server="https://soundspaceplus.dev/"
+networking/archive_index="https://cdn.soundspaceplus.dev/index.json"
 
 [audio]
 
