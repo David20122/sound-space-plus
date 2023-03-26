@@ -18,63 +18,70 @@ environment = SubResource("Environment_td30n")
 [node name="Rings" type="Node3D" parent="."]
 
 [node name="Ring" type="Sprite3D" parent="Rings"]
-visibility_range_end = 35.0
-visibility_range_end_margin = 10.0
+visibility_range_end = 40.0
+visibility_range_end_margin = 5.0
 visibility_range_fade_mode = 1
-pixel_size = 0.005
+pixel_size = 0.0075
 texture = ExtResource("1_u5yoy")
 script = ExtResource("2_n3x7k")
+ring_speed = 8.0
 
 [node name="Ring3" type="Sprite3D" parent="Rings"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15)
-visibility_range_end = 35.0
-visibility_range_end_margin = 10.0
+visibility_range_end = 40.0
+visibility_range_end_margin = 5.0
 visibility_range_fade_mode = 1
-pixel_size = 0.005
+pixel_size = 0.0075
 texture = ExtResource("1_u5yoy")
 script = ExtResource("2_n3x7k")
+ring_speed = 8.0
 
 [node name="Ring5" type="Sprite3D" parent="Rings"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 30)
-visibility_range_end = 35.0
-visibility_range_end_margin = 10.0
+visibility_range_end = 40.0
+visibility_range_end_margin = 5.0
 visibility_range_fade_mode = 1
-pixel_size = 0.005
+pixel_size = 0.0075
 texture = ExtResource("1_u5yoy")
 script = ExtResource("2_n3x7k")
+ring_speed = 8.0
 
 [node name="Ring7" type="Sprite3D" parent="Rings"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 45)
-visibility_range_end = 35.0
-visibility_range_end_margin = 10.0
+visibility_range_end = 40.0
+visibility_range_end_margin = 5.0
 visibility_range_fade_mode = 1
-pixel_size = 0.005
+pixel_size = 0.0075
 texture = ExtResource("1_u5yoy")
 script = ExtResource("2_n3x7k")
+ring_speed = 8.0
 
 [node name="Ring9" type="Sprite3D" parent="Rings"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -45)
-visibility_range_end = 35.0
-visibility_range_end_margin = 10.0
+visibility_range_end = 40.0
+visibility_range_end_margin = 5.0
 visibility_range_fade_mode = 1
-pixel_size = 0.005
+pixel_size = 0.0075
 texture = ExtResource("1_u5yoy")
 script = ExtResource("2_n3x7k")
+ring_speed = 8.0
 
 [node name="Ring11" type="Sprite3D" parent="Rings"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -30)
-visibility_range_end = 35.0
-visibility_range_end_margin = 10.0
+visibility_range_end = 40.0
+visibility_range_end_margin = 5.0
 visibility_range_fade_mode = 1
-pixel_size = 0.005
+pixel_size = 0.0075
 texture = ExtResource("1_u5yoy")
 script = ExtResource("2_n3x7k")
+ring_speed = 8.0
 
 [node name="Ring13" type="Sprite3D" parent="Rings"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -15)
-visibility_range_end = 35.0
-visibility_range_end_margin = 10.0
+visibility_range_end = 40.0
+visibility_range_end_margin = 5.0
 visibility_range_fade_mode = 1
-pixel_size = 0.005
+pixel_size = 0.0075
 texture = ExtResource("1_u5yoy")
 script = ExtResource("2_n3x7k")
+ring_speed = 8.0

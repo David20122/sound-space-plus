@@ -2,7 +2,7 @@ extends Node3D
 
 var game:GameScene
 
-@export var ring_speed:float = 7.5
+@export var ring_speed:float = 15
 
 func _ready():
 	game = $"../../".get_meta("game")
