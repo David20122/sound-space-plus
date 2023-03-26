@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3]
+[gd_scene load_steps=17 format=3 uid="uid://6yhjme3rcn8o"]
 
 [ext_resource type="Script" path="res://scripts/game/multi/MultiScene.gd" id="1_mvm6r"]
 [ext_resource type="Script" path="res://scripts/game/multi/MultiGameScene.gd" id="2_lmscg"]
@@ -10,7 +10,7 @@
 [ext_resource type="Script" path="res://scripts/game/map/objects/PlayerObject.gd" id="8_efis3"]
 [ext_resource type="Texture2D" uid="uid://ctmjd7r2b7750" path="res://assets/images/default_cursor.png" id="9_7tht2"]
 [ext_resource type="Script" path="res://scripts/game/map/objects/GameObject.gd" id="11_2i1oo"]
-[ext_resource type="PackedScene" uid="uid://2ytv06ccswo1" path="res://prefabs/game/hud/HUD.tscn" id="11_ihmcu"]
+[ext_resource type="PackedScene" path="res://prefabs/game/hud/HUD.tscn" id="11_ihmcu"]
 
 [sub_resource type="Environment" id="Environment_3hc50"]
 background_mode = 1

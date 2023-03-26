@@ -1,6 +1,6 @@
 extends Node
 
-const MP_VERSION = 2
+const MP_VERSION = 3
 const MP_PORT = 12345
 
 var lobby:Lobby
@@ -36,7 +36,7 @@ func _exit_tree():
 	upnp.delete_port_mapping(MP_PORT,"TCP")
 
 func check_connected():
-	return lobby and local_player and peer.get_connection_status() == MultiplayerPeer.CONNECTION_CONNECTED
+	return lobby and peer.get_connection_status() == MultiplayerPeer.CONNECTION_CONNECTED
 
 func host(port:int=MP_PORT) -> Error:
 	if check_connected():
@@ -46,10 +46,8 @@ func host(port:int=MP_PORT) -> Error:
 	api.multiplayer_peer = peer
 	server_ip = upnp.query_external_address()
 	if err == OK:
-		connected()
-		lobby.create_player(1)
-		local_player.nickname = player_name
-		local_player.color = player_color
+		create_lobby()
+		lobby.create_player(1,player_name,player_color)
 	return err
 func join(address:String="127.0.0.1",port:int=MP_PORT) -> Error:
 	if check_connected():
@@ -88,18 +86,22 @@ func auth_callback(id:int,data:PackedByteArray):
 		return
 	if !api.is_server(): return
 	var player_data:Dictionary = data.decode_var(1)
-	var player = lobby.create_player(id)
-	player.nickname = player_data.get("nickname","Player")
-	player.color = player_data.get("color",Color.WHITE)
+	var nickname = player_data.get("nickname","Player")
+	var color = player_data.get("color",Color.WHITE)
+	lobby.create_player(id,nickname,color)
 	api.complete_auth(id)
 
-func connected():
+func create_lobby():
 	mp_print("Connected to a server")
 	get_tree().paused = true
 	lobby = preload("res://prefabs/multi/Lobby.tscn").instantiate()
 	lobby.set_multiplayer_authority(1)
 	add_child(lobby)
 	get_tree().paused = false
+
+func connected():
+	mp_print("Connected to a server")
+	create_lobby()
 func disconnected():
 	mp_print("Disconnected from server")
 	get_tree().paused = true

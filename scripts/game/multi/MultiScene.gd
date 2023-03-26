@@ -29,7 +29,7 @@ func _ready():
 	for player in players:
 		if player == Multiplayer.local_player: continue
 		i += 1
-		var scene = preload("res://prefabs/game/multi/MultiGameScene.tscn").instantiate()
+		var scene = preload("res://prefabs/multi/MultiGameScene.tscn").instantiate()
 		scene.root_path = get_path()
 		scene.network_player = player
 		scene.name = str(player.id)
