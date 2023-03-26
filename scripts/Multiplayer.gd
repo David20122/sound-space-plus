@@ -18,9 +18,6 @@ func mp_print(string):
 
 func _ready():
 	upnp.discover()
-	if upnp.get_gateway() and upnp.get_gateway().is_valid_gateway():
-		print(upnp.add_port_mapping(MP_PORT,MP_PORT,"Sound Space Plus","UDP"))
-		print(upnp.add_port_mapping(MP_PORT,MP_PORT,"Sound Space Plus","TCP"))
 	
 	api.auth_callback = auth_callback
 	api.peer_authenticating.connect(peer_authenticating)
@@ -31,9 +28,6 @@ func _ready():
 	
 	api.peer_connected.connect(peer_added)
 	api.peer_disconnected.connect(peer_removed)
-func _exit_tree():
-	upnp.delete_port_mapping(MP_PORT,"UDP")
-	upnp.delete_port_mapping(MP_PORT,"TCP")
 
 func check_connected():
 	return lobby and peer.get_connection_status() == MultiplayerPeer.CONNECTION_CONNECTED
@@ -46,6 +40,9 @@ func host(port:int=MP_PORT) -> Error:
 	api.multiplayer_peer = peer
 	server_ip = upnp.query_external_address()
 	if err == OK:
+		if upnp.get_gateway() and upnp.get_gateway().is_valid_gateway():
+			print(upnp.add_port_mapping(MP_PORT,MP_PORT,"Sound Space Plus","UDP",3600))
+			print(upnp.add_port_mapping(MP_PORT,MP_PORT,"Sound Space Plus","TCP",3600))
 		create_lobby()
 		lobby.create_player(1,player_name,player_color)
 	return err
@@ -58,6 +55,9 @@ func join(address:String="127.0.0.1",port:int=MP_PORT) -> Error:
 	api.multiplayer_peer = peer
 	return err
 func leave():
+	if api.is_server():
+		upnp.delete_port_mapping(MP_PORT,"UDP")
+		upnp.delete_port_mapping(MP_PORT,"TCP")
 	peer.close()
 
 var local_player:Player:
