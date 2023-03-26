@@ -30,22 +30,10 @@ func _ready():
 	api.peer_disconnected.connect(peer_removed)
 
 func check_connected():
-	return lobby and peer.get_connection_status() == MultiplayerPeer.CONNECTION_CONNECTED
+	return lobby and local_player and peer.get_connection_status() == MultiplayerPeer.CONNECTION_CONNECTED
+func check_host():
+	return check_connected() and lobby.host == api.get_unique_id()
 
-func host(port:int=MP_PORT) -> Error:
-	if check_connected():
-		peer.close()
-	var err = peer.create_server(port)
-	mp_print("Hosting a server on port %s" % port)
-	api.multiplayer_peer = peer
-	server_ip = upnp.query_external_address()
-	if err == OK:
-		if upnp.get_gateway() and upnp.get_gateway().is_valid_gateway():
-			print(upnp.add_port_mapping(MP_PORT,MP_PORT,"Sound Space Plus","UDP",3600))
-			print(upnp.add_port_mapping(MP_PORT,MP_PORT,"Sound Space Plus","TCP",3600))
-		create_lobby()
-		lobby.create_player(1,player_name,player_color)
-	return err
 func join(address:String="127.0.0.1",port:int=MP_PORT) -> Error:
 	if check_connected():
 		peer.close()
@@ -55,9 +43,6 @@ func join(address:String="127.0.0.1",port:int=MP_PORT) -> Error:
 	api.multiplayer_peer = peer
 	return err
 func leave():
-	if api.is_server():
-		upnp.delete_port_mapping(MP_PORT,"UDP")
-		upnp.delete_port_mapping(MP_PORT,"TCP")
 	peer.close()
 
 var local_player:Player:
@@ -76,23 +61,21 @@ func send_auth(id:int):
 	packet.encode_var(1,player_data)
 	api.send_auth(id,packet)
 func auth_callback(id:int,data:PackedByteArray):
-	mp_print("Received auth packet")
-	if id == 1:
-		var version = data.decode_u8(0)
-		if version != MP_VERSION:
-			peer.close()
-			return
-		api.complete_auth(1)
+	if id != 1:
+		mp_print("Auth request not from server - something isn't right (%s)" % id)
 		return
-	if !api.is_server(): return
-	var player_data:Dictionary = data.decode_var(1)
-	var nickname = player_data.get("nickname","Player")
-	var color = player_data.get("color",Color.WHITE)
-	lobby.create_player(id,nickname,color)
+	var version = data.decode_u8(0)
+	mp_print("Auth request from server running version %s" % version)
+	if version != MP_VERSION:
+		mp_print("Version mismatch - we're running %s" % MP_VERSION)
+		peer.close()
+		return
+	mp_print("Replying to auth request")
+	send_auth(id)
 	api.complete_auth(id)
+	return
 
 func create_lobby():
-	mp_print("Connected to a server")
 	get_tree().paused = true
 	lobby = preload("res://prefabs/multi/Lobby.tscn").instantiate()
 	lobby.set_multiplayer_authority(1)
@@ -105,18 +88,17 @@ func connected():
 func disconnected():
 	mp_print("Disconnected from server")
 	get_tree().paused = true
-	lobby.queue_free()
-	lobby = null
+	if lobby:
+		lobby.queue_free()
+		lobby = null
 	get_tree().paused = false
 
 func peer_authenticating(id:int):
 	mp_print("Peer attempting to connect %s" % id)
-	send_auth(id)
 func peer_auth_failed(id:int):
 	mp_print("Peer failed to connect %s" % id)
 func peer_added(id:int):
 	mp_print("Peer connected %s" % id)
 func peer_removed(id:int):
 	mp_print("Peer disconnected %s" % id)
-	if api.is_server(): lobby.players[id].queue_free()
-	elif id == 1: peer.close()
+	peer.close()

@@ -14,9 +14,9 @@ func attempt_play():
 	if attempting: return
 	attempting = true
 	var connected = Multiplayer.check_connected()
-	var is_server = connected and Multiplayer.api.is_server()
-	if connected and !is_server: return
-	elif is_server:
+	var is_host = connected and Multiplayer.check_host()
+	if connected and !is_host: return
+	elif is_host:
 		Multiplayer.lobby.rpc("set_mods",SoundSpacePlus.selected_mods.data)
 		Multiplayer.lobby.rpc("start")
 		return
@@ -28,8 +28,8 @@ func attempt_play():
 func _process(_delta):
 	SoundSpacePlus.selected_mods.no_fail = $NoFail.button_pressed
 	var connected = Multiplayer.check_connected()
-	var is_server = connected and Multiplayer.api.is_server()
-	if !is_server:
+	var is_host = connected and Multiplayer.check_host()
+	if !is_host:
 		play_button.disabled = connected
 		if connected: play_button.tooltip_text = "Only the host can start the map"
 		else: play_button.tooltip_text = ""

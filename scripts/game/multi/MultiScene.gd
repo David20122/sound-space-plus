@@ -51,27 +51,9 @@ func _ready():
 		Multiplayer.mp_print("Adding %s" % player.id)
 		player_parent.add_child(scene)
 
-var players_ended = {}
-@rpc("any_peer","call_local","reliable")
-func ended():
-	if !Multiplayer.api.is_server(): return
-	var id = Multiplayer.api.get_remote_sender_id()
-	players_ended[id] = true
-	if players_ended.has_all(players.map(func(player): return player.id)):
-		rpc("finish")
-
 @rpc("authority","call_local","reliable")
 func finish():
 	get_tree().change_scene_to_file("res://scenes/Menu.tscn")
-
-var players_done = {}
-@rpc("any_peer","call_local","reliable")
-func done():
-	if !Multiplayer.api.is_server(): return
-	var id = Multiplayer.api.get_remote_sender_id()
-	players_done[id] = true
-	if players_done.has_all(players.map(func(player): return player.id)):
-		rpc("start")
 
 @rpc("authority","call_local","reliable")
 func start():

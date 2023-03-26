@@ -23,12 +23,6 @@ var players:Dictionary:
 			if player is Player:
 				dict[player.id] = player
 		return dict
-func create_player(id:int,nickname:String,color:Color):
-	var player = preload("res://prefabs/multi/Player.tscn").instantiate()
-	player.id = id
-	player.nickname = nickname
-	player.color = color
-	player_container.add_child(player)
 
 @rpc("authority","call_local","reliable")
 func start(map_index:int=0):

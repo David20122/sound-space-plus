@@ -44,7 +44,7 @@ func _process(delta):
 		var text = "Players:\n"
 		for player in Multiplayer.lobby.players.values():
 			var name = "[color=#%s]%s[/color]" % [player.color.to_html(false),player.nickname]
-			if player.id == 1:
+			if player.id == Multiplayer.lobby.host:
 				name += " [lb][wave amp=32 freq=12] Host [/wave][rb]"
 			if player.id == Multiplayer.api.get_unique_id():
 				name += " [lb][wave amp=32 freq=12] You [/wave][rb]"
