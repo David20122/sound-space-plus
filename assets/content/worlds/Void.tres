@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="EnvironmentPlus" load_steps=3 format=3 uid="uid://d3tocjt2xxgl6"]
+
+[ext_resource type="Script" path="res://scripts/content/resources/EnvironmentPlus.gd" id="1_ho62o"]
+[ext_resource type="PackedScene" uid="uid://dk2muhpl2uxwc" path="res://assets/content/worlds/void/World.tscn" id="2_cpvdw"]
+
+[resource]
+script = ExtResource("1_ho62o")
+world = ExtResource("2_cpvdw")
+id = "void"
+name = "Void"
+creator = "Sound Space Plus"
+online_id = ""
+built_in = true
