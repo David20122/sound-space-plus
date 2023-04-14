@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=2]
+[gd_scene load_steps=52 format=2]
 
 [ext_resource path="res://game/Camera.gd" type="Script" id=1]
 [ext_resource path="res://game/NoteManager.gd" type="Script" id=2]
@@ -247,6 +247,45 @@ flags_unshaded = true
 albedo_color = Color( 1, 1, 1, 0.705882 )
 albedo_texture = ExtResource( 25 )
 
+[sub_resource type="Shader" id=84]
+code = "shader_type spatial;
+render_mode blend_mix,cull_back,diffuse_burley,specular_disabled,unshaded;
+uniform vec4 notecolor : hint_color = vec4(1,1,1,1);
+
+uniform float alpha_multi = 1;
+uniform float fade = 1;
+
+uniform bool use_image = false;
+uniform sampler2D image;
+
+
+void fragment() {
+	vec2 base_uv = UV;
+	vec4 img = vec4(1.0);
+	if (use_image) {
+		img = texture(image,UV);
+	}
+	ALBEDO = notecolor.rgb * img.rgb;
+//	ALBEDO.r = 1.0 - fade;
+//	ALBEDO.b = 0.0;
+//	ALBEDO.g = fade;
+	ALPHA = notecolor.a*img.a*alpha_multi*fade;
+}
+"
+
+[sub_resource type="ShaderMaterial" id=58]
+render_priority = 112
+shader = SubResource( 84 )
+shader_param/notecolor = Color( 1, 1, 1, 1 )
+shader_param/alpha_multi = 1.0
+shader_param/fade = 1.0
+shader_param/use_image = false
+
+[sub_resource type="PrismMesh" id=85]
+material = SubResource( 58 )
+left_to_right = 1.0
+size = Vector3( 2, 2, 1 )
+
 [sub_resource type="QuadMesh" id=83]
 
 [node name="Song" type="Spatial"]
@@ -352,6 +391,10 @@ pause_mode = 2
 bus = "MissSound"
 
 [node name="Hit2D" type="AudioStreamPlayer" parent="Game/Spawn"]
+pause_mode = 2
+bus = "HitSound"
+
+[node name="Hit2D2" type="AudioStreamPlayer" parent="Game/Spawn"]
 pause_mode = 2
 bus = "HitSound"
 
@@ -468,6 +511,20 @@ transform = Transform( 0.225, 0, 0, 0, 0.224144, 0.0196101, 0, -0.0196101, 0.224
 script = ExtResource( 45 )
 look_multi = 2.0
 speed_multi = 0.05
+
+[node name="HappyR" parent="Game/Avatar/Head" index="1"]
+transform = Transform( -0.5, 1.50996e-07, -9.90035e-15, 0, -4.37114e-08, -1.5, -7.54979e-08, -1, 6.55671e-08, 0.3, 0.25, -1.01 )
+
+[node name="HappyL" parent="Game/Avatar/Head" index="2"]
+transform = Transform( -0.5, 1.50996e-07, -9.90035e-15, 0, -4.37114e-08, -1.5, -7.54979e-08, -1, 6.55671e-08, -0.3, 0.25, -1.01 )
+
+[node name="ElfR" parent="Game/Avatar/Head/Accessories/CubellaHair" index="3"]
+transform = Transform( -0.5, 5.28485e-08, -1.42109e-14, -7.54979e-08, -0.35, -1.11759e-08, -4.26326e-14, -7.45058e-09, 0.2, 1.5, -0.1, -0.5 )
+mesh = SubResource( 85 )
+
+[node name="ElfL" parent="Game/Avatar/Head/Accessories/CubellaHair" index="4"]
+transform = Transform( 0.5, 5.28485e-08, -1.64102e-14, 7.54979e-08, -0.35, -4.25748e-09, 4.26326e-14, -7.45058e-09, 0.2, -1.5, -0.1, -0.5 )
+mesh = SubResource( 85 )
 
 [node name="Outline" parent="Game/Avatar/Torso" index="0"]
 visible = true
