@@ -17,6 +17,8 @@ func _ready():
 	if SSP.is_lacunella_enabled():
 		$Avatar/Head/CubellaHair.visible = true
 	
+	if OS.has_feature("Android"):
+		$Skip.text = "Tap to skip"
 	$ColorRect.modulate.a = 1
 #	OS.window_fullscreen = true
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
@@ -41,9 +43,10 @@ func _ready():
 func _input(event):
 	if Input.is_action_just_pressed("pause") and can_skip:
 		get_tree().change_scene("res://init.tscn")
+	elif OS.has_feature("Android") and Input.is_action_just_pressed("menu_click") and can_skip and not SSP.should_ask_about_replays:
+		get_tree().change_scene("res://init.tscn")
 
 func _process(delta):
-	
 	$Sprite3D.rotation_degrees.z += 16 * delta
 	$Sprite3D2.rotation_degrees.z += 8 * delta
 	$Sprite3D3.rotation_degrees.z += 4 * delta
