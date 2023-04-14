@@ -722,11 +722,12 @@ func _process(delta:float):
 					replay_unpause = false
 				elif s[1] == Globals.RS_FINISH_UNPAUSE:
 					should_end_unpause = true
-			
+
 			if should_skip:
 				var prev_ms = ms
-				ms = next_ms - (1000*speed_multi)
-	#			rms += (prev_ms - ms)
+				if SSP.record_replays:
+					SSP.replay.store_sig(rms,Globals.RS_SKIP)
+				ms = next_ms - 1000 - (1000*speed_multi)
 				emit_signal("ms_change",ms)
 				do_note_queue()
 				if (ms + SSP.music_offset) >= SSP.start_offset:
