@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=2]
+[gd_scene load_steps=57 format=2]
 
 [ext_resource path="res://assets/blocks/cube.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://assets/accessories/alt_cubella_hair/ears.obj" type="ArrayMesh" id=2]
@@ -14,7 +14,7 @@
 [sub_resource type="SpatialMaterial" id=60]
 flags_unshaded = true
 
-[sub_resource type="Shader" id=80]
+[sub_resource type="Shader" id=84]
 code = "shader_type spatial;
 render_mode blend_mix,cull_back,diffuse_burley,specular_disabled,unshaded;
 uniform vec4 notecolor : hint_color = vec4(1,1,1,1);
@@ -42,7 +42,7 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id=58]
 render_priority = 112
-shader = SubResource( 80 )
+shader = SubResource( 84 )
 shader_param/notecolor = Color( 1, 1, 1, 1 )
 shader_param/alpha_multi = 1.0
 shader_param/fade = 1.0
@@ -139,6 +139,45 @@ albedo_texture = SubResource( 86 )
 flags_unshaded = true
 params_cull_mode = 2
 albedo_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="Shader" id=80]
+code = "shader_type spatial;
+render_mode blend_mix,cull_back,diffuse_burley,specular_disabled,unshaded;
+uniform vec4 notecolor : hint_color = vec4(1,1,1,1);
+
+uniform float alpha_multi = 1;
+uniform float fade = 1;
+
+uniform bool use_image = false;
+uniform sampler2D image;
+
+
+void fragment() {
+	vec2 base_uv = UV;
+	vec4 img = vec4(1.0);
+	if (use_image) {
+		img = texture(image,UV);
+	}
+	ALBEDO = notecolor.rgb * img.rgb;
+//	ALBEDO.r = 1.0 - fade;
+//	ALBEDO.b = 0.0;
+//	ALBEDO.g = fade;
+	ALPHA = notecolor.a*img.a*alpha_multi*fade;
+}
+"
+
+[sub_resource type="ShaderMaterial" id=119]
+render_priority = 112
+shader = SubResource( 80 )
+shader_param/notecolor = Color( 1, 1, 1, 1 )
+shader_param/alpha_multi = 1.0
+shader_param/fade = 1.0
+shader_param/use_image = false
+
+[sub_resource type="PrismMesh" id=118]
+material = SubResource( 119 )
+left_to_right = 1.0
+size = Vector3( 2, 2, 1 )
 
 [sub_resource type="ArrayMesh" id=68]
 surfaces/0 = {
@@ -505,12 +544,12 @@ rings = 4
 [sub_resource type="CanvasItemMaterial" id=117]
 render_priority = 100
 
-[sub_resource type="DynamicFontData" id=84]
+[sub_resource type="DynamicFontData" id=120]
 font_path = "res://font/Lato/Lato-Italic.ttf"
 
 [sub_resource type="DynamicFont" id=85]
 size = 64
-font_data = SubResource( 84 )
+font_data = SubResource( 120 )
 
 [sub_resource type="Environment" id=87]
 background_mode = 1
@@ -689,6 +728,14 @@ mesh = ExtResource( 2 )
 transform = Transform( 0.4, -3.17637e-23, 0, 6.35275e-23, 0.2, 4.48416e-44, 0, -8.40779e-45, 1, 0, -0.45, -1.1 )
 material_override = SubResource( 116 )
 mesh = ExtResource( 3 )
+
+[node name="ElfR" type="MeshInstance" parent="Avatar/Head/CubellaHair"]
+transform = Transform( -0.5, 5.28485e-08, -1.42109e-14, -7.54979e-08, -0.35, -1.11759e-08, -4.26326e-14, -7.45058e-09, 0.2, 1.5, -0.1, -0.5 )
+mesh = SubResource( 118 )
+
+[node name="ElfL" type="MeshInstance" parent="Avatar/Head/CubellaHair"]
+transform = Transform( 0.5, 5.28485e-08, -1.64102e-14, 7.54979e-08, -0.35, -4.25748e-09, 4.26326e-14, -7.45058e-09, 0.2, -1.5, -0.1, -0.5 )
+mesh = SubResource( 118 )
 
 [node name="Torso" type="MeshInstance" parent="Avatar"]
 transform = Transform( 0.15, 0, 0, 0, 0.25, 0, 0, 0, 0.15, 0, -0.775, 2 )

@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/OLDmenu_loop.ogg-223d4cf475b8c36cbb6bf4bd0aec3e80.oggstr"
+
+[deps]
+
+source_file="res://assets/sfx/music/OLDmenu_loop.ogg"
+dest_files=[ "res://.import/OLDmenu_loop.ogg-223d4cf475b8c36cbb6bf4bd0aec3e80.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
