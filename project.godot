@@ -259,7 +259,7 @@ boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://assets/branding/icon.png"
 config/windows_native_icon="res://icon.ico"
 config/quit_on_go_back=false
-config/version="apr14-rabbit"
+config/version="apr15-rabbit"
 config/autoload_map_registries="test maps|res://test_assets/test_maps.sspmr;built in|res://content/songs/built_in_maps.sspmr"
 config/enable_new_content_mgr=true
 config/default_menu_target="res://menu2.tscn"
@@ -282,7 +282,7 @@ config/replays.editor=true
 config/show_trail_debug=false
 config/project_settings_override.standalone="user://override.cfg"
 networking/enabled=true
-networking/mapdb_api="https://soundspaceplus.dev/api/"
+networking/mapdb_api="https://cdn.soundspaceplus.dev/index.json"
 networking/test_url="https://google.com"
 config/discord_rpc.HTML5=false
 config/enable_new_content_mgr.HTML5=false
@@ -327,7 +327,7 @@ window/size/height=720
 window/vsync/use_vsync=false
 window/handheld/orientation="sensor_landscape"
 window/stretch/mode.mobile="2d"
-window/stretch/aspect.mobile="keep_height"
+window/stretch/aspect.mobile="ignore"
 
 [editor_plugins]
 

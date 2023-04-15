@@ -186,7 +186,7 @@ func load_db_maps():
 				dict_date = Time.get_datetime_dict_from_datetime_string(file.get_as_text(), true)
 			file.close()
 
-		netmaps_hr.request(mapdb_api+"all", PoolStringArray([
+		netmaps_hr.request(mapdb_api, PoolStringArray([
 			"If-Modified-Since: %s, %02d %s %04d %02d:%02d:%02d GMT" % [
 				weekday[dict_date.weekday],
 				dict_date.day, month[dict_date.month - 1], dict_date.year,
