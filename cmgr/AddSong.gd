@@ -163,7 +163,8 @@ func select_type(type:int):
 			"file_selected",
 			PoolStringArray(["*.sspm ; Sound Space Plus map"]),
 			false,
-			"~/Downloads"
+			#"~/Downloads"
+			OS.get_system_dir(OS.SYSTEM_DIR_DOWNLOADS)
 		)
 	elif type == T_TXT:
 		reset_text_edit_screen()
@@ -184,7 +185,8 @@ func sel_filetype(type:int):
 				"file_selected",
 				PoolStringArray(["*.zip, *.rar, *.7z, *.gz, *.vmap ; archive files"]),
 				false,
-				"~/Downloads"
+				#"~/Downloads"
+				OS.get_system_dir(OS.SYSTEM_DIR_DOWNLOADS)
 			)
 		elif type == F_DIR:
 			print("opening vulnus folder")
@@ -193,7 +195,8 @@ func sel_filetype(type:int):
 			Globals.file_sel.open_folder(
 				self,
 				"folder_selected",
-				"~/Downloads"
+				#"~/Downloads"
+				OS.get_system_dir(OS.SYSTEM_DIR_DOWNLOADS)
 			)
 	elif maptype == T_TXT:
 		if type == FO_TXT:
@@ -203,7 +206,8 @@ func sel_filetype(type:int):
 				"file_selected",
 				PoolStringArray(["*.txt ; Text files"]),
 				false,
-				"~/Downloads"
+				#"~/Downloads"
+				OS.get_system_dir(OS.SYSTEM_DIR_DOWNLOADS)
 			)
 		elif type == FO_SONG:
 			opening = FO_SONG
@@ -212,7 +216,8 @@ func sel_filetype(type:int):
 				"file_selected",
 				PoolStringArray(["*.mp3, *.ogg ; Audio files"]),
 				false,
-				"~/Downloads"
+				#"~/Downloads"
+				OS.get_system_dir(OS.SYSTEM_DIR_DOWNLOADS)
 			)
 
 const valid_chars = "0123456789abcdefghijklmnopqrstuvwxyz_-"
