@@ -490,7 +490,7 @@ func p(path:String) -> String:
 	var dir:Directory = Directory.new()
 	if OS.has_feature("Android"):
 		#base_path = OS.get_system_dir(OS.SYSTEM_DIR_DESKTOP,true).plus_file("Android/data/net.chedski.soundspaceplus/files") + "/"
-		base_path = OS.get_user_data_dir()
+		base_path = OS.get_user_data_dir() + "/"
 	return path.replace("user://",base_path)
 
 var error_sound:AudioStream
