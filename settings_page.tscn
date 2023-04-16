@@ -209,6 +209,7 @@ theme = ExtResource( 1 )
 margin_right = 1280.0
 margin_bottom = 55.0
 rect_min_size = Vector2( 0, 55 )
+mouse_filter = 1
 custom_constants/margin_top = 11
 custom_constants/margin_left = 53
 custom_constants/margin_bottom = 11
@@ -280,6 +281,7 @@ script = ExtResource( 43 )
 [node name="Title" type="MarginContainer" parent="M/Modifiers"]
 margin_right = 1280.0
 margin_bottom = 32.0
+mouse_filter = 1
 custom_constants/margin_left = 32
 
 [node name="C" type="CheckBox" parent="M/Modifiers/Title"]
@@ -303,6 +305,7 @@ flat = true
 margin_top = 36.0
 margin_right = 1280.0
 margin_bottom = 154.0
+mouse_filter = 1
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="M/Modifiers/Group"]
@@ -464,6 +467,7 @@ script = ExtResource( 43 )
 [node name="Title" type="MarginContainer" parent="M/Notes"]
 margin_right = 1280.0
 margin_bottom = 32.0
+mouse_filter = 1
 custom_constants/margin_left = 32
 
 [node name="C" type="CheckBox" parent="M/Notes/Title"]
@@ -487,6 +491,7 @@ flat = true
 margin_top = 36.0
 margin_right = 1280.0
 margin_bottom = 716.0
+mouse_filter = 1
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="M/Notes/Group"]
@@ -616,6 +621,7 @@ margin_top = 76.0
 margin_right = 1100.0
 margin_bottom = 108.0
 rect_min_size = Vector2( 200, 32 )
+mouse_filter = 1
 
 [node name="Mesh" type="MenuButton" parent="M/Notes/Group/H/Mesh"]
 margin_right = 200.0
@@ -662,6 +668,7 @@ margin_top = 112.0
 margin_right = 1100.0
 margin_bottom = 144.0
 rect_min_size = Vector2( 200, 32 )
+mouse_filter = 1
 
 [node name="NoteScale" type="SpinBox" parent="M/Notes/Group/H/NoteScale"]
 margin_right = 200.0
@@ -823,6 +830,7 @@ margin_top = 148.0
 margin_right = 1100.0
 margin_bottom = 180.0
 rect_min_size = Vector2( 200, 32 )
+mouse_filter = 1
 
 [node name="NoteOpacity" type="SpinBox" parent="M/Notes/Group/H/NoteOpacity"]
 margin_right = 200.0
@@ -877,6 +885,7 @@ margin_top = 198.0
 margin_right = 1100.0
 margin_bottom = 230.0
 rect_min_size = Vector2( 200, 32 )
+mouse_filter = 1
 
 [node name="ApproachRate" type="SpinBox" parent="M/Notes/Group/H/ApproachRate"]
 margin_right = 200.0
@@ -927,6 +936,7 @@ margin_top = 234.0
 margin_right = 1100.0
 margin_bottom = 266.0
 rect_min_size = Vector2( 200, 32 )
+mouse_filter = 1
 
 [node name="SpawnDist" type="SpinBox" parent="M/Notes/Group/H/SpawnDist"]
 margin_right = 200.0
@@ -976,6 +986,7 @@ margin_top = 270.0
 margin_right = 1100.0
 margin_bottom = 302.0
 rect_min_size = Vector2( 200, 32 )
+mouse_filter = 1
 
 [node name="FadeLength" type="SpinBox" parent="M/Notes/Group/H/FadeLength"]
 margin_right = 200.0
@@ -1029,6 +1040,7 @@ margin_top = 320.0
 margin_right = 1100.0
 margin_bottom = 348.0
 rect_min_size = Vector2( 0, 28 )
+mouse_filter = 1
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
 custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
@@ -1069,6 +1081,7 @@ margin_top = 366.0
 margin_right = 1100.0
 margin_bottom = 398.0
 rect_min_size = Vector2( 200, 32 )
+mouse_filter = 1
 
 [node name="HitEffect" type="Button" parent="M/Notes/Group/H/HitRipple"]
 margin_right = 200.0
@@ -1140,6 +1153,7 @@ margin_top = 402.0
 margin_right = 1100.0
 margin_bottom = 434.0
 rect_min_size = Vector2( 200, 32 )
+mouse_filter = 1
 
 [node name="Effect" type="MenuButton" parent="M/Notes/Group/H/HitEffect"]
 margin_right = 200.0
@@ -1186,6 +1200,7 @@ margin_top = 438.0
 margin_right = 1100.0
 margin_bottom = 466.0
 rect_min_size = Vector2( 0, 28 )
+mouse_filter = 1
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
 custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
@@ -1219,6 +1234,7 @@ margin_top = 470.0
 margin_right = 1100.0
 margin_bottom = 498.0
 rect_min_size = Vector2( 0, 28 )
+mouse_filter = 1
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
 custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
@@ -1252,6 +1268,7 @@ margin_top = 502.0
 margin_right = 1100.0
 margin_bottom = 530.0
 rect_min_size = Vector2( 0, 28 )
+mouse_filter = 1
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
 custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
@@ -1284,6 +1301,7 @@ margin_top = 534.0
 margin_right = 1100.0
 margin_bottom = 562.0
 rect_min_size = Vector2( 0, 28 )
+mouse_filter = 1
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
 custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
@@ -1323,6 +1341,7 @@ margin_top = 580.0
 margin_right = 1100.0
 margin_bottom = 612.0
 rect_min_size = Vector2( 200, 32 )
+mouse_filter = 1
 
 [node name="MissEffect" type="Button" parent="M/Notes/Group/H/MissRipple"]
 margin_right = 200.0
@@ -1394,6 +1413,7 @@ margin_top = 616.0
 margin_right = 1100.0
 margin_bottom = 648.0
 rect_min_size = Vector2( 200, 32 )
+mouse_filter = 1
 
 [node name="Effect" type="MenuButton" parent="M/Notes/Group/H/MissEffect"]
 margin_right = 200.0
@@ -1440,6 +1460,7 @@ margin_top = 652.0
 margin_right = 1100.0
 margin_bottom = 680.0
 rect_min_size = Vector2( 0, 28 )
+mouse_filter = 1
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
 custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
@@ -1477,6 +1498,7 @@ script = ExtResource( 43 )
 [node name="Title" type="MarginContainer" parent="M/Recording"]
 margin_right = 1280.0
 margin_bottom = 32.0
+mouse_filter = 1
 custom_constants/margin_left = 32
 
 [node name="C" type="CheckBox" parent="M/Recording/Title"]
@@ -1500,6 +1522,7 @@ flat = true
 margin_top = 36.0
 margin_right = 1280.0
 margin_bottom = 168.0
+mouse_filter = 1
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="M/Recording/Group"]
@@ -1663,6 +1686,7 @@ script = ExtResource( 43 )
 [node name="Title" type="MarginContainer" parent="M/Camera"]
 margin_right = 1280.0
 margin_bottom = 32.0
+mouse_filter = 1
 custom_constants/margin_left = 32
 
 [node name="C" type="CheckBox" parent="M/Camera/Title"]
@@ -1686,6 +1710,7 @@ flat = true
 margin_top = 36.0
 margin_right = 1280.0
 margin_bottom = 692.0
+mouse_filter = 1
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="M/Camera/Group"]
@@ -2449,6 +2474,7 @@ script = ExtResource( 43 )
 [node name="Title" type="MarginContainer" parent="M/Customization"]
 margin_right = 1280.0
 margin_bottom = 32.0
+mouse_filter = 1
 custom_constants/margin_left = 32
 
 [node name="C" type="CheckBox" parent="M/Customization/Title"]
@@ -2472,6 +2498,7 @@ flat = true
 margin_top = 36.0
 margin_right = 1280.0
 margin_bottom = 560.0
+mouse_filter = 1
 custom_constants/margin_left = 180
 custom_constants/margin_bottom = 12
 
@@ -3183,6 +3210,7 @@ script = ExtResource( 43 )
 [node name="Title" type="MarginContainer" parent="M/Graphics"]
 margin_right = 1280.0
 margin_bottom = 32.0
+mouse_filter = 1
 custom_constants/margin_left = 32
 
 [node name="C" type="CheckBox" parent="M/Graphics/Title"]
@@ -3207,6 +3235,7 @@ flat = true
 margin_top = 36.0
 margin_right = 1280.0
 margin_bottom = 264.0
+mouse_filter = 1
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="M/Graphics/Group"]
@@ -3469,6 +3498,7 @@ script = ExtResource( 43 )
 [node name="Title" type="MarginContainer" parent="M/Audio"]
 margin_right = 1280.0
 margin_bottom = 32.0
+mouse_filter = 1
 custom_constants/margin_left = 32
 
 [node name="C" type="CheckBox" parent="M/Audio/Title"]
@@ -3492,6 +3522,7 @@ flat = true
 margin_top = 36.0
 margin_right = 1280.0
 margin_bottom = 472.0
+mouse_filter = 1
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="M/Audio/Group"]
@@ -4084,6 +4115,7 @@ script = ExtResource( 43 )
 [node name="Title" type="MarginContainer" parent="M/UI"]
 margin_right = 1280.0
 margin_bottom = 32.0
+mouse_filter = 1
 custom_constants/margin_left = 32
 
 [node name="C" type="CheckBox" parent="M/UI/Title"]
@@ -4107,6 +4139,7 @@ flat = true
 margin_top = 36.0
 margin_right = 1280.0
 margin_bottom = 544.0
+mouse_filter = 1
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="M/UI/Group"]
@@ -4664,6 +4697,39 @@ align = 2
 valign = 1
 clip_text = true
 
+[node name="MirrorButtons" type="CheckBox" parent="M/UI/Group/H"]
+visible = false
+margin_top = 512.0
+margin_right = 582.0
+margin_bottom = 540.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_fonts/font = SubResource( 4 )
+action_mode = 0
+text = "(mobile only) mirror the pause and giveup button"
+flat = true
+script = ExtResource( 54 )
+target = "mirror_buttons"
+
+[node name="Label" type="Label" parent="M/UI/Group/H/MirrorButtons"]
+anchor_bottom = 1.0
+margin_left = -165.0
+margin_right = -10.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Mirror Buttons"
+align = 2
+valign = 1
+clip_text = true
+
 [node name="UIColor" type="VBoxContainer" parent="M"]
 margin_top = 3570.0
 margin_right = 1280.0
@@ -4673,6 +4739,7 @@ script = ExtResource( 43 )
 [node name="Title" type="MarginContainer" parent="M/UIColor"]
 margin_right = 1280.0
 margin_bottom = 32.0
+mouse_filter = 1
 custom_constants/margin_left = 32
 
 [node name="C" type="CheckBox" parent="M/UIColor/Title"]
@@ -4696,6 +4763,7 @@ flat = true
 margin_top = 36.0
 margin_right = 1280.0
 margin_bottom = 1668.0
+mouse_filter = 1
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="M/UIColor/Group"]
@@ -6567,6 +6635,7 @@ script = ExtResource( 43 )
 [node name="Title" type="MarginContainer" parent="M/Experimental"]
 margin_right = 1280.0
 margin_bottom = 32.0
+mouse_filter = 1
 custom_constants/margin_left = 32
 
 [node name="C" type="CheckBox" parent="M/Experimental/Title"]
@@ -6575,6 +6644,7 @@ margin_left = 32.0
 margin_right = 1280.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 0, 32 )
+mouse_filter = 1
 custom_colors/font_color_disabled = Color( 1, 1, 1, 1 )
 custom_colors/font_color_focus = Color( 1, 1, 1, 1 )
 custom_colors/font_color_hover_pressed = Color( 1, 1, 1, 1 )
@@ -6591,6 +6661,7 @@ flat = true
 margin_top = 36.0
 margin_right = 1280.0
 margin_bottom = 369.0
+mouse_filter = 1
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="M/Experimental/Group"]
@@ -6601,6 +6672,7 @@ margin_bottom = 333.0
 [node name="ExpWarning" type="MarginContainer" parent="M/Experimental/Group/H"]
 margin_right = 827.0
 margin_bottom = 105.0
+mouse_filter = 1
 custom_constants/margin_right = 60
 custom_constants/margin_top = 15
 custom_constants/margin_left = -125
@@ -6612,6 +6684,7 @@ margin_top = 15.0
 margin_right = 767.0
 margin_bottom = 87.0
 rect_min_size = Vector2( 0, 72 )
+mouse_filter = 1
 custom_styles/panel = SubResource( 48 )
 
 [node name="H" type="HBoxContainer" parent="M/Experimental/Group/H/ExpWarning/Main"]
@@ -6639,6 +6712,7 @@ stretch_mode = 6
 [node name="Text" type="MarginContainer" parent="M/Experimental/Group/H/ExpWarning/Main/H"]
 margin_right = 888.0
 margin_bottom = 68.0
+mouse_filter = 1
 custom_constants/margin_right = 15
 custom_constants/margin_left = 6
 
@@ -6671,6 +6745,7 @@ margin_top = 109.0
 margin_right = 827.0
 margin_bottom = 137.0
 rect_min_size = Vector2( 0, 28 )
+mouse_filter = 1
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
 custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
@@ -6703,6 +6778,7 @@ margin_top = 141.0
 margin_right = 827.0
 margin_bottom = 169.0
 rect_min_size = Vector2( 0, 28 )
+mouse_filter = 1
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
 custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
@@ -6735,6 +6811,7 @@ margin_top = 173.0
 margin_right = 827.0
 margin_bottom = 201.0
 rect_min_size = Vector2( 0, 28 )
+mouse_filter = 1
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
 custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
@@ -6767,6 +6844,7 @@ margin_top = 205.0
 margin_right = 827.0
 margin_bottom = 233.0
 rect_min_size = Vector2( 0, 28 )
+mouse_filter = 1
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
 custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
@@ -6799,6 +6877,7 @@ margin_top = 237.0
 margin_right = 827.0
 margin_bottom = 265.0
 rect_min_size = Vector2( 0, 28 )
+mouse_filter = 1
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
 custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
@@ -6885,6 +6964,7 @@ margin_top = 269.0
 margin_right = 827.0
 margin_bottom = 301.0
 rect_min_size = Vector2( 200, 32 )
+mouse_filter = 1
 
 [node name="Play" type="Button" parent="M/Experimental/Group/H/Intro"]
 margin_right = 200.0
@@ -6938,6 +7018,7 @@ margin_top = 305.0
 margin_right = 827.0
 margin_bottom = 333.0
 rect_min_size = Vector2( 0, 28 )
+mouse_filter = 1
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
 custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )

@@ -630,6 +630,7 @@ var visual_approach_follow:bool = false
 var half_ghost:bool = false # Experimental
 var billboard_score:bool = false
 var score_popup:bool = true
+var mirror_buttons:bool = false
 
 # Settings - HUD Colors
 var panel_bg:Color = Color("#9b000000") #9bcecece
@@ -1131,6 +1132,8 @@ func load_saved_settings():
 			score_popup = data.score_popup
 		if data.has("billboard_score"): 
 			billboard_score = data.billboard_score
+		if data.has("mirror_buttons"): 
+			mirror_buttons = data.mirror_buttons
 		if data.has("smart_trail"): 
 			smart_trail = data.smart_trail
 		if data.has("sfx_2d"): 
@@ -1397,6 +1400,7 @@ func load_saved_settings():
 		if sv >= 43:
 			score_popup = bool(file.get_8())
 			billboard_score = bool(file.get_8())
+			if (OS.has_feature("Android")): mirror_buttons = bool(file.get_8())
 		if sv >= 44:
 			fov = float(file.get_32())
 			hit_fov = bool(file.get_8())
@@ -1518,6 +1522,7 @@ func save_settings():
 			visual_approach_follow = visual_approach_follow,
 			score_popup = score_popup,
 			billboard_score = billboard_score,
+			mirror_buttons = mirror_buttons,
 			sfx_2d = sfx_2d,
 			cursor_color_type = cursor_color_type,
 			half_ghost = half_ghost,
@@ -2340,7 +2345,7 @@ func do_init(_ud=null):
 		Globals.confirm_prompt.s_next.play()
 		Globals.confirm_prompt.close()
 		yield(Globals.confirm_prompt,"done_closing")
-	if should_ask_about_replays:
+	if should_ask_about_replays and not OS.has_feature("Android"):
 		emit_signal("init_stage_reached","Setup")
 		if !alert_snd_played: Globals.confirm_prompt.s_alert.play()
 		alert_snd_played = true

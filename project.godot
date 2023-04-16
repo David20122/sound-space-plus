@@ -327,7 +327,7 @@ window/size/height=720
 window/vsync/use_vsync=false
 window/handheld/orientation="sensor_landscape"
 window/stretch/mode.mobile="2d"
-window/stretch/aspect.mobile="ignore"
+window/stretch/aspect.mobile="keep_height"
 
 [editor_plugins]
 

@@ -43,7 +43,7 @@ func _ready():
 func _input(event):
 	if Input.is_action_just_pressed("pause") and can_skip:
 		get_tree().change_scene("res://init.tscn")
-	elif OS.has_feature("Android") and Input.is_action_just_pressed("menu_click") and can_skip and not SSP.should_ask_about_replays:
+	elif OS.has_feature("Android") and can_skip:
 		get_tree().change_scene("res://init.tscn")
 
 func _process(delta):
