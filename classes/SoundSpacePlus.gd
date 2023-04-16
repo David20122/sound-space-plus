@@ -547,8 +547,14 @@ func _set_grade_system(v:int):
 
 
 # Settings - Notes
-var approach_rate:float = 40
-var spawn_distance:float = 40
+var approach_rate:float = 40 setget ,get_approach_rate
+func get_approach_rate():
+	if replaying and replay.settings.has("approach_rate"): return replay.settings.get("approach_rate")
+	return approach_rate
+var spawn_distance:float = 40 setget ,get_spawn_distance
+func get_spawn_distance():
+	if replaying and replay.settings.has("spawn_distance"): return replay.settings.get("spawn_distance")
+	return spawn_distance
 var note_spawn_effect:bool = false
 var note_size:float = 1
 var note_spin_x:float = 0
@@ -557,7 +563,10 @@ var note_spin_z:float = 0
 # actually nah llol !!!!! (vector is not needed i can just do it in another script)
 # var note_spin_vector:Vector3 = Vector3(note_spin_x,note_spin_y,note_spin_z)
 var note_opacity:float = 1
-var fade_length:float = 0.5
+var fade_length:float = 0.5 setget ,get_fade_length
+func get_fade_length():
+	if replaying and replay.settings.has("fade_length"): return replay.settings.get("fade_length")
+	return fade_length
 
 var show_hit_effect:bool = true
 var hit_effect_at_cursor:bool = true
@@ -567,17 +576,32 @@ var show_miss_effect:bool = true
 # Settings - Camera/Controls
 var hlm_converted:bool = false
 var sensitivity:float = 0.5
-var parallax:float = 6.5 # THESE DEFAULTS SHOULD BE BASED ON 0.35 HLM BECAUSE THEY GET CONVERTED
-var ui_parallax:float = 1.63
-var grid_parallax:float = 0
-var fov:float = 70
+var parallax:float = 6.5 setget ,get_parallax
+func get_parallax():
+	if replaying and replay.settings.has("parallax"): return replay.settings.get("parallax")
+	return parallax
+var ui_parallax:float = 1.63 setget ,get_ui_parallax
+func get_ui_parallax():
+	if replaying and replay.settings.has("ui_parallax"): return replay.settings.get("ui_parallax")
+	return ui_parallax
+var grid_parallax:float = 0 setget ,get_grid_parallax
+func get_grid_parallax():
+	if replaying and replay.settings.has("grid_parallax"): return replay.settings.get("grid_parallax")
+	return grid_parallax
+var fov:float = 70  setget ,get_fov
+func get_fov():
+	if replaying and replay.settings.has("fov"): return replay.settings.get("fov")
+	return fov
 var hit_fov:bool = false
 var hit_fov_additive:bool = true
 var hit_fov_exponential:bool = false
 var hit_fov_amplifier:float = 2
 var hit_fov_decay:float = 20
 var camera_mode:int = Globals.CAMERA_HALF_LOCK
-var cam_unlock:bool = false
+var cam_unlock:bool = false setget ,get_cam_unlock
+func get_cam_unlock():
+	if replaying and replay.settings.has("cam_unlock"): return replay.settings.get("cam_unlock")
+	return cam_unlock
 var lock_mouse:bool = true
 var absolute_mode:bool = false
 var absolute_scale:float = 1

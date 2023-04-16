@@ -1,6 +1,6 @@
 extends Spatial
 
-var rate:float = SSP.approach_rate / 6
+var rate:float = SSP.get("approach_rate") / 6
 var s:float = -26
 var e:float = 48
 var tcol:Color

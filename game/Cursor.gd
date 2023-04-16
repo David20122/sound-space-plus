@@ -9,7 +9,7 @@ enum {
 
 var sh:Vector2 = Vector2(-0.5,-0.5)
 var edgec:float = 0.13125
-var edger:float = -SSP.edge_drift
+var edger:float = -SSP.get("edge_drift")
 var face:Vector2
 
 var move_mode:int = C_MOUSE
@@ -46,10 +46,8 @@ func move_cursor(mdel:Vector2):
 	drift_cursor(rx,ry,cx,cy)
 
 func move_cursor_abs(mdel:Vector2):
-	var rx = rpos.x
-	var ry = rpos.y
-	rx = mdel.x
-	ry = mdel.y
+	var rx = mdel.x
+	var ry = mdel.y
 	
 	rx = clamp(rx, (0 + sh.x + edger), (3 + sh.x - edger))
 	ry = clamp(ry, (0 + sh.y + edger), (3 + sh.y - edger))
@@ -70,7 +68,7 @@ func move_cursor_abs(mdel:Vector2):
 
 onready var absCamera = get_node("../../../AbsCamera")
 func get_absolute_position():
-	absCamera.fov = SSP.fov
+	absCamera.fov = SSP.get("fov")
 	var pos = absCamera.project_position(get_viewport().get_mouse_position(),3.75) * SSP.absolute_scale
 	return Vector2(pos.x,-pos.y) + Vector2(1,1)
 
@@ -91,7 +89,7 @@ func _input(event:InputEvent):
 				move_cursor_abs((relative + off) * -1)
 			else:
 				move_cursor_abs(relative + off)
-		elif !SSP.cam_unlock and move_mode == C_MOUSE:
+		elif !SSP.get("cam_unlock") and move_mode == C_MOUSE:
 			visible = true
 			if (event is InputEventMouseMotion):
 				face = event.relative
@@ -164,8 +162,11 @@ func _process(delta):
 		var p
 		if SSP.replay.sv == 1 or SSP.replay.autoplayer: p = SSP.replay.get_cursor_position(get_parent().ms)
 		else: p = SSP.replay.get_cursor_position(get_parent().rms)
-		transform.origin.x = p.x
-		transform.origin.y = p.y
+		if SSP.replay.sv < 3:
+			transform.origin.x = p.x
+			transform.origin.y = p.y
+		else:
+			move_cursor_abs(Vector2(p.x,p.y))
 	
 	if SSP.show_cursor and SSP.cursor_trail and SSP.smart_trail and trail_started:
 		var start_p = global_transform.origin

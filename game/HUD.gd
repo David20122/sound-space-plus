@@ -333,10 +333,10 @@ func _process(delta:float):
 	)
 	
 	# warning
-	if SSP.fov < 70 and SSP.mod_flashlight and calculating:
+	if SSP.get("fov") < 70 and SSP.mod_flashlight and calculating:
 		$ObnoxiousWarning.trigger = true
 		$ObnoxiousWarning.target = "STOP PLAYING MASKED WITH {fov} FOV PUSSY\njust use the damn default man".format({
-			"fov": SSP.fov
+			"fov": SSP.get("fov")
 		})
 	
 

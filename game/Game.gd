@@ -240,7 +240,7 @@ func hit(col):
 		elif SSP.hit_fov_exponential:
 			$"../Camera".fov *= SSP.hit_fov_amplifier
 		else:
-			$"../Camera".fov = SSP.fov - SSP.hit_fov_amplifier
+			$"../Camera".fov = SSP.get("fov") - SSP.hit_fov_amplifier
 	
 	score += points
 	return points

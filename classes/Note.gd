@@ -43,7 +43,7 @@ func reposition(ms:float,approachSpeed:float):
 	var current_offset_ms = notems-ms
 	var current_dist = approachSpeed*current_offset_ms/1000
 	if (
-		(current_dist <= SSP.spawn_distance and current_dist >= (grid_pushback * -1) and sign(approachSpeed) == 1) or
+		(current_dist <= SSP.get("spawn_distance") and current_dist >= (grid_pushback * -1) and sign(approachSpeed) == 1) or
 		(current_dist >= -50 and current_dist <= 0.1 and sign(approachSpeed) == -1) or
 		sign(approachSpeed) == 0
 	) and state == Globals.NSTATE_ACTIVE: # state 2 = miss # and current_dist >= -0.5
@@ -68,10 +68,10 @@ func reposition(ms:float,approachSpeed:float):
 			transform.origin.y = real_position.y + (rcoord.y * (current_dist * 0.1))
 		
 		if SSP.note_visual_approach:
-			$Approach.opacity = 1 - (current_dist / SSP.spawn_distance)
+			$Approach.opacity = 1 - (current_dist / SSP.get("spawn_distance"))
 			
-			$Approach.scale.x = 0.4 * ((current_dist / SSP.spawn_distance) + 0.6)
-			$Approach.scale.y = 0.4 * ((current_dist / SSP.spawn_distance) + 0.6)
+			$Approach.scale.x = 0.4 * ((current_dist / SSP.get("spawn_distance")) + 0.6)
+			$Approach.scale.y = 0.4 * ((current_dist / SSP.get("spawn_distance")) + 0.6)
 			
 			if not SSP.visual_approach_follow:
 				$Approach.global_translation.z = 0
@@ -147,18 +147,18 @@ func setup(color:Color):
 	
 	if SSP.mod_ghost:
 		fade_out_enabled = true
-		fade_out_start = ((18.0/50)*SSP.approach_rate)
-		fade_out_end = ((6.0/50.0)*SSP.approach_rate)
+		fade_out_start = ((18.0/50)*SSP.get("approach_rate"))
+		fade_out_end = ((6.0/50.0)*SSP.get("approach_rate"))
 	
 	if SSP.mod_nearsighted:
 		fade_in_enabled = true
-		fade_in_start = ((30.0/50.0)*SSP.approach_rate)
-		fade_in_end = ((5.0/50.0)*SSP.approach_rate)
+		fade_in_start = ((30.0/50.0)*SSP.get("approach_rate"))
+		fade_in_end = ((5.0/50.0)*SSP.get("approach_rate"))
 	else:
-		fade_in_enabled = SSP.fade_length != 0
-		if SSP.fade_length != 0: 
-			fade_in_start = SSP.spawn_distance
-			fade_in_end = SSP.spawn_distance*(1.0 - SSP.fade_length)
+		fade_in_enabled = SSP.get("fade_length") != 0
+		if SSP.get("fade_length") != 0: 
+			fade_in_start = SSP.get("spawn_distance")
+			fade_in_end = SSP.get("spawn_distance")*(1.0 - SSP.get("fade_length"))
 
 func _ready():
 	if !SSP.note_visual_approach && has_node("Approach"):

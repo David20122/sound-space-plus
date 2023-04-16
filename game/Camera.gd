@@ -8,9 +8,9 @@ onready var cursor = get_node("../Game/Spawn/Cursor")
 
 var phase:int = 0
 func _process(delta):
-	fov += (SSP.fov - fov) / SSP.hit_fov_decay
-	if SSP.cam_unlock:
-		var hlpower = (0.1 * SSP.parallax)
+	fov += (SSP.get("fov") - fov) / SSP.hit_fov_decay
+	if SSP.get("cam_unlock"):
+		var hlpower = (0.1 * SSP.get("parallax"))
 		var hlm = 0.25
 		var ppos = cursor.transform.origin - cursor_offset
 		if SSP.replaying:
@@ -50,7 +50,7 @@ var yaw = 0
 var pitch = 0
 
 func _input(event):
-	if SSP.cam_unlock and !SSP.replaying and !SSP.absolute_mode:
+	if SSP.get("cam_unlock") and !SSP.replaying and !SSP.absolute_mode:
 		if (event is InputEventMouseMotion) or (event is InputEventScreenDrag):
 			yaw = fmod(yaw - event.relative.x * SSP.sensitivity * 0.2, 360)
 			pitch = max(min(pitch - event.relative.y * SSP.sensitivity * 0.2, 89), -89)
@@ -58,4 +58,4 @@ func _input(event):
 
 func _ready():
 	pass
-#	fov = SSP.fov
+#	fov = SSP.get("fov")

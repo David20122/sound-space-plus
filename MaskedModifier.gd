@@ -14,7 +14,7 @@ func _process(delta):
 		$"../Spawn/Cursor/Mesh".global_translation.y,
 		-0.1
 	)
-	if SSP.cam_unlock == true:
+	if SSP.get("cam_unlock") == true:
 		if Game.combo >= 100:
 			tps = 0.025
 			top = 1 # # opacity always 1 no matter what because fog thinks it cring! (keeping variable incase)

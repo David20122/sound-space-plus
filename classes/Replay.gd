@@ -2,7 +2,7 @@ extends Resource
 class_name Replay
 
 const file_sig:PoolByteArray = PoolByteArray([0x53,0x73,0x2A,0x52])
-const current_sv:int = 2
+const current_sv:int = 3
 const debug:bool = false
 
 var dance:DanceMover
@@ -12,7 +12,7 @@ var cursor_positions:Array = []
 var past_triggers:Array = []
 var triggers:Array = []
 var note_results:Dictionary = {}
-var settings:Dictionary
+var settings:Dictionary = {}
 
 var id:String
 var sv:int = 2 # make autoplayer behave
@@ -114,6 +114,17 @@ func read_data(from_path:String=""):
 			SSP.apply_state(state)
 			debug_txt.state_str = state_str
 			debug_txt.state = state
+			
+			if sv >= 3:
+				settings.approach_rate = file.get_float()
+				settings.spawn_distance = file.get_float()
+				settings.fade_length = file.get_float()
+				settings.parallax = file.get_float()
+				settings.ui_parallax = file.get_float()
+				settings.grid_parallax = file.get_float()
+				settings.fov = file.get_float()
+				settings.cam_unlock = file.get_8() == 1
+				settings.edge_drift = file.get_float()
 			
 			debug_txt.reserved_2 = file.get_8()
 			end_ms = float(file.get_32())
@@ -415,6 +426,18 @@ func start_recording(with_song:Song):
 	file.store_64(0)
 	file.store_line(id)
 	file.store_line(SSP.generate_pb_str())
+	
+	file.store_float(SSP.approach_rate)
+	file.store_float(SSP.spawn_distance)
+	file.store_float(SSP.fade_length)
+	file.store_float(SSP.parallax)
+	file.store_float(SSP.ui_parallax)
+	file.store_float(SSP.grid_parallax)
+	file.store_float(SSP.fov)
+	if SSP.cam_unlock: file.store_8(1)
+	else: file.store_8(0)
+	file.store_float(SSP.edge_drift)
+	
 	file.store_8(0)
 	endms_offset = file.get_position()
 	file.store_32(0)
