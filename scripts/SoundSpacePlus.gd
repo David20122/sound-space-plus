@@ -12,19 +12,20 @@ var settings:Settings
 var first_time:bool = false
 
 func _ready():
-	call_deferred("load_settings")
 	connect("on_init_complete",Callable(self,"_on_init_complete"))
+
+	var exec_settings = OS.get_executable_path().get_base_dir().path_join("preferences.json")
+	if FileAccess.file_exists(exec_settings): settings_path = exec_settings
+	call_deferred("load_settings")
 
 # Settings
 func load_settings():
-	var exec_settings = OS.get_executable_path().path_join("preferences.json")
-	if FileAccess.file_exists(exec_settings):
-		settings_path = exec_settings
+	var load_settings_path = settings_path
 	var data = {}
-	if FileAccess.file_exists(ProjectSettings.globalize_path(settings_path)):
-		var file = FileAccess.open(settings_path,FileAccess.READ)
+	if FileAccess.file_exists(ProjectSettings.globalize_path(load_settings_path)):
+		var file = FileAccess.open(load_settings_path,FileAccess.READ)
 		data = JSON.parse_string(file.get_as_text())
-	settings = Settings.new(self,data)
+	settings = Settings.new(data)
 	first_time = settings.first_time
 func save_settings():
 	var file = FileAccess.open(settings_path,FileAccess.WRITE)
