@@ -3,10 +3,10 @@ class_name MapsetReader
 
 const SIGNATURE:PackedByteArray = [0x53,0x53,0x2b,0x6d]
 
-func read_from_file(path:String,full:bool=false,index:int=0) -> Mapset:
+static func read_from_file(path:String,full:bool=false,index:int=0) -> Mapset:
 	var file = FileAccess.open(path,FileAccess.READ)
-	assert(file != null) #,"Couldn't read file: %s" % err)
-	assert(file.get_buffer(4) == SIGNATURE) #,"This isn't a map")
+	assert(file != null)
+	assert(file.get_buffer(4) == SIGNATURE)
 	var set = Mapset.new()
 	var file_version = file.get_16()
 	set.path = path
@@ -17,9 +17,9 @@ func read_from_file(path:String,full:bool=false,index:int=0) -> Mapset:
 		3: _sspmv3(file,set,full,index)
 	return set
 
-func _sspmv3(file:FileAccess,set:Mapset,full:bool,index:int=-1):
+static func _sspmv3(file:FileAccess,set:Mapset,full:bool,index:int=-1):
 	file.seek(file.get_position()+2)
-	
+
 	# Metadata
 	var id = FileAccess.get_md5(file.get_path())
 	set.id = id
@@ -29,7 +29,7 @@ func _sspmv3(file:FileAccess,set:Mapset,full:bool,index:int=-1):
 	set.name = file.get_buffer(name_length).get_string_from_utf16()
 	var creator_length = file.get_16() # Map creator
 	set.creator = file.get_buffer(creator_length).get_string_from_utf16()
-	
+
 	# Audio
 	var audio_length = file.get_64()
 	if audio_length > 1:
@@ -37,7 +37,7 @@ func _sspmv3(file:FileAccess,set:Mapset,full:bool,index:int=-1):
 		_audio(audio_buffer,set)
 	else:
 		set.broken = true
-	
+
 	# Cover
 	var cover_width = file.get_16()
 	if cover_width > 1:
@@ -48,7 +48,7 @@ func _sspmv3(file:FileAccess,set:Mapset,full:bool,index:int=-1):
 		_cover(image,set)
 	else:
 		set.broken = true
-		
+
 	# Data
 	var indexed = index != -1
 	var map_count = file.get_8()
@@ -67,7 +67,7 @@ func _sspmv3(file:FileAccess,set:Mapset,full:bool,index:int=-1):
 			map.id = hash_ctx.finish().hex_encode()
 			deserialise_v3_data(data,map)
 		set.maps[i] = map
-func deserialise_v3_data(data:String,map:Map):
+static func deserialise_v3_data(data:String,map:Map):
 	var parsed = JSON.parse_string(data)
 	if parsed.get("version",1) > 1:
 		map.unsupported = true
@@ -82,24 +82,24 @@ func deserialise_v3_data(data:String,map:Map):
 		map.notes.append(note)
 	map.data = parsed
 
-func get_audio_format(buffer:PackedByteArray):
+static func get_audio_format(buffer:PackedByteArray):
 	if buffer.slice(0,4) == PackedByteArray([0x4F,0x67,0x67,0x53]): return Globals.AudioFormat.OGG
 
 	if (buffer.slice(0,4) == PackedByteArray([0x52,0x49,0x46,0x46])
 	and buffer.slice(8,12) == PackedByteArray([0x57,0x41,0x56,0x45])): return Globals.AudioFormat.WAV
-	
+
 	if (buffer.slice(0,2) == PackedByteArray([0xFF,0xFB])
 	or buffer.slice(0,2) == PackedByteArray([0xFF,0xF3])
 	or buffer.slice(0,2) == PackedByteArray([0xFF,0xFA])
 	or buffer.slice(0,2) == PackedByteArray([0xFF,0xF2])
 	or buffer.slice(0,3) == PackedByteArray([0x49,0x44,0x33])): return Globals.AudioFormat.MP3
-	
+
 	return Globals.AudioFormat.UNKNOWN
 
-func _cover(image:Image,set:Mapset):
+static func _cover(image:Image,set:Mapset):
 	var texture = ImageTexture.create_from_image(image)
 	set.cover = texture
-func _audio(buffer:PackedByteArray,set:Mapset):
+static func _audio(buffer:PackedByteArray,set:Mapset):
 	var format = get_audio_format(buffer)
 	match format:
 		Globals.AudioFormat.WAV:
@@ -114,11 +114,11 @@ func _audio(buffer:PackedByteArray,set:Mapset):
 			var stream = AudioStreamMP3.new()
 			stream.data = buffer
 			set.audio = stream
-		_: 
+		_:
 			print("I don't recognise this format! %s" % buffer.slice(0,3))
 			set.broken = true
 
-func _sspmv1(file:FileAccess,set:Mapset,full:bool):
+static func _sspmv1(file:FileAccess,set:Mapset,full:bool):
 	file.seek(file.get_position()+2) # Header reserved space or something
 	var map = Map.new()
 	set.maps = [map]
@@ -176,7 +176,7 @@ func _sspmv1(file:FileAccess,set:Mapset,full:bool):
 	for i in range(map.notes.size()):
 		map.notes[i].index = i
 
-func _read_data_type(file:FileAccess,skip_type:bool=false,skip_array_type:bool=false,type:int=0,array_type:int=0):
+static func _read_data_type(file:FileAccess,skip_type:bool=false,skip_array_type:bool=false,type:int=0,array_type:int=0):
 	if !skip_type:
 		type = file.get_8()
 	match type:
@@ -206,7 +206,7 @@ func _read_data_type(file:FileAccess,skip_type:bool=false,skip_array_type:bool=f
 			for i in range(array.size()):
 				array[i] = _read_data_type(file,true,false,array_type)
 			return array
-func _sspmv2(file:FileAccess,set:Mapset,full:bool):
+static func _sspmv2(file:FileAccess,set:Mapset,full:bool):
 	var map = Map.new()
 	set.maps = [map]
 	file.seek(0x26)

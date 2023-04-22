@@ -3,12 +3,12 @@ class_name MapsetWriter
 
 const SIGNATURE:PackedByteArray = [0x53,0x53,0x2b,0x6d]
 
-func write_to_file(set:Mapset,path:String):
+static func write_to_file(set:Mapset,path:String):
 	var file = FileAccess.open(path,FileAccess.WRITE)
 	file.store_buffer(SIGNATURE)
 	file.store_16(3) # File version
 	file.store_16(0) # Empty bytes
-	
+
 	# Metadata
 	if set.online_id != null:
 		var online_id_buffer = set.online_id.to_ascii_buffer() # Online ID
@@ -22,7 +22,7 @@ func write_to_file(set:Mapset,path:String):
 	var creator_buffer = set.creator.to_utf16_buffer() # Map creator
 	file.store_16(creator_buffer.size())
 	file.store_buffer(creator_buffer)
-	
+
 	# Audio
 	if set.audio != null:
 		var audio_buffer = set.audio.data
@@ -30,7 +30,7 @@ func write_to_file(set:Mapset,path:String):
 		file.store_buffer(audio_buffer)
 	else:
 		file.store_64(0)
-	
+
 	# Cover
 	if set.cover != null:
 		var cover_image = set.cover.get_image()
@@ -45,7 +45,7 @@ func write_to_file(set:Mapset,path:String):
 		file.store_buffer(cover_buffer)
 	else:
 		file.store_16(0)
-	
+
 	file.store_8(set.maps.size()) # Number of maps in file, assume this is always 1 for now
 	for i in range(set.maps.size()):
 		# Store the difficulty's name, then the data
@@ -57,7 +57,7 @@ func write_to_file(set:Mapset,path:String):
 		file.store_64(map_data.size())
 		file.store_buffer(map_data)
 
-func serialise_data(map:Map): # Serialise map data to Dictionary
+static func serialise_data(map:Map): # Serialise map data to Dictionary
 	var data = {}
 	data.version = 1
 	data.notes = []
