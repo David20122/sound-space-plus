@@ -76,6 +76,7 @@ window/subwindows/embed_subwindows.mobile=true
 
 [editor]
 
+run/main_run_args="-v -m"
 version_control/plugin_name="GitPlugin"
 version_control/autoload_on_startup=true
 scene_naming=1
@@ -134,7 +135,6 @@ common/max_physics_steps_per_frame=1
 [rendering]
 
 occlusion_culling/bvh_build_quality=1
-driver/threads/thread_model=2
 textures/vram_compression/import_etc2_astc=true
 environment/defaults/default_clear_color=Color(0.0705882, 0.0705882, 0.0705882, 1)
 anti_aliasing/quality/msaa_2d=1
