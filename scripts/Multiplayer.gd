@@ -18,14 +18,14 @@ func mp_print(string):
 
 func _ready():
 	upnp.discover()
-	
+
 	api.auth_callback = auth_callback
 	api.peer_authenticating.connect(peer_authenticating)
 	api.peer_authentication_failed.connect(peer_auth_failed)
-	
+
 	api.connected_to_server.connect(connected)
 	api.server_disconnected.connect(disconnected)
-	
+
 	api.peer_connected.connect(peer_added)
 	api.peer_disconnected.connect(peer_removed)
 

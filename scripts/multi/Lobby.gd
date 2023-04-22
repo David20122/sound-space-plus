@@ -2,10 +2,6 @@ extends Node
 class_name Lobby
 
 @export var mods:Mods
-@rpc("authority","call_local","reliable")
-func set_mods(data:Dictionary):
-	mods = Mods.new()
-	mods.data = data
 
 @export var map_id:String:
 	get: return map_id
@@ -30,5 +26,7 @@ func start(map_index:int=0):
 	var scene = SoundSpacePlus.load_game_scene(SoundSpacePlus.GameType.MULTI,mapset,map_index)
 	get_tree().change_scene_to_node(scene)
 
-func _physics_process(_delta):
-	set_multiplayer_authority(host,false)
+@rpc("authority","call_local","reliable")
+func set_mods(data:Dictionary):
+	mods = Mods.new()
+	mods.data = data

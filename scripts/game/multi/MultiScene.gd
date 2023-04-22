@@ -20,10 +20,10 @@ func _ready():
 	local_player.network_player = Multiplayer.local_player
 	local_player.name = str(Multiplayer.api.get_unique_id())
 	local_player.set_multiplayer_authority(Multiplayer.api.get_unique_id())
-	
+
 	local_player.get_node("SyncManager").connect("finished",func(): rpc("ended"))
 	local_player.get_node("Origin/Player").connect("failed",func(): rpc("ended"))
-	
+
 	players = Multiplayer.lobby.players.values()
 	var i = 0
 	for player in players:

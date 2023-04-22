@@ -29,7 +29,7 @@ func hit_object_state_changed(state:int,object:HitObject):
 	if lock_score: return
 	match state:
 		HitObject.HitState.HIT:
-			if local_player: rpc("replicate_hit",object.id,true)
+#			if local_player: rpc("replicate_hit",object.id,true)
 			hit.emit(object)
 			score.hits += 1
 			score.combo += 1
@@ -40,13 +40,14 @@ func hit_object_state_changed(state:int,object:HitObject):
 			score.score += 25 * score.multiplier
 			if !did_fail: health = minf(health+0.625,5)
 		HitObject.HitState.MISS:
-			if local_player: rpc("replicate_hit",object.id,false)
+#			if local_player: rpc("replicate_hit",object.id,false)
 			missed.emit(object)
 			score.misses += 1
 			score.combo = 0
 			score.sub_multiplier = 0
 			score.multiplier -= 1
 			if !did_fail: health = maxf(health-1,0)
+	rpc("replicate_score",score.score,score.hits,score.misses,score.combo,health)
 	score_changed.emit(score,health)
 	if health == 0 and !did_fail:
 		fail()
@@ -83,15 +84,15 @@ func _process(_delta):
 	var display_name = cursor.get_node_or_null("DisplayName")
 	if display_name and score.total > 0:
 		display_name.get_node("Accuracy").text = "%.2f%%" % (float(score.hits*100)/float(score.total))
-	
+
 	if !local_player: return
 	var difference = cursor_position - clamped_cursor_position
 	cursor.position = Vector3(clamped_cursor_position.x,clamped_cursor_position.y,0)
 	ghost.position = Vector3(difference.x,difference.y,0.01)
 	ghost.transparency = max(0.25,1-(difference.length_squared()*2))
-	
+
 	var parallax = Vector3(clamped_cursor_position.x,clamped_cursor_position.y,0)
-	parallax *= game.settings.parallax
+	parallax *= game.settings.parallax.camera
 	camera.position = camera_origin + (parallax + camera.basis.z) / 4
 
 func _physics_process(_delta):
@@ -113,10 +114,17 @@ func _physics_process(_delta):
 			if game.sync_manager.current_time > (object as NoteObject).note.time + hitwindow:
 				object.miss()
 
-@rpc("authority","call_remote","unreliable_ordered")
-func replicate_hit(object_id:String,hit:bool):
-	var object = manager.objects_ids.get(object_id)
-	if object is HitObject:
-		if object.hit_state != HitObject.HitState.NONE: return
-		if hit: object.hit()
-		else: object.miss()
+#@rpc("authority","call_remote","unreliable_ordered")
+#func replicate_hit(object_id:String,hit:bool):
+#	var object = manager.objects_ids.get(object_id)
+#	if object is HitObject:
+#		if object.hit_state != HitObject.HitState.NONE: return
+#		if hit: object.hit()
+#		else: object.miss()
+@rpc("authority","call_remote","unreliable")
+func replicate_score(_score:int,hits:int,misses:int,combo:int,health:float):
+	score.score = _score
+	score.hits = hits
+	score.misses = misses
+	score.combo = combo
+	health = health
