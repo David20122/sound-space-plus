@@ -6,7 +6,7 @@ var mesh:MeshPlus
 func prepare():
 	multimesh.instance_count = 0
 	multimesh.use_colors = true
-	mesh = SoundSpacePlus.blocks.get_by_id(game.settings.assets.get("block","cube"))
+	mesh = SoundSpacePlus.blocks.get_by_id(game.settings.assets.block)
 	multimesh.mesh = mesh.mesh
 	multimesh.instance_count = 64
 
@@ -17,11 +17,11 @@ func render_objects(objects:Array):
 		if not object is NoteObject: continue
 		if !object.visible: continue
 		notes.append(object)
-	
+
 	var count = notes.size()
 	if count > multimesh.instance_count: multimesh.instance_count = count
 	multimesh.visible_instance_count = count
-	
+
 	for i in count:
 		var note = notes[i]
 		multimesh.set_instance_color(i,note.colour)

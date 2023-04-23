@@ -2,7 +2,7 @@ extends Node3D
 class_name GameScene
 
 var mods:Mods
-var settings:Settings
+var settings:GameSettings
 
 var mapset:Mapset
 var map_index:int
@@ -27,13 +27,13 @@ func setup_managers():
 
 func _ready():
 	map = mapset.maps[map_index]
-	
+
 	if sync_manager is AudioSyncManager: sync_manager.audio_stream = mapset.audio
 	sync_manager.playback_speed = mods.speed
-	
+
 	setup_managers()
 	sync_manager.connect("finished",Callable(self,"finish"))
-	
+
 	call_deferred("ready")
 
 func ready():

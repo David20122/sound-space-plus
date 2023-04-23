@@ -3,12 +3,12 @@ extends Control
 func _ready():
 	hide_address(true)
 	$Join/HideAddress.toggled.connect(hide_address)
-	
+
 	$Join/Nickname.text = Multiplayer.player_name
 	$Join/Nickname.text_changed.connect(update_player_name)
 	$Join/ColorPicker.color = Multiplayer.player_color
 	$Join/ColorPicker.color_changed.connect(update_player_color)
-	
+
 	$Join/Buttons/Connect.pressed.connect(attempt_connect)
 	$Join/Buttons/Host.pressed.connect(attempt_host)
 	$Join/Buttons/Leave.pressed.connect(attempt_leave)
@@ -30,15 +30,15 @@ func attempt_leave():
 
 func _process(delta):
 	var connected = Multiplayer.check_connected()
-	
+
 	$Join/Address.editable = !connected
 	$Join/Buttons/Connect.visible = !connected
 	$Join/Buttons/Host.visible = !connected
 	$Join/Buttons/Leave.visible = connected
-	
+
 	$Join/Nickname.editable = !connected
 	$Join/ColorPicker.disabled = connected
-	
+
 	if connected:
 		$Join/Address.text = Multiplayer.server_ip
 		var text = "Players:\n"

@@ -11,30 +11,29 @@ signal value_changed
 @export var signal_name:String
 @export var property_name:String
 
-func _ready():
-	call_deferred("reset",get_setting())
-	signal_emitter.connect(signal_name,Callable(self,"signal_received"))
+var setting:Setting
 
-func reset(value=get_setting()):
-	signal_emitter.set(property_name,value)
-	value_changed.emit(value)
+func _ready():
+	assert(target.size() > 0)
+	var find_setting = SoundSpacePlus.settings
+	for child in target:
+		find_setting = find_setting.get_setting(child)
+	setting = find_setting
+
+	signal_emitter.set(property_name,setting.value)
+	signal_emitter.connect(signal_name,signal_received)
+
+	value_changed.emit(setting.value)
+	setting.changed.connect(save_setting)
+
 func signal_received(_value):
 	set_setting(_value)
 
 func get_setting():
-	var pos = SoundSpacePlus.settings
-	if target.size() > 1:
-		for i in range(target.size()-1):
-			pos = pos[target[i]]
-	return pos[target.back()]
+	return setting.value
 func set_setting(value):
-	var pos = SoundSpacePlus.settings
-	if target.size() > 1:
-		for i in range(target.size()-1):
-			pos = pos[target[i]]
-		pos[target.back()] = value
-	else:
-		pos.set(target.back(),value)
-	value_changed.emit(value)
-	SoundSpacePlus.settings.validate_self()
-	SoundSpacePlus.save_settings()
+	setting.value = value
+	value_changed.emit(get_setting())
+
+func save_setting(_value):
+	SoundSpacePlus.call_deferred("save_settings")

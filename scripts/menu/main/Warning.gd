@@ -39,14 +39,14 @@ func _process(delta):
 		visible = true
 		$"../Main".offset_bottom = -24
 		apply_warning(active_warnings[active_warning])
-	
+
 	# Scroll
 	_scroll_position += scroll_speed * delta
 	var width = $Slider.size.x / 2
 	if _scroll_position >= width:
 		_scroll_position -= width
 	$Slider.position.x = _scroll_position-width
-	
+
 	# Switch
 	var time = Time.get_ticks_msec()/1000.0
 	if time - last_switch > switch_interval:

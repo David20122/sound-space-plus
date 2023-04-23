@@ -67,31 +67,35 @@ script/source = "extends VBoxContainer
 
 func _ready():
 	update_mode(SoundSpacePlus.settings.approach.mode)
-	mode.connect(\"value_changed\",Callable(self,\"update_mode\"))
+	mode.connect(\"value_changed\", update_mode)
+	distance.connect(\"value_changed\", update_value)
+
+func update_value():
+	update_mode(SoundSpacePlus.settings.approach.mode)
 
 func update_mode(value:int):
 	match value:
-		Settings.ApproachMode.DISTANCE_RATE:
+		GameSettings.ApproachMode.DISTANCE_RATE:
 			distance.signal_emitter.editable = true
-			distance.reset()
+#			distance.reset()
 			rate.signal_emitter.editable = true
-			rate.reset()
+#			rate.reset()
 			time.signal_emitter.editable = false
-			time.reset()
-		Settings.ApproachMode.DISTANCE_TIME:
+#			time.reset()
+		GameSettings.ApproachMode.DISTANCE_TIME:
 			distance.signal_emitter.editable = true
-			distance.reset()
+#			distance.reset()
 			rate.signal_emitter.editable = false
-			rate.reset()
+#			rate.reset()
 			time.signal_emitter.editable = true
-			time.reset()
-		Settings.ApproachMode.RATE_TIME:
+#			time.reset()
+		GameSettings.ApproachMode.RATE_TIME:
 			distance.signal_emitter.editable = false
-			distance.reset()
+#			distance.reset()
 			rate.signal_emitter.editable = true
-			rate.reset()
+#			rate.reset()
 			time.signal_emitter.editable = true
-			time.reset()
+#			time.reset()
 "
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_floo6"]
@@ -174,7 +178,6 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_rnsra")
 tabs_visible = false
 
 [node name="Select" type="Control" parent="Main/TabBar"]
-visible = false
 layout_mode = 2
 
 [node name="Playlists" type="ScrollContainer" parent="Main/TabBar/Select"]
@@ -260,8 +263,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 4.0
 offset_top = 4.0
-offset_right = 324.0
-offset_bottom = 417.0
+offset_right = -4.0
+offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
@@ -859,6 +862,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Lobby" type="Control" parent="Main/TabBar"]
+visible = false
 layout_mode = 2
 script = ExtResource("16_to4ol")
 
@@ -1252,79 +1256,6 @@ size_flags_horizontal = 3
 theme_override_constants/separation = 0
 theme_override_styles/separator = SubResource("StyleBoxEmpty_lykwc")
 
-[node name="Skin" type="VBoxContainer" parent="Main/TabBar/Settings/TabContainer/Game/Columns"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 4
-
-[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Skin"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Skin"
-vertical_alignment = 2
-
-[node name="Block" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Skin"]
-custom_minimum_size = Vector2(0, 32)
-layout_mode = 2
-theme_override_constants/separation = 16
-alignment = 1
-script = ExtResource("10_a5lmy")
-registry_name = "blocks"
-target = Array[String](["assets", "block"])
-signal_emitter_path = NodePath("OptionButton")
-signal_name = "item_selected"
-property_name = "selected"
-
-[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Skin/Block"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 1
-text = "Block Mesh"
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="OptionButton" type="OptionButton" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Skin/Block"]
-layout_mode = 2
-size_flags_horizontal = 3
-fit_to_longest_item = false
-
-[node name="VSeparator" type="VSeparator" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Skin/Block"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 0
-theme_override_styles/separator = SubResource("StyleBoxEmpty_lykwc")
-
-[node name="World" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Skin"]
-custom_minimum_size = Vector2(0, 32)
-layout_mode = 2
-theme_override_constants/separation = 16
-alignment = 1
-script = ExtResource("10_a5lmy")
-registry_name = "worlds"
-target = Array[String](["assets", "world"])
-signal_emitter_path = NodePath("OptionButton")
-signal_name = "item_selected"
-property_name = "selected"
-
-[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Skin/World"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 1
-text = "Background World"
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="OptionButton" type="OptionButton" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Skin/World"]
-layout_mode = 2
-size_flags_horizontal = 3
-fit_to_longest_item = false
-
-[node name="VSeparator" type="VSeparator" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Skin/World"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 0
-theme_override_styles/separator = SubResource("StyleBoxEmpty_lykwc")
-
 [node name="Approach" type="VBoxContainer" parent="Main/TabBar/Settings/TabContainer/Game/Columns"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1475,6 +1406,81 @@ size_flags_horizontal = 3
 theme_override_constants/separation = 0
 theme_override_styles/separator = SubResource("StyleBoxEmpty_lykwc")
 
+[node name="Skin" type="VBoxContainer" parent="Main/TabBar/Settings/TabContainer/Game/Columns"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
+
+[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Skin"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Skin"
+vertical_alignment = 2
+
+[node name="Block" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Skin"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+script = ExtResource("10_a5lmy")
+registry_name = "blocks"
+target = Array[String](["assets", "block"])
+signal_emitter_path = NodePath("OptionButton")
+signal_name = "item_selected"
+save_signal_name = "item_selected"
+property_name = "selected"
+
+[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Skin/Block"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Block Mesh"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="OptionButton" type="OptionButton" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Skin/Block"]
+layout_mode = 2
+size_flags_horizontal = 3
+fit_to_longest_item = false
+
+[node name="VSeparator" type="VSeparator" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Skin/Block"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+theme_override_styles/separator = SubResource("StyleBoxEmpty_lykwc")
+
+[node name="World" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Skin"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+script = ExtResource("10_a5lmy")
+registry_name = "worlds"
+target = Array[String](["assets", "world"])
+signal_emitter_path = NodePath("OptionButton")
+signal_name = "item_selected"
+save_signal_name = "item_selected"
+property_name = "selected"
+
+[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Skin/World"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Background World"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="OptionButton" type="OptionButton" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Skin/World"]
+layout_mode = 2
+size_flags_horizontal = 3
+fit_to_longest_item = false
+
+[node name="VSeparator" type="VSeparator" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Skin/World"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+theme_override_styles/separator = SubResource("StyleBoxEmpty_lykwc")
+
 [node name="Video" type="Control" parent="Main/TabBar/Settings/TabContainer"]
 visible = false
 layout_mode = 2
@@ -1502,18 +1508,18 @@ theme_override_font_sizes/font_size = 32
 text = "Window"
 vertical_alignment = 2
 
-[node name="Mode" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Video/Columns/Window"]
+[node name="Fullscreen" type="HBoxContainer" parent="Main/TabBar/Settings/TabContainer/Video/Columns/Window"]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 theme_override_constants/separation = 16
 alignment = 1
 script = ExtResource("10_qi5v2")
-target = Array[String](["window_mode"])
+target = Array[String](["fullscreen"])
 signal_emitter_path = NodePath("OptionButton")
 signal_name = "item_selected"
 property_name = "selected"
 
-[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Video/Columns/Window/Mode"]
+[node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Video/Columns/Window/Fullscreen"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -1521,7 +1527,7 @@ text = "Window Mode"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="OptionButton" type="OptionButton" parent="Main/TabBar/Settings/TabContainer/Video/Columns/Window/Mode"]
+[node name="OptionButton" type="OptionButton" parent="Main/TabBar/Settings/TabContainer/Video/Columns/Window/Fullscreen"]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
@@ -1534,7 +1540,7 @@ popup/item_1/id = 1
 popup/item_2/text = "Exclusive Fullscreen"
 popup/item_2/id = 2
 
-[node name="VSeparator" type="VSeparator" parent="Main/TabBar/Settings/TabContainer/Video/Columns/Window/Mode"]
+[node name="VSeparator" type="VSeparator" parent="Main/TabBar/Settings/TabContainer/Video/Columns/Window/Fullscreen"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
@@ -1608,6 +1614,7 @@ script = ExtResource("13_5sex8")
 target = Array[String](["volume", "master"])
 signal_emitter_path = NodePath("HSlider")
 signal_name = "drag_ended"
+save_signal_name = null
 property_name = "value"
 
 [node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume/Master"]
@@ -1644,6 +1651,7 @@ script = ExtResource("13_5sex8")
 target = Array[String](["volume", "master_menu"])
 signal_emitter_path = NodePath("HSlider")
 signal_name = "drag_ended"
+save_signal_name = null
 property_name = "value"
 
 [node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume/Menu"]
@@ -1679,6 +1687,7 @@ script = ExtResource("13_5sex8")
 target = Array[String](["volume", "menu_music"])
 signal_emitter_path = NodePath("HSlider")
 signal_name = "drag_ended"
+save_signal_name = null
 property_name = "value"
 
 [node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume/MenuMusic"]
@@ -1714,6 +1723,7 @@ script = ExtResource("13_5sex8")
 target = Array[String](["volume", "menu_sfx"])
 signal_emitter_path = NodePath("HSlider")
 signal_name = "drag_ended"
+save_signal_name = null
 property_name = "value"
 
 [node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume/MenuSFX"]
@@ -1749,6 +1759,7 @@ script = ExtResource("13_5sex8")
 target = Array[String](["volume", "master_game"])
 signal_emitter_path = NodePath("HSlider")
 signal_name = "drag_ended"
+save_signal_name = null
 property_name = "value"
 
 [node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume/Game"]
@@ -1784,6 +1795,7 @@ script = ExtResource("13_5sex8")
 target = Array[String](["volume", "game_music"])
 signal_emitter_path = NodePath("HSlider")
 signal_name = "drag_ended"
+save_signal_name = null
 property_name = "value"
 
 [node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume/GameMusic"]
@@ -1819,6 +1831,7 @@ script = ExtResource("13_5sex8")
 target = Array[String](["volume", "game_sfx"])
 signal_emitter_path = NodePath("HSlider")
 signal_name = "drag_ended"
+save_signal_name = null
 property_name = "value"
 
 [node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume/GameSFX"]
@@ -1948,6 +1961,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 mouse_default_cursor_shape = 2
+disabled = true
 flat = true
 
 [node name="Icon" type="TextureRect" parent="Sidebar/Buttons/Content"]
@@ -1973,6 +1987,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 mouse_default_cursor_shape = 2
+disabled = true
 flat = true
 
 [node name="Icon" type="TextureRect" parent="Sidebar/Buttons/Credits"]

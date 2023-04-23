@@ -8,7 +8,7 @@ extends Node
 @onready var worlds:Registry = load("res://assets/content/Worlds.tres")
 
 var settings_path = "user://preferences.json"
-var settings:Settings
+var settings:GameSettings
 var first_time:bool = false
 
 func _ready():
@@ -20,16 +20,18 @@ func _ready():
 
 # Settings
 func load_settings():
-	var load_settings_path = settings_path
-	var data = {}
-	if FileAccess.file_exists(ProjectSettings.globalize_path(load_settings_path)):
-		var file = FileAccess.open(load_settings_path,FileAccess.READ)
-		data = JSON.parse_string(file.get_as_text())
-	settings = Settings.new(data)
-	first_time = settings.first_time
+	settings = GameSettings.new()
+#	var load_settings_path = settings_path
+#	var data = {}
+#	if FileAccess.file_exists(ProjectSettings.globalize_path(load_settings_path)):
+#		var file = FileAccess.open(load_settings_path,FileAccess.READ)
+#		data = JSON.parse_string(file.get_as_text())
+#	settings = Settings.new(data)
+#	first_time = settings.first_time
 func save_settings():
-	var file = FileAccess.open(settings_path,FileAccess.WRITE)
-	file.store_string(JSON.stringify(settings.data,"",false))
+#	var file = FileAccess.open(settings_path,FileAccess.WRITE)
+#	file.store_string(JSON.stringify(settings.data,"",false))
+	pass
 
 # Init
 var _initialised:bool = false
