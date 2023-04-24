@@ -259,7 +259,7 @@ boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://assets/branding/icon.png"
 config/windows_native_icon="res://icon.ico"
 config/quit_on_go_back=false
-config/version="apr24-rabbit"
+config/version="apr24-rabbit-b"
 config/autoload_map_registries="test maps|res://test_assets/test_maps.sspmr;built in|res://content/songs/built_in_maps.sspmr"
 config/enable_new_content_mgr=true
 config/default_menu_target="res://menu2.tscn"
@@ -293,6 +293,7 @@ config/disable_native_file_dialogs.OSX=true
 config/is_using_controller=true
 config/discord_rpc=true
 config/discord_rpc.editor=true
+networking/github_repo="krmeet/sound-space-plus"
 
 [audio]
 

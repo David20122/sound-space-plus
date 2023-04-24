@@ -293,6 +293,64 @@ func load_db_maps():
 	
 	emit_signal("db_maps_done")
 
+var latest_version_data
+signal latest_version
+var version_hr:HTTPRequest = HTTPRequest.new()
+func check_latest_version():
+	if !OS.has_feature("Windows") or !ProjectSettings.get_setting("application/networking/enabled"):
+		emit_signal("latest_version",ProjectSettings.get_setting("application/config/version"))
+		return
+	var github_url = "https://api.github.com/repos/%s/releases/latest"
+	version_hr.request(github_url % ProjectSettings.get_setting("application/networking/github_repo"))
+func _on_version_request_completed(result:int,response_code:int,headers:PoolStringArray,body:PoolByteArray):
+	if result != HTTPRequest.RESULT_SUCCESS or response_code != 200:
+		emit_signal("latest_version",ProjectSettings.get_setting("application/config/version"))
+		return
+	var string = body.get_string_from_utf8()
+	var json = JSON.parse(string)
+	var data = json.result
+	latest_version_data = data
+	emit_signal("latest_version",data.tag_name)
+signal update_finished
+signal _update_req
+var update_hr:HTTPRequest = HTTPRequest.new()
+func attempt_update():
+	var asset
+	for _asset in latest_version_data.assets:
+		if _asset.name == "windows.zip":
+			asset = _asset
+			break
+	if !asset:
+		emit_signal("update_finished")
+		return
+	var exec_dir = OS.get_executable_path().get_base_dir()
+	var file_path = exec_dir.plus_file("update.zip")
+	update_hr.download_file = file_path
+	update_hr.request(asset.url,["Accept: application/octet-stream"])
+	var res = yield(self,"_update_req")
+	if res[0] != HTTPRequest.RESULT_SUCCESS or res[1] != 200:
+		emit_signal("update_finished")
+		return
+	print("Extracting")
+	ProjectSettings.load_resource_pack(file_path,false)
+	var read_file = File.new()
+	read_file.open("res://SoundSpacePlus.pck",File.READ)
+	var new_file_buffer = read_file.get_buffer(read_file.get_len())
+	read_file.close()
+	var file = File.new()
+	var dir = Directory.new()
+	if dir.file_exists(exec_dir.plus_file("SoundSpacePlus.pck.old")):
+		dir.remove(exec_dir.plus_file("SoundSpacePlus.pck.old"))
+	if dir.file_exists(exec_dir.plus_file("SoundSpacePlus.pck")):
+		dir.rename(exec_dir.plus_file("SoundSpacePlus.pck"),exec_dir.plus_file("SoundSpacePlus.pck.old"))
+	dir.remove(file_path)
+	file.open(exec_dir.plus_file("SoundSpacePlus.pck"),File.WRITE)
+	file.store_buffer(new_file_buffer)
+	file.close()
+	emit_signal("update_finished")
+func _on_update_request_completed(result:int,response_code:int,headers:PoolStringArray,body:PoolByteArray):
+	emit_signal("_update_req",[result,response_code])
+
 func _ready():
 	add_child(netmaps_hr)
 	netmaps_hr.use_threads = true
@@ -308,6 +366,16 @@ func _ready():
 	mapdl_hr.use_threads = false
 	mapdl_hr.timeout = 0
 	mapdl_hr.connect("request_completed",self,"_on_mapdl_request_completed")
+	
+	add_child(version_hr)
+	version_hr.use_threads = true
+	version_hr.timeout = 5
+	version_hr.connect("request_completed",self,"_on_version_request_completed")
+	
+	add_child(update_hr)
+	update_hr.use_threads = true
+	update_hr.timeout = 0
+	update_hr.connect("request_completed",self,"_on_update_request_completed")
 	
 	pause_mode = PAUSE_MODE_PROCESS
 	

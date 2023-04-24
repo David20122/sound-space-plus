@@ -2000,6 +2000,30 @@ func do_init(_ud=null):
 			single_map_mode_txt = true
 			single_map_mode_path = Globals.cmdline.txt
 			single_map_mode_audio_path = Globals.cmdline.audio
+			
+	# Check for updates
+	if OS.has_feature("Windows"): #and !OS.has_feature("editor"):
+		emit_signal("init_stage_reached","Check for updates")
+		emit_signal("init_stage_num",-1)
+		yield(get_tree(),"idle_frame")
+		Online.check_latest_version()
+		var latest_version = yield(Online,"latest_version")
+		if ProjectSettings.get_setting("application/config/version") != latest_version:
+			var sel = 1
+			if !Online.latest_version_data.body.begins_with("-a"):
+				Globals.confirm_prompt.s_alert.play()
+				Globals.confirm_prompt.open("You are on an outdated version of the game! Would you like to automatically update?","Outdated",[{text="Ignore",wait=4},{text="Update",wait=2}])
+				sel = yield(Globals.confirm_prompt,"option_selected")
+				Globals.confirm_prompt.s_next.play()
+				Globals.confirm_prompt.close()
+				yield(Globals.confirm_prompt,"done_closing")
+			if bool(sel):
+				emit_signal("init_stage_reached","Updating the game")
+				Online.attempt_update()
+				yield(Online,"update_finished")
+				get_tree().call_deferred("quit",1)
+				OS.execute(OS.get_executable_path(),[],false)
+				return
 	
 	emit_signal("init_stage_reached","Init filesystem")
 	emit_signal("init_stage_num",-1)
