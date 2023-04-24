@@ -663,9 +663,9 @@ func _process(delta:float):
 					ms = next_ms - 1000 - (1000*speed_multi)
 					emit_signal("ms_change",ms)
 					do_note_queue()
-					if (ms + SSP.music_offset) >= SSP.start_offset:
-						$Music.play((ms + SSP.music_offset)/1000)
-						music_started = true
+#					if (ms + SSP.music_offset) >= SSP.start_offset:
+#						$Music.play((ms + SSP.music_offset)/1000)
+#						music_started = true
 				else:
 					if pause_state == 0 and (ms > (1000 * speed_multi) and ms < get_parent().last_ms) and pause_cooldown == 0:
 						print("PAUSED AT MS %.0f" % ms)

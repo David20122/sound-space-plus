@@ -15,7 +15,8 @@ func _process(delta):
 		var ppos = cursor.transform.origin - cursor_offset
 		if SSP.replaying:
 			var replay_pos = SSP.replay.get_cursor_position(get_node("../Game/Spawn").rms)
-			ppos = Vector3(replay_pos.x,replay_pos.y,0) - replay_offset
+			if SSP.replay.sv < 3: ppos = Vector3(replay_pos.x,replay_pos.y,0) - replay_offset
+			else: ppos = Vector3(replay_pos.x,-replay_pos.y,0) - cursor_offset
 			look_at(ppos, Vector3.UP)
 			transform.origin = Vector3(
 				ppos.x*hlpower*hlm, ppos.y*hlpower*hlm, 3.5
@@ -31,6 +32,7 @@ func _process(delta):
 				var centeroff = collpoint + cursor_offset
 				var cx = centeroff.x
 				var cy = -centeroff.y
+				cursor.rpos = Vector2(cx,cy)
 				cx = clamp(cx, (0 + sh.x), (3 + sh.x))
 				cy = clamp(cy, (0 + sh.y), (3 + sh.y))
 				centeroff.x = cx - cursor_offset.x
