@@ -11,3 +11,5 @@ func _ready():
 	connect("changed",self,"upd")
 
 # hi
+
+# hello :D
