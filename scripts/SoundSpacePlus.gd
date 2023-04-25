@@ -2,10 +2,10 @@ extends Node
 
 @onready var selected_mods:Mods = Mods.new()
 
-@onready var playlists:Registry = load("res://assets/content/Playlists.tres")
-@onready var mapsets:Registry = load("res://assets/content/Mapsets.tres")
-@onready var blocks:Registry = load("res://assets/content/Blocks.tres")
-@onready var worlds:Registry = load("res://assets/content/Worlds.tres")
+@onready var playlists:Registry = preload("res://assets/content/Playlists.tres")
+@onready var mapsets:Registry = preload("res://assets/content/Mapsets.tres")
+@onready var blocks:Registry = preload("res://assets/content/Blocks.tres")
+@onready var worlds:Registry = preload("res://assets/content/Worlds.tres")
 
 var settings_path = "user://preferences.json"
 var settings:GameSettings = GameSettings.new()
