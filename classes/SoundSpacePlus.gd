@@ -2005,7 +2005,7 @@ func do_init(_ud=null):
 			single_map_mode_audio_path = Globals.cmdline.audio
 			
 	# Check for updates
-	if (OS.has_feature("Windows") or OS.has_feature("X11")) or OS.has_feature("Wayland") and !OS.has_feature("editor"):
+	if (OS.has_feature("Windows") or OS.has_feature("X11")) and !OS.has_feature("editor"):
 		emit_signal("init_stage_reached","Check for updates")
 		emit_signal("init_stage_num",-1)
 		yield(get_tree(),"idle_frame")
