@@ -6,7 +6,7 @@ var mesh:MeshPlus
 func prepare():
 	multimesh.instance_count = 0
 	multimesh.use_colors = true
-	mesh = SoundSpacePlus.blocks.get_by_id(game.settings.assets.block)
+	mesh = SoundSpacePlus.blocks.get_by_id(game.settings.skin.assets.block)
 	multimesh.mesh = mesh.mesh
 	multimesh.instance_count = 64
 
@@ -24,5 +24,5 @@ func render_objects(objects:Array):
 
 	for i in count:
 		var note = notes[i]
-		multimesh.set_instance_color(i,note.colour)
+		multimesh.set_instance_color(i,note.mixed_colour)
 		multimesh.set_instance_transform(i,note.global_transform.translated(mesh.offset))

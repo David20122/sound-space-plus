@@ -14,16 +14,16 @@ var player:PlayerObject
 
 func prepare(_game:GameScene):
 	super.prepare(_game)
-	
+
 	for child in get_children():
 		if child is ObjectRenderer:
 			child.prepare()
-	
+
 	origin = game.origin
 	player = game.player
-	
+
 	origin.set_physics_process(game.local_player)
-	
+
 	append_object(player,false)
 	build_map(game.map)
 
@@ -31,29 +31,29 @@ func append_object(object:GameObject,parent:bool=true,include_children:bool=fals
 	if objects_ids.keys().has(object.id): return false
 	object.game = game
 	object.manager = self
-	
+
 	object.set_physics_process(game.local_player)
 	if !object.permanent: object.process_mode = Node.PROCESS_MODE_DISABLED
 	object.process_priority = 4
-	
+
 	if object is HitObject:
 		if player != null: object.connect(
 			"on_hit_state_changed",
 			Callable(player,"hit_object_state_changed").bind(object)
 		)
-	
+
 	if parent: # Reparent to origin
 		var current_parent = object.get_parent()
 		if current_parent != origin:
 			if current_parent != null:
 				current_parent.remove_child(object)
 			origin.add_child(object)
-	
+
 	if include_children: # Append children
 		for child in object.get_children():
 			if child is GameObject:
 				append_object(child,false,true)
-	
+
 	objects.append(object)
 	objects_ids[object.id] = object
 	if !object.permanent: objects_to_process.append(object)

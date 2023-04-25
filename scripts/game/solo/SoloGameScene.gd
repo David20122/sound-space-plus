@@ -12,7 +12,7 @@ func setup_managers():
 
 func ready():
 	var world = SoundSpacePlus.worlds.items.front()
-	var selected_world = settings.assets.world
+	var selected_world = settings.skin.assets.world
 	var ids = SoundSpacePlus.worlds.get_ids()
 	if ids.has(selected_world):
 		world = SoundSpacePlus.worlds.get_by_id(selected_world)

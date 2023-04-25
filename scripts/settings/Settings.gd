@@ -22,9 +22,11 @@ const SETTINGS_CONFIG = [
 		["camera",Setting.Type.FLOAT,1.0],
 		["hud",Setting.Type.FLOAT,0.0]
 	]],
-	["assets",Setting.Type.CATEGORY,[
-		["block",Setting.Type.STRING,"cube"],
-		["world",Setting.Type.STRING,"tunnel"]
+	["skin",Setting.Type.CATEGORY,[
+		["assets",Setting.Type.CATEGORY,[
+			["block",Setting.Type.STRING,"cube"],
+			["world",Setting.Type.STRING,"tunnel"]
+		]]
 	]],
 	["colorset",Setting.Type.ARRAY,["#ff0000","#00ffff"]],
 	["volume",Setting.Type.CATEGORY,[

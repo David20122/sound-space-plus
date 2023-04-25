@@ -20,11 +20,14 @@ func _ready():
 		find_setting = find_setting.get_setting(child)
 	setting = find_setting
 
-	signal_emitter.set(property_name,setting.value)
+	reset()
 	signal_emitter.connect(signal_name,signal_received)
 
 	value_changed.emit(setting.value)
 	setting.changed.connect(save_setting)
+
+func reset(value=get_setting()):
+	signal_emitter.set(property_name,setting.value)
 
 func signal_received(_value):
 	set_setting(_value)

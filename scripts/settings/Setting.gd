@@ -33,7 +33,7 @@ var default:Variant
 var value:Variant = {}:
 	set(_value):
 		if !validate_type(_value,type): return false
-		if type == Type.ENUM and !validate_enum(_value,enum_type): return false
+#		if type == Type.ENUM and !validate_enum(_value,enum_type): return false
 		if type == Type.CATEGORY: return false
 		value = _value
 		changed.emit(value)
