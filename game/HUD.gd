@@ -495,8 +495,8 @@ func _ready():
 		ms += "py's nerf"
 	elif SSP.hitwindow_ms == 58 and SSP.note_hitbox_size == 1.140:
 		ms += "Vulnus Judgement"
-	elif SSP.hitwindow_ms == 200 and SSP.note_hitbox_size == 2.500:
-		ms += "Precision Mode"
+	elif SSP.hitwindow_ms == 700 and SSP.note_hitbox_size == 3:
+		ms += "Pyrecision Mode"
 	elif SSP.hitwindow_ms != 55 or SSP.note_hitbox_size != 1.140:
 		ms += "HW: %.0f ms | HB: %.02f m" % [SSP.hitwindow_ms,SSP.note_hitbox_size]
 	
