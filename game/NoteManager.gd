@@ -667,7 +667,7 @@ func _process(delta:float):
 #						$Music.play((ms + SSP.music_offset)/1000)
 #						music_started = true
 				else:
-					if pause_state == 0 and (ms > (1000 * speed_multi) and ms < get_parent().last_ms) and pause_cooldown == 0:
+					if pause_state == 0 and (ms > (1000 * speed_multi) and ms < get_parent().last_ms) and pause_cooldown == 0 and !SSP.disable_pausing:
 						print("PAUSED AT MS %.0f" % ms)
 						if SSP.record_replays:
 							SSP.replay.store_pause(rms)

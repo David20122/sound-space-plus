@@ -471,6 +471,7 @@ var start_offset:float = 0 setget _set_start_offset
 var note_hitbox_size:float = 1.140 setget _set_hitbox_size
 var hitwindow_ms:float = 55 setget _set_hitwindow
 var custom_speed:float = 1 setget _set_custom_speed
+var disable_pausing:bool = false
 # Modifiers - Special
 var health_model:int = Globals.HP_SOUNDSPACE setget _set_health_model
 var grade_system:int = Globals.GRADE_SSP setget _set_grade_system
@@ -542,8 +543,6 @@ func _set_health_model(v:int):
 	health_model = v; emit_signal("mods_changed")
 func _set_grade_system(v:int):
 	grade_system = v; emit_signal("mods_changed")
-
-
 
 
 # Settings - Notes
@@ -1039,6 +1038,8 @@ func load_saved_settings():
 				select_mesh(mesh)
 		if data.has("play_menu_music"): 
 			play_menu_music = data.play_menu_music
+		if data.has("disable_pausing"): 
+			disable_pausing = data.disable_pausing
 		if data.has("note_hitbox_size"): 
 			note_hitbox_size = data.note_hitbox_size
 		if data.has("spawn_distance"): 
@@ -1321,6 +1322,7 @@ func load_saved_settings():
 				print("integ 6"); return 8
 		
 		if sv >= 18:
+			disable_pausing = bool(file.get_8())
 			note_hitbox_size = float(str(file.get_float())) # fix weirdness with 1.14
 		if sv >= 19:
 			spawn_distance = file.get_float()
@@ -1465,6 +1467,7 @@ func save_settings():
 	if err == OK:
 		var data = {
 			hlm_converted = hlm_converted,
+			disable_pausing = disable_pausing,
 			approach_rate = approach_rate,
 			sensitivity = sensitivity,
 			play_hit_snd = play_hit_snd,
