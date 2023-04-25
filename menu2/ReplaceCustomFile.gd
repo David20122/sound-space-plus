@@ -32,7 +32,8 @@ func rename_old(ext:String):
 		self,
 		"save_sel",
 		[ "*.%s ; %s file" % [ext,ext] ],
-		"~/Downloads/%s.%s" % [target,ext]
+		#"~/Downloads/%s.%s" % [target,ext]
+		OS.get_system_dir(OS.SYSTEM_DIR_DOWNLOADS) + "/%s.%s" % [target,ext]
 	)
 
 func reset_to_default():

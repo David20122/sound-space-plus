@@ -111,7 +111,8 @@ func item_selected(idx:int):
 				self,
 				"save_song_txt",
 				["*.txt ; Text map data"],
-				"~/Downloads/%s.txt" % [SSP.selected_song.id]
+				#"~/Downloads/%s.txt" % [SSP.selected_song.id]
+				OS.get_system_dir(OS.SYSTEM_DIR_DOWNLOADS) + "/%s.txt" % [SSP.selected_song.id]
 			)
 		5:
 			if !(
@@ -126,14 +127,16 @@ func item_selected(idx:int):
 						self,
 						"save_song_audio",
 						["*.mp3 ; mp3 audio file"],
-						"~/Downloads/%s.mp3" % [SSP.selected_song.id]
+						#"~/Downloads/%s.mp3" % [SSP.selected_song.id]
+						OS.get_system_dir(OS.SYSTEM_DIR_DOWNLOADS) + "/%s.mp3" % [SSP.selected_song.id]
 					)
 				elif format == "ogg":
 					Globals.file_sel.save_file(
 						self,
 						"save_song_audio",
 						["*.ogg ; ogg audio file"],
-						"~/Downloads/%s.ogg" % [SSP.selected_song.id]
+						#"~/Downloads/%s.ogg" % [SSP.selected_song.id]
+						OS.get_system_dir(OS.SYSTEM_DIR_DOWNLOADS) + "/%s.ogg" % [SSP.selected_song.id]
 					)
 				else:
 					Globals.notify(Globals.NOTIFY_ERROR,"Unable to determine audio format","Error")
