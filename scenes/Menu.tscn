@@ -1427,7 +1427,6 @@ registry_name = "blocks"
 target = Array[String](["assets", "block"])
 signal_emitter_path = NodePath("OptionButton")
 signal_name = "item_selected"
-save_signal_name = "item_selected"
 property_name = "selected"
 
 [node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Skin/Block"]
@@ -1459,7 +1458,6 @@ registry_name = "worlds"
 target = Array[String](["assets", "world"])
 signal_emitter_path = NodePath("OptionButton")
 signal_name = "item_selected"
-save_signal_name = "item_selected"
 property_name = "selected"
 
 [node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Game/Columns/Skin/World"]
@@ -1614,7 +1612,6 @@ script = ExtResource("13_5sex8")
 target = Array[String](["volume", "master"])
 signal_emitter_path = NodePath("HSlider")
 signal_name = "drag_ended"
-save_signal_name = null
 property_name = "value"
 
 [node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume/Master"]
@@ -1651,7 +1648,6 @@ script = ExtResource("13_5sex8")
 target = Array[String](["volume", "master_menu"])
 signal_emitter_path = NodePath("HSlider")
 signal_name = "drag_ended"
-save_signal_name = null
 property_name = "value"
 
 [node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume/Menu"]
@@ -1687,7 +1683,6 @@ script = ExtResource("13_5sex8")
 target = Array[String](["volume", "menu_music"])
 signal_emitter_path = NodePath("HSlider")
 signal_name = "drag_ended"
-save_signal_name = null
 property_name = "value"
 
 [node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume/MenuMusic"]
@@ -1723,7 +1718,6 @@ script = ExtResource("13_5sex8")
 target = Array[String](["volume", "menu_sfx"])
 signal_emitter_path = NodePath("HSlider")
 signal_name = "drag_ended"
-save_signal_name = null
 property_name = "value"
 
 [node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume/MenuSFX"]
@@ -1759,7 +1753,6 @@ script = ExtResource("13_5sex8")
 target = Array[String](["volume", "master_game"])
 signal_emitter_path = NodePath("HSlider")
 signal_name = "drag_ended"
-save_signal_name = null
 property_name = "value"
 
 [node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume/Game"]
@@ -1795,7 +1788,6 @@ script = ExtResource("13_5sex8")
 target = Array[String](["volume", "game_music"])
 signal_emitter_path = NodePath("HSlider")
 signal_name = "drag_ended"
-save_signal_name = null
 property_name = "value"
 
 [node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume/GameMusic"]
@@ -1831,7 +1823,6 @@ script = ExtResource("13_5sex8")
 target = Array[String](["volume", "game_sfx"])
 signal_emitter_path = NodePath("HSlider")
 signal_name = "drag_ended"
-save_signal_name = null
 property_name = "value"
 
 [node name="Label" type="Label" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume/GameSFX"]

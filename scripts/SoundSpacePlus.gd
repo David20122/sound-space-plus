@@ -8,30 +8,54 @@ extends Node
 @onready var worlds:Registry = load("res://assets/content/Worlds.tres")
 
 var settings_path = "user://preferences.json"
-var settings:GameSettings
+var settings:GameSettings = GameSettings.new()
 var first_time:bool = false
 
 func _ready():
-	connect("on_init_complete",Callable(self,"_on_init_complete"))
+	on_init_complete.connect(_on_init_complete)
 
 	var exec_settings = OS.get_executable_path().get_base_dir().path_join("preferences.json")
 	if FileAccess.file_exists(exec_settings): settings_path = exec_settings
 	call_deferred("load_settings")
 
+	var callbacks = GameSettingsCallbacks.new()
+	callbacks.tree = get_tree()
+	callbacks.window = get_window()
+	callbacks.bind_to(settings)
+	callbacks.reference()
+
 # Settings
+func load_setting(setting,data):
+	if setting.type == Setting.Type.CATEGORY:
+		if typeof(data) != TYPE_DICTIONARY: return
+		for key in data.keys():
+			var child_setting = setting.get_setting(key)
+			load_setting(child_setting,data[key])
+		return
+	setting.value = data
 func load_settings():
-	settings = GameSettings.new()
-#	var load_settings_path = settings_path
-#	var data = {}
-#	if FileAccess.file_exists(ProjectSettings.globalize_path(load_settings_path)):
-#		var file = FileAccess.open(load_settings_path,FileAccess.READ)
-#		data = JSON.parse_string(file.get_as_text())
-#	settings = Settings.new(data)
-#	first_time = settings.first_time
+	var data = {}
+	if FileAccess.file_exists(settings_path):
+		var file = FileAccess.open(settings_path,FileAccess.READ)
+		data = JSON.parse_string(file.get_as_text())
+	for key in data.keys():
+		var setting = settings.get_setting(key)
+		if setting != null: load_setting(setting,data[key])
+	first_time = settings.first_time
+func parse_setting(setting):
+	if setting.type == Setting.Type.CATEGORY:
+		var value = {}
+		for key in setting.value.keys():
+			value[key] = parse_setting(setting.get_setting(key))
+		return value
+	return setting.value
 func save_settings():
-#	var file = FileAccess.open(settings_path,FileAccess.WRITE)
-#	file.store_string(JSON.stringify(settings.data,"",false))
-	pass
+	var data = {}
+	for key in settings.settings.keys():
+		data[key] = parse_setting(settings.get_setting(key))
+	var file = FileAccess.open(settings_path,FileAccess.WRITE)
+	file.store_string(JSON.stringify(data,"",false))
+	file.close()
 
 # Init
 var _initialised:bool = false

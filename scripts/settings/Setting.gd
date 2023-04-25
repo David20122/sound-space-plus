@@ -12,18 +12,18 @@ enum Type {
 	ARRAY,
 	CATEGORY
 }
-static func validate_type(value:Variant,type:int):
+static func validate_type(_value:Variant,type:int):
 	match type:
-		Type.BOOLEAN: return value is bool
-		Type.INT: return value is int
-		Type.ENUM: return value is int
-		Type.FLOAT: return value is float
-		Type.STRING: return value is String
-		Type.ARRAY: return value is Array
-		Type.CATEGORY: return value is Dictionary
+		Type.BOOLEAN: return _value is bool
+		Type.INT: return _value is int
+		Type.ENUM: return _value is int
+		Type.FLOAT: return _value is float
+		Type.STRING: return _value is String
+		Type.ARRAY: return _value is Array
+		Type.CATEGORY: return _value is Dictionary
 	return false
-static func validate_enum(value:Variant,_enum:Dictionary):
-	return value in _enum.values()
+static func validate_enum(_value:Variant,_enum:Dictionary):
+	return _value in _enum.values()
 
 var name:String
 var type:Type
@@ -34,10 +34,8 @@ var value:Variant = {}:
 	set(_value):
 		if !validate_type(_value,type): return false
 		if type == Type.ENUM and !validate_enum(_value,enum_type): return false
-		if type == Type.CATEGORY:
-			for key in _value:
-				self[key] = _value[key]
-		else: value = _value
+		if type == Type.CATEGORY: return false
+		value = _value
 		changed.emit(value)
 		return true
 
@@ -69,7 +67,6 @@ func _get(property):
 	return value[property].value
 func _set(property,_value):
 	if type != Type.CATEGORY: return false
-	if value == null: return false
 	if !value.has(property): return false
 	if value[property].type == Type.CATEGORY: return false
 	value[property].value = _value
