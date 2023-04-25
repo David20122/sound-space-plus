@@ -72,7 +72,7 @@ func open_file(
 	target_method = method
 	
 	$C/OpenFile.rect_pivot_offset = get_viewport_rect().size / 2
-	$C/OpenFile.rect_scale = Vector2(SSP.render_scale, SSP.render_scale)
+	$C/OpenFile.rect_scale = Vector2(clamp(SSP.render_scale,0.5,1), clamp(SSP.render_scale,0.5,1))
 	
 	if use_native:
 		$OpenFile.filters = filters
