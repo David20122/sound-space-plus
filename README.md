@@ -8,4 +8,4 @@ After cloning the repository download the Discord Game SDK and put the following
 - `discord_game_sdk.dylib`  
 - `discord_game_sdk.so` (__rename to `libdiscord_game_sdk.so`__)  
 
-Good luck!  
+Good luck!   
