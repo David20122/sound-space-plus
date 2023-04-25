@@ -178,6 +178,7 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_rnsra")
 tabs_visible = false
 
 [node name="Select" type="Control" parent="Main/TabBar"]
+visible = false
 layout_mode = 2
 
 [node name="Playlists" type="ScrollContainer" parent="Main/TabBar/Select"]
@@ -1151,7 +1152,6 @@ visible = false
 layout_mode = 2
 
 [node name="Settings" type="Control" parent="Main/TabBar"]
-visible = false
 layout_mode = 2
 
 [node name="TabContainer" type="TabContainer" parent="Main/TabBar/Settings"]
@@ -1829,10 +1829,11 @@ property_name = "value"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
-text = "Master (100%)"
+text = "Game SFX (100%)"
 horizontal_alignment = 2
 vertical_alignment = 1
 script = ExtResource("12_vqp4p")
+label = "Game SFX"
 
 [node name="HSlider" type="HSlider" parent="Main/TabBar/Settings/TabContainer/Audio/Columns/Volume/GameSFX"]
 layout_mode = 2
