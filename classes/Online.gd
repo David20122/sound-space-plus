@@ -317,7 +317,7 @@ var update_hr:HTTPRequest = HTTPRequest.new()
 func attempt_update():
 	var asset
 	var asset_name = "windows.zip"
-	if OS.has_feature("X11") or OS.has_feature("Wayland"): asset_name = "linux.zip"
+	if OS.has_feature("X11"): asset_name = "linux.zip"
 	for _asset in latest_version_data.assets:
 		if _asset.name == asset_name:
 			asset = _asset
