@@ -33,7 +33,7 @@ Support the game on [Patreon](https://www.patreon.com/soundspaceplus)
 - In [releases](https://github.com/Gapva/SSPReleases/releases), press on the `windows.zip` folder to download it
 
 - Once downloaded, do the following:
-  - Right click the folder and extract it to either a custom folder [RECOMMENDED] or the folder you downloaded [NOT RECOMMENDED]. Alternatively, you can open the zip file and drag the contents inside to a custom folder.
+  - Right click the folder and extract it to either a custom folder [RECOMMENDED] or the folder you downloaded to [NOT RECOMMENDED]. Alternatively, you can open the zip file and drag the contents inside to a custom folder.
   - Run SoundSpacePlus.exe to play this, easy I know.
 
 ### For Linux users: <a href="#dl-main" id="dl-penguin"/>
@@ -66,7 +66,7 @@ $ sudo chmod +x SoundSpacePlus.x86_64
 
 As everything you download online, executing may or may not work.
 
-- [WINDOWS ONLY] If the game closes by iteself
+- [WINDOWS ONLY] If the game closes by itself
   - Download and install [vc_redist](https://aka.ms/vs/17/release/vc_redist.x64.exe)
   - Open the game.
   - If your game still doesn't work, head to the [Discord](https://discord.gg/ssp) and head to the support channel.
