@@ -1,11 +1,5 @@
 [gd_scene load_steps=16 format=2]
 
-[ext_resource path="res://assets/accessories/alt_cubella_hair/hair.obj" type="ArrayMesh" id=1]
-[ext_resource path="res://assets/accessories/cubella_hair/alt_mouth.obj" type="ArrayMesh" id=2]
-[ext_resource path="res://assets/meshes/LowCube.obj" type="ArrayMesh" id=3]
-[ext_resource path="res://assets/accessories/alt_cubella_hair/ears.obj" type="ArrayMesh" id=4]
-
-
 [sub_resource type="Gradient" id=75]
 offsets = PoolRealArray( 0.00621118, 0.534162 )
 colors = PoolColorArray( 0.382813, 0, 1, 1, 1, 1, 1, 1 )
@@ -57,38 +51,6 @@ albedo_texture = SubResource( 82 )
 
 [node name="Accessories" type="Spatial"]
 
-[node name="CubellaHair" type="Spatial" parent="."]
-visible = false
-
-[node name="Hair" type="MeshInstance" parent="CubellaHair"]
-transform = Transform( -1, -7.32067e-15, -1.50996e-07, -3.22974e-15, 1, -2.7093e-08, 1.50996e-07, -2.7093e-08, -1, 0, -0.15, 0 )
-material_override = SubResource( 77 )
-mesh = ExtResource( 1 )
-material/0 = null
-material/1 = null
-
-[node name="Outline" type="MeshInstance" parent="CubellaHair/Hair"]
-mesh = SubResource( 84 )
-material/0 = null
-
-[node name="Ears" type="MeshInstance" parent="CubellaHair"]
-transform = Transform( -0.9, -6.5886e-15, -1.35896e-07, -2.90676e-15, 0.9, -2.43837e-08, 1.35896e-07, -2.43837e-08, -0.9, 0, 0, -0.1 )
-material_override = SubResource( 87 )
-mesh = ExtResource( 4 )
-material/0 = null
-
-[node name="Mouth" type="MeshInstance" parent="CubellaHair"]
-transform = Transform( 0.5, 0, 0, 0, 0.4, 0, 0, 0, 1, 0, -0.45, -1.05 )
-material_override = SubResource( 79 )
-mesh = ExtResource( 2 )
-material/0 = null
 
 [node name="Headset" type="Spatial" parent="."]
 visible = false
-
-[node name="Mesh" type="MeshInstance" parent="Headset"]
-transform = Transform( 1, 0, 0, 0, 0.6, 0, 0, 0, 0.5, 0, 0.4, -1 )
-material_override = SubResource( 83 )
-mesh = ExtResource( 3 )
-skeleton = NodePath("../../CubellaHair")
-material/0 = null

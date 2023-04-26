@@ -1,9 +1,6 @@
 [gd_scene load_steps=57 format=2]
 
 [ext_resource path="res://assets/blocks/cube.obj" type="ArrayMesh" id=1]
-[ext_resource path="res://assets/accessories/alt_cubella_hair/ears.obj" type="ArrayMesh" id=2]
-[ext_resource path="res://assets/accessories/cubella_hair/alt_mouth.obj" type="ArrayMesh" id=3]
-[ext_resource path="res://assets/accessories/alt_cubella_hair/hair.obj" type="ArrayMesh" id=4]
 [ext_resource path="res://assets/meshes/LowCube.obj" type="ArrayMesh" id=15]
 [ext_resource path="res://assets/meshes/Happy.obj" type="ArrayMesh" id=16]
 [ext_resource path="res://assets/branding/icon.svg" type="Texture" id=25]
@@ -707,35 +704,6 @@ transform = Transform( 1, 0, 0, 0, 1, -7.45058e-09, 0, 7.45058e-09, 1, 0, 0, 0 )
 mesh = SubResource( 61 )
 material/0 = SubResource( 67 )
 
-[node name="CubellaHair" type="Spatial" parent="Avatar/Head"]
-transform = Transform( 1, -5.15156e-16, 3.14579e-15, 0, 0.885461, 0.179017, -3.19744e-15, -0.161115, 0.983846, 0, -0.1, 0 )
-visible = false
-
-[node name="Hair" type="MeshInstance" parent="Avatar/Head/CubellaHair"]
-transform = Transform( -1, -7.32067e-15, -1.50996e-07, -3.22974e-15, 1, -2.7093e-08, 1.50996e-07, -2.7093e-08, -1, 0, -0.15, 0 )
-material_override = SubResource( 112 )
-mesh = ExtResource( 4 )
-
-[node name="Outline" type="MeshInstance" parent="Avatar/Head/CubellaHair/Hair"]
-mesh = SubResource( 113 )
-
-[node name="Ears" type="MeshInstance" parent="Avatar/Head/CubellaHair"]
-transform = Transform( -0.9, -5.85653e-15, -1.35896e-07, -2.90676e-15, 0.8, -2.43837e-08, 1.35896e-07, -2.16744e-08, -0.9, 0, 0, -0.1 )
-material_override = SubResource( 115 )
-mesh = ExtResource( 2 )
-
-[node name="Mouth" type="MeshInstance" parent="Avatar/Head/CubellaHair"]
-transform = Transform( 0.4, -3.17637e-23, 0, 6.35275e-23, 0.2, 4.48416e-44, 0, -8.40779e-45, 1, 0, -0.45, -1.1 )
-material_override = SubResource( 116 )
-mesh = ExtResource( 3 )
-
-[node name="ElfR" type="MeshInstance" parent="Avatar/Head/CubellaHair"]
-transform = Transform( -0.5, 5.28485e-08, -1.42109e-14, -7.54979e-08, -0.35, -1.11759e-08, -4.26326e-14, -7.45058e-09, 0.2, 1.5, -0.1, -0.5 )
-mesh = SubResource( 118 )
-
-[node name="ElfL" type="MeshInstance" parent="Avatar/Head/CubellaHair"]
-transform = Transform( 0.5, 5.28485e-08, -1.64102e-14, 7.54979e-08, -0.35, -4.25748e-09, 4.26326e-14, -7.45058e-09, 0.2, -1.5, -0.1, -0.5 )
-mesh = SubResource( 118 )
 
 [node name="Torso" type="MeshInstance" parent="Avatar"]
 transform = Transform( 0.15, 0, 0, 0, 0.25, 0, 0, 0, 0.15, 0, -0.775, 2 )

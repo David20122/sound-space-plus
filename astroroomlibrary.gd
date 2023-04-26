@@ -12,11 +12,7 @@ func _ready():
 	# fix hands
 	$Avatar/ArmL/Pointer.translation = Vector3(0,0,0)
 	$Avatar/ArmR/Mesh.translation = Vector3(0,0,0)
-	
-	# lacunella
-	if SSP.is_lacunella_enabled():
-		$Avatar/Head/CubellaHair.visible = true
-	
+		
 	if OS.has_feature("Android"):
 		$Skip.text = "Tap to skip"
 	$ColorRect.modulate.a = 1
