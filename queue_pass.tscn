@@ -2,13 +2,14 @@
 
 [ext_resource path="res://font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://VersionNumber.gd" type="Script" id=2]
-[ext_resource path="res://icon.svg" type="Texture" id=3]
+[ext_resource path="res://assets/branding/icon.svg" type="Texture" id=3]
 [ext_resource path="res://uitheme.tres" type="Theme" id=4]
 [ext_resource path="res://queue_pass.gd" type="Script" id=5]
 [ext_resource path="res://font/Lato/Lato-Bold.ttf" type="DynamicFontData" id=6]
-[ext_resource path="res://content/sfx/new_best.wav" type="AudioStream" id=7]
+[ext_resource path="res://assets/sfx/new_best.wav" type="AudioStream" id=7]
 [ext_resource path="res://menu2/QueueSongInfo.gd" type="Script" id=8]
 [ext_resource path="res://menu2/QueueEndInfo.gd" type="Script" id=9]
+
 
 [sub_resource type="DynamicFont" id=135]
 use_filter = true
@@ -631,7 +632,7 @@ grow_vertical = 2
 theme = ExtResource( 4 )
 custom_colors/font_color = Color( 1, 0.705882, 0.945098, 1 )
 custom_fonts/font = SubResource( 3 )
-text = "Sound Space+   vA-B-C-branch"
+text = "Sound Space Plus   vA-B-C-branch"
 valign = 1
 script = ExtResource( 2 )
 __meta__ = {

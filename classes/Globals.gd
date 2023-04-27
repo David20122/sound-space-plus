@@ -1,5 +1,7 @@
 extends Node
 
+onready var rootg = get_tree().root
+
 enum {
 	CAMERA_HALF_LOCK
 	CAMERA_FULL_LOCK
@@ -487,7 +489,7 @@ func p(path:String) -> String:
 	var base_path = "user://"
 	var dir:Directory = Directory.new()
 	if OS.has_feature("Android"):
-		base_path = OS.get_system_dir(OS.SYSTEM_DIR_DESKTOP,true).plus_file("Android/data/net.chedski.soundspaceplus/files") + "/"
+		base_path = OS.get_user_data_dir() + "/"
 	return path.replace("user://",base_path)
 
 var error_sound:AudioStream
@@ -637,24 +639,59 @@ func _process(delta):
 	
 	if Input.is_action_just_pressed("fps"):
 		if !fps_disp.is_inside_tree():
-			get_tree().root.add_child(fps_disp)
+			rootg.add_child(fps_disp)
 		fps_visible = !fps_visible
 		fps_disp.visible = fps_visible
 
+var cmdline:Dictionary = {}
 func _ready():
+	if OS.has_feature("steam"):
+		var file = File.new()
+		if (
+			!file.file_exists(OS.get_executable_path().get_base_dir().plus_file("note.pck")) or
+			!file.file_exists(OS.get_executable_path().get_base_dir().plus_file("sfx.pck")) or
+			!file.file_exists(OS.get_executable_path().get_base_dir().plus_file("ui.pck")) or
+			!file.file_exists(OS.get_executable_path().get_base_dir().plus_file("3dm.pck")) or
+			!file.file_exists(OS.get_executable_path().get_base_dir().plus_file("worlds.pck"))
+		):
+			get_tree().change_scene("res://errors/content.tscn")
+			push_error("MISSING CONTENT")
+			return
+		ProjectSettings.load_resource_pack(OS.get_executable_path().get_base_dir().plus_file("note.pck"))
+		ProjectSettings.load_resource_pack(OS.get_executable_path().get_base_dir().plus_file("sfx.pck"))
+		ProjectSettings.load_resource_pack(OS.get_executable_path().get_base_dir().plus_file("ui.pck"))
+		ProjectSettings.load_resource_pack(OS.get_executable_path().get_base_dir().plus_file("3dm.pck"))
+		ProjectSettings.load_resource_pack(OS.get_executable_path().get_base_dir().plus_file("worlds.pck"))
+	
+	var thread = Thread.new()
+	SSP.is_init = true
+	thread.start(SSP,"do_init")
+	
+	var disable_intro = false
+	var file:File = File.new()
+	if file.file_exists(Globals.p("user://settings.json")):
+		var err = file.open(Globals.p("user://settings.json"),File.READ)
+		if err != OK:
+			print("file.open failed"); return -2
+		var decode = JSON.parse(file.get_as_text())
+		file.close()
+		if !decode.error:
+			disable_intro = decode.result.has("disable_intro") and decode.result.disable_intro
+	if !disable_intro: get_tree().call_deferred("change_scene","res://astroroomlibrary.tscn")
+	else: get_tree().call_deferred("change_scene","res://init.tscn")
+	
 	url_regex.compile(
-		"((http|https)://)(www.)?[a-zA-Z0-9@:%._\\+~#?&//=]{2,256}"+
-		"\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%._\\+~#?&//=]*)"
+		"((https?)://)[\\w\\-.]{2,256}(:\\d{1,5})?(/[\\w@:%._\\-+~&=]+)+/?"
 	)
 	
 	confirm_prompt = load("res://confirm.tscn").instance()
-	get_tree().root.call_deferred("add_child",confirm_prompt)
+	rootg.call_deferred("add_child",confirm_prompt)
 	
 	file_sel = load("res://filesel.tscn").instance()
-	get_tree().root.call_deferred("add_child",file_sel)
+	rootg.call_deferred("add_child",file_sel)
 	
 	notify_gui = load("res://notification_gui.tscn").instance()
-	get_tree().root.call_deferred("add_child",notify_gui)
+	rootg.call_deferred("add_child",notify_gui)
 	
 	fps_disp.margin_left = 15
 	fps_disp.margin_top = 15
@@ -662,6 +699,13 @@ func _ready():
 	fps_disp.margin_bottom = 0
 	fps_disp.set("custom_fonts/font",load("res://font/debug2.tres"))
 	
+	for arg in OS.get_cmdline_args():
+		if arg.find("=") > -1:
+			var key_value = arg.split("=")
+			cmdline[key_value[0].lstrip("--")] = key_value[1]
+		else:
+			cmdline[arg.lstrip("--")] = ""
+	
 	if OS.has_feature("debug"):
-		get_tree().root.call_deferred("add_child",fps_disp)
+		rootg.call_deferred("add_child",fps_disp)
 		fps_visible = true

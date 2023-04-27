@@ -138,7 +138,7 @@ func finish():
 				Globals.confirm_prompt.s_next.play()
 				yield(Globals.confirm_prompt,"done_closing")
 		
-		if SSP.approach_rate <= 0:
+		if SSP.get("approach_rate") <= 0:
 			Globals.confirm_prompt.open(
 				"You are using a non-standard approach rate. Some things might not work correctly.",
 				"Warning",

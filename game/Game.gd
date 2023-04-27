@@ -8,6 +8,7 @@ var rawMapData:String
 var notes:Array
 var last_ms:float = 0
 onready var colors:Array = SSP.selected_colorset.colors
+onready var speed_multi = Globals.speed_multi[SSP.mod_speed_level]
 
 var score:int = 0
 var combo:int = 0
@@ -53,6 +54,7 @@ var total_notes:float = 0
 var energy:float = 6
 var max_energy:float = 6
 var energy_per_hit:float = 1
+var max_combo:int = 0
 
 func update_hud():
 	$HUD.update_static_values()
@@ -76,6 +78,9 @@ func end(end_type:int):
 	SSP.song_end_position = min($Spawn.ms,last_ms)
 	SSP.song_end_length = last_ms
 	SSP.song_end_type = end_type
+	SSP.song_end_combo = max_combo
+	print("song max combo: ", max_combo)
+	
 	if SSP.record_replays and !SSP.replaying:
 		SSP.replay.end_recording()
 	
@@ -95,7 +100,9 @@ func end(end_type:int):
 			
 			$Spawn.notes_loaded = false
 			$Spawn.chaos_rng = RandomNumberGenerator.new()
+			$Spawn.earthquake_rng = RandomNumberGenerator.new()
 			$Spawn.chaos_rng.seed = hash(SSP.selected_song.id)
+			$Spawn.earthquake_rng.seed = hash(SSP.selected_song.id)
 			$Spawn.music_started = false
 			$Spawn.out_of_notes = false
 			$Spawn.note_count = 0
@@ -186,7 +193,7 @@ func _process(delta):
 		black_fade = min(black_fade + (delta/0.3),1)
 		$BlackFade.color = Color(0,0,0,black_fade)
 	elif !black_fade_target && black_fade != 0:
-		black_fade = max(black_fade - (delta/1),0)
+		black_fade = max(black_fade - (delta/0.75),0)
 		$BlackFade.color = Color(0,0,0,black_fade)
 	$BlackFade.visible = (black_fade != 0)
 	
@@ -196,7 +203,6 @@ func linstep(a:float,b:float,x:float):
 	return clamp(abs((x - a) / (b - a)),0,1)
 
 func get_point_amt() -> int:
-	var speed_multi = Globals.speed_multi[SSP.mod_speed_level]
 	var spd = clamp(((speed_multi - 1) * 1.5) + 1, 0, 1.9)
 	
 	var hitbox_diff = SSP.note_hitbox_size - 1.140
@@ -216,6 +222,9 @@ func hit(col):
 	total_notes += 1
 	if !SSP.mod_no_regen: energy = clamp(energy+energy_per_hit,0,max_energy)
 	combo += 1
+
+	if combo > max_combo: max_combo = combo
+
 	var points = get_point_amt()
 	if combo_level != 8:
 		lvl_progress += 1
@@ -231,7 +240,7 @@ func hit(col):
 		elif SSP.hit_fov_exponential:
 			$"../Camera".fov *= SSP.hit_fov_amplifier
 		else:
-			$"../Camera".fov = SSP.fov - SSP.hit_fov_amplifier
+			$"../Camera".fov = SSP.get("fov") - SSP.hit_fov_amplifier
 	
 	score += points
 	return points
@@ -288,5 +297,10 @@ func _ready():
 	SSP.update_rpc_song()
 	
 	yield(get_tree(),"idle_frame")
+	yield(get_tree(),"idle_frame")
+	yield(get_tree(),"idle_frame")
+	yield(get_tree(),"idle_frame")
 	black_fade_target = false
+	$ForceMatLoad.visible = false
+	$Spawn.active = true
 

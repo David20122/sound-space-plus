@@ -21,6 +21,22 @@ var use_ver_b:Array = [
 	true,
 	false
 ]
+var hide_ver:Array = [
+	false,
+	false,
+	false,
+	true
+]
+onready var smm_visibility:Dictionary = {
+	$L/Results: true,
+	$L/MapSelect: false,
+	$L/Settings: true,
+	$L/Credits: true,
+	$L/ContentMgr: false,
+	$L/StartVR: false,
+	$L/OldMenu: false,
+	$L/Quit: true,
+}
 
 func press(bi:int,q:bool=false):
 	if !q: get_node("../Press").play()
@@ -31,6 +47,10 @@ func press(bi:int,q:bool=false):
 	open = false
 	get_node("../VersionNumber").visible = !use_ver_b[bi]
 	get_node("../VersionNumberB").visible = use_ver_b[bi]
+	if (hide_ver[bi]):
+		get_node("../VersionNumber").self_modulate = Color(1,1,1,0)
+	else:
+		get_node("../VersionNumber").self_modulate = Color(1,1,1,1)
 	get_node("Click").visible = !open
 	get_node("../SidebarClick").visible = open
 
@@ -70,7 +90,7 @@ func _ready():
 	for i in range(buttons.size()):
 		buttons[i].connect("pressed",self,"press",[i])
 	
-	if SSP.just_ended_song: press(0,true)
+	if SSP.just_ended_song || SSP.single_map_mode: press(0,true)
 	else: press(1,true)
 	
 	$L/OldMenu.connect("pressed",self,"to_old_menu")
@@ -79,9 +99,13 @@ func _ready():
 	$L/Quit.connect("pressed",self,"quit")
 	
 	$L/ContentMgr.visible = not SSP.vr
-	$L/StartVR.visible = SSP.vr_available and not SSP.vr
+#	$L/StartVR.visible = SSP.vr_available and not SSP.vr
 	if SSP.vr or !OS.has_feature("pc"):
-		$L/Quit/Label.text = "Quit to Home" 
+		$L/Quit/Label.text = "Quit to Home"
+	
+	if SSP.single_map_mode:
+		for n in $L.get_children():
+			n.visible = smm_visibility.get(n,false)
 	
 
 func _process(delta:float):

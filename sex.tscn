@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://font/debug.tres" type="DynamicFont" id=1]
+[ext_resource path="res://sex.gd" type="Script" id=2]
+[ext_resource path="res://assets/ui/kermeet.webm" type="VideoStream" id=3]
+[ext_resource path="res://assets/songs/sexmode.mp3" type="AudioStream" id=4]
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+
+[node name="kermeet" type="VideoPlayer" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -285.0
+margin_top = -132.0
+margin_right = 285.0
+margin_bottom = 132.0
+stream = ExtResource( 3 )
+expand = false
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -490.0
+margin_top = -20.5
+margin_right = 490.0
+margin_bottom = 20.5
+
+[node name="Real" type="Label" parent="CenterContainer"]
+modulate = Color( 1, 1, 1, 0 )
+margin_right = 980.0
+margin_bottom = 41.0
+custom_fonts/font = ExtResource( 1 )
+text = "Sometimes the slower you go the faster you learn."
+
+[connection signal="finished" from="kermeet" to="." method="_on_kermeet_finished"]

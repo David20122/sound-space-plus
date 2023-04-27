@@ -65,7 +65,7 @@ func _ready():
 	SSP.connect("selected_song_changed",self,"upd")
 	SSP.connect("speed_mod_changed",self,"upd")
 	SSP.connect("menu_music_state_changed",self,"upd_mm")
-	$MenuSong.stream = SSP.get_stream_with_default("user://menu",load("res://content/sfx/music/menu_loop.ogg"))
+	$MenuSong.stream = SSP.get_stream_with_default("user://menu",load("res://assets/sfx/music/menu_loop.ogg"))
 	if $MenuSong.stream is AudioStreamSample: $MenuSong.stream.loop_mode = 1
 	else: $MenuSong.stream.loop = true
 	if SSP.play_menu_music:

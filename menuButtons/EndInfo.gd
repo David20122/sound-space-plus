@@ -83,6 +83,13 @@ func show_pb(_s=null):
 				comma_sep(pb.total_notes),
 				(float(pb.hit_notes)/float(pb.total_notes))*100
 			]
+			
+			if pb.max_combo < 0:
+				$MaxCombo.text = "?"
+			else:
+				$MaxCombo.text = comma_sep(pb.max_combo)
+			$MaxCombo.text += "\n"
+			
 			update_letter_grade(float(pb.hit_notes)/float(pb.total_notes))
 			$Progress.text = "%s\n%.2f%%" % [get_time_ms(pb.position),clamp(pb.position/SSP.selected_song.last_ms,0,1)*100]
 		else:
@@ -101,6 +108,7 @@ func show_pb(_s=null):
 			$Pauses.text = "-"
 			$Accuracy.text = "-\n"
 			$Progress.text = "-\n"
+			$MaxCombo.text = "-\n"
 
 func _ready():
 	SSP.connect("selected_song_changed",self,"show_pb")
@@ -139,6 +147,16 @@ func _ready():
 			comma_sep(SSP.song_end_total_notes),
 			(float(SSP.song_end_hits)/float(SSP.song_end_total_notes))*100
 		]
+		
+
+		if SSP.song_end_combo < SSP.selected_song.note_count:
+			$MaxCombo.text = comma_sep(SSP.song_end_combo)
+		elif SSP.song_end_combo == SSP.selected_song.note_count:
+			$MaxCombo.text = "FULL COMBO"
+		else:
+			$MaxCombo.text = "NO COMBO"
+		$MaxCombo.text += "\n"
+		
 		update_letter_grade(float(SSP.song_end_hits)/float(SSP.song_end_total_notes))
 		$Progress.text = "%s\n%.1f%%" % [SSP.song_end_time_str,clamp(SSP.song_end_position/SSP.song_end_length,0,1)*100]
 	else:

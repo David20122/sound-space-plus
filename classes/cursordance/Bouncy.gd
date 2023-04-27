@@ -44,9 +44,13 @@ func _init(song:Song):
 				var new:Vector3 = (note + notes[notes.size()-1]) / 2
 				notes[notes.size()-1] = Vector3(new.x, new.y, notes[notes.size()-1].z)
 			else:
-				notes.append(Vector3(n[0],n[1],n[2]))
+				if SSP.mod_mirror_x: note.x = 2 - note.x
+				if SSP.mod_mirror_y: note.y = 2 - note.y
+				notes.append(note)
 		else:
-			notes.append(Vector3(n[0],n[1],n[2]))
+			if SSP.mod_mirror_x: note.x = 2 - note.x
+			if SSP.mod_mirror_y: note.y = 2 - note.y
+			notes.append(note)
 
 
 var noteNum = 1
@@ -161,7 +165,7 @@ func _update(ms:float) -> Vector2:
 	pts[5] = np(noteNum+2)
 	
 	for i in range(11):
-		bez[i] = bezier(Dance.Linear(float(i)/10.0),p0,p1,p3,p2)
+		bez[i] = bezier(Dance.OutExpo(float(i)/10.0),p0,p1,p3,p2)
 	
 	return bezier(Dance.Linear(t),p0,p1,p3,p2)
 	#Dance.InOutQuad(t)

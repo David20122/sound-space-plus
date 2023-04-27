@@ -35,35 +35,35 @@ extents = Vector3( 1.6, 0.9, 0.25 )
 [sub_resource type="Gradient" id=9]
 colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
 
-[sub_resource type="GradientTexture" id=10]
+[sub_resource type="GradientTexture" id=17]
 gradient = SubResource( 9 )
 
 [sub_resource type="Curve" id=11]
 _data = [ Vector2( 0, 1 ), 0.0, -0.996591, 0, 0, Vector2( 1, 0 ), -0.996293, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=12]
+[sub_resource type="CurveTexture" id=18]
 curve = SubResource( 11 )
 
 [sub_resource type="ParticlesMaterial" id=8]
 gravity = Vector3( 0, 0, 0 )
-scale_curve = SubResource( 12 )
-color_ramp = SubResource( 10 )
+scale_curve = SubResource( 18 )
+color_ramp = SubResource( 17 )
 
-[sub_resource type="SpatialMaterial" id=13]
+[sub_resource type="SpatialMaterial" id=19]
 flags_transparent = true
 flags_unshaded = true
 vertex_color_use_as_albedo = true
 
 [sub_resource type="QuadMesh" id=14]
-material = SubResource( 13 )
+material = SubResource( 19 )
 size = Vector2( 0.1, 0.1 )
 
-[sub_resource type="SpatialMaterial" id=6]
+[sub_resource type="SpatialMaterial" id=20]
 flags_transparent = true
 flags_unshaded = true
 
 [sub_resource type="QuadMesh" id=7]
-material = SubResource( 6 )
+material = SubResource( 20 )
 size = Vector2( 0.1, 0.1 )
 
 [node name="VRMenuHolder" type="Spatial"]
@@ -113,7 +113,6 @@ color = Color( 0, 0, 0, 1 )
 [node name="Screen" type="MeshInstance" parent="PointerScreen"]
 mesh = SubResource( 2 )
 skeleton = NodePath("")
-material/0 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="PointerScreen"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.25 )
@@ -128,4 +127,3 @@ draw_pass_1 = SubResource( 14 )
 [node name="Pointer" type="MeshInstance" parent="PointerScreen"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.00136518 )
 mesh = SubResource( 7 )
-material/0 = null

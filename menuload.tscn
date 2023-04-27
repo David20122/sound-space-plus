@@ -2,10 +2,10 @@
 
 [ext_resource path="res://font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://VersionNumber.gd" type="Script" id=2]
-[ext_resource path="res://icon.svg" type="Texture" id=3]
+[ext_resource path="res://assets/branding/icon.png" type="Texture" id=3]
 [ext_resource path="res://uitheme.tres" type="Theme" id=4]
 [ext_resource path="res://menuload.gd" type="Script" id=5]
-[ext_resource path="res://content/sfx/mkwii_load_short.ogg" type="AudioStream" id=6]
+[ext_resource path="res://assets/sfx/mkwii_load_short.ogg" type="AudioStream" id=6]
 
 [sub_resource type="DynamicFont" id=1]
 size = 48
@@ -89,7 +89,7 @@ grow_vertical = 2
 theme = ExtResource( 4 )
 custom_colors/font_color = Color( 1, 0.705882, 0.945098, 1 )
 custom_fonts/font = SubResource( 3 )
-text = "Sound Space+   vA-B-C-branch"
+text = "Sound Space Plus   vA-B-C-branch"
 valign = 1
 script = ExtResource( 2 )
 __meta__ = {
@@ -98,14 +98,13 @@ __meta__ = {
 
 [node name="TextureRect" type="TextureRect" parent="VersionNumber"]
 anchor_bottom = 1.0
-margin_left = -40.0
-margin_right = -10.0
-rect_min_size = Vector2( 30, 30 )
+margin_left = -42.0
+margin_top = -4.0
+margin_right = -6.0
+margin_bottom = 2.0
+rect_min_size = Vector2( 6, 36 )
 texture = ExtResource( 3 )
 expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Spinner" type="ReferenceRect" parent="."]
 pause_mode = 2

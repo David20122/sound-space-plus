@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/sexmode.mp3-1bd73caa698fc1df935e698b1a1e42bd.mp3str"
+
+[deps]
+
+source_file="res://assets/songs/sexmode.mp3"
+dest_files=[ "res://.import/sexmode.mp3-1bd73caa698fc1df935e698b1a1e42bd.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -1,8 +1,9 @@
 extends ColorRect
 
 func _ready():
+	Engine.target_fps = 30 # Don't use the entire GPU for the error screen
 	$Info.text = """-- song player load error --
-ss+ version: v%s
+ssp version: v%s
 platform: %s
 error info: %s""" % [
 		ProjectSettings.get_setting("application/config/version"),
@@ -18,7 +19,7 @@ error info: %s""" % [
 		activity.set_state("(song player loading error)")
 
 		var assets = activity.get_assets()
-		assets.set_large_image("icon")
+		assets.set_large_image("icon-bg")
 		assets.set_small_image("error")
 
 		var result = yield(Discord.activity_manager.update_activity(activity), "result").result

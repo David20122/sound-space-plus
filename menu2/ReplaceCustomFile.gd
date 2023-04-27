@@ -32,7 +32,8 @@ func rename_old(ext:String):
 		self,
 		"save_sel",
 		[ "*.%s ; %s file" % [ext,ext] ],
-		"~/Downloads/%s.%s" % [target,ext]
+		#"~/Downloads/%s.%s" % [target,ext]
+		OS.get_system_dir(OS.SYSTEM_DIR_DOWNLOADS) + "/%s.%s" % [target,ext]
 	)
 
 func reset_to_default():
@@ -87,7 +88,13 @@ func sel(files:Array):
 				elif dir.file_exists(Globals.p("user://%s.webp" % target)): rename_old("webp")
 				elif dir.file_exists(Globals.p("user://%s.bmp" % target)): rename_old("bmp")
 				response = yield(Globals.confirm_prompt,"option_selected")
-			if response == 2:
+			if response == 2:			
+				if dir.file_exists(Globals.p("user://%s.png" % target)): dir.remove(Globals.p("user://%s.png" % target))
+				elif dir.file_exists(Globals.p("user://%s.jpg" % target)): dir.remove(Globals.p("user://%s.jpg" % target))
+				elif dir.file_exists(Globals.p("user://%s.jpeg" % target)): dir.remove(Globals.p("user://%s.jpeg" % target))
+				elif dir.file_exists(Globals.p("user://%s.webp" % target)): dir.remove(Globals.p("user://%s.webp" % target))
+				elif dir.file_exists(Globals.p("user://%s.bmp" % target)): dir.remove(Globals.p("user://%s.bmp" % target))
+				
 				dir.copy(files[0],Globals.p("user://%s.%s" % [target,files[0].get_extension()]))
 				
 				load_img()

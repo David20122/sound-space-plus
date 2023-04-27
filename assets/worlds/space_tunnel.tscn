@@ -1,0 +1,159 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://assets/worlds/space_tunnel.gd" type="Script" id=1]
+[ext_resource path="res://assets/worlds/neon_tunnel/space_ring.png" type="Texture" id=2]
+[ext_resource path="res://assets/worlds/neon_tunnel/ring.gd" type="Script" id=3]
+[ext_resource path="res://assets/worlds/neon_tunnel/space_ring_b.png" type="Texture" id=4]
+
+
+[sub_resource type="SpatialMaterial" id=1]
+flags_transparent = true
+flags_unshaded = true
+params_cull_mode = 2
+albedo_color = Color( 0.368627, 0.827451, 0.427451, 1 )
+albedo_texture = ExtResource( 2 )
+distance_fade_mode = 1
+distance_fade_min_distance = 35.0
+distance_fade_max_distance = 0.0
+
+[sub_resource type="SpatialMaterial" id=2]
+flags_transparent = true
+flags_unshaded = true
+params_cull_mode = 2
+albedo_color = Color( 0.368627, 0.827451, 0.427451, 1 )
+albedo_texture = ExtResource( 4 )
+distance_fade_mode = 1
+distance_fade_min_distance = 35.0
+distance_fade_max_distance = 0.0
+
+[sub_resource type="Environment" id=3]
+background_mode = 1
+background_color = Color( 0.0392157, 0.0392157, 0.0392157, 1 )
+background_energy = 0.0
+background_canvas_max_layer = -128
+ambient_light_color = Color( 0.0784314, 0.0784314, 0.0784314, 1 )
+fog_color = Color( 0, 0, 0, 1 )
+fog_sun_color = Color( 0.0573333, 0.0256, 0.08, 1 )
+fog_sun_amount = 1.0
+fog_depth_begin = 20.0
+fog_depth_end = 58.3
+fog_depth_curve = 0.353553
+fog_height_enabled = true
+fog_height_min = 10.4
+fog_height_max = -18.5
+fog_height_curve = 0.68302
+
+[sub_resource type="QuadMesh" id=4]
+material = SubResource( 2 )
+size = Vector2( 8, 8 )
+
+[sub_resource type="QuadMesh" id=5]
+material = SubResource( 1 )
+size = Vector2( 8, 8 )
+
+[node name="Space" type="Spatial"]
+script = ExtResource( 1 )
+mat = SubResource( 1 )
+mat2 = SubResource( 2 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 3 )
+
+[node name="Rings" type="Spatial" parent="."]
+
+[node name="1" type="MeshInstance" parent="Rings"]
+cast_shadow = 0
+mesh = SubResource( 4 )
+material/0 = null
+script = ExtResource( 3 )
+
+[node name="2" type="MeshInstance" parent="Rings"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7.5 )
+cast_shadow = 0
+mesh = SubResource( 5 )
+material/0 = null
+script = ExtResource( 3 )
+
+[node name="3" type="MeshInstance" parent="Rings"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -15 )
+cast_shadow = 0
+mesh = SubResource( 4 )
+material/0 = null
+script = ExtResource( 3 )
+
+[node name="4" type="MeshInstance" parent="Rings"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -22.5 )
+cast_shadow = 0
+mesh = SubResource( 5 )
+material/0 = null
+script = ExtResource( 3 )
+
+[node name="5" type="MeshInstance" parent="Rings"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -30 )
+cast_shadow = 0
+mesh = SubResource( 4 )
+material/0 = null
+script = ExtResource( 3 )
+
+[node name="6" type="MeshInstance" parent="Rings"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -37.5 )
+cast_shadow = 0
+mesh = SubResource( 5 )
+material/0 = null
+script = ExtResource( 3 )
+
+[node name="8" type="MeshInstance" parent="Rings"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -52.5 )
+cast_shadow = 0
+mesh = SubResource( 5 )
+material/0 = null
+script = ExtResource( 3 )
+
+[node name="7" type="MeshInstance" parent="Rings"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -45 )
+cast_shadow = 0
+mesh = SubResource( 4 )
+material/0 = null
+script = ExtResource( 3 )
+
+[node name="9" type="MeshInstance" parent="Rings"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7.5 )
+cast_shadow = 0
+mesh = SubResource( 5 )
+material/0 = null
+script = ExtResource( 3 )
+
+[node name="10" type="MeshInstance" parent="Rings"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15 )
+cast_shadow = 0
+mesh = SubResource( 4 )
+material/0 = null
+script = ExtResource( 3 )
+
+[node name="11" type="MeshInstance" parent="Rings"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 22.5 )
+cast_shadow = 0
+mesh = SubResource( 5 )
+material/0 = null
+script = ExtResource( 3 )
+
+[node name="12" type="MeshInstance" parent="Rings"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 30 )
+cast_shadow = 0
+mesh = SubResource( 4 )
+material/0 = null
+script = ExtResource( 3 )
+
+[node name="13" type="MeshInstance" parent="Rings"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 37.5 )
+cast_shadow = 0
+mesh = SubResource( 5 )
+material/0 = null
+script = ExtResource( 3 )
+
+[node name="14" type="MeshInstance" parent="Rings"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 45 )
+cast_shadow = 0
+mesh = SubResource( 4 )
+material/0 = null
+script = ExtResource( 3 )
