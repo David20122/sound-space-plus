@@ -13,6 +13,19 @@ func files_dropped(files:PoolStringArray,_screen:int):
 		yield(get_tree().create_timer(0.35),"timeout")
 		get_tree().change_scene("res://songload.tscn")
 
+func _input(event:InputEvent):
+	if get_viewport().get_node("Menu/Main/Results").visible == true:
+		if !disabled && !has_been_pressed && event is InputEventJoypadButton:
+			if event.button_index == JOY_XBOX_A && event.pressed:
+				grab_focus()
+				grab_click_focus()
+				pressed = true
+		if !disabled && !has_been_pressed && event is InputEventKey:
+			if event.pressed and event.scancode == KEY_SPACE:
+				grab_focus()
+				grab_click_focus()
+				pressed = true
+
 func _pressed():
 	# button functionality
 	if !SSP.selected_song: return

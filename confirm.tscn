@@ -4,9 +4,10 @@
 [ext_resource path="res://font/Noto_Sans_JP/NotoSansJP-Medium.otf" type="DynamicFontData" id=2]
 [ext_resource path="res://font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://classes/ConfirmationPrompt2D.gd" type="Script" id=4]
-[ext_resource path="res://content/sfx/mkw_alert.mp3" type="AudioStream" id=5]
-[ext_resource path="res://content/sfx/mkw_next.mp3" type="AudioStream" id=6]
-[ext_resource path="res://content/sfx/mkw_back.mp3" type="AudioStream" id=7]
+[ext_resource path="res://assets/sfx/mkw_alert.mp3" type="AudioStream" id=5]
+[ext_resource path="res://assets/sfx/mkw_next.mp3" type="AudioStream" id=6]
+[ext_resource path="res://assets/sfx/mkw_back.mp3" type="AudioStream" id=7]
+
 
 [sub_resource type="StyleBoxFlat" id=4]
 bg_color = Color( 0.0784314, 0.0784314, 0.0784314, 1 )

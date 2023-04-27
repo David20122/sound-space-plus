@@ -79,6 +79,7 @@ func _process(delta):
 #		load_pg()
 
 func select_random():
+	if disp.size() == 0: return
 	on_pressed(randi()%disp.size())
 	for b in btns:
 		if b.song == SSP.selected_song: b.get_node("Select").pressed = true
@@ -119,7 +120,7 @@ func load_pg(is_resize:bool=false):
 				btn.get_node("Name").text = map.name
 			btns.append(btn)
 			btn.song = map
-			if map.warning != "":
+			if map.warning != "" || map.is_broken:
 				if map.is_broken: btn.get_node("Name").modulate = Color(1,0.4,0.4)
 				else: btn.get_node("Name").modulate = Color(1,1,0.2)
 			var rbtn:Button = btn.get_node("Select")

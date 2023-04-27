@@ -1,15 +1,16 @@
 extends Node
 
 func set_rpc_status(state:String):
-	var activity = Discord.Activity.new()
-	activity.set_type(Discord.ActivityType.Playing)
-	activity.set_details("Content Manager")
-	activity.set_state(state)
+	if not OS.has_feature("Android"):
+		var activity = Discord.Activity.new()
+		activity.set_type(Discord.ActivityType.Playing)
+		activity.set_details("Content Manager")
+		activity.set_state(state)
 
-	var assets = activity.get_assets()
-	assets.set_large_image("icon")
+		var assets = activity.get_assets()
+		assets.set_large_image("icon-bg")
 
-	Discord.activity_manager.update_activity(activity)
+		Discord.activity_manager.update_activity(activity)
 
 func _ready():
 	get_tree().paused = false
@@ -17,7 +18,7 @@ func _ready():
 	$BlackFade.color = Color(0,0,0,black_fade)
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	
-	$MenuSong.stream = SSP.get_stream_with_default("user://content",load("res://content/sfx/music/cm.ogg"))
+	$MenuSong.stream = SSP.get_stream_with_default("user://content",load("res://assets/sfx/music/cm.ogg"))
 	if $MenuSong.stream is AudioStreamSample: $MenuSong.stream.loop_mode = 1
 	else: $MenuSong.stream.loop = true
 	

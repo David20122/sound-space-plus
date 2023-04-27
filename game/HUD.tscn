@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=2]
+[gd_scene load_steps=77 format=2]
 
 [ext_resource path="res://game/TrueComboHandler.gd" type="Script" id=1]
 [ext_resource path="res://game/FPS.gd" type="Script" id=2]
@@ -6,22 +6,22 @@
 [ext_resource path="res://font/debug.tres" type="DynamicFont" id=4]
 [ext_resource path="res://font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=5]
 [ext_resource path="res://font/Lato/Lato-Bold.ttf" type="DynamicFontData" id=6]
-[ext_resource path="res://content/cursors/circle.png" type="Texture" id=7]
-[ext_resource path="res://content/modifiers/64/speed_mmm_colored.png" type="Texture" id=8]
-[ext_resource path="res://content/ui/spinner_thin.png" type="Texture" id=9]
-[ext_resource path="res://content/modifiers/64/speed_m_colored.png" type="Texture" id=10]
-[ext_resource path="res://content/modifiers/64/speed_p_colored.png" type="Texture" id=11]
-[ext_resource path="res://content/ui/spinner_thick.png" type="Texture" id=12]
+[ext_resource path="res://assets/cursors/circle.png" type="Texture" id=7]
+[ext_resource path="res://assets/modifiers/64/speed_mmm_colored.png" type="Texture" id=8]
+[ext_resource path="res://assets/ui/spinner_thin.png" type="Texture" id=9]
+[ext_resource path="res://assets/modifiers/64/speed_m_colored.png" type="Texture" id=10]
+[ext_resource path="res://assets/modifiers/64/speed_p_colored.png" type="Texture" id=11]
+[ext_resource path="res://assets/ui/spinner_thick.png" type="Texture" id=12]
 [ext_resource path="res://font/Roboto/Regular.ttf" type="DynamicFontData" id=13]
 [ext_resource path="res://font/UbuntuMono/Regular.ttf" type="DynamicFontData" id=14]
 [ext_resource path="res://font/Lato/Lato-Light.ttf" type="DynamicFontData" id=15]
-[ext_resource path="res://content/modifiers/64/speed_pp_colored.png" type="Texture" id=16]
-[ext_resource path="res://content/modifiers/64/speed_mm_colored.png" type="Texture" id=17]
-[ext_resource path="res://content/modifiers/64/replaying.png" type="Texture" id=18]
-[ext_resource path="res://content/sfx/hit.wav" type="AudioStream" id=19]
-[ext_resource path="res://content/modifiers/64/speed_ppp_colored.png" type="Texture" id=20]
-[ext_resource path="res://content/modifiers/64/speed_pppp_colored.png" type="Texture" id=21]
-[ext_resource path="res://content/modifiers/64/autoplayer.png" type="Texture" id=22]
+[ext_resource path="res://assets/modifiers/64/speed_pp_colored.png" type="Texture" id=16]
+[ext_resource path="res://assets/modifiers/64/speed_mm_colored.png" type="Texture" id=17]
+[ext_resource path="res://assets/modifiers/64/replaying.png" type="Texture" id=18]
+[ext_resource path="res://assets/sfx/hit.wav" type="AudioStream" id=19]
+[ext_resource path="res://assets/modifiers/64/speed_ppp_colored.png" type="Texture" id=20]
+[ext_resource path="res://assets/modifiers/64/speed_pppp_colored.png" type="Texture" id=21]
+[ext_resource path="res://assets/modifiers/64/autoplayer.png" type="Texture" id=22]
 [ext_resource path="res://classes/cursordance/Cursor.gd" type="Script" id=23]
 [ext_resource path="res://classes/cursordance/Stop.gd" type="Script" id=24]
 [ext_resource path="res://CircularProgress2.gd" type="Script" id=25]
@@ -29,6 +29,32 @@
 [ext_resource path="res://classes/cursordance/Main.gd" type="Script" id=27]
 [ext_resource path="res://classes/cursordance/dancetest.gd" type="Script" id=28]
 [ext_resource path="res://game/HUD.gd" type="Script" id=29]
+[ext_resource path="res://game/TextShake.gd" type="Script" id=30]
+[ext_resource path="res://game/MobileButtons.gd" type="Script" id=32]
+
+[sub_resource type="Gradient" id=86]
+interpolation_mode = 1
+offsets = PoolRealArray( 1 )
+colors = PoolColorArray( 1, 1, 1, 1 )
+
+[sub_resource type="GradientTexture2D" id=87]
+gradient = SubResource( 86 )
+use_hdr = true
+
+[sub_resource type="Gradient" id=88]
+interpolation_mode = 1
+offsets = PoolRealArray( 1 )
+colors = PoolColorArray( 1, 1, 1, 1 )
+
+[sub_resource type="GradientTexture2D" id=89]
+gradient = SubResource( 88 )
+
+[sub_resource type="DynamicFont" id=85]
+size = 48
+outline_size = 4
+outline_color = Color( 0, 0, 0, 0.490196 )
+use_filter = true
+font_data = ExtResource( 14 )
 
 [sub_resource type="StyleBoxFlat" id=4]
 bg_color = Color( 1, 1, 1, 1 )
@@ -249,6 +275,89 @@ viewport_path = NodePath("ApproachVP")
 [node name="HUD" type="Spatial"]
 pause_mode = 1
 script = ExtResource( 29 )
+
+[node name="Mobile" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 32 )
+
+[node name="Pause" type="Control" parent="Mobile"]
+modulate = Color( 1, 1, 1, 0.501961 )
+margin_right = 1280.0
+margin_bottom = 720.0
+
+[node name="Button" type="TouchScreenButton" parent="Mobile/Pause"]
+modulate = Color( 1, 1, 1, 0.521569 )
+scale = Vector2( 3.75, 3.5 )
+normal = SubResource( 87 )
+
+[node name="Label" type="Label" parent="Mobile/Pause/Button"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -15.5
+margin_right = 20.0
+margin_bottom = 15.5
+text = "tap to pause"
+align = 1
+autowrap = true
+
+[node name="GiveUp" type="Control" parent="Mobile"]
+modulate = Color( 1, 1, 1, 0.501961 )
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -720.0
+margin_right = 1280.0
+
+[node name="Button" type="TouchScreenButton" parent="Mobile/GiveUp"]
+modulate = Color( 1, 1, 1, 0.505882 )
+position = Vector2( 0, 494 )
+scale = Vector2( 3.75, 3.5 )
+normal = SubResource( 89 )
+
+[node name="Label" type="Label" parent="Mobile/GiveUp/Button"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -31.5
+margin_top = -15.5
+margin_right = 31.5
+margin_bottom = 15.5
+text = "    hold
+to give up"
+
+[node name="Stats" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Label" type="Label" parent="Stats"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 85 )
+text = "(stats)"
+align = 2
+
+[node name="ObnoxiousWarning" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 30 )
+
+[node name="Label" type="Label" parent="ObnoxiousWarning"]
+modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_colors/font_color = Color( 1, 0.45098, 0.45098, 1 )
+custom_fonts/font = SubResource( 85 )
+text = "(obnoxious warning)"
+align = 1
+valign = 1
 
 [node name="TimerVP" type="Viewport" parent="."]
 size = Vector2( 900, 300 )
@@ -1337,3 +1446,8 @@ transform = Transform( 1, 0, 4.37114e-08, -4.37114e-08, 1.91069e-15, 1, 0, -1, 1
 visible = false
 axis = 1
 texture = SubResource( 83 )
+
+[connection signal="pressed" from="Mobile/Pause/Button" to="Mobile" method="_on_Pause_pressed"]
+[connection signal="released" from="Mobile/Pause/Button" to="Mobile" method="_on_Pause_released"]
+[connection signal="pressed" from="Mobile/GiveUp/Button" to="Mobile" method="_on_GiveUp_pressed"]
+[connection signal="released" from="Mobile/GiveUp/Button" to="Mobile" method="_on_GiveUp_released"]

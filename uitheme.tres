@@ -11,8 +11,6 @@ fallback/0 = ExtResource( 3 )
 fallback/1 = ExtResource( 2 )
 
 [sub_resource type="StyleBoxFlat" id=1]
-content_margin_left = 6.0
-content_margin_right = 6.0
 bg_color = Color( 0.317647, 0.227451, 0.345098, 1 )
 corner_radius_top_left = 6
 corner_radius_top_right = 6
@@ -20,8 +18,6 @@ corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 
 [sub_resource type="StyleBoxFlat" id=2]
-content_margin_left = 6.0
-content_margin_right = 6.0
 bg_color = Color( 0.87451, 0.87451, 0.87451, 1 )
 draw_center = false
 border_width_left = 3
@@ -39,8 +35,6 @@ expand_margin_top = 1.0
 expand_margin_bottom = 1.0
 
 [sub_resource type="StyleBoxFlat" id=3]
-content_margin_left = 6.0
-content_margin_right = 6.0
 bg_color = Color( 0.913725, 0.74902, 0.94902, 1 )
 corner_radius_top_left = 6
 corner_radius_top_right = 6
@@ -48,8 +42,6 @@ corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 
 [sub_resource type="StyleBoxFlat" id=4]
-content_margin_left = 6.0
-content_margin_right = 6.0
 bg_color = Color( 0.764706, 0.65098, 0.8, 1 )
 corner_radius_top_left = 6
 corner_radius_top_right = 6

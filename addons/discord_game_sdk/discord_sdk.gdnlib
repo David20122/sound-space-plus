@@ -13,6 +13,6 @@ X11.64="res://addons/discord_game_sdk/libdiscord-game-sdk-godot.so"
 
 [dependencies]
 
-OSX.64=[ "res://addons/discord_game_sdk/discord_game_sdk.dylib" ]
-Windows.64=[ "res://addons/discord_game_sdk/discord_game_sdk.dll" ]
-X11.64=[ "res://addons/discord_game_sdk/libdiscord_game_sdk.so" ]
+OSX.64=[ "res://addons/discord_game_sdk/bin/x86_64/discord_game_sdk.dylib" ]
+Windows.64=[ "res://addons/discord_game_sdk/bin/x86_64/discord_game_sdk.dll" ]
+X11.64=[ "res://addons/discord_game_sdk/bin/x86_64/discord_game_sdk.so" ]

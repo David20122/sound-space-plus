@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/worlds/space/starmap_4k.png" type="Texture" id=5]
+
+
+[sub_resource type="PanoramaSky" id=6]
+panorama = ExtResource( 5 )
+
+[sub_resource type="Environment" id=1]
+background_mode = 2
+background_sky = SubResource( 6 )
+background_sky_orientation = Basis( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08 )
+background_color = Color( 0.0392157, 0.0392157, 0.0392157, 1 )
+background_canvas_max_layer = -128
+ambient_light_color = Color( 0.0784314, 0.0784314, 0.0784314, 1 )
+fog_color = Color( 0, 0, 0, 1 )
+fog_sun_color = Color( 0.0573333, 0.0256, 0.08, 1 )
+fog_sun_amount = 1.0
+fog_depth_begin = 20.0
+fog_depth_end = 58.3
+fog_depth_curve = 0.353553
+fog_height_enabled = true
+fog_height_min = 10.4
+fog_height_max = -18.5
+fog_height_curve = 0.68302
+
+[node name="Space" type="Spatial"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 1 )

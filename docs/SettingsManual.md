@@ -4,7 +4,7 @@ I've heard people mentioning that our settings are confusing. This should, hopef
 ## Camera & Parallax 
 **Settings:** Camera Parallax, HUD Parallax, Grid Parallax, Camera Unlock  
 
-As you may have noticed, the way parallax and camera lock works in SS+ is a lot more complex than Sound Space.  
+As you may have noticed, the way parallax and camera lock works in SSP is a lot more complex than Sound Space.  
 
 Essentially, parallax is what causes the game to move with your cursor, giving you a sort of artificial depth perception.  
 Camera lock refers to how the camera always faces forward, and spin, or unlocked camera, is when the camera rotates to point at the cursor.
@@ -57,4 +57,4 @@ Then, divide your new spawn distance by your approach time, and set that as your
 **As equations:**  
 `SD = AD * 0.5`  
 `AR = (AD * 0.5) / AT`  
-(Note: SD and AR refer to the previously mentioned SS+ settings, and AD and AT refer to Vulnus's Approach Distance and Time, respectively)
+(Note: SD and AR refer to the previously mentioned SSP settings, and AD and AT refer to Vulnus's Approach Distance and Time, respectively)

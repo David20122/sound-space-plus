@@ -8,7 +8,7 @@ func idle_status():
 	activity.set_state("Listening to music")
 
 	var assets = activity.get_assets()
-	assets.set_large_image("icon")
+	assets.set_large_image("icon-bg")
 
 	Discord.activity_manager.update_activity(activity)
 
@@ -25,7 +25,7 @@ func _ready():
 		activity.set_state("Selecting a song")
 
 		var assets = activity.get_assets()
-		assets.set_large_image("icon")
+		assets.set_large_image("icon-bg")
 
 		Discord.activity_manager.update_activity(activity)
 		

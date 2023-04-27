@@ -71,6 +71,9 @@ func open_file(
 	target_object = obj
 	target_method = method
 	
+	$C/OpenFile.rect_pivot_offset = get_viewport_rect().size / 2
+	$C/OpenFile.rect_scale = Vector2(clamp(SSP.render_scale,0.5,1), clamp(SSP.render_scale,0.5,1))
+	
 	if use_native:
 		$OpenFile.filters = filters
 		$OpenFile.multiselect = multiselect
@@ -102,6 +105,9 @@ func save_file(
 ):
 	target_object = obj
 	target_method = method
+	
+	$C/OpenFile.rect_pivot_offset = get_viewport_rect().size / 2
+	$C/OpenFile.rect_scale = Vector2(clamp(SSP.render_scale,0.5,1), clamp(SSP.render_scale,0.5,1))
 	
 	if use_native:
 		$SaveFile.filters = filters
