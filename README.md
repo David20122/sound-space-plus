@@ -1,5 +1,4 @@
 # Sound Space Plus [Temporary Releases]
-
 While you're here, join our discord in [here](https://discord.gg/ssp)
 
 Support the game on [Patreon](https://www.patreon.com/soundspaceplus)

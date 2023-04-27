@@ -618,7 +618,6 @@ func file_selected(files:PoolStringArray):
 				
 				for o in output:
 					print(o)
-				
 				if exit_code == -1:
 					print("nonzero exit code of -1 indicateds engine error")
 					$VulnusFile/Error.text = "engine error while extracting zip"
