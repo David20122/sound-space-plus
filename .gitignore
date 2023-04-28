@@ -1,4 +1,5 @@
-build/
+build/**
+!build/.gdignore
 export_presets.cfg
 .import/
 .godot/
