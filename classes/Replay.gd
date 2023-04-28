@@ -2,7 +2,7 @@ extends Resource
 class_name Replay
 
 const file_sig:PoolByteArray = PoolByteArray([0x53,0x73,0x2A,0x52])
-const current_sv:int = 3
+const current_sv:int = 4
 const debug:bool = false
 
 var dance:DanceMover
@@ -93,6 +93,7 @@ func read_data(from_path:String=""):
 				return
 			
 			debug_txt.reserved_1 = file.get_64()
+			if sv >= 4: print("replay hwid: ", file.get_line())
 			id = file.get_line()
 			var song_id = id.split(".")[0]
 			var fsong = SSP.registry_song.get_item(song_id)
@@ -424,6 +425,7 @@ func start_recording(with_song:Song):
 	file.store_buffer(file_sig)
 	file.store_16(current_sv)
 	file.store_64(0)
+	file.store_line(OS.get_unique_id())
 	file.store_line(id)
 	file.store_line(SSP.generate_pb_str())
 	
