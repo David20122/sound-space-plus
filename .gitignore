@@ -1,4 +1,5 @@
-build/
+build/**
+!build/.gdignore
 android/
 export_presets.cfg
 .import/
