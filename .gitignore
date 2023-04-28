@@ -4,6 +4,5 @@ export_presets.cfg
 .import/
 .godot/
 *.translation
-addons/discord_game_sdk/bin
-addons/discord_game_sdk/bin/
-addons/discord_game_sdk/bin/*
+addons/discord_game_sdk/discord_game_sdk.*
+addons/discord_game_sdk/libdiscord_game_sdk.*
