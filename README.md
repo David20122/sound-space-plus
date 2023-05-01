@@ -1,4 +1,4 @@
-# Sound Space Plus [Temporary Releases]
+# Sound Space Plus
 
 While you're here, join our discord in [here](https://discord.gg/ssp)
 
