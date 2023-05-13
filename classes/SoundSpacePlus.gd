@@ -735,7 +735,7 @@ var do_note_pushback:bool = true # true; notes go past grid on miss, false; note
 var show_stats:bool = false
 
 var arcw_mode:bool = false # heheheha
-var sex_mode:bool = false # demon mode
+var sex_mode:bool = false
 
 
 
@@ -2382,7 +2382,6 @@ func do_init(_ud=null):
 		arcw_mode = true
 		alert = "ARCW mode enabled successfully."
 	if Input.is_key_pressed(KEY_S) and Input.is_key_pressed(KEY_E) and Input.is_key_pressed(KEY_X):
-		# we do a little trolling
 		sex_mode = true
 		alert = "Sex mode enabled successfully."
 	
