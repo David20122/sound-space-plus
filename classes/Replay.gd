@@ -3,7 +3,7 @@ class_name Replay
 
 const file_sig:PoolByteArray = PoolByteArray([0x53,0x73,0x2A,0x52])
 const current_sv:int = 4
-const debug:bool = false
+const debug:bool = true
 
 var dance:DanceMover
 var song:Song
@@ -63,6 +63,7 @@ func read_data(from_path:String=""):
 				debug_label.set("custom_fonts/font",load("res://font/debug.tres"))
 				debug_label.name = "ReplayDebug"
 				debug_label.rect_position = Vector2(10,10)
+				debug_label.rect_scale = Vector2(0.5,0.5)
 				debug_label.text = "-- replay debug --"
 			debug_label.raise()
 			
@@ -93,7 +94,7 @@ func read_data(from_path:String=""):
 				return
 			
 			debug_txt.reserved_1 = file.get_64()
-			if sv >= 4: print("replay hwid: ", file.get_line())
+			if sv >= 4: debug_txt.replay_hwid = file.get_line()
 			id = file.get_line()
 			var song_id = id.split(".")[0]
 			var fsong = SSP.registry_song.get_item(song_id)
