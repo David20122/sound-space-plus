@@ -3,7 +3,7 @@ class_name Replay
 
 const file_sig:PoolByteArray = PoolByteArray([0x53,0x73,0x2A,0x52])
 const current_sv:int = 4
-const debug:bool = false
+var debug:bool = OS.has_feature("debug")
 
 var dance:DanceMover
 var song:Song
