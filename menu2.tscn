@@ -4165,7 +4165,7 @@ scroll_horizontal_enabled = false
 [node name="F" parent="Main/Settings/S" instance=ExtResource( 49 )]
 anchor_right = 0.0
 margin_right = 1210.0
-margin_bottom = 5798.0
+margin_bottom = 5834.0
 rect_clip_content = true
 
 [node name="Credits" type="ReferenceRect" parent="Main"]
@@ -4196,7 +4196,7 @@ scroll_deadzone = 45
 
 [node name="L" type="VBoxContainer" parent="Main/Credits/C/S"]
 margin_right = 1216.0
-margin_bottom = 1153.0
+margin_bottom = 1115.0
 grow_horizontal = 2
 rect_min_size = Vector2( 700, 0 )
 size_flags_horizontal = 3
@@ -4222,7 +4222,7 @@ stretch_mode = 6
 [node name="DevTeam" type="VBoxContainer" parent="Main/Credits/C/S/L"]
 margin_top = 272.0
 margin_right = 1204.0
-margin_bottom = 430.0
+margin_bottom = 392.0
 grow_horizontal = 2
 custom_constants/separation = 8
 alignment = 1
@@ -4241,17 +4241,17 @@ margin_right = 1204.0
 margin_bottom = 82.0
 
 [node name="H" type="HBoxContainer" parent="Main/Credits/C/S/L/DevTeam/C"]
-margin_left = 474.0
-margin_right = 729.0
+margin_left = 530.0
+margin_right = 673.0
 margin_bottom = 30.0
 alignment = 1
 
 [node name="Label" type="Label" parent="Main/Credits/C/S/L/DevTeam/C/H"]
-margin_right = 255.0
+margin_right = 143.0
 margin_bottom = 30.0
 custom_colors/font_color = Color( 0.670588, 0.901961, 0.898039, 1 )
 custom_fonts/font = SubResource( 159 )
-text = "Paisley \"pyrule\" Raylan"
+text = "Jayden Jones"
 align = 1
 
 [node name="C2" type="CenterContainer" parent="Main/Credits/C/S/L/DevTeam"]
@@ -4270,41 +4270,22 @@ margin_right = 143.0
 margin_bottom = 30.0
 custom_colors/font_color = Color( 0.670588, 0.901961, 0.898039, 1 )
 custom_fonts/font = SubResource( 159 )
-text = "Jayden Jones"
-align = 1
-
-[node name="C3" type="CenterContainer" parent="Main/Credits/C/S/L/DevTeam"]
-margin_top = 128.0
-margin_right = 1204.0
-margin_bottom = 158.0
-
-[node name="H" type="HBoxContainer" parent="Main/Credits/C/S/L/DevTeam/C3"]
-margin_left = 503.0
-margin_right = 701.0
-margin_bottom = 30.0
-alignment = 1
-
-[node name="Label" type="Label" parent="Main/Credits/C/S/L/DevTeam/C3/H"]
-margin_right = 198.0
-margin_bottom = 30.0
-custom_colors/font_color = Color( 0.670588, 0.901961, 0.898039, 1 )
-custom_fonts/font = SubResource( 159 )
-text = "David \"kiwie\" Guy"
+text = "David (kiwie)"
 align = 1
 
 [node name="PatronTitle" type="Label" parent="Main/Credits/C/S/L"]
-margin_top = 442.0
+margin_top = 404.0
 margin_right = 1204.0
-margin_bottom = 486.0
+margin_bottom = 448.0
 custom_colors/font_color = Color( 1, 0.258824, 0.301961, 1 )
 custom_fonts/font = SubResource( 158 )
 text = "-- patreon supporters --"
 align = 1
 
 [node name="T3" type="VBoxContainer" parent="Main/Credits/C/S/L"]
-margin_top = 498.0
+margin_top = 460.0
 margin_right = 1204.0
-margin_bottom = 528.0
+margin_bottom = 490.0
 grow_horizontal = 2
 custom_constants/separation = 8
 alignment = 1
@@ -4329,9 +4310,9 @@ align = 1
 autowrap = true
 
 [node name="T2" type="VBoxContainer" parent="Main/Credits/C/S/L"]
-margin_top = 540.0
+margin_top = 502.0
 margin_right = 1204.0
-margin_bottom = 567.0
+margin_bottom = 529.0
 grow_horizontal = 2
 custom_constants/separation = 8
 alignment = 1
@@ -4355,9 +4336,9 @@ text = "patron name 2"
 align = 1
 
 [node name="T1" type="VBoxContainer" parent="Main/Credits/C/S/L"]
-margin_top = 579.0
+margin_top = 541.0
 margin_right = 1204.0
-margin_bottom = 606.0
+margin_bottom = 568.0
 grow_horizontal = 2
 custom_constants/separation = 8
 alignment = 1
@@ -4383,9 +4364,9 @@ align = 1
 autowrap = true
 
 [node name="SpecialThanks" type="VBoxContainer" parent="Main/Credits/C/S/L"]
-margin_top = 618.0
+margin_top = 580.0
 margin_right = 1204.0
-margin_bottom = 1016.0
+margin_bottom = 978.0
 grow_horizontal = 2
 custom_constants/separation = 8
 alignment = 1
@@ -4628,9 +4609,9 @@ text = "The playtester team - Catching major bugs before they reach the public"
 align = 1
 
 [node name="SPACER" type="Control" parent="Main/Credits/C/S/L"]
-margin_top = 1028.0
+margin_top = 990.0
 margin_right = 1204.0
-margin_bottom = 1153.0
+margin_bottom = 1115.0
 rect_min_size = Vector2( 0, 125 )
 
 [node name="Quit" type="Button" parent="."]
