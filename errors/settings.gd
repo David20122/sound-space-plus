@@ -3,7 +3,7 @@ extends ColorRect
 func _ready():
 	Engine.target_fps = 30 # Don't use the entire GPU for the error screen
 	$Info.text = """-- settings load error --
-ssp version: v%s
+ssp version: %s
 platform: %s
 error code: %s""" % [
 		ProjectSettings.get_setting("application/config/version"),
@@ -24,4 +24,4 @@ error code: %s""" % [
 
 		var result = yield(Discord.activity_manager.update_activity(activity), "result").result
 		if result != Discord.Result.Ok:
-			push_error(result)
+			push_error(str(result))

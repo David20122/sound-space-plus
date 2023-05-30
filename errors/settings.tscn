@@ -7,7 +7,6 @@
 [ext_resource path="res://uitheme.tres" type="Theme" id=5]
 [ext_resource path="res://errors/DeleteSettingsFile.gd" type="Script" id=6]
 
-
 [sub_resource type="GDScript" id=1]
 script/source = "extends AudioStreamPlayer
 
@@ -45,26 +44,23 @@ func _ready():
 [node name="Control" type="ColorRect"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 1
 color = Color( 0, 0, 0, 1 )
 script = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 anchor_left = -1.0
 anchor_top = -1.0
 anchor_right = 2.0
 anchor_bottom = 2.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+mouse_filter = 2
 
 [node name="TextureRect" type="TextureRect" parent="CenterContainer"]
 margin_left = 1408.0
 margin_top = 696.0
 margin_right = 2432.0
 margin_bottom = 1464.0
+mouse_filter = 2
 texture = ExtResource( 1 )
 stretch_mode = 6
 
@@ -81,23 +77,10 @@ margin_top = 15.0
 margin_right = 78.0
 margin_bottom = 34.0
 custom_fonts/font = SubResource( 3 )
-text = "ssp version: v%s
+text = "ssp version: %s
 platform: %s
 error code: %s
-https://discord.gg/ttPys6Jajs"
-
-[node name="Delete" type="Button" parent="."]
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -155.0
-margin_top = -40.0
-margin_right = -10.0
-margin_bottom = -10.0
-theme = ExtResource( 5 )
-text = "Reset Settings"
-script = ExtResource( 6 )
+https://discord.gg/ssp"
 
 [node name="BlackFade" type="ColorRect" parent="."]
 anchor_right = 1.0
@@ -105,3 +88,20 @@ anchor_bottom = 1.0
 mouse_filter = 2
 color = Color( 0, 0, 0, 0 )
 script = SubResource( 2 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -25.0
+rect_min_size = Vector2( 1280, 0 )
+alignment = 1
+
+[node name="Reset" type="Button" parent="HBoxContainer"]
+margin_left = 565.0
+margin_right = 715.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 150, 0 )
+theme = ExtResource( 5 )
+text = "Reset Settings"
+script = ExtResource( 6 )

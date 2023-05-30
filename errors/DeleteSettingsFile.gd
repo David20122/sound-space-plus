@@ -18,7 +18,7 @@ func confirm(v:int):
 					"An error occurred while deleting your settings file. "+
 					"Try manually deleting it, and if that doesn't work, "+
 					"please ask for help in the Discord server.\n"+
-					"https://discord.gg/ssplus"+
+					"https://discord.gg/ssp"+
 					"\n(error code %s)" % res,
 					"Error",
 					[{text="OK"}]
@@ -31,8 +31,8 @@ func confirm(v:int):
 					[{text="OK"}]
 				)
 				yield(Globals.confirm_prompt,"done_closing")
-				get_node("../BlackFade").target = true
-				yield(get_node("../BlackFade"),"done_fading")
+				#get_node("../BlackFade").target = true
+				#yield(get_node("../BlackFade"),"done_fading")
 				Engine.target_fps = 0
 				get_tree().change_scene("res://init.tscn")
 				return
