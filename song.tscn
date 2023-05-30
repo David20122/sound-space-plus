@@ -260,6 +260,7 @@ current = true
 far = 500.0
 
 [node name="Camera" type="Camera" parent="."]
+process_priority = 1
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.5 )
 current = true
 far = 500.0
@@ -307,6 +308,7 @@ material/0 = SubResource( 35 )
 
 [node name="Spawn" type="Spatial" parent="Game"]
 pause_mode = 1
+process_priority = 2
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, 0 )
 script = ExtResource( 2 )
 note_solid_mat = SubResource( 79 )
@@ -370,6 +372,7 @@ mesh = SubResource( 32 )
 material/0 = SubResource( 33 )
 
 [node name="Cursor" type="Spatial" parent="Game/Spawn"]
+process_priority = 1
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -1, 0 )
 script = ExtResource( 14 )
 
