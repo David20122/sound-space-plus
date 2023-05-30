@@ -1622,71 +1622,8 @@ func save_settings():
 # Built-in content data
 func register_colorsets():
 	registry_colorset.add_item(ColorSet.new(
-		[ Color("#fc94f2"),Color("#96fc94") ],
-		"ssp_everybodyvotes", "Everybody Votes Channel", "Chedski"
-	))
-	registry_colorset.add_item(ColorSet.new(
-		[ Color("#fc4441"), Color("#4151fc") ],
-		"ssp_redblue", "Red & Blue", "Chedski"
-	))
-	registry_colorset.add_item(ColorSet.new(
 		[ Color("#00ffed"), Color("#ff8ff9") ],
-		"ssp_cottoncandy", "Cotton Candy", "Unknown"
-	))
-	registry_colorset.add_item(ColorSet.new(
-		[ Color("#ffcc4d"),Color("#ff7892"),Color("#e5dd80") ],
-		"ssp_veggiestraws", "Veggie Straws", "Chedski"
-	))
-	registry_colorset.add_item(ColorSet.new(
-		[ Color("#5BCEFA"),Color("#F5A9B8"),Color("#FFFFFF") ],
-		"ssp_pastel", "Pastel", "Chedski"
-	))
-	registry_colorset.add_item(ColorSet.new(
-		[
-			Color("#e95f5f"), Color("#e88d5f"), Color("#e8ba5f"), Color("#e8e85f"),
-			Color("#bae85f"), Color("#8de85f"), Color("#5fe85f"), Color("#5fe88d"),
-			Color("#5fe8ba"), Color("#5fe8e8"), Color("#5fbae8"), Color("#5f8de8"),
-			Color("#5f5fe8"), Color("#8d5fe8"), Color("#ba5fe8"), Color("#e85fe8"),
-			Color("#e85fa4"), Color("#e85f8d"),
-		],
-		"ssp_hue", "Hue Wheel", "Chedski"
-	))
-	registry_colorset.add_item(ColorSet.new(
-		[
-			Color("#e95f5f"), Color("#e8765f"), Color("#e88d5f"), Color("#e8a45f"),
-			Color("#e8ba5f"), Color("#e8d15f"), Color("#e8e85f"), Color("#d1e85f"),
-			Color("#bae85f"), Color("#a4e85f"), Color("#8de85f"), Color("#76e85f"),
-			Color("#5fe85f"), Color("#5fe876"), Color("#5fe88d"), Color("#5fe8a4"),
-			Color("#5fe8ba"), Color("#5fe8d1"), Color("#5fe8e8"), Color("#5fd1e8"),
-			Color("#5fbae8"), Color("#5fa4e8"), Color("#5f8de8"), Color("#5f76e8"),
-			Color("#5f5fe8"), Color("#765fe8"), Color("#8d5fe8"), Color("#a45fe8"),
-			Color("#ba5fe8"), Color("#d15fe8"), Color("#e85fe8"), Color("#e85fd1"),
-			Color("#e85fa4"), Color("#e85f8d"), Color("#e85f8d"), Color("#e85f76"),
-		],
-		"ssp_hue_ultra", "Hue Wheel Ultra", "Chedski"
-	))
-	registry_colorset.add_item(ColorSet.new(
-		[ Color("#ffffff") ],
-		"ssp_soul", "SOUL", "Chedski"
-	))
-	registry_colorset.add_item(ColorSet.new(
-		[ Color("#9a5ef9") ],
-		"ssp_purple", "purple!!!", "Chedski"
-	))
-	registry_colorset.add_item(ColorSet.new(
-		[ Color("#000000"), Color("#381e42") ],
-		"ssp_vortex", "Vortex", "pyrule"
-	))
-	registry_colorset.add_item(ColorSet.new(
-		[ Color("#008cff"), Color("#ed3434"), Color("#10bd0d"), Color("#ffb300") ],
-		"ssp_wii", "Wii Players", "balt"
-	))
-	registry_colorset.add_item(ColorSet.new(
-		[ 
-			Color("#00aa66"), Color("#bb2200"), Color("#ffdd00"), 
-			Color("#2233ff") , Color("#ee5500") 
-		],
-		"ssp_guitarhero", "Guitar Hero", "balt"
+		"ssp_cottoncandy", "Cotton Candy", ""
 	))
 	
 func register_worlds():
@@ -1795,7 +1732,7 @@ func register_worlds():
 		"res://error.jpg"
 	))
 	registry_world.add_item(BackgroundWorld.new(
-		"ssp_custom", "Modworld (info in the discord)",
+		"ssp_custom", "Modworld",
 		"res://assets/worlds/custom.tscn", "Someone",
 		"res://assets/worlds/covers/custom.png"
 	))
@@ -1893,7 +1830,7 @@ func load_color_txt(path:String="",id:String=""):
 	if registry_colorset.idx_id.has(id):
 		cf = registry_colorset.get_item(id)
 	else:
-		cf = ColorSet.new([],id,cfname,"Someone")
+		cf = ColorSet.new([],id,cfname," ")
 		registry_colorset.add_item(cf)
 	
 	var file:File = File.new()
@@ -1924,7 +1861,7 @@ func load_color_txt(path:String="",id:String=""):
 func load_color_folder():
 	var a = OS.get_ticks_usec()
 	print("(re)load custom colorsets")
-	load_color_txt("user://colors.txt","colorsfile")
+	#load_color_txt("user://colors.txt","colorsfile")
 	var dir:Directory = Directory.new()
 	if dir.dir_exists(user_colorset_dir):
 		var files = Globals.get_files_recursive([user_colorset_dir],5)
@@ -2005,33 +1942,28 @@ func do_init(_ud=null):
 			single_map_mode_audio_path = Globals.cmdline.audio
 			
 	# Check for updates
-	if !OS.has_feature("editor") and !OS.has_feature("test"):
+	if (OS.has_feature("Windows") or OS.has_feature("X11")) and !OS.has_feature("editor"):
 		emit_signal("init_stage_reached","Check for updates")
 		emit_signal("init_stage_num",-1)
 		yield(get_tree(),"idle_frame")
 		Online.check_latest_version()
 		var latest_version = yield(Online,"latest_version")
 		if ProjectSettings.get_setting("application/config/version") != latest_version:
-			if OS.has_feature("Windows") or OS.has_feature("X11"):
-				var sel = 1
-				if !Online.latest_version_data.body.begins_with("-a"):
-					Globals.confirm_prompt.s_alert.play()
-					Globals.confirm_prompt.open("You are on an outdated version of the game! Would you like to automatically update?","Outdated",[{text="Ignore",wait=4},{text="Update",wait=2}])
-					sel = yield(Globals.confirm_prompt,"option_selected")
-					Globals.confirm_prompt.s_next.play()
-					Globals.confirm_prompt.close()
-					yield(Globals.confirm_prompt,"done_closing")
-				if bool(sel):
-					emit_signal("init_stage_reached","Updating the game")
-					Online.attempt_update()
-					yield(Online,"update_finished")
-					get_tree().call_deferred("quit",1)
-					OS.execute(OS.get_executable_path(),[],false)
-					return
-			else:
+			var sel = 1
+			if !Online.latest_version_data.body.begins_with("-a"):
 				Globals.confirm_prompt.s_alert.play()
-				Globals.confirm_prompt.open("You are on an outdated version of the game!","Outdated",[{text="Ok"}])
-				yield(Globals.confirm_prompt,"option_selected")
+				Globals.confirm_prompt.open("You are on an outdated version of the game! Would you like to automatically update?","Outdated",[{text="Ignore",wait=4},{text="Update",wait=2}])
+				sel = yield(Globals.confirm_prompt,"option_selected")
+				Globals.confirm_prompt.s_next.play()
+				Globals.confirm_prompt.close()
+				yield(Globals.confirm_prompt,"done_closing")
+			if bool(sel):
+				emit_signal("init_stage_reached","Updating the game")
+				Online.attempt_update()
+				yield(Online,"update_finished")
+				get_tree().call_deferred("quit",1)
+				OS.execute(OS.get_executable_path(),[],false)
+				return
 	
 	emit_signal("init_stage_reached","Init filesystem")
 	emit_signal("init_stage_num",-1)
@@ -2097,10 +2029,6 @@ func do_init(_ud=null):
 	# init colors.txt
 	emit_signal("init_stage_reached","Load user colorsets")
 	emit_signal("init_stage_num",0)
-	registry_colorset.add_item(ColorSet.new(
-		[ Color("#ffffff") ],
-		"colorsfile", "colors.txt (1 per line)", "Someone"
-	))
 	load_color_txt()
 	yield(self,"colors_done")
 	
@@ -2257,7 +2185,7 @@ func do_init(_ud=null):
 	if lp: yield(get_tree(),"idle_frame")
 	selected_hit_effect = registry_effect.get_item("ssp_ripple")
 	selected_miss_effect = registry_effect.get_item("ssp_miss")
-	selected_colorset = registry_colorset.get_item("ssp_everybodyvotes")
+	selected_colorset = registry_colorset.get_item("ssp_cottoncandy")
 	selected_space = registry_world.get_item("ssp_space_tunnel")
 	selected_mesh = registry_mesh.get_item("ssp_rounded")
 	
