@@ -652,7 +652,7 @@ var note_visual_approach:bool = false # Experimental
 var visual_approach_follow:bool = false
 var half_ghost:bool = false # Experimental
 var billboard_score:bool = false
-var score_popup:bool = true
+var score_popup:bool = false
 var mirror_buttons:bool = false
 
 # Settings - HUD Colors
