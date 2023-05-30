@@ -42,7 +42,6 @@ func display_warning(id:String):
 var experimental_settings = [
 	"show_stats",
 	"ensure_hitsync",
-	"do_note_pushback",
 	"retain_song_pitch",
 	"half_ghost",
 ]
