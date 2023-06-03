@@ -1,12 +1,14 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/worlds/grid/grid.gd" type="Script" id=1]
 [ext_resource path="res://assets/worlds/grid/grid.obj" type="ArrayMesh" id=2]
 
 [sub_resource type="Environment" id=6]
 background_mode = 1
-background_color = Color( 0.180392, 0.172549, 0.172549, 0.984314 )
+background_color = Color( 0.0235294, 0.0117647, 0.129412, 1 )
+background_energy = 0.0
 fog_enabled = true
+fog_color = Color( 0, 0.121569, 0.917647, 1 )
 
 [sub_resource type="SpatialMaterial" id=5]
 flags_transparent = true
@@ -22,6 +24,24 @@ distance_fade_max_distance = 0.0
 flags_transparent = true
 albedo_color = Color( 1, 1, 1, 0 )
 
+[sub_resource type="SpatialMaterial" id=16]
+flags_transparent = true
+flags_unshaded = true
+albedo_color = Color( 1, 1, 1, 0.137255 )
+distance_fade_mode = 1
+distance_fade_min_distance = 50.0
+distance_fade_max_distance = 0.0
+
+[sub_resource type="PlaneMesh" id=15]
+
+[sub_resource type="SpatialMaterial" id=17]
+flags_transparent = true
+flags_unshaded = true
+albedo_color = Color( 1, 1, 1, 0.137255 )
+distance_fade_mode = 1
+distance_fade_min_distance = 50.0
+distance_fade_max_distance = 0.0
+
 [node name="grid" type="Spatial"]
 script = ExtResource( 1 )
 
@@ -35,7 +55,7 @@ material_override = SubResource( 5 )
 mesh = ExtResource( 2 )
 
 [node name="emissionArea" type="MeshInstance" parent="."]
-transform = Transform( 9.85188e-07, -2.32436e-15, 42.2597, -9.70019e-09, -0.00100377, -5.31393e-23, 31.03, -7.32092e-08, -2.54317e-06, 0.119, -9, -39.793 )
+transform = Transform( 9.85188e-07, -2.32436e-15, 42.2597, -9.70019e-09, -0.00100377, -5.31393e-23, 17.7672, -4.19183e-08, -1.45618e-06, 0.119, -9, -47.6117 )
 layers = 2
 material_override = SubResource( 5 )
 cast_shadow = 0
@@ -46,5 +66,15 @@ material/0 = SubResource( 14 )
 transform = Transform( -5.24537e-09, 0, -0.12, 0, 0.001, 0, 0.12, 0, -5.24537e-09, 0.119, 13, -26 )
 material_override = SubResource( 5 )
 mesh = ExtResource( 2 )
+
+[node name="gridTopF" type="MeshInstance" parent="."]
+transform = Transform( 94.3401, 0, 0, 0, -0.001, 5.97751e-06, 0, -1.4779e-10, -115.589, 1.3, 12.9, -25.392 )
+material_override = SubResource( 16 )
+mesh = SubResource( 15 )
+
+[node name="gridBottomF" type="MeshInstance" parent="."]
+transform = Transform( 105.023, 0, 0, 0, 0.001, 0, 0, 0, 111.812, 1.3, -12, -25.392 )
+material_override = SubResource( 17 )
+mesh = SubResource( 15 )
 
 [node name="Particles" type="Spatial" parent="."]

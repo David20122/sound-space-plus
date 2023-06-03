@@ -1714,7 +1714,7 @@ func register_worlds():
 		"res://assets/worlds/tri_tunnel/cover.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
-		"ssp_grid", "grid",
+		"ssp_grid", "The Grid",
 		"res://assets/worlds/grid.tscn", "hi",
 		"res://assets/worlds/tri_tunnel/cover.png"
 	))

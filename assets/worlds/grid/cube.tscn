@@ -17,7 +17,7 @@ curve = SubResource( 14 )
 
 [sub_resource type="Gradient" id=15]
 interpolation_mode = 2
-offsets = PoolRealArray( 0, 0.229299, 0.719745, 0.917197 )
+offsets = PoolRealArray( 0, 0.229299, 0.44586, 1 )
 colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
 
 [sub_resource type="GradientTexture" id=12]
@@ -28,7 +28,7 @@ resource_local_to_scene = true
 flag_disable_z = true
 direction = Vector3( 1, 1, 0 )
 spread = 0.0
-gravity = Vector3( 0, 0.5, 0 )
+gravity = Vector3( 0, 0.4, 0 )
 angular_velocity = 85.89
 angular_velocity_random = 0.75
 orbit_velocity = 0.0
