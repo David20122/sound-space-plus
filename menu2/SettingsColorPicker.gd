@@ -4,7 +4,7 @@ export(String) var target
 
 func upd():
 	yield(get_tree(),"idle_frame")
-	print(target, " ", color.to_html(color.a != 1), " WAUGH!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+	print(target, " ", color.to_html(color.a != 1))
 	SSP.set(target,color)
 
 #func _process(_d):

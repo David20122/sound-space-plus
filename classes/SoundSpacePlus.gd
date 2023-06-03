@@ -1713,6 +1713,11 @@ func register_worlds():
 		"res://assets/worlds/tri_tunnel.tscn", "Lexus, pyrule",
 		"res://assets/worlds/tri_tunnel/cover.png"
 	))
+	registry_world.add_item(BackgroundWorld.new(
+		"ssp_grid", "grid",
+		"res://assets/worlds/grid.tscn", "hi",
+		"res://assets/worlds/tri_tunnel/cover.png"
+	))
 #	registry_world.add_item(BackgroundWorld.new(
 #		"ssp_seethrough", "Seethrough",
 #		"res://assets/worlds/seethrough.tscn", "pyrule",

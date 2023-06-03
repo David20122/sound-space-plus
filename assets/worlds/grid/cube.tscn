@@ -1,0 +1,53 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://assets/worlds/grid/cube.obj" type="ArrayMesh" id=1]
+
+[sub_resource type="SpatialMaterial" id=13]
+flags_transparent = true
+flags_unshaded = true
+vertex_color_use_as_albedo = true
+
+[sub_resource type="Curve" id=14]
+min_value = -360.0
+max_value = 360.0
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=10]
+curve = SubResource( 14 )
+
+[sub_resource type="Gradient" id=15]
+interpolation_mode = 2
+offsets = PoolRealArray( 0, 0.229299, 0.719745, 0.917197 )
+colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=12]
+gradient = SubResource( 15 )
+
+[sub_resource type="ParticlesMaterial" id=16]
+resource_local_to_scene = true
+flag_disable_z = true
+direction = Vector3( 1, 1, 0 )
+spread = 0.0
+gravity = Vector3( 0, 0.5, 0 )
+angular_velocity = 85.89
+angular_velocity_random = 0.75
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = 3.0
+angle = -76.8
+angle_random = 1.0
+angle_curve = SubResource( 10 )
+scale = 2.0
+color_ramp = SubResource( 12 )
+
+[node name="Cube" type="Particles"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9, 0 )
+material_override = SubResource( 13 )
+emitting = false
+amount = 1
+lifetime = 4.0
+one_shot = true
+explosiveness = 1.0
+visibility_aabb = AABB( -0.543942, -0.346216, -0.744322, 1.08788, 0.692431, 1.48864 )
+process_material = SubResource( 16 )
+draw_pass_1 = ExtResource( 1 )

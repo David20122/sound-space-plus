@@ -1,0 +1,50 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://assets/worlds/grid/grid.gd" type="Script" id=1]
+[ext_resource path="res://assets/worlds/grid/grid.obj" type="ArrayMesh" id=2]
+
+[sub_resource type="Environment" id=6]
+background_mode = 1
+background_color = Color( 0.180392, 0.172549, 0.172549, 0.984314 )
+fog_enabled = true
+
+[sub_resource type="SpatialMaterial" id=5]
+flags_transparent = true
+flags_unshaded = true
+albedo_color = Color( 1, 1, 1, 0.109804 )
+distance_fade_mode = 1
+distance_fade_min_distance = 50.0
+distance_fade_max_distance = 0.0
+
+[sub_resource type="PlaneMesh" id=13]
+
+[sub_resource type="SpatialMaterial" id=14]
+flags_transparent = true
+albedo_color = Color( 1, 1, 1, 0 )
+
+[node name="grid" type="Spatial"]
+script = ExtResource( 1 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 6 )
+
+[node name="gridBottom" type="MeshInstance" parent="."]
+transform = Transform( 5.24537e-09, -3.82137e-18, 0.12, -1.04907e-08, -0.001, 0, 0.12, -8.74228e-11, -5.24537e-09, 0.119, -12, -26 )
+layers = 2
+material_override = SubResource( 5 )
+mesh = ExtResource( 2 )
+
+[node name="emissionArea" type="MeshInstance" parent="."]
+transform = Transform( 9.85188e-07, -2.32436e-15, 42.2597, -9.70019e-09, -0.00100377, -5.31393e-23, 31.03, -7.32092e-08, -2.54317e-06, 0.119, -9, -39.793 )
+layers = 2
+material_override = SubResource( 5 )
+cast_shadow = 0
+mesh = SubResource( 13 )
+material/0 = SubResource( 14 )
+
+[node name="gridTop" type="MeshInstance" parent="."]
+transform = Transform( -5.24537e-09, 0, -0.12, 0, 0.001, 0, 0.12, 0, -5.24537e-09, 0.119, 13, -26 )
+material_override = SubResource( 5 )
+mesh = ExtResource( 2 )
+
+[node name="Particles" type="Spatial" parent="."]
