@@ -21,7 +21,6 @@ func hit(col:Color):
 	particle_instance.emitting = true
 	$Particles.call_deferred("add_child", particle_instance)
 	get_tree().create_timer(particle_instance.lifetime / 2).connect("timeout", particle_instance, "queue_free")
-	print($Particles.get_child_count())
 
 func _ready():
 	get_parent().get_node("Game").connect("hit",self,"hit")
