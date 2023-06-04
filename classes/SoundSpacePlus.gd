@@ -1625,6 +1625,62 @@ func register_colorsets():
 		[ Color("#00ffed"), Color("#ff8ff9") ],
 		"ssp_cottoncandy", "Cotton Candy", ""
 	))
+	registry_colorset.add_item(ColorSet.new(
+		[ Color("#ffcc4d"),Color("#ff7892"),Color("#e5dd80") ],
+		"ssp_veggiestraws", "Veggie Straws", "Chedski"
+	))
+	registry_colorset.add_item(ColorSet.new(
+		[ Color("#fc94f2"),Color("#96fc94") ],
+		"ssp_everybodyvotes", "Everybody Votes Channel", "Chedski"
+	))
+	registry_colorset.add_item(ColorSet.new(
+		[ Color("#fc4441"), Color("#4151fc") ],
+		"ssp_redblue", "Red & Blue", "Chedski"
+	))
+	registry_colorset.add_item(ColorSet.new(
+		[ Color("#5BCEFA"),Color("#F5A9B8"),Color("#FFFFFF") ],
+		"ssp_pastel", "Pastel", "Chedski"
+	))
+	registry_colorset.add_item(ColorSet.new(
+		[
+			Color("#e95f5f"), Color("#e88d5f"), Color("#e8ba5f"), Color("#e8e85f"),
+			Color("#bae85f"), Color("#8de85f"), Color("#5fe85f"), Color("#5fe88d"),
+			Color("#5fe8ba"), Color("#5fe8e8"), Color("#5fbae8"), Color("#5f8de8"),
+			Color("#5f5fe8"), Color("#8d5fe8"), Color("#ba5fe8"), Color("#e85fe8"),
+			Color("#e85fa4"), Color("#e85f8d"),
+		],
+		"ssp_hue", "Hue Wheel", "Chedski"
+	))
+	registry_colorset.add_item(ColorSet.new(
+		[
+			Color("#e95f5f"), Color("#e8765f"), Color("#e88d5f"), Color("#e8a45f"),
+			Color("#e8ba5f"), Color("#e8d15f"), Color("#e8e85f"), Color("#d1e85f"),
+			Color("#bae85f"), Color("#a4e85f"), Color("#8de85f"), Color("#76e85f"),
+			Color("#5fe85f"), Color("#5fe876"), Color("#5fe88d"), Color("#5fe8a4"),
+			Color("#5fe8ba"), Color("#5fe8d1"), Color("#5fe8e8"), Color("#5fd1e8"),
+			Color("#5fbae8"), Color("#5fa4e8"), Color("#5f8de8"), Color("#5f76e8"),
+			Color("#5f5fe8"), Color("#765fe8"), Color("#8d5fe8"), Color("#a45fe8"),
+			Color("#ba5fe8"), Color("#d15fe8"), Color("#e85fe8"), Color("#e85fd1"),
+			Color("#e85fa4"), Color("#e85f8d"), Color("#e85f8d"), Color("#e85f76"),
+		],
+		"ssp_hue_ultra", "Hue Wheel Ultra", "Chedski"
+	))
+	registry_colorset.add_item(ColorSet.new(
+		[ Color("#ffffff") ],
+		"ssp_soul", "SOUL", "Chedski"
+	))
+	registry_colorset.add_item(ColorSet.new(
+		[ Color("#9a5ef9") ],
+		"ssp_purple", "purple!!!", "Chedski"
+	))
+	registry_colorset.add_item(ColorSet.new(
+		[ Color("#000000"), Color("#381e42") ],
+		"ssp_vortex", "Vortex", "pyrule"
+	))
+	registry_colorset.add_item(ColorSet.new(
+		[ Color("#008cff"), Color("#ed3434"), Color("#10bd0d"), Color("#ffb300") ],
+		"ssp_wii", "Wii Players", "balt"
+	))
 	
 func register_worlds():
 	# idI:String,nameI:String,pathI:String,creatorI:String="Unknown"
