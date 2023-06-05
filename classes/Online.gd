@@ -297,7 +297,7 @@ var latest_version_data
 signal latest_version
 var version_hr:HTTPRequest = HTTPRequest.new()
 func check_latest_version():
-	if !(OS.has_feature("Windows") or OS.has_feature("X11")) or OS.has_feature("Wayland") or !ProjectSettings.get_setting("application/networking/enabled"):
+	if !(OS.has_feature("Windows") or OS.has_feature("X11")) or !ProjectSettings.get_setting("application/networking/enabled"):
 		emit_signal("latest_version",ProjectSettings.get_setting("application/config/version"))
 		return
 	var github_url = "https://api.github.com/repos/%s/releases/latest"
