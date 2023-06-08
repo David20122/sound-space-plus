@@ -383,6 +383,7 @@ material/0 = SubResource( 56 )
 
 [node name="Mesh2" type="MeshInstance" parent="Game/Spawn/Cursor"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.01 )
+visible = false
 mesh = SubResource( 34 )
 material/0 = SubResource( 56 )
 
