@@ -95,7 +95,7 @@ border_width_right = 3
 border_width_bottom = 3
 border_color = Color( 1, 1, 1, 1 )
 
-[sub_resource type="Shader" id=29]
+[sub_resource type="Shader" id=56]
 code = "shader_type canvas_item;
 
 void fragment() {
@@ -105,9 +105,9 @@ void fragment() {
 }"
 
 [sub_resource type="ShaderMaterial" id=43]
-shader = SubResource( 29 )
+shader = SubResource( 56 )
 
-[sub_resource type="Shader" id=32]
+[sub_resource type="Shader" id=57]
 code = "shader_type canvas_item;
 
 void fragment() {
@@ -116,7 +116,7 @@ void fragment() {
 }"
 
 [sub_resource type="ShaderMaterial" id=44]
-shader = SubResource( 32 )
+shader = SubResource( 57 )
 
 [sub_resource type="StyleBoxFlat" id=36]
 bg_color = Color( 0.6, 0.6, 0.6, 0.0941176 )
@@ -270,7 +270,7 @@ script = ExtResource( 59 )
 [node name="M" type="VBoxContainer" parent="."]
 margin_top = 59.0
 margin_right = 1280.0
-margin_bottom = 5698.0
+margin_bottom = 5730.0
 custom_constants/separation = 0
 
 [node name="Modifiers" type="VBoxContainer" parent="M"]
@@ -1986,9 +1986,6 @@ value = 1.0
 allow_greater = true
 allow_lesser = true
 script = ExtResource( 33 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Label" type="Label" parent="M/Camera/Group/H/UIParallax/UIParallax"]
 margin_left = -115.0
@@ -2165,9 +2162,6 @@ text = "Edge Buffer (Drift)"
 align = 2
 valign = 1
 clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Desc" type="Label" parent="M/Camera/Group/H/EdgeBuffer/EdgeBuffer"]
 margin_left = 215.0
@@ -2214,9 +2208,6 @@ text = "Buffer Cursor"
 align = 2
 valign = 1
 clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="BufferParallax" type="CheckBox" parent="M/Camera/Group/H"]
 margin_top = 430.0
@@ -2395,6 +2386,7 @@ focus_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 theme = ExtResource( 1 )
+min_value = 1.0
 step = 0.01
 value = 2.0
 allow_greater = true
@@ -2436,6 +2428,7 @@ focus_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 theme = ExtResource( 1 )
+min_value = 1.0
 step = 0.01
 value = 20.0
 allow_greater = true
@@ -2502,7 +2495,7 @@ clip_text = true
 [node name="Customization" type="VBoxContainer" parent="M"]
 margin_top = 1762.0
 margin_right = 1280.0
-margin_bottom = 2322.0
+margin_bottom = 2354.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Customization"]
@@ -2531,7 +2524,7 @@ flat = true
 [node name="Group" type="MarginContainer" parent="M/Customization"]
 margin_top = 36.0
 margin_right = 1280.0
-margin_bottom = 560.0
+margin_bottom = 592.0
 mouse_filter = 1
 custom_constants/margin_left = 180
 custom_constants/margin_bottom = 12
@@ -2539,7 +2532,7 @@ custom_constants/margin_bottom = 12
 [node name="H" type="GridContainer" parent="M/Customization/Group"]
 margin_left = 180.0
 margin_right = 1280.0
-margin_bottom = 512.0
+margin_bottom = 544.0
 
 [node name="SEPARATOR" type="HSeparator" parent="M/Customization/Group/H"]
 margin_right = 658.0
@@ -2596,10 +2589,42 @@ custom_fonts/font = SubResource( 4 )
 text = "background and environment used in the song player"
 valign = 1
 
-[node name="CustomBg" type="Control" parent="M/Customization/Group/H"]
+[node name="DisableBGEffects" type="CheckBox" parent="M/Customization/Group/H"]
 margin_top = 50.0
 margin_right = 658.0
-margin_bottom = 82.0
+margin_bottom = 78.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_fonts/font = SubResource( 4 )
+action_mode = 0
+text = "only affects The Grid for now"
+flat = true
+script = ExtResource( 54 )
+target = "disable_bg_effects"
+
+[node name="Label" type="Label" parent="M/Customization/Group/H/DisableBGEffects"]
+anchor_bottom = 1.0
+margin_left = -147.0
+margin_right = -10.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Disable BG Effects"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="CustomBg" type="Control" parent="M/Customization/Group/H"]
+margin_top = 82.0
+margin_right = 658.0
+margin_bottom = 114.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="CustomBg" type="Button" parent="M/Customization/Group/H/CustomBg"]
@@ -2667,16 +2692,16 @@ icon = ExtResource( 4 )
 expand_icon = true
 
 [node name="SEPARATOR5" type="HSeparator" parent="M/Customization/Group/H"]
-margin_top = 86.0
+margin_top = 118.0
 margin_right = 658.0
-margin_bottom = 96.0
+margin_bottom = 128.0
 rect_min_size = Vector2( 0, 10 )
 custom_styles/separator = SubResource( 55 )
 
 [node name="CustomCursor" type="Control" parent="M/Customization/Group/H"]
-margin_top = 100.0
+margin_top = 132.0
 margin_right = 658.0
-margin_bottom = 132.0
+margin_bottom = 164.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="CustomCursor" type="Button" parent="M/Customization/Group/H/CustomCursor"]
@@ -2759,9 +2784,9 @@ icon = ExtResource( 4 )
 expand_icon = true
 
 [node name="CursorColorType" type="Control" parent="M/Customization/Group/H"]
-margin_top = 136.0
+margin_top = 168.0
 margin_right = 658.0
-margin_bottom = 168.0
+margin_bottom = 200.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="Effect" type="MenuButton" parent="M/Customization/Group/H/CursorColorType"]
@@ -2807,9 +2832,9 @@ text = "how the cursor will be colored"
 valign = 1
 
 [node name="cursor_color" type="Control" parent="M/Customization/Group/H"]
-margin_top = 172.0
+margin_top = 204.0
 margin_right = 658.0
-margin_bottom = 204.0
+margin_bottom = 236.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="Color" type="ColorPickerButton" parent="M/Customization/Group/H/cursor_color"]
@@ -2852,9 +2877,9 @@ text = "[def. #ffffff] color used for \"Single Color\""
 valign = 1
 
 [node name="CursorScale" type="Control" parent="M/Customization/Group/H"]
-margin_top = 208.0
+margin_top = 240.0
 margin_right = 658.0
-margin_bottom = 240.0
+margin_bottom = 272.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="CursorScale" type="SpinBox" parent="M/Customization/Group/H/CursorScale"]
@@ -2897,9 +2922,9 @@ text = "[def. 1] cursor size multiplier (doesn't affect hitboxes)"
 valign = 1
 
 [node name="CursorSpin" type="Control" parent="M/Customization/Group/H"]
-margin_top = 244.0
+margin_top = 276.0
 margin_right = 658.0
-margin_bottom = 276.0
+margin_bottom = 308.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="CursorSpin" type="SpinBox" parent="M/Customization/Group/H/CursorSpin"]
@@ -2946,16 +2971,16 @@ text = "[def. 0°] makes the cursor image rotate"
 valign = 1
 
 [node name="SEPARATOR7" type="HSeparator" parent="M/Customization/Group/H"]
-margin_top = 280.0
+margin_top = 312.0
 margin_right = 658.0
-margin_bottom = 290.0
+margin_bottom = 322.0
 rect_min_size = Vector2( 0, 10 )
 custom_styles/separator = SubResource( 55 )
 
 [node name="CursorTrail" type="CheckBox" parent="M/Customization/Group/H"]
-margin_top = 294.0
+margin_top = 326.0
 margin_right = 658.0
-margin_bottom = 322.0
+margin_bottom = 354.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
@@ -2985,9 +3010,9 @@ valign = 1
 clip_text = true
 
 [node name="SmartTrail" type="CheckBox" parent="M/Customization/Group/H"]
-margin_top = 326.0
+margin_top = 358.0
 margin_right = 658.0
-margin_bottom = 354.0
+margin_bottom = 386.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
@@ -3017,9 +3042,9 @@ valign = 1
 clip_text = true
 
 [node name="CursorTrailMode" type="Control" parent="M/Customization/Group/H"]
-margin_top = 358.0
+margin_top = 390.0
 margin_right = 658.0
-margin_bottom = 390.0
+margin_bottom = 422.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="Effect" type="MenuButton" parent="M/Customization/Group/H/CursorTrailMode"]
@@ -3063,9 +3088,9 @@ text = "how the trail will fade out"
 valign = 1
 
 [node name="TrailDetail" type="Control" parent="M/Customization/Group/H"]
-margin_top = 394.0
+margin_top = 426.0
 margin_right = 658.0
-margin_bottom = 426.0
+margin_bottom = 458.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="TrailDetail" type="SpinBox" parent="M/Customization/Group/H/TrailDetail"]
@@ -3110,9 +3135,9 @@ text = "[def. 10] number of particles in the cursor trail / (smart trail) number
 valign = 1
 
 [node name="TrailTime" type="Control" parent="M/Customization/Group/H"]
-margin_top = 430.0
+margin_top = 462.0
 margin_right = 658.0
-margin_bottom = 462.0
+margin_bottom = 494.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="TrailTime" type="SpinBox" parent="M/Customization/Group/H/TrailTime"]
@@ -3158,16 +3183,16 @@ text = "[def. 0.15] how long the cursor trail lasts in seconds"
 valign = 1
 
 [node name="SEPARATOR3" type="HSeparator" parent="M/Customization/Group/H"]
-margin_top = 466.0
+margin_top = 498.0
 margin_right = 658.0
-margin_bottom = 476.0
+margin_bottom = 508.0
 rect_min_size = Vector2( 0, 10 )
 custom_styles/separator = SubResource( 55 )
 
 [node name="TouchIndicator" type="Control" parent="M/Customization/Group/H"]
-margin_top = 480.0
+margin_top = 512.0
 margin_right = 658.0
-margin_bottom = 512.0
+margin_bottom = 544.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="TouchIndicator" type="Button" parent="M/Customization/Group/H/TouchIndicator"]
@@ -3236,9 +3261,9 @@ icon = ExtResource( 4 )
 expand_icon = true
 
 [node name="Graphics" type="VBoxContainer" parent="M"]
-margin_top = 2322.0
+margin_top = 2354.0
 margin_right = 1280.0
-margin_bottom = 2586.0
+margin_bottom = 2618.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Graphics"]
@@ -3524,9 +3549,9 @@ text = "[0 = no limit] puts a limit on the framerate; use this if ssp is using 1
 valign = 1
 
 [node name="Audio" type="VBoxContainer" parent="M"]
-margin_top = 2586.0
+margin_top = 2618.0
 margin_right = 1280.0
-margin_bottom = 3058.0
+margin_bottom = 3090.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Audio"]
@@ -4141,9 +4166,9 @@ __meta__ = {
 }
 
 [node name="UI" type="VBoxContainer" parent="M"]
-margin_top = 3058.0
+margin_top = 3090.0
 margin_right = 1280.0
-margin_bottom = 3602.0
+margin_bottom = 3634.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/UI"]
@@ -4765,9 +4790,9 @@ valign = 1
 clip_text = true
 
 [node name="UIColor" type="VBoxContainer" parent="M"]
-margin_top = 3602.0
+margin_top = 3634.0
 margin_right = 1280.0
-margin_bottom = 5270.0
+margin_bottom = 5302.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/UIColor"]
@@ -6661,9 +6686,9 @@ text = "[def. ##DEFAULT##] color of text when grade is F"
 valign = 1
 
 [node name="Experimental" type="VBoxContainer" parent="M"]
-margin_top = 5270.0
+margin_top = 5302.0
 margin_right = 1280.0
-margin_bottom = 5639.0
+margin_bottom = 5671.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Experimental"]
@@ -7081,9 +7106,9 @@ valign = 1
 clip_text = true
 
 [node name="BottomMargin" type="Control" parent="."]
-margin_top = 5702.0
+margin_top = 5734.0
 margin_right = 1280.0
-margin_bottom = 5798.0
+margin_bottom = 5830.0
 rect_min_size = Vector2( 0, 96 )
 
 [connection signal="value_changed" from="M/Graphics/Group/H/RenderScale/Scale" to="M/Graphics/Group/H/RenderScale/Scale" method="_on_Scale_value_changed"]

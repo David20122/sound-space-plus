@@ -721,6 +721,7 @@ func _set_music_volume(v:float):
 	music_volume_db = v; emit_signal("volume_changed")
 
 # Settings - Misc
+var disable_bg_effects:bool = false
 var show_warnings:bool = true
 var auto_maximize:bool = false
 
@@ -987,6 +988,8 @@ func load_saved_settings():
 			play_miss_snd = data.play_miss_snd
 		if data.has("auto_preview_song"): 
 			auto_preview_song = data.auto_preview_song
+		if data.has("disable_bg_effects"):
+			disable_bg_effects = data.disable_bg_effects
 		if data.has("render_scale"):
 			render_scale = data.render_scale
 		if data.has("vsync_enabled"): 
@@ -1473,6 +1476,7 @@ func save_settings():
 			play_hit_snd = play_hit_snd,
 			play_miss_snd = play_miss_snd,
 			auto_preview_song = auto_preview_song,
+			disable_bg_effects = disable_bg_effects,
 			render_scale = render_scale,
 			vsync_enabled = OS.vsync_enabled,
 			vsync_via_compositor = OS.vsync_via_compositor,
