@@ -214,7 +214,7 @@ func _ready():
 	
 	var mat:SpatialMaterial = $Mesh.get("material/0")
 	$Mesh.scale = Vector3(SSP.cursor_scale,SSP.cursor_scale,SSP.cursor_scale)
-	$Mesh2.scale = 0.5 * Vector3(SSP.cursor_scale,SSP.cursor_scale,SSP.cursor_scale)
+	$Mesh2.scale = Vector3(SSP.cursor_scale,SSP.cursor_scale,SSP.cursor_scale)
 	var img = Globals.imageLoader.load_if_exists("user://cursor")
 	if img:
 		mat.albedo_color = Color(1,1,1)
