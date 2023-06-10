@@ -1,0 +1,670 @@
+[gd_scene load_steps=24 format=2]
+
+[ext_resource path="res://assets/font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://scripts/ui/menu/VersionNumber.gd" type="Script" id=2]
+[ext_resource path="res://assets/images/branding/icon.svg" type="Texture" id=3]
+[ext_resource path="res://uitheme.tres" type="Theme" id=4]
+[ext_resource path="res://scripts/ui/menu/queue/queue_pass.gd" type="Script" id=5]
+[ext_resource path="res://assets/font/Lato/Lato-Bold.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://assets/sfx/new_best.wav" type="AudioStream" id=7]
+[ext_resource path="res://scripts/ui/menu/queue/QueueSongInfo.gd" type="Script" id=8]
+[ext_resource path="res://scripts/ui/menu/queue/QueueEndInfo.gd" type="Script" id=9]
+
+
+
+[sub_resource type="DynamicFont" id=135]
+use_filter = true
+font_data = ExtResource( 6 )
+
+[sub_resource type="StyleBoxFlat" id=133]
+bg_color = Color( 0.901961, 0.901961, 0.901961, 1 )
+
+[sub_resource type="StyleBoxFlat" id=134]
+bg_color = Color( 0.203922, 0.203922, 0.203922, 1 )
+
+[sub_resource type="DynamicFont" id=136]
+size = 18
+use_filter = true
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=137]
+size = 20
+use_filter = true
+font_data = ExtResource( 1 )
+
+[sub_resource type="Shader" id=125]
+code = "shader_type canvas_item;
+
+uniform float amount = 0.0;
+
+void fragment() {
+	vec2 uv = UV + vec2(TIME * -0.07);
+	float mult = ( 0.8 + (( 1.0 - amount ) * 0.2) + (amount * 0.2 * sin(length( uv*38.0) )) );
+	COLOR.rgb *= texture(TEXTURE,UV).rgb * mult;
+	COLOR.a *= texture(TEXTURE,UV).a;
+	
+}"
+
+[sub_resource type="ShaderMaterial" id=127]
+shader = SubResource( 125 )
+shader_param/amount = 0.0
+
+[sub_resource type="DynamicFont" id=128]
+size = 28
+use_filter = true
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=129]
+size = 28
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=130]
+use_filter = true
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=131]
+size = 24
+use_filter = true
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=132]
+size = 24
+use_filter = true
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxLine" id=138]
+color = Color( 0.180392, 0.180392, 0.180392, 1 )
+thickness = 2
+vertical = true
+
+[sub_resource type="DynamicFont" id=3]
+size = 22
+use_filter = true
+font_data = ExtResource( 1 )
+
+[node name="Control" type="ColorRect"]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 4 )
+color = Color( 0, 0, 0, 1 )
+script = ExtResource( 5 )
+
+[node name="C" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="V" type="VBoxContainer" parent="C"]
+margin_left = 335.0
+margin_top = 207.0
+margin_right = 944.0
+margin_bottom = 513.0
+alignment = 1
+
+[node name="Next" type="MarginContainer" parent="C/V"]
+margin_right = 609.0
+margin_bottom = 44.0
+custom_constants/margin_right = 0
+custom_constants/margin_top = 0
+custom_constants/margin_left = 0
+custom_constants/margin_bottom = 10
+
+[node name="H" type="VBoxContainer" parent="C/V/Next"]
+margin_right = 609.0
+margin_bottom = 34.0
+
+[node name="V" type="HBoxContainer" parent="C/V/Next/H"]
+margin_right = 609.0
+margin_bottom = 20.0
+custom_constants/separation = 10
+
+[node name="Next" type="Label" parent="C/V/Next/H/V"]
+margin_right = 581.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+text = "Next: HOME - Resonance"
+autowrap = true
+
+[node name="Time" type="Label" parent="C/V/Next/H/V"]
+margin_left = 591.0
+margin_right = 609.0
+margin_bottom = 20.0
+custom_fonts/font = SubResource( 135 )
+text = "10"
+align = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="C/V/Next/H"]
+margin_top = 24.0
+margin_right = 609.0
+margin_bottom = 34.0
+rect_min_size = Vector2( 0, 10 )
+custom_styles/fg = SubResource( 133 )
+custom_styles/bg = SubResource( 134 )
+max_value = 10.0
+percent_visible = false
+
+[node name="H" type="HBoxContainer" parent="C/V"]
+margin_top = 48.0
+margin_right = 609.0
+margin_bottom = 306.0
+
+[node name="Queue" type="VBoxContainer" parent="C/V/H"]
+margin_right = 283.0
+margin_bottom = 258.0
+
+[node name="Title" type="Label" parent="C/V/H/Queue"]
+margin_right = 283.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 136 )
+text = "Overall"
+align = 1
+autowrap = true
+
+[node name="EndInfo" type="Control" parent="C/V/H/Queue"]
+margin_top = 26.0
+margin_right = 283.0
+margin_bottom = 258.0
+rect_min_size = Vector2( 283, 232 )
+script = ExtResource( 9 )
+
+[node name="NewBest" type="AudioStreamPlayer" parent="C/V/H/Queue/EndInfo"]
+stream = ExtResource( 7 )
+volume_db = -25.0
+pitch_scale = 0.8
+
+[node name="Result" type="Label" parent="C/V/H/Queue/EndInfo"]
+margin_left = 5.0
+margin_right = 273.0
+margin_bottom = 44.0
+focus_mode = 2
+theme = ExtResource( 4 )
+custom_colors/font_color = Color( 0.917647, 0.52549, 0.290196, 1 )
+custom_fonts/font = SubResource( 137 )
+text = "%s/%s songs done"
+valign = 1
+
+[node name="LetterGrade" type="Label" parent="C/V/H/Queue/EndInfo"]
+material = SubResource( 127 )
+margin_left = 148.0
+margin_right = 279.0
+margin_bottom = 44.0
+focus_mode = 2
+theme = ExtResource( 4 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 128 )
+text = "??"
+align = 2
+valign = 1
+
+[node name="Misses" type="Label" parent="C/V/H/Queue/EndInfo"]
+margin_left = 5.0
+margin_top = 72.0
+margin_right = 144.0
+margin_bottom = 119.0
+focus_mode = 2
+theme = ExtResource( 4 )
+custom_colors/font_color = Color( 0.917647, 0.290196, 0.290196, 1 )
+custom_fonts/font = SubResource( 129 )
+text = "-"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="C/V/H/Queue/EndInfo/Misses"]
+margin_top = -24.0
+margin_right = 139.0
+focus_mode = 2
+theme = ExtResource( 4 )
+custom_colors/font_color = Color( 0.917647, 0.290196, 0.290196, 1 )
+custom_fonts/font = SubResource( 130 )
+text = "MISSES"
+align = 1
+valign = 1
+
+[node name="FullCombo" type="Label" parent="C/V/H/Queue/EndInfo"]
+visible = false
+margin_left = 5.0
+margin_top = 72.0
+margin_right = 144.0
+margin_bottom = 119.0
+focus_mode = 2
+theme = ExtResource( 4 )
+custom_colors/font_color = Color( 0.572549, 0.937255, 0.976471, 1 )
+custom_fonts/font = SubResource( 131 )
+text = "Full Combo"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="C/V/H/Queue/EndInfo/FullCombo"]
+margin_top = -24.0
+margin_right = 139.0
+focus_mode = 2
+theme = ExtResource( 4 )
+custom_colors/font_color = Color( 0.572549, 0.937255, 0.976471, 1 )
+custom_fonts/font = SubResource( 130 )
+text = "MISSES"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Pauses" type="Label" parent="C/V/H/Queue/EndInfo"]
+margin_left = 144.0
+margin_top = 72.0
+margin_right = 283.0
+margin_bottom = 119.0
+focus_mode = 2
+theme = ExtResource( 4 )
+custom_colors/font_color = Color( 0.984314, 0.552941, 1, 1 )
+custom_fonts/font = SubResource( 129 )
+text = "-"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="C/V/H/Queue/EndInfo/Pauses"]
+margin_top = -24.0
+margin_right = 139.0
+focus_mode = 2
+theme = ExtResource( 4 )
+custom_colors/font_color = Color( 0.984314, 0.552941, 1, 1 )
+custom_fonts/font = SubResource( 130 )
+text = "PAUSES"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NoPauses" type="Label" parent="C/V/H/Queue/EndInfo"]
+visible = false
+margin_left = 144.0
+margin_top = 72.0
+margin_right = 283.0
+margin_bottom = 119.0
+focus_mode = 2
+theme = ExtResource( 4 )
+custom_colors/font_color = Color( 0.443137, 1, 0.607843, 1 )
+custom_fonts/font = SubResource( 131 )
+text = "No Pauses"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="C/V/H/Queue/EndInfo/NoPauses"]
+margin_top = -24.0
+margin_right = 139.0
+focus_mode = 2
+theme = ExtResource( 4 )
+custom_colors/font_color = Color( 0.443137, 1, 0.607843, 1 )
+custom_fonts/font = SubResource( 130 )
+text = "PAUSES"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Progress" type="Label" parent="C/V/H/Queue/EndInfo"]
+margin_left = 5.0
+margin_top = 152.0
+margin_right = 144.0
+margin_bottom = 232.0
+focus_mode = 2
+theme = ExtResource( 4 )
+custom_colors/font_color = Color( 1, 0.956863, 0.552941, 1 )
+custom_fonts/font = SubResource( 132 )
+text = "-
+-"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="C/V/H/Queue/EndInfo/Progress"]
+margin_top = -24.0
+margin_right = 139.0
+focus_mode = 2
+theme = ExtResource( 4 )
+custom_colors/font_color = Color( 1, 0.956863, 0.552941, 1 )
+custom_fonts/font = SubResource( 130 )
+text = "PROGRESS"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Accuracy" type="Label" parent="C/V/H/Queue/EndInfo"]
+margin_left = 144.0
+margin_top = 152.0
+margin_right = 283.0
+margin_bottom = 232.0
+focus_mode = 2
+theme = ExtResource( 4 )
+custom_colors/font_color = Color( 0.623529, 0.67451, 1, 1 )
+custom_fonts/font = SubResource( 132 )
+text = "-
+-"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="C/V/H/Queue/EndInfo/Accuracy"]
+margin_top = -24.0
+margin_right = 139.0
+focus_mode = 2
+theme = ExtResource( 4 )
+custom_colors/font_color = Color( 0.623529, 0.67451, 1, 1 )
+custom_fonts/font = SubResource( 130 )
+text = "ACCURACY"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VSeparator" type="VSeparator" parent="C/V/H"]
+margin_left = 287.0
+margin_right = 322.0
+margin_bottom = 258.0
+custom_constants/separation = 35
+custom_styles/separator = SubResource( 138 )
+
+[node name="Song" type="VBoxContainer" parent="C/V/H"]
+margin_left = 326.0
+margin_right = 609.0
+margin_bottom = 258.0
+
+[node name="Title" type="Label" parent="C/V/H/Song"]
+margin_right = 283.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 136 )
+text = "Song"
+align = 1
+autowrap = true
+
+[node name="EndInfo" type="Control" parent="C/V/H/Song"]
+margin_top = 26.0
+margin_right = 283.0
+margin_bottom = 258.0
+rect_min_size = Vector2( 283, 232 )
+script = ExtResource( 8 )
+
+[node name="NewBest" type="AudioStreamPlayer" parent="C/V/H/Song/EndInfo"]
+stream = ExtResource( 7 )
+volume_db = -25.0
+pitch_scale = 0.8
+
+[node name="Result" type="Label" parent="C/V/H/Song/EndInfo"]
+margin_left = 5.0
+margin_right = 273.0
+margin_bottom = 44.0
+focus_mode = 2
+theme = ExtResource( 4 )
+custom_colors/font_color = Color( 0.917647, 0.52549, 0.290196, 1 )
+custom_fonts/font = SubResource( 137 )
+text = "Result"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LetterGrade" type="Label" parent="C/V/H/Song/EndInfo"]
+material = SubResource( 127 )
+margin_left = 148.0
+margin_right = 279.0
+margin_bottom = 44.0
+focus_mode = 2
+theme = ExtResource( 4 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 128 )
+text = "??"
+align = 2
+valign = 1
+
+[node name="Misses" type="Label" parent="C/V/H/Song/EndInfo"]
+margin_left = 5.0
+margin_top = 72.0
+margin_right = 144.0
+margin_bottom = 119.0
+focus_mode = 2
+theme = ExtResource( 4 )
+custom_colors/font_color = Color( 0.917647, 0.290196, 0.290196, 1 )
+custom_fonts/font = SubResource( 129 )
+text = "-"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="C/V/H/Song/EndInfo/Misses"]
+margin_top = -24.0
+margin_right = 139.0
+focus_mode = 2
+theme = ExtResource( 4 )
+custom_colors/font_color = Color( 0.917647, 0.290196, 0.290196, 1 )
+custom_fonts/font = SubResource( 130 )
+text = "MISSES"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FullCombo" type="Label" parent="C/V/H/Song/EndInfo"]
+visible = false
+margin_left = 5.0
+margin_top = 72.0
+margin_right = 144.0
+margin_bottom = 119.0
+focus_mode = 2
+theme = ExtResource( 4 )
+custom_colors/font_color = Color( 0.572549, 0.937255, 0.976471, 1 )
+custom_fonts/font = SubResource( 131 )
+text = "Full Combo"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="C/V/H/Song/EndInfo/FullCombo"]
+margin_top = -24.0
+margin_right = 139.0
+focus_mode = 2
+theme = ExtResource( 4 )
+custom_colors/font_color = Color( 0.572549, 0.937255, 0.976471, 1 )
+custom_fonts/font = SubResource( 130 )
+text = "MISSES"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Pauses" type="Label" parent="C/V/H/Song/EndInfo"]
+margin_left = 144.0
+margin_top = 72.0
+margin_right = 283.0
+margin_bottom = 119.0
+focus_mode = 2
+theme = ExtResource( 4 )
+custom_colors/font_color = Color( 0.984314, 0.552941, 1, 1 )
+custom_fonts/font = SubResource( 129 )
+text = "-"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="C/V/H/Song/EndInfo/Pauses"]
+margin_top = -24.0
+margin_right = 139.0
+focus_mode = 2
+theme = ExtResource( 4 )
+custom_colors/font_color = Color( 0.984314, 0.552941, 1, 1 )
+custom_fonts/font = SubResource( 130 )
+text = "PAUSES"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NoPauses" type="Label" parent="C/V/H/Song/EndInfo"]
+visible = false
+margin_left = 144.0
+margin_top = 72.0
+margin_right = 283.0
+margin_bottom = 119.0
+focus_mode = 2
+theme = ExtResource( 4 )
+custom_colors/font_color = Color( 0.443137, 1, 0.607843, 1 )
+custom_fonts/font = SubResource( 131 )
+text = "No Pauses"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="C/V/H/Song/EndInfo/NoPauses"]
+margin_top = -24.0
+margin_right = 139.0
+focus_mode = 2
+theme = ExtResource( 4 )
+custom_colors/font_color = Color( 0.443137, 1, 0.607843, 1 )
+custom_fonts/font = SubResource( 130 )
+text = "PAUSES"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Progress" type="Label" parent="C/V/H/Song/EndInfo"]
+margin_left = 5.0
+margin_top = 152.0
+margin_right = 144.0
+margin_bottom = 232.0
+focus_mode = 2
+theme = ExtResource( 4 )
+custom_colors/font_color = Color( 1, 0.956863, 0.552941, 1 )
+custom_fonts/font = SubResource( 132 )
+text = "-
+-"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="C/V/H/Song/EndInfo/Progress"]
+margin_top = -24.0
+margin_right = 139.0
+focus_mode = 2
+theme = ExtResource( 4 )
+custom_colors/font_color = Color( 1, 0.956863, 0.552941, 1 )
+custom_fonts/font = SubResource( 130 )
+text = "PROGRESS"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Accuracy" type="Label" parent="C/V/H/Song/EndInfo"]
+margin_left = 144.0
+margin_top = 152.0
+margin_right = 283.0
+margin_bottom = 232.0
+focus_mode = 2
+theme = ExtResource( 4 )
+custom_colors/font_color = Color( 0.623529, 0.67451, 1, 1 )
+custom_fonts/font = SubResource( 132 )
+text = "-
+-"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="C/V/H/Song/EndInfo/Accuracy"]
+margin_top = -24.0
+margin_right = 139.0
+focus_mode = 2
+theme = ExtResource( 4 )
+custom_colors/font_color = Color( 0.623529, 0.67451, 1, 1 )
+custom_fonts/font = SubResource( 130 )
+text = "ACCURACY"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VersionNumber" type="Label" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 55.0
+margin_top = -45.0
+margin_right = 344.0
+margin_bottom = -15.0
+grow_vertical = 2
+theme = ExtResource( 4 )
+custom_colors/font_color = Color( 1, 0.705882, 0.945098, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Sound Space Plus   vA-B-C-branch"
+valign = 1
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="VersionNumber"]
+anchor_bottom = 1.0
+margin_left = -40.0
+margin_right = -10.0
+rect_min_size = Vector2( 30, 30 )
+texture = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BlackFade" type="ColorRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+volume_db = -2.0
+
+[node name="NewBest" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+volume_db = -25.0
+pitch_scale = 0.8

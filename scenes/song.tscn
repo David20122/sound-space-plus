@@ -1,0 +1,530 @@
+[gd_scene load_steps=49 format=2]
+
+[ext_resource path="res://scripts/game/Camera.gd" type="Script" id=1]
+[ext_resource path="res://scripts/game/NoteManager.gd" type="Script" id=2]
+[ext_resource path="res://scripts/game/Game.gd" type="Script" id=3]
+[ext_resource path="res://scripts/content/game/Note.gd" type="Script" id=4]
+[ext_resource path="res://prefabs/game/HUD.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/images/cursors/circle.png" type="Texture" id=6]
+[ext_resource path="res://assets/images/grid_inner.png" type="Texture" id=7]
+[ext_resource path="res://assets/images/spawn_effect.png" type="Texture" id=8]
+[ext_resource path="res://assets/images/grid_outer.png" type="Texture" id=9]
+[ext_resource path="res://assets/images/ui/flashlight.svg" type="Texture" id=10]
+[ext_resource path="res://prefabs/Avatar.tscn" type="PackedScene" id=11]
+[ext_resource path="res://assets/blocks/cube.obj" type="ArrayMesh" id=12]
+[ext_resource path="res://scripts/game/MaskedModifier.gd" type="Script" id=13]
+[ext_resource path="res://scripts/game/Cursor.gd" type="Script" id=14]
+[ext_resource path="res://assets/blocks/default.obj" type="ArrayMesh" id=15]
+[ext_resource path="res://assets/font/debug2.tres" type="DynamicFont" id=16]
+[ext_resource path="res://assets/font/UbuntuMono/Regular.ttf" type="DynamicFontData" id=22]
+[ext_resource path="res://scripts/game/cam_handler.gd" type="Script" id=23]
+[ext_resource path="res://scripts/game/CursorTrail.gd" type="Script" id=24]
+[ext_resource path="res://assets/images/error.jpg" type="Texture" id=25]
+[ext_resource path="res://scripts/game/Friend.gd" type="Script" id=26]
+[ext_resource path="res://scripts/game/CameraControl.gd" type="Script" id=30]
+[ext_resource path="res://assets/images/approach.svg" type="Texture" id=44]
+[ext_resource path="res://scripts/game/FaceNote.gd" type="Script" id=45]
+
+[sub_resource type="BoxShape" id=29]
+extents = Vector3( 40, 40, 1 )
+
+[sub_resource type="PlaneMesh" id=34]
+size = Vector2( 0.263, 0.263 )
+
+[sub_resource type="SpatialMaterial" id=35]
+resource_local_to_scene = true
+render_priority = 1
+flags_transparent = true
+flags_unshaded = true
+flags_do_not_receive_shadows = true
+flags_disable_ambient_light = true
+params_depth_draw_mode = 2
+albedo_texture = ExtResource( 6 )
+
+[sub_resource type="Shader" id=78]
+code = "shader_type spatial;
+render_mode blend_mix,cull_back,depth_draw_alpha_prepass,diffuse_burley,specular_disabled,unshaded;
+uniform vec4 notecolor : hint_color = vec4(1,1,1,1);
+
+uniform float alpha_multi = 1;
+uniform float fade = 1;
+
+uniform bool use_image = false;
+uniform sampler2D image;
+
+float cc(float x) {
+	return pow(x, 2.2);
+}
+
+vec4 colconv(vec4 a) {
+	return vec4(
+		cc(a.r),
+		cc(a.g),
+		cc(a.b),
+		a.a
+	);
+}
+
+void fragment() {
+	vec2 base_uv = UV;
+	vec4 img = vec4(1.0);
+	if (use_image) {
+		img = texture(image,UV);
+	}
+	
+	vec4 col = colconv(COLOR);
+//	if (col.a >= 0.5) {
+//		ALBEDO = vec3(0.0, 1.0 - (2.0 * (col.a - 0.5)), (2.0 * (col.a - 0.5)))
+//	} else {
+//		ALBEDO = vec3(1.0 - (2.0 * col.a), (2.0 * col.a), 0.0)
+//	}
+	ALBEDO = col.rgb * img.rgb;
+//	ALBEDO = vec3(col.r, col.a, float(col.a >= 1.0 || col.a == 0.0));
+	//ALBEDO = vec3(1.0 - col.a, col.a, 0.0);
+	ALPHA = col.a*img.a*alpha_multi;/*COLOR.a * */
+}
+"
+
+[sub_resource type="ShaderMaterial" id=79]
+shader = SubResource( 78 )
+shader_param/notecolor = Color( 1, 1, 1, 1 )
+shader_param/alpha_multi = 1.0
+shader_param/fade = 1.0
+shader_param/use_image = false
+
+[sub_resource type="ShaderMaterial" id=80]
+shader = SubResource( 78 )
+shader_param/notecolor = Color( 1, 1, 1, 1 )
+shader_param/alpha_multi = 0.15
+shader_param/fade = 1.0
+shader_param/use_image = false
+
+[sub_resource type="Shader" id=81]
+code = "shader_type spatial;
+render_mode blend_mix,cull_back,depth_draw_alpha_prepass,diffuse_burley,specular_disabled,unshaded;
+
+uniform bool use_image = true;
+uniform sampler2D image;
+
+float cc(float x) {
+	return pow(x, 2.2);
+}
+
+vec4 colconv(vec4 a) {
+	return vec4(
+		cc(a.r),
+		cc(a.g),
+		cc(a.b),
+		a.a
+	);
+}
+
+void fragment() {
+	vec2 base_uv = UV;
+	vec4 img = vec4(1.0);
+	if (use_image) {
+		img = texture(image,UV);
+	}
+	
+	vec4 col = colconv(COLOR);
+	ALBEDO = col.rgb * img.rgb;
+	ALPHA = col.a*img.a;
+}
+"
+
+[sub_resource type="ShaderMaterial" id=82]
+shader = SubResource( 81 )
+shader_param/use_image = true
+shader_param/image = ExtResource( 44 )
+
+[sub_resource type="MultiMesh" id=77]
+transform_format = 1
+mesh = ExtResource( 15 )
+
+[sub_resource type="PlaneMesh" id=30]
+size = Vector2( 3.04, 3.04 )
+
+[sub_resource type="SpatialMaterial" id=31]
+resource_local_to_scene = true
+render_priority = 99
+flags_transparent = true
+flags_unshaded = true
+flags_no_depth_test = true
+albedo_color = Color( 1, 1, 1, 0.588235 )
+albedo_texture = ExtResource( 9 )
+
+[sub_resource type="PlaneMesh" id=32]
+size = Vector2( 3, 3 )
+
+[sub_resource type="SpatialMaterial" id=33]
+resource_local_to_scene = true
+render_priority = 98
+flags_transparent = true
+flags_unshaded = true
+flags_no_depth_test = true
+albedo_color = Color( 1, 1, 1, 0.352941 )
+albedo_texture = ExtResource( 7 )
+
+[sub_resource type="SpatialMaterial" id=56]
+resource_local_to_scene = true
+render_priority = 100
+flags_transparent = true
+flags_unshaded = true
+flags_no_depth_test = true
+flags_do_not_receive_shadows = true
+flags_disable_ambient_light = true
+params_depth_draw_mode = 2
+albedo_texture = ExtResource( 6 )
+
+[sub_resource type="CanvasItemMaterial" id=76]
+light_mode = 1
+
+[sub_resource type="DynamicFont" id=46]
+size = 18
+use_filter = true
+font_data = ExtResource( 22 )
+
+[sub_resource type="Shader" id=39]
+code = "shader_type spatial;
+render_mode blend_mix,cull_back,diffuse_burley,specular_disabled,unshaded;
+uniform vec4 notecolor : hint_color = vec4(1,1,1,1);
+
+uniform float alpha_multi = 1;
+uniform float fade = 1;
+
+uniform bool use_image = false;
+uniform sampler2D image;
+
+
+void fragment() {
+	vec2 base_uv = UV;
+	vec4 img = vec4(1.0);
+	if (use_image) {
+		img = texture(image,UV);
+	}
+	ALBEDO = notecolor.rgb * img.rgb;
+//	ALBEDO.r = 1.0 - fade;
+//	ALBEDO.b = 0.0;
+//	ALBEDO.g = fade;
+	ALPHA = notecolor.a*img.a*alpha_multi*fade;
+}
+"
+
+[sub_resource type="ShaderMaterial" id=48]
+shader = SubResource( 39 )
+shader_param/notecolor = Color( 1, 1, 1, 1 )
+shader_param/alpha_multi = 1.0
+shader_param/fade = 1.0
+shader_param/use_image = false
+
+[sub_resource type="ShaderMaterial" id=49]
+shader = SubResource( 39 )
+shader_param/notecolor = Color( 1, 1, 1, 1 )
+shader_param/alpha_multi = 0.15
+shader_param/fade = 1.0
+shader_param/use_image = false
+
+[sub_resource type="PlaneMesh" id=37]
+size = Vector2( 0.8, 18 )
+
+[sub_resource type="SpatialMaterial" id=38]
+flags_transparent = true
+flags_unshaded = true
+params_specular_mode = 4
+params_cull_mode = 2
+albedo_texture = ExtResource( 8 )
+uv1_scale = Vector3( 1, 0.9, 1 )
+uv1_offset = Vector3( 0, 0.03, 0 )
+
+[sub_resource type="PlaneMesh" id=44]
+size = Vector2( 0.5, 0.5 )
+
+[sub_resource type="SpatialMaterial" id=45]
+resource_local_to_scene = true
+render_priority = 100
+flags_transparent = true
+flags_unshaded = true
+albedo_color = Color( 1, 1, 1, 0.705882 )
+albedo_texture = ExtResource( 25 )
+
+[sub_resource type="QuadMesh" id=83]
+
+[node name="Song" type="Spatial"]
+script = ExtResource( 23 )
+
+[node name="SpinPos" type="Position3D" parent="."]
+
+[node name="AbsCamera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.75 )
+current = true
+far = 500.0
+
+[node name="Camera" type="Camera" parent="."]
+process_priority = 1
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.5 )
+current = true
+far = 500.0
+script = ExtResource( 1 )
+
+[node name="RayCast" type="RayCast" parent="Camera"]
+cast_to = Vector3( 0, 0, -100 )
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="AltCam" type="Camera" parent="."]
+pause_mode = 2
+transform = Transform( 0.907726, 0.102027, -0.406969, 0, 0.969983, 0.243175, 0.419563, -0.220736, 0.880479, -2.13836, 1.00879, 4.11302 )
+far = 500.0
+script = ExtResource( 30 )
+
+[node name="RayCast" type="RayCast" parent="AltCam"]
+cast_to = Vector3( 0, 0, -100 )
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="Game" type="Spatial" parent="."]
+pause_mode = 2
+script = ExtResource( 3 )
+
+[node name="Area" type="Area" parent="Game"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Game/Area"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000244856, 0.00723147, -0.998636 )
+shape = SubResource( 29 )
+
+[node name="CursorTrail" type="Spatial" parent="Game"]
+pause_mode = 1
+visible = false
+script = ExtResource( 24 )
+
+[node name="Mesh" type="MeshInstance" parent="Game/CursorTrail"]
+transform = Transform( 1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, -3.59989e-21, 4.37114e-08, 1, -4.37114e-08, 0, 0, 0 )
+cast_shadow = 0
+generate_lightmap = false
+mesh = SubResource( 34 )
+material/0 = SubResource( 35 )
+
+[node name="HUD" parent="Game" instance=ExtResource( 5 )]
+
+[node name="Spawn" type="Spatial" parent="Game"]
+pause_mode = 1
+process_priority = 2
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, 0 )
+script = ExtResource( 2 )
+note_solid_mat = SubResource( 79 )
+note_transparent_mat = SubResource( 80 )
+asq_mat = SubResource( 82 )
+
+[node name="Notes" type="MultiMeshInstance" parent="Game/Spawn"]
+cast_shadow = 0
+generate_lightmap = false
+multimesh = SubResource( 77 )
+
+[node name="ASq" type="MultiMeshInstance" parent="Game/Spawn"]
+cast_shadow = 0
+generate_lightmap = false
+
+[node name="Label" type="Label" parent="Game/Spawn"]
+margin_left = 10.0
+margin_top = 45.0
+margin_right = 50.0
+margin_bottom = 59.0
+custom_fonts/font = ExtResource( 16 )
+text = "mmi debug"
+
+[node name="Music" type="AudioStreamPlayer" parent="Game/Spawn"]
+bus = "Music"
+
+[node name="Miss" type="AudioStreamPlayer3D" parent="Game/Spawn"]
+pause_mode = 2
+attenuation_model = 3
+bus = "MissSound"
+attenuation_filter_cutoff_hz = 20500.0
+attenuation_filter_db = 0.0
+
+[node name="Hit" type="AudioStreamPlayer3D" parent="Game/Spawn"]
+pause_mode = 2
+attenuation_model = 3
+bus = "HitSound"
+attenuation_filter_cutoff_hz = 20500.0
+attenuation_filter_db = 0.0
+
+[node name="Miss2D" type="AudioStreamPlayer" parent="Game/Spawn"]
+pause_mode = 2
+bus = "MissSound"
+
+[node name="Hit2D" type="AudioStreamPlayer" parent="Game/Spawn"]
+pause_mode = 2
+bus = "HitSound"
+
+[node name="Hit2D2" type="AudioStreamPlayer" parent="Game/Spawn"]
+pause_mode = 2
+bus = "HitSound"
+
+[node name="Outer" type="MeshInstance" parent="Game/Spawn"]
+transform = Transform( -4.37114e-08, -4.37114e-08, -1, -1, 1.91069e-15, 4.37114e-08, 0, 1, -4.37114e-08, 1, -1, 0 )
+mesh = SubResource( 30 )
+material/0 = SubResource( 31 )
+
+[node name="Inner" type="MeshInstance" parent="Game/Spawn"]
+transform = Transform( -4.37114e-08, -4.37114e-08, -1, -1, 1.91069e-15, 4.37114e-08, 0, 1, -4.37114e-08, 1.001, -1, -0.006 )
+mesh = SubResource( 32 )
+material/0 = SubResource( 33 )
+
+[node name="Cursor" type="Spatial" parent="Game/Spawn"]
+process_priority = 1
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -1, 0 )
+script = ExtResource( 14 )
+
+[node name="Mesh" type="MeshInstance" parent="Game/Spawn/Cursor"]
+transform = Transform( 1, 4.37114e-08, -1.91069e-15, 0, -4.37114e-08, -1, -4.37114e-08, 1, -4.37114e-08, 0, 0, 0 )
+mesh = SubResource( 34 )
+material/0 = SubResource( 56 )
+
+[node name="Mesh2" type="MeshInstance" parent="Game/Spawn/Cursor"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.01 )
+visible = false
+mesh = SubResource( 34 )
+material/0 = SubResource( 56 )
+
+[node name="VisualPos" type="Control" parent="Game/Spawn/Cursor"]
+visible = false
+modulate = Color( 1, 1, 1, 0.313726 )
+light_mask = 0
+
+[node name="T" type="TextureRect" parent="Game/Spawn/Cursor/VisualPos"]
+light_mask = 0
+material = SubResource( 76 )
+margin_left = -16.0
+margin_top = -16.0
+margin_right = 16.0
+margin_bottom = 16.0
+texture = ExtResource( 6 )
+expand = true
+stretch_mode = 6
+
+[node name="L" type="Label" parent="Game/Spawn/Cursor"]
+visible = false
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 106.0
+margin_bottom = 27.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 46 )
+text = "cursor debug"
+
+[node name="Note" type="Spatial" parent="Game/Spawn"]
+transform = Transform( 0.9, 0, 0, 0, 0.9, 0, 0, 0, 0.9, 1, -1, 8 )
+visible = false
+script = ExtResource( 4 )
+solid_mat = SubResource( 48 )
+transparent_mat = SubResource( 49 )
+
+[node name="Mesh" type="MeshInstance" parent="Game/Spawn/Note"]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.0182791, -0.058707, -0.0731821 )
+cast_shadow = 0
+mesh = ExtResource( 12 )
+material/0 = SubResource( 48 )
+material/1 = SubResource( 49 )
+material/2 = SubResource( 48 )
+
+[node name="Spawn" type="Spatial" parent="Game/Spawn/Note"]
+
+[node name="Mesh" type="MeshInstance" parent="Game/Spawn/Note/Spawn"]
+transform = Transform( 1, 0, 0, 0, -2.18557e-08, -0.5, 0, 0.5, -2.18557e-08, 0.013, 4.5, -0.005 )
+cast_shadow = 0
+mesh = SubResource( 37 )
+material/0 = SubResource( 38 )
+
+[node name="Approach" type="Sprite3D" parent="Game/Spawn/Note"]
+transform = Transform( 0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.05, 0.0182791, -0.058707, -0.0731821 )
+opacity = 0.25
+texture = ExtResource( 44 )
+
+[node name="FriendLR" type="Position3D" parent="Game/Spawn"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 2.25, -2.25, 0 )
+
+[node name="FriendUR" type="Position3D" parent="Game/Spawn"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 2.25, 0.25, 0 )
+
+[node name="FriendLL" type="Position3D" parent="Game/Spawn"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.25, -2.25, 0 )
+
+[node name="FriendC" type="Position3D" parent="Game/Spawn"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 1, -1, 0 )
+
+[node name="FriendBG" type="Position3D" parent="Game/Spawn"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 1, -2.16145, -1.17369 )
+
+[node name="FriendUL" type="Position3D" parent="Game/Spawn"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.25, 0.25, 0 )
+
+[node name="Friend" type="MeshInstance" parent="Game/Spawn"]
+transform = Transform( 1, 4.37114e-08, -1.91069e-15, 0, -4.37114e-08, -1, -4.37114e-08, 1, -4.37114e-08, 2.25, -2.25, -1.09278e-07 )
+cast_shadow = 0
+mesh = SubResource( 44 )
+skeleton = NodePath("../Cursor")
+material/0 = SubResource( 45 )
+script = ExtResource( 26 )
+
+[node name="Avatar" parent="Game" instance=ExtResource( 11 )]
+visible = false
+
+[node name="Head" parent="Game/Avatar" index="0"]
+transform = Transform( 0.225, 0, 0, 0, 0.224144, 0.0196101, 0, -0.0196101, 0.224144, 0, -0.125, 1.975 )
+script = ExtResource( 45 )
+look_multi = 2.0
+speed_multi = 0.05
+
+[node name="HappyR" parent="Game/Avatar/Head" index="1"]
+transform = Transform( -0.5, 1.50996e-07, -9.90035e-15, 0, -4.37114e-08, -1.5, -7.54979e-08, -1, 6.55671e-08, 0.3, 0.25, -1.01 )
+
+[node name="HappyL" parent="Game/Avatar/Head" index="2"]
+transform = Transform( -0.5, 1.50996e-07, -9.90035e-15, 0, -4.37114e-08, -1.5, -7.54979e-08, -1, 6.55671e-08, -0.3, 0.25, -1.01 )
+
+[node name="Outline" parent="Game/Avatar/Torso" index="0"]
+visible = true
+
+[node name="Mesh" parent="Game/Avatar/ArmR" index="0"]
+transform = Transform( 0.0991445, -0.0130526, 0, 0.0130526, 0.0991445, 0, 0, 0, 0.1, 0.5, -0.75, 2 )
+
+[node name="BlackFade" type="ColorRect" parent="Game"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+color = Color( 0, 0, 0, 0 )
+
+[node name="Mask" type="Spatial" parent="Game"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.1 )
+visible = false
+script = ExtResource( 13 )
+
+[node name="Sprite" type="Sprite3D" parent="Game/Mask"]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 1, 0, 0, 0 )
+pixel_size = 0.04
+billboard = 1
+double_sided = false
+render_priority = 75
+texture = ExtResource( 10 )
+
+[node name="ForceMatLoad" type="Spatial" parent="Game"]
+transform = Transform( 1, 0, 2.38419e-07, 0, 1, 0, -2.38419e-07, 0, 1, 0, 0, -1.5 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Game/ForceMatLoad"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+mesh = SubResource( 83 )
+material/0 = SubResource( 82 )
+
+[node name="MeshInstance2" type="MeshInstance" parent="Game/ForceMatLoad"]
+mesh = SubResource( 83 )
+material/0 = SubResource( 79 )
+
+[node name="MeshInstance3" type="MeshInstance" parent="Game/ForceMatLoad"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
+mesh = SubResource( 83 )
+material/0 = SubResource( 80 )
+
+[editable path="Game/Avatar"]
+[editable path="Game/Avatar/Head/Accessories"]
+[editable path="Game/Avatar/Torso/Shirts"]

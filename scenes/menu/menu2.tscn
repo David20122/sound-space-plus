@@ -1,0 +1,5375 @@
+[gd_scene load_steps=215 format=2]
+
+[ext_resource path="res://uitheme.tres" type="Theme" id=1]
+[ext_resource path="res://assets/font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://scripts/ui/menu/VersionNumber.gd" type="Script" id=3]
+[ext_resource path="res://assets/images/branding/icon.png" type="Texture" id=4]
+[ext_resource path="res://assets/sfx/hit.wav" type="AudioStream" id=5]
+[ext_resource path="res://scripts/ui/menu/buttons/Quit.gd" type="Script" id=6]
+[ext_resource path="res://assets/images/branding/logo.png" type="Texture" id=7]
+[ext_resource path="res://scripts/ui/menu/buttons/ContentMgrAddMap.gd" type="Script" id=8]
+[ext_resource path="res://scripts/ui/menu/buttons/PlaySong.gd" type="Script" id=9]
+[ext_resource path="res://scripts/ui/settings/MusicVolumeSetter.gd" type="Script" id=10]
+[ext_resource path="res://assets/sfx/menu_full.mp3" type="AudioStream" id=11]
+[ext_resource path="res://scripts/ui/menu/Sidebar.gd" type="Script" id=12]
+[ext_resource path="res://scripts/ui/menu/menu2.gd" type="Script" id=13]
+[ext_resource path="res://assets/font/Lato/Lato-Black.ttf" type="DynamicFontData" id=14]
+[ext_resource path="res://assets/font/Noto_Sans_JP/NotoSansJP-Medium.otf" type="DynamicFontData" id=15]
+[ext_resource path="res://assets/images/tiles.png" type="Texture" id=16]
+[ext_resource path="res://scripts/ui/menu/buttons/DifficultySort.gd" type="Script" id=17]
+[ext_resource path="res://scripts/ui/menu/buttons/MapIcon.gd" type="Script" id=18]
+[ext_resource path="res://scripts/ui/menu/buttons/MapIncludeBroken.gd" type="Script" id=19]
+[ext_resource path="res://scripts/ui/menu/buttons/diffSort.gd" type="Script" id=20]
+[ext_resource path="res://scripts/ui/menu/buttons/MapSearch.gd" type="Script" id=21]
+[ext_resource path="res://scripts/ui/menu/buttons/v2MapList.gd" type="Script" id=22]
+[ext_resource path="res://scripts/ui/menu/buttons/NameSort.gd" type="Script" id=23]
+[ext_resource path="res://assets/images/ui/arrow_down.png" type="Texture" id=24]
+[ext_resource path="res://assets/images/ui/arrow_up.png" type="Texture" id=25]
+[ext_resource path="res://assets/images/ui/favorite.png" type="Texture" id=26]
+[ext_resource path="res://assets/font/Lato/Lato-Bold.ttf" type="DynamicFontData" id=27]
+[ext_resource path="res://scripts/ui/menu/SongInfoScreen.gd" type="Script" id=28]
+[ext_resource path="res://scripts/ui/menu/buttons/EndInfo.gd" type="Script" id=29]
+[ext_resource path="res://scripts/ui/menu/buttons/RunMapButton.gd" type="Script" id=30]
+[ext_resource path="res://assets/sfx/new_best.wav" type="AudioStream" id=31]
+[ext_resource path="res://scripts/ui/menu/buttons/SpeedMod.gd" type="Script" id=32]
+[ext_resource path="res://scripts/ui/menu/buttons/NoFail.gd" type="Script" id=33]
+[ext_resource path="res://scripts/ui/menu/buttons/HardMode.gd" type="Script" id=34]
+[ext_resource path="res://scripts/ui/menu/buttons/EasyMode.gd" type="Script" id=35]
+[ext_resource path="res://scripts/ui/menu/buttons/MirrorX.gd" type="Script" id=36]
+[ext_resource path="res://scripts/ui/menu/buttons/MirrorY.gd" type="Script" id=37]
+[ext_resource path="res://scripts/ui/menu/buttons/Favorite.gd" type="Script" id=38]
+[ext_resource path="res://scripts/ui/menu/buttons/Convert.gd" type="Script" id=39]
+[ext_resource path="res://scripts/ui/menu/buttons/SetDifficulty.gd" type="Script" id=40]
+[ext_resource path="res://scripts/ui/menu/buttons/HpModel.gd" type="Script" id=41]
+[ext_resource path="res://scripts/ui/menu/buttons/CSpeedLabel.gd" type="Script" id=42]
+[ext_resource path="res://scripts/ui/menu/buttons/Nearsight.gd" type="Script" id=43]
+[ext_resource path="res://scripts/ui/menu/buttons/SuddenDeath.gd" type="Script" id=44]
+[ext_resource path="res://scripts/ui/menu/buttons/Ghost.gd" type="Script" id=45]
+[ext_resource path="res://scripts/ui/menu/rainbow.gd" type="Script" id=46]
+[ext_resource path="res://scripts/ui/menu/buttons/PlayAutoSwitch.gd" type="Script" id=47]
+[ext_resource path="res://scripts/ui/menu/buttons/PatreonCredits.gd" type="Script" id=48]
+[ext_resource path="res://prefabs/menu/settings_page.tscn" type="PackedScene" id=49]
+[ext_resource path="res://assets/font/UbuntuMono/Regular.ttf" type="DynamicFontData" id=50]
+[ext_resource path="res://assets/images/ui/play_circle.png" type="Texture" id=51]
+[ext_resource path="res://assets/images/ui/home.png" type="Texture" id=52]
+[ext_resource path="res://assets/images/ui/settings.png" type="Texture" id=53]
+[ext_resource path="res://assets/images/ui/add_icon.png" type="Texture" id=54]
+[ext_resource path="res://assets/images/ui/old_menu.png" type="Texture" id=55]
+[ext_resource path="res://assets/images/ui/quit_to_desktop.png" type="Texture" id=56]
+[ext_resource path="res://addons/native_dialogs/bin/native_dialog_save_file.gdns" type="Script" id=57]
+[ext_resource path="res://scripts/ui/menu/buttons/ExportTxt.gd" type="Script" id=58]
+[ext_resource path="res://scripts/ui/menu/StartOffset.gd" type="Script" id=59]
+[ext_resource path="res://scripts/ui/menu/buttons/ModChaos.gd" type="Script" id=60]
+[ext_resource path="res://assets/images/ui/placeholder.jpg" type="Texture" id=61]
+[ext_resource path="res://scripts/ui/menu/GradeSystem.gd" type="Script" id=62]
+[ext_resource path="res://scripts/ui/menu/buttons/VisualMode.gd" type="Script" id=63]
+[ext_resource path="res://assets/sfx/beep.wav" type="AudioStream" id=64]
+[ext_resource path="res://assets/font/NotoColorEmoji.ttf" type="DynamicFontData" id=65]
+[ext_resource path="res://scripts/ui/menu/DownloadScreen.gd" type="Script" id=66]
+[ext_resource path="res://assets/images/ui/cloud_32.png" type="Texture" id=67]
+[ext_resource path="res://assets/images/modifiers/128/speed_mmm_dark.png" type="Texture" id=68]
+[ext_resource path="res://assets/images/modifiers/128/speed_mm_colored.png" type="Texture" id=69]
+[ext_resource path="res://assets/images/modifiers/128/speed_mmm_colored.png" type="Texture" id=70]
+[ext_resource path="res://assets/images/modifiers/128/speed_p_dark.png" type="Texture" id=71]
+[ext_resource path="res://assets/images/modifiers/128/speed_pppp_dark.png" type="Texture" id=72]
+[ext_resource path="res://assets/images/modifiers/128/speed_ppp_colored.png" type="Texture" id=73]
+[ext_resource path="res://assets/images/modifiers/128/speed_ppp_dark.png" type="Texture" id=74]
+[ext_resource path="res://assets/images/modifiers/128/speed_m_dark.png" type="Texture" id=75]
+[ext_resource path="res://assets/images/modifiers/128/speed_pp_colored.png" type="Texture" id=76]
+[ext_resource path="res://assets/images/modifiers/128/speed_p_colored.png" type="Texture" id=77]
+[ext_resource path="res://assets/images/modifiers/128/speed_m_colored.png" type="Texture" id=78]
+[ext_resource path="res://assets/images/modifiers/128/speed_pppp_colored.png" type="Texture" id=79]
+[ext_resource path="res://assets/images/modifiers/128/speed_mm_dark.png" type="Texture" id=80]
+[ext_resource path="res://assets/images/modifiers/128/speed_pp_dark.png" type="Texture" id=81]
+[ext_resource path="res://assets/images/modifiers/128/speed_mm.png" type="Texture" id=82]
+[ext_resource path="res://assets/images/modifiers/128/speed_pppp.png" type="Texture" id=83]
+[ext_resource path="res://assets/images/modifiers/128/speed_mmm.png" type="Texture" id=84]
+[ext_resource path="res://assets/images/modifiers/128/speed_p.png" type="Texture" id=85]
+[ext_resource path="res://assets/images/modifiers/128/speed_ppp.png" type="Texture" id=86]
+[ext_resource path="res://assets/images/modifiers/128/speed_m.png" type="Texture" id=87]
+[ext_resource path="res://assets/images/modifiers/128/speed_pp.png" type="Texture" id=88]
+[ext_resource path="res://scripts/ui/menu/buttons/MapActions.gd" type="Script" id=89]
+[ext_resource path="res://assets/images/ui/settings_dark.png" type="Texture" id=90]
+[ext_resource path="res://scripts/ui/menu/AuthorSearch.gd" type="Script" id=91]
+[ext_resource path="res://scripts/ui/menu/SearchOnline.gd" type="Script" id=92]
+[ext_resource path="res://scripts/ui/menu/ResultsHolder.gd" type="Script" id=93]
+[ext_resource path="res://scripts/ui/menu/buttons/ModEarthquake.gd" type="Script" id=94]
+[ext_resource path="res://scripts/ui/menu/WarningBar.gd" type="Script" id=95]
+[ext_resource path="res://scripts/ui/menu/buttons/ModFlashlight.gd" type="Script" id=96]
+[ext_resource path="res://scripts/ui/settings/InvertMouse.gd" type="Script" id=97]
+[ext_resource path="res://assets/images/cursors/circle.png" type="Texture" id=98]
+[ext_resource path="res://scripts/ui/menu/MenuMouse.gd" type="Script" id=99]
+
+[sub_resource type="Gradient" id=163]
+offsets = PoolRealArray( 0, 0.5, 1 )
+colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=164]
+gradient = SubResource( 163 )
+
+[sub_resource type="Curve" id=165]
+_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.5, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=166]
+curve = SubResource( 165 )
+
+[sub_resource type="ParticlesMaterial" id=167]
+emission_shape = 2
+emission_box_extents = Vector3( 1080, 720, 1 )
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 24.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 0.1
+scale_curve = SubResource( 166 )
+color = Color( 1, 1, 1, 0.196078 )
+color_ramp = SubResource( 164 )
+hue_variation = 0.04
+
+[sub_resource type="ParticlesMaterial" id=168]
+emission_shape = 2
+emission_box_extents = Vector3( 1080, 720, 1 )
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 24.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 0.8
+scale_curve = SubResource( 166 )
+color = Color( 1, 1, 1, 0.0156863 )
+color_ramp = SubResource( 164 )
+
+[sub_resource type="StyleBoxFlat" id=59]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="Shader" id=128]
+code = "shader_type canvas_item;
+
+void fragment() {
+	vec2 muv = (UV - vec2(0.5)) * 2.0;
+	float m = 1.0 - max(abs(muv.x),abs(muv.y));
+	COLOR = texture(TEXTURE,UV)*(1.0 + clamp((m*1.5+0.5),0,1.0))/2.0;
+}"
+
+[sub_resource type="ShaderMaterial" id=60]
+shader = SubResource( 128 )
+
+[sub_resource type="DynamicFont" id=61]
+outline_size = 1
+outline_color = Color( 0, 0, 0, 0.207843 )
+use_filter = true
+font_data = ExtResource( 14 )
+
+[sub_resource type="Shader" id=129]
+code = "shader_type canvas_item;
+
+void fragment() {
+	vec2 uv = UV + vec2(TIME * -0.2);
+	COLOR.rgb = texture(TEXTURE,UV).rgb * (0.75 + (0.25 * sin(length(uv*6.285))));
+}"
+
+[sub_resource type="ShaderMaterial" id=62]
+shader = SubResource( 129 )
+
+[sub_resource type="StyleBoxFlat" id=63]
+bg_color = Color( 0.6, 0.6, 0.6, 0.0941176 )
+
+[sub_resource type="StyleBoxEmpty" id=64]
+
+[sub_resource type="StyleBoxEmpty" id=65]
+
+[sub_resource type="StyleBoxEmpty" id=66]
+
+[sub_resource type="ButtonGroup" id=67]
+
+[sub_resource type="DynamicFont" id=68]
+outline_size = 1
+outline_color = Color( 0, 0, 0, 0.207843 )
+use_filter = true
+font_data = ExtResource( 15 )
+
+[sub_resource type="DynamicFont" id=69]
+size = 14
+font_data = ExtResource( 2 )
+
+[sub_resource type="StyleBoxFlat" id=70]
+draw_center = false
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="DynamicFont" id=71]
+size = 32
+outline_size = 3
+outline_color = Color( 0, 0, 0, 0.207843 )
+use_filter = true
+font_data = ExtResource( 14 )
+
+[sub_resource type="Shader" id=130]
+code = "shader_type canvas_item;
+
+void fragment() {
+	vec2 muv = (UV - vec2(0.5)) * 2.0;
+	float m = 1.0 - max(abs(muv.x),abs(muv.y));
+	COLOR = vec4(vec3((0.5 + clamp((m*1.5+0.5),0.0,1.0)/2.0)),1.0) * texture(TEXTURE,UV);
+}"
+
+[sub_resource type="ShaderMaterial" id=72]
+shader = SubResource( 130 )
+
+[sub_resource type="StyleBoxFlat" id=73]
+bg_color = Color( 1, 1, 0.937255, 0.333333 )
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color( 1, 1, 1, 1 )
+border_blend = true
+expand_margin_left = 2.0
+expand_margin_right = 2.0
+expand_margin_top = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="DynamicFont" id=74]
+size = 14
+outline_size = 2
+outline_color = Color( 0, 0, 0, 0.207843 )
+use_filter = true
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=75]
+size = 32
+outline_size = 3
+outline_color = Color( 0, 0, 0, 0.207843 )
+use_filter = true
+extra_spacing_char = 1
+font_data = ExtResource( 14 )
+
+[sub_resource type="DynamicFont" id=76]
+size = 24
+outline_size = 3
+outline_color = Color( 0, 0, 0, 0.207843 )
+use_filter = true
+font_data = ExtResource( 14 )
+
+[sub_resource type="DynamicFont" id=77]
+size = 28
+outline_size = 3
+outline_color = Color( 0, 0, 0, 0.207843 )
+use_filter = true
+extra_spacing_char = 1
+font_data = ExtResource( 14 )
+
+[sub_resource type="DynamicFont" id=78]
+size = 28
+outline_size = 3
+outline_color = Color( 0, 0, 0, 0.207843 )
+use_filter = true
+font_data = ExtResource( 14 )
+
+[sub_resource type="DynamicFont" id=79]
+size = 72
+outline_size = 3
+outline_color = Color( 0, 0, 0, 0.207843 )
+use_filter = true
+extra_spacing_top = -6
+font_data = ExtResource( 15 )
+
+[sub_resource type="StyleBoxFlat" id=80]
+bg_color = Color( 0.654902, 0.654902, 0.654902, 0.588235 )
+
+[sub_resource type="StyleBoxFlat" id=81]
+bg_color = Color( 0.623529, 0.623529, 0.623529, 0.509804 )
+
+[sub_resource type="StyleBoxEmpty" id=82]
+
+[sub_resource type="StyleBoxFlat" id=83]
+bg_color = Color( 0.211765, 0.211765, 0.211765, 0.443137 )
+
+[sub_resource type="StyleBoxFlat" id=84]
+bg_color = Color( 0.503906, 0.503906, 0.503906, 0.509804 )
+
+[sub_resource type="ShortCut" id=85]
+
+[sub_resource type="DynamicFont" id=87]
+size = 18
+use_filter = true
+font_data = ExtResource( 2 )
+
+[sub_resource type="StyleBoxFlat" id=156]
+content_margin_left = 6.0
+content_margin_right = 6.0
+bg_color = Color( 0, 0, 0, 0.313726 )
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="DynamicFont" id=89]
+size = 24
+use_filter = true
+font_data = ExtResource( 27 )
+
+[sub_resource type="DynamicFont" id=90]
+use_filter = true
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=91]
+use_filter = true
+font_data = ExtResource( 2 )
+fallback/0 = ExtResource( 15 )
+
+[sub_resource type="DynamicFont" id=92]
+size = 14
+font_data = ExtResource( 2 )
+
+[sub_resource type="StyleBoxTexture" id=148]
+texture = ExtResource( 84 )
+region_rect = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="StyleBoxTexture" id=134]
+texture = ExtResource( 70 )
+region_rect = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="StyleBoxEmpty" id=155]
+
+[sub_resource type="StyleBoxTexture" id=135]
+texture = ExtResource( 68 )
+region_rect = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="ButtonGroup" id=93]
+
+[sub_resource type="DynamicFont" id=94]
+size = 14
+use_filter = true
+extra_spacing_char = -3
+font_data = ExtResource( 2 )
+
+[sub_resource type="StyleBoxTexture" id=149]
+texture = ExtResource( 82 )
+region_rect = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="StyleBoxTexture" id=136]
+texture = ExtResource( 69 )
+region_rect = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="StyleBoxTexture" id=137]
+texture = ExtResource( 80 )
+region_rect = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="StyleBoxTexture" id=150]
+texture = ExtResource( 87 )
+region_rect = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="StyleBoxTexture" id=138]
+texture = ExtResource( 78 )
+region_rect = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="StyleBoxTexture" id=139]
+texture = ExtResource( 75 )
+region_rect = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="StyleBoxTexture" id=151]
+texture = ExtResource( 85 )
+region_rect = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="StyleBoxTexture" id=140]
+texture = ExtResource( 77 )
+region_rect = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="StyleBoxTexture" id=141]
+texture = ExtResource( 71 )
+region_rect = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="StyleBoxTexture" id=152]
+texture = ExtResource( 88 )
+region_rect = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="StyleBoxTexture" id=142]
+texture = ExtResource( 76 )
+region_rect = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="StyleBoxTexture" id=143]
+texture = ExtResource( 81 )
+region_rect = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="StyleBoxTexture" id=153]
+texture = ExtResource( 86 )
+region_rect = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="StyleBoxTexture" id=144]
+texture = ExtResource( 73 )
+region_rect = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="StyleBoxTexture" id=145]
+texture = ExtResource( 74 )
+region_rect = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="StyleBoxTexture" id=154]
+texture = ExtResource( 83 )
+region_rect = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="StyleBoxTexture" id=146]
+texture = ExtResource( 79 )
+region_rect = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="StyleBoxTexture" id=147]
+texture = ExtResource( 72 )
+region_rect = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="DynamicFont" id=95]
+size = 14
+use_filter = true
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=96]
+size = 12
+use_filter = true
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=97]
+size = 24
+use_filter = true
+font_data = ExtResource( 27 )
+fallback/0 = ExtResource( 15 )
+
+[sub_resource type="DynamicFont" id=162]
+size = 18
+use_filter = true
+font_data = ExtResource( 27 )
+fallback/0 = ExtResource( 15 )
+
+[sub_resource type="DynamicFont" id=98]
+size = 18
+use_filter = true
+font_data = ExtResource( 27 )
+fallback/0 = ExtResource( 15 )
+
+[sub_resource type="DynamicFont" id=116]
+size = 17
+use_filter = true
+font_data = ExtResource( 27 )
+fallback/0 = ExtResource( 15 )
+
+[sub_resource type="DynamicFont" id=117]
+use_filter = true
+font_data = ExtResource( 27 )
+fallback/0 = ExtResource( 15 )
+
+[sub_resource type="DynamicFont" id=118]
+use_filter = true
+font_data = ExtResource( 50 )
+fallback/0 = ExtResource( 15 )
+
+[sub_resource type="DynamicFont" id=99]
+use_filter = true
+font_data = ExtResource( 27 )
+fallback/0 = ExtResource( 15 )
+
+[sub_resource type="DynamicFont" id=119]
+size = 20
+use_filter = true
+font_data = ExtResource( 27 )
+fallback/0 = ExtResource( 15 )
+
+[sub_resource type="StyleBoxFlat" id=120]
+bg_color = Color( 0.12549, 0.0941176, 0.258824, 1 )
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+corner_detail = 10
+shadow_color = Color( 0.368627, 0.466667, 1, 0.6 )
+shadow_size = 7
+anti_aliasing_size = 1.761
+
+[sub_resource type="StyleBoxFlat" id=121]
+bg_color = Color( 0.0627451, 0.0431373, 0.152941, 1 )
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+corner_detail = 10
+shadow_color = Color( 0.403922, 0.494118, 1, 0.721569 )
+shadow_size = 12
+anti_aliasing_size = 1.761
+
+[sub_resource type="StyleBoxEmpty" id=122]
+
+[sub_resource type="StyleBoxFlat" id=123]
+bg_color = Color( 0.0627451, 0.0470588, 0.141176, 1 )
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+corner_detail = 10
+shadow_color = Color( 0.1961, 0.246185, 0.53, 0.6 )
+anti_aliasing_size = 1.761
+
+[sub_resource type="StyleBoxFlat" id=124]
+bg_color = Color( 0.105882, 0.0784314, 0.235294, 1 )
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+corner_detail = 10
+shadow_color = Color( 0.368627, 0.466667, 1, 0.6 )
+shadow_size = 5
+anti_aliasing_size = 1.761
+
+[sub_resource type="StyleBoxFlat" id=88]
+bg_color = Color( 0.498039, 0.894118, 1, 1 )
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="Shader" id=131]
+code = "shader_type canvas_item;
+
+uniform float amount = 0.0;
+
+void fragment() {
+	vec2 uv = UV + vec2(TIME * -0.07);
+	float mult = ( 0.8 + (( 1.0 - amount ) * 0.2) + (amount * 0.2 * sin(length( uv*38.0) )) );
+	COLOR.rgb *= texture(TEXTURE,UV).rgb * mult;
+	COLOR.a *= texture(TEXTURE,UV).a;
+	
+}"
+
+[sub_resource type="ShaderMaterial" id=126]
+shader = SubResource( 131 )
+shader_param/amount = 0.0
+
+[sub_resource type="DynamicFont" id=127]
+size = 28
+use_filter = true
+font_data = ExtResource( 27 )
+
+[sub_resource type="DynamicFont" id=105]
+size = 28
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=106]
+use_filter = true
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=107]
+size = 24
+use_filter = true
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=108]
+size = 24
+use_filter = true
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=158]
+size = 36
+use_filter = true
+font_data = ExtResource( 27 )
+
+[sub_resource type="DynamicFont" id=159]
+size = 24
+use_filter = true
+font_data = ExtResource( 27 )
+
+[sub_resource type="DynamicFont" id=109]
+size = 24
+use_filter = true
+font_data = ExtResource( 27 )
+
+[sub_resource type="DynamicFont" id=110]
+size = 20
+use_filter = true
+font_data = ExtResource( 27 )
+
+[sub_resource type="DynamicFont" id=111]
+size = 22
+use_filter = true
+font_data = ExtResource( 27 )
+
+[sub_resource type="DynamicFont" id=112]
+size = 18
+use_filter = true
+font_data = ExtResource( 27 )
+
+[sub_resource type="DynamicFont" id=113]
+size = 22
+use_filter = true
+font_data = ExtResource( 27 )
+
+[sub_resource type="DynamicFont" id=114]
+size = 18
+use_filter = true
+extra_spacing_top = -2
+extra_spacing_bottom = -2
+font_data = ExtResource( 27 )
+
+[sub_resource type="DynamicFont" id=160]
+size = 20
+use_filter = true
+font_data = ExtResource( 27 )
+
+[sub_resource type="StyleBoxLine" id=161]
+color = Color( 0.878431, 0.858824, 0.682353, 0.364706 )
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0, 0, 0, 1 )
+border_width_right = 2
+border_color = Color( 0.0784314, 0.0784314, 0.0784314, 1 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.0588235, 0.0588235, 0.0588235, 1 )
+
+[sub_resource type="StyleBoxEmpty" id=3]
+
+[sub_resource type="ButtonGroup" id=5]
+
+[sub_resource type="DynamicFont" id=6]
+size = 18
+use_filter = true
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=8]
+size = 18
+use_filter = true
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=7]
+size = 22
+use_filter = true
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=157]
+use_filter = true
+font_data = ExtResource( 2 )
+fallback/0 = ExtResource( 65 )
+fallback/1 = ExtResource( 15 )
+
+[sub_resource type="GDScript" id=132]
+script/source = "extends Control
+
+var switch_time:float = 0.17
+
+var t:float = switch_time
+var i:int = -1
+
+func _process(delta):
+	var up = false
+	t += delta
+	if t >= switch_time:
+		t -= switch_time
+		up = true
+		i += 1
+		if i > 7: i -= 8
+	
+	for n in get_children():
+		var ni = int(n.name)
+		if up and i == ni:
+			n.modulate.a = 1
+		else: n.modulate.a = max(n.modulate.a-(delta*1.35),0)
+"
+
+[sub_resource type="DynamicFont" id=133]
+size = 18
+use_filter = true
+font_data = ExtResource( 2 )
+fallback/0 = ExtResource( 65 )
+fallback/1 = ExtResource( 15 )
+
+[sub_resource type="Gradient" id=174]
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=175]
+gradient = SubResource( 174 )
+
+[sub_resource type="Curve" id=171]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=172]
+curve = SubResource( 171 )
+
+[sub_resource type="ParticlesMaterial" id=173]
+flag_disable_z = true
+gravity = Vector3( 0, 0, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 0.1
+scale_curve = SubResource( 172 )
+color = Color( 1, 1, 1, 0.392157 )
+color_ramp = SubResource( 175 )
+
+[node name="Menu" type="ColorRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 401.518, 42 )
+theme = ExtResource( 1 )
+color = Color( 0.0156863, 0.0156863, 0.0156863, 0.392157 )
+script = ExtResource( 13 )
+
+[node name="Particles" type="Particles2D" parent="."]
+visible = false
+position = Vector2( 1024, 720 )
+z_index = -1024
+amount = 1024
+lifetime = 2.0
+speed_scale = 0.5
+visibility_rect = Rect2( 0, 0, 1920, 1080 )
+local_coords = false
+process_material = SubResource( 167 )
+texture = ExtResource( 98 )
+
+[node name="Particles2" type="Particles2D" parent="."]
+visible = false
+position = Vector2( 1024, 720 )
+z_index = -1024
+amount = 2048
+lifetime = 2.0
+speed_scale = 0.5
+visibility_rect = Rect2( 0, 0, 1920, 1080 )
+local_coords = false
+process_material = SubResource( 168 )
+texture = ExtResource( 98 )
+
+[node name="Press" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+volume_db = -16.0
+pitch_scale = 1.25
+
+[node name="Main" type="ReferenceRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 60.0
+rect_pivot_offset = Vector2( -398, 64 )
+
+[node name="MapRegistry" type="ReferenceRect" parent="Main"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 4.0
+margin_bottom = -35.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="T" type="ReferenceRect" parent="Main/MapRegistry"]
+anchor_right = 1.0
+margin_bottom = 32.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Search" type="LineEdit" parent="Main/MapRegistry/T"]
+margin_right = 180.0
+margin_bottom = 32.0
+theme = ExtResource( 1 )
+clear_button_enabled = true
+placeholder_text = "Search"
+script = ExtResource( 21 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AuthorSearch" type="LineEdit" parent="Main/MapRegistry/T"]
+margin_left = 185.0
+margin_right = 310.0
+margin_bottom = 32.0
+theme = ExtResource( 1 )
+clear_button_enabled = true
+placeholder_text = "Author"
+script = ExtResource( 91 )
+
+[node name="D" type="ReferenceRect" parent="Main/MapRegistry/T"]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -202.0
+script = ExtResource( 20 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NODIF" type="Panel" parent="Main/MapRegistry/T/D"]
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+custom_styles/panel = SubResource( 59 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="Main/MapRegistry/T/D/NODIF"]
+modulate = Color( 0.501961, 0.501961, 0.501961, 1 )
+show_behind_parent = true
+material = SubResource( 60 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -2.0
+texture = ExtResource( 16 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Label" type="Label" parent="Main/MapRegistry/T/D/NODIF"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 42, 42 )
+custom_fonts/font = SubResource( 61 )
+text = "N"
+align = 1
+valign = 1
+autowrap = true
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Select" type="Button" parent="Main/MapRegistry/T/D/NODIF"]
+material = SubResource( 62 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/hover = SubResource( 63 )
+custom_styles/pressed = SubResource( 63 )
+custom_styles/focus = SubResource( 64 )
+custom_styles/disabled = SubResource( 65 )
+custom_styles/normal = SubResource( 66 )
+action_mode = 0
+group = SubResource( 67 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EASY" type="Panel" parent="Main/MapRegistry/T/D"]
+self_modulate = Color( 0, 1, 0, 1 )
+margin_left = 34.0
+margin_right = 66.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+custom_styles/panel = SubResource( 59 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="Main/MapRegistry/T/D/EASY"]
+modulate = Color( 0.501961, 0.501961, 0.501961, 1 )
+self_modulate = Color( 0, 1, 0, 1 )
+show_behind_parent = true
+material = SubResource( 60 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -2.0
+texture = ExtResource( 16 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Label" type="Label" parent="Main/MapRegistry/T/D/EASY"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 42, 42 )
+custom_fonts/font = SubResource( 61 )
+text = "E"
+align = 1
+valign = 1
+autowrap = true
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Select" type="Button" parent="Main/MapRegistry/T/D/EASY"]
+material = SubResource( 62 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/hover = SubResource( 63 )
+custom_styles/pressed = SubResource( 63 )
+custom_styles/focus = SubResource( 64 )
+custom_styles/disabled = SubResource( 65 )
+custom_styles/normal = SubResource( 66 )
+action_mode = 0
+group = SubResource( 67 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MEDIUM" type="Panel" parent="Main/MapRegistry/T/D"]
+self_modulate = Color( 1, 0.72549, 0, 1 )
+margin_left = 68.0
+margin_right = 100.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+custom_styles/panel = SubResource( 59 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="Main/MapRegistry/T/D/MEDIUM"]
+modulate = Color( 0.501961, 0.501961, 0.501961, 1 )
+self_modulate = Color( 1, 0.72549, 0, 1 )
+show_behind_parent = true
+material = SubResource( 60 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -2.0
+texture = ExtResource( 16 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Label" type="Label" parent="Main/MapRegistry/T/D/MEDIUM"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 42, 42 )
+custom_fonts/font = SubResource( 61 )
+text = "M"
+align = 1
+valign = 1
+autowrap = true
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Select" type="Button" parent="Main/MapRegistry/T/D/MEDIUM"]
+material = SubResource( 62 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/hover = SubResource( 63 )
+custom_styles/pressed = SubResource( 63 )
+custom_styles/focus = SubResource( 64 )
+custom_styles/disabled = SubResource( 65 )
+custom_styles/normal = SubResource( 66 )
+action_mode = 0
+group = SubResource( 67 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HARD" type="Panel" parent="Main/MapRegistry/T/D"]
+self_modulate = Color( 1, 0, 0, 1 )
+margin_left = 102.0
+margin_right = 134.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+custom_styles/panel = SubResource( 59 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="Main/MapRegistry/T/D/HARD"]
+modulate = Color( 0.501961, 0.501961, 0.501961, 1 )
+self_modulate = Color( 1, 0, 0, 1 )
+show_behind_parent = true
+material = SubResource( 60 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -2.0
+texture = ExtResource( 16 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Label" type="Label" parent="Main/MapRegistry/T/D/HARD"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 42, 42 )
+custom_fonts/font = SubResource( 61 )
+text = "H"
+align = 1
+valign = 1
+autowrap = true
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Select" type="Button" parent="Main/MapRegistry/T/D/HARD"]
+material = SubResource( 62 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/hover = SubResource( 63 )
+custom_styles/pressed = SubResource( 63 )
+custom_styles/focus = SubResource( 64 )
+custom_styles/disabled = SubResource( 65 )
+custom_styles/normal = SubResource( 66 )
+action_mode = 0
+group = SubResource( 67 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LOGIC" type="Panel" parent="Main/MapRegistry/T/D"]
+self_modulate = Color( 0.843137, 0.415686, 1, 1 )
+margin_left = 136.0
+margin_right = 168.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+custom_styles/panel = SubResource( 59 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="Main/MapRegistry/T/D/LOGIC"]
+modulate = Color( 0.501961, 0.501961, 0.501961, 1 )
+self_modulate = Color( 0.843137, 0.415686, 1, 1 )
+show_behind_parent = true
+material = SubResource( 60 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -2.0
+texture = ExtResource( 16 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Label" type="Label" parent="Main/MapRegistry/T/D/LOGIC"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 42, 42 )
+custom_fonts/font = SubResource( 61 )
+text = "L"
+align = 1
+valign = 1
+autowrap = true
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Select" type="Button" parent="Main/MapRegistry/T/D/LOGIC"]
+material = SubResource( 62 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/hover = SubResource( 63 )
+custom_styles/pressed = SubResource( 63 )
+custom_styles/focus = SubResource( 64 )
+custom_styles/disabled = SubResource( 65 )
+custom_styles/normal = SubResource( 66 )
+action_mode = 0
+group = SubResource( 67 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AMOGUS" type="Panel" parent="Main/MapRegistry/T/D"]
+self_modulate = Color( 0.211765, 0.188235, 0.309804, 1 )
+margin_left = 170.0
+margin_right = 202.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+custom_styles/panel = SubResource( 59 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="Main/MapRegistry/T/D/AMOGUS"]
+modulate = Color( 0.501961, 0.501961, 0.501961, 1 )
+self_modulate = Color( 0.211765, 0.188235, 0.309804, 1 )
+show_behind_parent = true
+material = SubResource( 60 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -2.0
+texture = ExtResource( 16 )
+expand = true
+
+[node name="Label" type="Label" parent="Main/MapRegistry/T/D/AMOGUS"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -1.0
+margin_bottom = -3.0
+custom_fonts/font = SubResource( 68 )
+text = "助"
+align = 1
+valign = 1
+autowrap = true
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Select" type="Button" parent="Main/MapRegistry/T/D/AMOGUS"]
+material = SubResource( 62 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/hover = SubResource( 63 )
+custom_styles/pressed = SubResource( 63 )
+custom_styles/focus = SubResource( 64 )
+custom_styles/disabled = SubResource( 65 )
+custom_styles/normal = SubResource( 66 )
+action_mode = 0
+group = SubResource( 67 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Broken" type="CheckBox" parent="Main/MapRegistry/T"]
+margin_left = 316.0
+margin_right = 392.0
+margin_bottom = 32.0
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_focus = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 69 )
+action_mode = 0
+text = "broken"
+flat = true
+script = ExtResource( 19 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Online" type="CheckBox" parent="Main/MapRegistry/T"]
+margin_left = 392.0
+margin_right = 468.0
+margin_bottom = 32.0
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_focus = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 69 )
+pressed = true
+action_mode = 0
+text = "online"
+flat = true
+script = ExtResource( 92 )
+
+[node name="AutoSwitch" type="CheckBox" parent="Main/MapRegistry/T"]
+margin_left = 602.0
+margin_right = 735.0
+margin_bottom = 32.0
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_focus = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 69 )
+action_mode = 0
+text = "auto play screen"
+flat = true
+script = ExtResource( 47 )
+
+[node name="DiffSort" type="CheckBox" parent="Main/MapRegistry/T"]
+margin_left = 461.0
+margin_right = 550.0
+margin_bottom = 32.0
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_focus = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 69 )
+custom_icons/checked = ExtResource( 24 )
+custom_icons/unchecked = ExtResource( 25 )
+action_mode = 0
+text = "difficulty"
+flat = true
+script = ExtResource( 17 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NameSort" type="CheckBox" parent="Main/MapRegistry/T"]
+margin_left = 543.0
+margin_right = 609.0
+margin_bottom = 32.0
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_focus = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 69 )
+custom_icons/checked = ExtResource( 24 )
+custom_icons/unchecked = ExtResource( 25 )
+action_mode = 0
+text = "name"
+flat = true
+script = ExtResource( 23 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="S" type="Control" parent="Main/MapRegistry"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 35.0
+rect_clip_content = true
+
+[node name="Random" type="Button" parent="Main/MapRegistry/S"]
+margin_left = 6.0
+margin_top = 1.0
+margin_right = 204.0
+margin_bottom = 29.0
+theme = ExtResource( 1 )
+action_mode = 0
+text = "Select random from search"
+
+[node name="G" type="GridContainer" parent="Main/MapRegistry/S"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 62.0
+margin_top = 40.0
+margin_right = -62.0
+margin_bottom = -34.0
+grow_horizontal = 0
+custom_constants/vseparation = 4
+custom_constants/hseparation = 4
+columns = 5
+script = ExtResource( 22 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Press" type="AudioStreamPlayer" parent="Main/MapRegistry/S/G"]
+stream = ExtResource( 5 )
+volume_db = -35.0
+pitch_scale = 1.25
+
+[node name="NODIF" type="Panel" parent="Main/MapRegistry/S/G"]
+margin_right = 128.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 128, 128 )
+custom_styles/panel = SubResource( 70 )
+script = ExtResource( 18 )
+
+[node name="TextureRect" type="TextureRect" parent="Main/MapRegistry/S/G/NODIF"]
+modulate = Color( 0.501961, 0.501961, 0.501961, 1 )
+show_behind_parent = true
+material = SubResource( 60 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+texture = ExtResource( 16 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Label" type="Label" parent="Main/MapRegistry/S/G/NODIF"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+rect_pivot_offset = Vector2( 42, 42 )
+custom_fonts/font = SubResource( 71 )
+text = "N/A"
+align = 1
+valign = 1
+autowrap = true
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Cover" type="TextureRect" parent="Main/MapRegistry/S/G/NODIF"]
+visible = false
+material = SubResource( 72 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+expand = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="F" type="TextureRect" parent="Main/MapRegistry/S/G/NODIF"]
+visible = false
+modulate = Color( 1, 0.36, 0.36, 1 )
+margin_left = -1.0
+margin_top = -1.0
+margin_right = 31.0
+margin_bottom = 31.0
+texture = ExtResource( 26 )
+expand = true
+stretch_mode = 6
+script = ExtResource( 46 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Cloud" type="TextureRect" parent="Main/MapRegistry/S/G/NODIF"]
+visible = false
+modulate = Color( 1, 1, 1, 0.384314 )
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -41.0
+margin_top = -38.0
+margin_right = -9.0
+margin_bottom = -6.0
+texture = ExtResource( 67 )
+expand = true
+stretch_mode = 6
+
+[node name="Select" type="Button" parent="Main/MapRegistry/S/G/NODIF"]
+material = SubResource( 62 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/hover = SubResource( 63 )
+custom_styles/pressed = SubResource( 73 )
+custom_styles/focus = SubResource( 64 )
+custom_styles/disabled = SubResource( 65 )
+custom_styles/normal = SubResource( 66 )
+disabled = true
+toggle_mode = true
+action_mode = 0
+group = SubResource( 67 )
+
+[node name="Name" type="Label" parent="Main/MapRegistry/S/G/NODIF"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 6.0
+margin_right = -10.0
+margin_bottom = -6.0
+custom_constants/line_spacing = 0
+custom_fonts/font = SubResource( 74 )
+text = "OR3O
+[bongo cat & friends] meow"
+align = 1
+valign = 1
+autowrap = true
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EASY" type="Panel" parent="Main/MapRegistry/S/G"]
+self_modulate = Color( 0, 1, 0, 1 )
+margin_left = 132.0
+margin_right = 260.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 128, 128 )
+custom_styles/panel = SubResource( 70 )
+script = ExtResource( 18 )
+
+[node name="TextureRect" type="TextureRect" parent="Main/MapRegistry/S/G/EASY"]
+modulate = Color( 0.501961, 0.501961, 0.501961, 1 )
+self_modulate = Color( 0, 1, 0, 1 )
+show_behind_parent = true
+material = SubResource( 60 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+texture = ExtResource( 16 )
+expand = true
+
+[node name="Label" type="Label" parent="Main/MapRegistry/S/G/EASY"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+custom_fonts/font = SubResource( 75 )
+text = "EASY"
+align = 1
+valign = 1
+autowrap = true
+clip_text = true
+
+[node name="Cover" type="TextureRect" parent="Main/MapRegistry/S/G/EASY"]
+visible = false
+material = SubResource( 72 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+expand = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="F" type="TextureRect" parent="Main/MapRegistry/S/G/EASY"]
+visible = false
+modulate = Color( 0.690196, 0.141176, 1, 1 )
+margin_left = -1.0
+margin_top = -1.0
+margin_right = 31.0
+margin_bottom = 31.0
+texture = ExtResource( 26 )
+expand = true
+stretch_mode = 6
+script = ExtResource( 46 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Cloud" type="TextureRect" parent="Main/MapRegistry/S/G/EASY"]
+visible = false
+modulate = Color( 1, 1, 1, 0.384314 )
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -41.0
+margin_top = -38.0
+margin_right = -9.0
+margin_bottom = -6.0
+texture = ExtResource( 67 )
+expand = true
+stretch_mode = 6
+
+[node name="Select" type="Button" parent="Main/MapRegistry/S/G/EASY"]
+material = SubResource( 62 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/hover = SubResource( 63 )
+custom_styles/pressed = SubResource( 73 )
+custom_styles/focus = SubResource( 64 )
+custom_styles/disabled = SubResource( 65 )
+custom_styles/normal = SubResource( 66 )
+disabled = true
+toggle_mode = true
+action_mode = 0
+group = SubResource( 67 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="Label" parent="Main/MapRegistry/S/G/EASY"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 6.0
+margin_right = -10.0
+margin_bottom = -6.0
+custom_constants/line_spacing = 0
+custom_fonts/font = SubResource( 74 )
+text = "OR3O
+[bongo cat & friends] meow"
+align = 1
+valign = 1
+autowrap = true
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MEDIUM" type="Panel" parent="Main/MapRegistry/S/G"]
+self_modulate = Color( 1, 0.72549, 0, 1 )
+margin_left = 264.0
+margin_right = 392.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 128, 128 )
+custom_styles/panel = SubResource( 70 )
+script = ExtResource( 18 )
+
+[node name="TextureRect" type="TextureRect" parent="Main/MapRegistry/S/G/MEDIUM"]
+modulate = Color( 0.501961, 0.501961, 0.501961, 1 )
+self_modulate = Color( 1, 0.72549, 0, 1 )
+show_behind_parent = true
+material = SubResource( 60 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+texture = ExtResource( 16 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Main/MapRegistry/S/G/MEDIUM"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+custom_fonts/font = SubResource( 76 )
+text = "MEDIUM"
+align = 1
+valign = 1
+autowrap = true
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Cover" type="TextureRect" parent="Main/MapRegistry/S/G/MEDIUM"]
+visible = false
+material = SubResource( 72 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+expand = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="F" type="TextureRect" parent="Main/MapRegistry/S/G/MEDIUM"]
+visible = false
+modulate = Color( 0.2548, 0.57148, 0.91, 1 )
+margin_left = -1.0
+margin_top = -1.0
+margin_right = 31.0
+margin_bottom = 31.0
+texture = ExtResource( 26 )
+expand = true
+stretch_mode = 6
+script = ExtResource( 46 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Cloud" type="TextureRect" parent="Main/MapRegistry/S/G/MEDIUM"]
+visible = false
+modulate = Color( 1, 1, 1, 0.384314 )
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -41.0
+margin_top = -38.0
+margin_right = -9.0
+margin_bottom = -6.0
+texture = ExtResource( 67 )
+expand = true
+stretch_mode = 6
+
+[node name="Select" type="Button" parent="Main/MapRegistry/S/G/MEDIUM"]
+material = SubResource( 62 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/hover = SubResource( 63 )
+custom_styles/pressed = SubResource( 73 )
+custom_styles/focus = SubResource( 64 )
+custom_styles/disabled = SubResource( 65 )
+custom_styles/normal = SubResource( 66 )
+disabled = true
+toggle_mode = true
+action_mode = 0
+group = SubResource( 67 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="Label" parent="Main/MapRegistry/S/G/MEDIUM"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 6.0
+margin_right = -10.0
+margin_bottom = -6.0
+custom_constants/line_spacing = 0
+custom_fonts/font = SubResource( 74 )
+text = "OR3O
+[bongo cat & friends] meow"
+align = 1
+valign = 1
+autowrap = true
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HARD" type="Panel" parent="Main/MapRegistry/S/G"]
+self_modulate = Color( 1, 0, 0, 1 )
+margin_left = 396.0
+margin_right = 524.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 128, 128 )
+custom_styles/panel = SubResource( 70 )
+script = ExtResource( 18 )
+
+[node name="TextureRect" type="TextureRect" parent="Main/MapRegistry/S/G/HARD"]
+modulate = Color( 0.501961, 0.501961, 0.501961, 1 )
+self_modulate = Color( 1, 0, 0, 1 )
+show_behind_parent = true
+material = SubResource( 60 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+texture = ExtResource( 16 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Main/MapRegistry/S/G/HARD"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+custom_fonts/font = SubResource( 77 )
+text = "HARD"
+align = 1
+valign = 1
+autowrap = true
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Cover" type="TextureRect" parent="Main/MapRegistry/S/G/HARD"]
+visible = false
+material = SubResource( 72 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+expand = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="F" type="TextureRect" parent="Main/MapRegistry/S/G/HARD"]
+visible = false
+modulate = Color( 0.321569, 0.662745, 0.25098, 1 )
+margin_left = -1.0
+margin_top = -1.0
+margin_right = 31.0
+margin_bottom = 31.0
+texture = ExtResource( 26 )
+expand = true
+stretch_mode = 6
+script = ExtResource( 46 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Cloud" type="TextureRect" parent="Main/MapRegistry/S/G/HARD"]
+visible = false
+modulate = Color( 1, 1, 1, 0.384314 )
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -41.0
+margin_top = -38.0
+margin_right = -9.0
+margin_bottom = -6.0
+texture = ExtResource( 67 )
+expand = true
+stretch_mode = 6
+
+[node name="Select" type="Button" parent="Main/MapRegistry/S/G/HARD"]
+material = SubResource( 62 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/hover = SubResource( 63 )
+custom_styles/pressed = SubResource( 73 )
+custom_styles/focus = SubResource( 64 )
+custom_styles/disabled = SubResource( 65 )
+custom_styles/normal = SubResource( 66 )
+disabled = true
+toggle_mode = true
+action_mode = 0
+group = SubResource( 67 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="Label" parent="Main/MapRegistry/S/G/HARD"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 6.0
+margin_right = -10.0
+margin_bottom = -6.0
+custom_constants/line_spacing = 0
+custom_fonts/font = SubResource( 74 )
+text = "OR3O
+[bongo cat & friends] meow"
+align = 1
+valign = 1
+autowrap = true
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LOGIC" type="Panel" parent="Main/MapRegistry/S/G"]
+self_modulate = Color( 0.843137, 0.415686, 1, 1 )
+margin_left = 528.0
+margin_right = 656.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 128, 128 )
+custom_styles/panel = SubResource( 70 )
+script = ExtResource( 18 )
+
+[node name="TextureRect" type="TextureRect" parent="Main/MapRegistry/S/G/LOGIC"]
+modulate = Color( 0.501961, 0.501961, 0.501961, 1 )
+self_modulate = Color( 0.843137, 0.415686, 1, 1 )
+show_behind_parent = true
+material = SubResource( 60 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+texture = ExtResource( 16 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Main/MapRegistry/S/G/LOGIC"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+custom_fonts/font = SubResource( 78 )
+text = "LOGIC?"
+align = 1
+valign = 1
+autowrap = true
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Cover" type="TextureRect" parent="Main/MapRegistry/S/G/LOGIC"]
+visible = false
+material = SubResource( 72 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+expand = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="F" type="TextureRect" parent="Main/MapRegistry/S/G/LOGIC"]
+visible = false
+margin_left = -1.0
+margin_top = -1.0
+margin_right = 31.0
+margin_bottom = 31.0
+texture = ExtResource( 26 )
+expand = true
+stretch_mode = 6
+script = ExtResource( 46 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Cloud" type="TextureRect" parent="Main/MapRegistry/S/G/LOGIC"]
+visible = false
+modulate = Color( 1, 1, 1, 0.384314 )
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -41.0
+margin_top = -38.0
+margin_right = -9.0
+margin_bottom = -6.0
+texture = ExtResource( 67 )
+expand = true
+stretch_mode = 6
+
+[node name="Select" type="Button" parent="Main/MapRegistry/S/G/LOGIC"]
+material = SubResource( 62 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/hover = SubResource( 63 )
+custom_styles/pressed = SubResource( 73 )
+custom_styles/focus = SubResource( 64 )
+custom_styles/disabled = SubResource( 65 )
+custom_styles/normal = SubResource( 66 )
+disabled = true
+toggle_mode = true
+action_mode = 0
+group = SubResource( 67 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="Label" parent="Main/MapRegistry/S/G/LOGIC"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 6.0
+margin_right = -10.0
+margin_bottom = -6.0
+custom_constants/line_spacing = 0
+custom_fonts/font = SubResource( 74 )
+text = "OR3O
+[bongo cat & friends] meow"
+align = 1
+valign = 1
+autowrap = true
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AMOGUS" type="Panel" parent="Main/MapRegistry/S/G"]
+self_modulate = Color( 0.211765, 0.188235, 0.309804, 1 )
+margin_top = 132.0
+margin_right = 128.0
+margin_bottom = 260.0
+rect_min_size = Vector2( 128, 128 )
+custom_styles/panel = SubResource( 70 )
+script = ExtResource( 18 )
+
+[node name="TextureRect" type="TextureRect" parent="Main/MapRegistry/S/G/AMOGUS"]
+modulate = Color( 0.501961, 0.501961, 0.501961, 1 )
+self_modulate = Color( 0.211765, 0.188235, 0.309804, 1 )
+show_behind_parent = true
+material = SubResource( 60 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+texture = ExtResource( 16 )
+expand = true
+
+[node name="Label" type="Label" parent="Main/MapRegistry/S/G/AMOGUS"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+custom_fonts/font = SubResource( 79 )
+text = "助"
+align = 1
+valign = 1
+autowrap = true
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Cover" type="TextureRect" parent="Main/MapRegistry/S/G/AMOGUS"]
+visible = false
+material = SubResource( 72 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+expand = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="F" type="TextureRect" parent="Main/MapRegistry/S/G/AMOGUS"]
+visible = false
+modulate = Color( 0.419608, 0.498039, 1, 1 )
+margin_left = -1.0
+margin_top = -1.0
+margin_right = 31.0
+margin_bottom = 31.0
+texture = ExtResource( 26 )
+expand = true
+stretch_mode = 6
+script = ExtResource( 46 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Cloud" type="TextureRect" parent="Main/MapRegistry/S/G/AMOGUS"]
+visible = false
+modulate = Color( 1, 1, 1, 0.384314 )
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -41.0
+margin_top = -38.0
+margin_right = -9.0
+margin_bottom = -6.0
+texture = ExtResource( 67 )
+expand = true
+stretch_mode = 6
+
+[node name="Select" type="Button" parent="Main/MapRegistry/S/G/AMOGUS"]
+material = SubResource( 62 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/hover = SubResource( 63 )
+custom_styles/pressed = SubResource( 73 )
+custom_styles/focus = SubResource( 64 )
+custom_styles/disabled = SubResource( 65 )
+custom_styles/normal = SubResource( 66 )
+disabled = true
+toggle_mode = true
+action_mode = 0
+group = SubResource( 67 )
+
+[node name="Name" type="Label" parent="Main/MapRegistry/S/G/AMOGUS"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 6.0
+margin_right = -10.0
+margin_bottom = -6.0
+custom_constants/line_spacing = 0
+custom_fonts/font = SubResource( 74 )
+text = "OR3O
+[bongo cat & friends] meow"
+align = 1
+valign = 1
+autowrap = true
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="P" type="Button" parent="Main/MapRegistry/S"]
+anchor_bottom = 1.0
+margin_left = 724.0
+margin_top = 34.0
+margin_right = 774.0
+margin_bottom = -28.0
+theme = ExtResource( 1 )
+custom_styles/hover = SubResource( 80 )
+custom_styles/pressed = SubResource( 81 )
+custom_styles/focus = SubResource( 82 )
+custom_styles/disabled = SubResource( 83 )
+custom_styles/normal = SubResource( 84 )
+shortcut_in_tooltip = false
+action_mode = 0
+shortcut = SubResource( 85 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="M" type="Button" parent="Main/MapRegistry/S"]
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 34.0
+margin_right = 56.0
+margin_bottom = -28.0
+theme = ExtResource( 1 )
+custom_styles/hover = SubResource( 80 )
+custom_styles/pressed = SubResource( 81 )
+custom_styles/focus = SubResource( 82 )
+custom_styles/disabled = SubResource( 83 )
+custom_styles/normal = SubResource( 84 )
+shortcut_in_tooltip = false
+action_mode = 0
+
+[node name="Label" type="Label" parent="Main/MapRegistry"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = 35.0
+custom_fonts/font = SubResource( 87 )
+text = "mobile compatible menu!!!"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Results" type="HBoxContainer" parent="Main"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 12.0
+margin_top = 4.0
+margin_bottom = -35.0
+custom_constants/separation = 15
+alignment = 1
+script = ExtResource( 93 )
+
+[node name="CenterPush" type="VBoxContainer" parent="Main/Results"]
+visible = false
+margin_right = 640.0
+margin_bottom = 1041.0
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="Button" type="Button" parent="Main/Results/CenterPush"]
+margin_left = 257.0
+margin_top = 507.0
+margin_right = 382.0
+margin_bottom = 534.0
+rect_min_size = Vector2( 125, 27 )
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.729412, 0.729412, 0.729412, 1 )
+custom_colors/font_color_focus = Color( 0.729412, 0.729412, 0.729412, 1 )
+custom_colors/font_color = Color( 0.729412, 0.729412, 0.729412, 1 )
+custom_colors/font_color_hover = Color( 0.729412, 0.729412, 0.729412, 1 )
+custom_colors/font_color_pressed = Color( 0.729412, 0.729412, 0.729412, 1 )
+custom_styles/hover = SubResource( 156 )
+custom_styles/pressed = SubResource( 156 )
+custom_styles/disabled = SubResource( 156 )
+custom_styles/normal = SubResource( 156 )
+action_mode = 0
+text = "Move to side"
+clip_text = true
+
+[node name="Results" type="ReferenceRect" parent="Main/Results"]
+margin_right = 1200.0
+margin_bottom = 681.0
+rect_min_size = Vector2( 1200, 0 )
+size_flags_vertical = 3
+script = ExtResource( 28 )
+
+[node name="ButtonDisp" type="Control" parent="Main/Results/Results"]
+margin_top = 16.0
+margin_right = 128.0
+margin_bottom = 144.0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="NODIF" type="Panel" parent="Main/Results/Results/ButtonDisp"]
+margin_right = 128.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 128, 128 )
+mouse_filter = 1
+custom_styles/panel = SubResource( 70 )
+
+[node name="TextureRect" type="TextureRect" parent="Main/Results/Results/ButtonDisp/NODIF"]
+modulate = Color( 0.501961, 0.501961, 0.501961, 1 )
+show_behind_parent = true
+material = SubResource( 60 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+texture = ExtResource( 16 )
+expand = true
+
+[node name="Cover" type="TextureRect" parent="Main/Results/Results/ButtonDisp/NODIF"]
+visible = false
+material = SubResource( 72 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+expand = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="F" type="TextureRect" parent="Main/Results/Results/ButtonDisp/NODIF"]
+visible = false
+modulate = Color( 1, 0.360784, 0.360784, 1 )
+margin_left = -1.0
+margin_top = -1.0
+margin_right = 31.0
+margin_bottom = 31.0
+texture = ExtResource( 26 )
+expand = true
+stretch_mode = 6
+script = ExtResource( 46 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="Label" parent="Main/Results/Results/ButtonDisp/NODIF"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 6.0
+margin_right = -10.0
+margin_bottom = -6.0
+custom_constants/line_spacing = 0
+custom_fonts/font = SubResource( 74 )
+align = 1
+valign = 1
+autowrap = true
+clip_text = true
+
+[node name="EASY" type="Panel" parent="Main/Results/Results/ButtonDisp"]
+visible = false
+self_modulate = Color( 0, 1, 0, 1 )
+margin_right = 128.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 128, 128 )
+mouse_filter = 1
+custom_styles/panel = SubResource( 70 )
+
+[node name="TextureRect" type="TextureRect" parent="Main/Results/Results/ButtonDisp/EASY"]
+modulate = Color( 0.501961, 0.501961, 0.501961, 1 )
+self_modulate = Color( 0, 1, 0, 1 )
+show_behind_parent = true
+material = SubResource( 60 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+texture = ExtResource( 16 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Cover" type="TextureRect" parent="Main/Results/Results/ButtonDisp/EASY"]
+visible = false
+material = SubResource( 72 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+expand = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="F" type="TextureRect" parent="Main/Results/Results/ButtonDisp/EASY"]
+visible = false
+modulate = Color( 0.690196, 0.141176, 1, 1 )
+margin_left = -1.0
+margin_top = -1.0
+margin_right = 31.0
+margin_bottom = 31.0
+texture = ExtResource( 26 )
+expand = true
+stretch_mode = 6
+script = ExtResource( 46 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="Label" parent="Main/Results/Results/ButtonDisp/EASY"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 6.0
+margin_right = -10.0
+margin_bottom = -6.0
+custom_constants/line_spacing = 0
+custom_fonts/font = SubResource( 74 )
+text = "Artist Name - Song Name"
+align = 1
+valign = 1
+autowrap = true
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MEDIUM" type="Panel" parent="Main/Results/Results/ButtonDisp"]
+visible = false
+self_modulate = Color( 1, 0.72549, 0, 1 )
+margin_right = 128.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 128, 128 )
+mouse_filter = 1
+custom_styles/panel = SubResource( 70 )
+
+[node name="TextureRect" type="TextureRect" parent="Main/Results/Results/ButtonDisp/MEDIUM"]
+modulate = Color( 0.501961, 0.501961, 0.501961, 1 )
+self_modulate = Color( 1, 0.72549, 0, 1 )
+show_behind_parent = true
+material = SubResource( 60 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+texture = ExtResource( 16 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Cover" type="TextureRect" parent="Main/Results/Results/ButtonDisp/MEDIUM"]
+visible = false
+material = SubResource( 72 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+expand = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="F" type="TextureRect" parent="Main/Results/Results/ButtonDisp/MEDIUM"]
+visible = false
+modulate = Color( 0.2548, 0.57148, 0.91, 1 )
+margin_left = -1.0
+margin_top = -1.0
+margin_right = 31.0
+margin_bottom = 31.0
+texture = ExtResource( 26 )
+expand = true
+stretch_mode = 6
+script = ExtResource( 46 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="Label" parent="Main/Results/Results/ButtonDisp/MEDIUM"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 6.0
+margin_right = -10.0
+margin_bottom = -6.0
+custom_constants/line_spacing = 0
+custom_fonts/font = SubResource( 74 )
+text = "Artist Name - Song Name"
+align = 1
+valign = 1
+autowrap = true
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HARD" type="Panel" parent="Main/Results/Results/ButtonDisp"]
+visible = false
+self_modulate = Color( 1, 0, 0, 1 )
+margin_right = 128.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 128, 128 )
+mouse_filter = 1
+custom_styles/panel = SubResource( 70 )
+
+[node name="TextureRect" type="TextureRect" parent="Main/Results/Results/ButtonDisp/HARD"]
+modulate = Color( 0.501961, 0.501961, 0.501961, 1 )
+self_modulate = Color( 1, 0, 0, 1 )
+show_behind_parent = true
+material = SubResource( 60 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+texture = ExtResource( 16 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Cover" type="TextureRect" parent="Main/Results/Results/ButtonDisp/HARD"]
+visible = false
+material = SubResource( 72 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+expand = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="F" type="TextureRect" parent="Main/Results/Results/ButtonDisp/HARD"]
+visible = false
+modulate = Color( 0.321569, 0.662745, 0.25098, 1 )
+margin_left = -1.0
+margin_top = -1.0
+margin_right = 31.0
+margin_bottom = 31.0
+texture = ExtResource( 26 )
+expand = true
+stretch_mode = 6
+script = ExtResource( 46 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="Label" parent="Main/Results/Results/ButtonDisp/HARD"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 6.0
+margin_right = -10.0
+margin_bottom = -6.0
+custom_constants/line_spacing = 0
+custom_fonts/font = SubResource( 74 )
+text = "Artist Name - Song Name"
+align = 1
+valign = 1
+autowrap = true
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LOGIC" type="Panel" parent="Main/Results/Results/ButtonDisp"]
+visible = false
+self_modulate = Color( 0.843137, 0.415686, 1, 1 )
+margin_right = 128.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 128, 128 )
+mouse_filter = 1
+custom_styles/panel = SubResource( 70 )
+
+[node name="TextureRect" type="TextureRect" parent="Main/Results/Results/ButtonDisp/LOGIC"]
+modulate = Color( 0.501961, 0.501961, 0.501961, 1 )
+self_modulate = Color( 0.843137, 0.415686, 1, 1 )
+show_behind_parent = true
+material = SubResource( 60 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+texture = ExtResource( 16 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Cover" type="TextureRect" parent="Main/Results/Results/ButtonDisp/LOGIC"]
+visible = false
+material = SubResource( 72 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+expand = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="F" type="TextureRect" parent="Main/Results/Results/ButtonDisp/LOGIC"]
+visible = false
+margin_left = -1.0
+margin_top = -1.0
+margin_right = 31.0
+margin_bottom = 31.0
+texture = ExtResource( 26 )
+expand = true
+stretch_mode = 6
+script = ExtResource( 46 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="Label" parent="Main/Results/Results/ButtonDisp/LOGIC"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 6.0
+margin_right = -10.0
+margin_bottom = -6.0
+custom_constants/line_spacing = 0
+custom_fonts/font = SubResource( 74 )
+text = "Artist Name - Song Name"
+align = 1
+valign = 1
+autowrap = true
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TASUKETE" type="Panel" parent="Main/Results/Results/ButtonDisp"]
+visible = false
+self_modulate = Color( 0.211765, 0.188235, 0.309804, 1 )
+margin_right = 128.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 128, 128 )
+mouse_filter = 1
+custom_styles/panel = SubResource( 70 )
+
+[node name="TextureRect" type="TextureRect" parent="Main/Results/Results/ButtonDisp/TASUKETE"]
+modulate = Color( 0.501961, 0.501961, 0.501961, 1 )
+self_modulate = Color( 0.211765, 0.188235, 0.309804, 1 )
+show_behind_parent = true
+material = SubResource( 60 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+texture = ExtResource( 16 )
+expand = true
+
+[node name="Cover" type="TextureRect" parent="Main/Results/Results/ButtonDisp/TASUKETE"]
+visible = false
+material = SubResource( 72 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+expand = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="F" type="TextureRect" parent="Main/Results/Results/ButtonDisp/TASUKETE"]
+visible = false
+modulate = Color( 0.419608, 0.498039, 1, 1 )
+margin_left = -1.0
+margin_top = -1.0
+margin_right = 31.0
+margin_bottom = 31.0
+texture = ExtResource( 26 )
+expand = true
+stretch_mode = 6
+script = ExtResource( 46 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="Label" parent="Main/Results/Results/ButtonDisp/TASUKETE"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 6.0
+margin_right = -10.0
+margin_bottom = -6.0
+custom_constants/line_spacing = 0
+custom_fonts/font = SubResource( 74 )
+text = "Artist Name - Song Name"
+align = 1
+valign = 1
+autowrap = true
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Select" type="Button" parent="Main/Results/Results/ButtonDisp"]
+material = SubResource( 62 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/hover = SubResource( 63 )
+custom_styles/pressed = SubResource( 73 )
+custom_styles/focus = SubResource( 64 )
+custom_styles/disabled = SubResource( 65 )
+custom_styles/normal = SubResource( 66 )
+action_mode = 0
+
+[node name="Actions" type="VBoxContainer" parent="Main/Results/Results"]
+visible = false
+margin_left = 347.0
+margin_top = 280.0
+margin_right = 572.0
+margin_bottom = 307.0
+theme = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Convert" type="Button" parent="Main/Results/Results/Actions"]
+margin_right = 225.0
+margin_bottom = 27.0
+rect_min_size = Vector2( 225, 27 )
+theme = ExtResource( 1 )
+action_mode = 0
+text = "Convert map to .sspm"
+clip_text = true
+script = ExtResource( 39 )
+
+[node name="Difficulty" type="OptionButton" parent="Main/Results/Results/Actions"]
+margin_top = 31.0
+margin_right = 225.0
+margin_bottom = 58.0
+rect_min_size = Vector2( 225, 27 )
+theme = ExtResource( 1 )
+text = "Set difficulty"
+align = 1
+script = ExtResource( 40 )
+
+[node name="ExportTxt" type="Button" parent="Main/Results/Results/Actions"]
+margin_top = 62.0
+margin_right = 225.0
+margin_bottom = 89.0
+rect_min_size = Vector2( 225, 27 )
+theme = ExtResource( 1 )
+action_mode = 0
+text = "Export map data"
+clip_text = true
+script = ExtResource( 58 )
+
+[node name="SaveFile" type="Node" parent="Main/Results/Results/Actions/ExportTxt"]
+script = ExtResource( 57 )
+title = "Save map data..."
+initial_path = "~/Downloads"
+filters = PoolStringArray( "*.txt ; Text files" )
+
+[node name="ModsTitle" type="Label" parent="Main/Results/Results"]
+margin_left = 624.0
+margin_top = 16.0
+margin_right = 994.0
+margin_bottom = 54.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.756863, 0.960784, 1 )
+custom_fonts/font = SubResource( 89 )
+text = "Modifiers"
+
+[node name="Hitboxes" type="Label" parent="Main/Results/Results"]
+margin_left = 624.0
+margin_top = 16.0
+margin_right = 1048.0
+margin_bottom = 46.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.717647, 1, 0.760784, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 90 )
+text = "Default hitboxes, default hitwindow"
+align = 2
+valign = 2
+
+[node name="ModsHolder" type="ScrollContainer" parent="Main/Results/Results"]
+anchor_bottom = 1.0
+margin_left = 604.0
+margin_top = 51.0
+margin_right = 1060.0
+follow_focus = true
+
+[node name="Mods" type="ReferenceRect" parent="Main/Results/Results/ModsHolder"]
+margin_right = 456.0
+margin_bottom = 270.0
+rect_min_size = Vector2( 456, 270 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SpeedMod" type="ReferenceRect" parent="Main/Results/Results/ModsHolder/Mods"]
+margin_left = 80.0
+margin_right = 370.0
+margin_bottom = 32.0
+theme = ExtResource( 1 )
+border_color = Color( 0, 1, 1, 0 )
+script = ExtResource( 32 )
+
+[node name="Label" type="Label" parent="Main/Results/Results/ModsHolder/Mods/SpeedMod"]
+margin_left = -115.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.960784, 1, 0.478431, 1 )
+custom_fonts/font = SubResource( 91 )
+text = "Speed"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="C" type="HBoxContainer" parent="Main/Results/Results/ModsHolder/Mods/SpeedMod"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+alignment = 1
+
+[node name="MMM" type="Button" parent="Main/Results/Results/ModsHolder/Mods/SpeedMod/C"]
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+focus_mode = 1
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 92 )
+custom_styles/hover = SubResource( 148 )
+custom_styles/pressed = SubResource( 134 )
+custom_styles/focus = SubResource( 155 )
+custom_styles/normal = SubResource( 135 )
+toggle_mode = true
+shortcut_in_tooltip = false
+action_mode = 0
+group = SubResource( 93 )
+expand_icon = true
+
+[node name="Label2" type="Label" parent="Main/Results/Results/ModsHolder/Mods/SpeedMod/C/MMM"]
+visible = false
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -50.0
+margin_top = 24.0
+margin_right = 50.0
+margin_bottom = 41.0
+rect_pivot_offset = Vector2( 0, 16 )
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0.321569, 1, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 0
+custom_fonts/font = SubResource( 94 )
+text = "<<<"
+align = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MM" type="Button" parent="Main/Results/Results/ModsHolder/Mods/SpeedMod/C"]
+margin_left = 36.0
+margin_right = 68.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+focus_mode = 1
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 92 )
+custom_styles/hover = SubResource( 149 )
+custom_styles/pressed = SubResource( 136 )
+custom_styles/focus = SubResource( 155 )
+custom_styles/normal = SubResource( 137 )
+toggle_mode = true
+shortcut_in_tooltip = false
+action_mode = 0
+group = SubResource( 93 )
+expand_icon = true
+
+[node name="Label2" type="Label" parent="Main/Results/Results/ModsHolder/Mods/SpeedMod/C/MM"]
+visible = false
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -50.0
+margin_top = 24.0
+margin_right = 50.0
+margin_bottom = 41.0
+rect_pivot_offset = Vector2( 0, 16 )
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.258824, 0.533333, 0.929412, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 0
+custom_fonts/font = SubResource( 94 )
+text = "<<"
+align = 1
+clip_text = true
+
+[node name="M" type="Button" parent="Main/Results/Results/ModsHolder/Mods/SpeedMod/C"]
+margin_left = 72.0
+margin_right = 104.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+focus_mode = 1
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 92 )
+custom_styles/hover = SubResource( 150 )
+custom_styles/pressed = SubResource( 138 )
+custom_styles/focus = SubResource( 155 )
+custom_styles/normal = SubResource( 139 )
+toggle_mode = true
+shortcut_in_tooltip = false
+action_mode = 0
+group = SubResource( 93 )
+expand_icon = true
+
+[node name="Label2" type="Label" parent="Main/Results/Results/ModsHolder/Mods/SpeedMod/C/M"]
+visible = false
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -50.0
+margin_top = 24.0
+margin_right = 50.0
+margin_bottom = 41.0
+rect_pivot_offset = Vector2( 0, 16 )
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.411765, 0.74902, 0.976471, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 0
+custom_fonts/font = SubResource( 94 )
+text = "<"
+align = 1
+clip_text = true
+
+[node name="Normal" type="CheckBox" parent="Main/Results/Results/ModsHolder/Mods/SpeedMod/C"]
+margin_left = 108.0
+margin_right = 124.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 16, 0 )
+theme = ExtResource( 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 92 )
+action_mode = 0
+group = SubResource( 93 )
+flat = true
+expand_icon = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="Main/Results/Results/ModsHolder/Mods/SpeedMod/C/Normal"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -50.0
+margin_top = 24.0
+margin_right = 50.0
+margin_bottom = 41.0
+rect_pivot_offset = Vector2( 0, 16 )
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 0
+custom_fonts/font = SubResource( 94 )
+text = "="
+align = 1
+clip_text = true
+
+[node name="P" type="Button" parent="Main/Results/Results/ModsHolder/Mods/SpeedMod/C"]
+margin_left = 128.0
+margin_right = 160.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+focus_mode = 1
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 92 )
+custom_styles/hover = SubResource( 151 )
+custom_styles/pressed = SubResource( 140 )
+custom_styles/focus = SubResource( 155 )
+custom_styles/normal = SubResource( 141 )
+toggle_mode = true
+shortcut_in_tooltip = false
+action_mode = 0
+group = SubResource( 93 )
+expand_icon = true
+
+[node name="Label2" type="Label" parent="Main/Results/Results/ModsHolder/Mods/SpeedMod/C/P"]
+visible = false
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -50.0
+margin_top = 24.0
+margin_right = 50.0
+margin_bottom = 41.0
+rect_pivot_offset = Vector2( 0, 16 )
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.529412, 1, 0.45098, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 0
+custom_fonts/font = SubResource( 94 )
+text = ">"
+align = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PP" type="Button" parent="Main/Results/Results/ModsHolder/Mods/SpeedMod/C"]
+margin_left = 164.0
+margin_right = 196.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+focus_mode = 1
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 92 )
+custom_styles/hover = SubResource( 152 )
+custom_styles/pressed = SubResource( 142 )
+custom_styles/focus = SubResource( 155 )
+custom_styles/normal = SubResource( 143 )
+toggle_mode = true
+shortcut_in_tooltip = false
+action_mode = 0
+group = SubResource( 93 )
+expand_icon = true
+
+[node name="Label2" type="Label" parent="Main/Results/Results/ModsHolder/Mods/SpeedMod/C/PP"]
+visible = false
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -50.0
+margin_top = 24.0
+margin_right = 50.0
+margin_bottom = 41.0
+rect_pivot_offset = Vector2( 0, 16 )
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.952941, 0.45098, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 0
+custom_fonts/font = SubResource( 94 )
+text = ">>"
+align = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PPP" type="Button" parent="Main/Results/Results/ModsHolder/Mods/SpeedMod/C"]
+margin_left = 200.0
+margin_right = 232.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+focus_mode = 1
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 92 )
+custom_styles/hover = SubResource( 153 )
+custom_styles/pressed = SubResource( 144 )
+custom_styles/focus = SubResource( 155 )
+custom_styles/normal = SubResource( 145 )
+toggle_mode = true
+shortcut_in_tooltip = false
+action_mode = 0
+group = SubResource( 93 )
+expand_icon = true
+
+[node name="Label2" type="Label" parent="Main/Results/Results/ModsHolder/Mods/SpeedMod/C/PPP"]
+visible = false
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -50.0
+margin_top = 24.0
+margin_right = 50.0
+margin_bottom = 41.0
+rect_pivot_offset = Vector2( 0, 16 )
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.952941, 0.337255, 0.337255, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 0
+custom_fonts/font = SubResource( 94 )
+text = ">>>"
+align = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PPPP" type="Button" parent="Main/Results/Results/ModsHolder/Mods/SpeedMod/C"]
+margin_left = 236.0
+margin_right = 268.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+focus_mode = 1
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 92 )
+custom_styles/hover = SubResource( 154 )
+custom_styles/pressed = SubResource( 146 )
+custom_styles/focus = SubResource( 155 )
+custom_styles/normal = SubResource( 147 )
+toggle_mode = true
+shortcut_in_tooltip = false
+action_mode = 0
+group = SubResource( 93 )
+expand_icon = true
+
+[node name="Label2" type="Label" parent="Main/Results/Results/ModsHolder/Mods/SpeedMod/C/PPPP"]
+visible = false
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -50.0
+margin_top = 24.0
+margin_right = 50.0
+margin_bottom = 41.0
+rect_pivot_offset = Vector2( 0, 16 )
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 0
+custom_fonts/font = SubResource( 94 )
+text = ">>>>"
+align = 1
+clip_text = true
+
+[node name="Custom" type="CheckBox" parent="Main/Results/Results/ModsHolder/Mods/SpeedMod/C"]
+margin_left = 272.0
+margin_right = 296.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 24, 0 )
+theme = ExtResource( 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 92 )
+action_mode = 0
+group = SubResource( 93 )
+flat = true
+expand_icon = true
+
+[node name="CSpeedLabel" type="Label" parent="Main/Results/Results/ModsHolder/Mods/SpeedMod/C/Custom"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = 8.0
+margin_right = 64.0
+margin_bottom = 32.0
+rect_pivot_offset = Vector2( 0, 16 )
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.905882, 0.380392, 1, 1 )
+custom_constants/shadow_offset_x = 0
+custom_constants/shadow_offset_y = 0
+custom_fonts/font = SubResource( 95 )
+text = "C (100%)"
+valign = 1
+script = ExtResource( 42 )
+
+[node name="StartOffset" type="SpinBox" parent="Main/Results/Results/ModsHolder/Mods"]
+margin_left = 130.0
+margin_top = 238.0
+margin_right = 330.0
+margin_bottom = 266.0
+focus_mode = 2
+theme = ExtResource( 1 )
+allow_greater = true
+suffix = "sec"
+script = ExtResource( 59 )
+
+[node name="Label" type="Label" parent="Main/Results/Results/ModsHolder/Mods/StartOffset"]
+margin_left = -149.0
+margin_right = -10.0
+margin_bottom = 26.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.960784, 1, 0.478431, 1 )
+custom_fonts/font = SubResource( 91 )
+text = "Start From"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="HpModel" type="MenuButton" parent="Main/Results/Results/ModsHolder/Mods"]
+margin_left = 130.0
+margin_top = 274.0
+margin_right = 314.0
+margin_bottom = 300.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+text = "hp model here"
+flat = false
+align = 0
+script = ExtResource( 41 )
+
+[node name="Label" type="Label" parent="Main/Results/Results/ModsHolder/Mods/HpModel"]
+margin_left = -149.0
+margin_right = -10.0
+margin_bottom = 26.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.960784, 1, 0.478431, 1 )
+custom_fonts/font = SubResource( 91 )
+text = "Health Model"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="GradeSystem" type="MenuButton" parent="Main/Results/Results/ModsHolder/Mods"]
+visible = false
+margin_left = 130.0
+margin_top = 238.0
+margin_right = 314.0
+margin_bottom = 264.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+text = "grade system here"
+flat = false
+align = 0
+script = ExtResource( 62 )
+
+[node name="Label" type="Label" parent="Main/Results/Results/ModsHolder/Mods/GradeSystem"]
+margin_left = -149.0
+margin_right = -10.0
+margin_bottom = 26.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.960784, 1, 0.478431, 1 )
+custom_fonts/font = SubResource( 91 )
+text = "Grade System"
+align = 2
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NoFail" type="CheckBox" parent="Main/Results/Results/ModsHolder/Mods"]
+margin_left = 130.0
+margin_top = 45.0
+margin_right = 190.0
+margin_bottom = 77.0
+theme = ExtResource( 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 92 )
+action_mode = 0
+flat = true
+script = ExtResource( 33 )
+
+[node name="Label" type="Label" parent="Main/Results/Results/ModsHolder/Mods/NoFail"]
+margin_left = -115.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.960784, 1, 0.478431, 1 )
+custom_fonts/font = SubResource( 91 )
+text = "Nofail"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="SuddenDeath" type="CheckBox" parent="Main/Results/Results/ModsHolder/Mods"]
+margin_left = 310.0
+margin_top = 45.0
+margin_right = 370.0
+margin_bottom = 77.0
+theme = ExtResource( 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 92 )
+action_mode = 0
+flat = true
+script = ExtResource( 44 )
+
+[node name="Label" type="Label" parent="Main/Results/Results/ModsHolder/Mods/SuddenDeath"]
+margin_left = -115.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.960784, 1, 0.478431, 1 )
+custom_fonts/font = SubResource( 91 )
+text = "Sudden Death"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="EasyMode" type="CheckBox" parent="Main/Results/Results/ModsHolder/Mods"]
+margin_left = 130.0
+margin_top = 75.0
+margin_right = 207.0
+margin_bottom = 107.0
+theme = ExtResource( 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 96 )
+action_mode = 0
+text = "Easy Mode"
+flat = true
+script = ExtResource( 35 )
+
+[node name="Label" type="Label" parent="Main/Results/Results/ModsHolder/Mods/EasyMode"]
+margin_left = -115.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.960784, 1, 0.478431, 1 )
+custom_fonts/font = SubResource( 91 )
+text = "Extra Energy"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="HardMode" type="CheckBox" parent="Main/Results/Results/ModsHolder/Mods"]
+margin_left = 310.0
+margin_top = 74.0
+margin_right = 390.0
+margin_bottom = 106.0
+theme = ExtResource( 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 96 )
+action_mode = 0
+text = "Hard Mode"
+flat = true
+script = ExtResource( 34 )
+
+[node name="Label" type="Label" parent="Main/Results/Results/ModsHolder/Mods/HardMode"]
+margin_left = -89.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.960784, 1, 0.478431, 1 )
+custom_fonts/font = SubResource( 91 )
+text = "No Regen"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="MirrorX" type="CheckBox" parent="Main/Results/Results/ModsHolder/Mods"]
+margin_left = 130.0
+margin_top = 105.0
+margin_right = 190.0
+margin_bottom = 137.0
+theme = ExtResource( 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 92 )
+action_mode = 0
+flat = true
+script = ExtResource( 36 )
+
+[node name="Label" type="Label" parent="Main/Results/Results/ModsHolder/Mods/MirrorX"]
+margin_left = -115.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.960784, 1, 0.478431, 1 )
+custom_fonts/font = SubResource( 91 )
+text = "Mirror X"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="MirrorY" type="CheckBox" parent="Main/Results/Results/ModsHolder/Mods"]
+margin_left = 310.0
+margin_top = 105.0
+margin_right = 370.0
+margin_bottom = 137.0
+theme = ExtResource( 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 92 )
+action_mode = 0
+flat = true
+script = ExtResource( 37 )
+
+[node name="Label" type="Label" parent="Main/Results/Results/ModsHolder/Mods/MirrorY"]
+margin_left = -115.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.960784, 1, 0.478431, 1 )
+custom_fonts/font = SubResource( 91 )
+text = "Mirror Y"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="Nearsight" type="CheckBox" parent="Main/Results/Results/ModsHolder/Mods"]
+visible = false
+margin_left = 130.0
+margin_top = 135.0
+margin_right = 190.0
+margin_bottom = 167.0
+theme = ExtResource( 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 92 )
+action_mode = 0
+flat = true
+script = ExtResource( 43 )
+
+[node name="Label" type="Label" parent="Main/Results/Results/ModsHolder/Mods/Nearsight"]
+margin_left = -115.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.960784, 1, 0.478431, 1 )
+custom_fonts/font = SubResource( 91 )
+text = "Nearsighted"
+align = 2
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Earthquake" type="CheckBox" parent="Main/Results/Results/ModsHolder/Mods"]
+margin_left = 130.0
+margin_top = 135.0
+margin_right = 190.0
+margin_bottom = 167.0
+theme = ExtResource( 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 92 )
+action_mode = 0
+flat = true
+script = ExtResource( 94 )
+
+[node name="Label" type="Label" parent="Main/Results/Results/ModsHolder/Mods/Earthquake"]
+margin_left = -115.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.960784, 1, 0.478431, 1 )
+custom_fonts/font = SubResource( 91 )
+text = "Earthquake"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="Chaos" type="CheckBox" parent="Main/Results/Results/ModsHolder/Mods"]
+margin_left = 130.0
+margin_top = 165.0
+margin_right = 190.0
+margin_bottom = 197.0
+theme = ExtResource( 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 92 )
+action_mode = 0
+flat = true
+script = ExtResource( 60 )
+
+[node name="Label" type="Label" parent="Main/Results/Results/ModsHolder/Mods/Chaos"]
+margin_left = -115.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.960784, 1, 0.478431, 1 )
+custom_fonts/font = SubResource( 91 )
+text = "Chaos"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="Flashlight" type="CheckBox" parent="Main/Results/Results/ModsHolder/Mods"]
+margin_left = 130.0
+margin_top = 195.0
+margin_right = 190.0
+margin_bottom = 227.0
+theme = ExtResource( 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 92 )
+action_mode = 0
+flat = true
+script = ExtResource( 96 )
+
+[node name="Label" type="Label" parent="Main/Results/Results/ModsHolder/Mods/Flashlight"]
+margin_left = -115.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.960784, 1, 0.478431, 1 )
+custom_fonts/font = SubResource( 91 )
+text = "Masked"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="Ghost" type="CheckBox" parent="Main/Results/Results/ModsHolder/Mods"]
+margin_left = 310.0
+margin_top = 135.0
+margin_right = 370.0
+margin_bottom = 167.0
+theme = ExtResource( 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 92 )
+action_mode = 0
+flat = true
+script = ExtResource( 45 )
+
+[node name="Label" type="Label" parent="Main/Results/Results/ModsHolder/Mods/Ghost"]
+margin_left = -115.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.960784, 1, 0.478431, 1 )
+custom_fonts/font = SubResource( 91 )
+text = "Ghost"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="VisualMode" type="CheckBox" parent="Main/Results/Results/ModsHolder/Mods"]
+margin_left = 310.0
+margin_top = 165.0
+margin_right = 370.0
+margin_bottom = 197.0
+theme = ExtResource( 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 92 )
+action_mode = 0
+flat = true
+script = ExtResource( 63 )
+
+[node name="Label" type="Label" parent="Main/Results/Results/ModsHolder/Mods/VisualMode"]
+margin_left = -138.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.960784, 1, 0.478431, 1 )
+custom_fonts/font = SubResource( 91 )
+text = "Visual Map Mode"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="InvertMouse" type="CheckBox" parent="Main/Results/Results/ModsHolder/Mods"]
+margin_left = 310.0
+margin_top = 195.0
+margin_right = 370.0
+margin_bottom = 227.0
+theme = ExtResource( 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 92 )
+action_mode = 0
+flat = true
+script = ExtResource( 97 )
+
+[node name="Label" type="Label" parent="Main/Results/Results/ModsHolder/Mods/InvertMouse"]
+margin_left = -138.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.960784, 1, 0.478431, 1 )
+custom_fonts/font = SubResource( 91 )
+text = "Invert Mouse"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="Info" type="VBoxContainer" parent="Main/Results/Results"]
+margin_left = 138.0
+margin_top = 15.0
+margin_right = 588.0
+margin_bottom = 240.0
+custom_constants/separation = 0
+
+[node name="D" type="Control" parent="Main/Results/Results/Info"]
+margin_right = 450.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 450, 32 )
+focus_mode = 2
+theme = ExtResource( 1 )
+
+[node name="Difficulty" type="Label" parent="Main/Results/Results/Info/D"]
+margin_right = 450.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_fonts/font = SubResource( 97 )
+text = "-"
+align = 2
+valign = 1
+
+[node name="Label" type="Label" parent="Main/Results/Results/Info/D/Difficulty"]
+visible = false
+margin_left = -85.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.698039, 0.901961, 0.639216, 1 )
+custom_fonts/font = SubResource( 91 )
+text = "Difficulty:"
+align = 2
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DifficultySmaller" type="Label" parent="Main/Results/Results/Info/D"]
+visible = false
+margin_right = 450.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_fonts/font = SubResource( 162 )
+text = "-"
+align = 2
+valign = 1
+
+[node name="Label" type="Label" parent="Main/Results/Results/Info/D/DifficultySmaller"]
+visible = false
+margin_left = -85.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.698039, 0.901961, 0.639216, 1 )
+custom_fonts/font = SubResource( 91 )
+text = "Difficulty:"
+align = 2
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Data" type="Label" parent="Main/Results/Results/Info/D"]
+margin_right = 425.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_fonts/font = SubResource( 98 )
+text = "-"
+valign = 1
+
+[node name="Label" type="Label" parent="Main/Results/Results/Info/D/Data"]
+visible = false
+margin_left = -85.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.698039, 0.901961, 0.639216, 1 )
+custom_fonts/font = SubResource( 91 )
+text = "Difficulty:"
+align = 2
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="M" type="MarginContainer" parent="Main/Results/Results/Info"]
+margin_top = 32.0
+margin_right = 450.0
+margin_bottom = 221.0
+custom_constants/margin_right = 13
+custom_constants/margin_left = 13
+
+[node name="V" type="VBoxContainer" parent="Main/Results/Results/Info/M"]
+margin_left = 13.0
+margin_right = 437.0
+margin_bottom = 189.0
+custom_constants/separation = 0
+
+[node name="Name" type="MarginContainer" parent="Main/Results/Results/Info/M/V"]
+margin_right = 424.0
+margin_bottom = 32.0
+custom_constants/margin_top = 6
+custom_constants/margin_bottom = 5
+
+[node name="L" type="Label" parent="Main/Results/Results/Info/M/V/Name"]
+margin_top = 6.0
+margin_right = 424.0
+margin_bottom = 27.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.568627, 0.956863, 1, 1 )
+custom_fonts/font = SubResource( 116 )
+text = "-"
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Main/Results/Results/Info/M/V/Name/L"]
+visible = false
+margin_left = -85.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.698039, 0.901961, 0.639216, 1 )
+custom_fonts/font = SubResource( 91 )
+text = "Name:"
+align = 2
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SongName" type="MarginContainer" parent="Main/Results/Results/Info/M/V"]
+visible = false
+margin_top = 32.0
+margin_right = 424.0
+margin_bottom = 57.0
+custom_constants/margin_left = 62
+
+[node name="L" type="Label" parent="Main/Results/Results/Info/M/V/SongName"]
+margin_left = 62.0
+margin_right = 424.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 0, 25 )
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.952941, 0.752941, 1, 1 )
+custom_fonts/font = SubResource( 117 )
+text = "-"
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="Main/Results/Results/Info/M/V/SongName/L"]
+margin_left = -68.0
+margin_right = -6.0
+margin_bottom = 25.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.698039, 0.901961, 0.639216, 1 )
+custom_fonts/font = SubResource( 91 )
+text = "Song"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="Mapper" type="MarginContainer" parent="Main/Results/Results/Info/M/V"]
+margin_top = 32.0
+margin_right = 424.0
+margin_bottom = 57.0
+custom_constants/margin_left = 62
+
+[node name="L" type="Label" parent="Main/Results/Results/Info/M/V/Mapper"]
+margin_left = 62.0
+margin_right = 424.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 0, 25 )
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.952941, 0.752941, 1, 1 )
+custom_fonts/font = SubResource( 117 )
+text = "-"
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="Main/Results/Results/Info/M/V/Mapper/L"]
+margin_left = -68.0
+margin_right = -6.0
+margin_bottom = 25.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.698039, 0.901961, 0.639216, 1 )
+custom_fonts/font = SubResource( 91 )
+text = "Map by"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="Id" type="MarginContainer" parent="Main/Results/Results/Info/M/V"]
+margin_top = 57.0
+margin_right = 424.0
+margin_bottom = 82.0
+custom_constants/margin_left = 62
+
+[node name="L" type="Label" parent="Main/Results/Results/Info/M/V/Id"]
+margin_left = 62.0
+margin_right = 424.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 0, 25 )
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.6, 0.6, 0.6, 1 )
+custom_fonts/font = SubResource( 118 )
+text = "-"
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="Main/Results/Results/Info/M/V/Id/L"]
+margin_left = -85.0
+margin_right = -6.0
+margin_bottom = 25.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.698039, 0.901961, 0.639216, 1 )
+custom_fonts/font = SubResource( 91 )
+text = "Song ID"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="SMM" type="MarginContainer" parent="Main/Results/Results/Info/M/V"]
+visible = false
+margin_top = 82.0
+margin_right = 424.0
+margin_bottom = 102.0
+custom_constants/margin_left = 3
+
+[node name="Title" type="Label" parent="Main/Results/Results/Info/M/V/SMM"]
+margin_left = 3.0
+margin_right = 424.0
+margin_bottom = 20.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.760784, 0.490196, 1 )
+custom_fonts/font = SubResource( 91 )
+text = "Single Map Mode"
+valign = 1
+clip_text = true
+
+[node name="Warning" type="MarginContainer" parent="Main/Results/Results/Info/M/V"]
+visible = false
+margin_top = 106.0
+margin_right = 399.0
+margin_bottom = 131.0
+custom_constants/margin_top = 5
+
+[node name="L" type="Label" parent="Main/Results/Results/Info/M/V/Warning"]
+margin_top = 5.0
+margin_right = 399.0
+margin_bottom = 25.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 1, 0, 1 )
+custom_fonts/font = SubResource( 99 )
+text = "Warning text goes here"
+align = 1
+valign = 1
+
+[node name="Run" type="MarginContainer" parent="Main/Results/Results/Info/M/V"]
+margin_top = 82.0
+margin_right = 424.0
+margin_bottom = 145.0
+custom_constants/margin_top = 15
+
+[node name="Run" type="Button" parent="Main/Results/Results/Info/M/V/Run"]
+margin_top = 15.0
+margin_right = 424.0
+margin_bottom = 63.0
+rect_min_size = Vector2( 0, 48 )
+hint_tooltip = "(Spacebar, Xbox A)"
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.576471, 0.576471, 0.576471, 1 )
+custom_colors/font_color_focus = Color( 0.541176, 1, 0.580392, 1 )
+custom_colors/font_color = Color( 0.541176, 1, 0.580392, 1 )
+custom_colors/font_color_hover = Color( 0.631373, 1, 0.913725, 1 )
+custom_colors/font_color_pressed = Color( 0, 1, 0.976471, 1 )
+custom_fonts/font = SubResource( 119 )
+custom_styles/hover = SubResource( 120 )
+custom_styles/pressed = SubResource( 121 )
+custom_styles/focus = SubResource( 122 )
+custom_styles/disabled = SubResource( 123 )
+custom_styles/normal = SubResource( 124 )
+toggle_mode = true
+action_mode = 0
+text = "Start!"
+script = ExtResource( 30 )
+
+[node name="Buttons" type="MarginContainer" parent="Main/Results/Results/Info/M/V"]
+margin_top = 145.0
+margin_right = 424.0
+margin_bottom = 189.0
+custom_constants/margin_right = 5
+custom_constants/margin_top = 12
+custom_constants/margin_left = 5
+
+[node name="Control" type="HBoxContainer" parent="Main/Results/Results/Info/M/V/Buttons"]
+margin_left = 5.0
+margin_top = 12.0
+margin_right = 419.0
+margin_bottom = 44.0
+rect_min_size = Vector2( 0, 32 )
+custom_constants/separation = 12
+
+[node name="Favorite" type="Button" parent="Main/Results/Results/Info/M/V/Buttons/Control"]
+margin_right = 179.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 0, 32 )
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+custom_styles/pressed = SubResource( 88 )
+toggle_mode = true
+action_mode = 0
+text = "Favorite"
+script = ExtResource( 38 )
+
+[node name="PreviewMusic" type="Button" parent="Main/Results/Results/Info/M/V/Buttons/Control"]
+margin_left = 191.0
+margin_right = 370.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 0, 32 )
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+action_mode = 0
+text = "Play Music"
+script = ExtResource( 9 )
+
+[node name="Song" type="AudioStreamPlayer" parent="Main/Results/Results/Info/M/V/Buttons/Control/PreviewMusic"]
+pause_mode = 2
+bus = "Music"
+script = ExtResource( 10 )
+
+[node name="MenuSong" type="AudioStreamPlayer" parent="Main/Results/Results/Info/M/V/Buttons/Control/PreviewMusic"]
+pause_mode = 2
+stream = ExtResource( 11 )
+volume_db = -10.0
+bus = "Music"
+
+[node name="Actions" type="MenuButton" parent="Main/Results/Results/Info/M/V/Buttons/Control"]
+margin_left = 382.0
+margin_right = 414.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+icon = ExtResource( 90 )
+flat = false
+icon_align = 1
+expand_icon = true
+script = ExtResource( 89 )
+
+[node name="EndInfo" type="ReferenceRect" parent="Main/Results/Results"]
+margin_left = 16.0
+margin_top = 277.0
+margin_right = 299.0
+margin_bottom = 597.0
+rect_min_size = Vector2( 283, 232 )
+script = ExtResource( 29 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="NewBest" type="AudioStreamPlayer" parent="Main/Results/Results/EndInfo"]
+stream = ExtResource( 31 )
+pitch_scale = 0.8
+bus = "PBSound"
+
+[node name="Result" type="Label" parent="Main/Results/Results/EndInfo"]
+margin_left = 5.0
+margin_right = 273.0
+margin_bottom = 44.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.917647, 0.52549, 0.290196, 1 )
+custom_fonts/font = SubResource( 89 )
+valign = 1
+
+[node name="LetterGrade" type="Label" parent="Main/Results/Results/EndInfo"]
+material = SubResource( 126 )
+margin_left = 148.0
+margin_right = 279.0
+margin_bottom = 44.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 127 )
+align = 2
+valign = 1
+
+[node name="Misses" type="Label" parent="Main/Results/Results/EndInfo"]
+margin_left = 5.0
+margin_top = 72.0
+margin_right = 144.0
+margin_bottom = 119.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.917647, 0.290196, 0.290196, 1 )
+custom_fonts/font = SubResource( 105 )
+text = "-"
+align = 1
+valign = 1
+
+[node name="Title" type="Label" parent="Main/Results/Results/EndInfo/Misses"]
+margin_top = -24.0
+margin_right = 139.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.917647, 0.290196, 0.290196, 1 )
+custom_fonts/font = SubResource( 106 )
+text = "MISSES"
+align = 1
+valign = 1
+
+[node name="FullCombo" type="Label" parent="Main/Results/Results/EndInfo"]
+visible = false
+margin_left = 5.0
+margin_top = 72.0
+margin_right = 144.0
+margin_bottom = 119.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.572549, 0.937255, 0.976471, 1 )
+custom_fonts/font = SubResource( 107 )
+text = "Full Combo"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="Main/Results/Results/EndInfo/FullCombo"]
+margin_top = -24.0
+margin_right = 139.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.572549, 0.937255, 0.976471, 1 )
+custom_fonts/font = SubResource( 106 )
+text = "MISSES"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Pauses" type="Label" parent="Main/Results/Results/EndInfo"]
+margin_left = 144.0
+margin_top = 72.0
+margin_right = 283.0
+margin_bottom = 119.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.984314, 0.552941, 1, 1 )
+custom_fonts/font = SubResource( 105 )
+text = "-"
+align = 1
+valign = 1
+
+[node name="Title" type="Label" parent="Main/Results/Results/EndInfo/Pauses"]
+margin_top = -24.0
+margin_right = 139.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.984314, 0.552941, 1, 1 )
+custom_fonts/font = SubResource( 106 )
+text = "PAUSES"
+align = 1
+valign = 1
+
+[node name="NoPauses" type="Label" parent="Main/Results/Results/EndInfo"]
+visible = false
+margin_left = 144.0
+margin_top = 72.0
+margin_right = 283.0
+margin_bottom = 119.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.443137, 1, 0.607843, 1 )
+custom_fonts/font = SubResource( 107 )
+text = "No Pauses"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="Main/Results/Results/EndInfo/NoPauses"]
+margin_top = -24.0
+margin_right = 139.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.443137, 1, 0.607843, 1 )
+custom_fonts/font = SubResource( 106 )
+text = "PAUSES"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Progress" type="Label" parent="Main/Results/Results/EndInfo"]
+margin_left = 5.0
+margin_top = 152.0
+margin_right = 144.0
+margin_bottom = 232.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.956863, 0.552941, 1 )
+custom_fonts/font = SubResource( 108 )
+text = "-
+-"
+align = 1
+valign = 1
+
+[node name="Title" type="Label" parent="Main/Results/Results/EndInfo/Progress"]
+margin_top = -24.0
+margin_right = 139.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.956863, 0.552941, 1 )
+custom_fonts/font = SubResource( 106 )
+text = "PROGRESS"
+align = 1
+valign = 1
+
+[node name="Accuracy" type="Label" parent="Main/Results/Results/EndInfo"]
+margin_left = 144.0
+margin_top = 152.0
+margin_right = 283.0
+margin_bottom = 232.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.623529, 0.67451, 1, 1 )
+custom_fonts/font = SubResource( 108 )
+text = "-
+-"
+align = 1
+valign = 1
+
+[node name="Title" type="Label" parent="Main/Results/Results/EndInfo/Accuracy"]
+margin_top = -24.0
+margin_right = 139.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.623529, 0.67451, 1, 1 )
+custom_fonts/font = SubResource( 106 )
+text = "ACCURACY"
+align = 1
+valign = 1
+
+[node name="MaxCombo" type="Label" parent="Main/Results/Results/EndInfo"]
+modulate = Color( 0.572549, 1, 0.568627, 1 )
+margin_left = 70.0
+margin_top = 255.0
+margin_right = 210.0
+margin_bottom = 328.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.623529, 0.67451, 1, 1 )
+custom_fonts/font = SubResource( 108 )
+text = "-
+"
+align = 1
+valign = 1
+uppercase = true
+
+[node name="Title" type="Label" parent="Main/Results/Results/EndInfo/MaxCombo"]
+margin_top = -24.0
+margin_right = 139.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.623529, 0.67451, 1, 1 )
+custom_fonts/font = SubResource( 106 )
+text = "MAX COMBO"
+align = 1
+valign = 1
+
+[node name="Deleted" type="CenterContainer" parent="Main/Results/Results"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Text" type="Label" parent="Main/Results/Results/Deleted"]
+margin_left = 453.0
+margin_top = 261.0
+margin_right = 747.0
+margin_bottom = 419.0
+custom_colors/font_color = Color( 0.956863, 0.729412, 0.537255, 1 )
+text = "The selected map has been deleted.
+
+----
+
+\"Drama is in the air? Wrong! Delete Server\"
+
+\"Deletion\" by Basil"
+align = 1
+valign = 1
+
+[node name="ColorRect" type="ColorRect" parent="Main/Results/Results/Deleted/Text"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -25.0
+margin_top = -15.0
+margin_right = 25.0
+margin_bottom = 15.0
+color = Color( 0, 0, 0, 0.815686 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="LeftPush" type="HBoxContainer" parent="Main/Results"]
+margin_left = 1215.0
+margin_right = 1219.0
+margin_bottom = 681.0
+size_flags_horizontal = 3
+
+[node name="CenterContainer" type="VBoxContainer" parent="Main/Results/LeftPush"]
+margin_bottom = 681.0
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="Button" type="Button" parent="Main/Results/LeftPush/CenterContainer"]
+visible = false
+margin_top = 654.0
+margin_right = 125.0
+margin_bottom = 681.0
+rect_min_size = Vector2( 125, 27 )
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.729412, 0.729412, 0.729412, 1 )
+custom_colors/font_color_focus = Color( 0.729412, 0.729412, 0.729412, 1 )
+custom_colors/font_color = Color( 0.729412, 0.729412, 0.729412, 1 )
+custom_colors/font_color_hover = Color( 0.729412, 0.729412, 0.729412, 1 )
+custom_colors/font_color_pressed = Color( 0.729412, 0.729412, 0.729412, 1 )
+custom_styles/hover = SubResource( 156 )
+custom_styles/pressed = SubResource( 156 )
+custom_styles/disabled = SubResource( 156 )
+custom_styles/normal = SubResource( 156 )
+action_mode = 0
+text = "Move to center"
+clip_text = true
+
+[node name="Control" type="Control" parent="Main/Results/LeftPush"]
+margin_left = 4.0
+margin_right = 4.0
+margin_bottom = 681.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="Settings" type="ReferenceRect" parent="Main"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="S" type="ScrollContainer" parent="Main/Settings"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+mouse_filter = 1
+follow_focus = true
+scroll_horizontal_enabled = false
+
+[node name="F" parent="Main/Settings/S" instance=ExtResource( 49 )]
+anchor_right = 0.0
+margin_right = 1210.0
+margin_bottom = 5834.0
+rect_clip_content = true
+
+[node name="Credits" type="ReferenceRect" parent="Main"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 4.0
+border_color = Color( 1, 0, 0, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="C" type="HBoxContainer" parent="Main/Credits"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+alignment = 1
+script = ExtResource( 48 )
+
+[node name="S" type="ScrollContainer" parent="Main/Credits/C"]
+margin_right = 1216.0
+margin_bottom = 716.0
+rect_clip_content = false
+size_flags_horizontal = 3
+follow_focus = true
+scroll_horizontal_enabled = false
+scroll_deadzone = 45
+
+[node name="L" type="VBoxContainer" parent="Main/Credits/C/S"]
+margin_right = 1216.0
+margin_bottom = 1115.0
+grow_horizontal = 2
+rect_min_size = Vector2( 700, 0 )
+size_flags_horizontal = 3
+custom_constants/separation = 12
+alignment = 1
+
+[node name="Logo" type="MarginContainer" parent="Main/Credits/C/S/L"]
+margin_right = 1204.0
+margin_bottom = 260.0
+rect_min_size = Vector2( 0, 200 )
+custom_constants/margin_top = -50
+custom_constants/margin_bottom = -50
+
+[node name="TextureRect" type="TextureRect" parent="Main/Credits/C/S/L/Logo"]
+margin_top = -50.0
+margin_right = 1204.0
+margin_bottom = 310.0
+rect_min_size = Vector2( 128, 360 )
+texture = ExtResource( 7 )
+expand = true
+stretch_mode = 6
+
+[node name="DevTeam" type="VBoxContainer" parent="Main/Credits/C/S/L"]
+margin_top = 272.0
+margin_right = 1204.0
+margin_bottom = 392.0
+grow_horizontal = 2
+custom_constants/separation = 8
+alignment = 1
+
+[node name="DevTitle2" type="Label" parent="Main/Credits/C/S/L/DevTeam"]
+margin_right = 1204.0
+margin_bottom = 44.0
+custom_colors/font_color = Color( 0.447059, 0.72549, 1, 1 )
+custom_fonts/font = SubResource( 158 )
+text = "-- development team --"
+align = 1
+
+[node name="C" type="CenterContainer" parent="Main/Credits/C/S/L/DevTeam"]
+margin_top = 52.0
+margin_right = 1204.0
+margin_bottom = 82.0
+
+[node name="H" type="HBoxContainer" parent="Main/Credits/C/S/L/DevTeam/C"]
+margin_left = 530.0
+margin_right = 673.0
+margin_bottom = 30.0
+alignment = 1
+
+[node name="Label" type="Label" parent="Main/Credits/C/S/L/DevTeam/C/H"]
+margin_right = 143.0
+margin_bottom = 30.0
+custom_colors/font_color = Color( 0.670588, 0.901961, 0.898039, 1 )
+custom_fonts/font = SubResource( 159 )
+text = "Jayden Jones"
+align = 1
+
+[node name="C2" type="CenterContainer" parent="Main/Credits/C/S/L/DevTeam"]
+margin_top = 90.0
+margin_right = 1204.0
+margin_bottom = 120.0
+
+[node name="H" type="HBoxContainer" parent="Main/Credits/C/S/L/DevTeam/C2"]
+margin_left = 530.0
+margin_right = 673.0
+margin_bottom = 30.0
+alignment = 1
+
+[node name="Label" type="Label" parent="Main/Credits/C/S/L/DevTeam/C2/H"]
+margin_right = 143.0
+margin_bottom = 30.0
+custom_colors/font_color = Color( 0.670588, 0.901961, 0.898039, 1 )
+custom_fonts/font = SubResource( 159 )
+text = "David (kiwie)"
+align = 1
+
+[node name="PatronTitle" type="Label" parent="Main/Credits/C/S/L"]
+margin_top = 404.0
+margin_right = 1204.0
+margin_bottom = 448.0
+custom_colors/font_color = Color( 1, 0.258824, 0.301961, 1 )
+custom_fonts/font = SubResource( 158 )
+text = "-- patreon supporters --"
+align = 1
+
+[node name="T3" type="VBoxContainer" parent="Main/Credits/C/S/L"]
+margin_top = 460.0
+margin_right = 1204.0
+margin_bottom = 490.0
+grow_horizontal = 2
+custom_constants/separation = 8
+alignment = 1
+
+[node name="Title" type="Label" parent="Main/Credits/C/S/L/T3"]
+margin_right = 1204.0
+margin_bottom = 30.0
+custom_colors/font_color = Color( 0.835294, 0.309804, 1, 1 )
+custom_fonts/font = SubResource( 109 )
+text = "- big money! -"
+align = 1
+
+[node name="Label" type="Label" parent="Main/Credits/C/S/L/T3"]
+visible = false
+margin_top = 38.0
+margin_right = 1204.0
+margin_bottom = 63.0
+custom_colors/font_color = Color( 0.972549, 0.721569, 1, 1 )
+custom_fonts/font = SubResource( 110 )
+text = "patron name 1"
+align = 1
+autowrap = true
+
+[node name="T2" type="VBoxContainer" parent="Main/Credits/C/S/L"]
+margin_top = 502.0
+margin_right = 1204.0
+margin_bottom = 529.0
+grow_horizontal = 2
+custom_constants/separation = 8
+alignment = 1
+
+[node name="Title" type="Label" parent="Main/Credits/C/S/L/T2"]
+margin_right = 1204.0
+margin_bottom = 27.0
+custom_colors/font_color = Color( 0.34902, 0.937255, 0.380392, 1 )
+custom_fonts/font = SubResource( 111 )
+text = "- extra support! -"
+align = 1
+
+[node name="Label" type="Label" parent="Main/Credits/C/S/L/T2"]
+visible = false
+margin_top = 35.0
+margin_right = 1204.0
+margin_bottom = 57.0
+custom_colors/font_color = Color( 0.721569, 1, 0.737255, 1 )
+custom_fonts/font = SubResource( 112 )
+text = "patron name 2"
+align = 1
+
+[node name="T1" type="VBoxContainer" parent="Main/Credits/C/S/L"]
+margin_top = 541.0
+margin_right = 1204.0
+margin_bottom = 568.0
+grow_horizontal = 2
+custom_constants/separation = 8
+alignment = 1
+
+[node name="Title" type="Label" parent="Main/Credits/C/S/L/T1"]
+margin_right = 1204.0
+margin_bottom = 27.0
+custom_colors/font_color = Color( 0.45098, 0.854902, 0.847059, 1 )
+custom_fonts/font = SubResource( 113 )
+text = "- thank you! -"
+align = 1
+
+[node name="Label" type="Label" parent="Main/Credits/C/S/L/T1"]
+visible = false
+margin_top = 35.0
+margin_right = 1204.0
+margin_bottom = 53.0
+rect_min_size = Vector2( 400, 0 )
+custom_colors/font_color = Color( 0.803922, 0.972549, 1, 1 )
+custom_fonts/font = SubResource( 114 )
+text = "patron name 3"
+align = 1
+autowrap = true
+
+[node name="SpecialThanks" type="VBoxContainer" parent="Main/Credits/C/S/L"]
+margin_top = 580.0
+margin_right = 1204.0
+margin_bottom = 978.0
+grow_horizontal = 2
+custom_constants/separation = 8
+alignment = 1
+
+[node name="Title" type="Label" parent="Main/Credits/C/S/L/SpecialThanks"]
+margin_right = 1204.0
+margin_bottom = 44.0
+custom_colors/font_color = Color( 0.917647, 1, 0.447059, 1 )
+custom_fonts/font = SubResource( 158 )
+text = "-- special thanks --"
+align = 1
+
+[node name="C13" type="CenterContainer" parent="Main/Credits/C/S/L/SpecialThanks"]
+margin_top = 52.0
+margin_right = 1204.0
+margin_bottom = 77.0
+
+[node name="H" type="HBoxContainer" parent="Main/Credits/C/S/L/SpecialThanks/C13"]
+margin_left = 253.0
+margin_right = 950.0
+margin_bottom = 25.0
+alignment = 1
+
+[node name="Label" type="Label" parent="Main/Credits/C/S/L/SpecialThanks/C13/H"]
+margin_right = 697.0
+margin_bottom = 25.0
+custom_colors/font_color = Color( 0.878431, 0.858824, 0.682353, 1 )
+custom_fonts/font = SubResource( 160 )
+text = "Basil \"Chedski\" Cyathea - The person that started it all; unfortunately gone now"
+align = 1
+
+[node name="C7" type="CenterContainer" parent="Main/Credits/C/S/L/SpecialThanks"]
+margin_top = 85.0
+margin_right = 1204.0
+margin_bottom = 110.0
+
+[node name="H" type="HBoxContainer" parent="Main/Credits/C/S/L/SpecialThanks/C7"]
+margin_left = 398.0
+margin_right = 805.0
+margin_bottom = 25.0
+alignment = 1
+
+[node name="Label" type="Label" parent="Main/Credits/C/S/L/SpecialThanks/C7/H"]
+margin_right = 407.0
+margin_bottom = 25.0
+custom_colors/font_color = Color( 0.878431, 0.858824, 0.682353, 1 )
+custom_fonts/font = SubResource( 160 )
+text = "Morphox - Creator of the original Sound Space"
+align = 1
+
+[node name="C12" type="CenterContainer" parent="Main/Credits/C/S/L/SpecialThanks"]
+margin_top = 118.0
+margin_right = 1204.0
+margin_bottom = 143.0
+
+[node name="H" type="HBoxContainer" parent="Main/Credits/C/S/L/SpecialThanks/C12"]
+margin_left = 318.0
+margin_right = 885.0
+margin_bottom = 25.0
+alignment = 1
+
+[node name="Label" type="Label" parent="Main/Credits/C/S/L/SpecialThanks/C12/H"]
+margin_right = 567.0
+margin_bottom = 25.0
+custom_colors/font_color = Color( 0.878431, 0.858824, 0.682353, 1 )
+custom_fonts/font = SubResource( 160 )
+text = "ARCW - Singlehandedly starting a new era of community growth"
+align = 1
+
+[node name="C11" type="CenterContainer" parent="Main/Credits/C/S/L/SpecialThanks"]
+margin_top = 151.0
+margin_right = 1204.0
+margin_bottom = 176.0
+
+[node name="H" type="HBoxContainer" parent="Main/Credits/C/S/L/SpecialThanks/C11"]
+margin_left = 336.0
+margin_right = 867.0
+margin_bottom = 25.0
+alignment = 1
+
+[node name="Label" type="Label" parent="Main/Credits/C/S/L/SpecialThanks/C11/H"]
+margin_right = 531.0
+margin_bottom = 25.0
+custom_colors/font_color = Color( 0.878431, 0.858824, 0.682353, 1 )
+custom_fonts/font = SubResource( 160 )
+text = "frostlines - Provided massive amounts of feedback and ideas"
+align = 1
+
+[node name="C4" type="CenterContainer" parent="Main/Credits/C/S/L/SpecialThanks"]
+margin_top = 184.0
+margin_right = 1204.0
+margin_bottom = 209.0
+
+[node name="H" type="HBoxContainer" parent="Main/Credits/C/S/L/SpecialThanks/C4"]
+margin_left = 389.0
+margin_right = 814.0
+margin_bottom = 25.0
+alignment = 1
+
+[node name="Label" type="Label" parent="Main/Credits/C/S/L/SpecialThanks/C4/H"]
+margin_right = 425.0
+margin_bottom = 25.0
+custom_colors/font_color = Color( 0.878431, 0.858824, 0.682353, 1 )
+custom_fonts/font = SubResource( 160 )
+text = "Jayden Jones - Feedback and code contributions"
+align = 1
+
+[node name="C8" type="CenterContainer" parent="Main/Credits/C/S/L/SpecialThanks"]
+margin_top = 217.0
+margin_right = 1204.0
+margin_bottom = 242.0
+
+[node name="H" type="HBoxContainer" parent="Main/Credits/C/S/L/SpecialThanks/C8"]
+margin_left = 312.0
+margin_right = 892.0
+margin_bottom = 25.0
+alignment = 1
+
+[node name="Label" type="Label" parent="Main/Credits/C/S/L/SpecialThanks/C8/H"]
+margin_right = 580.0
+margin_bottom = 25.0
+custom_colors/font_color = Color( 0.878431, 0.858824, 0.682353, 1 )
+custom_fonts/font = SubResource( 160 )
+text = "David \"kiwie\" Guy - Created SSQE (map editor) and gave feedback"
+align = 1
+
+[node name="C9" type="CenterContainer" parent="Main/Credits/C/S/L/SpecialThanks"]
+margin_top = 250.0
+margin_right = 1204.0
+margin_bottom = 275.0
+
+[node name="H" type="HBoxContainer" parent="Main/Credits/C/S/L/SpecialThanks/C9"]
+margin_left = 380.0
+margin_right = 824.0
+margin_bottom = 25.0
+alignment = 1
+
+[node name="Label" type="Label" parent="Main/Credits/C/S/L/SpecialThanks/C9/H"]
+margin_right = 444.0
+margin_bottom = 25.0
+custom_colors/font_color = Color( 0.878431, 0.858824, 0.682353, 1 )
+custom_fonts/font = SubResource( 160 )
+text = "aixeria - Help with backend server code & security"
+align = 1
+
+[node name="C10" type="CenterContainer" parent="Main/Credits/C/S/L/SpecialThanks"]
+visible = false
+margin_top = 283.0
+margin_right = 1204.0
+margin_bottom = 308.0
+
+[node name="H" type="HBoxContainer" parent="Main/Credits/C/S/L/SpecialThanks/C10"]
+margin_left = 396.0
+margin_right = 808.0
+margin_bottom = 25.0
+alignment = 1
+
+[node name="Label" type="Label" parent="Main/Credits/C/S/L/SpecialThanks/C10/H"]
+margin_right = 412.0
+margin_bottom = 25.0
+custom_colors/font_color = Color( 0.878431, 0.858824, 0.682353, 1 )
+custom_fonts/font = SubResource( 160 )
+text = "Omega - Created the Circuit background world"
+align = 1
+
+[node name="C6" type="CenterContainer" parent="Main/Credits/C/S/L/SpecialThanks"]
+margin_top = 283.0
+margin_right = 1204.0
+margin_bottom = 299.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Main/Credits/C/S/L/SpecialThanks/C6"]
+margin_left = 242.0
+margin_right = 962.0
+margin_bottom = 16.0
+custom_constants/margin_top = 8
+custom_constants/margin_bottom = 8
+
+[node name="H" type="Panel" parent="Main/Credits/C/S/L/SpecialThanks/C6/MarginContainer"]
+margin_top = 8.0
+margin_right = 720.0
+margin_bottom = 8.0
+rect_min_size = Vector2( 720, 0 )
+custom_styles/panel = SubResource( 161 )
+
+[node name="C5" type="CenterContainer" parent="Main/Credits/C/S/L/SpecialThanks"]
+margin_top = 307.0
+margin_right = 1204.0
+margin_bottom = 332.0
+
+[node name="H" type="HBoxContainer" parent="Main/Credits/C/S/L/SpecialThanks/C5"]
+margin_left = 294.0
+margin_right = 909.0
+margin_bottom = 25.0
+alignment = 1
+
+[node name="Label" type="Label" parent="Main/Credits/C/S/L/SpecialThanks/C5/H"]
+margin_right = 615.0
+margin_bottom = 25.0
+custom_colors/font_color = Color( 0.878431, 0.858824, 0.682353, 1 )
+custom_fonts/font = SubResource( 160 )
+text = "Past and present patrons - Quite literally paying for our Steam release"
+align = 1
+
+[node name="C" type="CenterContainer" parent="Main/Credits/C/S/L/SpecialThanks"]
+margin_top = 340.0
+margin_right = 1204.0
+margin_bottom = 365.0
+
+[node name="H" type="HBoxContainer" parent="Main/Credits/C/S/L/SpecialThanks/C"]
+margin_left = 276.0
+margin_right = 927.0
+margin_bottom = 25.0
+alignment = 1
+
+[node name="Label" type="Label" parent="Main/Credits/C/S/L/SpecialThanks/C/H"]
+margin_right = 651.0
+margin_bottom = 25.0
+custom_colors/font_color = Color( 0.878431, 0.858824, 0.682353, 1 )
+custom_fonts/font = SubResource( 160 )
+text = "Community staff - Helping people & keeping the community under control"
+align = 1
+
+[node name="C2" type="CenterContainer" parent="Main/Credits/C/S/L/SpecialThanks"]
+margin_top = 373.0
+margin_right = 1204.0
+margin_bottom = 398.0
+
+[node name="H" type="HBoxContainer" parent="Main/Credits/C/S/L/SpecialThanks/C2"]
+margin_left = 289.0
+margin_right = 915.0
+margin_bottom = 25.0
+alignment = 1
+
+[node name="Label" type="Label" parent="Main/Credits/C/S/L/SpecialThanks/C2/H"]
+margin_right = 626.0
+margin_bottom = 25.0
+custom_colors/font_color = Color( 0.878431, 0.858824, 0.682353, 1 )
+custom_fonts/font = SubResource( 160 )
+text = "The playtester team - Catching major bugs before they reach the public"
+align = 1
+
+[node name="SPACER" type="Control" parent="Main/Credits/C/S/L"]
+margin_top = 990.0
+margin_right = 1204.0
+margin_bottom = 1115.0
+rect_min_size = Vector2( 0, 125 )
+
+[node name="Quit" type="Button" parent="."]
+visible = false
+modulate = Color( 1, 0.6, 0.6, 1 )
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -60.0
+margin_top = 15.0
+margin_right = -6.45044
+margin_bottom = 42.0
+theme = ExtResource( 1 )
+action_mode = 0
+text = "Quit"
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="ToContentMgr" type="Button" parent="Control"]
+visible = false
+modulate = Color( 0.552941, 0.988235, 1, 1 )
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -159.0
+margin_top = 15.0
+margin_right = -64.0
+margin_bottom = 42.0
+grow_horizontal = 0
+theme = ExtResource( 1 )
+action_mode = 0
+text = "Add Songs"
+script = ExtResource( 8 )
+
+[node name="SidebarClick" type="ColorRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 1, 1, 1, 0 )
+
+[node name="Sidebar" type="Panel" parent="."]
+anchor_bottom = 1.0
+margin_right = 60.0
+rect_min_size = Vector2( 60, 0 )
+rect_clip_content = true
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 12 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="L" type="VBoxContainer" parent="Sidebar"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -2.0
+custom_constants/separation = 0
+
+[node name="Results" type="Button" parent="Sidebar/L"]
+margin_right = 58.0
+margin_bottom = 58.0
+rect_min_size = Vector2( 0, 58 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/focus = SubResource( 3 )
+custom_styles/disabled = SubResource( 4 )
+custom_styles/normal = SubResource( 4 )
+toggle_mode = true
+action_mode = 0
+group = SubResource( 5 )
+
+[node name="Tex" type="TextureRect" parent="Sidebar/L/Results"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 48.0
+margin_bottom = 48.0
+texture = ExtResource( 51 )
+expand = true
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="Sidebar/L/Results"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 64.0
+custom_fonts/font = SubResource( 6 )
+text = "Play Song"
+valign = 1
+
+[node name="MapSelect" type="Button" parent="Sidebar/L"]
+margin_top = 58.0
+margin_right = 58.0
+margin_bottom = 116.0
+rect_min_size = Vector2( 0, 58 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/focus = SubResource( 3 )
+custom_styles/disabled = SubResource( 4 )
+custom_styles/normal = SubResource( 4 )
+toggle_mode = true
+pressed = true
+action_mode = 0
+group = SubResource( 5 )
+
+[node name="Tex" type="TextureRect" parent="Sidebar/L/MapSelect"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 48.0
+margin_bottom = 48.0
+texture = ExtResource( 52 )
+expand = true
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="Sidebar/L/MapSelect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 64.0
+custom_fonts/font = SubResource( 6 )
+text = "Song Select"
+valign = 1
+
+[node name="Settings" type="Button" parent="Sidebar/L"]
+margin_top = 116.0
+margin_right = 58.0
+margin_bottom = 174.0
+rect_min_size = Vector2( 0, 58 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/focus = SubResource( 3 )
+custom_styles/disabled = SubResource( 4 )
+custom_styles/normal = SubResource( 4 )
+toggle_mode = true
+action_mode = 0
+group = SubResource( 5 )
+
+[node name="Tex" type="TextureRect" parent="Sidebar/L/Settings"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 48.0
+margin_bottom = 48.0
+texture = ExtResource( 53 )
+expand = true
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="Sidebar/L/Settings"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 64.0
+custom_fonts/font = SubResource( 6 )
+text = "Settings"
+valign = 1
+
+[node name="Credits" type="Button" parent="Sidebar/L"]
+margin_top = 174.0
+margin_right = 58.0
+margin_bottom = 232.0
+rect_min_size = Vector2( 0, 58 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/focus = SubResource( 3 )
+custom_styles/disabled = SubResource( 4 )
+custom_styles/normal = SubResource( 4 )
+toggle_mode = true
+action_mode = 0
+group = SubResource( 5 )
+
+[node name="Tex" type="TextureRect" parent="Sidebar/L/Credits"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 48.0
+margin_bottom = 48.0
+texture = ExtResource( 26 )
+expand = true
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="Sidebar/L/Credits"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 64.0
+custom_fonts/font = SubResource( 6 )
+text = "Credits"
+valign = 1
+
+[node name="ContentMgr" type="Button" parent="Sidebar/L"]
+margin_top = 232.0
+margin_right = 58.0
+margin_bottom = 290.0
+rect_min_size = Vector2( 0, 58 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/focus = SubResource( 3 )
+custom_styles/disabled = SubResource( 4 )
+custom_styles/normal = SubResource( 4 )
+toggle_mode = true
+action_mode = 0
+group = SubResource( 5 )
+
+[node name="Tex" type="TextureRect" parent="Sidebar/L/ContentMgr"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 48.0
+margin_bottom = 48.0
+texture = ExtResource( 54 )
+expand = true
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="Sidebar/L/ContentMgr"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 64.0
+custom_fonts/font = SubResource( 6 )
+text = "Content Manager"
+valign = 1
+
+[node name="StartVR" type="Button" parent="Sidebar/L"]
+visible = false
+margin_top = 290.0
+margin_right = 58.0
+margin_bottom = 348.0
+rect_min_size = Vector2( 0, 58 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/focus = SubResource( 3 )
+custom_styles/disabled = SubResource( 4 )
+custom_styles/normal = SubResource( 4 )
+toggle_mode = true
+action_mode = 0
+group = SubResource( 5 )
+
+[node name="Tex" type="TextureRect" parent="Sidebar/L/StartVR"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 48.0
+margin_bottom = 48.0
+texture = ExtResource( 61 )
+expand = true
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="Sidebar/L/StartVR"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 64.0
+custom_fonts/font = SubResource( 6 )
+text = "Play in VR"
+valign = 1
+
+[node name="OldMenu" type="Button" parent="Sidebar/L"]
+visible = false
+margin_top = 348.0
+margin_right = 58.0
+margin_bottom = 406.0
+rect_min_size = Vector2( 0, 58 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/focus = SubResource( 3 )
+custom_styles/disabled = SubResource( 4 )
+custom_styles/normal = SubResource( 4 )
+toggle_mode = true
+action_mode = 0
+group = SubResource( 5 )
+
+[node name="Tex" type="TextureRect" parent="Sidebar/L/OldMenu"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 48.0
+margin_bottom = 48.0
+texture = ExtResource( 55 )
+expand = true
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="Sidebar/L/OldMenu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 64.0
+custom_fonts/font = SubResource( 8 )
+text = "Switch to Old Menu"
+valign = 1
+
+[node name="Quit" type="Button" parent="Sidebar/L"]
+margin_top = 290.0
+margin_right = 58.0
+margin_bottom = 348.0
+rect_min_size = Vector2( 0, 58 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/focus = SubResource( 3 )
+custom_styles/disabled = SubResource( 4 )
+custom_styles/normal = SubResource( 4 )
+toggle_mode = true
+action_mode = 0
+group = SubResource( 5 )
+
+[node name="Tex" type="TextureRect" parent="Sidebar/L/Quit"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 48.0
+margin_bottom = 48.0
+texture = ExtResource( 56 )
+expand = true
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="Sidebar/L/Quit"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 64.0
+custom_fonts/font = SubResource( 8 )
+text = "Quit to Desktop"
+valign = 1
+
+[node name="Click" type="ColorRect" parent="Sidebar"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 1, 1, 1, 0 )
+
+[node name="VersionNumber" type="Label" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 70.0
+margin_top = -45.0
+margin_right = 359.0
+margin_bottom = -15.0
+grow_vertical = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.705882, 0.945098, 1 )
+custom_fonts/font = SubResource( 7 )
+text = "Sound Space Plus vX.Y.Z-branch"
+valign = 1
+script = ExtResource( 3 )
+
+[node name="TextureRect" type="TextureRect" parent="VersionNumber"]
+anchor_bottom = 1.0
+margin_left = -55.0
+margin_top = -4.0
+margin_right = -19.0
+margin_bottom = 2.0
+rect_min_size = Vector2( 36, 36 )
+texture = ExtResource( 4 )
+expand = true
+
+[node name="VersionNumberB" type="Label" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -24.0
+margin_top = -45.0
+margin_right = -24.0
+margin_bottom = -15.0
+grow_horizontal = 0
+grow_vertical = 2
+rect_min_size = Vector2( 0, 30 )
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.705882, 0.945098, 1 )
+custom_fonts/font = SubResource( 7 )
+text = "Sound Space Plus vX.Y.Z-branch"
+align = 2
+valign = 1
+script = ExtResource( 3 )
+
+[node name="TextureRect" type="TextureRect" parent="VersionNumberB"]
+anchor_bottom = 1.0
+margin_left = -42.0
+margin_top = -4.0
+margin_right = -6.0
+margin_bottom = 2.0
+rect_min_size = Vector2( 30, 30 )
+texture = ExtResource( 4 )
+expand = true
+
+[node name="WarningBar" type="ColorRect" parent="."]
+visible = false
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = 30.0
+color = Color( 0.278431, 0.490196, 0.580392, 1 )
+script = ExtResource( 95 )
+
+[node name="L" type="Label" parent="WarningBar"]
+anchor_bottom = 1.0
+margin_right = 201.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 157 )
+text = "This is a warning bar message"
+valign = 1
+
+[node name="L2" type="Label" parent="WarningBar"]
+anchor_bottom = 1.0
+margin_right = 201.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 157 )
+text = "This is a warning bar message"
+valign = 1
+
+[node name="Button" type="Button" parent="WarningBar"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+flat = true
+
+[node name="Download" type="ColorRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.698039 )
+script = ExtResource( 66 )
+
+[node name="Spinner" type="ReferenceRect" parent="Download"]
+pause_mode = 2
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -40.0
+margin_top = -100.0
+margin_right = 40.0
+margin_bottom = -20.0
+script = SubResource( 132 )
+
+[node name="0" type="Control" parent="Download/Spinner"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 25.0
+margin_bottom = 25.0
+
+[node name="ColorRect" type="ColorRect" parent="Download/Spinner/0"]
+margin_right = 10.0
+margin_bottom = 10.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Download/Spinner/0"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 20.0
+margin_bottom = 20.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+
+[node name="ColorRect3" type="ColorRect" parent="Download/Spinner/0"]
+margin_top = 10.0
+margin_right = 10.0
+margin_bottom = 20.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+
+[node name="ColorRect4" type="ColorRect" parent="Download/Spinner/0"]
+margin_left = 10.0
+margin_right = 20.0
+margin_bottom = 10.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="1" type="Control" parent="Download/Spinner"]
+margin_left = 30.0
+margin_top = 5.0
+margin_right = 50.0
+margin_bottom = 25.0
+
+[node name="ColorRect" type="ColorRect" parent="Download/Spinner/1"]
+margin_right = 10.0
+margin_bottom = 10.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Download/Spinner/1"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 20.0
+margin_bottom = 20.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+
+[node name="ColorRect3" type="ColorRect" parent="Download/Spinner/1"]
+margin_top = 10.0
+margin_right = 10.0
+margin_bottom = 20.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+
+[node name="ColorRect4" type="ColorRect" parent="Download/Spinner/1"]
+margin_left = 10.0
+margin_right = 20.0
+margin_bottom = 10.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="2" type="Control" parent="Download/Spinner"]
+margin_left = 55.0
+margin_top = 5.0
+margin_right = 75.0
+margin_bottom = 25.0
+
+[node name="ColorRect" type="ColorRect" parent="Download/Spinner/2"]
+margin_right = 10.0
+margin_bottom = 10.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Download/Spinner/2"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 20.0
+margin_bottom = 20.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+
+[node name="ColorRect3" type="ColorRect" parent="Download/Spinner/2"]
+margin_top = 10.0
+margin_right = 10.0
+margin_bottom = 20.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+
+[node name="ColorRect4" type="ColorRect" parent="Download/Spinner/2"]
+margin_left = 10.0
+margin_right = 20.0
+margin_bottom = 10.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="3" type="Control" parent="Download/Spinner"]
+margin_left = 55.0
+margin_top = 30.0
+margin_right = 75.0
+margin_bottom = 50.0
+
+[node name="ColorRect" type="ColorRect" parent="Download/Spinner/3"]
+margin_right = 10.0
+margin_bottom = 10.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Download/Spinner/3"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 20.0
+margin_bottom = 20.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+
+[node name="ColorRect3" type="ColorRect" parent="Download/Spinner/3"]
+margin_top = 10.0
+margin_right = 10.0
+margin_bottom = 20.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+
+[node name="ColorRect4" type="ColorRect" parent="Download/Spinner/3"]
+margin_left = 10.0
+margin_right = 20.0
+margin_bottom = 10.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="4" type="Control" parent="Download/Spinner"]
+margin_left = 55.0
+margin_top = 55.0
+margin_right = 75.0
+margin_bottom = 75.0
+
+[node name="ColorRect" type="ColorRect" parent="Download/Spinner/4"]
+margin_right = 10.0
+margin_bottom = 10.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Download/Spinner/4"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 20.0
+margin_bottom = 20.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+
+[node name="ColorRect3" type="ColorRect" parent="Download/Spinner/4"]
+margin_top = 10.0
+margin_right = 10.0
+margin_bottom = 20.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+
+[node name="ColorRect4" type="ColorRect" parent="Download/Spinner/4"]
+margin_left = 10.0
+margin_right = 20.0
+margin_bottom = 10.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="5" type="Control" parent="Download/Spinner"]
+margin_left = 30.0
+margin_top = 55.0
+margin_right = 50.0
+margin_bottom = 75.0
+
+[node name="ColorRect" type="ColorRect" parent="Download/Spinner/5"]
+margin_right = 10.0
+margin_bottom = 10.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Download/Spinner/5"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 20.0
+margin_bottom = 20.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+
+[node name="ColorRect3" type="ColorRect" parent="Download/Spinner/5"]
+margin_top = 10.0
+margin_right = 10.0
+margin_bottom = 20.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+
+[node name="ColorRect4" type="ColorRect" parent="Download/Spinner/5"]
+margin_left = 10.0
+margin_right = 20.0
+margin_bottom = 10.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="6" type="Control" parent="Download/Spinner"]
+margin_left = 5.0
+margin_top = 55.0
+margin_right = 25.0
+margin_bottom = 75.0
+
+[node name="ColorRect" type="ColorRect" parent="Download/Spinner/6"]
+margin_right = 10.0
+margin_bottom = 10.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Download/Spinner/6"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 20.0
+margin_bottom = 20.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+
+[node name="ColorRect3" type="ColorRect" parent="Download/Spinner/6"]
+margin_top = 10.0
+margin_right = 10.0
+margin_bottom = 20.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+
+[node name="ColorRect4" type="ColorRect" parent="Download/Spinner/6"]
+margin_left = 10.0
+margin_right = 20.0
+margin_bottom = 10.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="7" type="Control" parent="Download/Spinner"]
+margin_left = 5.0
+margin_top = 30.0
+margin_right = 25.0
+margin_bottom = 50.0
+
+[node name="ColorRect" type="ColorRect" parent="Download/Spinner/7"]
+margin_right = 10.0
+margin_bottom = 10.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect2" type="ColorRect" parent="Download/Spinner/7"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 20.0
+margin_bottom = 20.0
+color = Color( 0.835294, 0.909804, 0.933333, 1 )
+
+[node name="ColorRect3" type="ColorRect" parent="Download/Spinner/7"]
+margin_top = 10.0
+margin_right = 10.0
+margin_bottom = 20.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+
+[node name="ColorRect4" type="ColorRect" parent="Download/Spinner/7"]
+margin_left = 10.0
+margin_right = 20.0
+margin_bottom = 10.0
+color = Color( 0.941176, 0.94902, 0.952941, 1 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Download"]
+stream = ExtResource( 64 )
+volume_db = -3.0
+bus = "MenuReverb"
+
+[node name="Label" type="Label" parent="Download"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -60.0
+margin_top = -10.0
+margin_right = 60.0
+margin_bottom = 20.0
+grow_horizontal = 2
+custom_fonts/font = SubResource( 133 )
+text = "Downloading map..."
+align = 1
+
+[node name="Cancel" type="Button" parent="Download"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -80.0
+margin_top = 50.0
+margin_right = 80.0
+margin_bottom = 80.0
+theme = ExtResource( 1 )
+action_mode = 0
+text = "Cancel"
+
+[node name="BlackFade" type="ColorRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Mouse" type="Particles2D" parent="."]
+z_index = 900
+emitting = false
+amount = 256
+lifetime = 0.5
+fixed_fps = 240
+visibility_rect = Rect2( -2048, -2048, 4096, 4096 )
+local_coords = false
+draw_order = 1
+process_material = SubResource( 173 )
+texture = ExtResource( 98 )
+script = ExtResource( 99 )

@@ -1,9 +1,10 @@
 [gd_scene load_steps=21 format=2]
 
-[ext_resource path="res://menu2.tscn" type="PackedScene" id=1]
-[ext_resource path="res://font/UbuntuMono/Regular.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://scenes/menu/menu2.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/font/UbuntuMono/Regular.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://vr/MenuPointer.gd" type="Script" id=3]
 [ext_resource path="res://vr/vrmenu.gd" type="Script" id=4]
+
 
 [sub_resource type="Environment" id=5]
 background_mode = 1

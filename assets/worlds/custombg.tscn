@@ -2,7 +2,8 @@
 
 [ext_resource path="res://assets/worlds/custombg.gd" type="Script" id=1]
 [ext_resource path="res://assets/worlds/covers/void.png" type="Texture" id=2]
-[ext_resource path="res://error.jpg" type="Texture" id=3]
+[ext_resource path="res://assets/images/error.jpg" type="Texture" id=3]
+
 
 
 [sub_resource type="CanvasItemMaterial" id=8]

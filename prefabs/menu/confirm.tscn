@@ -1,0 +1,199 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://uitheme.tres" type="Theme" id=1]
+[ext_resource path="res://assets/font/Noto_Sans_JP/NotoSansJP-Medium.otf" type="DynamicFontData" id=2]
+[ext_resource path="res://assets/font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://scripts/ui/ConfirmationPrompt2D.gd" type="Script" id=4]
+[ext_resource path="res://assets/sfx/new_best.wav" type="AudioStream" id=5]
+[ext_resource path="res://assets/sfx/button-16.wav" type="AudioStream" id=6]
+[ext_resource path="res://assets/sfx/button-16.wav" type="AudioStream" id=7]
+
+
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.0784314, 0.0784314, 0.0784314, 1 )
+
+[sub_resource type="DynamicFont" id=1]
+use_filter = true
+font_data = ExtResource( 3 )
+fallback/0 = ExtResource( 2 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.0392157, 0.0392157, 0.0392157, 1 )
+
+[sub_resource type="StyleBoxFlat" id=6]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 1, 0.721569, 0.980392, 0.392157 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0, 0, 0, 0.627451 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0, 0, 0, 1 )
+
+[node name="ConfirmationPrompt" type="ColorRect"]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+color = Color( 0.0980392, 0.0980392, 0.0980392, 0.294118 )
+script = ExtResource( 4 )
+
+[node name="Alert" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+volume_db = 6.0
+bus = "Prompt"
+
+[node name="Next" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+volume_db = 6.0
+bus = "Prompt"
+
+[node name="Back" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+volume_db = 6.0
+bus = "Prompt"
+
+[node name="C" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Main" type="PanelContainer" parent="C"]
+margin_left = 440.0
+margin_top = 270.0
+margin_right = 840.0
+margin_bottom = 450.0
+rect_min_size = Vector2( 400, 180 )
+custom_styles/panel = SubResource( 4 )
+
+[node name="V" type="VBoxContainer" parent="C/Main"]
+margin_right = 400.0
+margin_bottom = 180.0
+rect_min_size = Vector2( 400, 180 )
+custom_constants/separation = 4
+
+[node name="Title" type="ColorRect" parent="C/Main/V"]
+margin_right = 400.0
+margin_bottom = 28.0
+rect_min_size = Vector2( 0, 28 )
+color = Color( 0, 0, 0, 1 )
+
+[node name="L" type="Label" parent="C/Main/V/Title"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Confirm"
+align = 1
+valign = 1
+
+[node name="Body" type="MarginContainer" parent="C/Main/V"]
+margin_top = 32.0
+margin_right = 400.0
+margin_bottom = 134.0
+size_flags_vertical = 3
+custom_constants/margin_right = 15
+custom_constants/margin_top = 5
+custom_constants/margin_left = 15
+custom_constants/margin_bottom = 5
+
+[node name="L" type="Label" parent="C/Main/V/Body"]
+margin_left = 15.0
+margin_top = 6.0
+margin_right = 385.0
+margin_bottom = 95.0
+text = "Are you sure? This will lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sollicitudin, neque nec dapibus feugiat, erat nisi interdum est, vehicula imperdiet quam sem sit amet dolor."
+align = 1
+valign = 1
+autowrap = true
+
+[node name="Buttons" type="MarginContainer" parent="C/Main/V"]
+margin_top = 138.0
+margin_right = 400.0
+margin_bottom = 180.0
+rect_min_size = Vector2( 0, 42 )
+custom_constants/margin_right = 10
+custom_constants/margin_top = 0
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 10
+
+[node name="H" type="HBoxContainer" parent="C/Main/V/Buttons"]
+margin_left = 10.0
+margin_right = 390.0
+margin_bottom = 32.0
+
+[node name="0" type="Button" parent="C/Main/V/Buttons/H"]
+margin_right = 380.0
+margin_bottom = 32.0
+size_flags_horizontal = 3
+custom_colors/font_color_disabled = Color( 1, 1, 1, 0.54902 )
+custom_colors/font_color_focus = Color( 1, 1, 1, 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
+custom_colors/font_color_pressed = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 1 )
+custom_styles/hover = SubResource( 5 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 2 )
+custom_styles/normal = SubResource( 3 )
+text = "0"
+
+[node name="1" type="Button" parent="C/Main/V/Buttons/H"]
+visible = false
+margin_left = 192.0
+margin_right = 380.0
+margin_bottom = 32.0
+size_flags_horizontal = 3
+custom_colors/font_color_disabled = Color( 1, 1, 1, 0.54902 )
+custom_colors/font_color_focus = Color( 1, 1, 1, 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
+custom_colors/font_color_pressed = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 1 )
+custom_styles/hover = SubResource( 5 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 2 )
+custom_styles/normal = SubResource( 3 )
+text = "1"
+
+[node name="2" type="Button" parent="C/Main/V/Buttons/H"]
+visible = false
+margin_left = 256.0
+margin_right = 380.0
+margin_bottom = 32.0
+size_flags_horizontal = 3
+custom_colors/font_color_disabled = Color( 1, 1, 1, 0.54902 )
+custom_colors/font_color_focus = Color( 1, 1, 1, 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
+custom_colors/font_color_pressed = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 1 )
+custom_styles/hover = SubResource( 5 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 2 )
+custom_styles/normal = SubResource( 3 )
+text = "2"
+
+[node name="3" type="Button" parent="C/Main/V/Buttons/H"]
+visible = false
+margin_left = 288.0
+margin_right = 380.0
+margin_bottom = 32.0
+size_flags_horizontal = 3
+custom_colors/font_color_disabled = Color( 1, 1, 1, 0.54902 )
+custom_colors/font_color_focus = Color( 1, 1, 1, 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
+custom_colors/font_color_pressed = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 1 )
+custom_styles/hover = SubResource( 5 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 2 )
+custom_styles/normal = SubResource( 3 )
+text = "3"

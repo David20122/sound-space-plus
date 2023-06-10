@@ -12,17 +12,17 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "AudioLoader",
 "language": "GDScript",
-"path": "res://classes/AudioLoader.gd"
+"path": "res://scripts/content/resources/AudioLoader.gd"
 }, {
 "base": "Resource",
 "class": "BackgroundWorld",
 "language": "GDScript",
-"path": "res://classes/BackgroundWorld.gd"
+"path": "res://scripts/content/game/BackgroundWorld.gd"
 }, {
 "base": "DanceMover",
 "class": "BouncyDanceMover",
 "language": "GDScript",
-"path": "res://classes/cursordance/Bouncy.gd"
+"path": "res://scripts/cursorDance/Bouncy.gd"
 }, {
 "base": "Resource",
 "class": "ChatMessage",
@@ -32,22 +32,22 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "ColorSet",
 "language": "GDScript",
-"path": "res://classes/ColorSet.gd"
+"path": "res://scripts/content/game/ColorSet.gd"
 }, {
 "base": "ColorRect",
 "class": "ConfirmationPrompt2D",
 "language": "GDScript",
-"path": "res://classes/ConfirmationPrompt2D.gd"
+"path": "res://scripts/ui/ConfirmationPrompt2D.gd"
 }, {
 "base": "Resource",
 "class": "DanceMover",
 "language": "GDScript",
-"path": "res://classes/cursordance/DanceMover.gd"
+"path": "res://scripts/cursorDance/DanceMover.gd"
 }, {
 "base": "DanceMover",
 "class": "DirectionalDanceMover",
 "language": "GDScript",
-"path": "res://classes/cursordance/Directional.gd"
+"path": "res://scripts/cursorDance/Directional.gd"
 }, {
 "base": "Reference",
 "class": "DiscordActivity",
@@ -122,7 +122,7 @@ _global_script_classes=[ {
 "base": "ColorRect",
 "class": "FileSelector2D",
 "language": "GDScript",
-"path": "res://classes/FileSelector.gd"
+"path": "res://scripts/ui/FileSelector.gd"
 }, {
 "base": "Resource",
 "class": "GameState",
@@ -132,7 +132,7 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "ImageLoader",
 "language": "GDScript",
-"path": "res://classes/ImageLoader.gd"
+"path": "res://scripts/content/resources/ImageLoader.gd"
 }, {
 "base": "Resource",
 "class": "Member",
@@ -142,62 +142,62 @@ _global_script_classes=[ {
 "base": "DanceMover",
 "class": "MomentumDanceMover",
 "language": "GDScript",
-"path": "res://classes/cursordance/Momentum.gd"
+"path": "res://scripts/cursorDance/Momentum.gd"
 }, {
-"base": "Spatial",
+"base": "Reference",
 "class": "Note",
 "language": "GDScript",
-"path": "res://classes/Note.gd"
+"path": "res://scripts/content/game/Note.gd"
 }, {
 "base": "Resource",
 "class": "NoteEffect",
 "language": "GDScript",
-"path": "res://classes/NoteEffect.gd"
+"path": "res://scripts/content/game/NoteEffect.gd"
 }, {
 "base": "Spatial",
 "class": "NoteManager",
 "language": "GDScript",
-"path": "res://game/NoteManager.gd"
+"path": "res://scripts/game/NoteManager.gd"
 }, {
 "base": "Resource",
 "class": "NoteMesh",
 "language": "GDScript",
-"path": "res://classes/NoteMesh.gd"
+"path": "res://scripts/content/game/NoteMesh.gd"
 }, {
 "base": "VBoxContainer",
 "class": "Notify2D",
 "language": "GDScript",
-"path": "res://classes/Notify2D.gd"
+"path": "res://scripts/ui/Notify2D.gd"
 }, {
 "base": "Reference",
 "class": "ObjParse",
 "language": "GDScript",
-"path": "res://classes/ObjParse.gd"
+"path": "res://scripts/content/resources/ObjParse.gd"
 }, {
 "base": "Resource",
 "class": "Registry",
 "language": "GDScript",
-"path": "res://classes/Registry.gd"
+"path": "res://scripts/content/Registry.gd"
 }, {
 "base": "Resource",
 "class": "Replay",
 "language": "GDScript",
-"path": "res://classes/Replay.gd"
+"path": "res://scripts/content/game/Replay.gd"
 }, {
 "base": "DanceMover",
 "class": "SimpleDanceMover",
 "language": "GDScript",
-"path": "res://classes/cursordance/Simple.gd"
+"path": "res://scripts/cursorDance/Simple.gd"
 }, {
 "base": "Resource",
 "class": "Song",
 "language": "GDScript",
-"path": "res://classes/Song.gd"
+"path": "res://scripts/content/game/Song.gd"
 }, {
 "base": "Spatial",
 "class": "SongPlayerManager",
 "language": "GDScript",
-"path": "res://game/Game.gd"
+"path": "res://scripts/game/Game.gd"
 }, {
 "base": "Spatial",
 "class": "VRPlayer",
@@ -249,22 +249,22 @@ _global_script_class_icons={
 [application]
 
 config/name="Sound Space Plus"
-run/main_scene="res://preinit.tscn"
+run/main_scene="res://scenes/init.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="SoundSpacePlus"
 run/delta_sync_after_draw=true
-boot_splash/image="res://assets/branding/splash.png"
+boot_splash/image="res://assets/images/branding/splash.png"
 boot_splash/fullsize=false
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
-config/icon="res://assets/branding/icon.png"
+config/icon="res://assets/images/branding/icon.png"
 config/windows_native_icon="res://icon.ico"
 config/quit_on_go_back=false
 config/version="jun9-rabbit"
 config/autoload_map_registries="test maps|res://test_assets/test_maps.sspmr;built in|res://content/songs/built_in_maps.sspmr"
 config/enable_new_content_mgr=true
-config/default_menu_target="res://menu2.tscn"
-config/default_menu_target.mobile="res://menu2.tscn"
-config/default_menu_target.editor="res://menu2.tscn"
+config/default_menu_target="res://scenes/menu/menu2.tscn"
+config/default_menu_target.mobile="res://scenes/menu/menu2.tscn"
+config/default_menu_target.editor="res://scenes/menu/menu2.tscn"
 config/7zip_binary_path=""
 config/7zip_binary_path.Windows="install_dir/util/7z.exe"
 config/7zip_binary_path.X11="install_dir/util/7zz"
@@ -302,12 +302,12 @@ channel_disable_time=15.0
 
 [autoload]
 
-Globals="*res://classes/Globals.gd"
-Online="*res://classes/Online.gd"
-SSP="*res://classes/SoundSpacePlus.gd"
-RQueue="*res://classes/ResourceQueue.gd"
+Globals="*res://scripts/Globals.gd"
+Online="*res://scripts/Online.gd"
+SSP="*res://scripts/SoundSpacePlus.gd"
+RQueue="*res://scripts/content/resources/ResourceQueue.gd"
 Discord="*res://addons/discord_game_sdk/discord.gd"
-Dance="*res://classes/Dance.gd"
+Dance="*res://scripts/cursorDance/Dance.gd"
 
 [debug]
 
