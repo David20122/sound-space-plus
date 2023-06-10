@@ -141,7 +141,7 @@ func reset_text_edit_screen():
 		get_node("../MenuSong").play()
 	$TxtFile/H/audio/player.stop()
 	
-	$TxtFile/H/E/Cover/T.texture = load("res://assets/ui/placeholder_dark.jpg")
+	$TxtFile/H/E/Cover/T.texture = load("res://assets/images/ui/placeholder_dark.jpg")
 	$TxtFile/H/E/Cover/C.disabled = true
 	$TxtFile/H/E/Cover/C.pressed = false
 	
@@ -274,7 +274,7 @@ func populate_edit_screen():
 		$Edit/Cover/C.disabled = false
 		$Edit/Cover/C.pressed = true
 	else:
-		$Edit/Cover/T.texture = load("res://assets/ui/placeholder_dark.jpg")
+		$Edit/Cover/T.texture = load("res://assets/images/ui/placeholder_dark.jpg")
 		$Edit/Cover/C.disabled = true
 		$Edit/Cover/C.pressed = false
 	
@@ -849,7 +849,7 @@ func back_to_menu():
 	get_parent().black_fade_target = true
 	yield(get_tree().create_timer(0.35),"timeout")
 	SSP.conmgr_transit = null
-	get_tree().change_scene("res://menuload.tscn")
+	get_tree().change_scene("res://scenes/loaders/menuload.tscn")
 
 func _ready():
 	

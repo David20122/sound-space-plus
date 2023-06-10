@@ -139,7 +139,7 @@ func _process(delta):
 			Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		if mt == 2:
-			Input.set_custom_mouse_cursor(load("res://assets/ui/blank.png"))
+			Input.set_custom_mouse_cursor(load("res://assets/images/ui/blank.png"))
 			Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 			if SSP.absolute_mode:
 				Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
@@ -208,7 +208,7 @@ func _ready():
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		else:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
-			Input.set_custom_mouse_cursor(load("res://assets/ui/blank.png"))
+			Input.set_custom_mouse_cursor(load("res://assets/images/ui/blank.png"))
 	else:
 		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	

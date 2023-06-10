@@ -5,7 +5,7 @@
 [ext_resource path="res://assets/images/branding/icon.png" type="Texture" id=3]
 [ext_resource path="res://uitheme.tres" type="Theme" id=4]
 [ext_resource path="res://scripts/init.gd" type="Script" id=5]
-[ext_resource path="res://assets/sfx/mkwii_load_short.ogg" type="AudioStream" id=6]
+[ext_resource path="res://assets/sfx/music/OLDmenu_loop.ogg" type="AudioStream" id=6]
 [ext_resource path="res://assets/font/Lato/Lato-Bold.ttf" type="DynamicFontData" id=7]
 [ext_resource path="res://LSPatronList.gd" type="Script" id=8]
 

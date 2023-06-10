@@ -59,6 +59,6 @@ func _process(delta):
 	if leaving and black_fade == 1:
 		if SSP.queue_active:
 			SSP.select_song(next_song)
-			get_tree().change_scene("res://songload.tscn")
+			get_tree().change_scene("res://scenes/loaders/songload.tscn")
 		else:
-			get_tree().change_scene("res://menuload.tscn")
+			get_tree().change_scene("res://scenes/loaders/menuload.tscn")

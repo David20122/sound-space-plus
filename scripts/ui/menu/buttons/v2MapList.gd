@@ -44,7 +44,7 @@ func play_song():
 	has_been_pressed = true
 	get_viewport().get_node("Menu").black_fade_target = true
 	yield(get_tree().create_timer(0.35),"timeout")
-	get_tree().change_scene("res://songload.tscn")
+	get_tree().change_scene("res://scenes/loaders/songload.tscn")
 
 var pt = 1
 func on_pressed(i):
@@ -62,7 +62,7 @@ func on_pressed(i):
 var auto_switch_to_play:bool = true
 func switch_to_play_screen():
 	if !auto_switch_to_play: return
-	if SSP.menu_target == "res://menu.tscn": return
+	if SSP.menu_target == "res://scenes/menu/menu.tscn": return
 	get_viewport().get_node("Menu/Main/MapRegistry").visible = false
 	get_viewport().get_node("Menu/Main/Results").visible = true
 	get_viewport().get_node("Menu/Sidebar/L/Results").pressed = true

@@ -614,7 +614,7 @@ func _process(delta):
 			con = LineEdit.new()
 			con.expand_to_text_length = true
 			con.theme = load("res://uitheme.tres")
-			con.set("custom_fonts/font",load("res://font/console.tres"))
+			con.set("custom_fonts/font",load("res://assets/font/console.tres"))
 			get_parent().add_child(con)
 			con.rect_position = Vector2(5,5)
 			con.rect_size.x = 400
@@ -654,7 +654,7 @@ func _ready():
 			!file.file_exists(OS.get_executable_path().get_base_dir().plus_file("3dm.pck")) or
 			!file.file_exists(OS.get_executable_path().get_base_dir().plus_file("worlds.pck"))
 		):
-			get_tree().change_scene("res://errors/content.tscn")
+			get_tree().change_scene("res://scenes/errors/content.tscn")
 			push_error("MISSING CONTENT")
 			return
 		ProjectSettings.load_resource_pack(OS.get_executable_path().get_base_dir().plus_file("note.pck"))
@@ -683,20 +683,20 @@ func _ready():
 		"((https?)://)[\\w\\-.]{2,256}(:\\d{1,5})?(/[\\w@:%._\\-+~&=]+)+/?"
 	)
 	
-	confirm_prompt = load("res://confirm.tscn").instance()
+	confirm_prompt = load("res://prefabs/menu/confirm.tscn").instance()
 	rootg.call_deferred("add_child",confirm_prompt)
 	
-	file_sel = load("res://filesel.tscn").instance()
+	file_sel = load("res://prefabs/menu/filesel.tscn").instance()
 	rootg.call_deferred("add_child",file_sel)
 	
-	notify_gui = load("res://notification_gui.tscn").instance()
+	notify_gui = load("res://prefabs/menu/notification_gui.tscn").instance()
 	rootg.call_deferred("add_child",notify_gui)
 	
 	fps_disp.margin_left = 15
 	fps_disp.margin_top = 15
 	fps_disp.margin_right = 0
 	fps_disp.margin_bottom = 0
-	fps_disp.set("custom_fonts/font",load("res://font/debug2.tres"))
+	fps_disp.set("custom_fonts/font",load("res://assets/font/debug2.tres"))
 	
 	for arg in OS.get_cmdline_args():
 		if arg.find("=") > -1:

@@ -34,7 +34,7 @@ func replay_error(txt:String):
 	Globals.confirm_prompt.close()
 	yield(Globals.confirm_prompt,"done_closing")
 	SSP.just_ended_song = false # Prevent PB handling
-	SSP.get_tree().change_scene("res://menuload.tscn")
+	SSP.get_tree().change_scene("res://scenes/loaders/menuload.tscn")
 
 var debug_label:Label
 
@@ -60,7 +60,7 @@ func read_data(from_path:String=""):
 			else:
 				debug_label = Label.new()
 				Globals.get_tree().root.add_child(debug_label)
-				debug_label.set("custom_fonts/font",load("res://font/debug.tres"))
+				debug_label.set("custom_fonts/font",load("res://assets/font/debug.tres"))
 				debug_label.name = "ReplayDebug"
 				debug_label.rect_position = Vector2(10,10)
 				debug_label.rect_scale = Vector2(0.5,0.5)

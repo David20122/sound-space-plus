@@ -2,7 +2,7 @@ extends Node
 
 var leaving:bool = false
 
-var target:String = "res://song.tscn"
+var target:String = "res://scenes/song.tscn"
 var target2:String = SSP.selected_space.path
 
 var black_fade_target:bool = false
@@ -30,10 +30,10 @@ func _ready():
 	var res2 = RQueue.queue_resource(target2)
 	if res != OK:
 		SSP.errorstr = "song.tscn queue_resource returned %s" % res
-		get_tree().change_scene("res://errors/songload.tscn")
+		get_tree().change_scene("res://scenes/errors/songload.tscn")
 	elif res2 != OK:
 		SSP.errorstr = "bg world queue_resource returned %s" % res
-		get_tree().change_scene("res://errors/songload.tscn")
+		get_tree().change_scene("res://scenes/errors/songload.tscn")
 	
 	SSP.miss_snd = SSP.get_stream_with_default("user://miss",SSP.def_miss_snd)
 	SSP.hit_snd = SSP.get_stream_with_default("user://hit",SSP.def_hit_snd)
@@ -50,7 +50,7 @@ var finishing = false
 func warning_menu_exit():
 	Globals.confirm_prompt.s_back.play()
 	yield(Globals.confirm_prompt,"done_closing")
-	get_tree().change_scene("res://menuload.tscn")
+	get_tree().change_scene("res://scenes/loaders/menuload.tscn")
 
 func progress(v):
 	$P.visible = true
@@ -64,10 +64,10 @@ func finish():
 	SSP.loaded_world = result2
 	if !(result is Object):
 		SSP.errorstr = "song.tscn get_resource returned non-object (probably null)"
-		get_tree().change_scene("res://errors/songload.tscn")
+		get_tree().change_scene("res://scenes/errors/songload.tscn")
 	if !(result2 is Object):
 		SSP.errorstr = "bg world get_resource returned non-object (probably null)"
-		get_tree().change_scene("res://errors/songload.tscn")
+		get_tree().change_scene("res://scenes/errors/songload.tscn")
 	
 	SSP.load_color_txt()
 	

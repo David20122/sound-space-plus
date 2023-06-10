@@ -249,6 +249,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Sound Space Plus"
+run/main_scene="res://scenes/init.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="SoundSpacePlus"
 run/delta_sync_after_draw=true
@@ -261,9 +262,9 @@ config/quit_on_go_back=false
 config/version="jun9-rabbit"
 config/autoload_map_registries="test maps|res://test_assets/test_maps.sspmr;built in|res://content/songs/built_in_maps.sspmr"
 config/enable_new_content_mgr=true
-config/default_menu_target="res://menu2.tscn"
-config/default_menu_target.mobile="res://menu2.tscn"
-config/default_menu_target.editor="res://menu2.tscn"
+config/default_menu_target="res://scenes/menu/menu2.tscn"
+config/default_menu_target.mobile="res://scenes/menu/menu2.tscn"
+config/default_menu_target.editor="res://scenes/menu/menu2.tscn"
 config/7zip_binary_path=""
 config/7zip_binary_path.Windows="install_dir/util/7z.exe"
 config/7zip_binary_path.X11="install_dir/util/7zz"

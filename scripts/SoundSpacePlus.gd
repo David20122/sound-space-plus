@@ -283,7 +283,7 @@ func start_vr():
 	vr_player = vr_av
 	
 	menu_target = "res://vr/vrmenu.tscn"
-	get_tree().change_scene("res://menuload.tscn")
+	get_tree().change_scene("res://scenes/loaders/menuload.tscn")
 
 # Song queue
 func prepare_queue():
@@ -376,7 +376,7 @@ func _console(cmd:String,args:String):
 				prepare_queue()
 				Globals.notify(Globals.NOTIFY_SUCCEED,"queue OK")
 		"play":
-			get_tree().change_scene("res://songload.tscn")
+			get_tree().change_scene("res://scenes/loaders/songload.tscn")
 		"desyncalerts":
 			Globals.notify(Globals.NOTIFY_SUCCEED,"Enabled desync alerts","Success")
 			desync_alerts = true
@@ -1794,7 +1794,7 @@ func register_worlds():
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_custombg", "Custom Background",
 		"res://assets/worlds/custombg.tscn", "Someone",
-		"res://error.jpg"
+		"res://assets/images/error.jpg"
 	))
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_custom", "Modworld",
@@ -1965,15 +1965,15 @@ func do_init(_ud=null):
 	if Globals.cmdline.has("map"):
 		if Globals.cmdline.has("txt"):
 			errorstr = "--txt cannot be used with --map"
-			get_tree().change_scene("res://errors/cmdline.tscn")
+			get_tree().change_scene("res://scenes/errors/cmdline.tscn")
 			return
 		elif Globals.cmdline.has("audio"):
 			errorstr = "--audio cannot be used with --map"
-			get_tree().change_scene("res://errors/cmdline.tscn")
+			get_tree().change_scene("res://scenes/errors/cmdline.tscn")
 			return
 		elif Globals.cmdline.map == "" || Globals.cmdline.map.is_valid_filename():
 			errorstr = "--map must be a valid path (ie. --map=~/Desktop/map.sspm)"
-			get_tree().change_scene("res://errors/cmdline.tscn")
+			get_tree().change_scene("res://scenes/errors/cmdline.tscn")
 			return
 		else:
 			single_map_mode = true
@@ -1981,7 +1981,7 @@ func do_init(_ud=null):
 			single_map_mode_path = Globals.cmdline.map
 			if !file.file_exists(single_map_mode_path):
 				errorstr = "--map: file '%s' does not exist" % single_map_mode_path
-				get_tree().change_scene("res://errors/cmdline.tscn")
+				get_tree().change_scene("res://scenes/errors/cmdline.tscn")
 				return
 			
 	elif Globals.cmdline.has("txt") || Globals.cmdline.has("audio"):
@@ -1990,15 +1990,15 @@ func do_init(_ud=null):
 				errorstr = "--txt must be used with --audio"
 			else:
 				errorstr = "--audio must be used with --txt"
-			get_tree().change_scene("res://errors/cmdline.tscn")
+			get_tree().change_scene("res://scenes/errors/cmdline.tscn")
 			return
 		elif Globals.cmdline.txt == "" || Globals.cmdline.txt.is_valid_filename():
 			errorstr = "--txt must be a valid path (ie. --txt=~/Desktop/map.txt)"
-			get_tree().change_scene("res://errors/cmdline.tscn")
+			get_tree().change_scene("res://scenes/errors/cmdline.tscn")
 			return
 		elif Globals.cmdline.audio == "" || Globals.cmdline.txt.is_valid_filename():
 			errorstr = "--audio must be a valid path (ie. --txt=~/Desktop/audio.txt)"
-			get_tree().change_scene("res://errors/cmdline.tscn")
+			get_tree().change_scene("res://scenes/errors/cmdline.tscn")
 			return
 		else:
 			single_map_mode = true
@@ -2046,7 +2046,7 @@ func do_init(_ud=null):
 	
 	if err != OK:
 		Globals.errornum = err
-		get_tree().change_scene("res://errors/userfolder.tscn")
+		get_tree().change_scene("res://scenes/errors/userfolder.tscn")
 		return
 	
 	# Setup directories if they don't already exist
@@ -2157,7 +2157,7 @@ func do_init(_ud=null):
 			var result = song.load_from_sspm(single_map_mode_path)
 			if result != song:
 				errorstr = "song load failed with message '%s'" % result
-				get_tree().change_scene("res://errors/cmdline.tscn")
+				get_tree().change_scene("res://scenes/errors/cmdline.tscn")
 				return
 		elif single_map_mode_txt:
 			song.id = "__smm"
@@ -2166,7 +2166,7 @@ func do_init(_ud=null):
 			var result = song.setup_from_file(single_map_mode_path,single_map_mode_audio_path)
 			if result != song:
 				errorstr = "song load failed with message '%s'" % result
-				get_tree().change_scene("res://errors/cmdline.tscn")
+				get_tree().change_scene("res://scenes/errors/cmdline.tscn")
 				return
 		SSP.selected_song = song
 	else:
@@ -2288,7 +2288,7 @@ func do_init(_ud=null):
 	if result != 0:
 		errornum = result
 		# errors are returned when settings are invalid
-		get_tree().change_scene("res://errors/settings.tscn")
+		get_tree().change_scene("res://scenes/errors/settings.tscn")
 		return
 	print('settings done')
 	if !hlm_converted:

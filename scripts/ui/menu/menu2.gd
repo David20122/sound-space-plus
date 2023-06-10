@@ -46,7 +46,7 @@ var black_fade:float = 1
 
 func _process(delta):
 	if Input.is_action_just_pressed("ui_end") and Input.is_key_pressed(KEY_SHIFT):
-		get_tree().change_scene("res://menuload.tscn")
+		get_tree().change_scene("res://scenes/loaders/menuload.tscn")
 	
 	if black_fade_target && black_fade != 1:
 		black_fade = min(black_fade + (delta/0.3),1)

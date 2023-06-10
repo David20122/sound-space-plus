@@ -38,7 +38,7 @@ func _ready():
 	var res = RQueue.queue_resource(target)
 	if res != OK:
 		SSP.errorstr = "queue_resource returned %s" % res
-		get_tree().change_scene("res://errors/menuload.tscn")
+		get_tree().change_scene("res://scenes/errors/menuload.tscn")
 
 var result
 var left:bool = false
@@ -60,7 +60,7 @@ func _process(delta):
 			black_fade_target = true
 			if !(result is Object):
 				SSP.errorstr = "get_resource returned non-object (probably null)"
-				get_tree().change_scene("res://errors/menuload.tscn")
+				get_tree().change_scene("res://scenes/errors/menuload.tscn")
 	
 	if leaving and result and black_fade == 1:
 		get_tree().change_scene_to(result)

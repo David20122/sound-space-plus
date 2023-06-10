@@ -11,7 +11,7 @@ func files_dropped(files:PoolStringArray,_screen:int):
 		SSP.replay_path = files[0]
 		get_viewport().get_node("Menu").black_fade_target = true
 		yield(get_tree().create_timer(0.35),"timeout")
-		get_tree().change_scene("res://songload.tscn")
+		get_tree().change_scene("res://scenes/loaders/songload.tscn")
 	else:
 		var song
 		for file in files:
@@ -49,7 +49,7 @@ func _pressed():
 	has_been_pressed = true
 	get_viewport().get_node("Menu").black_fade_target = true
 	yield(get_tree().create_timer(0.35),"timeout")
-	get_tree().change_scene("res://songload.tscn")
+	get_tree().change_scene("res://scenes/loaders/songload.tscn")
 
 func _ready():
 	get_tree().connect("files_dropped",self,"files_dropped")

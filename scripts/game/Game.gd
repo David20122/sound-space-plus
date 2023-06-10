@@ -118,7 +118,7 @@ func end(end_type:int):
 	black_fade_target = true
 	yield(get_tree().create_timer(0.35),"timeout")
 	
-	get_tree().change_scene("res://menuload.tscn")
+	get_tree().change_scene("res://scenes/loaders/menuload.tscn")
 
 func update_timer(ms:float,canSkip:bool=false):
 	var qms = ms + $Spawn.ms_offset

@@ -62,8 +62,8 @@ func get_format(bytes:PoolByteArray) -> String:
 	# unsupported
 	return "unknown"
 
-var error_texture:Texture = load("res://error.jpg")
-var invalid_texture:Texture = load("res://error2.jpg") # make the invalid texture show up instead of being treated 
+var error_texture:Texture = load("res://assets/images/error.jpg")
+var invalid_texture:Texture = load("res://assets/images/error2.jpg") # make the invalid texture show up instead of being treated 
 
 func load_buffer(bytes:PoolByteArray) -> Texture:
 	var format = get_format(bytes)
