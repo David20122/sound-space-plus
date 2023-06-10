@@ -1,9 +1,9 @@
 [gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://scripts/classes/cursordance/dancetest.gd" type="Script" id=1]
-[ext_resource path="res://scripts/classes/cursordance/maingrid.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scripts/cursordance/dancetest.gd" type="Script" id=1]
+[ext_resource path="res://scripts/cursordance/maingrid.tscn" type="PackedScene" id=2]
 [ext_resource path="res://font/UbuntuMono/Regular.ttf" type="DynamicFontData" id=5]
-[ext_resource path="res://scripts/classes/cursordance/Stop.gd" type="Script" id=7]
+[ext_resource path="res://scripts/cursordance/Stop.gd" type="Script" id=7]
 
 
 [sub_resource type="DynamicFont" id=79]
