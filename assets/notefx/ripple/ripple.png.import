@@ -2,9 +2,9 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/ripple.png-94985ecf769d3448f9d05d036b09eed2.s3tc.stex"
-path.etc2="res://.import/ripple.png-94985ecf769d3448f9d05d036b09eed2.etc2.stex"
-path.etc="res://.import/ripple.png-94985ecf769d3448f9d05d036b09eed2.etc.stex"
+path.s3tc="res://.import/ripple.png-8e67ee8d6ac6b5a93cc75d22d404158e.s3tc.stex"
+path.etc2="res://.import/ripple.png-8e67ee8d6ac6b5a93cc75d22d404158e.etc2.stex"
+path.etc="res://.import/ripple.png-8e67ee8d6ac6b5a93cc75d22d404158e.etc.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc2", "etc" ],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/notefx/ripple.png"
-dest_files=[ "res://.import/ripple.png-94985ecf769d3448f9d05d036b09eed2.s3tc.stex", "res://.import/ripple.png-94985ecf769d3448f9d05d036b09eed2.etc2.stex", "res://.import/ripple.png-94985ecf769d3448f9d05d036b09eed2.etc.stex" ]
+source_file="res://assets/notefx/ripple/ripple.png"
+dest_files=[ "res://.import/ripple.png-8e67ee8d6ac6b5a93cc75d22d404158e.s3tc.stex", "res://.import/ripple.png-8e67ee8d6ac6b5a93cc75d22d404158e.etc2.stex", "res://.import/ripple.png-8e67ee8d6ac6b5a93cc75d22d404158e.etc.stex" ]
 
 [params]
 
