@@ -144,7 +144,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/cursordance/Momentum.gd"
 }, {
-"base": "Reference",
+"base": "Spatial",
 "class": "Note",
 "language": "GDScript",
 "path": "res://scripts/content/game/Note.gd"

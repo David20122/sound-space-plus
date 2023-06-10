@@ -15,7 +15,7 @@
 [ext_resource path="res://addons/native_dialogs/bin/native_dialog_select_folder.gdns" type="Script" id=14]
 [ext_resource path="res://assets/branding/icon.svg" type="Texture" id=15]
 [ext_resource path="res://VersionNumber.gd" type="Script" id=17]
-[ext_resource path="res://menuButtons/CMgrExit.gd" type="Script" id=59]
+[ext_resource path="res://scripts/ui/menu/buttons/CMgrExit.gd" type="Script" id=59]
 [ext_resource path="res://assets/sfx/menu_full.mp3" type="AudioStream" id=70]
 
 
