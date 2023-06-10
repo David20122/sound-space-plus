@@ -98,7 +98,7 @@
 [ext_resource path="res://scripts/ui/menu/buttons/ModFlashlight.gd" type="Script" id=96]
 [ext_resource path="res://scripts/ui/menu/buttons/InvertMouse.gd" type="Script" id=97]
 [ext_resource path="res://assets/cursors/circle.png" type="Texture" id=98]
-[ext_resource path="res://MenuMouse.gd" type="Script" id=99]
+[ext_resource path="res://scripts/ui/menu/MenuMouse.gd" type="Script" id=99]
 
 [sub_resource type="Gradient" id=163]
 offsets = PoolRealArray( 0, 0.5, 1 )
