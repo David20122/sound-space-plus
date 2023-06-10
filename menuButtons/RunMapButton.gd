@@ -23,7 +23,7 @@ func files_dropped(files:PoolStringArray,_screen:int):
 				SSP.registry_song.check_and_remove_id(song.id)
 				song = SSP.registry_song.add_sspm_map("user://maps/%s.sspm" % song.id)
 		var list = $"/root/Menu/Main/MapRegistry/S/G"
-		list.prepare_maps()
+		list.prepare_songs()
 		list.reload_to_current_page()
 		if song:
 			SSP.select_song(song)
