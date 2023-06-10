@@ -3,12 +3,13 @@
 [ext_resource path="res://debug/console/console.gd" type="Script" id=1]
 [ext_resource path="res://debug/console/window_title.gd" type="Script" id=2]
 [ext_resource path="res://debug/console/console_holder.gd" type="Script" id=3]
-[ext_resource path="res://font/UbuntuMono/Regular.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://assets/font/UbuntuMono/Regular.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://debug/debug_ui.tres" type="Theme" id=5]
-[ext_resource path="res://font/Roboto/Medium.ttf" type="DynamicFontData" id=6]
-[ext_resource path="res://font/UbuntuMono/Italic.ttf" type="DynamicFontData" id=7]
-[ext_resource path="res://font/UbuntuMono/Bold_Italic.ttf" type="DynamicFontData" id=8]
-[ext_resource path="res://font/UbuntuMono/Bold.ttf" type="DynamicFontData" id=9]
+[ext_resource path="res://assets/font/Roboto/Medium.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://assets/font/UbuntuMono/Italic.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://assets/font/UbuntuMono/Bold_Italic.ttf" type="DynamicFontData" id=8]
+[ext_resource path="res://assets/font/UbuntuMono/Bold.ttf" type="DynamicFontData" id=9]
+
 
 [sub_resource type="DynamicFont" id=2]
 size = 14

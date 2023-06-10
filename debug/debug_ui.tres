@@ -1,7 +1,8 @@
 [gd_resource type="Theme" load_steps=29 format=2]
 
-[ext_resource path="res://font/Roboto/Regular.ttf" type="DynamicFontData" id=1]
-[ext_resource path="res://font/main.tres" type="DynamicFont" id=2]
+[ext_resource path="res://assets/font/Roboto/Regular.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://assets/font/main.tres" type="DynamicFont" id=2]
+
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.101961, 0.101961, 0.101961, 0.705882 )

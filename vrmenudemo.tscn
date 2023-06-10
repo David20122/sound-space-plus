@@ -1,8 +1,9 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://vr.gd" type="Script" id=1]
-[ext_resource path="res://ARVRAvatar.tscn" type="PackedScene" id=2]
-[ext_resource path="res://menu2.tscn" type="PackedScene" id=3]
+[ext_resource path="res://prefabs/ARVRAvatar.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/menu/menu2.tscn" type="PackedScene" id=3]
+
 
 [sub_resource type="ProceduralSky" id=1]
 sky_top_color = Color( 0.211765, 0.211765, 0.211765, 1 )

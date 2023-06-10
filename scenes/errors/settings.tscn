@@ -1,0 +1,107 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://assets/images/ui/settings_error.png" type="Texture" id=1]
+[ext_resource path="res://assets/sfx/music/error_loop.ogg" type="AudioStream" id=2]
+[ext_resource path="res://scenes/errors/settings.gd" type="Script" id=3]
+[ext_resource path="res://assets/font/UbuntuMono/Regular.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://uitheme.tres" type="Theme" id=5]
+[ext_resource path="res://scenes/errors/DeleteSettingsFile.gd" type="Script" id=6]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends AudioStreamPlayer
+
+func _process(delta):
+	if volume_db != 0:
+		volume_db = min(volume_db + (delta * 75),0)
+"
+
+[sub_resource type="DynamicFont" id=3]
+size = 18
+outline_size = 8
+outline_color = Color( 0, 0, 0, 1 )
+use_filter = true
+font_data = ExtResource( 4 )
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends ColorRect
+
+signal done_fading
+var target:bool = false
+
+func _process(delta):
+	if target:
+		if color.a < 1:
+			color.a = min(color.a+(delta/1.5),1)
+			if color.a == 1: emit_signal(\"done_fading\")
+	else:
+		if color.a > 0:
+			color.a = max(color.a-(delta/1.5),0)
+
+func _ready():
+	color = Color(0,0,0,1)
+"
+
+[node name="Control" type="ColorRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+color = Color( 0, 0, 0, 1 )
+script = ExtResource( 3 )
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchor_left = -1.0
+anchor_top = -1.0
+anchor_right = 2.0
+anchor_bottom = 2.0
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer"]
+margin_left = 1408.0
+margin_top = 696.0
+margin_right = 2432.0
+margin_bottom = 1464.0
+mouse_filter = 2
+texture = ExtResource( 1 )
+stretch_mode = 6
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+volume_db = -45.0
+autoplay = true
+bus = "Music"
+script = SubResource( 1 )
+
+[node name="Info" type="Label" parent="."]
+margin_left = 15.0
+margin_top = 15.0
+margin_right = 78.0
+margin_bottom = 34.0
+custom_fonts/font = SubResource( 3 )
+text = "ssp version: %s
+platform: %s
+error code: %s
+https://discord.gg/ssp"
+
+[node name="BlackFade" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 0 )
+script = SubResource( 2 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -25.0
+rect_min_size = Vector2( 1280, 0 )
+alignment = 1
+
+[node name="Reset" type="Button" parent="HBoxContainer"]
+margin_left = 565.0
+margin_right = 715.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 150, 0 )
+theme = ExtResource( 5 )
+text = "Reset Settings"
+script = ExtResource( 6 )

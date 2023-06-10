@@ -22,7 +22,7 @@ _global_script_classes=[ {
 "base": "DanceMover",
 "class": "BouncyDanceMover",
 "language": "GDScript",
-"path": "res://scripts/cursordance/Bouncy.gd"
+"path": "res://scripts/cursorDance/Bouncy.gd"
 }, {
 "base": "Resource",
 "class": "ChatMessage",
@@ -42,12 +42,12 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "DanceMover",
 "language": "GDScript",
-"path": "res://scripts/cursordance/DanceMover.gd"
+"path": "res://scripts/cursorDance/DanceMover.gd"
 }, {
 "base": "DanceMover",
 "class": "DirectionalDanceMover",
 "language": "GDScript",
-"path": "res://scripts/cursordance/Directional.gd"
+"path": "res://scripts/cursorDance/Directional.gd"
 }, {
 "base": "Reference",
 "class": "DiscordActivity",
@@ -142,7 +142,7 @@ _global_script_classes=[ {
 "base": "DanceMover",
 "class": "MomentumDanceMover",
 "language": "GDScript",
-"path": "res://scripts/cursordance/Momentum.gd"
+"path": "res://scripts/cursorDance/Momentum.gd"
 }, {
 "base": "Reference",
 "class": "Note",
@@ -157,7 +157,7 @@ _global_script_classes=[ {
 "base": "Spatial",
 "class": "NoteManager",
 "language": "GDScript",
-"path": "res://game/NoteManager.gd"
+"path": "res://scripts/game/NoteManager.gd"
 }, {
 "base": "Resource",
 "class": "NoteMesh",
@@ -187,7 +187,7 @@ _global_script_classes=[ {
 "base": "DanceMover",
 "class": "SimpleDanceMover",
 "language": "GDScript",
-"path": "res://scripts/cursordance/Simple.gd"
+"path": "res://scripts/cursorDance/Simple.gd"
 }, {
 "base": "Resource",
 "class": "Song",
@@ -197,7 +197,7 @@ _global_script_classes=[ {
 "base": "Spatial",
 "class": "SongPlayerManager",
 "language": "GDScript",
-"path": "res://game/Game.gd"
+"path": "res://scripts/game/Game.gd"
 }, {
 "base": "Spatial",
 "class": "VRPlayer",
@@ -249,14 +249,13 @@ _global_script_class_icons={
 [application]
 
 config/name="Sound Space Plus"
-run/main_scene="res://preinit.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="SoundSpacePlus"
 run/delta_sync_after_draw=true
-boot_splash/image="res://assets/branding/splash.png"
+boot_splash/image="res://assets/images/branding/splash.png"
 boot_splash/fullsize=false
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
-config/icon="res://assets/branding/icon.png"
+config/icon="res://assets/images/branding/icon.png"
 config/windows_native_icon="res://icon.ico"
 config/quit_on_go_back=false
 config/version="jun9-rabbit"
@@ -307,7 +306,7 @@ Online="*res://scripts/Online.gd"
 SSP="*res://scripts/SoundSpacePlus.gd"
 RQueue="*res://scripts/content/resources/ResourceQueue.gd"
 Discord="*res://addons/discord_game_sdk/discord.gd"
-Dance="*res://scripts/cursordance/Dance.gd"
+Dance="*res://scripts/cursorDance/Dance.gd"
 
 [debug]
 
