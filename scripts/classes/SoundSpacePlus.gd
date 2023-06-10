@@ -1841,36 +1841,36 @@ func register_meshes():
 			mesh_name = dir.get_next()
 func register_effects():
 	registry_effect.add_item(NoteEffect.new(
-		"ssp_ripple", "Ripple* (no color)", "res://assets/notefx/ripple.tscn", "Chedski"
+		"ssp_ripple", "Ripple* (no color)", "res://assets/notefx/ripple/ripple.tscn", "Chedski"
 	))
 	registry_effect.add_item(NoteEffect.new(
-		"ssp_ripple_n", "Ripple* (note color)", "res://assets/notefx/ripple.tscn", "Chedski"
+		"ssp_ripple_n", "Ripple* (note color)", "res://assets/notefx/ripple/ripple.tscn", "Chedski"
 	))
 	registry_effect.add_item(NoteEffect.new(
-		"ssp_ripple_r", "Ripple* (rainbow)", "res://assets/notefx/ripple.tscn", "Chedski"
-	))
-	
-	registry_effect.add_item(NoteEffect.new(
-		"ssp_shards", "Shards (note color)", "res://assets/notefx/shards.tscn", "Chedski"
-	))
-	registry_effect.add_item(NoteEffect.new(
-		"ssp_shards_r", "Shards (rainbow)", "res://assets/notefx/shards.tscn", "Chedski"
-	))
-	registry_effect.add_item(NoteEffect.new(
-		"ssp_shards_w", "Shards (no color)", "res://assets/notefx/shards.tscn", "Chedski"
+		"ssp_ripple_r", "Ripple* (rainbow)", "res://assets/notefx/ripple/ripple.tscn", "Chedski"
 	))
 	
 	registry_effect.add_item(NoteEffect.new(
-		"ssp_miss", "Miss* (red)", "res://assets/notefx/miss.tscn", "Chedski"
+		"ssp_shards", "Shards (note color)", "res://assets/notefx/shards/shards.tscn", "Chedski"
 	))
 	registry_effect.add_item(NoteEffect.new(
-		"ssp_miss_n", "Miss* (note color)", "res://assets/notefx/miss.tscn", "Chedski"
+		"ssp_shards_r", "Shards (rainbow)", "res://assets/notefx/shards/shards.tscn", "Chedski"
 	))
 	registry_effect.add_item(NoteEffect.new(
-		"ssp_miss_r", "Miss* (rainbow)", "res://assets/notefx/miss.tscn", "Chedski"
+		"ssp_shards_w", "Shards (no color)", "res://assets/notefx/shards/shards.tscn", "Chedski"
+	))
+	
+	registry_effect.add_item(NoteEffect.new(
+		"ssp_miss", "Miss* (red)", "res://assets/notefx/miss/miss.tscn", "Chedski"
 	))
 	registry_effect.add_item(NoteEffect.new(
-		"ssp_miss_w", "Miss* (no color)", "res://assets/notefx/miss.tscn", "Chedski"
+		"ssp_miss_n", "Miss* (note color)", "res://assets/notefx/miss/miss.tscn", "Chedski"
+	))
+	registry_effect.add_item(NoteEffect.new(
+		"ssp_miss_r", "Miss* (rainbow)", "res://assets/notefx/miss/miss.tscn", "Chedski"
+	))
+	registry_effect.add_item(NoteEffect.new(
+		"ssp_miss_w", "Miss* (no color)", "res://assets/notefx/miss/miss.tscn", "Chedski"
 	))
 
 

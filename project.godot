@@ -12,17 +12,17 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "AudioLoader",
 "language": "GDScript",
-"path": "res://classes/AudioLoader.gd"
+"path": "res://scripts/classes/AudioLoader.gd"
 }, {
 "base": "Resource",
 "class": "BackgroundWorld",
 "language": "GDScript",
-"path": "res://classes/BackgroundWorld.gd"
+"path": "res://scripts/classes/BackgroundWorld.gd"
 }, {
 "base": "DanceMover",
 "class": "BouncyDanceMover",
 "language": "GDScript",
-"path": "res://classes/cursordance/Bouncy.gd"
+"path": "res://scripts/classes/cursordance/Bouncy.gd"
 }, {
 "base": "Resource",
 "class": "ChatMessage",
@@ -32,22 +32,22 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "ColorSet",
 "language": "GDScript",
-"path": "res://classes/ColorSet.gd"
+"path": "res://scripts/classes/ColorSet.gd"
 }, {
 "base": "ColorRect",
 "class": "ConfirmationPrompt2D",
 "language": "GDScript",
-"path": "res://classes/ConfirmationPrompt2D.gd"
+"path": "res://scripts/classes/ConfirmationPrompt2D.gd"
 }, {
 "base": "Resource",
 "class": "DanceMover",
 "language": "GDScript",
-"path": "res://classes/cursordance/DanceMover.gd"
+"path": "res://scripts/classes/cursordance/DanceMover.gd"
 }, {
 "base": "DanceMover",
 "class": "DirectionalDanceMover",
 "language": "GDScript",
-"path": "res://classes/cursordance/Directional.gd"
+"path": "res://scripts/classes/cursordance/Directional.gd"
 }, {
 "base": "Reference",
 "class": "DiscordActivity",
@@ -122,7 +122,7 @@ _global_script_classes=[ {
 "base": "ColorRect",
 "class": "FileSelector2D",
 "language": "GDScript",
-"path": "res://classes/FileSelector.gd"
+"path": "res://scripts/classes/FileSelector.gd"
 }, {
 "base": "Resource",
 "class": "GameState",
@@ -132,7 +132,7 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "ImageLoader",
 "language": "GDScript",
-"path": "res://classes/ImageLoader.gd"
+"path": "res://scripts/classes/ImageLoader.gd"
 }, {
 "base": "Resource",
 "class": "Member",
@@ -142,17 +142,17 @@ _global_script_classes=[ {
 "base": "DanceMover",
 "class": "MomentumDanceMover",
 "language": "GDScript",
-"path": "res://classes/cursordance/Momentum.gd"
+"path": "res://scripts/classes/cursordance/Momentum.gd"
 }, {
 "base": "Spatial",
 "class": "Note",
 "language": "GDScript",
-"path": "res://classes/Note.gd"
+"path": "res://scripts/classes/Note.gd"
 }, {
 "base": "Resource",
 "class": "NoteEffect",
 "language": "GDScript",
-"path": "res://classes/NoteEffect.gd"
+"path": "res://scripts/classes/NoteEffect.gd"
 }, {
 "base": "Spatial",
 "class": "NoteManager",
@@ -162,37 +162,37 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "NoteMesh",
 "language": "GDScript",
-"path": "res://classes/NoteMesh.gd"
+"path": "res://scripts/classes/NoteMesh.gd"
 }, {
 "base": "VBoxContainer",
 "class": "Notify2D",
 "language": "GDScript",
-"path": "res://classes/Notify2D.gd"
+"path": "res://scripts/classes/Notify2D.gd"
 }, {
 "base": "Reference",
 "class": "ObjParse",
 "language": "GDScript",
-"path": "res://classes/ObjParse.gd"
+"path": "res://scripts/classes/ObjParse.gd"
 }, {
 "base": "Resource",
 "class": "Registry",
 "language": "GDScript",
-"path": "res://classes/Registry.gd"
+"path": "res://scripts/classes/Registry.gd"
 }, {
 "base": "Resource",
 "class": "Replay",
 "language": "GDScript",
-"path": "res://classes/Replay.gd"
+"path": "res://scripts/classes/Replay.gd"
 }, {
 "base": "DanceMover",
 "class": "SimpleDanceMover",
 "language": "GDScript",
-"path": "res://classes/cursordance/Simple.gd"
+"path": "res://scripts/classes/cursordance/Simple.gd"
 }, {
 "base": "Resource",
 "class": "Song",
 "language": "GDScript",
-"path": "res://classes/Song.gd"
+"path": "res://scripts/classes/Song.gd"
 }, {
 "base": "Spatial",
 "class": "SongPlayerManager",
@@ -302,12 +302,12 @@ channel_disable_time=15.0
 
 [autoload]
 
-Globals="*res://classes/Globals.gd"
-Online="*res://classes/Online.gd"
-SSP="*res://classes/SoundSpacePlus.gd"
-RQueue="*res://classes/ResourceQueue.gd"
+Globals="*res://scripts/classes/Globals.gd"
+Online="*res://scripts/classes/Online.gd"
+SSP="*res://scripts/classes/SoundSpacePlus.gd"
+RQueue="*res://scripts/classes/ResourceQueue.gd"
 Discord="*res://addons/discord_game_sdk/discord.gd"
-Dance="*res://classes/Dance.gd"
+Dance="*res://scripts/classes/Dance.gd"
 
 [debug]
 

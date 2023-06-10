@@ -11,6 +11,7 @@
 [ext_resource path="res://astroroomlibrary.gd" type="Script" id=27]
 [ext_resource path="res://assets/sfx/music/yay.mp3" type="AudioStream" id=28]
 
+
 [sub_resource type="SpatialMaterial" id=60]
 flags_unshaded = true
 
