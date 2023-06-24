@@ -1629,15 +1629,3 @@ func _init(idI:String="SOMETHING IS VERY BROKEN",nameI:String="SOMETHING IS VERY
 	name = nameI
 	song = nameI
 	creator = creatorI
-
-
-
-
-
-
-
-
-
-
-
-
