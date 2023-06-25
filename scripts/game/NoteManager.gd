@@ -441,7 +441,7 @@ func _ready():
 		mesh = load(SSP.selected_mesh.path)
 	
 	
-	var img = Globals.imageLoader.load_if_exists("user://note")
+	var img = ImageLoader.load_if_exists("user://note")
 	if img:
 		note_solid_mat.set_shader_param("image",img)
 		note_transparent_mat.set_shader_param("image",img)

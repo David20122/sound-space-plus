@@ -168,8 +168,8 @@ func p(path:String) -> String:
 
 var error_sound:AudioStream
 
-var audioLoader:AudioLoader = AudioLoader.new()
-var imageLoader:ImageLoader = ImageLoader.new()
+#var audioLoader:AudioLoader = AudioLoader.new()
+#var imageLoader:ImageLoader = ImageLoader.new()
 var confirm_prompt:ConfirmationPrompt2D
 var file_sel:FileSelector2D
 var notify_gui:Notify2D

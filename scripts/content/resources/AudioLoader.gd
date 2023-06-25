@@ -24,10 +24,9 @@
 
 #I honestly don't care that much, Kopimi ftw, but it's my little baby and I want it to look nice :3
 
-extends Node
 class_name AudioLoader
 
-func report_errors(err, filepath):
+static func report_errors(err, filepath):
 	# See: https://docs.godotengine.org/en/latest/classes/class_@globalscope.html#enum-globalscope-error
 	var result_hash = {
 		ERR_FILE_NOT_FOUND: "File: not found",
@@ -48,7 +47,7 @@ func report_errors(err, filepath):
 	else:
 		print("Unknown error with file ", filepath, " error code: ", err)
 
-func get_format(bytes:PoolByteArray) -> String:
+static func get_format(bytes:PoolByteArray) -> String:
 	if bytes.size() < 10: return "unknown"
 	# Figure out file format from signatures
 	# https://en.wikipedia.org/wiki/List_of_file_signatures
@@ -70,7 +69,7 @@ func get_format(bytes:PoolByteArray) -> String:
 	# unsupported
 	return "unknown"
 
-func load_buffer(bytes:PoolByteArray,loop:bool=false):
+static func load_buffer(bytes:PoolByteArray,loop:bool=false):
 	var format = get_format(bytes)
 	
 	# if File is wav
@@ -181,7 +180,7 @@ func load_buffer(bytes:PoolByteArray,loop:bool=false):
 		push_error("Unknown filetype or format!")
 		return Globals.error_sound
 
-func load_file(filepath:String,loop:bool=false):
+static func load_file(filepath:String,loop:bool=false):
 	var file = File.new()
 	var err = file.open(Globals.p(filepath), File.READ)
 	if err != OK:
@@ -203,7 +202,7 @@ func load_file(filepath:String,loop:bool=false):
 # And the 32bit case abour 50% slower
 # I don't wanna risk it always being slower on other files
 # And really, the solution would be to handle it in a low-level language
-func convert_to_16bit(data: PoolByteArray, from: int) -> PoolByteArray:
+static func convert_to_16bit(data: PoolByteArray, from: int) -> PoolByteArray:
 	print("converting to 16-bit from %d" % from)
 	var time = OS.get_ticks_msec()
 	# 24 bit .wav's are typically stored as integers

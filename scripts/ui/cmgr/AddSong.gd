@@ -383,7 +383,7 @@ func import_vulnus_folder():
 			return
 		song.setup_from_vulnus_json("%s/%s" % [path,difficulties[0]], "%s/%s" % [path,music_path])
 		
-		var cover = Globals.imageLoader.load_if_exists(path.plus_file("cover"))
+		var cover = ImageLoader.load_if_exists(path.plus_file("cover"))
 		if cover:
 			song.cover = cover
 			song.has_cover = true
@@ -529,7 +529,7 @@ func file_selected(files:PoolStringArray):
 	match opening:
 		FO_COVER:
 			if !song: return
-			var cover = Globals.imageLoader.load_file(files[0])
+			var cover = ImageLoader.load_file(files[0])
 			if cover:
 				song.cover = cover
 				song.has_cover = true
@@ -652,7 +652,7 @@ func file_selected(files:PoolStringArray):
 				get_node("../MenuSong").play()
 			$TxtFile/H/audio/player.stop()
 			$TxtFile/H/audio/preview/Title.text = "Preview"
-			var stream = Globals.audioLoader.load_file(files[0])
+			var stream = AudioLoader.load_file(files[0])
 			if stream == Globals.error_sound:
 				$TxtFile/H/audio/preview.disabled = true
 				$TxtFile/H/audio/preview.modulate = Color(0.5,0.5,0.5)

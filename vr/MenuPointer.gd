@@ -75,9 +75,9 @@ func _process(delta):
 	
 
 func _ready():
-	var img = Globals.imageLoader.load_if_exists("user://cursor")
+	var img = ImageLoader.load_if_exists("user://cursor")
 	if img: $Pointer.mesh.material.albedo_texture = img
 
-	var img2 = Globals.imageLoader.load_if_exists("user://trail")
+	var img2 = ImageLoader.load_if_exists("user://trail")
 	if img2: $PointerTrail.draw_pass_1.material.albedo_texture = img2
 	elif img: $PointerTrail.draw_pass_1.material.albedo_texture = img

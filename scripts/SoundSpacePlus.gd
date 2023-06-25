@@ -440,7 +440,7 @@ func get_stream_with_default(path:String,default:AudioStream) -> AudioStream:
 	elif file.file_exists(path + ".wav"): path += ".wav"
 	if file.file_exists(path):
 		if !path.begins_with("res://"):
-			var stream = Globals.audioLoader.load_file(path)
+			var stream = AudioLoader.load_file(path)
 			if stream and stream is AudioStream: return stream
 		else: 
 			var mf:AudioStream = load(path) as AudioStream

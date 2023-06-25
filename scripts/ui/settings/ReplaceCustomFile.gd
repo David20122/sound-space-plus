@@ -17,7 +17,7 @@ func save_sel(file:String):
 	dir.copy(copy_old_from,file)
 
 func load_img():
-	var tex = Globals.imageLoader.load_if_exists("user://" + target)
+	var tex = ImageLoader.load_if_exists("user://" + target)
 	if tex:
 		$ImgPreview.texture = tex
 		$Clear.disabled = false

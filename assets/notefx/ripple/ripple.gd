@@ -50,7 +50,7 @@ func setup(id:String,miss:bool):
 	var path:String = "user://hit"
 	if miss: path = "user://miss"
 	
-	var img = Globals.imageLoader.load_if_exists(path)
+	var img = ImageLoader.load_if_exists(path)
 	if img: $Particles.material_override.albedo_texture = img
 	
 	if id == "ssp_ripple_r": rainbow = true

@@ -121,7 +121,7 @@ func item_selected(idx:int):
 				SSP.selected_song.is_online
 			):
 				audio_data = SSP.selected_song.get_music_buffer()
-				var format = Globals.audioLoader.get_format(audio_data)
+				var format = AudioLoader.get_format(audio_data)
 				if format == "mp3":
 					Globals.file_sel.save_file(
 						self,

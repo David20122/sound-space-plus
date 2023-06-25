@@ -101,7 +101,7 @@ func add_item(item,subregistry:bool=false,replaceSongs:bool=false):
 	else: assert(false,"Invalid asset type for registry")
 
 func load_png(file:String):
-	return Globals.imageLoader.load_file(file)
+	return ImageLoader.load_file(file)
 
 func add_sspm_map(path:String):
 	var song:Song = Song.new()

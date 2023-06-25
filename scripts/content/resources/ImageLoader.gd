@@ -25,10 +25,9 @@
 
 #I honestly don't care that much, Kopimi ftw, but it's my little baby and I want it to look nice :3
 
-extends Node
 class_name ImageLoader
 
-func report_errors(err, filepath):
+static func report_errors(err, filepath):
 	# See: https://docs.godotengine.org/en/latest/classes/class_@globalscope.html#enum-globalscope-error
 	var result_hash = {
 		ERR_FILE_NOT_FOUND: "File: not found",
@@ -49,7 +48,7 @@ func report_errors(err, filepath):
 	else:
 		print("Unknown error with file ", filepath, " error code: ", err)
 
-func get_format(bytes:PoolByteArray) -> String:
+static func get_format(bytes:PoolByteArray) -> String:
 	if bytes.size() < 10: return "unknown"
 	# Figure out file format from signatures
 	# https://en.wikipedia.org/wiki/List_of_file_signatures
@@ -62,10 +61,7 @@ func get_format(bytes:PoolByteArray) -> String:
 	# unsupported
 	return "unknown"
 
-var error_texture:Texture = load("res://assets/images/error.jpg")
-var invalid_texture:Texture = load("res://assets/images/error2.jpg") # make the invalid texture show up instead of being treated 
-
-func load_buffer(bytes:PoolByteArray) -> Texture:
+static func load_buffer(bytes:PoolByteArray) -> Texture:
 	var format = get_format(bytes)
 	var img:Image = Image.new()
 	
@@ -73,25 +69,25 @@ func load_buffer(bytes:PoolByteArray) -> Texture:
 	elif format == "bmp": img.load_bmp_from_buffer(bytes)
 	elif format == "jpg": img.load_jpg_from_buffer(bytes)
 	elif format == "webp": img.load_webp_from_buffer(bytes)
-	else: return invalid_texture
+	else: return preload("res://assets/images/error2.jpg")
 	
 	var imgtex:ImageTexture = ImageTexture.new()
 	imgtex.create_from_image(img)
 	return imgtex
 
-func load_file(filepath:String) -> Texture:
+static func load_file(filepath:String) -> Texture:
 	var file = File.new()
 	var err = file.open(Globals.p(filepath), File.READ)
 	if err != OK:
 		report_errors(err, Globals.p(filepath))
 		file.close()
-		return error_texture
+		return preload("res://assets/images/error.jpg")
 	
 	var bytes:PoolByteArray = file.get_buffer(file.get_len())
 	file.close()
 	return load_buffer(bytes)
 
-func load_if_exists(path:String):
+static func load_if_exists(path:String):
 	var file:File = File.new()
 	path = Globals.p(path)
 	if file.file_exists(path + ".png"): path += ".png"

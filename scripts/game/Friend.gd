@@ -49,7 +49,7 @@ func _process(delta):
 
 func _ready():
 	for s in all_states:
-		var tex = Globals.imageLoader.load_if_exists("user://friend/" + s)
+		var tex = ImageLoader.load_if_exists("user://friend/" + s)
 		if tex:
 			states.append(s)
 			textures.append(tex)

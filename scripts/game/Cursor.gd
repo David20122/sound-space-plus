@@ -215,17 +215,17 @@ func _ready():
 	var mat:SpatialMaterial = $Mesh.get("material/0")
 	$Mesh.scale = Vector3(SSP.cursor_scale,SSP.cursor_scale,SSP.cursor_scale)
 	$Mesh2.scale = Vector3(SSP.cursor_scale,SSP.cursor_scale,SSP.cursor_scale)
-	var img = Globals.imageLoader.load_if_exists("user://cursor")
+	var img = ImageLoader.load_if_exists("user://cursor")
 	if img:
 		mat.albedo_color = Color(1,1,1)
 		mat.albedo_texture = img
 	
 	mat = get_node("../../CursorTrail/Mesh").get("material/0")
-	var img2 = Globals.imageLoader.load_if_exists("user://trail")
+	var img2 = ImageLoader.load_if_exists("user://trail")
 	if img2: mat.albedo_texture = img2
 	elif img: mat.albedo_texture = img
 	
-	img = Globals.imageLoader.load_if_exists("user://touch")
+	img = ImageLoader.load_if_exists("user://touch")
 	if img: $VisualPos/T.texture = img
 	
 	$L.visible = ProjectSettings.get_setting("application/config/show_trail_debug")

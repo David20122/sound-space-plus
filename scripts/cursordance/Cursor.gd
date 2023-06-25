@@ -12,5 +12,5 @@ func _process(delta):
 
 
 func _ready():
-	var img = Globals.imageLoader.load_if_exists("user://cursor")
+	var img = ImageLoader.load_if_exists("user://cursor")
 	if img: $TextureRect.texture = img

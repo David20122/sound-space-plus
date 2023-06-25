@@ -68,7 +68,6 @@ enum {
 
 func _get_cover():
 	return cover
-	# I'll eventually add handling for online maps with covers
 
 func is_valid_id(txt:String):
 	return !(
@@ -341,14 +340,14 @@ func stream() -> AudioStream:
 	if sspm_song_stored || !musicFile.begins_with("res://"):
 		var buf = get_music_buffer()
 		if buf:
-			var s = Globals.audioLoader.load_buffer(buf)
+			var s = AudioLoader.load_buffer(buf)
 			if s is AudioStreamOGGVorbis or s is AudioStreamMP3: s.loop = false
 			if s: return s
 			else: return Globals.error_sound
 		else:
 			return Globals.error_sound
 #	elif !musicFile.begins_with("res://"):
-#		var stream = Globals.audioLoader.load_file(musicFile)
+#		var stream = AudioLoader.load_file(musicFile)
 #		if stream: return stream
 #		else: return Globals.error_sound
 	else: 
@@ -530,7 +529,7 @@ func load_from_vulnus_map(folder_path:String,difficulty_id:int=0):
 	
 	difficulty = diff
 	
-	var c = Globals.imageLoader.load_if_exists(folder_path + "/cover.png")
+	var c = ImageLoader.load_if_exists(folder_path + "/cover.png")
 	if c:
 		cover = c
 		has_cover = true
@@ -1435,7 +1434,7 @@ func load_from_sspm(path:String):
 		else:
 			file.get_64()
 			var buf:PoolByteArray = file.get_buffer(12)
-			if Globals.audioLoader.get_format(buf) == "unknown":
+			if AudioLoader.get_format(buf) == "unknown":
 				warning = "[sspm] Invalid music data!"
 				is_broken = true
 				file.close()
