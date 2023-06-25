@@ -1,6 +1,7 @@
 extends Node
 
-# https://chedski.net/ssp/mapdb
+# https://cdn.soundspaceplus.dev/index.json
+# :3
 
 var mapdb_api:String = ""
 
