@@ -787,8 +787,6 @@ func onopen():
 	$TxtFile/H/audio/preview/Title.text = "Preview"
 	$TxtFile/H/audio/player.stop()
 	$TxtFile/H/Temp.pressed = false
-	if SSP.play_menu_music and !get_node("../MenuSong").playing:
-		get_node("../MenuSong").play()
 	
 	visible = true
 
@@ -846,10 +844,8 @@ func finish_map():
 		$Finish/ok.visible = true
 
 func back_to_menu():
-	get_parent().black_fade_target = true
-	yield(get_tree().create_timer(0.35),"timeout")
 	SSP.conmgr_transit = null
-	get_tree().change_scene("res://scenes/loaders/menuload.tscn")
+	call_deferred("onopen")
 
 func _ready():
 	
@@ -857,7 +853,6 @@ func _ready():
 	$SelectType/sspm.connect("pressed",self,"select_type",[T_SSPM])
 	$SelectType/vulnus.connect("pressed",self,"select_type",[T_VULNUS])
 	$SelectType/sspmr.connect("pressed",self,"select_type",[T_SSPMR])
-	$SelectType/cancel.connect("pressed",self,"back_to_menu")
 	
 	$VulnusFile/zip.connect("pressed",self,"sel_filetype",[F_ZIP])
 	$VulnusFile/folder.connect("pressed",self,"sel_filetype",[F_DIR])

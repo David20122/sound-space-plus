@@ -30,7 +30,7 @@ func files_dropped(files:PoolStringArray,_screen:int):
 			list.switch_to_play_screen()
 
 func _input(event:InputEvent):
-	if get_viewport().get_node("Menu/Main/Results").visible == true:
+	if get_viewport().get_node("Menu/TabBar/Results").visible == true:
 		if !disabled && !has_been_pressed && event is InputEventJoypadButton:
 			if event.button_index == JOY_XBOX_A && event.pressed:
 				grab_focus()
