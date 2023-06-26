@@ -861,7 +861,6 @@ custom_styles/panel = SubResource( 176 )
 tabs_visible = false
 
 [node name="Results" type="HBoxContainer" parent="TabBar"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_constants/separation = 15
@@ -4249,6 +4248,7 @@ __meta__ = {
 }
 
 [node name="ContentManager" type="ReferenceRect" parent="TabBar"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 border_color = Color( 1, 0, 0, 0 )

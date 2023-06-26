@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://assets/font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://scripts/ui/menu/VersionNumber.gd" type="Script" id=2]
@@ -6,8 +6,6 @@
 [ext_resource path="res://uitheme.tres" type="Theme" id=4]
 [ext_resource path="res://scripts/init.gd" type="Script" id=5]
 [ext_resource path="res://assets/sfx/music/OLDmenu_loop.ogg" type="AudioStream" id=6]
-[ext_resource path="res://assets/font/Lato/Lato-Bold.ttf" type="DynamicFontData" id=7]
-[ext_resource path="res://LSPatronList.gd" type="Script" id=8]
 
 [sub_resource type="DynamicFont" id=1]
 size = 48
@@ -47,18 +45,6 @@ func _process(delta):
 			n.modulate.a = 1
 		else: n.modulate.a = max(n.modulate.a-(delta*1.35),0)
 "
-
-[sub_resource type="DynamicFont" id=5]
-size = 28
-use_filter = true
-font_data = ExtResource( 7 )
-
-[sub_resource type="DynamicFont" id=6]
-size = 20
-use_filter = true
-extra_spacing_top = -2
-extra_spacing_bottom = -2
-font_data = ExtResource( 7 )
 
 [node name="Control" type="ColorRect"]
 pause_mode = 2
@@ -410,49 +396,6 @@ margin_left = 10.0
 margin_right = 20.0
 margin_bottom = 10.0
 color = Color( 0.941176, 0.94902, 0.952941, 1 )
-
-[node name="Patreon" type="ReferenceRect" parent="."]
-visible = false
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -430.0
-margin_top = 30.0
-margin_right = -30.0
-margin_bottom = -150.0
-script = ExtResource( 8 )
-
-[node name="Title" type="Label" parent="Patreon"]
-anchor_right = 1.0
-margin_bottom = 36.0
-custom_colors/font_color = Color( 0.972549, 0.721569, 1, 1 )
-custom_fonts/font = SubResource( 5 )
-text = "big money patrons"
-align = 1
-
-[node name="C" type="ReferenceRect" parent="Patreon"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 42.0
-rect_clip_content = true
-
-[node name="L" type="VBoxContainer" parent="Patreon/C"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_bottom = -479.0
-grow_horizontal = 2
-custom_constants/separation = 8
-
-[node name="Label" type="Label" parent="Patreon/C/L"]
-visible = false
-margin_right = 400.0
-margin_bottom = 21.0
-rect_min_size = Vector2( 400, 0 )
-custom_colors/font_color = Color( 0.803922, 0.972549, 1, 1 )
-custom_fonts/font = SubResource( 6 )
-text = "username"
-align = 1
-autowrap = true
 
 [node name="BlackFade" type="ColorRect" parent="."]
 visible = false

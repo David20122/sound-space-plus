@@ -37,7 +37,7 @@ func show_bar():
 	$"../SidebarClose".visible = true
 	tween.kill()
 	tween = create_tween()
-	tween.parallel().tween_property(self,"rect_size:x",320,0.4).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+	tween.parallel().tween_property(self,"rect_size:x",320.0,0.4).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 	tween.parallel().tween_property($"../SidebarClose","modulate:a",0.4,0.2).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 	tween.play()
 func hide_bar():
@@ -47,8 +47,8 @@ func hide_bar():
 	$Open.visible = true
 	tween.kill()
 	tween = create_tween()
-	tween.parallel().tween_property(self,"rect_size:x",64,0.4).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
-	tween.parallel().tween_property($"../SidebarClose","modulate:a",0,0.2).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+	tween.parallel().tween_property(self,"rect_size:x",64.0,0.4).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+	tween.parallel().tween_property($"../SidebarClose","modulate:a",0.0,0.2).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 	tween.play()
 	yield(tween,"finished")
 	$"../SidebarClose".visible = false

@@ -107,8 +107,6 @@ func _process(delta):
 		margin_bottom = (1.0 - Dance.InOutSine(entry)) * 30
 		get_parent().get_node("VersionNumber").margin_top = -45 - (Dance.InOutSine(entry)*30)
 		get_parent().get_node("VersionNumber").margin_bottom = -15 - (Dance.InOutSine(entry)*30)
-		get_parent().get_node("VersionNumberB").margin_top = -45 - (Dance.InOutSine(entry)*30)
-		get_parent().get_node("VersionNumberB").margin_bottom = -15 - (Dance.InOutSine(entry)*30)
 		
 	elif !state && entry != 0:
 		entry = max(entry - (delta/0.8), 0.0)
@@ -117,8 +115,6 @@ func _process(delta):
 		margin_bottom = (1.0 - Dance.InOutSine(entry)) * 30
 		get_parent().get_node("VersionNumber").margin_top = -45 - (Dance.InOutSine(entry)*30)
 		get_parent().get_node("VersionNumber").margin_bottom = -15 - (Dance.InOutSine(entry)*30)
-		get_parent().get_node("VersionNumberB").margin_top = -45 - (Dance.InOutSine(entry)*30)
-		get_parent().get_node("VersionNumberB").margin_bottom = -15 - (Dance.InOutSine(entry)*30)
 		
 	visible = (entry != 0)
 
