@@ -86,33 +86,7 @@ const db_builtin_difficulty_names = [
 	"助 (Tasukete)"
 ]
 
-func load_from_db_data(data:Dictionary={
-		"id":"INVALID_id_that_doesnt_exist",
-		"download":"http://chedski.test/ssp/mapdb/api/download/INVALID_id_that_doesnt_exist",
-		"audio":"http://chedski.test/ssp/mapdb/api/audio/INVALID_id_that_doesnt_exist",
-#		"id":"ss_archive_waterflame_-_geometrical_dominator",
-#		"download":"http://chedski.test/ssp/mapdb/api/download/ss_archive_waterflame_-_geometrical_dominator",
-#		"audio":"http://chedski.test/ssp/mapdb/api/audio/ss_archive_waterflame_-_geometrical_dominator",
-		"cover":null,
-		"version":1,
-		"name":"000000 net test map",
-		"song":"Waterflame - Geometrical Dominator",
-		"author":["Azurlexx"],
-		"difficulty":3,
-		"difficulty_name":"LOGIC?",
-		"stars":-1,
-		"length_ms":96846,
-		"note_count":384,
-		"has_cover":false,
-		"broken":false,
-		"tags":["ss_archive"],
-		"content_warnings":[],
-		"note_data_offset":1594212,
-		"note_data_length":2688,
-		"music_format":"mp3",
-		"music_offset":117,
-		"music_length":1594095
-	}):
+func load_from_db_data(data:Dictionary):
 	
 	if !data.has("id"): return {success=false,error="014-421"}
 	if !data.has("name"): return {success=false,error="014-422"}
