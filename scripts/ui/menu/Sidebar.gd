@@ -13,12 +13,12 @@ func _ready():
 
 	for i in range(pages.size()):
 		var button = pages[i]
-		button.connect("pressed",self,"_goto",[i])
+		button.connect("pressed",self,"goto",[i])
 
 	$Buttons/Quit.connect("pressed",get_tree(),"call_deferred",["quit",1])
 	
-	call_deferred("_goto", 1)
-func _goto(i):
+	call_deferred("goto", 1)
+func goto(i):
 	tabs.call_deferred("set","current_tab",i)
 	_move_highlight(pages[i])
 func _move_highlight(button):

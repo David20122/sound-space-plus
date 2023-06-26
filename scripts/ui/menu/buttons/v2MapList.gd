@@ -63,9 +63,7 @@ var auto_switch_to_play:bool = true
 func switch_to_play_screen():
 	if !auto_switch_to_play: return
 	if SSP.menu_target == "res://scenes/menu/menu.tscn": return
-	get_viewport().get_node("Menu/Main/MapRegistry").visible = false
-	get_viewport().get_node("Menu/Main/Results").visible = true
-	get_viewport().get_node("Menu/Sidebar/L/Results").pressed = true
+	get_viewport().get_node("Menu/Sidebar").goto(0)
 
 var was_maximized = OS.window_maximized
 var was_fullscreen = OS.window_fullscreen
