@@ -267,12 +267,18 @@ func reposition_notes(force:bool=false,rerun_start:int=-1):
 				if !SSP.replaying and SSP.record_replays:
 					SSP.replay.note_hit(i)
 				notes[i][2] = Globals.NSTATE_HIT
-				if SSP.play_hit_snd and !SSP.ensure_hitsync: 
+				if SSP.play_hit_snd and !SSP.ensure_hitsync:
+					var sfx:AudioStreamPlayer
 					if SSP.sfx_2d:
-						$Hit2D.play()
+						sfx = $Hit2D.duplicate()
+						add_child(sfx)
 					else:
-						$Hit.transform = notes[i][5]
-						$Hit.play()
+						sfx = $Hit.duplicate()
+						add_child(sfx)
+						sfx.transform = notes[i][5]
+					sfx.connect("finished", sfx, "queue_free")
+					if SSP.hit_pitch: sfx.pitch_scale = rand_range(SSP.hit_pitch_min,SSP.hit_pitch_max)
+					sfx.play()
 				var pos:Vector3 = Vector3(
 					$Cursor.global_transform.origin.x,
 					$Cursor.global_transform.origin.y,

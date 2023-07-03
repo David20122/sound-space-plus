@@ -22,7 +22,7 @@ _global_script_classes=[ {
 "base": "DanceMover",
 "class": "BouncyDanceMover",
 "language": "GDScript",
-"path": "res://scripts/cursorDance/Bouncy.gd"
+"path": "res://scripts/cursordance/Bouncy.gd"
 }, {
 "base": "Resource",
 "class": "ChatMessage",
@@ -42,12 +42,12 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "DanceMover",
 "language": "GDScript",
-"path": "res://scripts/cursorDance/DanceMover.gd"
+"path": "res://scripts/cursordance/DanceMover.gd"
 }, {
 "base": "DanceMover",
 "class": "DirectionalDanceMover",
 "language": "GDScript",
-"path": "res://scripts/cursorDance/Directional.gd"
+"path": "res://scripts/cursordance/Directional.gd"
 }, {
 "base": "Reference",
 "class": "DiscordActivity",
@@ -142,9 +142,9 @@ _global_script_classes=[ {
 "base": "DanceMover",
 "class": "MomentumDanceMover",
 "language": "GDScript",
-"path": "res://scripts/cursorDance/Momentum.gd"
+"path": "res://scripts/cursordance/Momentum.gd"
 }, {
-"base": "Reference",
+"base": "Spatial",
 "class": "Note",
 "language": "GDScript",
 "path": "res://scripts/content/game/Note.gd"
@@ -187,7 +187,7 @@ _global_script_classes=[ {
 "base": "DanceMover",
 "class": "SimpleDanceMover",
 "language": "GDScript",
-"path": "res://scripts/cursorDance/Simple.gd"
+"path": "res://scripts/cursordance/Simple.gd"
 }, {
 "base": "Resource",
 "class": "Song",

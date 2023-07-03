@@ -734,6 +734,9 @@ var hitsync_offset:float = 0 # don't save this yet; probably not even a necessar
 var retain_song_pitch:bool = false # not recommended as this is very heavy to compute, but people want it
 var do_note_pushback:bool = true # true; notes go past grid on miss, false; notes always vanish at grid
 var show_stats:bool = false
+var hit_pitch:bool = false
+var hit_pitch_min:float = 0.9
+var hit_pitch_max:float = 1.15
 
 var arcw_mode:bool = false # heheheha
 var sex_mode:bool = false
@@ -1210,6 +1213,12 @@ func load_saved_settings():
 			do_note_pushback = data.do_note_pushback
 		if data.has("show_stats"):
 			show_stats = data.show_stats
+		if data.has("hit_pitch"):
+			hit_pitch = data.hit_pitch
+		if data.has("hit_pitch_min"):
+			hit_pitch_min = data.hit_pitch_min
+		if data.has("hit_pitch_max"):
+			hit_pitch_max = data.hit_pitch_max
 		if data.has("half_ghost"):
 			half_ghost = data.half_ghost
 		
@@ -1610,7 +1619,10 @@ func save_settings():
 			ensure_hitsync = ensure_hitsync,
 			retain_song_pitch = retain_song_pitch,
 			do_note_pushback = do_note_pushback,
-			show_stats = show_stats
+			show_stats = show_stats,
+			hit_pitch = hit_pitch,
+			hit_pitch_min = hit_pitch_min,
+			hit_pitch_max = hit_pitch_max
 		}
 		
 		file.store_string(JSON.print(data, "\t"))
