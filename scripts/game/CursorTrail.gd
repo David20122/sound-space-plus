@@ -16,10 +16,11 @@ var can_reuse:bool = false
 var transp_multi = 1
 
 
-func respawn(t_override=null):
+func respawn(t_override=null,rot=0):
 	if t_override:
 		visible = true
 		global_transform.origin = t_override
+		$Mesh.rotation_degrees.x = rot
 	else:
 		visible = (cursor.global_transform.origin - Vector3(0,0,0.001)) != last_origin
 		global_transform.origin = cursor.global_transform.origin - Vector3(0,0,0.001)
@@ -74,8 +75,8 @@ func start():
 	started = true
 
 
-func start_smart(v:float,pos:Vector3):
+func start_smart(v:float,pos:Vector3,rot:float):
 	init()
 	started = true
 	t = 1 - v
-	respawn(pos)
+	respawn(pos,rot)

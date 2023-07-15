@@ -113,7 +113,8 @@ func _input(event:InputEvent):
 var frame:int = Engine.get_frames_drawn()
 var trail_cache:Array = []
 
-var prev_end
+var prev_pos
+var prev_rot
 var trail_started = false
 
 var ct:float = 0
@@ -170,14 +171,21 @@ func _process(delta):
 	
 	if SSP.show_cursor and SSP.cursor_trail and SSP.smart_trail and trail_started:
 		var start_p = global_transform.origin
-		var end_p = prev_end
-		var amt = min(ceil(SSP.trail_detail*(start_p-end_p).length()),120)
+		var end_p = prev_pos
+		var start_r = $Mesh.rotation_degrees.x
+		var end_r = prev_rot
+		var p_diff = (start_p - end_p).length()
+		var r_diff = PI * SSP.cursor_scale * abs(start_r - end_r)/360
+		var diff = p_diff
+		if r_diff > p_diff: diff = r_diff
+		var amt = min(ceil(SSP.trail_detail*diff),120)
 		var new = 0
 		var cached = 0
 		for i in range(amt):
 			var trail:Spatial
 			var v = float(i)/float(amt)
 			var pos = lerp(start_p,end_p,v)
+			var rot = lerp(start_r,end_r,v)
 			if trail_cache.size() != 0:
 				trail = trail_cache.pop_front()
 				cached += 1
@@ -188,7 +196,7 @@ func _process(delta):
 				total_trail_segments += 1
 				new += 1
 			
-			trail.start_smart(v*delta,pos)
+			trail.start_smart(v*delta,pos,rot)
 		if $L.visible:
 			$L.text = "amount this frame: %s\nnewly spawned: %s\nfrom cache: %s\n\nwaiting: %s\nactive: %s\ntotal: %s" % [
 				amt,
@@ -198,7 +206,8 @@ func _process(delta):
 				total_trail_segments - trail_cache.size(),
 				total_trail_segments
 			]
-		prev_end = global_transform.origin
+		prev_pos = global_transform.origin
+		prev_rot = $Mesh.rotation_degrees.x
 
 func _ready():
 	if !SSP.show_cursor: visible = false
@@ -230,7 +239,8 @@ func _ready():
 	
 	$L.visible = ProjectSettings.get_setting("application/config/show_trail_debug")
 	
-	prev_end = global_transform.origin
+	prev_pos = global_transform.origin
+	prev_rot = $Mesh.rotation_degrees.x
 	
 	if SSP.cursor_color_type == Globals.CURSOR_NOTE_COLOR:
 		recolor(SSP.selected_colorset.colors[-1])
@@ -246,7 +256,7 @@ func _ready():
 				get_node("../..").add_child(trail)
 				trail.connect("cache_me",self,"cache_trail",[trail])
 				trail_cache.append(trail)
-				trail.start_smart(1,Vector3(0,0,-4))
+				trail.start_smart(1,Vector3(0,0,-4),0)
 		else:
 			for i in range(SSP.trail_detail):
 				var trail:Spatial = trail_base
