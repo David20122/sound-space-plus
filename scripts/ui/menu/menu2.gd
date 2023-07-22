@@ -14,7 +14,6 @@ func idle_status():
 
 func _ready():
 	get_tree().paused = false
-	get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_VIEWPORT, SceneTree.STRETCH_ASPECT_EXPAND, OS.window_size * SSP.render_scale)
 	if SSP.arcw_mode:
 		get_tree().change_scene("res://w.tscn")
 	if SSP.sex_mode:
