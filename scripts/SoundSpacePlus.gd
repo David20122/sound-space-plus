@@ -2036,8 +2036,15 @@ func do_init(_ud=null):
 				Online.attempt_update()
 				yield(Online,"update_finished")
 				get_tree().call_deferred("quit",1)
-				OS.execute(OS.get_executable_path(),[],false)
+				OS.execute(OS.get_executable_path(),["--updated"],false)
 				return
+		elif Globals.cmdline.keys().has("updated"):
+			var rdir = Directory.new()
+			rdir.open(OS.get_executable_path().get_base_dir())
+			if rdir.file_exists("SoundSpacePlus.pck.old"):
+				rdir.remove("SoundSpacePlus.pck.old")
+			if rdir.file_exists("update.zip"):
+				rdir.remove("update.zip")
 	
 	emit_signal("init_stage_reached","Init filesystem")
 	emit_signal("init_stage_num",-1)

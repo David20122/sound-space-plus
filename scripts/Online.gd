@@ -345,7 +345,6 @@ func attempt_update():
 		dir.remove(exec_dir.plus_file("SoundSpacePlus.pck.old"))
 	if dir.file_exists(exec_dir.plus_file("SoundSpacePlus.pck")):
 		dir.rename(exec_dir.plus_file("SoundSpacePlus.pck"),exec_dir.plus_file("SoundSpacePlus.pck.old"))
-	dir.remove(file_path)
 	file.open(exec_dir.plus_file("SoundSpacePlus.pck"),File.WRITE)
 	file.store_buffer(new_file_buffer)
 	file.close()
