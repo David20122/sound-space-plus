@@ -942,14 +942,12 @@ func load_pbs():
 
 # dumb lacunella stuff
 func is_lacunella_enabled():
-	var found:bool = false
 	var cdat = File.new()
 	if cdat.file_exists("user://lacunella.dat"):
 		cdat.open("user://lacunella.dat",File.READ)
 		var ctxt = cdat.get_as_text()
-		if ctxt.to_upper() == "MEOW":
-			found = true
-	return found
+		if ctxt.to_upper() == "MEOW": return true
+	return false
 
 # Settings save/load helpers
 func scol(c:Color) -> String:
@@ -2027,13 +2025,12 @@ func do_init(_ud=null):
 		var latest_version = yield(Online,"latest_version")
 		if ProjectSettings.get_setting("application/config/version") != latest_version:
 			var sel = 1
-			if !Online.latest_version_data.body.begins_with("-a"):
-				Globals.confirm_prompt.s_alert.play()
-				Globals.confirm_prompt.open("You are on an outdated version of the game! Would you like to automatically update?","Outdated",[{text="Ignore",wait=4},{text="Update",wait=2}])
-				sel = yield(Globals.confirm_prompt,"option_selected")
-				Globals.confirm_prompt.s_next.play()
-				Globals.confirm_prompt.close()
-				yield(Globals.confirm_prompt,"done_closing")
+			Globals.confirm_prompt.s_alert.play()
+			Globals.confirm_prompt.open("You are on an outdated version of the game! Would you like to automatically update?","Outdated",[{text="Ignore",wait=2},{text="Update",wait=1}])
+			sel = yield(Globals.confirm_prompt,"option_selected")
+			Globals.confirm_prompt.s_next.play()
+			Globals.confirm_prompt.close()
+			yield(Globals.confirm_prompt,"done_closing")
 			if bool(sel):
 				emit_signal("init_stage_reached","Updating the game")
 				Online.attempt_update()
