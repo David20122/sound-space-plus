@@ -268,7 +268,7 @@ func reposition_notes(force:bool=false,rerun_start:int=-1):
 					Rhythia.replay.note_hit(i)
 				notes[i][2] = Globals.NSTATE_HIT
 				if Rhythia.play_hit_snd and !Rhythia.ensure_hitsync:
-					var sfx:AudioStreamPlayer
+					var sfx
 					if Rhythia.sfx_2d:
 						sfx = $Hit2D.duplicate()
 						add_child(sfx)
