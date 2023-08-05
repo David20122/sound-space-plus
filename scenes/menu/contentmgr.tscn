@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://assets/font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://uitheme.tres" type="Theme" id=2]
@@ -11,13 +11,13 @@
 [ext_resource path="res://assets/font/Lato/Lato-Bold.ttf" type="DynamicFontData" id=9]
 [ext_resource path="res://scripts/ui/settings/MusicVolumeSetter.gd" type="Script" id=10]
 [ext_resource path="res://scripts/ui/cmgr/contentmgr.gd" type="Script" id=11]
+[ext_resource path="res://assets/images/branding/icon.png" type="Texture" id=12]
 [ext_resource path="res://addons/native_dialogs/bin/native_dialog_open_file.gdns" type="Script" id=13]
 [ext_resource path="res://addons/native_dialogs/bin/native_dialog_select_folder.gdns" type="Script" id=14]
 [ext_resource path="res://assets/images/branding/icon.svg" type="Texture" id=15]
 [ext_resource path="res://scripts/ui/menu/VersionNumber.gd" type="Script" id=17]
 [ext_resource path="res://scripts/ui/cmgr/CMgrExit.gd" type="Script" id=59]
 [ext_resource path="res://assets/sfx/menu_full.mp3" type="AudioStream" id=70]
-
 
 [sub_resource type="StyleBoxFlat" id=70]
 bg_color = Color( 0.0588235, 0.0235294, 0.0666667, 1 )
@@ -1390,7 +1390,7 @@ grow_vertical = 2
 theme = ExtResource( 2 )
 custom_colors/font_color = Color( 1, 0.705882, 0.945098, 1 )
 custom_fonts/font = SubResource( 21 )
-text = "Sound Space Plus   vX.Y.Z-stage"
+text = "Rhythia  vX.Y.Z-stage"
 valign = 1
 script = ExtResource( 17 )
 
@@ -1399,11 +1399,8 @@ anchor_bottom = 1.0
 margin_left = -40.0
 margin_right = -10.0
 rect_min_size = Vector2( 30, 30 )
-texture = ExtResource( 15 )
+texture = ExtResource( 12 )
 expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Exit" type="Button" parent="."]
 modulate = Color( 1, 0.6, 0.6, 1 )

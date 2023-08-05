@@ -4169,6 +4169,7 @@ margin_bottom = 5830.0
 rect_clip_content = true
 
 [node name="Credits" type="ReferenceRect" parent="Main"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -4194,7 +4195,7 @@ scroll_horizontal_enabled = false
 scroll_deadzone = 45
 
 [node name="L" type="VBoxContainer" parent="Main/Credits/C/S"]
-margin_right = 1204.0
+margin_right = 1216.0
 margin_bottom = 1115.0
 grow_horizontal = 2
 rect_min_size = Vector2( 700, 0 )
@@ -4939,7 +4940,7 @@ grow_vertical = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 1, 0.705882, 0.945098, 1 )
 custom_fonts/font = SubResource( 7 )
-text = "Rhthia vX.Y.Z-branch"
+text = "Rhythia vX.Y.Z-branch"
 valign = 1
 script = ExtResource( 3 )
 
