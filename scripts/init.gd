@@ -1,7 +1,7 @@
 extends Node
 
 var thread:Thread = Thread.new()
-var target:String = SSP.menu_target
+var target:String = Rhythia.menu_target
 var leaving:bool = false
 
 func stage(text:String,done:bool=false):
@@ -11,7 +11,7 @@ func stage(text:String,done:bool=false):
 		$Label2.text = "Loading menu"
 		var res = RQueue.queue_resource(target)
 		if res != OK:
-			SSP.errorstr = "queue_resource returned %s" % res
+			Rhythia.errorstr = "queue_resource returned %s" % res
 			get_tree().change_scene("res://scenes/errors/menuload.tscn")
 #		leaving = true
 
@@ -32,33 +32,33 @@ func _ready():
 	black_fade = 1
 	$BlackFade.color = Color(0,0,0,black_fade)
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	SSP.connect("init_stage_reached",self,"stage")
+	Rhythia.connect("init_stage_reached",self,"stage")
 	var s = Globals.error_sound
-#	var st = SSP.get_stream_with_default("user://loadingmusic",s)
+#	var st = Rhythia.get_stream_with_default("user://loadingmusic",s)
 #	if st != s:
 #		$Music.stream = st
 #		$Music.play()
 	OS.request_permissions()
 	yield(get_tree().create_timer(0.5),"timeout")
-	if ProjectSettings.get_setting("application/config/auto_maximize") and SSP.auto_maximize: OS.window_maximized = true
+	if ProjectSettings.get_setting("application/config/auto_maximize") and Rhythia.auto_maximize: OS.window_maximized = true
 	yield(get_tree().create_timer(0.5),"timeout")
 	$AudioStreamPlayer.play()
 	
-	if not SSP.is_init:
+	if not Rhythia.is_init:
 		stage("",true)
 		return
-	elif SSP.first_init_done:
-		thread.start(SSP,"do_init")
+	elif Rhythia.first_init_done:
+		thread.start(Rhythia,"do_init")
 	
-	SSP.is_init = false
+	Rhythia.is_init = false
 	
 	if ProjectSettings.get_setting("application/config/discord_rpc"):
 		var activity = Discord.Activity.new()
 		activity.set_type(Discord.ActivityType.Playing)
 		activity.set_details("Initialization")
 		
-		if SSP.do_archive_convert: activity.set_state("Mass-converting songs")
-		elif SSP.first_init_done: activity.set_state("Reloading content")
+		if Rhythia.do_archive_convert: activity.set_state("Mass-converting songs")
+		elif Rhythia.first_init_done: activity.set_state("Reloading content")
 		else: activity.set_state("Starting the game")
 
 		var assets = activity.get_assets()
@@ -88,7 +88,7 @@ func _process(delta):
 			leaving = true
 			black_fade_target = true
 			if !(result is Object):
-				SSP.errorstr = "get_resource returned non-object (probably null)"
+				Rhythia.errorstr = "get_resource returned non-object (probably null)"
 				get_tree().change_scene("res://scenes/errors/menuload.tscn")
 	
 	if leaving and result and black_fade == 1:

@@ -2,7 +2,7 @@ extends Spatial
 
 export(SpatialMaterial) var mat
 export(SpatialMaterial) var mat2
-var colors:Array = SSP.selected_colorset.colors
+var colors:Array = Rhythia.selected_colorset.colors
 
 
 #var target_color:Color = colors[0] * 0.5

@@ -58,11 +58,11 @@ func to_old_menu():
 	get_node("../Press").play()
 	get_viewport().get_node("Menu").black_fade_target = true
 	if Input.is_key_pressed(KEY_C):
-		if !SSP.selected_song:
+		if !Rhythia.selected_song:
 			Globals.notify(Globals.NOTIFY_WARN,"No selected song","Automatically selecting a song")
-			SSP.select_song(SSP.registry_song.items[0])
-		SSP.menu_target = "res://scripts/cursorDance/dancetest.tscn"
-	else: SSP.menu_target = "res://scenes/menu/menu.tscn"
+			Rhythia.select_song(Rhythia.registry_song.items[0])
+		Rhythia.menu_target = "res://scripts/cursorDance/dancetest.tscn"
+	else: Rhythia.menu_target = "res://scenes/menu/menu.tscn"
 	yield(get_tree().create_timer(0.35),"timeout")
 	get_tree().change_scene("res://scenes/loaders/menuload.tscn")
 
@@ -70,14 +70,14 @@ func to_content_mgr():
 	get_node("../Press").play()
 	get_viewport().get_node("Menu").black_fade_target = true
 	yield(get_tree().create_timer(0.35),"timeout")
-	SSP.conmgr_transit = "addsongs"
+	Rhythia.conmgr_transit = "addsongs"
 	get_tree().change_scene("res://scenes/loaders/contentmgrload.tscn")
 
 func to_vr():
 	get_node("../Press").play()
 	get_viewport().get_node("Menu").black_fade_target = true
 	yield(get_tree().create_timer(0.35),"timeout")
-	SSP.start_vr()
+	Rhythia.start_vr()
 
 func quit():
 	get_node("../Press").play()
@@ -90,7 +90,7 @@ func _ready():
 	for i in range(buttons.size()):
 		buttons[i].connect("pressed",self,"press",[i])
 	
-	if SSP.just_ended_song || SSP.single_map_mode: press(0,true)
+	if Rhythia.just_ended_song || Rhythia.single_map_mode: press(0,true)
 	else: press(1,true)
 	
 	$L/OldMenu.connect("pressed",self,"to_old_menu")
@@ -98,12 +98,12 @@ func _ready():
 	$L/StartVR.connect("pressed",self,"to_vr")
 	$L/Quit.connect("pressed",self,"quit")
 	
-	$L/ContentMgr.visible = not SSP.vr
-#	$L/StartVR.visible = SSP.vr_available and not SSP.vr
-	if SSP.vr or !OS.has_feature("pc"):
+	$L/ContentMgr.visible = not Rhythia.vr
+#	$L/StartVR.visible = Rhythia.vr_available and not Rhythia.vr
+	if Rhythia.vr or !OS.has_feature("pc"):
 		$L/Quit/Label.text = "Quit to Home"
 	
-	if SSP.single_map_mode:
+	if Rhythia.single_map_mode:
 		for n in $L.get_children():
 			n.visible = smm_visibility.get(n,false)
 	

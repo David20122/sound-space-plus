@@ -51,7 +51,7 @@ func check_txt_requirements():
 		$TxtFile/done.disabled = true
 		$TxtFile/done/Title.text = "Mapper required"
 	else:
-		if SSP.registry_song.idx_id.has(song.id) and !SSP.registry_song.get_item(song.id).is_online:
+		if Rhythia.registry_song.idx_id.has(song.id) and !Rhythia.registry_song.get_item(song.id).is_online:
 			$TxtFile/done.disabled = true
 			$TxtFile/done/Title.text = "ID in use"
 		else:
@@ -79,7 +79,7 @@ func txt_song_preview():
 	if $TxtFile/H/audio/player.playing:
 		$TxtFile/H/audio/preview/Title.text = "Preview"
 		$TxtFile/H/audio/player.stop()
-		if SSP.play_menu_music:
+		if Rhythia.play_menu_music:
 			get_node("../MenuSong").play()
 	elif !$TxtFile/H/audio/preview.disabled:
 		$TxtFile/H/audio/preview/Title.text = "Stop previewing"
@@ -137,7 +137,7 @@ func reset_text_edit_screen():
 	$TxtFile/H/audio/preview.disabled = true
 	$TxtFile/H/audio/preview.modulate = Color(0.5,0.5,0.5)
 	$TxtFile/H/audio/preview/Title.text = "Preview"
-	if SSP.play_menu_music and !get_node("../MenuSong").playing:
+	if Rhythia.play_menu_music and !get_node("../MenuSong").playing:
 		get_node("../MenuSong").play()
 	$TxtFile/H/audio/player.stop()
 	
@@ -278,7 +278,7 @@ func populate_edit_screen():
 		$Edit/Cover/C.disabled = true
 		$Edit/Cover/C.pressed = false
 	
-	if SSP.registry_song.idx_id.has(song.id):
+	if Rhythia.registry_song.idx_id.has(song.id):
 		$Edit/done.disabled = true
 		$Edit/done/Title.text = "ID in use"
 	elif song.id == "_NOTREADY":
@@ -425,8 +425,8 @@ func import_vmap_with_difficulty(difficulty_id:int,is_loop:bool=true):
 			result = song.convert_to_sspm()
 			
 			if result == "Converted!":
-				SSP.registry_song.check_and_remove_id(song.id)
-				SSP.registry_song.add_sspm_map("user://maps/%s.sspm" % song.id)
+				Rhythia.registry_song.check_and_remove_id(song.id)
+				Rhythia.registry_song.add_sspm_map("user://maps/%s.sspm" % song.id)
 				return 1
 			else:
 				$Finish/Error.text = result + (" (%s)" % song.custom_data.difficulty_name)
@@ -648,7 +648,7 @@ func file_selected(files:PoolStringArray):
 			check_txt(file.get_as_text())
 			file.close()
 		FO_SONG:
-			if SSP.play_menu_music and !get_node("../MenuSong").playing:
+			if Rhythia.play_menu_music and !get_node("../MenuSong").playing:
 				get_node("../MenuSong").play()
 			$TxtFile/H/audio/player.stop()
 			$TxtFile/H/audio/preview/Title.text = "Preview"
@@ -735,7 +735,7 @@ func edit_field(field:String,done:bool=false):
 							song.id = id
 							$Edit/Info/Id/T.visible = false
 							$Edit/Info/Id.text = song.id
-							if SSP.registry_song.idx_id.has(song.id):
+							if Rhythia.registry_song.idx_id.has(song.id):
 								$Edit/done.disabled = true
 								$Edit/done/Title.text = "ID in use"
 							else:
@@ -787,7 +787,7 @@ func onopen():
 	$TxtFile/H/audio/preview/Title.text = "Preview"
 	$TxtFile/H/audio/player.stop()
 	$TxtFile/H/Temp.pressed = false
-	if SSP.play_menu_music and !get_node("../MenuSong").playing:
+	if Rhythia.play_menu_music and !get_node("../MenuSong").playing:
 		get_node("../MenuSong").play()
 	
 	visible = true
@@ -827,8 +827,8 @@ func finish_map():
 	if (maptype == T_TXT and $TxtFile/H/Temp.pressed):
 		song.discard_notes()
 		song.read_notes()
-		SSP.registry_song.check_and_remove_id(song.id)
-		SSP.registry_song.add_item(song)
+		Rhythia.registry_song.check_and_remove_id(song.id)
+		Rhythia.registry_song.add_item(song)
 		$Finish/Wait.visible = false
 		$Finish/Success.visible = true
 		$Finish/ok.visible = true
@@ -837,8 +837,8 @@ func finish_map():
 	
 		$Finish/Wait.visible = false
 		if result == "Converted!":
-			SSP.registry_song.check_and_remove_id(song.id)
-			SSP.registry_song.add_sspm_map("user://maps/%s.sspm" % song.id)
+			Rhythia.registry_song.check_and_remove_id(song.id)
+			Rhythia.registry_song.add_sspm_map("user://maps/%s.sspm" % song.id)
 			$Finish/Success.visible = true
 		else:
 			$Finish/Error.text = result
@@ -848,7 +848,7 @@ func finish_map():
 func back_to_menu():
 	get_parent().black_fade_target = true
 	yield(get_tree().create_timer(0.35),"timeout")
-	SSP.conmgr_transit = null
+	Rhythia.conmgr_transit = null
 	get_tree().change_scene("res://scenes/loaders/menuload.tscn")
 
 func _ready():

@@ -1,15 +1,15 @@
 extends Button
 
 func _pressed():
-	if SSP.single_map_mode or !SSP.selected_song: return
-	if SSP.favorite_songs.has(SSP.selected_song.id):
-		SSP.remove_favorite(SSP.selected_song.id)
-	else: SSP.add_favorite(SSP.selected_song.id)
+	if Rhythia.single_map_mode or !Rhythia.selected_song: return
+	if Rhythia.favorite_songs.has(Rhythia.selected_song.id):
+		Rhythia.remove_favorite(Rhythia.selected_song.id)
+	else: Rhythia.add_favorite(Rhythia.selected_song.id)
 
 func upd(_s=null):
-	if (!SSP.single_map_mode) and SSP.selected_song != null:
+	if (!Rhythia.single_map_mode) and Rhythia.selected_song != null:
 		disabled = false
-		if SSP.is_favorite(SSP.selected_song.id):
+		if Rhythia.is_favorite(Rhythia.selected_song.id):
 			text = "Favorited!"
 			pressed = true
 		else:
@@ -19,6 +19,6 @@ func upd(_s=null):
 		disabled = true
 
 func _ready():
-	SSP.connect("selected_song_changed",self,"upd")
-	SSP.connect("favorite_songs_changed",self,"upd")
+	Rhythia.connect("selected_song_changed",self,"upd")
+	Rhythia.connect("favorite_songs_changed",self,"upd")
 	upd()

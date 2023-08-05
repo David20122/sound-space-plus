@@ -9,7 +9,7 @@ var copy_submenu = PopupMenu.new()
 var difficulty_submenu = PopupMenu.new()
 #
 #func on_pressed(i):
-#	SSP.set(target,i)
+#	Rhythia.set(target,i)
 #	get_popup().set_item_checked(current_sel,false)
 #	get_popup().set_item_checked(i,true)
 #	current_sel = i
@@ -17,7 +17,7 @@ var difficulty_submenu = PopupMenu.new()
 #
 #
 #func _ready():
-#	current_sel = SSP.get(target)
+#	current_sel = Rhythia.get(target)
 #	for i in range(options.size()):
 #		get_popup().add_check_item(options[i],i)
 #		if current_sel == i:
@@ -28,7 +28,7 @@ var audio_data:PoolByteArray
 
 func save_song_txt(path:String):
 	if path:
-		SSP.selected_song.export_text(path)
+		Rhythia.selected_song.export_text(path)
 
 func save_song_audio(path:String):
 	if path:
@@ -44,10 +44,10 @@ func save_song_audio(path:String):
 func diff_item_selected(idx:int):
 	if !sd:
 		disabled = true
-		var res = SSP.selected_song.change_difficulty(idx - 1)
+		var res = Rhythia.selected_song.change_difficulty(idx - 1)
 		if res == OK:
 			Globals.notify(Globals.NOTIFY_SUCCEED,"Successfully updated difficulty!","Success")
-			SSP.emit_signal("favorite_songs_changed") # Force a map list reload
+			Rhythia.emit_signal("favorite_songs_changed") # Force a map list reload
 		else:
 			Globals.notify(Globals.NOTIFY_ERROR,"Could not update difficulty","Error")
 		disabled = false
@@ -55,23 +55,23 @@ func diff_item_selected(idx:int):
 func copy_item_selected(idx:int):
 	match idx:
 		0:
-			OS.clipboard = SSP.selected_song.id
+			OS.clipboard = Rhythia.selected_song.id
 			Globals.notify(Globals.NOTIFY_SUCCEED,"Copied map ID to clipboard.","Copied")
 		1:
-			if SSP.selected_song.songType == Globals.MAP_SSPM or SSP.selected_song.songType == Globals.MAP_SSPM2:
-				OS.clipboard = SSP.selected_song.filePath
+			if Rhythia.selected_song.songType == Globals.MAP_SSPM or Rhythia.selected_song.songType == Globals.MAP_SSPM2:
+				OS.clipboard = Rhythia.selected_song.filePath
 				Globals.notify(Globals.NOTIFY_SUCCEED,"Copied map path to clipboard.","Copied")
 		2:
-			OS.clipboard = SSP.selected_song.name
+			OS.clipboard = Rhythia.selected_song.name
 			Globals.notify(Globals.NOTIFY_SUCCEED,"Copied map name to clipboard.","Copied")
 
 func item_selected(idx:int):
 	match idx:
 		0: # Delete map
 			if (
-				(SSP.selected_song.songType == Globals.MAP_SSPM or
-				SSP.selected_song.songType == Globals.MAP_SSPM2) and
-				!SSP.single_map_mode
+				(Rhythia.selected_song.songType == Globals.MAP_SSPM or
+				Rhythia.selected_song.songType == Globals.MAP_SSPM2) and
+				!Rhythia.single_map_mode
 			):
 				Globals.confirm_prompt.open(
 					"Are you sure you want to delete this map? You might not be able to get it back.",
@@ -86,19 +86,19 @@ func item_selected(idx:int):
 				Globals.confirm_prompt.close()
 				if response == 1:
 					Globals.confirm_prompt.s_next.play()
-					SSP.selected_song.delete()
+					Rhythia.selected_song.delete()
 				else:
 					Globals.confirm_prompt.s_back.play()
 		1:
 			if !(
-				SSP.selected_song.is_broken or
-				#SSP.selected_song.is_builtin or
-				SSP.selected_song.converted or
-				SSP.selected_song.songType == Globals.MAP_SSPM2 or
-				SSP.selected_song.is_online or
-				SSP.single_map_mode
+				Rhythia.selected_song.is_broken or
+				#Rhythia.selected_song.is_builtin or
+				Rhythia.selected_song.converted or
+				Rhythia.selected_song.songType == Globals.MAP_SSPM2 or
+				Rhythia.selected_song.is_online or
+				Rhythia.single_map_mode
 			):
-				var res = SSP.selected_song.convert_to_sspm(SSP.selected_song.songType == Globals.MAP_SSPM)
+				var res = Rhythia.selected_song.convert_to_sspm(Rhythia.selected_song.songType == Globals.MAP_SSPM)
 				if res == "Converted!":
 					if fmod(randf(),1) > 0.97:
 						Globals.notify(Globals.NOTIFY_SUCCEED,"Map converted successfully! you have earned one lacuna thumbs up emoji","Converted")
@@ -111,32 +111,32 @@ func item_selected(idx:int):
 				self,
 				"save_song_txt",
 				["*.txt ; Text map data"],
-				#"~/Downloads/%s.txt" % [SSP.selected_song.id]
-				OS.get_system_dir(OS.SYSTEM_DIR_DOWNLOADS) + "/%s.txt" % [SSP.selected_song.id]
+				#"~/Downloads/%s.txt" % [Rhythia.selected_song.id]
+				OS.get_system_dir(OS.SYSTEM_DIR_DOWNLOADS) + "/%s.txt" % [Rhythia.selected_song.id]
 			)
 		5:
 			if !(
-				SSP.selected_song.is_broken or
-				#SSP.selected_song.is_builtin or
-				SSP.selected_song.is_online
+				Rhythia.selected_song.is_broken or
+				#Rhythia.selected_song.is_builtin or
+				Rhythia.selected_song.is_online
 			):
-				audio_data = SSP.selected_song.get_music_buffer()
+				audio_data = Rhythia.selected_song.get_music_buffer()
 				var format = Globals.audioLoader.get_format(audio_data)
 				if format == "mp3":
 					Globals.file_sel.save_file(
 						self,
 						"save_song_audio",
 						["*.mp3 ; mp3 audio file"],
-						#"~/Downloads/%s.mp3" % [SSP.selected_song.id]
-						OS.get_system_dir(OS.SYSTEM_DIR_DOWNLOADS) + "/%s.mp3" % [SSP.selected_song.id]
+						#"~/Downloads/%s.mp3" % [Rhythia.selected_song.id]
+						OS.get_system_dir(OS.SYSTEM_DIR_DOWNLOADS) + "/%s.mp3" % [Rhythia.selected_song.id]
 					)
 				elif format == "ogg":
 					Globals.file_sel.save_file(
 						self,
 						"save_song_audio",
 						["*.ogg ; ogg audio file"],
-						#"~/Downloads/%s.ogg" % [SSP.selected_song.id]
-						OS.get_system_dir(OS.SYSTEM_DIR_DOWNLOADS) + "/%s.ogg" % [SSP.selected_song.id]
+						#"~/Downloads/%s.ogg" % [Rhythia.selected_song.id]
+						OS.get_system_dir(OS.SYSTEM_DIR_DOWNLOADS) + "/%s.ogg" % [Rhythia.selected_song.id]
 					)
 				else:
 					Globals.notify(Globals.NOTIFY_ERROR,"Unable to determine audio format","Error")
@@ -146,44 +146,44 @@ func item_selected(idx:int):
 func upd(_s=null):
 	visible = true
 	get_popup().set_item_disabled(0,(
-		SSP.single_map_mode or
-		#SSP.selected_song.is_builtin or
-		SSP.selected_song.is_online or !(
-			SSP.selected_song.songType == Globals.MAP_SSPM or
-			SSP.selected_song.songType == Globals.MAP_SSPM2
+		Rhythia.single_map_mode or
+		#Rhythia.selected_song.is_builtin or
+		Rhythia.selected_song.is_online or !(
+			Rhythia.selected_song.songType == Globals.MAP_SSPM or
+			Rhythia.selected_song.songType == Globals.MAP_SSPM2
 		)
 	))
 	get_popup().set_item_disabled(1,(
-		SSP.single_map_mode or
-		SSP.selected_song.is_broken or
-		#SSP.selected_song.is_builtin or
-		SSP.selected_song.converted or
-		SSP.selected_song.songType == Globals.MAP_SSPM2 or
-		SSP.selected_song.is_online
+		Rhythia.single_map_mode or
+		Rhythia.selected_song.is_broken or
+		#Rhythia.selected_song.is_builtin or
+		Rhythia.selected_song.converted or
+		Rhythia.selected_song.songType == Globals.MAP_SSPM2 or
+		Rhythia.selected_song.is_online
 	))
 	
 	get_popup().set_item_disabled(3,(
-		SSP.single_map_mode or
+		Rhythia.single_map_mode or
 		#SP.selected_song.is_builtin or
-		SSP.selected_song.is_online or !(
-			SSP.selected_song.songType == Globals.MAP_SSPM or
-			SSP.selected_song.songType == Globals.MAP_SSPM2
+		Rhythia.selected_song.is_online or !(
+			Rhythia.selected_song.songType == Globals.MAP_SSPM or
+			Rhythia.selected_song.songType == Globals.MAP_SSPM2
 		)
 	))
 	
 	get_popup().set_item_disabled(5,(
-		SSP.selected_song.is_broken or
-		#SSP.selected_song.is_builtin or
-		SSP.selected_song.is_online
+		Rhythia.selected_song.is_broken or
+		#Rhythia.selected_song.is_builtin or
+		Rhythia.selected_song.is_online
 	))
 	
 	copy_submenu.set_item_disabled(1,(
-		#SSP.selected_song.is_builtin or
-		SSP.selected_song.is_online
+		#Rhythia.selected_song.is_builtin or
+		Rhythia.selected_song.is_online
 	))
 	
 	for i in range(6):
-		difficulty_submenu.set_item_checked(i,SSP.selected_song.difficulty == i - 1)
+		difficulty_submenu.set_item_checked(i,Rhythia.selected_song.difficulty == i - 1)
 
 
 func _ready():
@@ -212,8 +212,8 @@ func _ready():
 	difficulty_submenu.add_radio_check_item("Logic?",4)
 	difficulty_submenu.add_radio_check_item("助 (Tasukete)",5)
 	
-	if SSP.selected_song: upd()
-	SSP.connect("selected_song_changed",self,"upd")
+	if Rhythia.selected_song: upd()
+	Rhythia.connect("selected_song_changed",self,"upd")
 	yield(get_tree(),"idle_frame")
 	copy_submenu.name = "Copy"
 	difficulty_submenu.name = "Difficulty"
@@ -223,7 +223,7 @@ func _ready():
 #	set_item_text(0,"None")
 #
 #func _ready():
-#	SSP.connect("selected_song_changed",self,"upd")
+#	Rhythia.connect("selected_song_changed",self,"upd")
 #	add_item("N/A",0)
 #	add_item("Easy",1)
 #	add_item("Medium",2)

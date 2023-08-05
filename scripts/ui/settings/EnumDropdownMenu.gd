@@ -5,7 +5,7 @@ export(String) var target
 var current_sel:int
 
 func on_pressed(i):
-	SSP.set(target,i)
+	Rhythia.set(target,i)
 	get_popup().set_item_checked(current_sel,false)
 	get_popup().set_item_checked(i,true)
 	current_sel = i
@@ -13,7 +13,7 @@ func on_pressed(i):
 
 
 func _ready():
-	current_sel = SSP.get(target)
+	current_sel = Rhythia.get(target)
 	for i in range(options.size()):
 		get_popup().add_check_item(options[i],i)
 		if current_sel == i:

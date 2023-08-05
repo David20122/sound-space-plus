@@ -8,20 +8,20 @@ onready var cursor = get_node("../Game/Spawn/Cursor")
 
 var phase:int = 0
 func _process(delta):
-	fov += (SSP.get("fov") - fov) / SSP.hit_fov_decay
-	if SSP.get("cam_unlock"):
-		var hlpower = (0.1 * SSP.get("parallax"))
+	fov += (Rhythia.get("fov") - fov) / Rhythia.hit_fov_decay
+	if Rhythia.get("cam_unlock"):
+		var hlpower = (0.1 * Rhythia.get("parallax"))
 		var hlm = 0.25
 		var ppos = cursor.transform.origin - cursor_offset
-		if SSP.replaying:
-			var replay_pos = SSP.replay.get_cursor_position(get_node("../Game/Spawn").rms)
-			if SSP.replay.sv < 3: ppos = Vector3(replay_pos.x,replay_pos.y,0) - replay_offset
+		if Rhythia.replaying:
+			var replay_pos = Rhythia.replay.get_cursor_position(get_node("../Game/Spawn").rms)
+			if Rhythia.replay.sv < 3: ppos = Vector3(replay_pos.x,replay_pos.y,0) - replay_offset
 			else: ppos = Vector3(replay_pos.x,-replay_pos.y,0) - cursor_offset
 			look_at(ppos, Vector3.UP)
 			transform.origin = Vector3(
 				ppos.x*hlpower*hlm, ppos.y*hlpower*hlm, 3.5
 			) + transform.basis.z / 4
-		elif !SSP.absolute_mode:
+		elif !Rhythia.absolute_mode:
 			transform.origin = Vector3(
 				ppos.x*hlpower*hlm, ppos.y*hlpower*hlm, 3.5
 			) + transform.basis.z / 4
@@ -52,12 +52,12 @@ var yaw = 0
 var pitch = 0
 
 func _input(event):
-	if SSP.get("cam_unlock") and !SSP.replaying and !SSP.absolute_mode:
+	if Rhythia.get("cam_unlock") and !Rhythia.replaying and !Rhythia.absolute_mode:
 		if (event is InputEventMouseMotion) or (event is InputEventScreenDrag):
-			yaw = fmod(yaw - event.relative.x * SSP.sensitivity * 0.2, 360)
-			pitch = max(min(pitch - event.relative.y * SSP.sensitivity * 0.2, 89), -89)
+			yaw = fmod(yaw - event.relative.x * Rhythia.sensitivity * 0.2, 360)
+			pitch = max(min(pitch - event.relative.y * Rhythia.sensitivity * 0.2, 89), -89)
 			rotation = Vector3(deg2rad(pitch), deg2rad(yaw), 0)
 
 func _ready():
 	pass
-#	fov = SSP.get("fov")
+#	fov = Rhythia.get("fov")

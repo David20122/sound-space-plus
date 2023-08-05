@@ -6,5 +6,5 @@ func _pressed():
 	has_been_pressed = true
 	get_parent().black_fade_target = true
 	yield(get_tree().create_timer(0.35),"timeout")
-	SSP.conmgr_transit = null
+	Rhythia.conmgr_transit = null
 	get_tree().change_scene("res://scenes/loaders/menuload.tscn")

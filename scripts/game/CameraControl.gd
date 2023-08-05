@@ -163,9 +163,9 @@ func _update_rotation(delta):
 	var offset = Vector2();
 	
 	if not freelook_mode == Freelook_Modes.INPUT_ACTION:
-		offset += _mouse_offset * sensitivity * SSP.sensitivity
+		offset += _mouse_offset * sensitivity * Rhythia.sensitivity
 	if not freelook_mode == Freelook_Modes.MOUSE: 
-		offset += _rotation_offset * sensitivity * SSP.sensitivity * ROTATION_MULTIPLIER * delta
+		offset += _rotation_offset * sensitivity * Rhythia.sensitivity * ROTATION_MULTIPLIER * delta
 	
 	_mouse_offset = Vector2()
 

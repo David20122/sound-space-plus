@@ -1,6 +1,6 @@
 extends Control
 
-var song:Song = SSP.selected_song
+var song:Song = Rhythia.selected_song
 var dance:DanceMover
 
 var ms:float = -1000
@@ -49,23 +49,23 @@ func _process(delta:float):
 	delta = float(u - last_usec) / 1_000_000.0
 	last_usec = OS.get_ticks_usec()
 	if active:
-		ms += delta*1000.0*Globals.speed_multi[SSP.mod_speed_level]
+		ms += delta*1000.0*Globals.speed_multi[Rhythia.mod_speed_level]
 		update_cursor()
 		
 		var playback_pos:float = $Main/Music.get_playback_position()*1000.0
 		
-		if (!$Main/Music.playing and (ms + SSP.music_offset) >= 0
-		and ((ms + SSP.music_offset)/1000 < $Main/Music.stream.get_length())):
-			$Main/Music.play((ms + SSP.music_offset)/1000.0)
+		if (!$Main/Music.playing and (ms + Rhythia.music_offset) >= 0
+		and ((ms + Rhythia.music_offset)/1000 < $Main/Music.stream.get_length())):
+			$Main/Music.play((ms + Rhythia.music_offset)/1000.0)
 			
-		if $Main/Music.playing and ((ms + SSP.music_offset) < $Main/Music.stream.get_length() and
-		ms < song.last_ms and abs(playback_pos - (ms + SSP.music_offset)) > 85):
-			$Main/Music.play((ms + SSP.music_offset)/1000.0)
+		if $Main/Music.playing and ((ms + Rhythia.music_offset) < $Main/Music.stream.get_length() and
+		ms < song.last_ms and abs(playback_pos - (ms + Rhythia.music_offset)) > 85):
+			$Main/Music.play((ms + Rhythia.music_offset)/1000.0)
 			$Main.flash_time = 0.5
-			if SSP.desync_alerts:
+			if Rhythia.desync_alerts:
 				Globals.notify(
 					Globals.NOTIFY_WARN,
-					"Audio was desynced by %.2f ms, correcting." % [playback_pos - (ms + SSP.music_offset)],
+					"Audio was desynced by %.2f ms, correcting." % [playback_pos - (ms + Rhythia.music_offset)],
 					"Music Sync Correction"
 				)
 		
@@ -81,7 +81,7 @@ func set_playing(v:bool):
 	$Time.editable = !v
 	$Buttons/StartStop/H/Start.disabled = v
 	$Buttons/StartStop/H/Stop.disabled = !v
-	if v and (ms + SSP.music_offset) >= 0: $Main/Music.play((ms + SSP.music_offset)/1000.0)
+	if v and (ms + Rhythia.music_offset) >= 0: $Main/Music.play((ms + Rhythia.music_offset)/1000.0)
 	else: $Main/Music.stop()
 
 func seek(to:float):
@@ -102,7 +102,7 @@ func direct_seek():
 		seek($Buttons/Seek/H/LineEdit.text.to_float())
 
 func _ready():
-	$Main/Music.pitch_scale = Globals.speed_multi[SSP.mod_speed_level]
+	$Main/Music.pitch_scale = Globals.speed_multi[Rhythia.mod_speed_level]
 	$Main/Music.stream = song.stream()
 	$Main/Music.stream.loop = false
 	$Time.max_value = song.last_ms

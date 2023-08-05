@@ -43,43 +43,43 @@ func reposition(ms:float,approachSpeed:float):
 	var current_offset_ms = notems-ms
 	var current_dist = approachSpeed*current_offset_ms/1000
 	if (
-		(current_dist <= SSP.get("spawn_distance") and current_dist >= (grid_pushback * -1) and sign(approachSpeed) == 1) or
+		(current_dist <= Rhythia.get("spawn_distance") and current_dist >= (grid_pushback * -1) and sign(approachSpeed) == 1) or
 		(current_dist >= -50 and current_dist <= 0.1 and sign(approachSpeed) == -1) or
 		sign(approachSpeed) == 0
 	) and state == Globals.NSTATE_ACTIVE: # state 2 = miss # and current_dist >= -0.5
 		
 		if !was_visible:
 			was_visible = true
-			if SSP.note_spawn_effect:
-				if !SSP.mod_nearsighted: spawn_effect_t = 1
+			if Rhythia.note_spawn_effect:
+				if !Rhythia.mod_nearsighted: spawn_effect_t = 1
 		
 		
 		transform.origin.z = -current_dist
 		visible = true
 		
-		if SSP.mod_chaos:
+		if Rhythia.mod_chaos:
 			var v = ease(max((current_offset_ms-250)/400,0),1.5)
 			transform.origin.x = real_position.x + (chaos_offset.x * v)	
 			transform.origin.y = real_position.y + (chaos_offset.y * v)
 		
-		if SSP.mod_earthquake:
+		if Rhythia.mod_earthquake:
 			var rcoord = Vector2(chaos_rng2.randf_range(-0.25,0.25),chaos_rng2.randf_range(-0.25,0.25))
 			transform.origin.x = real_position.x + (rcoord.x * (current_dist * 0.1))
 			transform.origin.y = real_position.y + (rcoord.y * (current_dist * 0.1))
 		
-		if SSP.note_visual_approach:
-			$Approach.opacity = 1 - (current_dist / SSP.get("spawn_distance"))
+		if Rhythia.note_visual_approach:
+			$Approach.opacity = 1 - (current_dist / Rhythia.get("spawn_distance"))
 			
-			$Approach.scale.x = 0.4 * ((current_dist / SSP.get("spawn_distance")) + 0.6)
-			$Approach.scale.y = 0.4 * ((current_dist / SSP.get("spawn_distance")) + 0.6)
+			$Approach.scale.x = 0.4 * ((current_dist / Rhythia.get("spawn_distance")) + 0.6)
+			$Approach.scale.y = 0.4 * ((current_dist / Rhythia.get("spawn_distance")) + 0.6)
 			
-			if not SSP.visual_approach_follow:
+			if not Rhythia.visual_approach_follow:
 				$Approach.global_translation.z = 0
 			
 		# note spin; not doing this all in a single Vector3 because we're trying to rotate locally
-		rotate(Vector3(1,0,0),SSP.note_spin_x / 2000)
-		rotate(Vector3(0,1,0),SSP.note_spin_y / 2000)
-		rotate(Vector3(0,0,1),SSP.note_spin_z / 2000)
+		rotate(Vector3(1,0,0),Rhythia.note_spin_x / 2000)
+		rotate(Vector3(0,1,0),Rhythia.note_spin_y / 2000)
+		rotate(Vector3(0,0,1),Rhythia.note_spin_z / 2000)
 		
 		if fade_in_enabled or fade_out_enabled:
 			var fade_in:float = 1
@@ -100,8 +100,8 @@ func reposition(ms:float,approachSpeed:float):
 		
 		return true
 	else:
-#		if SSP.play_hit_snd and SSP.ensure_hitsync: 
-#			if SSP.sfx_2d:
+#		if Rhythia.play_hit_snd and Rhythia.ensure_hitsync: 
+#			if Rhythia.sfx_2d:
 #				$"../Hit2D".play()
 #			else:
 #				$"../Hit".transform = transform
@@ -110,16 +110,16 @@ func reposition(ms:float,approachSpeed:float):
 		return !(state == Globals.NSTATE_ACTIVE and sign(approachSpeed) == 1 and current_dist > 100)
 
 func check(cpos:Vector3,prevpos:Vector3=Vector3.ZERO):
-	if SSP.replaying and SSP.replay.sv != 1:
-		return SSP.replay.should_hit(id)
+	if Rhythia.replaying and Rhythia.replay.sv != 1:
+		return Rhythia.replay.should_hit(id)
 	else:
-		var hbs:float = SSP.note_hitbox_size/2
+		var hbs:float = Rhythia.note_hitbox_size/2
 		if hbs == 0.57: hbs = 0.56875 # 1.1375
 		var ori:Vector3 = transform.origin
 		return (cpos.x <= ori.x + hbs and cpos.x >= ori.x - hbs) and (cpos.y <= ori.y + hbs and cpos.y >= ori.y - hbs)
 
 func setup(color:Color):
-	var tcol = Color(color.r,color.g,color.b,SSP.note_opacity)
+	var tcol = Color(color.r,color.g,color.b,Rhythia.note_opacity)
 	var mat2:SpatialMaterial = get_node("Spawn/Mesh").get_surface_material(0).duplicate()
 	set_physics_process(false)
 	mat_s = solid_mat.duplicate()
@@ -135,35 +135,35 @@ func setup(color:Color):
 	mat2.albedo_color = tcol
 	col = tcol
 	
-	if SSP.mod_chaos:
+	if Rhythia.mod_chaos:
 		var rng = get_parent().chaos_rng
 		chaos_offset = Vector2(rng.randf_range(-1,1),rng.randf_range(-1,1)).normalized() * 2
 		real_position = Vector2(transform.origin.x,transform.origin.y)
 	
-	if SSP.mod_earthquake:
+	if Rhythia.mod_earthquake:
 		var rng = get_parent().earthquake_rng
 		earthquake_offset = Vector2(rng.randf_range(-1,1),rng.randf_range(-1,1)).normalized() * 2
 		real_position = Vector2(transform.origin.x,transform.origin.y)
 	
-	if SSP.mod_ghost:
+	if Rhythia.mod_ghost:
 		fade_out_enabled = true
-		fade_out_start = ((18.0/50)*SSP.get("approach_rate"))
-		fade_out_end = ((6.0/50.0)*SSP.get("approach_rate"))
+		fade_out_start = ((18.0/50)*Rhythia.get("approach_rate"))
+		fade_out_end = ((6.0/50.0)*Rhythia.get("approach_rate"))
 	
-	if SSP.mod_nearsighted:
+	if Rhythia.mod_nearsighted:
 		fade_in_enabled = true
-		fade_in_start = ((30.0/50.0)*SSP.get("approach_rate"))
-		fade_in_end = ((5.0/50.0)*SSP.get("approach_rate"))
+		fade_in_start = ((30.0/50.0)*Rhythia.get("approach_rate"))
+		fade_in_end = ((5.0/50.0)*Rhythia.get("approach_rate"))
 	else:
-		fade_in_enabled = SSP.get("fade_length") != 0
-		if SSP.get("fade_length") != 0: 
-			fade_in_start = SSP.get("spawn_distance")
-			fade_in_end = SSP.get("spawn_distance")*(1.0 - SSP.get("fade_length"))
+		fade_in_enabled = Rhythia.get("fade_length") != 0
+		if Rhythia.get("fade_length") != 0: 
+			fade_in_start = Rhythia.get("spawn_distance")
+			fade_in_end = Rhythia.get("spawn_distance")*(1.0 - Rhythia.get("fade_length"))
 
 func _ready():
-	if !SSP.note_visual_approach && has_node("Approach"):
+	if !Rhythia.note_visual_approach && has_node("Approach"):
 		$Approach.queue_free()
-	if SSP.do_note_pushback:
+	if Rhythia.do_note_pushback:
 		grid_pushback = pushback_defaults.do_pushback
 	else:
 		grid_pushback = pushback_defaults.never

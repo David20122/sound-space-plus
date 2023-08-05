@@ -11,7 +11,7 @@ onready var right_ray:RayCast = $Origin/RightHand/Ray
 var primary_ray:RayCast
 
 func update_primary_ray():
-	if SSP.vr_left_handed:
+	if Rhythia.vr_left_handed:
 		primary_ray = left_ray
 		left_ray.enabled = true
 		right_ray.enabled = false
@@ -22,7 +22,7 @@ func update_primary_ray():
 
 func _ready():
 	origin.visible = false
-	if SSP.fake_vr:
+	if Rhythia.fake_vr:
 		origin = $FakeOrigin
 		head = $FakeOrigin/Head
 		left_hand = $FakeOrigin/LeftHand
@@ -38,7 +38,7 @@ func _ready():
 
 func _process(delta):
 	if Input.is_action_just_pressed("vr_switch_hands"):
-		SSP.vr_left_handed = !SSP.vr_left_handed
+		Rhythia.vr_left_handed = !Rhythia.vr_left_handed
 		update_primary_ray()
 	primary_ray.force_raycast_update()
 	primary_ray.update_beam()

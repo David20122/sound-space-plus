@@ -56,7 +56,7 @@ func _ready():
 	if states.size() == 0: visible = false
 	upd()
 	
-	match SSP.friend_position:
+	match Rhythia.friend_position:
 		Globals.FRIEND_LOWER_RIGHT:
 			return
 		Globals.FRIEND_LOWER_LEFT:

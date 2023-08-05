@@ -1,11 +1,11 @@
 extends SpinBox
 
 func upd():
-	SSP.sensitivity = value
+	Rhythia.sensitivity = value
 
 func _process(_d):
-	if value != SSP.sensitivity: upd()
+	if value != Rhythia.sensitivity: upd()
 	
 func _ready():
-	value = SSP.sensitivity
+	value = Rhythia.sensitivity
 	connect("changed",self,"upd")

@@ -29,7 +29,7 @@ func update_letter_grade(acc:float=0):
 	rainbow_letter_grade = (acc == 1)
 	if acc == 1:
 		grade = "SS"
-		gcol = Color.from_hsv(SSP.rainbow_t*0.1,0.5,1)
+		gcol = Color.from_hsv(Rhythia.rainbow_t*0.1,0.5,1)
 	elif acc >= 0.98:
 		grade = "S"
 		gcol = Color("#91fffa")
@@ -55,37 +55,37 @@ func update_letter_grade(acc:float=0):
 
 func _process(delta):
 	if rainbow_letter_grade:
-		$LetterGrade.set("custom_colors/font_color",Color.from_hsv(SSP.rainbow_t*0.1,0.4,1))
+		$LetterGrade.set("custom_colors/font_color",Color.from_hsv(Rhythia.rainbow_t*0.1,0.4,1))
 
 func upd():
-	var ls = floor(SSP.queue_end_length/1000)
+	var ls = floor(Rhythia.queue_end_length/1000)
 	var lm = floor(ls / 60)
 	var lrs = fmod(ls,60)
 	
-	var s = clamp(floor(SSP.queue_end_position/1000),0,ls)
+	var s = clamp(floor(Rhythia.queue_end_position/1000),0,ls)
 	var m = floor(s / 60)
 	var rs = fmod(s,60)
 	
-	$Result.text = "%s/%s songs done" % [SSP.queue_pos,SSP.song_queue.size()]
+	$Result.text = "%s/%s songs done" % [Rhythia.queue_pos,Rhythia.song_queue.size()]
 	
 	
-	$FullCombo.visible = SSP.queue_end_misses == 0
-	$Misses.visible = !SSP.queue_end_misses == 0
-	$Misses.text = comma_sep(SSP.queue_end_misses)
+	$FullCombo.visible = Rhythia.queue_end_misses == 0
+	$Misses.visible = !Rhythia.queue_end_misses == 0
+	$Misses.text = comma_sep(Rhythia.queue_end_misses)
 	
-	$NoPauses.visible = SSP.queue_end_pause_count == 0
-	$Pauses.visible = !SSP.queue_end_pause_count == 0
-	$Pauses.text = comma_sep(SSP.queue_end_pause_count)
+	$NoPauses.visible = Rhythia.queue_end_pause_count == 0
+	$Pauses.visible = !Rhythia.queue_end_pause_count == 0
+	$Pauses.text = comma_sep(Rhythia.queue_end_pause_count)
 
 	$Accuracy.text = "%s/%s\n%.03f%%" % [
-		comma_sep(SSP.queue_end_hits),
-		comma_sep(SSP.queue_end_total_notes),
-		(float(SSP.queue_end_hits)/float(SSP.queue_end_total_notes))*100
+		comma_sep(Rhythia.queue_end_hits),
+		comma_sep(Rhythia.queue_end_total_notes),
+		(float(Rhythia.queue_end_hits)/float(Rhythia.queue_end_total_notes))*100
 	]
-	update_letter_grade(float(SSP.queue_end_hits)/float(SSP.queue_end_total_notes))
+	update_letter_grade(float(Rhythia.queue_end_hits)/float(Rhythia.queue_end_total_notes))
 	$Progress.text = "%d:%02d/%d:%02d\n%.1f%%" % [
 		m,rs,lm,lrs,
-		clamp(SSP.queue_end_position/SSP.queue_end_length,0,1)*100
+		clamp(Rhythia.queue_end_position/Rhythia.queue_end_length,0,1)*100
 	]
 	
-	SSP.just_ended_song = false
+	Rhythia.just_ended_song = false

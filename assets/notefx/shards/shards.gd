@@ -5,7 +5,7 @@ var rainbow:bool = false
 
 func _process(delta):
 	if !active and rainbow:
-		$Particles.material_override.albedo_color = Color.from_hsv(SSP.rainbow_t*0.1,0.4,1)
+		$Particles.material_override.albedo_color = Color.from_hsv(Rhythia.rainbow_t*0.1,0.4,1)
 	if active:
 		if $Particles.emitting == false:
 			active = false

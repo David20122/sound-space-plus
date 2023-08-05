@@ -4,11 +4,11 @@ var sd = false
 
 func item_selected(idx:int):
 	if !sd:
-		var res = SSP.selected_song.change_difficulty(idx - 1)
+		var res = Rhythia.selected_song.change_difficulty(idx - 1)
 		if res == OK:
 			disabled = true
 			text = "Updated difficulty!"
-			SSP.emit_signal("favorite_songs_changed") # Force a map list reload
+			Rhythia.emit_signal("favorite_songs_changed") # Force a map list reload
 			yield(get_tree().create_timer(0.75),"timeout")
 			text = "Change Difficulty"
 			disabled = false
@@ -21,7 +21,7 @@ func item_selected(idx:int):
 
 func upd(_s=null):
 	sd = true
-	select(SSP.selected_song.difficulty + 1)
+	select(Rhythia.selected_song.difficulty + 1)
 	sd = false
 	text = "Change Difficulty"
 
@@ -29,7 +29,7 @@ func upd(_s=null):
 #	set_item_text(0,"None")
 
 func _ready():
-	SSP.connect("selected_song_changed",self,"upd")
+	Rhythia.connect("selected_song_changed",self,"upd")
 	add_item("N/A",0)
 	add_item("Easy",1)
 	add_item("Medium",2)

@@ -14,7 +14,7 @@ var namet = [ # Shown on the button
 ]
 
 func on_pressed(i):
-	SSP.health_model = i
+	Rhythia.health_model = i
 	on_model_selected(i)
 
 func on_model_selected(model:int):
@@ -29,4 +29,4 @@ func _ready():
 	for i in range(names.size()):
 		get_popup().add_check_item(names[i],i)
 	get_popup().connect("id_pressed",self,"on_pressed")
-	on_model_selected(SSP.health_model)
+	on_model_selected(Rhythia.health_model)

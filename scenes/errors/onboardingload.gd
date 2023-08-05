@@ -9,8 +9,8 @@ error info: %s
 menu target: %s""" % [
 		ProjectSettings.get_setting("application/config/version"),
 		OS.get_name(),
-		SSP.errorstr,
-		SSP.menu_target,
+		Rhythia.errorstr,
+		Rhythia.menu_target,
 	]
 	if OS.has_feature("mobile"):
 		$Info.get("custom_fonts/font").size = 28

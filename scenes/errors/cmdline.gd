@@ -5,7 +5,7 @@ func _ready():
 	$Info.text = """ssp version: %s
 %s""" % [
 		ProjectSettings.get_setting("application/config/version"),
-		SSP.errorstr,
+		Rhythia.errorstr,
 	]
 	if OS.has_feature("mobile"):
 		$Info.get("custom_fonts/font").size = 28

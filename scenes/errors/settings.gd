@@ -8,7 +8,7 @@ platform: %s
 error code: %s""" % [
 		ProjectSettings.get_setting("application/config/version"),
 		OS.get_name(),
-		SSP.errornum,
+		Rhythia.errornum,
 	]
 	if OS.has_feature("mobile"):
 		$Info.get("custom_fonts/font").size = 28
@@ -16,7 +16,7 @@ error code: %s""" % [
 		var activity = Discord.Activity.new()
 		activity.set_type(Discord.ActivityType.Playing)
 		activity.set_details("experiencing a cattr moment")
-		activity.set_state("(settings error %s)" % SSP.errornum)
+		activity.set_state("(settings error %s)" % Rhythia.errornum)
 
 		var assets = activity.get_assets()
 		assets.set_large_image("icon-bg")

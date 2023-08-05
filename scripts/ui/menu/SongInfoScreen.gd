@@ -28,8 +28,8 @@ onready var difficulty_btns:Array = [
 ]
 
 func update(_s=null):
-	if !SSP.selected_song: return
-	var map:Song = SSP.selected_song
+	if !Rhythia.selected_song: return
+	var map:Song = Rhythia.selected_song
 	$Deleted.visible = (map.id == "!DELETED")
 	$EndInfo.visible = true
 	$Info/M/V/Buttons/Control/Actions.visible = true
@@ -54,22 +54,22 @@ func update(_s=null):
 		$Info/D/Difficulty.visible = true
 		$Info/D/DifficultySmaller.visible = false
 	
-	$Info/M/V/Mapper.visible = !SSP.single_map_mode_txt
-	$Info/M/V/Id.visible = !SSP.single_map_mode_txt
-	$Info/M/V/SMM.visible = SSP.single_map_mode
+	$Info/M/V/Mapper.visible = !Rhythia.single_map_mode_txt
+	$Info/M/V/Id.visible = !Rhythia.single_map_mode_txt
+	$Info/M/V/SMM.visible = Rhythia.single_map_mode
 	
 	
 	var txt = ""
-	if SSP.note_hitbox_size == 1.140: txt += "Default hitboxes, "
-	else: txt += "Hitboxes: %s, " % SSP.note_hitbox_size
-	if SSP.hitwindow_ms == 55: txt += "default hitwindow"
-	else: txt += "hitwindow: %s ms" % SSP.hitwindow_ms
+	if Rhythia.note_hitbox_size == 1.140: txt += "Default hitboxes, "
+	else: txt += "Hitboxes: %s, " % Rhythia.note_hitbox_size
+	if Rhythia.hitwindow_ms == 55: txt += "default hitwindow"
+	else: txt += "hitwindow: %s ms" % Rhythia.hitwindow_ms
 	$Hitboxes.text = txt
 	
 	for i in range(difficulty_btns.size()):
 		var n:Panel = difficulty_btns[i]
 		n.visible = (map.difficulty == i-1)
-		n.get_node("F").visible = SSP.is_favorite(map.id)
+		n.get_node("F").visible = Rhythia.is_favorite(map.id)
 		if map.has_cover:
 			n.get_node("Name").visible = false
 			n.get_node("Cover").visible = true
@@ -99,28 +99,28 @@ func update(_s=null):
 	
 	$Actions/Convert.disabled = (
 		$Actions/Convert.debounce or
-		SSP.selected_song.is_broken or
-		SSP.selected_song.is_builtin or
-		SSP.selected_song.converted or
-		SSP.selected_song.songType == Globals.MAP_SSPM2 or
-		SSP.selected_song.is_online
+		Rhythia.selected_song.is_broken or
+		Rhythia.selected_song.is_builtin or
+		Rhythia.selected_song.converted or
+		Rhythia.selected_song.songType == Globals.MAP_SSPM2 or
+		Rhythia.selected_song.is_online
 	)
 	
 	$Actions/Convert.visible = (
-		!SSP.selected_song.is_builtin and
-		!SSP.selected_song.is_online and
-		SSP.selected_song.songType != Globals.MAP_SSPM2
+		!Rhythia.selected_song.is_builtin and
+		!Rhythia.selected_song.is_online and
+		Rhythia.selected_song.songType != Globals.MAP_SSPM2
 	)
 	
 	$Actions/Difficulty.visible = (
-		!SSP.selected_song.is_builtin and
-		!SSP.selected_song.is_online and (
-			SSP.selected_song.songType == Globals.MAP_SSPM or
-			SSP.selected_song.songType == Globals.MAP_SSPM2
+		!Rhythia.selected_song.is_builtin and
+		!Rhythia.selected_song.is_online and (
+			Rhythia.selected_song.songType == Globals.MAP_SSPM or
+			Rhythia.selected_song.songType == Globals.MAP_SSPM2
 		)
 	)
 	
-	if SSP.selected_song.songType == Globals.MAP_SSPM:
+	if Rhythia.selected_song.songType == Globals.MAP_SSPM:
 		$Actions/Convert.text = "Upgrade map to SSPM v2"
 	else:
 		$Actions/Convert.text = "Convert map to .sspm"
@@ -140,11 +140,11 @@ func return_to_song_select():
 	get_viewport().get_node("Menu/Sidebar").press(1,false)
 
 func _ready():
-	SSP.connect("selected_song_changed",self,"update")
-	SSP.connect("mods_changed",self,"update")
-	SSP.connect("favorite_songs_changed",self,"update")
+	Rhythia.connect("selected_song_changed",self,"update")
+	Rhythia.connect("mods_changed",self,"update")
+	Rhythia.connect("favorite_songs_changed",self,"update")
 	$ButtonDisp/Select.connect("pressed",self,"return_to_song_select")
-	if SSP.selected_song: update()
+	if Rhythia.selected_song: update()
 	else:
 		$EndInfo.visible = false
 		$Info/M/V/Run/Run.disabled = true

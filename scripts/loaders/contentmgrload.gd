@@ -14,7 +14,7 @@ func _ready():
 	$BlackFade.color = Color(0,0,0,black_fade)
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	var s = Globals.error_sound
-#	var st = SSP.get_stream_with_default("user://loadingmusic",s)
+#	var st = Rhythia.get_stream_with_default("user://loadingmusic",s)
 #	if st != s:
 #		$Music.stream = st
 #		$Music.play()
@@ -23,8 +23,8 @@ func _ready():
 	
 	var res = RQueue.queue_resource(target)
 	if res != OK:
-		SSP.errorstr = "queue_resource returned %s" % res
-		SSP.menu_target = "res://scenes/menu/contentmgr.tscn"
+		Rhythia.errorstr = "queue_resource returned %s" % res
+		Rhythia.menu_target = "res://scenes/menu/contentmgr.tscn"
 		get_tree().change_scene("res://scenes/errors/menuload.tscn")
 
 var result
@@ -47,8 +47,8 @@ func _process(delta):
 			leaving = true
 			black_fade_target = true
 			if !(result is Object):
-				SSP.errorstr = "get_resource returned non-object (probably null)"
-				SSP.menu_target = "res://scenes/menu/contentmgr.tscn"
+				Rhythia.errorstr = "get_resource returned non-object (probably null)"
+				Rhythia.menu_target = "res://scenes/menu/contentmgr.tscn"
 				get_tree().change_scene("res://scenes/errors/menuload.tscn")
 	
 	if leaving and result and black_fade == 1:

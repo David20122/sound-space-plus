@@ -5,7 +5,7 @@ var leaving:bool = false
 var black_fade_target:bool = false
 var black_fade:float = 0
 
-var prev_song = SSP.selected_song
+var prev_song = Rhythia.selected_song
 var next_song
 
 func leave():
@@ -21,7 +21,7 @@ func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	
 	$Music.volume_db = -12 - (40*black_fade)
-	next_song = SSP.get_next()
+	next_song = Rhythia.get_next()
 	$C/V/H/Queue/EndInfo.upd()
 	if next_song:
 		$C/V/Next/H/V/Next.text = "Next: %s" % [next_song.name] 
@@ -29,9 +29,9 @@ func _ready():
 		$Music.play($Music.stream.get_length() * 0.3)
 	else:
 		$C/V/Next/H/V/Next.text = "End of queue - returning to menu"
-		if SSP.song_end_type == Globals.END_FAIL:
+		if Rhythia.song_end_type == Globals.END_FAIL:
 			$C/V/Next/H/V/Next.text = "Failed - returning to menu"
-		elif SSP.song_end_type == Globals.END_GIVEUP:
+		elif Rhythia.song_end_type == Globals.END_GIVEUP:
 			$C/V/Next/H/V/Next.text = "Gave up - returning to menu"
 
 var result
@@ -57,8 +57,8 @@ func _process(delta):
 		leaving = true
 		black_fade = true
 	if leaving and black_fade == 1:
-		if SSP.queue_active:
-			SSP.select_song(next_song)
+		if Rhythia.queue_active:
+			Rhythia.select_song(next_song)
 			get_tree().change_scene("res://scenes/loaders/songload.tscn")
 		else:
 			get_tree().change_scene("res://scenes/loaders/menuload.tscn")

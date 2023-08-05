@@ -44,12 +44,12 @@ func _init(song:Song):
 				var new:Vector3 = (note + notes[notes.size()-1]) / 2
 				notes[notes.size()-1] = Vector3(new.x, new.y, notes[notes.size()-1].z)
 			else:
-				if SSP.mod_mirror_x: note.x = 2 - note.x
-				if SSP.mod_mirror_y: note.y = 2 - note.y
+				if Rhythia.mod_mirror_x: note.x = 2 - note.x
+				if Rhythia.mod_mirror_y: note.y = 2 - note.y
 				notes.append(note)
 		else:
-			if SSP.mod_mirror_x: note.x = 2 - note.x
-			if SSP.mod_mirror_y: note.y = 2 - note.y
+			if Rhythia.mod_mirror_x: note.x = 2 - note.x
+			if Rhythia.mod_mirror_y: note.y = 2 - note.y
 			notes.append(note)
 
 
@@ -80,7 +80,7 @@ func bezier(t:float,p0:Vector2,p1:Vector2,p2:Vector2,p3:Vector2) -> Vector2:
 			smoothstep(
 				25,
 				300,
-				(Duration / Globals.speed_multi[SSP.mod_speed_level]) * (StartPos.distance_to(EndPos))
+				(Duration / Globals.speed_multi[Rhythia.mod_speed_level]) * (StartPos.distance_to(EndPos))
 			),0,1
 		)
 	)

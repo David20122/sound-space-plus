@@ -1,11 +1,11 @@
 extends CheckBox
 
 func _process(_d):
-	if pressed != SSP.invert_mouse:
-		SSP.invert_mouse = pressed
+	if pressed != Rhythia.invert_mouse:
+		Rhythia.invert_mouse = pressed
 
-func upd(): pressed = SSP.invert_mouse
+func upd(): pressed = Rhythia.invert_mouse
 
 func _ready():
 	upd()
-	SSP.connect("mods_changed",self,"upd")
+	Rhythia.connect("mods_changed",self,"upd")

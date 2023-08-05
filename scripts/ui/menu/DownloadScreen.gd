@@ -20,8 +20,8 @@ func _process(delta):
 		$Label.text = "Downloading map...\n%.02f%%" % [(amt/total) * 100]
 
 func _ready():
-	SSP.connect("download_start",self,"start_download")
-	SSP.connect("download_done",self,"end_download")
+	Rhythia.connect("download_start",self,"start_download")
+	Rhythia.connect("download_done",self,"end_download")
 	pause_mode = PAUSE_MODE_PROCESS
 	$Cancel.connect("pressed",Online,"cancel")
 

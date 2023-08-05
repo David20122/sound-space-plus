@@ -1,7 +1,7 @@
 extends Label
 
 func _ready():
-	if !SSP.display_true_combo:
+	if !Rhythia.display_true_combo:
 		visible = false
 	else:
 		visible = true

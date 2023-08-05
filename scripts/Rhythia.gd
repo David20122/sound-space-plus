@@ -411,8 +411,8 @@ func update_rpc_song(): # Discord RPC
 	if mod_no_regen: mods.append("NoRegen")
 	if mod_mirror_x or mod_mirror_y:
 		var mirrorst = "Mirror"
-		if SSP.mod_mirror_x: mirrorst += "X"
-		if SSP.mod_mirror_y: mirrorst += "Y"
+		if Rhythia.mod_mirror_x: mirrorst += "X"
+		if Rhythia.mod_mirror_y: mirrorst += "Y"
 		mods.append(mirrorst)
 	if mod_ghost: mods.append("Ghost")
 	if mod_nearsighted: mods.append("Nearsight")
@@ -2184,10 +2184,10 @@ func do_init(_ud=null):
 				errorstr = "song load failed with message '%s'" % result
 				get_tree().change_scene("res://scenes/errors/cmdline.tscn")
 				return
-		SSP.selected_song = song
+		Rhythia.selected_song = song
 	else:
 		var smaps:Array = []
-		emit_signal("init_stage_reached","Register content 1/4\nImport SSP maps\nLocating files")
+		emit_signal("init_stage_reached","Register content 1/4\nImport Rhythia maps\nLocating files")
 		yield(get_tree(),"idle_frame")
 		var sd:Array = []
 		dir.change_dir(user_map_dir)
@@ -2205,7 +2205,7 @@ func do_init(_ud=null):
 		emit_signal("init_stage_num",2)
 		
 		for i in range(smaps.size()):
-			emit_signal("init_stage_reached","Register content 1/4\nImport SSP maps\n%.0f%%" % (
+			emit_signal("init_stage_reached","Register content 1/4\nImport Rhythia maps\n%.0f%%" % (
 				100*(float(i)/float(smaps.size()))
 			))
 			if (OS.get_ticks_msec() - lt) >= load_target_frame_time * 1000:

@@ -5,4 +5,4 @@ func _input(event):
 		position = event.position
 
 func _ready():
-	visible = SSP.vr
+	visible = Rhythia.vr

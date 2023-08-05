@@ -59,7 +59,7 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_activity_assets.gdns"
 }, {
-"base": "Reference",
+"base": "",
 "class": "DiscordActivityManager",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_activity_manager.gdns"
@@ -84,12 +84,12 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_core.gdns"
 }, {
-"base": "Reference",
+"base": "",
 "class": "DiscordLobby",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_lobby.gdns"
 }, {
-"base": "Reference",
+"base": "",
 "class": "DiscordLobbyManager",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_lobby_manager.gdns"
@@ -99,12 +99,12 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_lobby_transaction.gdns"
 }, {
-"base": "Reference",
+"base": "",
 "class": "DiscordOverlayManager",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_overlay_manager.gdns"
 }, {
-"base": "Reference",
+"base": "",
 "class": "DiscordPartySize",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_party_size.gdns"
@@ -248,7 +248,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Sound Space Plus"
+config/name="Rhythia"
 run/main_scene="res://scenes/init.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="SoundSpacePlus"
@@ -304,7 +304,7 @@ channel_disable_time=15.0
 
 Globals="*res://scripts/Globals.gd"
 Online="*res://scripts/Online.gd"
-SSP="*res://scripts/SoundSpacePlus.gd"
+Rhythia="*res://scripts/Rhythia.gd"
 RQueue="*res://scripts/content/resources/ResourceQueue.gd"
 Discord="*res://addons/discord_game_sdk/discord.gd"
 Dance="*res://scripts/cursorDance/Dance.gd"
@@ -332,7 +332,7 @@ window/stretch/aspect.mobile="keep_height"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/discord_game_sdk/plugin.cfg", "res://addons/godot-openvr/plugin.cfg", "res://addons/native_dialogs/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/discord_game_sdk/plugin.cfg", "res://addons/godot-openvr/plugin.cfg" )
 
 [gdnative]
 

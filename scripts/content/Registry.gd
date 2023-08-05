@@ -161,8 +161,8 @@ func load_registry_file(path:String,regtype:int,regDisplayName:String=""):
 					Globals.MAPR_EMBEDDED: song.setup_from_data(split[7],home_path+split[6])
 					Globals.MAPR_EMBEDDED_SONG_ABSOLUTE: song.setup_from_data(split[7],split[6])
 				
-				if SSP.do_archive_convert and regDisplayName == "ssarchive": 
-					SSP.emit_signal("init_stage_reached","Converting map archive to .sspm\n(This could take a while)\n%.0f%%" % (
+				if Rhythia.do_archive_convert and regDisplayName == "ssarchive": 
+					Rhythia.emit_signal("init_stage_reached","Converting map archive to .sspm\n(This could take a while)\n%.0f%%" % (
 						100*(float(i)/float(lines.size()))
 					))
 					if fmod(i,8) == 0: yield(Globals.get_tree(),"idle_frame")

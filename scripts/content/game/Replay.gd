@@ -26,15 +26,15 @@ var end_ms:float = 0
 var read_start_offset:int = 0
 
 func replay_error(txt:String):
-	SSP.get_tree().paused = true
+	Rhythia.get_tree().paused = true
 	Globals.confirm_prompt.s_alert.play()
 	Globals.confirm_prompt.open(txt,"Error",[{text="OK"}])
 	yield(Globals.confirm_prompt,"option_selected")
 	Globals.confirm_prompt.s_back.play()
 	Globals.confirm_prompt.close()
 	yield(Globals.confirm_prompt,"done_closing")
-	SSP.just_ended_song = false # Prevent PB handling
-	SSP.get_tree().change_scene("res://scenes/loaders/menuload.tscn")
+	Rhythia.just_ended_song = false # Prevent PB handling
+	Rhythia.get_tree().change_scene("res://scenes/loaders/menuload.tscn")
 
 var debug_label:Label
 
@@ -97,7 +97,7 @@ func read_data(from_path:String=""):
 			if sv >= 4: debug_txt.replay_hwid = file.get_line()
 			id = file.get_line()
 			var song_id = id.split(".")[0]
-			var fsong = SSP.registry_song.get_item(song_id)
+			var fsong = Rhythia.registry_song.get_item(song_id)
 			
 			debug_txt.replay_id = id
 			debug_txt.song_id = song_id
@@ -109,11 +109,11 @@ func read_data(from_path:String=""):
 				return
 			
 			song = fsong
-			SSP.selected_song = fsong
+			Rhythia.selected_song = fsong
 			var state_str = file.get_line()
-			var state = SSP.parse_pb_str(state_str)
+			var state = Rhythia.parse_pb_str(state_str)
 			debug_txt.state_str_after_offset = file.get_position()
-			SSP.apply_state(state)
+			Rhythia.apply_state(state)
 			debug_txt.state_str = state_str
 			debug_txt.state = state
 			
@@ -157,7 +157,7 @@ func read_data(from_path:String=""):
 				update_debug_text()
 				if fmod(i,70) == 0:
 					emit_signal("progress",(float(i)/float(sigcount)) * 0.6)
-					yield(SSP.get_tree(),"idle_frame")
+					yield(Rhythia.get_tree(),"idle_frame")
 				
 				if kind == Globals.RS_CURSOR:
 					var ms = file.get_32()
@@ -214,7 +214,7 @@ func read_data(from_path:String=""):
 				update_debug_text()
 				if fmod(num,250) == 0:
 					emit_signal("progress",0.6 + ((float(num)/float(curcount)) * 0.4))
-					yield(SSP.get_tree(),"idle_frame")
+					yield(Rhythia.get_tree(),"idle_frame")
 				cursor_positions.append(cursor_unrev.pop_back())
 			
 			debug_txt.noteres_amt = note_results.size()
@@ -231,7 +231,7 @@ func read_data(from_path:String=""):
 			autoplayer = true
 			debug_txt.autoplayer = true
 			update_debug_text()
-			song = SSP.selected_song
+			song = Rhythia.selected_song
 			dance = BouncyDanceMover.new(song)
 #			var notes = song.read_notes()
 #			var prev = Vector3(1,-1,-1)
@@ -241,10 +241,10 @@ func read_data(from_path:String=""):
 #				i += 1
 #				if fmod(i,250) == 0:
 #					emit_signal("progress",(float(i)/float(notes.size())) * 0.6)
-#					yield(SSP.get_tree(),"idle_frame")
+#					yield(Rhythia.get_tree(),"idle_frame")
 #				var p:Vector3 = Vector3(n[0],-n[1],float(n[2]))
-#				if SSP.mod_mirror_x: p.x = 2 - p.x
-#				if SSP.mod_mirror_y: p.y = (-p.y) - 2
+#				if Rhythia.mod_mirror_x: p.x = 2 - p.x
+#				if Rhythia.mod_mirror_y: p.y = (-p.y) - 2
 #				if p.z != prev.z:
 #					prev = p
 #					cursor_unrev.append(p)
@@ -259,7 +259,7 @@ func read_data(from_path:String=""):
 #				update_debug_text()
 #				if fmod(num,250) == 0:
 #					emit_signal("progress",0.6 + ((float(num)/float(curcount)) * 0.4))
-#					yield(SSP.get_tree(),"idle_frame")
+#					yield(Rhythia.get_tree(),"idle_frame")
 #				var c:Vector3 = cursor_unrev.pop_back()
 #				var r:Vector3 = Vector3(clamp(c.x,-0.5,2.5),clamp(c.y,-2.5,0.5),c.z)
 #				if c != r:
@@ -267,8 +267,8 @@ func read_data(from_path:String=""):
 #					debug_txt.c_r_mismatch += 1
 #				cursor_positions.append(r)
 #
-			end_ms = SSP.selected_song.last_ms
-			yield(SSP.get_tree(),"idle_frame")
+			end_ms = Rhythia.selected_song.last_ms
+			yield(Rhythia.get_tree(),"idle_frame")
 			emit_signal("done_loading")
 			loaded = true
 
@@ -299,7 +299,7 @@ func get_cursor_position(ms:float):
 				if p.z >= ms:
 	#				breakpoint
 					if i != cursor_positions.size(): ap = cursor_positions[i+1]
-					else: ap = Vector3(1,-1,-3000*Globals.speed_multi[SSP.mod_speed_level])
+					else: ap = Vector3(1,-1,-3000*Globals.speed_multi[Rhythia.mod_speed_level])
 					bp = p
 					last_pos_offset = i
 					break
@@ -428,18 +428,18 @@ func start_recording(with_song:Song):
 	file.store_64(0)
 	file.store_line(OS.get_unique_id())
 	file.store_line(id)
-	file.store_line(SSP.generate_pb_str())
+	file.store_line(Rhythia.generate_pb_str())
 	
-	file.store_float(SSP.approach_rate)
-	file.store_float(SSP.spawn_distance)
-	file.store_float(SSP.fade_length)
-	file.store_float(SSP.parallax)
-	file.store_float(SSP.ui_parallax)
-	file.store_float(SSP.grid_parallax)
-	file.store_float(SSP.fov)
-	if SSP.cam_unlock: file.store_8(1)
+	file.store_float(Rhythia.approach_rate)
+	file.store_float(Rhythia.spawn_distance)
+	file.store_float(Rhythia.fade_length)
+	file.store_float(Rhythia.parallax)
+	file.store_float(Rhythia.ui_parallax)
+	file.store_float(Rhythia.grid_parallax)
+	file.store_float(Rhythia.fov)
+	if Rhythia.cam_unlock: file.store_8(1)
 	else: file.store_8(0)
-	file.store_float(SSP.edge_drift)
+	file.store_float(Rhythia.edge_drift)
 	
 	file.store_8(0)
 	endms_offset = file.get_position()

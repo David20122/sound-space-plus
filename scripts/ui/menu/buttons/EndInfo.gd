@@ -29,7 +29,7 @@ func update_letter_grade(acc:float=0):
 	rainbow_letter_grade = (acc == 1)
 	if acc == 1:
 		grade = "SS"
-		gcol = Color.from_hsv(SSP.rainbow_t*0.1,0.5,1)
+		gcol = Color.from_hsv(Rhythia.rainbow_t*0.1,0.5,1)
 	elif acc >= 0.98:
 		grade = "S"
 		gcol = Color("#91fffa")
@@ -55,11 +55,11 @@ func update_letter_grade(acc:float=0):
 
 func _process(delta):
 	if rainbow_letter_grade:
-		$LetterGrade.set("custom_colors/font_color",Color.from_hsv(SSP.rainbow_t*0.1,0.4,1))
+		$LetterGrade.set("custom_colors/font_color",Color.from_hsv(Rhythia.rainbow_t*0.1,0.4,1))
 
 func show_pb(_s=null):
-	if SSP.selected_song != null:
-		var pb = SSP.get_best()
+	if Rhythia.selected_song != null:
+		var pb = Rhythia.get_best()
 		if pb:
 			visible = true
 			var misses = pb.total_notes - pb.hit_notes
@@ -91,7 +91,7 @@ func show_pb(_s=null):
 			$MaxCombo.text += "\n"
 			
 			update_letter_grade(float(pb.hit_notes)/float(pb.total_notes))
-			$Progress.text = "%s\n%.2f%%" % [get_time_ms(pb.position),clamp(pb.position/SSP.selected_song.last_ms,0,1)*100]
+			$Progress.text = "%s\n%.2f%%" % [get_time_ms(pb.position),clamp(pb.position/Rhythia.selected_song.last_ms,0,1)*100]
 		else:
 			visible = true
 			$Result.text = "No PB"
@@ -111,54 +111,54 @@ func show_pb(_s=null):
 			$MaxCombo.text = "-\n"
 
 func _ready():
-	SSP.connect("selected_song_changed",self,"show_pb")
-	SSP.connect("mods_changed",self,"show_pb")
-	yield(SSP,"map_list_ready")
-	if !SSP.selected_song: return
-	$NewBest.stream = SSP.pb_snd
-	if $NewBest.stream != SSP.normal_pb_sound:
+	Rhythia.connect("selected_song_changed",self,"show_pb")
+	Rhythia.connect("mods_changed",self,"show_pb")
+	yield(Rhythia,"map_list_ready")
+	if !Rhythia.selected_song: return
+	$NewBest.stream = Rhythia.pb_snd
+	if $NewBest.stream != Rhythia.normal_pb_sound:
 		$NewBest.pitch_scale = 1
-	visible = SSP.just_ended_song
-	if SSP.just_ended_song:
-		var is_best:bool = SSP.do_pb_check_and_set()
+	visible = Rhythia.just_ended_song
+	if Rhythia.just_ended_song:
+		var is_best:bool = Rhythia.do_pb_check_and_set()
 		if is_best: $NewBest.play()
-		if SSP.song_end_type == Globals.END_PASS:
-			if SSP.was_replay: $Result.text = "Replay passed"
+		if Rhythia.song_end_type == Globals.END_PASS:
+			if Rhythia.was_replay: $Result.text = "Replay passed"
 			elif is_best: $Result.text = "New best!"
 			else: $Result.text = "You passed!"
 			$Result.set("custom_colors/font_color",Color("#6ff1ff"))
-		elif SSP.was_replay: $Result.text = "Replay failed"
+		elif Rhythia.was_replay: $Result.text = "Replay failed"
 		elif is_best:
 			$Result.text = "You failed (new best!)"
 			$Result.set("custom_colors/font_color",Color("#ea4aca"))
 		else: $Result.text = "You failed!"
 		
 		
-		$FullCombo.visible = SSP.song_end_misses == 0 && SSP.song_end_type == Globals.END_PASS
-		$Misses.visible = !SSP.song_end_misses == 0 || !SSP.song_end_type == Globals.END_PASS
-		$Misses.text = comma_sep(SSP.song_end_misses)
+		$FullCombo.visible = Rhythia.song_end_misses == 0 && Rhythia.song_end_type == Globals.END_PASS
+		$Misses.visible = !Rhythia.song_end_misses == 0 || !Rhythia.song_end_type == Globals.END_PASS
+		$Misses.text = comma_sep(Rhythia.song_end_misses)
 		
-		$NoPauses.visible = SSP.song_end_pause_count == 0
-		$Pauses.visible = !SSP.song_end_pause_count == 0
-		$Pauses.text = comma_sep(SSP.song_end_pause_count)
+		$NoPauses.visible = Rhythia.song_end_pause_count == 0
+		$Pauses.visible = !Rhythia.song_end_pause_count == 0
+		$Pauses.text = comma_sep(Rhythia.song_end_pause_count)
 
 		$Accuracy.text = "%s/%s\n%.03f%%" % [
-			comma_sep(SSP.song_end_hits),
-			comma_sep(SSP.song_end_total_notes),
-			(float(SSP.song_end_hits)/float(SSP.song_end_total_notes))*100
+			comma_sep(Rhythia.song_end_hits),
+			comma_sep(Rhythia.song_end_total_notes),
+			(float(Rhythia.song_end_hits)/float(Rhythia.song_end_total_notes))*100
 		]
 		
 
-		if SSP.song_end_combo < SSP.selected_song.note_count:
-			$MaxCombo.text = comma_sep(SSP.song_end_combo)
-		elif SSP.song_end_combo == SSP.selected_song.note_count:
+		if Rhythia.song_end_combo < Rhythia.selected_song.note_count:
+			$MaxCombo.text = comma_sep(Rhythia.song_end_combo)
+		elif Rhythia.song_end_combo == Rhythia.selected_song.note_count:
 			$MaxCombo.text = "FULL COMBO"
 		else:
 			$MaxCombo.text = "NO COMBO"
 		$MaxCombo.text += "\n"
 		
-		update_letter_grade(float(SSP.song_end_hits)/float(SSP.song_end_total_notes))
-		$Progress.text = "%s\n%.1f%%" % [SSP.song_end_time_str,clamp(SSP.song_end_position/SSP.song_end_length,0,1)*100]
+		update_letter_grade(float(Rhythia.song_end_hits)/float(Rhythia.song_end_total_notes))
+		$Progress.text = "%s\n%.1f%%" % [Rhythia.song_end_time_str,clamp(Rhythia.song_end_position/Rhythia.song_end_length,0,1)*100]
 	else:
 		show_pb()
-	SSP.just_ended_song = false
+	Rhythia.just_ended_song = false

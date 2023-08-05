@@ -76,7 +76,7 @@ func bezier(t:float,p0:Vector2,p1:Vector2,p2:Vector2,p3:Vector2) -> Vector2:
 			smoothstep(
 				15,
 				165,
-				(Duration / Globals.speed_multi[SSP.mod_speed_level]) * (StartPos.distance_to(EndPos))
+				(Duration / Globals.speed_multi[Rhythia.mod_speed_level]) * (StartPos.distance_to(EndPos))
 			),0,1
 		)
 	)

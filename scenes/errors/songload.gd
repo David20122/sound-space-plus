@@ -8,7 +8,7 @@ platform: %s
 error info: %s""" % [
 		ProjectSettings.get_setting("application/config/version"),
 		OS.get_name(),
-		SSP.errorstr,
+		Rhythia.errorstr,
 	]
 	if OS.has_feature("mobile"):
 		$Info.get("custom_fonts/font").size = 28

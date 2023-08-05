@@ -97,10 +97,11 @@ margin_top = -45.0
 margin_right = 344.0
 margin_bottom = -15.0
 grow_vertical = 2
+rect_scale = Vector2( 1.00568, 1.00712 )
 theme = ExtResource( 4 )
 custom_colors/font_color = Color( 1, 0.705882, 0.945098, 1 )
 custom_fonts/font = SubResource( 3 )
-text = "Sound Space Plus   vA-B-C-branch"
+text = "Rhythia  vA-B-C-branch"
 valign = 1
 script = ExtResource( 2 )
 

@@ -31,24 +31,24 @@ func respawn(t_override=null,rot=0):
 	$Mesh.rotation = cursormesh.rotation
 
 func upd_dumb(delta):
-	if !SSP.smart_trail:
-		t += (delta/SSP.trail_time)
+	if !Rhythia.smart_trail:
+		t += (delta/Rhythia.trail_time)
 	var a = clamp((t - 0.2),0,1)
-	if SSP.trail_mode_opacity:
+	if Rhythia.trail_mode_opacity:
 		$Mesh.get("material/0").albedo_color.a = a * 0.6 * transp_multi
-	if SSP.trail_mode_scale:
-		$Mesh.scale = Vector3(a*SSP.cursor_scale,1,a*SSP.cursor_scale)
-	if !SSP.smart_trail and t >= 1:
+	if Rhythia.trail_mode_scale:
+		$Mesh.scale = Vector3(a*Rhythia.cursor_scale,1,a*Rhythia.cursor_scale)
+	if !Rhythia.smart_trail and t >= 1:
 		t -= 1
 		respawn()
 
 func update(delta):
-	t -= (delta/SSP.trail_time)
+	t -= (delta/Rhythia.trail_time)
 	var a = clamp((t),0,1)
-	if SSP.trail_mode_opacity:
+	if Rhythia.trail_mode_opacity:
 		$Mesh.get("material/0").albedo_color.a = a * 0.6 * transp_multi
-	if SSP.trail_mode_scale:
-		$Mesh.scale = Vector3(a*SSP.cursor_scale,1,a*SSP.cursor_scale)
+	if Rhythia.trail_mode_scale:
+		$Mesh.scale = Vector3(a*Rhythia.cursor_scale,1,a*Rhythia.cursor_scale)
 	if t <= 0:
 		started = false
 		visible = false
@@ -56,7 +56,7 @@ func update(delta):
 
 func _process(delta):
 	if started:
-		if SSP.smart_trail: update(delta)
+		if Rhythia.smart_trail: update(delta)
 		else: upd_dumb(delta)
 
 var init_done:bool = false
@@ -65,8 +65,8 @@ func init():
 	init_done = true
 	var mat:SpatialMaterial = $Mesh.get("material/0").duplicate()
 	$Mesh.scale = Vector3(0,1,0)
-	if not SSP.trail_mode_scale:
-		$Mesh.scale = Vector3(SSP.cursor_scale,1,SSP.cursor_scale)
+	if not Rhythia.trail_mode_scale:
+		$Mesh.scale = Vector3(Rhythia.cursor_scale,1,Rhythia.cursor_scale)
 	$Mesh.set("material/0",mat)
 
 func start():

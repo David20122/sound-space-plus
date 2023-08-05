@@ -3,7 +3,7 @@ extends Panel
 var notes:PoolVector3Array = PoolVector3Array()
 var noten:int = 0
 
-var colors = SSP.selected_colorset.colors
+var colors = Rhythia.selected_colorset.colors
 
 var active:bool = true
 
@@ -19,7 +19,7 @@ func tp(v:Vector2) -> Vector2:
 	return v*100+Vector2(50,50)
 
 func _draw():
-	var nt:float = 1000.0 * Globals.speed_multi[SSP.mod_speed_level]
+	var nt:float = 1000.0 * Globals.speed_multi[Rhythia.mod_speed_level]
 	var gray:Color = Color(0.075,0.075,0.075)
 	draw_line(Vector2(100,0),Vector2(100,300),gray,1)
 	draw_line(Vector2(200,0),Vector2(200,300),gray,1)
@@ -105,6 +105,6 @@ func _process(delta):
 	if active: update()
 
 func setup(song:Song):
-	$Hit.stream = SSP.hit_snd
+	$Hit.stream = Rhythia.hit_snd
 	for n in song.read_notes():
 		notes.append(Vector3(n[0],n[1],n[2]))

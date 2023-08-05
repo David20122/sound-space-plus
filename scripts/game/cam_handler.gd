@@ -1,9 +1,9 @@
 extends Spatial
 
-var state = (SSP.replaying and SSP.alt_cam)
+var state = (Rhythia.replaying and Rhythia.alt_cam)
 
 func _ready():
-	PhysicsServer.set_active(!SSP.visual_mode and (SSP.get("cam_unlock") or SSP.vr))
+	PhysicsServer.set_active(!Rhythia.visual_mode and (Rhythia.get("cam_unlock") or Rhythia.vr))
 	
 	# alt camera init
 	if state:
@@ -19,13 +19,13 @@ func _ready():
 		$Camera.current = true
 		$AltCam.current = false
 	
-	if SSP.mod_flashlight:
+	if Rhythia.mod_flashlight:
 		$Game/Mask.visible = true
 	else:
 		$Game/Mask.visible = false # should already be false but just to ensure that it is
 	
 	# lacunella
-	if SSP.is_lacunella_enabled():
+	if Rhythia.is_lacunella_enabled():
 		$Game/Avatar/Head/Accessories/CubellaHair.visible = true
 
 func _process(delta):

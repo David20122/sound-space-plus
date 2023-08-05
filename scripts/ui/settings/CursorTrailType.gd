@@ -25,17 +25,17 @@ func on_pressed(i):
 	current_sel = i
 	
 	var preset = presets[i]
-	SSP.trail_mode_scale = preset.scale
-	SSP.trail_mode_opacity = preset.opacity
+	Rhythia.trail_mode_scale = preset.scale
+	Rhythia.trail_mode_opacity = preset.opacity
 	text = preset.name
 
 
 func _ready():
-	if SSP.trail_mode_scale and SSP.trail_mode_opacity:
+	if Rhythia.trail_mode_scale and Rhythia.trail_mode_opacity:
 		current_sel = 0
-	elif SSP.trail_mode_scale and not SSP.trail_mode_opacity:
+	elif Rhythia.trail_mode_scale and not Rhythia.trail_mode_opacity:
 		current_sel = 1
-	elif not SSP.trail_mode_scale and SSP.trail_mode_opacity:
+	elif not Rhythia.trail_mode_scale and Rhythia.trail_mode_opacity:
 		current_sel = 2
 	else:
 		text = "Unknown"

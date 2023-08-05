@@ -5,5 +5,5 @@ func upd():
 
 func _ready():
 	upd()
-	SSP.connect("mods_changed",self,"upd")
-	SSP.connect("speed_mod_changed",self,"upd")
+	Rhythia.connect("mods_changed",self,"upd")
+	Rhythia.connect("speed_mod_changed",self,"upd")

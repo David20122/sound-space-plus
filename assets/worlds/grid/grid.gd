@@ -4,14 +4,14 @@ var rate:float = 6
 var s:float = -26
 var e:float = -14.1
 var gcol:Color
-var color:Color = SSP.selected_colorset.colors[0]
+var color:Color = Rhythia.selected_colorset.colors[0]
 var ratec:float = 0.005
 var rng = RandomNumberGenerator.new()
 var particle = preload("res://assets/worlds/grid/cube.tscn")
 
 func hit(col:Color):
 	color = col
-	if SSP.disable_bg_effects:
+	if Rhythia.disable_bg_effects:
 		var particle_instance = particle.instance()
 		particle_instance.translate(Vector3(rand_range(-$emissionArea.scale.x, $emissionArea.scale.x), 4, rand_range(-$emissionArea.scale.z, $emissionArea.scale.z)))
 		if (particle_instance.translation.x >= -5 and particle_instance.translation.x <= 5):

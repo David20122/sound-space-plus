@@ -19,10 +19,10 @@ func _input(event:InputEvent):
 			viewport.input(ev)
 
 func _process(delta):
-	active = (SSP.vr_player.primary_ray.is_colliding() and (SSP.vr_player.primary_ray.get_collider() == self))
+	active = (Rhythia.vr_player.primary_ray.is_colliding() and (Rhythia.vr_player.primary_ray.get_collider() == self))
 	if active:
 		# Cursor
-		var p = SSP.vr_player.primary_ray.get_collision_point()
+		var p = Rhythia.vr_player.primary_ray.get_collision_point()
 		
 		var lp3 = global_transform.xform_inv(p)
 		var local_pos = Vector2(lp3.x,lp3.y)
@@ -52,23 +52,23 @@ func _process(delta):
 		$Pointer.global_transform.origin = p + Vector3(0,0,0.001)
 		$PointerTrail.global_transform = $Pointer.global_transform
 		$Pointer.visible = true
-		$PointerTrail.emitting = SSP.cursor_trail
-		$Pointer.scale = Vector3(SSP.cursor_scale,SSP.cursor_scale,SSP.cursor_scale) * 0.5
+		$PointerTrail.emitting = Rhythia.cursor_trail
+		$Pointer.scale = Vector3(Rhythia.cursor_scale,Rhythia.cursor_scale,Rhythia.cursor_scale) * 0.5
 		var sc:CurveTexture = $PointerTrail.process_material.scale_curve
-		sc.curve.set_point_value(0,SSP.cursor_scale * 0.5)
+		sc.curve.set_point_value(0,Rhythia.cursor_scale * 0.5)
 		
 		# try to show the effects of smart trail
-		var target_detail = SSP.trail_detail * (1 + float(SSP.smart_trail))
-		if $PointerTrail.amount != target_detail or $PointerTrail.lifetime != SSP.trail_time:
+		var target_detail = Rhythia.trail_detail * (1 + float(Rhythia.smart_trail))
+		if $PointerTrail.amount != target_detail or $PointerTrail.lifetime != Rhythia.trail_time:
 			$PointerTrail.amount = target_detail
-			$PointerTrail.lifetime = SSP.trail_time
+			$PointerTrail.lifetime = Rhythia.trail_time
 		
-		if SSP.cursor_color_type == Globals.CURSOR_RAINBOW:
-			$Pointer.mesh.material.albedo_color = Color.from_hsv(SSP.rainbow_t*0.1,0.65,1)
-			$PointerTrail.draw_pass_1.material.albedo_color = Color.from_hsv(SSP.rainbow_t*0.1,0.65,1)
+		if Rhythia.cursor_color_type == Globals.CURSOR_RAINBOW:
+			$Pointer.mesh.material.albedo_color = Color.from_hsv(Rhythia.rainbow_t*0.1,0.65,1)
+			$PointerTrail.draw_pass_1.material.albedo_color = Color.from_hsv(Rhythia.rainbow_t*0.1,0.65,1)
 		else:
-			$Pointer.mesh.material.albedo_color = SSP.cursor_color
-			$PointerTrail.draw_pass_1.material.albedo_color = SSP.cursor_color
+			$Pointer.mesh.material.albedo_color = Rhythia.cursor_color
+			$PointerTrail.draw_pass_1.material.albedo_color = Rhythia.cursor_color
 	else:
 		$Pointer.visible = false
 		$PointerTrail.emitting = false

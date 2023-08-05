@@ -1,11 +1,11 @@
 extends CheckBox
 
 func _process(_d):
-	if pressed != SSP.mod_earthquake:
-		SSP.mod_earthquake = pressed
+	if pressed != Rhythia.mod_earthquake:
+		Rhythia.mod_earthquake = pressed
 
-func upd(): pressed = SSP.mod_earthquake
+func upd(): pressed = Rhythia.mod_earthquake
 
 func _ready():
 	upd()
-	SSP.connect("mods_changed",self,"upd")
+	Rhythia.connect("mods_changed",self,"upd")

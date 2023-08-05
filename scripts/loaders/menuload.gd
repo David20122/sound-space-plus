@@ -2,33 +2,33 @@ extends Node
 
 var leaving:bool = false
 
-var target:String = SSP.menu_target
+var target:String = Rhythia.menu_target
 
 var black_fade_target:bool = false
 var black_fade:float = 0
 
 func _ready():
 	get_tree().paused = false
-	if SSP.vr:
+	if Rhythia.vr:
 		target = "res://vr/vrmenu.tscn"
-		SSP.vr_player.transform.origin = Vector3(0,0,0)
+		Rhythia.vr_player.transform.origin = Vector3(0,0,0)
 	PhysicsServer.set_active(true)
 	Input.set_custom_mouse_cursor(null)
 	Input.set_default_cursor_shape(Input.CURSOR_ARROW)
-	SSP.load_color_txt()
-	SSP.conmgr_transit = null
-	SSP.loaded_world = null
-	SSP.was_replay = SSP.replaying
-	SSP.replaying = false
-	if SSP.was_replay: SSP.restore_prev_state()
-	if SSP.selected_song: SSP.selected_song.discard_notes()
-	SSP.replay_path = ""
+	Rhythia.load_color_txt()
+	Rhythia.conmgr_transit = null
+	Rhythia.loaded_world = null
+	Rhythia.was_replay = Rhythia.replaying
+	Rhythia.replaying = false
+	if Rhythia.was_replay: Rhythia.restore_prev_state()
+	if Rhythia.selected_song: Rhythia.selected_song.discard_notes()
+	Rhythia.replay_path = ""
 	$BlackFade.visible = true
 	black_fade = 1
 	$BlackFade.color = Color(0,0,0,black_fade)
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	var s = Globals.error_sound
-	var st = SSP.get_stream_with_default("user://loadingmusic",s)
+	var st = Rhythia.get_stream_with_default("user://loadingmusic",s)
 	if st != s:
 		$Music.stream = st
 		$Music.play()
@@ -37,7 +37,7 @@ func _ready():
 	
 	var res = RQueue.queue_resource(target)
 	if res != OK:
-		SSP.errorstr = "queue_resource returned %s" % res
+		Rhythia.errorstr = "queue_resource returned %s" % res
 		get_tree().change_scene("res://scenes/errors/menuload.tscn")
 
 var result
@@ -59,7 +59,7 @@ func _process(delta):
 			leaving = true
 			black_fade_target = true
 			if !(result is Object):
-				SSP.errorstr = "get_resource returned non-object (probably null)"
+				Rhythia.errorstr = "get_resource returned non-object (probably null)"
 				get_tree().change_scene("res://scenes/errors/menuload.tscn")
 	
 	if leaving and result and black_fade == 1:

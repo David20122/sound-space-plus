@@ -14,9 +14,9 @@ func idle_status():
 
 func _ready():
 	get_tree().paused = false
-	if SSP.arcw_mode:
+	if Rhythia.arcw_mode:
 		get_tree().change_scene("res://w.tscn")
-	if SSP.sex_mode:
+	if Rhythia.sex_mode:
 		get_tree().change_scene("res://sex.tscn")
 	
 	# fix audio pitchshifts

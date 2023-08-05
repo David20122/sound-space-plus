@@ -7,8 +7,8 @@ signal miss
 var rawMapData:String
 var notes:Array
 var last_ms:float = 0
-onready var colors:Array = SSP.selected_colorset.colors
-onready var speed_multi = Globals.speed_multi[SSP.mod_speed_level]
+onready var colors:Array = Rhythia.selected_colorset.colors
+onready var speed_multi = Globals.speed_multi[Rhythia.mod_speed_level]
 
 var score:int = 0
 var combo:int = 0
@@ -31,7 +31,7 @@ func comma_sep(number):
 	return res
 
 func loadMapFile():
-	var map:Song = SSP.selected_song
+	var map:Song = Rhythia.selected_song
 	last_ms = map.last_ms# / $Spawn.speed_multi
 #	print(last_ms)
 	if map.should_reload_on_play:
@@ -64,50 +64,50 @@ func end(end_type:int):
 	if ending: return
 	print("My god, what are you doing!?")
 	ending = true
-	if end_type == Globals.END_GIVEUP and SSP.record_replays and !SSP.replaying:
-		SSP.replay.store_sig($Spawn.rms,Globals.RS_GIVEUP)
+	if end_type == Globals.END_GIVEUP and Rhythia.record_replays and !Rhythia.replaying:
+		Rhythia.replay.store_sig($Spawn.rms,Globals.RS_GIVEUP)
 	if end_type != Globals.END_PASS:
-		SSP.fail_asp.play()
+		Rhythia.fail_asp.play()
 	get_tree().paused = true
 	if total_notes == 0: total_notes = 1
 	update_hud()
-	SSP.just_ended_song = true
-	SSP.song_end_hits = hits
-	SSP.song_end_misses = misses
-	SSP.song_end_total_notes = total_notes
-	SSP.song_end_position = min($Spawn.ms,last_ms)
-	SSP.song_end_length = last_ms
-	SSP.song_end_type = end_type
-	SSP.song_end_combo = max_combo
+	Rhythia.just_ended_song = true
+	Rhythia.song_end_hits = hits
+	Rhythia.song_end_misses = misses
+	Rhythia.song_end_total_notes = total_notes
+	Rhythia.song_end_position = min($Spawn.ms,last_ms)
+	Rhythia.song_end_length = last_ms
+	Rhythia.song_end_type = end_type
+	Rhythia.song_end_combo = max_combo
 	print("song max combo: ", max_combo)
 	
-	if SSP.record_replays and !SSP.replaying:
-		SSP.replay.end_recording()
+	if Rhythia.record_replays and !Rhythia.replaying:
+		Rhythia.replay.end_recording()
 	
-	if SSP.queue_active and end_type == Globals.END_PASS:
-		if SSP.do_pb_check_and_set():
+	if Rhythia.queue_active and end_type == Globals.END_PASS:
+		if Rhythia.do_pb_check_and_set():
 			Globals.notify(Globals.NOTIFY_SUCCEED,"new best!")
-		var next = SSP.get_next()
-		$Spawn.ms_offset += max($Spawn.ms - (SSP.start_offset - (3000 * $Spawn.speed_multi)), 0)
-		if SSP.queue_active and next:
-			$Spawn.ms = SSP.start_offset - (3000 * $Spawn.speed_multi)
-			SSP.select_song(next)
-			$HUD.set_song_name(SSP.selected_song.name)
-			SSP.update_rpc_song()
-			if SSP.record_replays and !SSP.replaying:
-				SSP.replay = Replay.new()
-				SSP.replay.start_recording(SSP.selected_song)
+		var next = Rhythia.get_next()
+		$Spawn.ms_offset += max($Spawn.ms - (Rhythia.start_offset - (3000 * $Spawn.speed_multi)), 0)
+		if Rhythia.queue_active and next:
+			$Spawn.ms = Rhythia.start_offset - (3000 * $Spawn.speed_multi)
+			Rhythia.select_song(next)
+			$HUD.set_song_name(Rhythia.selected_song.name)
+			Rhythia.update_rpc_song()
+			if Rhythia.record_replays and !Rhythia.replaying:
+				Rhythia.replay = Replay.new()
+				Rhythia.replay.start_recording(Rhythia.selected_song)
 			
 			$Spawn.notes_loaded = false
 			$Spawn.chaos_rng = RandomNumberGenerator.new()
 			$Spawn.earthquake_rng = RandomNumberGenerator.new()
-			$Spawn.chaos_rng.seed = hash(SSP.selected_song.id)
-			$Spawn.earthquake_rng.seed = hash(SSP.selected_song.id)
+			$Spawn.chaos_rng.seed = hash(Rhythia.selected_song.id)
+			$Spawn.earthquake_rng.seed = hash(Rhythia.selected_song.id)
 			$Spawn.music_started = false
 			$Spawn.out_of_notes = false
 			$Spawn.note_count = 0
 			
-			$Spawn.prev_ms = (SSP.start_offset - (3000 * $Spawn.speed_multi))
+			$Spawn.prev_ms = (Rhythia.start_offset - (3000 * $Spawn.speed_multi))
 			$Spawn.next_ms = 0
 			get_tree().paused = false
 			$Spawn.emit_signal("ms_change",$Spawn.ms)
@@ -124,8 +124,8 @@ func update_timer(ms:float,canSkip:bool=false):
 	var qms = ms + $Spawn.ms_offset
 	var lms = last_ms
 	
-	if SSP.queue_active:
-		lms = SSP.queue_end_length + (3000 * (SSP.song_queue.size() - 1))
+	if Rhythia.queue_active:
+		lms = Rhythia.queue_end_length + (3000 * (Rhythia.song_queue.size() - 1))
 	
 	var s = clamp(floor(qms/1000),0,lms/1000)
 	var m = floor(s / 60)
@@ -137,17 +137,17 @@ func update_timer(ms:float,canSkip:bool=false):
 	
 	$HUD.update_timer(ms,canSkip)
 	
-	if SSP.queue_active:
-		if ms >= last_ms + SSP.hitwindow_ms:
+	if Rhythia.queue_active:
+		if ms >= last_ms + Rhythia.hitwindow_ms:
 			get_node("Spawn/Music").volume_db -= (17 * get_process_delta_time())
 		else:
-			get_node("Spawn/Music").volume_db = SSP.music_volume_db
+			get_node("Spawn/Music").volume_db = Rhythia.music_volume_db
 	
-	if ms >= last_ms + SSP.hitwindow_ms:
-		if SSP.queue_active and ms >= last_ms + max(SSP.hitwindow_ms,3000):
+	if ms >= last_ms + Rhythia.hitwindow_ms:
+		if Rhythia.queue_active and ms >= last_ms + max(Rhythia.hitwindow_ms,3000):
 			get_node("Spawn/Music").stop()
 			end(Globals.END_PASS)
-		elif !SSP.queue_active and !get_node("Spawn/Music").playing:
+		elif !Rhythia.queue_active and !get_node("Spawn/Music").playing:
 			end(Globals.END_PASS)
 
 
@@ -161,7 +161,7 @@ var passed:bool = false
 
 func _process(delta):
 	
-	if !SSP.queue_active and $Spawn.ms > last_ms:
+	if !Rhythia.queue_active and $Spawn.ms > last_ms:
 		passed = true
 			
 		head.get_node("EyeL").visible = false
@@ -177,12 +177,12 @@ func _process(delta):
 		if Input.is_action_pressed("give_up"):
 			giving_up += delta/0.6
 			if giving_up >= 1:
-				if !SSP.queue_active and $Spawn.ms > last_ms: end(Globals.END_PASS)
+				if !Rhythia.queue_active and $Spawn.ms > last_ms: end(Globals.END_PASS)
 				else: end(Globals.END_GIVEUP)
 		else:
 			giving_up = 0
 	
-	if SSP.replaying and Input.is_action_just_pressed("pause"):
+	if Rhythia.replaying and Input.is_action_just_pressed("pause"):
 		get_tree().paused = !get_tree().paused
 	
 	if get_tree().paused:
@@ -205,10 +205,10 @@ func linstep(a:float,b:float,x:float):
 func get_point_amt() -> int:
 	var spd = clamp(((speed_multi - 1) * 1.5) + 1, 0, 1.9)
 	
-	var hitbox_diff = SSP.note_hitbox_size - 1.140
+	var hitbox_diff = Rhythia.note_hitbox_size - 1.140
 	var hbo = clamp(linstep(1.140,0,hitbox_diff), 0, 1)
 	
-	var hitwin_diff = SSP.note_hitbox_size - 55
+	var hitwin_diff = Rhythia.note_hitbox_size - 55
 	var hwi = clamp(linstep(55,0,hitwin_diff), 0, 1)
 	
 	var mod = 1
@@ -220,7 +220,7 @@ func hit(col):
 	emit_signal("hit",col)
 	hits += 1
 	total_notes += 1
-	if !SSP.mod_no_regen: energy = clamp(energy+energy_per_hit,0,max_energy)
+	if !Rhythia.mod_no_regen: energy = clamp(energy+energy_per_hit,0,max_energy)
 	combo += 1
 
 	if combo > max_combo: max_combo = combo
@@ -234,13 +234,13 @@ func hit(col):
 		if combo_level == 8: lvl_progress = 10
 	update_hud()
 	
-	if SSP.hit_fov:
-		if SSP.hit_fov_additive:
-			$"../Camera".fov += SSP.hit_fov_amplifier
-		elif SSP.hit_fov_exponential:
-			$"../Camera".fov *= SSP.hit_fov_amplifier
+	if Rhythia.hit_fov:
+		if Rhythia.hit_fov_additive:
+			$"../Camera".fov += Rhythia.hit_fov_amplifier
+		elif Rhythia.hit_fov_exponential:
+			$"../Camera".fov *= Rhythia.hit_fov_amplifier
 		else:
-			$"../Camera".fov = SSP.get("fov") - SSP.hit_fov_amplifier
+			$"../Camera".fov = Rhythia.get("fov") - Rhythia.hit_fov_amplifier
 	
 	score += points
 	return points
@@ -255,33 +255,33 @@ func miss(col):
 	if combo_level != 1: combo_level -= 1
 	update_hud()
 	if energy == 0: 
-		if SSP.mod_nofail:
+		if Rhythia.mod_nofail:
 			if not song_has_failed:
 				song_has_failed = true
-				SSP.fail_asp.play()
+				Rhythia.fail_asp.play()
 		else:
 			end(Globals.END_FAIL)
 
 
 func _ready():
-	SSP.song_end_pause_count = 0
-	SSP.song_end_misses = 0
+	Rhythia.song_end_pause_count = 0
+	Rhythia.song_end_misses = 0
 	get_tree().paused = true
-	get_node("Spawn/Music").volume_db = SSP.music_volume_db
-	if SSP.mod_sudden_death:
+	get_node("Spawn/Music").volume_db = Rhythia.music_volume_db
+	if Rhythia.mod_sudden_death:
 		max_energy = 1
-	elif SSP.health_model == Globals.HP_OLD:
+	elif Rhythia.health_model == Globals.HP_OLD:
 		energy_per_hit = 1
-		if SSP.mod_extra_energy: max_energy = 10
+		if Rhythia.mod_extra_energy: max_energy = 10
 		else: max_energy = 6
-	elif SSP.health_model == Globals.HP_SOUNDSPACE:
+	elif Rhythia.health_model == Globals.HP_SOUNDSPACE:
 		energy_per_hit = 0.5
-		if SSP.mod_extra_energy: max_energy = 8
+		if Rhythia.mod_extra_energy: max_energy = 8
 		else: max_energy = 5
 	
 	energy = max_energy
-#	var space = SSP.loaded_world
-	var spinst = SSP.loaded_world.instance()
+#	var space = Rhythia.loaded_world
+	var spinst = Rhythia.loaded_world.instance()
 	get_parent().call_deferred("add_child",spinst)
 	spinst.name = "Space"
 #	call_deferred("raise")
@@ -294,7 +294,7 @@ func _ready():
 	loadMapFile()
 	
 	
-	SSP.update_rpc_song()
+	Rhythia.update_rpc_song()
 	
 	yield(get_tree(),"idle_frame")
 	yield(get_tree(),"idle_frame")

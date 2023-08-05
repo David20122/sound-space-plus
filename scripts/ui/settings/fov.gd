@@ -1,11 +1,11 @@
 extends SpinBox
 
 func upd():
-	SSP.fov = value
+	Rhythia.fov = value
 
 func _process(_d):
-	if value != SSP.fov: upd()
+	if value != Rhythia.fov: upd()
 	
 func _ready():
-	value = SSP.fov
+	value = Rhythia.fov
 	connect("changed",self,"upd")

@@ -9,7 +9,7 @@ func _pressed():
 	if dir.file_exists(Globals.p("user://maps/ss_archive_3r2_-_star_rider.sspm")): 
 		OS.shell_open(ProjectSettings.globalize_path(Globals.p("user://packs")))
 	elif confirm:
-		SSP.do_archive_convert = true
+		Rhythia.do_archive_convert = true
 		get_tree().change_scene("res://scenes/init.tscn")
 	else:
 		confirm = true

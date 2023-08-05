@@ -19,7 +19,7 @@ func _ready():
 	$Pause/Button.visible = OS.has_feature("Android")
 	$GiveUp/Button.visible = OS.has_feature("Android")
 	
-	if SSP.mirror_buttons:
+	if Rhythia.mirror_buttons:
 		$Pause/Button.position.x = OS.get_window_safe_area().size.x - 150
 		$GiveUp/Button.position.x = OS.get_window_safe_area().size.x - 150
 	

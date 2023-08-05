@@ -71,7 +71,7 @@ onready var speed_multi:Array = [
 	1.15, # +
 	1.25, # ++
 	1.35, # +++
-	SSP.custom_speed,
+	Rhythia.custom_speed,
 	1.45, # ++++
 ]
 
@@ -664,8 +664,8 @@ func _ready():
 		ProjectSettings.load_resource_pack(OS.get_executable_path().get_base_dir().plus_file("worlds.pck"))
 	
 	var thread = Thread.new()
-	SSP.is_init = true
-	thread.start(SSP,"do_init")
+	Rhythia.is_init = true
+	thread.start(Rhythia,"do_init")
 	
 	var disable_intro = false
 	var file:File = File.new()

@@ -6,7 +6,7 @@ func _pressed():
 	has_been_pressed = true
 	get_parent().black_fade_target = true
 	yield(get_tree().create_timer(0.35),"timeout")
-	SSP.conmgr_transit = "addsongs"
+	Rhythia.conmgr_transit = "addsongs"
 	get_tree().change_scene("res://scenes/loaders/contentmgrload.tscn")
 
 func _ready():

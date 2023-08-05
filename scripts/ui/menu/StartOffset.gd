@@ -1,11 +1,11 @@
 extends SpinBox
 
 func upd():
-	SSP.start_offset = value * 1000
+	Rhythia.start_offset = value * 1000
 
 func _process(_d):
-	if value != SSP.start_offset / 1000: upd()
+	if value != Rhythia.start_offset / 1000: upd()
 
 func _ready():
-	value = SSP.start_offset / 1000
+	value = Rhythia.start_offset / 1000
 	connect("changed",self,"upd")

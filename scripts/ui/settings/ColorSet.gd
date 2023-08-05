@@ -6,7 +6,7 @@ var btns = {}
 
 func upd(_c=null):
 	for k in btns.keys():
-		var v = (k.id == SSP.selected_colorset.id)
+		var v = (k.id == Rhythia.selected_colorset.id)
 		btns[k].get_node("Select").disabled = v
 		if v: btns[k].self_modulate = Color(1,1,1)
 		else: btns[k].self_modulate = Color(0.5,0.5,0.5)
@@ -14,7 +14,7 @@ func upd(_c=null):
 func col(): columns = rect_size.x / 100
 
 func _ready():
-	for cs in SSP.registry_colorset.items:
+	for cs in Rhythia.registry_colorset.items:
 		var set:ColorSet = cs
 		var btn = $Color.duplicate()
 		btn.get_node("Name").text = set.name
@@ -43,10 +43,10 @@ func _ready():
 #		color_grid.set("custom_constants/vseparation",even_v+1)
 #		color_grid.set("custom_constants/vseparation",even_h+1)
 		
-		sel.connect("pressed",SSP,"select_colorset",[cs])
+		sel.connect("pressed",Rhythia,"select_colorset",[cs])
 		btns[cs] = btn
 		call_deferred("add_child",btn)
 	upd()
-	SSP.connect("selected_colorset_changed",self,"upd")
+	Rhythia.connect("selected_colorset_changed",self,"upd")
 	connect("resized",self,"col")
 	col()

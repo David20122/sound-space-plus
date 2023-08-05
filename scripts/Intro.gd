@@ -14,7 +14,7 @@ func _ready():
 	$Avatar/ArmR/Mesh.translation = Vector3(0,0,0)
 	
 	# lacunella
-	if SSP.is_lacunella_enabled():
+	if Rhythia.is_lacunella_enabled():
 		$Avatar/Head/CubellaHair.visible = true
 	
 	if OS.has_feature("Android"):

@@ -48,15 +48,15 @@ var experimental_settings = [
 
 func check_experimental_settings():
 	for k in experimental_settings:
-		if SSP.get(k): return true
+		if Rhythia.get(k): return true
 	return false
 
 func check_warnings():
 	if Input.is_action_pressed("warning_test"):
 		return "test"
-	elif SSP.single_map_mode:
+	elif Rhythia.single_map_mode:
 		return "smm"
-	elif SSP.note_spawn_effect:
+	elif Rhythia.note_spawn_effect:
 		return "spawn"
 	elif OS.has_feature("debug"):
 		return "debug"

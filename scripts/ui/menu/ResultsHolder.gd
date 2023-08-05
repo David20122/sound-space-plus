@@ -12,17 +12,17 @@ func upd():
 
 func center():
 	centered = true
-	SSP.was_map_screen_centered = true
+	Rhythia.was_map_screen_centered = true
 	upd()
 
 func uncenter():
 	centered = false
-	SSP.was_map_screen_centered = false
+	Rhythia.was_map_screen_centered = false
 	upd()
 
 
 func _ready():
-	centered = SSP.was_map_screen_centered
+	centered = Rhythia.was_map_screen_centered
 	upd()
 	$CenterPush/Button.connect("pressed",self,"uncenter")
 	$LeftPush/CenterContainer/Button.connect("pressed",self,"center")

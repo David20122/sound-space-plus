@@ -2,12 +2,12 @@ extends GridContainer
 
 signal search_updated
 
-var songs:Array = SSP.registry_song.get_items()
+var songs:Array = Rhythia.registry_song.get_items()
 var btns:Array = []
 
 var search_text:String = ""
 var author_search_text:String = ""
-var difficulty_filter:Array = SSP.last_difficulty_filter
+var difficulty_filter:Array = Rhythia.last_difficulty_filter
 var show_broken_maps:bool = false
 var show_online_maps:bool = true
 var flip_display:bool = false
@@ -39,7 +39,7 @@ func search_matches(s:Song):
 
 var has_been_pressed = false
 func play_song():
-	if !SSP.selected_song: return
+	if !Rhythia.selected_song: return
 	if has_been_pressed: return
 	has_been_pressed = true
 	get_viewport().get_node("Menu").black_fade_target = true
@@ -50,8 +50,8 @@ var pt = 1
 func on_pressed(i):
 	$Press.play()
 	var s:Song = disp[i]
-	if s != SSP.selected_song:
-		SSP.select_song(s)
+	if s != Rhythia.selected_song:
+		Rhythia.select_song(s)
 	else:
 		print(pt)
 		if pt < 0.25:
@@ -62,7 +62,7 @@ func on_pressed(i):
 var auto_switch_to_play:bool = true
 func switch_to_play_screen():
 	if !auto_switch_to_play: return
-	if SSP.menu_target == "res://scenes/menu/menu.tscn": return
+	if Rhythia.menu_target == "res://scenes/menu/menu.tscn": return
 	get_viewport().get_node("Menu/Main/MapRegistry").visible = false
 	get_viewport().get_node("Menu/Main/Results").visible = true
 	get_viewport().get_node("Menu/Sidebar/L/Results").pressed = true
@@ -82,7 +82,7 @@ func select_random():
 	if disp.size() == 0: return
 	on_pressed(randi()%disp.size())
 	for b in btns:
-		if b.song == SSP.selected_song: b.get_node("Select").pressed = true
+		if b.song == Rhythia.selected_song: b.get_node("Select").pressed = true
 		else: b.get_node("Select").pressed = false
 	switch_to_play_screen()
 
@@ -128,7 +128,7 @@ func load_pg(is_resize:bool=false):
 			btn.get_node("Cloud").visible = map.is_online
 			rbtn.disabled = false
 			rbtn.connect("pressed",self,"on_pressed",[i])
-			if map == SSP.selected_song:
+			if map == Rhythia.selected_song:
 				btn.get_node("Select").pressed = true
 			add_child(btn)
 			btn.visible = true
@@ -146,9 +146,9 @@ func append_filtering_favorites(to:Array,from:Array):
 func build_list():
 	disp = []
 	favorite = []
-	for id in SSP.favorite_songs:
-		var s = SSP.registry_song.get_item(id)
-		if s and search_matches(s) and SSP.is_favorite(id):
+	for id in Rhythia.favorite_songs:
+		var s = Rhythia.registry_song.get_item(id)
+		if s and search_matches(s) and Rhythia.is_favorite(id):
 			favorite.append(s)
 	favorite.sort_custom(self,"sortsong")
 	disp.append_array(favorite)
@@ -169,7 +169,7 @@ func build_list():
 
 func reload_to_current_page(_a=null):
 	build_list()
-	if ready: SSP.last_page_num = page
+	if ready: Rhythia.last_page_num = page
 	load_pg()
 
 func update_search_text(txt:String):
@@ -184,7 +184,7 @@ func update_author_search_text(txt:String):
 
 func update_search_dfil(dfil:Array):
 	difficulty_filter = dfil
-	SSP.last_difficulty_filter = dfil
+	Rhythia.last_difficulty_filter = dfil
 	if ready: reload_to_current_page()
 	emit_signal("search_updated")
 
@@ -241,7 +241,7 @@ func prepare_songs():
 			Globals.DIFF_AMOGUS: add_to = amogus
 			_: add_to = unknown
 		add_to.append(map)
-#	SSP.connect("selected_song_changed",self,"on_map_selected")
+#	Rhythia.connect("selected_song_changed",self,"on_map_selected")
 	easy.sort_custom(self,"sortsongsimple")
 	medium.sort_custom(self,"sortsongsimple")
 	hard.sort_custom(self,"sortsongsimple")
@@ -251,7 +251,7 @@ func prepare_songs():
 func pg(dir:int):
 	$Press.play()
 	page = clamp(page + dir, 0, floor(songs.size()))
-	SSP.last_page_num = page
+	Rhythia.last_page_num = page
 	load_pg()
 
 #var last_size = OS.window_size
@@ -274,14 +274,14 @@ func firstload():
 	get_parent().get_node("P").connect("pressed",self,"pg",[1])
 	get_parent().get_node("M").connect("pressed",self,"pg",[-1])
 	get_parent().get_node("Random").connect("pressed",self,"select_random")
-	page = SSP.last_page_num
+	page = Rhythia.last_page_num
 	prepare_songs()
 	reload_to_current_page()
 	ready = true
-	SSP.connect("favorite_songs_changed",self,"reload_to_current_page")
-	SSP.connect("download_done",self,"reload_to_current_page")
+	Rhythia.connect("favorite_songs_changed",self,"reload_to_current_page")
+	Rhythia.connect("download_done",self,"reload_to_current_page")
 	get_viewport().connect("size_changed",self,"handle_window_resize")
-	SSP.emit_signal("map_list_ready")
+	Rhythia.emit_signal("map_list_ready")
 
 func _ready():
 	randomize()
