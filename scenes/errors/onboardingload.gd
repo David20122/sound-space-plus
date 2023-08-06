@@ -3,8 +3,7 @@ extends ColorRect
 func _ready():
 	Engine.target_fps = 30 # Don't use the entire GPU for the error screen
 	$Info.text = """-- onboarding load error --
-ssp version: %s
-platform: %s
+rhythia platform: %s
 error info: %s
 menu target: %s""" % [
 		ProjectSettings.get_setting("application/config/version"),

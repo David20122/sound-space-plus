@@ -5,8 +5,6 @@
 [ext_resource path="res://assets/images/ui/user_folder_error.png" type="Texture" id=3]
 [ext_resource path="res://assets/font/UbuntuMono/Regular.ttf" type="DynamicFontData" id=4]
 
-
-
 [sub_resource type="GDScript" id=1]
 script/source = "extends AudioStreamPlayer
 
@@ -70,10 +68,10 @@ margin_top = 15.0
 margin_right = 276.0
 margin_bottom = 100.0
 custom_fonts/font = SubResource( 3 )
-text = "ssp version: v%s
+text = "rhythia version: v%s
 platform: %s
 error code: %s
-https://discord.gg/ttPys6Jajs"
+https://discord.gg/rhythia"
 
 [node name="BlackFade" type="ColorRect" parent="."]
 anchor_right = 1.0

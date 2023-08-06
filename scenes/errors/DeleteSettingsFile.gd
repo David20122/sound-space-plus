@@ -18,7 +18,7 @@ func confirm(v:int):
 					"An error occurred while deleting your settings file. "+
 					"Try manually deleting it, and if that doesn't work, "+
 					"please ask for help in the Discord server.\n"+
-					"https://discord.gg/ssp"+
+					"https://discord.gg/rhythia"+
 					"\n(error code %s)" % res,
 					"Error",
 					[{text="OK"}]
