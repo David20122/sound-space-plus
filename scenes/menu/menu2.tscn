@@ -1,4 +1,4 @@
-[gd_scene load_steps=215 format=2]
+[gd_scene load_steps=214 format=2]
 
 [ext_resource path="res://uitheme.tres" type="Theme" id=1]
 [ext_resource path="res://assets/font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=2]
@@ -300,11 +300,6 @@ bg_color = Color( 0.211765, 0.211765, 0.211765, 0.443137 )
 bg_color = Color( 0.503906, 0.503906, 0.503906, 0.509804 )
 
 [sub_resource type="ShortCut" id=85]
-
-[sub_resource type="DynamicFont" id=87]
-size = 18
-use_filter = true
-font_data = ExtResource( 2 )
 
 [sub_resource type="StyleBoxFlat" id=156]
 content_margin_left = 6.0
@@ -2035,20 +2030,6 @@ custom_styles/disabled = SubResource( 83 )
 custom_styles/normal = SubResource( 84 )
 shortcut_in_tooltip = false
 action_mode = 0
-
-[node name="Label" type="Label" parent="Main/MapRegistry"]
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_bottom = 35.0
-custom_fonts/font = SubResource( 87 )
-text = "mobile compatible menu!!!"
-align = 1
-valign = 1
-autowrap = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Results" type="HBoxContainer" parent="Main"]
 anchor_right = 1.0
