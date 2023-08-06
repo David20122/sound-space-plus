@@ -11,7 +11,7 @@ var particle = preload("res://assets/worlds/grid/cube.tscn")
 
 func hit(col:Color):
 	color = col
-	if Rhythia.disable_bg_effects:
+	if !Rhythia.disable_bg_effects:
 		var particle_instance = particle.instance()
 		particle_instance.translate(Vector3(rand_range(-$emissionArea.scale.x, $emissionArea.scale.x), 4, rand_range(-$emissionArea.scale.z, $emissionArea.scale.z)))
 		if (particle_instance.translation.x >= -5 and particle_instance.translation.x <= 5):
