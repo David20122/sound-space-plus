@@ -1,13 +1,10 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://scripts/ui/menu/VersionNumber.gd" type="Script" id=2]
 [ext_resource path="res://assets/images/branding/icon.svg" type="Texture" id=3]
 [ext_resource path="res://uitheme.tres" type="Theme" id=4]
 [ext_resource path="res://scripts/loaders/contentmgrload.gd" type="Script" id=5]
-[ext_resource path="res://assets/sfx/music/OLDmenu_loop.ogg" type="AudioStream" id=6]
-
-
 
 [sub_resource type="DynamicFont" id=1]
 size = 48
@@ -418,11 +415,6 @@ color = Color( 0, 0, 0, 0 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 6 )
-volume_db = -48.0
-bus = "MenuReverb"
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 volume_db = -2.0
