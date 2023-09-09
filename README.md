@@ -1,6 +1,6 @@
 # Sound Space Plus
 
-While you're here, join our discord in [here](https://discord.gg/ssp)
+While you're here, join our discord in [here](https://discord.gg/rhythia)
 
 Support the game on [Liberapay](https://liberapay.com/kermeet/)
 
