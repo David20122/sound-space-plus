@@ -46,15 +46,15 @@ func test_connection():
 func _mapdl_handler(id:String,map:Song):
 	print("[MapDB Download] Starting download of map %s" % map.id)
 	if !ProjectSettings.get_setting("application/networking/enabled"):
-		mapdl_error(id,"011-865",map); return
+		mapdl_error(id,"Networking is disabled",map); return
 	if mapdb_api == "":
-		mapdl_error(id,"011-925",map); return
+		mapdl_error(id,"MapDB API Invalid",map); return
 	if !Globals.is_valid_url(mapdb_api):
-		mapdl_error(id,"011-928",map); return
+		mapdl_error(id,"MapDB API Invalid",map); return
 	
 	call_deferred("test_connection")
 	if !yield(self,"_connection_test"):
-		mapdl_error(id,"011-140",map); return
+		mapdl_error(id,"Failed to connect",map); return
 	
 	var dir:Directory = Directory.new()
 	if dir.file_exists(Globals.p("user://mapdl.sspm.part")):
@@ -63,28 +63,28 @@ func _mapdl_handler(id:String,map:Song):
 	mapdl_hr.download_file = Globals.p("user://mapdl.sspm.part")
 	var res = mapdl_hr.request(map.download_url)
 	if res != OK:
-		if res == ERR_INVALID_PARAMETER: mapdl_error(id,"011-928",map)
-		elif res == ERR_CANT_CONNECT: mapdl_error(id,"011-252",map)
-		else: mapdl_error(id,"011-339",map)
+		if res == ERR_INVALID_PARAMETER: mapdl_error(id,"Invalid Parameter",map)
+		elif res == ERR_CANT_CONNECT: mapdl_error(id,"Can't Connect",map)
+		else: mapdl_error(id,"Unknown Error (%s)" % res,map)
 	else:
 		var mapdl_res = yield(self,"_mapdl_req")
 		
 		if mapdl_res.result == HTTPRequest.RESULT_CANT_RESOLVE:
-			mapdl_error(id,"011-240",map)
+			mapdl_error(id,"Can't Resolve",map)
 		elif mapdl_res.result == HTTPRequest.RESULT_CANT_CONNECT:
-			mapdl_error(id,"011-250",map)
+			mapdl_error(id,"Can't Connect",map)
 		elif mapdl_res.result == HTTPRequest.RESULT_CONNECTION_ERROR:
-			mapdl_error(id,"011-251",map)
+			mapdl_error(id,"Connection Error",map)
 		elif mapdl_res.result == HTTPRequest.RESULT_SSL_HANDSHAKE_ERROR:
-			mapdl_error(id,"012-220",map)
+			mapdl_error(id,"SSL Handshake Error",map)
 		elif mapdl_res.result == HTTPRequest.RESULT_TIMEOUT:
-			mapdl_error(id,"012-240",map)
+			mapdl_error(id,"Timeout",map)
 		elif mapdl_res.result == HTTPRequest.RESULT_REDIRECT_LIMIT_REACHED:
-			mapdl_error(id,"012-545",map)
+			mapdl_error(id,"Redirect Limit Reached",map)
 		elif mapdl_res.result == HTTPRequest.RESULT_DOWNLOAD_FILE_CANT_OPEN:
-			mapdl_error(id,"013-220",map)
+			mapdl_error(id,"Download File Open Error",map)
 		elif mapdl_res.result == HTTPRequest.RESULT_DOWNLOAD_FILE_WRITE_ERROR:
-			mapdl_error(id,"013-320",map)
+			mapdl_error(id,"Download File Write Error",map)
 			
 		elif mapdl_res.result == HTTPRequest.RESULT_SUCCESS:
 			if mapdl_res.response_code == 200:
@@ -104,11 +104,11 @@ func _mapdl_handler(id:String,map:Song):
 			else:
 				var resp = parse_json(mapdl_res.body.get_string_from_utf8())
 				if resp: mapdl_error(id, resp.error, map)
-				else: mapdl_error(id, "023-%s" % mapdl_res.response_code, map)
+				else: mapdl_error(id, "HTTP-%s" % mapdl_res.response_code, map)
 		elif mapdl_res.result == -1: # cancelled
-			mapdl_error(id,"010-100", map)
+			mapdl_error(id,"Cancelled", map)
 		else: # Unknown error
-			mapdl_error(id,"012-600", map)
+			mapdl_error(id,"Unknown Error", map)
 
 
 func download_map(map:Song):
@@ -135,17 +135,17 @@ func load_db_maps():
 	if !ProjectSettings.get_setting("application/networking/enabled"):
 		pass # 011-865
 	elif mapdb_api == "" || mapdb_api.begins_with("http://localhost") && !OS.has_feature("debug"):
-		show_db_error("Map database is improperly configured.\nError code: 011-925","Map Database Error")
+		show_db_error("Map database is improperly configured.","Map Database Error")
 		yield(self,"error_done")
 	elif !Globals.is_valid_url(mapdb_api):
-		show_db_error("Map database download failed.\nError code: 011-928","Map Database Error")
+		show_db_error("Map database download failed.\nMapDB URL Invalid","Map Database Error")
 		yield(self,"error_done")
 	else:
 		call_deferred("test_connection")
 		if !yield(self,"_connection_test"):
 			Globals.notify(
 				Globals.NOTIFY_ERROR,
-				"Not loading online maps as internet seems to be disconnected",
+				"Online maps will not be loaded - failed to connect",
 				"No Connection"
 			)
 			emit_signal("db_maps_done")
@@ -198,22 +198,22 @@ func load_db_maps():
 		
 		
 		if netmaps_res.result == HTTPRequest.RESULT_CANT_RESOLVE:
-			show_db_error("Map database download failed.\nError code: 011-240","Map Database Error")
+			show_db_error("Map database download failed.\nError: Can't Resolve","Map Database Error")
 			yield(self,"error_done")
 		elif netmaps_res.result == HTTPRequest.RESULT_CANT_CONNECT:
-			show_db_error("Map database download failed.\nError code: 011-250","Map Database Error")
+			show_db_error("Map database download failed.\nError: Can't Connect","Map Database Error")
 			yield(self,"error_done")
 		elif netmaps_res.result == HTTPRequest.RESULT_CONNECTION_ERROR:
-			show_db_error("Map database download failed.\nError code: 011-251","Map Database Error")
+			show_db_error("Map database download failed.\nError: Connection Error","Map Database Error")
 			yield(self,"error_done")
 		elif netmaps_res.result == HTTPRequest.RESULT_SSL_HANDSHAKE_ERROR:
-			show_db_error("Map database download failed.\nError code: 012-220","Map Database Error")
+			show_db_error("Map database download failed.\nError: SSL Handshake Error","Map Database Error")
 			yield(self,"error_done")
 		elif netmaps_res.result == HTTPRequest.RESULT_TIMEOUT:
-			show_db_error("Map database download failed.\nError code: 012-240","Map Database Error")
+			show_db_error("Map database download failed.\nError: Timeout","Map Database Error")
 			yield(self,"error_done")
 		elif netmaps_res.result == HTTPRequest.RESULT_REDIRECT_LIMIT_REACHED:
-			show_db_error("Map database download failed.\nError code: 012-545","Map Database Error")
+			show_db_error("Map database download failed.\nError: Redirect Limit Reached","Map Database Error")
 			yield(self,"error_done")
 			
 		elif netmaps_res.result == HTTPRequest.RESULT_SUCCESS:
@@ -231,7 +231,7 @@ func load_db_maps():
 				
 				var nmp = parse_json(netmaps_res.body.get_string_from_utf8())
 				if !(nmp is Dictionary):
-					show_db_error("Map database download failed.\nError code: 014-905","Map Database Error")
+					show_db_error("Map database download failed.\nError: Malformed JSON","Map Database Error")
 					yield(self,"error_done")
 				else:
 					netmaps = nmp
@@ -284,10 +284,10 @@ func load_db_maps():
 								if fmod(i,floor(float(netmaps.size())/100)) == 0: yield(get_tree(),"idle_frame")
 				file.close()
 			else:
-				show_db_error("Map database download failed.\nError code: 023-%s" % netmaps_res.response_code,"Map Database Error")
+				show_db_error("Map database download failed.\nError code: HTTP-%s" % netmaps_res.response_code,"Map Database Error")
 				yield(self,"error_done")
 		else: # Unknown error
-			show_db_error("Map database download failed.\nError code: 012-600","Map Database Error")
+			show_db_error("Map database download failed.\nError code: HTTP-%s" % netmaps_res.response_code,"Map Database Error")
 			yield(self,"error_done")
 			
 	
