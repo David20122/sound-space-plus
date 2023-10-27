@@ -740,6 +740,8 @@ var hit_pitch_max:float = 1.15
 
 var arcw_mode:bool = false # heheheha
 var sex_mode:bool = false
+var boba_mode:bool = false # why do i do this
+# var azer_mode:bool = false # I feel the smell of alcohol from this code
 
 
 
@@ -2022,6 +2024,7 @@ func do_init(_ud=null):
 		emit_signal("init_stage_num",-1)
 		yield(get_tree(),"idle_frame")
 		Online.check_latest_version()
+		""" # Remove this line to enable update checking
 		var latest_version = yield(Online,"latest_version")
 		if ProjectSettings.get_setting("application/config/version") != latest_version:
 			var sel = 1
@@ -2045,7 +2048,7 @@ func do_init(_ud=null):
 				rdir.remove("SoundSpacePlus.pck.old")
 			if rdir.file_exists("update.zip"):
 				rdir.remove("update.zip")
-	
+		""" # Remove this line to make shit work
 	emit_signal("init_stage_reached","Init filesystem")
 	emit_signal("init_stage_num",-1)
 	yield(get_tree(),"idle_frame")
@@ -2378,7 +2381,6 @@ func do_init(_ud=null):
 			var txt = file.get_as_text()
 			file.close()
 			favorite_songs = txt.split("\n",false)
-		
 		# VR
 		emit_signal("init_stage_reached","Check VR status")
 		yield(get_tree(),"idle_frame")
@@ -2398,8 +2400,22 @@ func do_init(_ud=null):
 	if Input.is_key_pressed(KEY_S) and Input.is_key_pressed(KEY_E) and Input.is_key_pressed(KEY_X):
 		sex_mode = true
 		alert = "Sex mode enabled successfully."
+	if Input.is_key_pressed(KEY_E) and Input.is_key_pressed(KEY_Z):
+		boba_mode = true
+		retain_song_pitch = true
+		record_replays = false
+		alert = "Boba mode enabled successfully."
+	#if Input.is_key_pressed(KEY_A) and Input.is_key_pressed(KEY_Z) and Input.is_key_pressed(KEY_E) and Input.is_key_pressed(KEY_R):
+		#azer_mode = true
+		#alert = "Azer Mode Active" # Add this later pls
+			
+	if !boba_mode and retain_song_pitch and !record_replays:
+		alert = "[ Possible Boba Mode Settings detected! ]\n\nReplay Recording was found FALSE & Retain Song Pitch was found TRUE\n\nReplays were turned on and Song pitch isn't retained\nChange these in settings it doesn't match your preferences. \n\n [ Press ENTER to Close this menu ]"
+		retain_song_pitch = false
+		record_replays = true
 	
 	var alert_snd_played:bool = false
+
 	if alert != "":
 		emit_signal("init_stage_reached","Alert prompt")
 		if !alert_snd_played: Globals.confirm_prompt.s_alert.play()

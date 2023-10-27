@@ -9,6 +9,7 @@ var notes:Array
 var last_ms:float = 0
 onready var colors:Array = Rhythia.selected_colorset.colors
 onready var speed_multi = Globals.speed_multi[Rhythia.mod_speed_level]
+onready var bobaspd = Globals.speed_multi[9]
 
 var score:int = 0
 var combo:int = 0
@@ -61,6 +62,9 @@ func update_hud():
 
 var ending:bool = false
 func end(end_type:int):
+	if Rhythia.boba_mode:
+		speed_multi = bobaspd
+
 	if ending: return
 	print("My god, what are you doing!?")
 	ending = true
@@ -94,10 +98,14 @@ func end(end_type:int):
 			Rhythia.select_song(next)
 			$HUD.set_song_name(Rhythia.selected_song.name)
 			Rhythia.update_rpc_song()
-			if Rhythia.record_replays and !Rhythia.replaying:
+			if Rhythia.record_replays and !Rhythia.replaying and !Rhythia.boba_mode:
 				Rhythia.replay = Replay.new()
 				Rhythia.replay.start_recording(Rhythia.selected_song)
-			
+			elif Rhythia.record_replays and !Rhythia.replaying and !Rhythia.boba_mode:
+				Rhythia.replay.end_recording()
+				Rhythia.record_replays = false
+				# If ur reading this, this is literally Custom Speed 50%. We will find out you cheated. You shall not record cheated gameplays unless it's for memes. Fuck you if you cheat.
+
 			$Spawn.notes_loaded = false
 			$Spawn.chaos_rng = RandomNumberGenerator.new()
 			$Spawn.earthquake_rng = RandomNumberGenerator.new()
@@ -203,8 +211,10 @@ func linstep(a:float,b:float,x:float):
 	return clamp(abs((x - a) / (b - a)),0,1)
 
 func get_point_amt() -> int:
+	var bobaReplicateRealSPD = Globals.speed_multi[Rhythia.mod_speed_level]
 	var spd = clamp(((speed_multi - 1) * 1.5) + 1, 0, 1.9)
-	
+	var spdboba = clamp(((bobaReplicateRealSPD - 1) * 1.5) + 1, 0, 1.9)
+
 	var hitbox_diff = Rhythia.note_hitbox_size - 1.140
 	var hbo = clamp(linstep(1.140,0,hitbox_diff), 0, 1)
 	
@@ -213,8 +223,10 @@ func get_point_amt() -> int:
 	
 	var mod = 1
 	
-	return int(floor((50 * spd * min(hbo,hwi) * mod) + 0.5) * combo_level)
-
+	if Rhythia.boba_mode:
+		return int(floor((50 * spdboba * min(hbo,hwi) * mod) + 0.5) * combo_level)
+	else:
+		return int(floor((50 * spd * min(hbo,hwi) * mod) + 0.5) * combo_level)
 
 func hit(col):
 	emit_signal("hit",col)

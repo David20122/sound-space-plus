@@ -61,6 +61,7 @@ enum {
 	SPEED_PPP = 6
 	SPEED_CUSTOM = 7
 	SPEED_PPPP = 8
+	SPEED_BOBA = 9
 }
 
 onready var speed_multi:Array = [
@@ -73,6 +74,7 @@ onready var speed_multi:Array = [
 	1.35, # +++
 	Rhythia.custom_speed,
 	1.45, # ++++
+	0.50, # boba
 ]
 
 enum {

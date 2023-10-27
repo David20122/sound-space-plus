@@ -16,6 +16,7 @@ var id:int = -1
 var state:int = 0
 var spawn_effect_t:float = 0
 onready var speed_multi:float = get_parent().speed_multi
+onready var boba_speed_mode:float = 0.5
 var col:Color
 
 var chaos_offset:Vector2 = Vector2()
@@ -39,7 +40,10 @@ func linstep(a:float,b:float,x:float):
 	return clamp(((x - a) / (b - a)),0,1)
 
 func reposition(ms:float,approachSpeed:float):
-	approachSpeed /= speed_multi
+	if Rhythia.boba_mode:
+		approachSpeed /= boba_speed_mode
+	else:
+		approachSpeed /= speed_multi
 	var current_offset_ms = notems-ms
 	var current_dist = approachSpeed*current_offset_ms/1000
 	if (

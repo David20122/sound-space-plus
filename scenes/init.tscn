@@ -73,9 +73,6 @@ custom_fonts/font = SubResource( 1 )
 text = "Loading"
 align = 1
 valign = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Label2" type="Label" parent="."]
 anchor_top = 0.5

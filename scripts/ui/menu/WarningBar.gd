@@ -34,6 +34,10 @@ func display_warning(id:String):
 			state = true
 			$L.text = "You are currently using experimental settings. Expect bugs."
 			color = Color("#c1c1ac")
+		"boba":
+			state = true
+			$L.text = "Boba mode is currently active. This mode is using experimental features and may break your game, proceed with caution. [Replays are disabled to prevent cheating.]"
+			color = Color("#ff0000")
 #			color = Color("#dbd1a2")
 		_:
 			assert(false)
@@ -60,6 +64,8 @@ func check_warnings():
 		return "spawn"
 	elif OS.has_feature("debug"):
 		return "debug"
+	elif Rhythia.boba_mode:
+		return "boba"
 	elif check_experimental_settings():
 		return "experimental"
 	else:

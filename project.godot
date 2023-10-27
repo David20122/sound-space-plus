@@ -22,7 +22,7 @@ _global_script_classes=[ {
 "base": "DanceMover",
 "class": "BouncyDanceMover",
 "language": "GDScript",
-"path": "res://scripts/cursordance/Bouncy.gd"
+"path": "res://scripts/cursorDance/Bouncy.gd"
 }, {
 "base": "Resource",
 "class": "ChatMessage",
@@ -42,19 +42,19 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "DanceMover",
 "language": "GDScript",
-"path": "res://scripts/cursordance/DanceMover.gd"
+"path": "res://scripts/cursorDance/DanceMover.gd"
 }, {
 "base": "DanceMover",
 "class": "DirectionalDanceMover",
 "language": "GDScript",
-"path": "res://scripts/cursordance/Directional.gd"
+"path": "res://scripts/cursorDance/Directional.gd"
 }, {
-"base": "Reference",
+"base": "",
 "class": "DiscordActivity",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_activity.gdns"
 }, {
-"base": "Reference",
+"base": "",
 "class": "DiscordActivityAssets",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_activity_assets.gdns"
@@ -64,22 +64,22 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_activity_manager.gdns"
 }, {
-"base": "Reference",
+"base": "",
 "class": "DiscordActivityParty",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_activity_party.gdns"
 }, {
-"base": "Reference",
+"base": "",
 "class": "DiscordActivitySecrets",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_activity_secrets.gdns"
 }, {
-"base": "Reference",
+"base": "",
 "class": "DiscordActivityTimestamps",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_activity_timestamps.gdns"
 }, {
-"base": "Reference",
+"base": "",
 "class": "DiscordCore",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_core.gdns"
@@ -94,7 +94,7 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_lobby_manager.gdns"
 }, {
-"base": "Reference",
+"base": "",
 "class": "DiscordLobbyTransaction",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_lobby_transaction.gdns"
@@ -109,12 +109,12 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_party_size.gdns"
 }, {
-"base": "Reference",
+"base": "",
 "class": "DiscordResult",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_result.gdns"
 }, {
-"base": "Reference",
+"base": "",
 "class": "DiscordUser",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_user.gdns"
@@ -142,7 +142,7 @@ _global_script_classes=[ {
 "base": "DanceMover",
 "class": "MomentumDanceMover",
 "language": "GDScript",
-"path": "res://scripts/cursordance/Momentum.gd"
+"path": "res://scripts/cursorDance/Momentum.gd"
 }, {
 "base": "Spatial",
 "class": "Note",
@@ -187,7 +187,7 @@ _global_script_classes=[ {
 "base": "DanceMover",
 "class": "SimpleDanceMover",
 "language": "GDScript",
-"path": "res://scripts/cursordance/Simple.gd"
+"path": "res://scripts/cursorDance/Simple.gd"
 }, {
 "base": "Resource",
 "class": "Song",
@@ -259,7 +259,7 @@ boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://assets/images/branding/icon.png"
 config/windows_native_icon="res://icon.ico"
 config/quit_on_go_back=false
-config/version="aug5-rabbit"
+config/version="Community Edition (Oct-23)"
 config/autoload_map_registries="test maps|res://test_assets/test_maps.sspmr;built in|res://content/songs/built_in_maps.sspmr"
 config/enable_new_content_mgr=true
 config/default_menu_target="res://scenes/menu/menu2.tscn"
@@ -294,6 +294,7 @@ config/is_using_controller=true
 config/discord_rpc=true
 config/discord_rpc.editor=true
 networking/github_repo="krmeet/sound-space-plus"
+config/bobaversion="Cheat Engine Edition"
 
 [audio]
 

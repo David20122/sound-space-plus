@@ -19,6 +19,7 @@ func tp(v:Vector2) -> Vector2:
 	return v*100+Vector2(50,50)
 
 func _draw():
+	var ntboba:float = 1000.0 * Globals.speed_multi[9]
 	var nt:float = 1000.0 * Globals.speed_multi[Rhythia.mod_speed_level]
 	var gray:Color = Color(0.075,0.075,0.075)
 	draw_line(Vector2(100,0),Vector2(100,300),gray,1)
@@ -26,7 +27,9 @@ func _draw():
 	draw_line(Vector2(0,100),Vector2(300,100),gray,1)
 	draw_line(Vector2(0,200),Vector2(300,200),gray,1)
 	draw_rect(Rect2(0,0,300,300),Color(0.15 + (flash_time * 0.4),0.15,0.15),false,2,false)
-	
+
+	if Rhythia.boba_mode:
+		nt = ntboba
 #	var dance = get_parent().dance
 #	var col1:Color = Color(0.8,0.1,0.1)
 #	var col2:Color = Color(0.2,0.8,0.2)

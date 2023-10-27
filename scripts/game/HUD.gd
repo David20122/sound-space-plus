@@ -460,6 +460,8 @@ func _ready():
 	
 	if Rhythia.mod_nofail: ms += "[ NOFAIL ACTIVE ]\n"
 	elif Rhythia.health_model == Globals.HP_OLD: ms += "Using old hp model (more hp + fast regen)\n"
+
+	if Rhythia.boba_mode: ms += "[ BOBA MODE ACTIVE ]\n"
 	
 	var mods = []
 	if Rhythia.mod_speed_level != Globals.SPEED_NORMAL:

@@ -12,6 +12,7 @@ export(Material) var asq_mat
 
 var approach_rate:float = Rhythia.get("approach_rate")
 var speed_multi:float = Globals.speed_multi[Rhythia.mod_speed_level]
+var bobaspeed:float = Globals.speed_multi[9]
 var ms:float = Rhythia.start_offset - (3000 * speed_multi) # make waiting time shorter on lower speeds
 var notes_loaded:bool = false
 var hitsync_ensured:bool = false
@@ -80,7 +81,10 @@ func note_reposition(i:int):
 	
 	var current_offset_ms:float = notems - ms
 	var current_dist:float = approachSpeed*current_offset_ms/1000
-	
+
+	if Rhythia.boba_mode:
+		speed_multi = bobaspeed
+
 	if (
 		(current_dist <= Rhythia.get("spawn_distance") and current_dist >= (grid_pushback * -1) and sign(approachSpeed) == 1) or
 		(current_dist >= -50 and current_dist <= 0.1 and sign(approachSpeed) == -1) or
@@ -377,7 +381,6 @@ func _ready():
 		grid_pushback = pushback_defaults.do_pushback
 	else:
 		grid_pushback = pushback_defaults.never
-	
 	$Note.speed_multi = speed_multi
 	$Music.pitch_scale = speed_multi
 	if Rhythia.retain_song_pitch and not speed_multi == 1.0:

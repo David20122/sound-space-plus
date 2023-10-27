@@ -1,8 +1,12 @@
-# Sound Space Plus
+# Sound Space Plus - Community Edition
+*An updated (hopefully) version of the old Sound Space Plus*
 
-While you're here, join our discord in [here](https://discord.gg/rhythia)
+[Join the Discord here](https://discord.gg/CgQJSE9U)
 
-Support the game on [Liberapay](https://liberapay.com/kermeet/)
+# Credits
+- While you're here, join Rhythia's discord in [here](https://discord.gg/rhythia)
+- Support the original developers of Rhythia on [Liberapay](https://liberapay.com/kermeet/)
+- Huge thanks to [Kermeet](https://github.com/krmeet/sound-space-plus) for letting me keep the Legacy version of the game alive :heart:
 
 # Table of contents
 (Stuff you will see in this README)
@@ -105,3 +109,16 @@ After cloning the repository download the Discord Game SDK and put the following
 - `discord_game_sdk.dll`  
 - `discord_game_sdk.dylib`  
 - `discord_game_sdk.so` (__rename to `libdiscord_game_sdk.so`__)  
+
+## Building for developers:
+
+### Requirements:
+- Godot 3.5.1
+- vcredist (Windows)
+- Discord SDK
+
+It is recommended you grab some of the required files from a previous release in the [latest releases on the original repository](https://github.com/krmeet/sound-space-plus/releases/latest)
+
+## Changes from original:
+- Few easter eggs
+- Rename cursordance to cursorDance to make it easier for developers to build.
