@@ -146,7 +146,10 @@ func note_reposition(i:int):
 				at.origin.z = 0
 			
 			$ASq.multimesh.set_instance_transform(i - current_note, at)
-			$ASq.multimesh.set_instance_color(i - current_note, Color(1,1,1,pow(linstep(Rhythia.get("spawn_distance"),0,current_dist),1.7)))
+			if Rhythia.mod_ghost:
+				$ASq.multimesh.set_instance_color(i - current_note, Color(1,1,1,1 * alpha))
+			else:
+				$ASq.multimesh.set_instance_color(i - current_note, Color(1,1,1,pow(linstep(Rhythia.get("spawn_distance"),0,current_dist),1.7)))
 		
 #		$Label.text += "(%.02f: %s -> %s = %s) %s\n" % [current_dist,fade_in_start,fade_in_end,fade_in,alpha]
 		
