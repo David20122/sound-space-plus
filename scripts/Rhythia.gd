@@ -2026,7 +2026,7 @@ func do_init(_ud=null):
 		if ProjectSettings.get_setting("application/config/version") != latest_version:
 			var sel = 1
 			Globals.confirm_prompt.s_alert.play()
-			Globals.confirm_prompt.open("You are on an outdated version of the game! Would you like to automatically update?","Outdated",[{text="Ignore",wait=2},{text="Update",wait=1}])
+			Globals.confirm_prompt.open("A new version of the game was detected.\n Would you like to automatically update?","Outdated",[{text="Ignore",wait=2},{text="Update",wait=1}])
 			sel = yield(Globals.confirm_prompt,"option_selected")
 			Globals.confirm_prompt.s_next.play()
 			Globals.confirm_prompt.close()
