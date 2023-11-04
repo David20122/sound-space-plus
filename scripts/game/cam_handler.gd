@@ -1,6 +1,7 @@
 extends Spatial
 
 var state = (Rhythia.replaying and Rhythia.alt_cam)
+var debug:bool = OS.has_feature("debug")
 
 func _ready():
 	PhysicsServer.set_active(!Rhythia.visual_mode and (Rhythia.get("cam_unlock") or Rhythia.vr))
@@ -29,7 +30,7 @@ func _ready():
 		$Game/Avatar/Head/Accessories/CubellaHair.visible = true
 
 func _process(delta):
-	if Input.is_action_just_pressed("debug_freecam_toggle"):
+	if Input.is_action_just_pressed("debug_freecam_toggle") and debug: # Should only be enabled in Debug/Developer mode
 		state = !state
 		_ready()
 	if Input.is_action_just_pressed("retry"):
