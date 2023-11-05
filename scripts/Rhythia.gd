@@ -204,6 +204,8 @@ var def_menu_bgm:AudioStream
 # Keep fail sounds playing on scene switch
 var fail_asp:AudioStreamPlayer = AudioStreamPlayer.new()
 
+# Controller ignore
+var ignore_controller_detection:bool = false
 
 # VR startup
 func start_vr():
