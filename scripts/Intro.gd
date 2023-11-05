@@ -41,7 +41,7 @@ func _ready():
 	get_tree().change_scene("res://scenes/init.tscn")
 
 func _input(event):
-	if Input.is_action_just_pressed("pause") and can_skip:
+	if Input.is_action_just_pressed("pause") or event.button_index == JOY_XBOX_A and can_skip:
 		get_tree().change_scene("res://scenes/init.tscn")
 	elif OS.has_feature("Android") and can_skip:
 		get_tree().change_scene("res://scenes/init.tscn")
