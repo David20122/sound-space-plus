@@ -30,6 +30,10 @@ func display_warning(id:String):
 			state = true
 			$L.text = "Development mode is active, game mods will not be used."
 			color = Color("#477d94")
+		"controllercheck":
+			state = true
+			$L.text = "Reminder: Controller checking disabled, if intentional press C to close this bar..."
+			color = Color("#8400ff")
 		"experimental":
 			state = true
 			$L.text = "You are currently using experimental settings. Expect bugs."
@@ -62,6 +66,11 @@ func check_warnings():
 		return "debug"
 	elif check_experimental_settings():
 		return "experimental"
+	elif !Rhythia.controller_checking:
+		if Rhythia.display_controller_bar:
+			return "controllercheck"
+		else:
+			return "none"
 	else:
 		return "none"
 

@@ -204,8 +204,10 @@ var def_menu_bgm:AudioStream
 # Keep fail sounds playing on scene switch
 var fail_asp:AudioStreamPlayer = AudioStreamPlayer.new()
 
-# Controller ignore
+# Controller ignore settings
 var ignore_controller_detection:bool = false
+var controller_checking:bool = true
+var display_controller_bar:bool = true
 
 # VR startup
 func start_vr():
@@ -1190,7 +1192,10 @@ func load_saved_settings():
 			Engine.target_fps = data.target_fps
 		if data.has("disable_intro"):
 			disable_intro = data.disable_intro
-		
+		if data.has("controller_checking"):
+			controller_checking = data.controller_checking
+			if !controller_checking:
+				ignore_controller_detection = true
 		
 		if data.has("master_volume"):
 			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), dser_float(data.master_volume))
@@ -1568,6 +1573,7 @@ func save_settings():
 			half_ghost = half_ghost,
 			target_fps = Engine.target_fps,
 			disable_intro = disable_intro,
+			controller_checking = controller_checking,
 			
 			master_volume = ser_float(clamp(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Master")),-80,1000000)),
 			music_volume = ser_float(clamp(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Music")),-80,1000000)),
@@ -2389,7 +2395,7 @@ func do_init(_ud=null):
 		if interface:
 			vr_interface = interface
 			vr_available = true
-	
+
 	dir.change_dir("res://")
 	first_init_done = true
 	do_archive_convert = false
@@ -2400,7 +2406,11 @@ func do_init(_ud=null):
 	if Input.is_key_pressed(KEY_S) and Input.is_key_pressed(KEY_E) and Input.is_key_pressed(KEY_X):
 		sex_mode = true
 		alert = "Sex mode enabled successfully."
-	
+
+	# Toggle Warning bar
+	if Input.is_key_pressed(KEY_C):
+		display_controller_bar = false
+
 	var alert_snd_played:bool = false
 	if alert != "":
 		emit_signal("init_stage_reached","Alert prompt")
