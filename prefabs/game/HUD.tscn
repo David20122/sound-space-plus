@@ -234,7 +234,7 @@ default_font = SubResource( 80 )
 script/source = "extends Button
 
 func _pressed():
-	SSP.menu_target = \"res://menu2.tscn\"
+	Rhythia.menu_target = \"res://menu2.tscn\"
 	get_tree().change_scene(\"res://menuload.tscn\")
 "
 
