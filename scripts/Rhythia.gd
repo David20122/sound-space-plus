@@ -206,8 +206,6 @@ var fail_asp:AudioStreamPlayer = AudioStreamPlayer.new()
 
 # Controller ignore settings
 var ignore_controller_detection:bool = false
-var controller_checking:bool = true
-var display_controller_bar:bool = true
 
 # VR startup
 func start_vr():
@@ -961,7 +959,7 @@ func lcol(data:Dictionary,target:String) -> void:
 		set(target, Color(data[target]))
 
 # Settings file
-const current_sf_version = 47 # SV
+const current_sf_version = 48 # SV
 func load_saved_settings():
 	if Input.is_key_pressed(KEY_CONTROL) and Input.is_key_pressed(KEY_L): 
 		print("force settings read error")
@@ -1192,10 +1190,8 @@ func load_saved_settings():
 			Engine.target_fps = data.target_fps
 		if data.has("disable_intro"):
 			disable_intro = data.disable_intro
-		if data.has("controller_checking"):
-			controller_checking = data.controller_checking
-			if !controller_checking:
-				ignore_controller_detection = true
+		if data.has("ignore_controller_detection"):
+			ignore_controller_detection = data.ignore_controller_detection
 		
 		if data.has("master_volume"):
 			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), dser_float(data.master_volume))
@@ -1457,6 +1453,8 @@ func load_saved_settings():
 		if sv >= 47:
 			trail_mode_scale = bool(file.get_8())
 			trail_mode_opacity = bool(file.get_8())
+		if sv >= 48:
+			ignore_controller_detection = bool(file.get_8())
 		file.close()
 		save_settings()
 	return 0
@@ -1573,7 +1571,7 @@ func save_settings():
 			half_ghost = half_ghost,
 			target_fps = Engine.target_fps,
 			disable_intro = disable_intro,
-			controller_checking = controller_checking,
+			ignore_controller_detection = ignore_controller_detection,
 			
 			master_volume = ser_float(clamp(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Master")),-80,1000000)),
 			music_volume = ser_float(clamp(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Music")),-80,1000000)),
@@ -2406,10 +2404,6 @@ func do_init(_ud=null):
 	if Input.is_key_pressed(KEY_S) and Input.is_key_pressed(KEY_E) and Input.is_key_pressed(KEY_X):
 		sex_mode = true
 		alert = "Sex mode enabled successfully."
-
-	# Toggle Warning bar
-	if Input.is_key_pressed(KEY_C):
-		display_controller_bar = false
 
 	var alert_snd_played:bool = false
 	if alert != "":

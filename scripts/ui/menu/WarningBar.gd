@@ -9,6 +9,7 @@ var switch:float = -1
 var last_color:Color = Color("#ffffff")
 
 var current_warning:String = "none"
+var bar_enable:bool = true # Used for controller check bar
 
 func display_warning(id:String):
 	match id:
@@ -32,7 +33,7 @@ func display_warning(id:String):
 			color = Color("#477d94")
 		"controllercheck":
 			state = true
-			$L.text = "Reminder: Controller checking disabled, if intentional press C to close this bar..."
+			$L.text = "Controller checking disabled. Press C to hide this bar."
 			color = Color("#8400ff")
 		"experimental":
 			state = true
@@ -56,6 +57,9 @@ func check_experimental_settings():
 	return false
 
 func check_warnings():
+	if Input.is_action_pressed("arcw3") and bar_enable:
+		bar_enable = false
+
 	if Input.is_action_pressed("warning_test"):
 		return "test"
 	elif Rhythia.single_map_mode:
@@ -66,8 +70,8 @@ func check_warnings():
 		return "debug"
 	elif check_experimental_settings():
 		return "experimental"
-	elif !Rhythia.controller_checking:
-		if Rhythia.display_controller_bar:
+	elif Rhythia.ignore_controller_detection:
+		if bar_enable:
 			return "controllercheck"
 		else:
 			return "none"
