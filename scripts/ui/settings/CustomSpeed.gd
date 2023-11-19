@@ -1,7 +1,6 @@
 extends SpinBox
 
 func upd():
-	print("changing the thigny")
 	Rhythia.custom_speed = value / 100
 
 func _process(_d):

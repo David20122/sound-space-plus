@@ -41,7 +41,7 @@
 [ext_resource path="res://scripts/ui/menu/buttons/Convert.gd" type="Script" id=39]
 [ext_resource path="res://scripts/ui/menu/buttons/SetDifficulty.gd" type="Script" id=40]
 [ext_resource path="res://scripts/ui/menu/buttons/HpModel.gd" type="Script" id=41]
-[ext_resource path="res://scripts/ui/menu/buttons/CSpeedLabel.gd" type="Script" id=42]
+[ext_resource path="res://assets/images/transparent.png" type="Texture" id=42]
 [ext_resource path="res://scripts/ui/menu/buttons/Nearsight.gd" type="Script" id=43]
 [ext_resource path="res://scripts/ui/menu/buttons/SuddenDeath.gd" type="Script" id=44]
 [ext_resource path="res://scripts/ui/menu/buttons/Ghost.gd" type="Script" id=45]
@@ -99,6 +99,7 @@
 [ext_resource path="res://scripts/ui/settings/InvertMouse.gd" type="Script" id=97]
 [ext_resource path="res://assets/images/cursors/circle.png" type="Texture" id=98]
 [ext_resource path="res://scripts/ui/menu/MenuMouse.gd" type="Script" id=99]
+[ext_resource path="res://scripts/ui/settings/CustomSpeed.gd" type="Script" id=100]
 
 [sub_resource type="Gradient" id=163]
 offsets = PoolRealArray( 0, 0.5, 1 )
@@ -421,11 +422,6 @@ region_rect = Rect2( 0, 0, 128, 128 )
 [sub_resource type="StyleBoxTexture" id=147]
 texture = ExtResource( 72 )
 region_rect = Rect2( 0, 0, 128, 128 )
-
-[sub_resource type="DynamicFont" id=95]
-size = 14
-use_filter = true
-font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=96]
 size = 12
@@ -2593,9 +2589,10 @@ valign = 2
 
 [node name="ModsHolder" type="ScrollContainer" parent="Main/Results/Results"]
 anchor_bottom = 1.0
-margin_left = 604.0
-margin_top = 51.0
-margin_right = 1060.0
+margin_left = 550.0
+margin_top = 48.0
+margin_right = 1033.0
+margin_bottom = -3.0
 follow_focus = true
 
 [node name="Mods" type="ReferenceRect" parent="Main/Results/Results/ModsHolder"]
@@ -2976,36 +2973,35 @@ group = SubResource( 93 )
 flat = true
 expand_icon = true
 
-[node name="CSpeedLabel" type="Label" parent="Main/Results/Results/ModsHolder/Mods/SpeedMod/C/Custom"]
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = 8.0
-margin_right = 64.0
-margin_bottom = 32.0
-rect_pivot_offset = Vector2( 0, 16 )
+[node name="CustomSpeed" type="SpinBox" parent="Main/Results/Results/ModsHolder/Mods/SpeedMod/C/Custom"]
+margin_left = 21.0
+margin_top = 3.0
+margin_right = 87.0
+margin_bottom = 31.0
+rect_min_size = Vector2( 50, 5 )
+rect_pivot_offset = Vector2( 286, 872 )
 focus_mode = 2
 theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.905882, 0.380392, 1, 1 )
-custom_constants/shadow_offset_x = 0
-custom_constants/shadow_offset_y = 0
-custom_fonts/font = SubResource( 95 )
-text = "C (100%)"
-valign = 1
-script = ExtResource( 42 )
-
-[node name="StartOffset" type="SpinBox" parent="Main/Results/Results/ModsHolder/Mods"]
-margin_left = 130.0
-margin_top = 238.0
-margin_right = 330.0
-margin_bottom = 266.0
-focus_mode = 2
-theme = ExtResource( 1 )
+custom_icons/updown = ExtResource( 42 )
+min_value = 5.0
+max_value = 1000.0
+step = 0.01
+value = 100.0
 allow_greater = true
-suffix = "sec"
+suffix = "%"
+script = ExtResource( 100 )
+
+[node name="StartOffset" type="HSlider" parent="Main/Results/Results/ModsHolder/Mods"]
+margin_left = 139.0
+margin_top = 273.0
+margin_right = 324.0
+margin_bottom = 266.0
+theme = ExtResource( 1 )
 script = ExtResource( 59 )
 
 [node name="Label" type="Label" parent="Main/Results/Results/ModsHolder/Mods/StartOffset"]
 margin_left = -149.0
+margin_top = -13.0
 margin_right = -10.0
 margin_bottom = 26.0
 focus_mode = 2
@@ -3017,11 +3013,25 @@ align = 2
 valign = 1
 clip_text = true
 
+[node name="TimeLabel" type="Label" parent="Main/Results/Results/ModsHolder/Mods/StartOffset"]
+margin_left = 192.0
+margin_top = -13.0
+margin_right = 234.0
+margin_bottom = 27.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.960784, 1, 0.478431, 1 )
+custom_fonts/font = SubResource( 91 )
+text = "00:00"
+align = 2
+valign = 1
+clip_text = true
+
 [node name="HpModel" type="MenuButton" parent="Main/Results/Results/ModsHolder/Mods"]
-margin_left = 130.0
-margin_top = 274.0
-margin_right = 314.0
-margin_bottom = 300.0
+margin_left = 141.0
+margin_top = 233.0
+margin_right = 325.0
+margin_bottom = 259.0
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
@@ -4146,7 +4156,7 @@ scroll_horizontal_enabled = false
 [node name="F" parent="Main/Settings/S" instance=ExtResource( 49 )]
 anchor_right = 0.0
 margin_right = 1210.0
-margin_bottom = 5830.0
+margin_bottom = 5890.0
 rect_clip_content = true
 
 [node name="Credits" type="ReferenceRect" parent="Main"]
