@@ -275,12 +275,12 @@ script = ExtResource( 59 )
 [node name="M" type="VBoxContainer" parent="."]
 margin_top = 59.0
 margin_right = 1280.0
-margin_bottom = 5762.0
+margin_bottom = 5790.0
 custom_constants/separation = 0
 
 [node name="Modifiers" type="VBoxContainer" parent="M"]
 margin_right = 1280.0
-margin_bottom = 186.0
+margin_bottom = 150.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Modifiers"]
@@ -309,14 +309,14 @@ flat = true
 [node name="Group" type="MarginContainer" parent="M/Modifiers"]
 margin_top = 36.0
 margin_right = 1280.0
-margin_bottom = 186.0
+margin_bottom = 150.0
 mouse_filter = 1
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="M/Modifiers/Group"]
 margin_left = 180.0
 margin_right = 1280.0
-margin_bottom = 150.0
+margin_bottom = 114.0
 
 [node name="DisablePause" type="CheckBox" parent="M/Modifiers/Group/H"]
 margin_right = 200.0
@@ -352,6 +352,7 @@ valign = 1
 clip_text = true
 
 [node name="CustomSpeed" type="Control" parent="M/Modifiers/Group/H"]
+visible = false
 margin_top = 32.0
 margin_right = 200.0
 margin_bottom = 64.0
@@ -398,16 +399,16 @@ text = "[default 100%] used by the custom speed modifier (speed+ mods are 115, 1
 valign = 1
 
 [node name="SEPARATOR" type="HSeparator" parent="M/Modifiers/Group/H"]
-margin_top = 68.0
+margin_top = 32.0
 margin_right = 200.0
-margin_bottom = 78.0
+margin_bottom = 42.0
 rect_min_size = Vector2( 0, 10 )
 custom_styles/separator = SubResource( 55 )
 
 [node name="HitboxSize" type="Control" parent="M/Modifiers/Group/H"]
-margin_top = 82.0
+margin_top = 46.0
 margin_right = 200.0
-margin_bottom = 114.0
+margin_bottom = 78.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="NoteHitboxSize" type="SpinBox" parent="M/Modifiers/Group/H/HitboxSize"]
@@ -452,9 +453,9 @@ text = "[def. 1.14] the size of note hitboxes in grid units (hit checking is don
 valign = 1
 
 [node name="HitWindow" type="Control" parent="M/Modifiers/Group/H"]
-margin_top = 118.0
+margin_top = 82.0
 margin_right = 200.0
-margin_bottom = 150.0
+margin_bottom = 114.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="HitWindow" type="SpinBox" parent="M/Modifiers/Group/H/HitWindow"]
@@ -498,9 +499,9 @@ text = "[def. 55ms] the length of time notes can be hit after reaching the grid 
 valign = 1
 
 [node name="Notes" type="VBoxContainer" parent="M"]
-margin_top = 186.0
+margin_top = 150.0
 margin_right = 1280.0
-margin_bottom = 902.0
+margin_bottom = 930.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Notes"]
@@ -529,14 +530,14 @@ flat = true
 [node name="Group" type="MarginContainer" parent="M/Notes"]
 margin_top = 36.0
 margin_right = 1280.0
-margin_bottom = 716.0
+margin_bottom = 780.0
 mouse_filter = 1
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="M/Notes/Group"]
 margin_left = 180.0
 margin_right = 1280.0
-margin_bottom = 680.0
+margin_bottom = 744.0
 
 [node name="ColorSet2" type="VBoxContainer" parent="M/Notes/Group/H"]
 margin_right = 1100.0
@@ -1067,17 +1068,83 @@ custom_fonts/font = SubResource( 4 )
 text = "[def. 50%] percentage of the spawn distance that notes take to fade from invisible to fully opaque"
 valign = 1
 
-[node name="SEPARATOR" type="HSeparator" parent="M/Notes/Group/H"]
+[node name="DoNotePushback" type="CheckBox" parent="M/Notes/Group/H"]
 margin_top = 306.0
 margin_right = 1100.0
-margin_bottom = 316.0
+margin_bottom = 334.0
+rect_min_size = Vector2( 0, 28 )
+mouse_filter = 1
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_fonts/font = SubResource( 4 )
+action_mode = 0
+text = "while enabled, notes will go past the grid when you miss, instead of always vanishing 0.1 units past the grid"
+flat = true
+script = ExtResource( 54 )
+target = "do_note_pushback"
+
+[node name="Label" type="Label" parent="M/Notes/Group/H/DoNotePushback"]
+anchor_bottom = 1.0
+margin_left = -165.0
+margin_right = -10.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Do Note Pushback"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="HalfGhost" type="CheckBox" parent="M/Notes/Group/H"]
+margin_top = 338.0
+margin_right = 1100.0
+margin_bottom = 366.0
+rect_min_size = Vector2( 0, 28 )
+mouse_filter = 1
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_fonts/font = SubResource( 4 )
+action_mode = 0
+text = "useful for patterns that fill the whole screen"
+flat = true
+script = ExtResource( 54 )
+target = "half_ghost"
+
+[node name="Label" type="Label" parent="M/Notes/Group/H/HalfGhost"]
+anchor_bottom = 1.0
+margin_left = -165.0
+margin_right = -10.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Half Ghost"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="SEPARATOR" type="HSeparator" parent="M/Notes/Group/H"]
+margin_top = 370.0
+margin_right = 1100.0
+margin_bottom = 380.0
 rect_min_size = Vector2( 0, 10 )
 custom_styles/separator = SubResource( 55 )
 
 [node name="NoteSpawnEffect" type="CheckBox" parent="M/Notes/Group/H"]
-margin_top = 320.0
+margin_top = 384.0
 margin_right = 1100.0
-margin_bottom = 348.0
+margin_bottom = 412.0
 rect_min_size = Vector2( 0, 28 )
 mouse_filter = 1
 theme = ExtResource( 1 )
@@ -1109,16 +1176,16 @@ valign = 1
 clip_text = true
 
 [node name="SEPARATOR3" type="HSeparator" parent="M/Notes/Group/H"]
-margin_top = 352.0
+margin_top = 416.0
 margin_right = 1100.0
-margin_bottom = 362.0
+margin_bottom = 426.0
 rect_min_size = Vector2( 0, 10 )
 custom_styles/separator = SubResource( 55 )
 
 [node name="HitRipple" type="Control" parent="M/Notes/Group/H"]
-margin_top = 366.0
+margin_top = 430.0
 margin_right = 1100.0
-margin_bottom = 398.0
+margin_bottom = 462.0
 rect_min_size = Vector2( 200, 32 )
 mouse_filter = 1
 
@@ -1188,9 +1255,9 @@ icon = ExtResource( 4 )
 expand_icon = true
 
 [node name="HitEffect" type="Control" parent="M/Notes/Group/H"]
-margin_top = 402.0
+margin_top = 466.0
 margin_right = 1100.0
-margin_bottom = 434.0
+margin_bottom = 498.0
 rect_min_size = Vector2( 200, 32 )
 mouse_filter = 1
 
@@ -1235,9 +1302,9 @@ text = "effect played when you hit a note"
 valign = 1
 
 [node name="ShowHitEffect" type="CheckBox" parent="M/Notes/Group/H"]
-margin_top = 438.0
+margin_top = 502.0
 margin_right = 1100.0
-margin_bottom = 466.0
+margin_bottom = 530.0
 rect_min_size = Vector2( 0, 28 )
 mouse_filter = 1
 theme = ExtResource( 1 )
@@ -1269,9 +1336,9 @@ valign = 1
 clip_text = true
 
 [node name="HitEffectCursor" type="CheckBox" parent="M/Notes/Group/H"]
-margin_top = 470.0
+margin_top = 534.0
 margin_right = 1100.0
-margin_bottom = 498.0
+margin_bottom = 562.0
 rect_min_size = Vector2( 0, 28 )
 mouse_filter = 1
 theme = ExtResource( 1 )
@@ -1303,9 +1370,9 @@ valign = 1
 clip_text = true
 
 [node name="ApproachSquares" type="CheckBox" parent="M/Notes/Group/H"]
-margin_top = 502.0
+margin_top = 566.0
 margin_right = 1100.0
-margin_bottom = 530.0
+margin_bottom = 594.0
 rect_min_size = Vector2( 0, 28 )
 mouse_filter = 1
 theme = ExtResource( 1 )
@@ -1336,9 +1403,9 @@ valign = 1
 clip_text = true
 
 [node name="ApproachFollow" type="CheckBox" parent="M/Notes/Group/H"]
-margin_top = 534.0
+margin_top = 598.0
 margin_right = 1100.0
-margin_bottom = 562.0
+margin_bottom = 626.0
 rect_min_size = Vector2( 0, 28 )
 mouse_filter = 1
 theme = ExtResource( 1 )
@@ -1369,16 +1436,16 @@ valign = 1
 clip_text = true
 
 [node name="SEPARATOR4" type="HSeparator" parent="M/Notes/Group/H"]
-margin_top = 566.0
+margin_top = 630.0
 margin_right = 1100.0
-margin_bottom = 576.0
+margin_bottom = 640.0
 rect_min_size = Vector2( 0, 10 )
 custom_styles/separator = SubResource( 55 )
 
 [node name="MissRipple" type="Control" parent="M/Notes/Group/H"]
-margin_top = 580.0
+margin_top = 644.0
 margin_right = 1100.0
-margin_bottom = 612.0
+margin_bottom = 676.0
 rect_min_size = Vector2( 200, 32 )
 mouse_filter = 1
 
@@ -1448,9 +1515,9 @@ icon = ExtResource( 4 )
 expand_icon = true
 
 [node name="MissEffect" type="Control" parent="M/Notes/Group/H"]
-margin_top = 616.0
+margin_top = 680.0
 margin_right = 1100.0
-margin_bottom = 648.0
+margin_bottom = 712.0
 rect_min_size = Vector2( 200, 32 )
 mouse_filter = 1
 
@@ -1495,9 +1562,9 @@ text = "hit effect but when you don't"
 valign = 1
 
 [node name="ShowMissEffect" type="CheckBox" parent="M/Notes/Group/H"]
-margin_top = 652.0
+margin_top = 716.0
 margin_right = 1100.0
-margin_bottom = 680.0
+margin_bottom = 744.0
 rect_min_size = Vector2( 0, 28 )
 mouse_filter = 1
 theme = ExtResource( 1 )
@@ -1529,9 +1596,9 @@ valign = 1
 clip_text = true
 
 [node name="Recording" type="VBoxContainer" parent="M"]
-margin_top = 902.0
+margin_top = 930.0
 margin_right = 1280.0
-margin_bottom = 1070.0
+margin_bottom = 1098.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Recording"]
@@ -1717,9 +1784,9 @@ text = "[def. 30/144] changes the dynamic fps bounds of your replays"
 valign = 1
 
 [node name="Camera" type="VBoxContainer" parent="M"]
-margin_top = 1070.0
+margin_top = 1098.0
 margin_right = 1280.0
-margin_bottom = 1794.0
+margin_bottom = 1822.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Camera"]
@@ -2528,9 +2595,9 @@ valign = 1
 clip_text = true
 
 [node name="Customization" type="VBoxContainer" parent="M"]
-margin_top = 1794.0
+margin_top = 1822.0
 margin_right = 1280.0
-margin_bottom = 2386.0
+margin_bottom = 2414.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Customization"]
@@ -3296,9 +3363,9 @@ icon = ExtResource( 4 )
 expand_icon = true
 
 [node name="Graphics" type="VBoxContainer" parent="M"]
-margin_top = 2386.0
+margin_top = 2414.0
 margin_right = 1280.0
-margin_bottom = 2650.0
+margin_bottom = 2678.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Graphics"]
@@ -3584,9 +3651,9 @@ text = "[0 = no limit] puts a limit on the framerate; use this if ssp is using 1
 valign = 1
 
 [node name="Audio" type="VBoxContainer" parent="M"]
-margin_top = 2650.0
+margin_top = 2678.0
 margin_right = 1280.0
-margin_bottom = 3122.0
+margin_bottom = 3150.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Audio"]
@@ -4201,9 +4268,9 @@ __meta__ = {
 }
 
 [node name="UI" type="VBoxContainer" parent="M"]
-margin_top = 3122.0
+margin_top = 3150.0
 margin_right = 1280.0
-margin_bottom = 3666.0
+margin_bottom = 3694.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/UI"]
@@ -4825,9 +4892,9 @@ valign = 1
 clip_text = true
 
 [node name="UIColor" type="VBoxContainer" parent="M"]
-margin_top = 3666.0
+margin_top = 3694.0
 margin_right = 1280.0
-margin_bottom = 5334.0
+margin_bottom = 5362.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/UIColor"]
@@ -6721,9 +6788,9 @@ text = "[def. ##DEFAULT##] color of text when grade is F"
 valign = 1
 
 [node name="Experimental" type="VBoxContainer" parent="M"]
-margin_top = 5334.0
+margin_top = 5362.0
 margin_right = 1280.0
-margin_bottom = 5703.0
+margin_bottom = 5731.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Experimental"]
@@ -7141,9 +7208,9 @@ valign = 1
 clip_text = true
 
 [node name="BottomMargin" type="Control" parent="."]
-margin_top = 5766.0
+margin_top = 5794.0
 margin_right = 1280.0
-margin_bottom = 5862.0
+margin_bottom = 5890.0
 rect_min_size = Vector2( 0, 96 )
 
 [connection signal="value_changed" from="M/Graphics/Group/H/RenderScale/Scale" to="M/Graphics/Group/H/RenderScale/Scale" method="_on_Scale_value_changed"]
