@@ -556,6 +556,8 @@ var spawn_distance:float = 40 setget ,get_spawn_distance
 func get_spawn_distance():
 	if replaying and replay.settings.has("spawn_distance"): return replay.settings.get("spawn_distance")
 	return spawn_distance
+var do_note_pushback:bool = true # true; notes go past grid on miss, false; notes always vanish at grid
+var half_ghost:bool = false
 var note_spawn_effect:bool = false
 var note_size:float = 1
 var note_spin_x:float = 0
@@ -652,7 +654,6 @@ var rainbow_hud:bool = false
 var friend_position:int = Globals.FRIEND_BEHIND_GRID # Hidden
 var note_visual_approach:bool = false # Experimental
 var visual_approach_follow:bool = false
-var half_ghost:bool = false # Experimental
 var billboard_score:bool = false
 var score_popup:bool = false
 var mirror_buttons:bool = false
@@ -734,7 +735,6 @@ var render_scale:float = 1
 var ensure_hitsync:bool = false
 var hitsync_offset:float = 0 # don't save this yet; probably not even a necessary setting
 var retain_song_pitch:bool = false # not recommended as this is very heavy to compute, but people want it
-var do_note_pushback:bool = true # true; notes go past grid on miss, false; notes always vanish at grid
 var show_stats:bool = false
 var hit_pitch:bool = false
 var hit_pitch_min:float = 0.9
