@@ -22,7 +22,7 @@ _global_script_classes=[ {
 "base": "DanceMover",
 "class": "BouncyDanceMover",
 "language": "GDScript",
-"path": "res://scripts/cursordance/Bouncy.gd"
+"path": "res://scripts/cursorDance/Bouncy.gd"
 }, {
 "base": "Resource",
 "class": "ChatMessage",
@@ -42,12 +42,12 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "DanceMover",
 "language": "GDScript",
-"path": "res://scripts/cursordance/DanceMover.gd"
+"path": "res://scripts/cursorDance/DanceMover.gd"
 }, {
 "base": "DanceMover",
 "class": "DirectionalDanceMover",
 "language": "GDScript",
-"path": "res://scripts/cursordance/Directional.gd"
+"path": "res://scripts/cursorDance/Directional.gd"
 }, {
 "base": "",
 "class": "DiscordActivity",
@@ -142,7 +142,7 @@ _global_script_classes=[ {
 "base": "DanceMover",
 "class": "MomentumDanceMover",
 "language": "GDScript",
-"path": "res://scripts/cursordance/Momentum.gd"
+"path": "res://scripts/cursorDance/Momentum.gd"
 }, {
 "base": "Spatial",
 "class": "Note",
@@ -187,7 +187,7 @@ _global_script_classes=[ {
 "base": "DanceMover",
 "class": "SimpleDanceMover",
 "language": "GDScript",
-"path": "res://scripts/cursordance/Simple.gd"
+"path": "res://scripts/cursorDance/Simple.gd"
 }, {
 "base": "Resource",
 "class": "Song",
@@ -291,8 +291,8 @@ config/disable_native_file_dialogs.Android=true
 config/disable_native_file_dialogs.web=true
 config/disable_native_file_dialogs.OSX=true
 config/is_using_controller=true
-config/discord_rpc=false
-config/discord_rpc.editor=false
+config/discord_rpc=true
+config/discord_rpc.editor=true
 networking/github_repo="krmeet/sound-space-plus"
 
 [audio]
