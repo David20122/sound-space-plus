@@ -2973,12 +2973,11 @@ group = SubResource( 93 )
 flat = true
 expand_icon = true
 
-[node name="CustomSpeed" type="SpinBox" parent="Main/Results/Results/ModsHolder/Mods/SpeedMod/C/Custom"]
-margin_left = 21.0
-margin_top = 3.0
-margin_right = 87.0
-margin_bottom = 31.0
-rect_min_size = Vector2( 50, 5 )
+[node name="CustomSpeed" type="SpinBox" parent="Main/Results/Results/ModsHolder/Mods/SpeedMod/C"]
+margin_left = 292.0
+margin_right = 362.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 70, 5 )
 rect_pivot_offset = Vector2( 286, 872 )
 focus_mode = 2
 theme = ExtResource( 1 )
@@ -4156,7 +4155,7 @@ scroll_horizontal_enabled = false
 [node name="F" parent="Main/Settings/S" instance=ExtResource( 49 )]
 anchor_right = 0.0
 margin_right = 1210.0
-margin_bottom = 5890.0
+margin_bottom = 5862.0
 rect_clip_content = true
 
 [node name="Credits" type="ReferenceRect" parent="Main"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=93 format=2]
+[gd_scene load_steps=92 format=2]
 
 [ext_resource path="res://uitheme.tres" type="Theme" id=1]
 [ext_resource path="res://assets/font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=2]
@@ -30,7 +30,6 @@
 [ext_resource path="res://scripts/ui/settings/Parallax.gd" type="Script" id=28]
 [ext_resource path="res://scripts/ui/settings/ColorSet.gd" type="Script" id=29]
 [ext_resource path="res://scripts/ui/settings/SpawnDist.gd" type="Script" id=30]
-[ext_resource path="res://scripts/ui/settings/CustomSpeed.gd" type="Script" id=31]
 [ext_resource path="res://assets/font/NotoColorEmoji.ttf" type="DynamicFontData" id=32]
 [ext_resource path="res://scripts/ui/settings/UIParallax.gd" type="Script" id=33]
 [ext_resource path="res://scripts/ui/settings/GridParallax.gd" type="Script" id=34]
@@ -275,12 +274,12 @@ script = ExtResource( 59 )
 [node name="M" type="VBoxContainer" parent="."]
 margin_top = 59.0
 margin_right = 1280.0
-margin_bottom = 5726.0
+margin_bottom = 5762.0
 custom_constants/separation = 0
 
 [node name="Modifiers" type="VBoxContainer" parent="M"]
 margin_right = 1280.0
-margin_bottom = 150.0
+margin_bottom = 186.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Modifiers"]
@@ -309,14 +308,14 @@ flat = true
 [node name="Group" type="MarginContainer" parent="M/Modifiers"]
 margin_top = 36.0
 margin_right = 1280.0
-margin_bottom = 150.0
+margin_bottom = 186.0
 mouse_filter = 1
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="M/Modifiers/Group"]
 margin_left = 180.0
 margin_right = 1280.0
-margin_bottom = 114.0
+margin_bottom = 150.0
 
 [node name="DisablePause" type="CheckBox" parent="M/Modifiers/Group/H"]
 margin_right = 200.0
@@ -352,7 +351,6 @@ valign = 1
 clip_text = true
 
 [node name="CustomSpeed" type="Control" parent="M/Modifiers/Group/H"]
-visible = false
 margin_top = 32.0
 margin_right = 200.0
 margin_bottom = 64.0
@@ -371,7 +369,6 @@ step = 0.01
 value = 100.0
 allow_greater = true
 suffix = "%"
-script = ExtResource( 31 )
 
 [node name="Label" type="Label" parent="M/Modifiers/Group/H/CustomSpeed/CustomSpeed"]
 margin_left = -149.0
@@ -399,16 +396,16 @@ text = "[default 100%] used by the custom speed modifier (speed+ mods are 115, 1
 valign = 1
 
 [node name="SEPARATOR" type="HSeparator" parent="M/Modifiers/Group/H"]
-margin_top = 32.0
+margin_top = 68.0
 margin_right = 200.0
-margin_bottom = 42.0
+margin_bottom = 78.0
 rect_min_size = Vector2( 0, 10 )
 custom_styles/separator = SubResource( 55 )
 
 [node name="HitboxSize" type="Control" parent="M/Modifiers/Group/H"]
-margin_top = 46.0
+margin_top = 82.0
 margin_right = 200.0
-margin_bottom = 78.0
+margin_bottom = 114.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="NoteHitboxSize" type="SpinBox" parent="M/Modifiers/Group/H/HitboxSize"]
@@ -453,9 +450,9 @@ text = "[def. 1.14] the size of note hitboxes in grid units (hit checking is don
 valign = 1
 
 [node name="HitWindow" type="Control" parent="M/Modifiers/Group/H"]
-margin_top = 82.0
+margin_top = 118.0
 margin_right = 200.0
-margin_bottom = 114.0
+margin_bottom = 150.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="HitWindow" type="SpinBox" parent="M/Modifiers/Group/H/HitWindow"]
@@ -499,9 +496,9 @@ text = "[def. 55ms] the length of time notes can be hit after reaching the grid 
 valign = 1
 
 [node name="Notes" type="VBoxContainer" parent="M"]
-margin_top = 150.0
+margin_top = 186.0
 margin_right = 1280.0
-margin_bottom = 930.0
+margin_bottom = 966.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Notes"]
@@ -1596,9 +1593,9 @@ valign = 1
 clip_text = true
 
 [node name="Recording" type="VBoxContainer" parent="M"]
-margin_top = 930.0
+margin_top = 966.0
 margin_right = 1280.0
-margin_bottom = 1098.0
+margin_bottom = 1134.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Recording"]
@@ -1784,9 +1781,9 @@ text = "[def. 30/144] changes the dynamic fps bounds of your replays"
 valign = 1
 
 [node name="Camera" type="VBoxContainer" parent="M"]
-margin_top = 1098.0
+margin_top = 1134.0
 margin_right = 1280.0
-margin_bottom = 1822.0
+margin_bottom = 1858.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Camera"]
@@ -2595,9 +2592,9 @@ valign = 1
 clip_text = true
 
 [node name="Customization" type="VBoxContainer" parent="M"]
-margin_top = 1822.0
+margin_top = 1858.0
 margin_right = 1280.0
-margin_bottom = 2414.0
+margin_bottom = 2450.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Customization"]
@@ -3363,9 +3360,9 @@ icon = ExtResource( 4 )
 expand_icon = true
 
 [node name="Graphics" type="VBoxContainer" parent="M"]
-margin_top = 2414.0
+margin_top = 2450.0
 margin_right = 1280.0
-margin_bottom = 2678.0
+margin_bottom = 2714.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Graphics"]
@@ -3651,9 +3648,9 @@ text = "[0 = no limit] puts a limit on the framerate; use this if ssp is using 1
 valign = 1
 
 [node name="Audio" type="VBoxContainer" parent="M"]
-margin_top = 2678.0
+margin_top = 2714.0
 margin_right = 1280.0
-margin_bottom = 3150.0
+margin_bottom = 3186.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Audio"]
@@ -4268,9 +4265,9 @@ __meta__ = {
 }
 
 [node name="UI" type="VBoxContainer" parent="M"]
-margin_top = 3150.0
+margin_top = 3186.0
 margin_right = 1280.0
-margin_bottom = 3694.0
+margin_bottom = 3730.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/UI"]
@@ -4892,9 +4889,9 @@ valign = 1
 clip_text = true
 
 [node name="UIColor" type="VBoxContainer" parent="M"]
-margin_top = 3694.0
+margin_top = 3730.0
 margin_right = 1280.0
-margin_bottom = 5362.0
+margin_bottom = 5398.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/UIColor"]
@@ -6788,9 +6785,9 @@ text = "[def. ##DEFAULT##] color of text when grade is F"
 valign = 1
 
 [node name="Experimental" type="VBoxContainer" parent="M"]
-margin_top = 5362.0
+margin_top = 5398.0
 margin_right = 1280.0
-margin_bottom = 5667.0
+margin_bottom = 5703.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Experimental"]
@@ -7142,9 +7139,9 @@ valign = 1
 clip_text = true
 
 [node name="BottomMargin" type="Control" parent="."]
-margin_top = 5730.0
+margin_top = 5766.0
 margin_right = 1280.0
-margin_bottom = 5826.0
+margin_bottom = 5862.0
 rect_min_size = Vector2( 0, 96 )
 
 [connection signal="value_changed" from="M/Graphics/Group/H/RenderScale/Scale" to="M/Graphics/Group/H/RenderScale/Scale" method="_on_Scale_value_changed"]
