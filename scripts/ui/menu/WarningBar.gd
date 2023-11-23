@@ -48,7 +48,6 @@ var experimental_settings = [
 	"show_stats",
 	"ensure_hitsync",
 	"retain_song_pitch",
-	"half_ghost",
 ]
 
 func check_experimental_settings():
