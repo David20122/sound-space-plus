@@ -108,7 +108,6 @@ func select_song(song:Song):
 		selected_song = song
 		emit_signal("selected_song_changed",song)
 
-
 # Song ending state data
 var just_ended_song:bool = false
 var song_end_type:int = Globals.END_FAIL
@@ -121,6 +120,7 @@ var song_end_accuracy_str:String
 var song_end_time_str:String
 var song_end_length:float
 var song_end_combo:int
+
 # Replay data
 var replay:Replay
 var replay_path:String = ""
@@ -185,7 +185,6 @@ var queue_end_accuracy_str:String
 var queue_end_time_str:String
 var queue_end_length:float
 var queue_end_combo:int
-
 
 # Loaded sounds
 var miss_snd:AudioStream
@@ -452,9 +451,6 @@ func get_stream_with_default(path:String,default:AudioStream) -> AudioStream:
 				return mf
 	return default
 
-
-
-
 # Modifiers - Normal
 var mod_extra_energy:bool = false setget set_mod_extra_energy # Easy Mode
 var mod_no_regen:bool = false setget set_mod_no_regen # Hard Mode
@@ -470,6 +466,7 @@ var mod_earthquake:bool = false setget set_mod_earthquake
 var mod_flashlight:bool = false setget set_mod_flashlight
 # Modifiers - Custom values
 var start_offset:float = 0 setget _set_start_offset
+var mod_intensity:float = 1 setget _set_mod_intensity
 var note_hitbox_size:float = 1.140 setget _set_hitbox_size
 var hitwindow_ms:float = 55 setget _set_hitwindow
 var custom_speed:float = 1 setget _set_custom_speed
@@ -524,6 +521,8 @@ func set_mod_flashlight(v:bool):
 # Mod setters - Custom values
 func _set_start_offset(v:float):
 	start_offset = v; emit_signal("mods_changed")
+func _set_mod_intensity(v:float):
+	mod_intensity = v; emit_signal("mods_changed")
 func _set_hitbox_size(v:float):
 	note_hitbox_size = v; emit_signal("mods_changed")
 func _set_hitwindow(v:float):

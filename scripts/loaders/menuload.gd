@@ -33,7 +33,7 @@ func _ready():
 		$Music.stream = st
 		$Music.play()
 	
-	$AudioStreamPlayer.play()
+#	$AudioStreamPlayer.play()
 	
 	var res = RQueue.queue_resource(target)
 	if res != OK:
@@ -44,7 +44,7 @@ var result
 var left:bool = false
 
 func _process(delta):
-	$AudioStreamPlayer.volume_db = -3 - (40*black_fade)
+#	$AudioStreamPlayer.volume_db = -3 - (40*black_fade)
 	$Music.volume_db = -8 - (40*black_fade)
 	if black_fade_target && black_fade != 1:
 		black_fade = min(black_fade + (delta/0.3),1)
