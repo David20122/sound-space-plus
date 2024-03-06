@@ -61,7 +61,7 @@ func to_old_menu():
 		if !Rhythia.selected_song:
 			Globals.notify(Globals.NOTIFY_WARN,"No selected song","Automatically selecting a song")
 			Rhythia.select_song(Rhythia.registry_song.items[0])
-		Rhythia.menu_target = "res://scripts/cursorDance/dancetest.tscn"
+		Rhythia.menu_target = "res://scripts/cursordance/dancetest.tscn"
 	else: Rhythia.menu_target = "res://scenes/menu/menu.tscn"
 	yield(get_tree().create_timer(0.35),"timeout")
 	get_tree().change_scene("res://scenes/loaders/menuload.tscn")
