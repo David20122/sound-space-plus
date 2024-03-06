@@ -11,6 +11,7 @@ export(Material) var note_transparent_mat
 export(Material) var asq_mat
 
 var approach_rate:float = Rhythia.get("approach_rate")
+var hit_window:float = Rhythia.get("hitwindow_ms")
 var speed_multi:float = Globals.speed_multi[Rhythia.mod_speed_level]
 var ms:float = Rhythia.start_offset - (3000 * speed_multi) # make waiting time shorter on lower speeds
 var notes_loaded:bool = false
@@ -241,7 +242,7 @@ func reposition_notes(force:bool=false,rerun_start:int=-1):
 		elif ms >= notems and notes[i][2] == Globals.NSTATE_ACTIVE:
 			var result = Rhythia.visual_mode or note_check_collision(i)
 
-			if !result and (ms > notems + Rhythia.hitwindow_ms or pause_state == -1):
+			if !result and (ms > notems + hit_window or pause_state == -1):
 #				$Label.text += "MISS %s @ %s\n" % [ i, ms ]
 #				note_passed = true
 				# notes should not be in the hitwindow if the game is paused
@@ -299,7 +300,7 @@ func reposition_notes(force:bool=false,rerun_start:int=-1):
 					scoreEffect.duplicate().spawn(get_parent(),pos,notes[i][3],score)
 
 				prev_ms = notems
-		elif ms > (notems + Rhythia.hitwindow_ms) + 100:
+		elif ms > (notems + hit_window) + 100:
 #			$Label.text += "PASS %s\n" % [ i ]
 
 			# ensure hitsync ; not compatible with spatial hitsounds
@@ -380,6 +381,9 @@ func _ready():
 		grid_pushback = pushback_defaults.do_pushback
 	else:
 		grid_pushback = pushback_defaults.never
+	
+	if Rhythia.speed_hitwindow:
+		hit_window = Rhythia.get("hitwindow_ms") * speed_multi
 	
 	$Note.speed_multi = speed_multi
 	$Music.pitch_scale = speed_multi

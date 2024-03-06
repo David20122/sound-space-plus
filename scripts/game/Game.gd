@@ -138,13 +138,13 @@ func update_timer(ms:float,canSkip:bool=false):
 	$HUD.update_timer(ms,canSkip)
 	
 	if Rhythia.queue_active:
-		if ms >= last_ms + Rhythia.hitwindow_ms:
+		if ms >= last_ms + $Spawn.hit_window:
 			get_node("Spawn/Music").volume_db -= (17 * get_process_delta_time())
 		else:
 			get_node("Spawn/Music").volume_db = Rhythia.music_volume_db
 	
-	if ms >= last_ms + Rhythia.hitwindow_ms:
-		if Rhythia.queue_active and ms >= last_ms + max(Rhythia.hitwindow_ms,3000):
+	if ms >= last_ms + $Spawn.hit_window:
+		if Rhythia.queue_active and ms >= last_ms + max($Spawn.hit_window,3000):
 			get_node("Spawn/Music").stop()
 			end(Globals.END_PASS)
 		elif !Rhythia.queue_active and !get_node("Spawn/Music").playing:

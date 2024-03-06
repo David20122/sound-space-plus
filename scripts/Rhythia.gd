@@ -473,12 +473,13 @@ var start_offset:float = 0 setget _set_start_offset
 var note_hitbox_size:float = 1.140 setget _set_hitbox_size
 var hitwindow_ms:float = 55 setget _set_hitwindow
 var custom_speed:float = 1 setget _set_custom_speed
-var disable_pausing:bool = false
 # Modifiers - Special
 var health_model:int = Globals.HP_SOUNDSPACE setget _set_health_model
 var grade_system:int = Globals.GRADE_SSP setget _set_grade_system
 var visual_mode:bool = false setget set_visual_mode
 var invert_mouse:bool = false setget set_invert_mouse
+var disable_pausing:bool = false
+var speed_hitwindow:bool = false
 
 # Mod setters - Normal
 func set_mod_extra_energy(v:bool):
@@ -1030,6 +1031,8 @@ func load_saved_settings():
 			follow_drift_cursor = data.follow_drift_cursor
 		if data.has("hitwindow_ms"): 
 			hitwindow_ms = data.hitwindow_ms
+		if data.has("speed_hitwindow"):
+			speed_hitwindow = data.speed_hitwindow
 		if data.has("cursor_spin"): 
 			cursor_spin = data.cursor_spin
 		if data.has("selected_space"): 
@@ -1514,6 +1517,7 @@ func save_settings():
 			enable_drift_cursor = enable_drift_cursor,
 			follow_drift_cursor = follow_drift_cursor,
 			hitwindow_ms = hitwindow_ms,
+			speed_hitwindow = speed_hitwindow,
 			cursor_spin = cursor_spin,
 			note_size = note_size,
 			note_opacity = note_opacity,
