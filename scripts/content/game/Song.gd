@@ -34,6 +34,8 @@ var filePath:String
 
 var cover:Texture setget , _get_cover
 var has_cover:bool = false
+var cover_offset:int = -1
+var cover_length:int = -1
 var is_broken:bool = false
 var converted:bool = false
 
@@ -67,8 +69,44 @@ enum {
 }
 
 func _get_cover():
+	if !has_cover:
+		return
+	if is_instance_valid(cover):
+		return cover
+	var file = File.new()
+	var err = file.open(filePath,File.READ)
+	if err != OK:
+		print(err)
+	file.seek(cover_offset)
+	if songType == Globals.MAP_SSPM:
+		var ct = file.get_8()
+		if ct == 1 or ct == 2:
+			var img:Image = Image.new()
+			if ct == 1:
+				var h:int = file.get_16()
+				var w:int = file.get_16()
+				var mip:bool = bool(file.get_8())
+				var format:int = file.get_8()
+				var clen:int = file.get_64()
+				var cbuf:PoolByteArray = file.get_buffer(clen)
+				img.create_from_data(w,h,mip,format,cbuf)
+			elif ct == 2:
+				var clen:int = file.get_64()
+				var cbuf:PoolByteArray = file.get_buffer(clen)
+				img.load_png_from_buffer(cbuf)
+			var imgtex:ImageTexture = ImageTexture.new()
+			imgtex.create_from_image(img)
+			cover = imgtex
+	elif songType == Globals.MAP_SSPM2:
+		var img:Image = Image.new()
+		var cbuf:PoolByteArray = file.get_buffer(cover_length)
+		img.load_png_from_buffer(cbuf)
+		var imgtex:ImageTexture = ImageTexture.new()
+		imgtex.create_from_image(img)
+		cover = imgtex
+	file.close()
+#	cover.call_deferred("unreference")
 	return cover
-	# I'll eventually add handling for online maps with covers
 
 func is_valid_id(txt:String):
 	return !(
@@ -115,27 +153,27 @@ func load_from_db_data(data:Dictionary={
 		"music_length":1594095
 	}):
 	
-	if !data.has("id"): return {success=false,error="014-421"}
-	if !data.has("name"): return {success=false,error="014-422"}
-	if !data.has("author"): return {success=false,error="014-423"}
-	if !data.has("version"): return {success=false,error="014-594"}
-	if !data.has("difficulty"): return {success=false,error="014-424"}
-	if !data.has("difficulty_name"): return {success=false,error="014-424"}
-	if !data.has("length_ms"): return {success=false,error="014-425"}
-	if !data.has("note_count"): return {success=false,error="014-426"}
-	if !data.has("download"): return {success=false,error="014-415"}
+	if !data.has("id"): return {success=false,error="Missing id"}
+	if !data.has("name"): return {success=false,error="Missing name"}
+	if !data.has("author"): return {success=false,error="Missing author"}
+	if !data.has("version"): return {success=false,error="Missing version"}
+	if !data.has("difficulty"): return {success=false,error="Missing difficulty"}
+	if !data.has("difficulty_name"): return {success=false,error="Missing difficulty_name"}
+#	if !data.has("length_ms"): return {success=false,error="Missing length_ms"}
+#	if !data.has("note_count"): return {success=false,error="Missing note_count"}
+	if !data.has("download"): return {success=false,error="Missing download"}
 	
-	if typeof(data.id) != TYPE_STRING: return {success=false,error="014-462"}
-	if typeof(data.name) != TYPE_STRING: return {success=false,error="014-463"}
-	if typeof(data.author) != TYPE_ARRAY: return {success=false,error="014-464"}
-	if typeof(data.difficulty) != TYPE_INT and typeof(data.difficulty) != TYPE_REAL: return {success=false,error="014-465"}
-	if typeof(data.version) != TYPE_INT and typeof(data.version) != TYPE_REAL: return {success=false,error="014-595"}
-	if typeof(data.length_ms) != TYPE_INT and typeof(data.length_ms) != TYPE_REAL: return {success=false,error="014-466"}
-	if typeof(data.note_count) != TYPE_INT and typeof(data.note_count) != TYPE_REAL: return {success=false,error="014-467"}
-	if typeof(data.download) != TYPE_STRING or !Globals.is_valid_url(data.download): return {success=false,error="014-418"}
+	if typeof(data.id) != TYPE_STRING: return {success=false,error="Invalid id"}
+	if typeof(data.name) != TYPE_STRING: return {success=false,error="Invalid name"}
+	if typeof(data.author) != TYPE_ARRAY: return {success=false,error="Invalid author"}
+	if typeof(data.difficulty) != TYPE_INT and typeof(data.difficulty) != TYPE_REAL: return {success=false,error="Invalid difficulty"}
+	if typeof(data.version) != TYPE_INT and typeof(data.version) != TYPE_REAL: return {success=false,error="Invalid version"}
+#	if typeof(data.length_ms) != TYPE_INT and typeof(data.length_ms) != TYPE_REAL: return {success=false,error="Invalid length_ms"}
+#	if typeof(data.note_count) != TYPE_INT and typeof(data.note_count) != TYPE_REAL: return {success=false,error="Invalid note_count"}
+	if typeof(data.download) != TYPE_STRING or !Globals.is_valid_url(data.download): return {success=false,error="Invalid download"}
 	
-	if !is_valid_id(data.id): return {success=false,error="014-461"}
-	if data.difficulty < -1 or data.difficulty > 4: return {success=false,error="014-465"}
+	if !is_valid_id(data.id): return {success=false,error="Invalid id (2)"}
+	if data.difficulty < -1 or data.difficulty > 4: return {success=false,error="Difficulty out of bounds"}
 	
 	if !db_builtin_difficulty_names.has(data.difficulty_name):
 		custom_data = {difficulty_name = data.difficulty_name}
@@ -1406,9 +1444,10 @@ func load_from_sspm(path:String):
 		difficulty = file.get_8() - 1
 		
 		# Cover
+		cover_offset = file.get_position()
 		var ct = file.get_8()
 		if ct == 1 or ct == 2:
-			var img:Image = Image.new()
+#			var img:Image = Image.new()
 			if ct == 1:
 				var h:int = file.get_16()
 				var w:int = file.get_16()
@@ -1416,15 +1455,15 @@ func load_from_sspm(path:String):
 				var format:int = file.get_8()
 				var clen:int = file.get_64()
 				var cbuf:PoolByteArray = file.get_buffer(clen)
-				img.create_from_data(w,h,mip,format,cbuf)
+#				img.create_from_data(w,h,mip,format,cbuf)
 			elif ct == 2:
 				var clen:int = file.get_64()
 				var cbuf:PoolByteArray = file.get_buffer(clen)
-				img.load_png_from_buffer(cbuf)
+#				img.load_png_from_buffer(cbuf)
 			
-			var imgtex:ImageTexture = ImageTexture.new()
-			imgtex.create_from_image(img)
-			cover = imgtex
+#			var imgtex:ImageTexture = ImageTexture.new()
+#			imgtex.create_from_image(img)
+#			cover = imgtex
 			has_cover = true
 		
 		if file.get_8() != 1:
@@ -1548,15 +1587,17 @@ func load_from_sspm(path:String):
 		
 		
 		# Cover
-		if has_cover:
-			file.seek(cb_offset)
-			var img:Image = Image.new()
-			var cbuf:PoolByteArray = file.get_buffer(cb_length)
-			img.load_png_from_buffer(cbuf)
-			
-			var imgtex:ImageTexture = ImageTexture.new()
-			imgtex.create_from_image(img)
-			cover = imgtex
+		cover_offset = cb_offset
+		cover_length = cb_length
+#		if has_cover:
+#			file.seek(cb_offset)
+#			var img:Image = Image.new()
+#			var cbuf:PoolByteArray = file.get_buffer(cb_length)
+#			img.load_png_from_buffer(cbuf)
+#
+#			var imgtex:ImageTexture = ImageTexture.new()
+#			imgtex.create_from_image(img)
+#			cover = imgtex
 		
 		# Marker definitions
 		file.seek(mdb_offset)
