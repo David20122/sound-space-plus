@@ -479,7 +479,7 @@ var grade_system:int = Globals.GRADE_SSP setget _set_grade_system
 var visual_mode:bool = false setget set_visual_mode
 var invert_mouse:bool = false setget set_invert_mouse
 var disable_pausing:bool = false
-var speed_hitwindow:bool = false
+var speed_hitwindow:bool = true
 
 # Mod setters - Normal
 func set_mod_extra_energy(v:bool):
