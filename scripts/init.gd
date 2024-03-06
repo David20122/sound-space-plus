@@ -42,7 +42,7 @@ func _ready():
 	yield(get_tree().create_timer(0.5),"timeout")
 	if ProjectSettings.get_setting("application/config/auto_maximize") and Rhythia.auto_maximize: OS.window_maximized = true
 	yield(get_tree().create_timer(0.5),"timeout")
-	$AudioStreamPlayer.play()
+#	$AudioStreamPlayer.play()
 	
 	if not Rhythia.is_init:
 		stage("",true)
@@ -73,7 +73,7 @@ func _exit_tree():
 var result
 
 func _process(delta):
-	$AudioStreamPlayer.volume_db = -3 - (40*black_fade)
+#	$AudioStreamPlayer.volume_db = -3 - (40*black_fade)
 	$Music.volume_db = -8 - (40*black_fade)
 	if black_fade_target && black_fade != 1:
 		black_fade = min(black_fade + (delta/0.3),1)
