@@ -274,12 +274,12 @@ script = ExtResource( 59 )
 [node name="M" type="VBoxContainer" parent="."]
 margin_top = 59.0
 margin_right = 1280.0
-margin_bottom = 5762.0
+margin_bottom = 5794.0
 custom_constants/separation = 0
 
 [node name="Modifiers" type="VBoxContainer" parent="M"]
 margin_right = 1280.0
-margin_bottom = 186.0
+margin_bottom = 218.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Modifiers"]
@@ -308,17 +308,17 @@ flat = true
 [node name="Group" type="MarginContainer" parent="M/Modifiers"]
 margin_top = 36.0
 margin_right = 1280.0
-margin_bottom = 186.0
+margin_bottom = 218.0
 mouse_filter = 1
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="M/Modifiers/Group"]
 margin_left = 180.0
 margin_right = 1280.0
-margin_bottom = 150.0
+margin_bottom = 182.0
 
 [node name="DisablePause" type="CheckBox" parent="M/Modifiers/Group/H"]
-margin_right = 200.0
+margin_right = 379.0
 margin_bottom = 28.0
 rect_min_size = Vector2( 0, 28 )
 mouse_filter = 1
@@ -352,7 +352,7 @@ clip_text = true
 
 [node name="CustomSpeed" type="Control" parent="M/Modifiers/Group/H"]
 margin_top = 32.0
-margin_right = 200.0
+margin_right = 379.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 200, 32 )
 
@@ -397,14 +397,14 @@ valign = 1
 
 [node name="SEPARATOR" type="HSeparator" parent="M/Modifiers/Group/H"]
 margin_top = 68.0
-margin_right = 200.0
+margin_right = 379.0
 margin_bottom = 78.0
 rect_min_size = Vector2( 0, 10 )
 custom_styles/separator = SubResource( 55 )
 
 [node name="HitboxSize" type="Control" parent="M/Modifiers/Group/H"]
 margin_top = 82.0
-margin_right = 200.0
+margin_right = 379.0
 margin_bottom = 114.0
 rect_min_size = Vector2( 200, 32 )
 
@@ -451,7 +451,7 @@ valign = 1
 
 [node name="HitWindow" type="Control" parent="M/Modifiers/Group/H"]
 margin_top = 118.0
-margin_right = 200.0
+margin_right = 379.0
 margin_bottom = 150.0
 rect_min_size = Vector2( 200, 32 )
 
@@ -495,10 +495,44 @@ custom_fonts/font = SubResource( 4 )
 text = "[def. 55ms] the length of time notes can be hit after reaching the grid   [1.5x = 83; 2x = 110]"
 valign = 1
 
+[node name="SpeedWindow" type="CheckBox" parent="M/Modifiers/Group/H"]
+margin_top = 154.0
+margin_right = 379.0
+margin_bottom = 182.0
+rect_min_size = Vector2( 0, 28 )
+mouse_filter = 1
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_fonts/font = SubResource( 4 )
+pressed = true
+action_mode = 0
+text = "alters the hit window to counter the effects of speed mods"
+flat = true
+script = ExtResource( 54 )
+target = "disable_pausing"
+
+[node name="Label" type="Label" parent="M/Modifiers/Group/H/SpeedWindow"]
+anchor_bottom = 1.0
+margin_left = -165.0
+margin_right = -10.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Counter Speed"
+align = 2
+valign = 1
+clip_text = true
+
 [node name="Notes" type="VBoxContainer" parent="M"]
-margin_top = 186.0
+margin_top = 218.0
 margin_right = 1280.0
-margin_bottom = 966.0
+margin_bottom = 998.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Notes"]
@@ -1593,9 +1627,9 @@ valign = 1
 clip_text = true
 
 [node name="Recording" type="VBoxContainer" parent="M"]
-margin_top = 966.0
+margin_top = 998.0
 margin_right = 1280.0
-margin_bottom = 1134.0
+margin_bottom = 1166.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Recording"]
@@ -1781,9 +1815,9 @@ text = "[def. 30/144] changes the dynamic fps bounds of your replays"
 valign = 1
 
 [node name="Camera" type="VBoxContainer" parent="M"]
-margin_top = 1134.0
+margin_top = 1166.0
 margin_right = 1280.0
-margin_bottom = 1858.0
+margin_bottom = 1890.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Camera"]
@@ -2592,9 +2626,9 @@ valign = 1
 clip_text = true
 
 [node name="Customization" type="VBoxContainer" parent="M"]
-margin_top = 1858.0
+margin_top = 1890.0
 margin_right = 1280.0
-margin_bottom = 2450.0
+margin_bottom = 2482.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Customization"]
@@ -3360,9 +3394,9 @@ icon = ExtResource( 4 )
 expand_icon = true
 
 [node name="Graphics" type="VBoxContainer" parent="M"]
-margin_top = 2450.0
+margin_top = 2482.0
 margin_right = 1280.0
-margin_bottom = 2714.0
+margin_bottom = 2746.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Graphics"]
@@ -3648,9 +3682,9 @@ text = "[0 = no limit] puts a limit on the framerate; use this if ssp is using 1
 valign = 1
 
 [node name="Audio" type="VBoxContainer" parent="M"]
-margin_top = 2714.0
+margin_top = 2746.0
 margin_right = 1280.0
-margin_bottom = 3186.0
+margin_bottom = 3218.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Audio"]
@@ -4265,9 +4299,9 @@ __meta__ = {
 }
 
 [node name="UI" type="VBoxContainer" parent="M"]
-margin_top = 3186.0
+margin_top = 3218.0
 margin_right = 1280.0
-margin_bottom = 3730.0
+margin_bottom = 3762.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/UI"]
@@ -4889,9 +4923,9 @@ valign = 1
 clip_text = true
 
 [node name="UIColor" type="VBoxContainer" parent="M"]
-margin_top = 3730.0
+margin_top = 3762.0
 margin_right = 1280.0
-margin_bottom = 5398.0
+margin_bottom = 5430.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/UIColor"]
@@ -6785,9 +6819,9 @@ text = "[def. ##DEFAULT##] color of text when grade is F"
 valign = 1
 
 [node name="Experimental" type="VBoxContainer" parent="M"]
-margin_top = 5398.0
+margin_top = 5430.0
 margin_right = 1280.0
-margin_bottom = 5703.0
+margin_bottom = 5735.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Experimental"]
@@ -7139,9 +7173,9 @@ valign = 1
 clip_text = true
 
 [node name="BottomMargin" type="Control" parent="."]
-margin_top = 5766.0
+margin_top = 5798.0
 margin_right = 1280.0
-margin_bottom = 5862.0
+margin_bottom = 5894.0
 rect_min_size = Vector2( 0, 96 )
 
 [connection signal="value_changed" from="M/Graphics/Group/H/RenderScale/Scale" to="M/Graphics/Group/H/RenderScale/Scale" method="_on_Scale_value_changed"]
