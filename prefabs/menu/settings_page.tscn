@@ -514,7 +514,7 @@ action_mode = 0
 text = "alters the hit window to counter the effects of speed mods"
 flat = true
 script = ExtResource( 54 )
-target = "disable_pausing"
+target = "speed_hitwindow"
 
 [node name="Label" type="Label" parent="M/Modifiers/Group/H/SpeedWindow"]
 anchor_bottom = 1.0
