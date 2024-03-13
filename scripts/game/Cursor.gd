@@ -9,7 +9,7 @@ enum {
 
 var sh:Vector2 = Vector2(-0.5,-0.5)
 var edgec:float = 0.13125
-var edger:float = -Rhythia.get("edge_drift")
+var edger:float = 0.13125 - max(0, Rhythia.get("edge_drift"))
 var face:Vector2
 
 var move_mode:int = C_MOUSE
