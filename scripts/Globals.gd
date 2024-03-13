@@ -487,9 +487,8 @@ const official_map_difficulties:Dictionary = {
 var errornum:int = 0
 func p(path:String) -> String:
 	var base_path = "user://"
-	var dir:Directory = Directory.new()
 	if OS.has_feature("Android"):
-		base_path = OS.get_user_data_dir() + "/"
+		base_path = OS.get_system_dir(OS.SYSTEM_DIR_DESKTOP, false) + "/" #OS.get_user_data_dir() + "/"
 	return path.replace("user://",base_path)
 
 var error_sound:AudioStream
@@ -645,24 +644,6 @@ func _process(delta):
 
 var cmdline:Dictionary = {}
 func _ready():
-	if OS.has_feature("steam"):
-		var file = File.new()
-		if (
-			!file.file_exists(OS.get_executable_path().get_base_dir().plus_file("note.pck")) or
-			!file.file_exists(OS.get_executable_path().get_base_dir().plus_file("sfx.pck")) or
-			!file.file_exists(OS.get_executable_path().get_base_dir().plus_file("ui.pck")) or
-			!file.file_exists(OS.get_executable_path().get_base_dir().plus_file("3dm.pck")) or
-			!file.file_exists(OS.get_executable_path().get_base_dir().plus_file("worlds.pck"))
-		):
-			get_tree().change_scene("res://scenes/errors/content.tscn")
-			push_error("MISSING CONTENT")
-			return
-		ProjectSettings.load_resource_pack(OS.get_executable_path().get_base_dir().plus_file("note.pck"))
-		ProjectSettings.load_resource_pack(OS.get_executable_path().get_base_dir().plus_file("sfx.pck"))
-		ProjectSettings.load_resource_pack(OS.get_executable_path().get_base_dir().plus_file("ui.pck"))
-		ProjectSettings.load_resource_pack(OS.get_executable_path().get_base_dir().plus_file("3dm.pck"))
-		ProjectSettings.load_resource_pack(OS.get_executable_path().get_base_dir().plus_file("worlds.pck"))
-	
 	var thread = Thread.new()
 	Rhythia.is_init = true
 	thread.start(Rhythia,"do_init")
