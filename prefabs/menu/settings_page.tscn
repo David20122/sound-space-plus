@@ -1,4 +1,4 @@
-[gd_scene load_steps=92 format=2]
+[gd_scene load_steps=91 format=2]
 
 [ext_resource path="res://uitheme.tres" type="Theme" id=1]
 [ext_resource path="res://assets/font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=2]
@@ -17,7 +17,6 @@
 [ext_resource path="res://assets/images/cursors/circle.png" type="Texture" id=15]
 [ext_resource path="res://scripts/ui/settings/NoteMesh.gd" type="Script" id=16]
 [ext_resource path="res://scripts/ui/settings/CursorScale.gd" type="Script" id=17]
-[ext_resource path="res://scripts/ui/settings/VSyncCompositor.gd" type="Script" id=18]
 [ext_resource path="res://scripts/ui/settings/CameraPresets.gd" type="Script" id=19]
 [ext_resource path="res://scripts/ui/settings/SaveSettings.gd" type="Script" id=20]
 [ext_resource path="res://scripts/ui/settings/HitWindow.gd" type="Script" id=21]
@@ -274,7 +273,7 @@ script = ExtResource( 59 )
 [node name="M" type="VBoxContainer" parent="."]
 margin_top = 59.0
 margin_right = 1280.0
-margin_bottom = 5794.0
+margin_bottom = 5762.0
 custom_constants/separation = 0
 
 [node name="Modifiers" type="VBoxContainer" parent="M"]
@@ -3395,7 +3394,7 @@ expand_icon = true
 [node name="Graphics" type="VBoxContainer" parent="M"]
 margin_top = 2482.0
 margin_right = 1280.0
-margin_bottom = 2746.0
+margin_bottom = 2714.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Graphics"]
@@ -3425,14 +3424,14 @@ flat = true
 [node name="Group" type="MarginContainer" parent="M/Graphics"]
 margin_top = 36.0
 margin_right = 1280.0
-margin_bottom = 264.0
+margin_bottom = 232.0
 mouse_filter = 1
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="M/Graphics/Group"]
 margin_left = 180.0
 margin_right = 1280.0
-margin_bottom = 228.0
+margin_bottom = 196.0
 
 [node name="RenderScale" type="Control" parent="M/Graphics/Group/H"]
 margin_right = 594.0
@@ -3509,44 +3508,10 @@ align = 2
 valign = 1
 clip_text = true
 
-[node name="VSyncCompositor" type="CheckBox" parent="M/Graphics/Group/H"]
+[node name="Fullscreen" type="CheckBox" parent="M/Graphics/Group/H"]
 margin_top = 68.0
 margin_right = 594.0
 margin_bottom = 96.0
-rect_min_size = Vector2( 0, 28 )
-theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_fonts/font = SubResource( 4 )
-action_mode = 0
-text = "use this if vsync puts your framerate at half your monitor refresh rate (eg. 38 vs 75 fps)"
-flat = true
-script = ExtResource( 18 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="M/Graphics/Group/H/VSyncCompositor"]
-anchor_bottom = 1.0
-margin_left = -157.0
-margin_right = -10.0
-grow_horizontal = 0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Vsync via compositor"
-align = 2
-valign = 1
-
-[node name="Fullscreen" type="CheckBox" parent="M/Graphics/Group/H"]
-margin_top = 100.0
-margin_right = 594.0
-margin_bottom = 128.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
@@ -3575,9 +3540,9 @@ valign = 1
 clip_text = true
 
 [node name="AutoMax" type="CheckBox" parent="M/Graphics/Group/H"]
-margin_top = 132.0
+margin_top = 100.0
 margin_right = 594.0
-margin_bottom = 160.0
+margin_bottom = 128.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
@@ -3607,9 +3572,9 @@ valign = 1
 clip_text = true
 
 [node name="Warnings" type="CheckBox" parent="M/Graphics/Group/H"]
-margin_top = 164.0
+margin_top = 132.0
 margin_right = 594.0
-margin_bottom = 192.0
+margin_bottom = 160.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
@@ -3639,9 +3604,9 @@ valign = 1
 clip_text = true
 
 [node name="TargetFPS" type="Control" parent="M/Graphics/Group/H"]
-margin_top = 196.0
+margin_top = 164.0
 margin_right = 594.0
-margin_bottom = 228.0
+margin_bottom = 196.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="Sensitivity" type="SpinBox" parent="M/Graphics/Group/H/TargetFPS"]
@@ -3681,9 +3646,9 @@ text = "[0 = no limit] puts a limit on the framerate; use this if ssp is using 1
 valign = 1
 
 [node name="Audio" type="VBoxContainer" parent="M"]
-margin_top = 2746.0
+margin_top = 2714.0
 margin_right = 1280.0
-margin_bottom = 3218.0
+margin_bottom = 3186.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Audio"]
@@ -4298,9 +4263,9 @@ __meta__ = {
 }
 
 [node name="UI" type="VBoxContainer" parent="M"]
-margin_top = 3218.0
+margin_top = 3186.0
 margin_right = 1280.0
-margin_bottom = 3762.0
+margin_bottom = 3730.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/UI"]
@@ -4922,9 +4887,9 @@ valign = 1
 clip_text = true
 
 [node name="UIColor" type="VBoxContainer" parent="M"]
-margin_top = 3762.0
+margin_top = 3730.0
 margin_right = 1280.0
-margin_bottom = 5430.0
+margin_bottom = 5398.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/UIColor"]
@@ -6818,9 +6783,9 @@ text = "[def. ##DEFAULT##] color of text when grade is F"
 valign = 1
 
 [node name="Experimental" type="VBoxContainer" parent="M"]
-margin_top = 5430.0
+margin_top = 5398.0
 margin_right = 1280.0
-margin_bottom = 5735.0
+margin_bottom = 5703.0
 script = ExtResource( 43 )
 
 [node name="Title" type="MarginContainer" parent="M/Experimental"]
@@ -7172,9 +7137,9 @@ valign = 1
 clip_text = true
 
 [node name="BottomMargin" type="Control" parent="."]
-margin_top = 5798.0
+margin_top = 5766.0
 margin_right = 1280.0
-margin_bottom = 5894.0
+margin_bottom = 5862.0
 rect_min_size = Vector2( 0, 96 )
 
 [connection signal="value_changed" from="M/Graphics/Group/H/RenderScale/Scale" to="M/Graphics/Group/H/RenderScale/Scale" method="_on_Scale_value_changed"]

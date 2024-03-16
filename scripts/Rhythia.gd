@@ -998,8 +998,9 @@ func load_saved_settings():
 			render_scale = data.render_scale
 		if data.has("vsync_enabled"): 
 			OS.vsync_enabled = data.vsync_enabled
-		if data.has("vsync_via_compositor"): 
-			OS.vsync_via_compositor = data.vsync_via_compositor
+#		if data.has("vsync_via_compositor"): 
+#			OS.vsync_via_compositor = data.vsync_via_compositor
+		OS.vsync_via_compositor = false
 		if data.has("window_fullscreen"): 
 			OS.window_fullscreen = data.window_fullscreen
 		if data.has("selected_colorset"): 
@@ -1276,7 +1277,7 @@ func load_saved_settings():
 		if file.get_8() != 0:
 			print("integ 1"); return 3
 		OS.vsync_enabled = bool(file.get_8())
-		OS.vsync_via_compositor = bool(file.get_8())
+		OS.vsync_via_compositor = bool(file.get_8()) and false
 		OS.window_fullscreen = bool(file.get_8())
 		
 		var cset = registry_colorset.get_item(file.get_line())
@@ -1494,7 +1495,7 @@ func save_settings():
 			disable_bg_effects = disable_bg_effects,
 			render_scale = render_scale,
 			vsync_enabled = OS.vsync_enabled,
-			vsync_via_compositor = OS.vsync_via_compositor,
+#			vsync_via_compositor = OS.vsync_via_compositor,
 			window_fullscreen = OS.window_fullscreen,
 			window_borderless = OS.window_borderless,
 			selected_colorset = selected_colorset.id,
