@@ -462,6 +462,7 @@ func _ready():
 	elif Rhythia.health_model == Globals.HP_OLD: ms += "Using old hp model (more hp + fast regen)\n"
 	
 	var mods = []
+	modicons.get_node("Window").visible = Rhythia.mod_speed_level != Globals.SPEED_NORMAL and !Rhythia.speed_hitwindow
 	if Rhythia.mod_speed_level != Globals.SPEED_NORMAL:
 		match Rhythia.mod_speed_level:
 			Globals.SPEED_MMM: modicons.get_node("SpeedMMM").visible = true
