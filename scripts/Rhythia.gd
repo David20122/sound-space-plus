@@ -2197,6 +2197,17 @@ func do_init(_ud=null):
 				return
 		Rhythia.selected_song = song
 	else:
+		var caches:Dictionary = {}
+		err = file.open(Globals.p("user://map_cache.json"), File.READ)
+		if err == OK:
+			var res = JSON.parse(file.get_as_text())
+			if (res.error != OK):
+				print("Error reading cache: %s" % res.error_string)
+			elif typeof(res.result) == TYPE_DICTIONARY:
+				caches = res.result
+			else:
+				print("Invalid cache")
+		
 		var smaps:Array = []
 		emit_signal("init_stage_reached","Register content 1/4\nImport Rhythia maps\nLocating files")
 		yield(get_tree(),"idle_frame")
@@ -2215,20 +2226,42 @@ func do_init(_ud=null):
 		smaps = yield(Globals,"recurse_result").files
 		emit_signal("init_stage_num",2)
 		
+		var load_start = OS.get_ticks_usec()
+		var from_file = 0
+		var from_cache = 0
 		for i in range(smaps.size()):
-			emit_signal("init_stage_reached","Register content 1/4\nImport Rhythia maps\n%.0f%%" % (
+			emit_signal("init_stage_reached","Register content 1/5\nImport Rhythia maps\n%.0f%%" % (
 				100*(float(i)/float(smaps.size()))
 			))
 			if (OS.get_ticks_msec() - lt) >= load_target_frame_time * 1000:
 				lt = OS.get_ticks_msec()
 				yield(get_tree(),"idle_frame")
 			#if fmod(i,max(min(floor(float(smaps.size())/200),40),5)) == 0: yield(get_tree(),"idle_frame")
-			registry_song.add_sspm_map(smaps[i])
+			if caches.has(smaps[i]):
+				if registry_song.add_sspm_cached_map(smaps[i], caches.get(smaps[i])):
+					from_cache += 1
+				else:
+					print("Failed loading a map from cache")
+					from_file += 1
+					registry_song.add_sspm_map(smaps[i])
+			else:
+				from_file += 1
+				registry_song.add_sspm_map(smaps[i])
+		var load_end = OS.get_ticks_usec()
+		var load_time = load_end - load_start
+		print("Loaded %s/%s maps from cache of %s" % [from_cache, from_cache + from_file, caches.size()])
+		print("Took %s usec" % Globals.comma_sep(load_time))
 	#	dir.list_dir_end()
+			
+		emit_signal("init_stage_reached","Register content 2/5\nCache Rhythia maps")
+		err = file.open(Globals.p("user://map_cache.json"), File.WRITE)
+		if err == OK:
+			file.store_string(JSON.print(registry_song.make_sspm_cache()))
+			file.flush()
 		
 		for i in range(mapreg.size()):
 			var amr:Array = mapreg[i]
-			emit_signal("init_stage_reached","Register content 2/4\nLoad map registry %d/%d\n%s" % [i,mapreg.size(),amr[0]])
+			emit_signal("init_stage_reached","Register content 3/5\nLoad map registry %d/%d\n%s" % [i,mapreg.size(),amr[0]])
 			yield(get_tree(),"idle_frame")
 			registry_song.load_registry_file(amr[1],Globals.REGISTRY_MAP,amr[0])
 			yield(registry_song,"done_loading_reg")
@@ -2244,14 +2277,14 @@ func do_init(_ud=null):
 			var list = txt.split("\n",false)
 			vmap_search_folders.append_array(list)
 		
-		emit_signal("init_stage_reached","Register content 3/4\nImport Vulnus maps\nLocating files")
+		emit_signal("init_stage_reached","Register content 4/5\nImport Vulnus maps\nLocating files")
 		yield(get_tree(),"idle_frame")
 		
 		Globals.get_files_recursive(vmap_search_folders,6,"","meta.json",70)
 		vmaps = yield(Globals,"recurse_result").folders
 		
 		for i in range(vmaps.size()):
-			emit_signal("init_stage_reached","Register content 3/4\nImport Vulnus maps\n%.0f%%" % (
+			emit_signal("init_stage_reached","Register content 4/5\nImport Vulnus maps\n%.0f%%" % (
 				100*(float(i)/float(vmaps.size()))
 			))
 			if (OS.get_ticks_msec() - lt) >= load_target_frame_time * 1000:
@@ -2261,7 +2294,7 @@ func do_init(_ud=null):
 			registry_song.add_vulnus_map(vmaps[i])
 		
 		
-		emit_signal("init_stage_reached","Register content 4/4\nLoad online maps")
+		emit_signal("init_stage_reached","Register content 5/5\nLoad online maps")
 		yield(get_tree(),"idle_frame")
 		
 		Online.load_db_maps()

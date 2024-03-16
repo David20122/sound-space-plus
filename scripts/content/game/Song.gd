@@ -1671,14 +1671,43 @@ func _init(idI:String="SOMETHING IS VERY BROKEN",nameI:String="SOMETHING IS VERY
 	song = nameI
 	creator = creatorI
 
-
-
-
-
-
-
-
-
-
-
-
+func load_from_cache(cache:Dictionary):
+	songType = cache.get("version")
+	var path = cache.get("path")
+	filePath = path
+	musicFile = path
+	sspm_song_stored = true
+	id = cache.get("id")
+	name = cache.get("name")
+	song = cache.get("song")
+	creator = cache.get("creator")
+	difficulty = cache.get("difficulty")
+	last_ms = cache.get("last_ms")
+	note_count = cache.get("note_count")
+	has_cover = cache.get("cover")
+	if has_cover:
+		cover_offset = cache.get("cover_offset")
+		cover_length = cache.get("cover_length")
+	if songType == Globals.MAP_SSPM2:
+		marker_types = cache.get("marker_types")
+		marker_count = cache.get("marker_count")
+func make_cache():
+	var cache = {
+		version = songType,
+		path = filePath,
+		id = id,
+		name = name,
+		song = song,
+		creator = creator,
+		difficulty = difficulty,
+		last_ms = last_ms,
+		note_count = note_count,
+		cover = has_cover
+	}
+	if has_cover:
+		cache["cover_offset"] = cover_offset
+		cache["cover_length"] = cover_length
+	if songType == Globals.MAP_SSPM2:
+		cache["marker_types"] = marker_types
+		cache["marker_count"] = marker_count
+	return cache

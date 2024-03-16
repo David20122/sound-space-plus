@@ -111,6 +111,20 @@ func add_sspm_map(path:String):
 		return
 	add_item(song)
 	return song
+func add_sspm_cached_map(path:String, cache:Dictionary):
+	var song:Song = Song.new()
+	var res = song.load_from_cache(cache)
+	if res is String:
+		print(path + " [CACHE]: " + res)
+		return false
+	add_item(song)
+	return true
+func make_sspm_cache():
+	var caches:Dictionary = {}
+	for song in items:
+		if not song.songType in [Globals.MAP_SSPM, Globals.MAP_SSPM2]: continue
+		caches[song.filePath] = song.make_cache()
+	return caches
 
 func add_vulnus_map(folder_path:String):
 	var songBase:Song = Song.new()
