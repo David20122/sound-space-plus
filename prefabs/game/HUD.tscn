@@ -782,16 +782,8 @@ margin_top = 50.0
 margin_right = -50.0
 grow_horizontal = 2
 
-[node name="Icons" type="MarginContainer" parent="EnergyVP/Control/Modifiers"]
-margin_right = 856.0
-margin_bottom = 44.0
-grow_horizontal = 2
-custom_constants/margin_right = 28
-custom_constants/margin_left = 28
-
-[node name="Text" type="Label" parent="EnergyVP/Control/Modifiers/Icons"]
-margin_left = 28.0
-margin_right = 828.0
+[node name="Text" type="Label" parent="EnergyVP/Control/Modifiers"]
+margin_right = 800.0
 margin_bottom = 44.0
 rect_min_size = Vector2( 800, 0 )
 custom_colors/font_color = Color( 1, 0.929412, 0.658824, 1 )
@@ -802,10 +794,17 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Icons" type="MarginContainer" parent="EnergyVP/Control/Modifiers"]
+margin_top = 48.0
+margin_right = 800.0
+margin_bottom = 48.0
+grow_horizontal = 2
+custom_constants/margin_right = 28
+custom_constants/margin_left = 28
+
 [node name="H" type="HBoxContainer" parent="EnergyVP/Control/Modifiers/Icons"]
 margin_left = 28.0
-margin_right = 828.0
-margin_bottom = 44.0
+margin_right = 772.0
 rect_min_size = Vector2( 744, 0 )
 custom_constants/separation = 6
 alignment = 1
