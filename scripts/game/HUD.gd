@@ -333,11 +333,11 @@ func _process(delta:float):
 	)
 	
 	# warning
-	if Rhythia.get("fov") < 70 and Rhythia.mod_flashlight and calculating:
-		$ObnoxiousWarning.trigger = true
-		$ObnoxiousWarning.target = "STOP PLAYING MASKED WITH {fov} FOV PUSSY\njust use the damn default man".format({
-			"fov": Rhythia.get("fov")
-		})
+#	if Rhythia.get("fov") < 70 and Rhythia.mod_flashlight and calculating:
+#		$ObnoxiousWarning.trigger = true
+#		$ObnoxiousWarning.target = "STOP PLAYING MASKED WITH {fov} FOV PUSSY\njust use the damn default man".format({
+#			"fov": Rhythia.get("fov")
+#		})
 	
 
 
