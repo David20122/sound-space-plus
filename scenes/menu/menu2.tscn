@@ -3493,7 +3493,8 @@ __meta__ = {
 
 [node name="DifficultySmaller" type="Label" parent="Main/Results/Results/Info/D"]
 visible = false
-margin_right = 450.0
+margin_left = 269.0
+margin_right = 435.0
 margin_bottom = 32.0
 focus_mode = 2
 theme = ExtResource( 1 )
@@ -3501,6 +3502,7 @@ custom_fonts/font = SubResource( 162 )
 text = "-"
 align = 2
 valign = 1
+autowrap = true
 
 [node name="Label" type="Label" parent="Main/Results/Results/Info/D/DifficultySmaller"]
 visible = false
@@ -4149,7 +4151,7 @@ scroll_horizontal_enabled = false
 [node name="F" parent="Main/Settings/S" instance=ExtResource( 49 )]
 anchor_right = 0.0
 margin_right = 1210.0
-margin_bottom = 5894.0
+margin_bottom = 5862.0
 rect_clip_content = true
 
 [node name="Credits" type="ReferenceRect" parent="Main"]
