@@ -25,7 +25,7 @@ func display_warning(id:String):
 			color = Color("#ffbb19")
 		"spawn":
 			state = true
-			$L.text = "Note spawn effects aren't available in the new note rendering system yet."
+			$L.text = "Note spawn effects may be buggy."
 			color = Color("#fc794e")
 		"debug":
 			state = true

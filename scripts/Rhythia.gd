@@ -1574,6 +1574,7 @@ func save_settings():
 			sfx_2d = sfx_2d,
 			cursor_color_type = cursor_color_type,
 			half_ghost = half_ghost,
+			note_spawn_effect = note_spawn_effect,
 			target_fps = Engine.target_fps,
 			disable_intro = disable_intro,
 			ignore_controller_detection = ignore_controller_detection,
