@@ -97,6 +97,17 @@ func note_reposition(i:int):
 		nt.origin.z = -current_dist
 #		visible = true
 		
+		var spawn_effect_t = 1 - clamp(4*(Rhythia.spawn_distance - current_dist)/Rhythia.spawn_distance, 0, 1)
+		if Rhythia.note_spawn_effect:
+			$SpawnEffect.multimesh.set_instance_color(i - current_note, Color(col.r, col.g, col.b, col.a))
+			if spawn_effect_t != 0:
+				var effect_transform = Transform.IDENTITY
+				effect_transform.origin = nt.origin
+				effect_transform.basis = effect_transform.basis.scaled(Vector3.ONE * 1 * Rhythia.note_size)
+				effect_transform.basis = effect_transform.basis.scaled(Vector3(1*spawn_effect_t, 0.9 + (0.1*spawn_effect_t), 1))
+				effect_transform.basis = effect_transform.basis.rotated(Vector3(1,0,0), deg2rad(90))
+				$SpawnEffect.multimesh.set_instance_transform(i - current_note, effect_transform)
+			else: $SpawnEffect.multimesh.set_instance_transform(i - current_note, Transform.IDENTITY.scaled(Vector3.ZERO))
 		
 		if Rhythia.mod_chaos:
 			var v = ease(max((current_offset_ms-250)/400,0),1.5)
@@ -161,6 +172,9 @@ func note_reposition(i:int):
 		if asq:
 			$ASq.multimesh.set_instance_transform(i - current_note, Transform(Basis(), Vector3(0, 0, 10)))
 			$ASq.multimesh.set_instance_color(i - current_note, Color(0,0,0,0))
+		if Rhythia.note_spawn_effect:
+			$SpawnEffect.multimesh.set_instance_transform(i - current_note, Transform(Basis(), Vector3(0, 0, 10)))
+			$SpawnEffect.multimesh.set_instance_color(i - current_note, Color(0,0,0,0))
 #		if Rhythia.play_hit_snd and Rhythia.ensure_hitsync: 
 #			if Rhythia.sfx_2d:
 #				$"../Hit2D".play()
@@ -192,6 +206,7 @@ func reposition_notes(force:bool=false,rerun_start:int=-1):
 #		$Label.text += "out_of_notes\n"
 		$Notes.multimesh.visible_instance_count = 0
 		if asq: $ASq.multimesh.visible_instance_count = 0
+		if Rhythia.note_spawn_effect: $SpawnEffect.multimesh.visible_instance_count = 0
 		out_of_notes = true
 		return false
 	
@@ -224,6 +239,7 @@ func reposition_notes(force:bool=false,rerun_start:int=-1):
 #				$Label.text += "(%s) reposition == false\n" % [ i ]
 				$Notes.multimesh.visible_instance_count = i - current_note + 1
 				if asq: $ASq.multimesh.visible_instance_count = i - current_note + 1
+				if Rhythia.note_spawn_effect: $SpawnEffect.multimesh.visible_instance_count = i - current_note
 				if ms < notems:
 #					$Label.text += "(%s) note is end of visible area\n" % [ i ]
 					if notes[i][2] == Globals.NSTATE_ACTIVE:
@@ -233,6 +249,7 @@ func reposition_notes(force:bool=false,rerun_start:int=-1):
 			rerun_required = true
 			$Notes.multimesh.instance_count = min($Notes.multimesh.instance_count + 10, notes.size())
 			if asq: $ASq.multimesh.instance_count = $Notes.multimesh.instance_count
+			if Rhythia.note_spawn_effect: $SpawnEffect.multimesh.instance_count = $Notes.multimesh.instance_count
 			break
 		
 		if ms < notems and is_first:
@@ -317,6 +334,7 @@ func reposition_notes(force:bool=false,rerun_start:int=-1):
 #	$Label.text += "last note is visible!"
 	$Notes.multimesh.visible_instance_count = notes.size() - current_note
 	if asq: $ASq.multimesh.visible_instance_count = notes.size() - current_note
+	if Rhythia.note_spawn_effect: $SpawnEffect.multimesh.instance_count = notes.size() - current_note
 	
 	if rerun_required: reposition_notes()
 	return note_passed
@@ -355,7 +373,7 @@ func spawn_notes(note_array:Array):
 					chaos_rng.randf_range(-1,1)
 				).normalized() * 2,
 				
-				Transform(), # note transform
+				Transform() # note transform
 			]
 			
 			if Rhythia.mod_mirror_x: note[0].x = 2 - note[0].x
@@ -487,6 +505,9 @@ func _ready():
 	if asq:
 		$ASq.multimesh.set_instance_color(0,Color(0,0,0,0))
 		$ASq.multimesh.set_instance_transform(0,Transform())
+	if Rhythia.note_spawn_effect:
+		$SpawnEffect.multimesh.set_instance_transform(0, Transform(Basis(), Vector3(0, 0, 10)))
+		$SpawnEffect.multimesh.set_instance_color(0, Color(0,0,0,0))
 	$Note.visible = true
 	$Note.transform.origin = Vector3(0,0,-400)
 	yield(get_tree(),"idle_frame")

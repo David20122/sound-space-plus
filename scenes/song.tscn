@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=2]
+[gd_scene load_steps=48 format=2]
 
 [ext_resource path="res://scripts/game/Camera.gd" type="Script" id=1]
 [ext_resource path="res://scripts/game/NoteManager.gd" type="Script" id=2]
@@ -14,7 +14,6 @@
 [ext_resource path="res://assets/blocks/cube.obj" type="ArrayMesh" id=12]
 [ext_resource path="res://scripts/game/MaskedModifier.gd" type="Script" id=13]
 [ext_resource path="res://scripts/game/Cursor.gd" type="Script" id=14]
-[ext_resource path="res://assets/blocks/default.obj" type="ArrayMesh" id=15]
 [ext_resource path="res://assets/font/debug2.tres" type="DynamicFont" id=16]
 [ext_resource path="res://assets/font/UbuntuMono/Regular.ttf" type="DynamicFontData" id=22]
 [ext_resource path="res://scripts/game/cam_handler.gd" type="Script" id=23]
@@ -137,9 +136,26 @@ shader = SubResource( 81 )
 shader_param/use_image = true
 shader_param/image = ExtResource( 44 )
 
+[sub_resource type="SpatialMaterial" id=38]
+render_priority = -1
+flags_transparent = true
+flags_unshaded = true
+vertex_color_use_as_albedo = true
+params_specular_mode = 4
+params_cull_mode = 2
+albedo_texture = ExtResource( 8 )
+uv1_scale = Vector3( 1, 0.9, 1 )
+uv1_offset = Vector3( 0, 0.03, 0 )
+
+[sub_resource type="PlaneMesh" id=37]
+material = SubResource( 38 )
+size = Vector2( 0.8, 9 )
+center_offset = Vector3( 0, 0, -4.5 )
+
 [sub_resource type="MultiMesh" id=77]
+color_format = 2
 transform_format = 1
-mesh = ExtResource( 15 )
+mesh = SubResource( 37 )
 
 [sub_resource type="PlaneMesh" id=30]
 size = Vector2( 3.04, 3.04 )
@@ -224,18 +240,6 @@ shader_param/alpha_multi = 0.15
 shader_param/fade = 1.0
 shader_param/use_image = false
 
-[sub_resource type="PlaneMesh" id=37]
-size = Vector2( 0.8, 18 )
-
-[sub_resource type="SpatialMaterial" id=38]
-flags_transparent = true
-flags_unshaded = true
-params_specular_mode = 4
-params_cull_mode = 2
-albedo_texture = ExtResource( 8 )
-uv1_scale = Vector3( 1, 0.9, 1 )
-uv1_offset = Vector3( 0, 0.03, 0 )
-
 [sub_resource type="PlaneMesh" id=44]
 size = Vector2( 0.5, 0.5 )
 
@@ -315,12 +319,20 @@ note_solid_mat = SubResource( 79 )
 note_transparent_mat = SubResource( 80 )
 asq_mat = SubResource( 82 )
 
+[node name="SpawnEffect" type="MultiMeshInstance" parent="Game/Spawn"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5 )
+cast_shadow = 0
+generate_lightmap = false
+multimesh = SubResource( 77 )
+
 [node name="Notes" type="MultiMeshInstance" parent="Game/Spawn"]
+sorting_offset = 1.0
 cast_shadow = 0
 generate_lightmap = false
 multimesh = SubResource( 77 )
 
 [node name="ASq" type="MultiMeshInstance" parent="Game/Spawn"]
+sorting_offset = 2.0
 cast_shadow = 0
 generate_lightmap = false
 
@@ -431,7 +443,7 @@ material/2 = SubResource( 48 )
 [node name="Spawn" type="Spatial" parent="Game/Spawn/Note"]
 
 [node name="Mesh" type="MeshInstance" parent="Game/Spawn/Note/Spawn"]
-transform = Transform( 1, 0, 0, 0, -2.18557e-08, -0.5, 0, 0.5, -2.18557e-08, 0.013, 4.5, -0.005 )
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.013, 0, -0.005 )
 cast_shadow = 0
 mesh = SubResource( 37 )
 material/0 = SubResource( 38 )
