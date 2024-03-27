@@ -1116,7 +1116,7 @@ func convert_to_sspm(upgrade:bool=false):
 	var markers = read_markers()
 	
 	
-	var map_has_cover = (has_cover and cover and (cover.get_height() + cover.get_width()) >= 9)
+	var map_has_cover = (has_cover and self.cover and (cover.get_height() + cover.get_width()) >= 9)
 	
 	var map_has_music:bool = false
 	var music_buffer:PoolByteArray = get_music_buffer()
