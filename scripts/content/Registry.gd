@@ -119,8 +119,10 @@ func add_sspm_cached_map(path:String, cache:Dictionary):
 		return false
 	add_item(song)
 	return true
-func make_sspm_cache():
-	var caches:Dictionary = {}
+func make_sspm_cache(_v:int):
+	var caches:Dictionary = {
+		_v = _v
+	}
 	for song in items:
 		if not song.songType in [Globals.MAP_SSPM, Globals.MAP_SSPM2]: continue
 		caches[song.filePath] = song.make_cache()

@@ -2198,6 +2198,7 @@ func do_init(_ud=null):
 				return
 		Rhythia.selected_song = song
 	else:
+		var cache_version:int = 2
 		var caches:Dictionary = {}
 		err = file.open(Globals.p("user://map_cache.json"), File.READ)
 		if err == OK:
@@ -2206,6 +2207,9 @@ func do_init(_ud=null):
 				print("Error reading cache: %s" % res.error_string)
 			elif typeof(res.result) == TYPE_DICTIONARY:
 				caches = res.result
+				if caches.get("_v", 1) != cache_version:
+					caches = {}
+					print("Cache version mismatch (got %s expected %s)" % [caches.get("_v",1), cache_version])
 			else:
 				print("Invalid cache")
 		
@@ -2257,7 +2261,7 @@ func do_init(_ud=null):
 		emit_signal("init_stage_reached","Register content 2/5\nCache Rhythia maps")
 		err = file.open(Globals.p("user://map_cache.json"), File.WRITE)
 		if err == OK:
-			file.store_string(JSON.print(registry_song.make_sspm_cache()))
+			file.store_string(JSON.print(registry_song.make_sspm_cache(cache_version)))
 			file.flush()
 		
 		for i in range(mapreg.size()):
