@@ -1682,6 +1682,7 @@ func load_from_cache(cache:Dictionary):
 	song = cache.get("song")
 	creator = cache.get("creator")
 	difficulty = cache.get("difficulty")
+	custom_data = cache.get("custom_data")
 	last_ms = cache.get("last_ms")
 	note_count = cache.get("note_count")
 	has_cover = cache.get("cover")
@@ -1700,6 +1701,7 @@ func make_cache():
 		song = song,
 		creator = creator,
 		difficulty = difficulty,
+		custom_data = custom_data,
 		last_ms = last_ms,
 		note_count = note_count,
 		cover = has_cover
