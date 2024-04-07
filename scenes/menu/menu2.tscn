@@ -202,6 +202,7 @@ font_data = ExtResource( 15 )
 [sub_resource type="DynamicFont" id=69]
 size = 14
 font_data = ExtResource( 2 )
+fallback/0 = ExtResource( 15 )
 
 [sub_resource type="StyleBoxFlat" id=70]
 draw_center = false
@@ -639,11 +640,13 @@ bg_color = Color( 0.0588235, 0.0588235, 0.0588235, 1 )
 size = 18
 use_filter = true
 font_data = ExtResource( 2 )
+fallback/0 = ExtResource( 15 )
 
 [sub_resource type="DynamicFont" id=8]
 size = 18
 use_filter = true
 font_data = ExtResource( 2 )
+fallback/0 = ExtResource( 15 )
 
 [sub_resource type="DynamicFont" id=7]
 size = 22
@@ -753,7 +756,6 @@ margin_left = 60.0
 rect_pivot_offset = Vector2( -398, 64 )
 
 [node name="MapRegistry" type="ReferenceRect" parent="Main"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -2033,6 +2035,7 @@ shortcut_in_tooltip = false
 action_mode = 0
 
 [node name="Results" type="HBoxContainer" parent="Main"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 12.0

@@ -393,9 +393,11 @@ func _ready():
 	if !Rhythia.enable_grid:
 		Spawn.get_node("Inner").visible = false
 	
-	if Rhythia.mod_hardrock:
-		Spawn.get_node("Inner").scale *= 1.35
-		Spawn.get_node("Outer").scale *= 1.35
+	# --------------------------------------------- removing this because people keep complaining about it
+
+	# if Rhythia.mod_hardrock:
+	# 	Spawn.get_node("Inner").scale *= 1.35
+	# 	Spawn.get_node("Outer").scale *= 1.35
 
 	if !Rhythia.enable_border:
 		Spawn.get_node("Outer").visible = false

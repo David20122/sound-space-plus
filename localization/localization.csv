@@ -1,11 +1,11 @@
 keys,en,ja
 ENGLISH,English,English
 JAPANESE,日本語,日本語
-Select Language,Select Language,言語を選ぶください
+Select Language,Select Language,言語を選ぶ
 Back,Back,戻る
 Start!,Start!,スタート
 Favorite,Favorite,お気に入り
-Favorited!,Favorited!,お気に入り追加した
+Favorited!,Favorited!,お気に入り追加済み
 Play Music,Play Music,音楽を聴く
 Stop Playing,Stop Playing,聴くのをやめる
 Speed,Speed,スピード
@@ -22,10 +22,10 @@ Nofail,Nofail,失敗なし
 Sudden Death,Sudden Death,即死
 Extra Energy,Extra Energy,多くのHP
 Easy Mode,Easy Mode,イージーモード
-No Regen,No Regen,リジェネレーションなし
+No Regen,No Regen,体力の回復なし
 Hard Mode,Hard Mode,ハードモード
-Mirror X,Mirror X,フリップX
-Mirror Y,Mirror Y,フリップY
+Mirror X,Mirror X,X軸反転
+Mirror Y,Mirror Y,Y軸反転
 Earthquake,Earthquake,地震
 Ghost,Ghost,ゴースト
 Chaos,Chaos,カオス
@@ -45,27 +45,27 @@ Default (Sound Space),Default (Sound Space),デフォルト　「Sound Space」
 Default - same as Sound Space,Default - same as Sound Space,デフォルト、Sound Spaceと同じ
 Old (easier),Old (easier),旧「もっと簡単」
 "Old - 6 hp (10 on easy), regen 1 hp/hit","Old - 6 hp (10 on easy), regen 1 hp/hit","旧 - 6 HP (10 HP簡単で), 追加 1 hp/hit"
-Giving up...,Giving up...,
-Save,Save,
-Open User Folder,Open User Folder,
-Open Replay Folder,Open Replay Folder,
-Reload Content,Reload Content,
-Disable Pausing,Disable Pausing,
+Giving up...,Giving up...,諦める
+Save,Save,保存
+Open User Folder,Open User Folder,ユーザーフォルダを開く
+Open Replay Folder,Open Replay Folder,リプレイフォルダーを開く
+Reload Content,Reload Content,再起動
+Disable Pausing,Disable Pausing,一時停止を無効にする
 name says it all,name says it all,
-Custom Speed Rate,Custom Speed Rate,
+Custom Speed Rate,Custom Speed Rate,移動速度
 "[default 100%] used by the custom speed modifier (speed+ mods are 115, 125, 135, and 145)","[default 100%] used by the custom speed modifier (speed+ mods are 115, 125, 135, and 145)",
 Hitbox Size,Hitbox Size,
 [def. 1.14] the size of note hitboxes in grid units (hit checking is done at the center of the cursor)   [1.5x = 1.71; 2x = 2.28],[def. 1.14] the size of note hitboxes in grid units (hit checking is done at the center of the cursor)   [1.5x = 1.71; 2x = 2.28],
 [def. 55ms] the length of time notes can be hit after reaching the grid   [1.5x = 83; 2x = 110],[def. 55ms] the length of time notes can be hit after reaching the grid   [1.5x = 83; 2x = 110],
-Counter Speed,Counter Speed,
+Counter Speed,Counter Speed,カウンター速度
 alters the hit window to counter the effects of speed mods,alters the hit window to counter the effects of speed mods,
-Notes,Notes,
-Note Colors,Note Colors,
-Note Mesh,Note Mesh,
-model used by notes,model used by notes,
-Note Scale,Note Scale,
-[def. 1] the visual size of the notes (doesn't affect hitboxes),[def. 1] the visual size of the notes (doesn't affect hitboxes),
-Note Opacity,Note Opacity,
+Notes,Notes,ノート
+Note Colors,Note Colors,ノートの色
+Note Mesh,Note Mesh,ノートの形
+model used by notes,model used by notes,ノートのモデル
+Note Scale,Note Scale,ノートの大きさ
+[def. 1] the visual size of the notes (doesn't affect hitboxes),[def. 1] the visual size of the notes (doesn't affect hitboxes),[デフォルト１]ノートの当たり判定は変わりません
+Note Opacity,Note Opacity,ノートの透明度
 [def. 100%] how opaque/transparent/visible the note appears,[def. 100%] how opaque/transparent/visible the note appears,
 Approach Rate,Approach Rate,
 [def. 40] the speed that notes move towards the grid. (note: this will be half of your AR in ss/vulnus),[def. 40] the speed that notes move towards the grid. (note: this will be half of your AR in ss/vulnus),
@@ -347,59 +347,66 @@ Retain Song Pitch,Retain Song Pitch,
 Show Extensive Stats,Show Extensive Stats,
 [UNFINISHED] displays some additional statistics about your gameplay while ingame,[UNFINISHED] displays some additional statistics about your gameplay while ingame,
 Play Intro Cutscene,Play Intro Cutscene,
-Replay,Replay,
+Replay,Replay,リプレイ
 replays the intro cutscene,replays the intro cutscene,
 Disable Intro Cutscene,Disable Intro Cutscene,
-disables the intro cutscene,disables the intro cutscene,
-"Development mode is active, game mods will not be used.","Development mode is active, game mods will not be used.",
-Play Song,Play Song,
-Song Select,Song Select,
-Settings,Settings,
-Credits,Credits,
-Content Manager,Content Manager,
-Language,Language,
-Quit to Desktop,Quit to Desktop,
-Search,Search,
-Author,Author,
-broken,broken,
-online,online,
-difficulty,difficulty,
-name,name,
-auto play screen,auto play screen,
-Select random from search,Select random from search,
-Delete Map,Delete Map,
-Are you sure you want to delete this map? You might not be able to get it back.,Are you sure you want to delete this map? You might not be able to get it back.,
-Cancel,Cancel,
-OK,OK,
-Convert to sspm v2,Convert to sspm v2,
-Copy...,Copy...,
-Path,Path,
-Name,Name,
-Set difficulty,Set difficulty,
-N/A,N/A,
-Easy,Easy,
-Medium,Medium,
-Hard,Hard,
-Logic?,Logic?,
-助 (Tasukete),助 (Tasukete),
-Export .txt map data,Export .txt map data,
-Export audio data,Export audio data,
-N/A,N/A,
-EASY,EASY,
-MEDIUM,MEDIUM,
-HARD,HARD,
-LOGIC?,LOGIC?,
+disables the intro cutscene,disables the intro cutscene,イントロカットシーンを無効にする
+"Development mode is active, game mods will not be used.","Development mode is active, game mods will not be used.",開発者モードを有効　モッドは使用されません
+Play Song,Play Song,曲を再生
+Song Select,Song Select,曲を選択
+Settings,Settings,設定
+Credits,Credits,クレジット
+Content Manager,Content Manager,コンテンツマネージャー
+Language,Language,言語
+Quit to Desktop,Quit to Desktop,デスクトップに戻る
+Search,Search,検索
+Author,Author,作者
+broken,broken,壊れている
+online,online,オンライン
+difficulty,difficulty,難易度
+name,name,名前
+auto play screen,auto play screen,オートプレイ画面
+Select random from search,Select random from search,サーチからランダムにマップを選ぶ
+Delete Map,Delete Map,マップを削除
+Are you sure you want to delete this map? You might not be able to get it back.,Are you sure you want to delete this map? You might not be able to get it back.,このマップを削除してもよろしいですか？このマップを戻せなくなる可能性があります
+Cancel,Cancel,キャンセル
+OK,OK,OK
+Convert to sspm v2,Convert to sspm v2,sspm v2 に変換する
+Copy...,Copy...,コピー...
+Path,Path,パス
+Name,Name,名前
+Set difficulty,Set difficulty,難易度を設定
+N/A,N/A,N/A
+Easy,Easy,イージー
+Medium,Medium,ミディアム
+Hard,Hard,ハード
+Logic?,Logic?,ロジック?
+助 (Tasukete),助 (Tasukete),助(助けて）
+Export .txt map data,Export .txt map data,.txt map データを抽出
+Export audio data,Export audio data,オーディオデータを抽出
+N/A,N/A,N/A
+EASY,EASY,イージー
+MEDIUM,MEDIUM,ミディアム
+HARD,HARD,ハード
+LOGIC?,LOGIC?,ロジック?
 "Default hitboxes, ","Default hitboxes, ",デフォルトヒットボックス、
 "Hitboxes: %s, ","Hitboxes: %s, ",ヒットボックス: %s、
 default hitwindow,default hitwindow,デフォルトヒットウインドー
 hitwindow: %s ms,hitwindow: %s ms,ヒットウインドー: %s ms
-Loading,Loading,
-Waiting for engine,Waiting for engine,
-Initialization,Initialization,
-Starting the game,Starting the game,
-No PB,No PB,
+Loading,Loading,読み込み中
+Waiting for engine,Waiting for engine,エンジンの応答待ち
+Initialization,Initialization,初期化
+Starting the game,Starting the game,ゲームを起動中
+No PB,No PB,PBなし
 [ NOFAIL ACTIVE ],[ NOFAIL ACTIVE ],「失敗なしオン」
 Mirror,Mirror,フリップ
 Vulnus Judgement,Vulnus Judgement,Vulnusヒットウインドー
-You failed!,You failed!,
+You failed!,You failed!,失敗した!
 Inverted Mouse,Inverted Mouse,マウスフリップ
+Personal Best,Personal Best,自己ベスト
+Best Attempt,Best Attempt,
+You passed!,You passed!,クリアした!
+New best!,New best!,ニューベスト!
+Replay passed,Replay passed,
+FULL COMBO,FULL COMBO,フルコンボ
+NO COMBO,NO COMBO,ノーコンボ
