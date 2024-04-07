@@ -462,7 +462,7 @@ func _ready():
 		if Rhythia.replay.autoplayer: modicons.get_node("Autoplay").visible = true
 		else: modicons.get_node("Replaying").visible = true
 	
-	if Rhythia.mod_nofail: ms += "[ NOFAIL ACTIVE ]\n"
+	if Rhythia.mod_nofail: ms += tr("[ NOFAIL ACTIVE ]") + "\n"
 	elif Rhythia.health_model == Globals.HP_OLD: ms += "Using old hp model (more hp + fast regen)\n"
 	
 	var mods = []
@@ -481,24 +481,24 @@ func _ready():
 	if Rhythia.mod_extra_energy: mods.append("Energy+")
 	if Rhythia.mod_no_regen: mods.append("NoRegen")
 	if Rhythia.mod_mirror_x or Rhythia.mod_mirror_y:
-		var mirrorst = "Mirror"
+		var mirrorst = tr("Mirror")
 		if Rhythia.mod_mirror_x: mirrorst += "X"
 		if Rhythia.mod_mirror_y: mirrorst += "Y"
 		mods.append(mirrorst)
-	if Rhythia.mod_ghost: mods.append("Ghost")
+	if Rhythia.mod_ghost: mods.append(tr("Ghost"))
 	if Rhythia.mod_nearsighted: mods.append("Nearsight")
-	if Rhythia.mod_chaos: mods.append("Chaos")
-	if Rhythia.mod_earthquake: mods.append("Earthquake")
-	if Rhythia.mod_flashlight: mods.append("Masked")
-	if Rhythia.mod_hardrock: mods.append("Hard Rock")
-	if Rhythia.invert_mouse: mods.append("Mouse Inverted")
+	if Rhythia.mod_chaos: mods.append(tr("Chaos"))
+	if Rhythia.mod_earthquake: mods.append(tr("Earthquake"))
+	if Rhythia.mod_flashlight: mods.append(tr("Masked"))
+	if Rhythia.mod_hardrock: mods.append(tr("Hard Rock"))
+	if Rhythia.invert_mouse: mods.append(tr("Mouse Inverted"))
 	for i in range(mods.size()):
 		if i != 0: ms += " "
 		ms += mods[i]
 	if mods.size() != 0 and !Rhythia.mod_nofail: ms += '\n'
 	
 	if Rhythia.hitwindow_ms == 58 and Rhythia.note_hitbox_size == 1.140:
-		ms += "Vulnus Judgement"
+		ms += tr("Vulnus Judgement")
 	elif Rhythia.hitwindow_ms != 55 or Rhythia.note_hitbox_size != 1.140:
 		ms += "HW: %.0f ms | HB: %.02f m" % [Rhythia.hitwindow_ms,Rhythia.note_hitbox_size]
 	

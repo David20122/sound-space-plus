@@ -317,10 +317,12 @@ corner_radius_bottom_left = 6
 size = 24
 use_filter = true
 font_data = ExtResource( 27 )
+fallback/0 = ExtResource( 15 )
 
 [sub_resource type="DynamicFont" id=90]
 use_filter = true
 font_data = ExtResource( 2 )
+fallback/0 = ExtResource( 15 )
 
 [sub_resource type="DynamicFont" id=91]
 use_filter = true
@@ -2566,10 +2568,10 @@ initial_path = "~/Downloads"
 filters = PoolStringArray( "*.txt ; Text files" )
 
 [node name="ModsTitle" type="Label" parent="Main/Results/Results"]
-margin_left = 624.0
-margin_top = 16.0
-margin_right = 994.0
-margin_bottom = 54.0
+margin_left = 601.0
+margin_top = 15.0
+margin_right = 735.0
+margin_bottom = 53.0
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 1, 0.756863, 0.960784, 1 )
@@ -2577,9 +2579,9 @@ custom_fonts/font = SubResource( 89 )
 text = "Modifiers"
 
 [node name="Hitboxes" type="Label" parent="Main/Results/Results"]
-margin_left = 624.0
+margin_left = 768.0
 margin_top = 16.0
-margin_right = 1048.0
+margin_right = 1192.0
 margin_bottom = 46.0
 focus_mode = 2
 theme = ExtResource( 1 )
@@ -2592,9 +2594,9 @@ valign = 2
 
 [node name="ModsHolder" type="ScrollContainer" parent="Main/Results/Results"]
 anchor_bottom = 1.0
-margin_left = 550.0
+margin_left = 715.0
 margin_top = 48.0
-margin_right = 1033.0
+margin_right = 1198.0
 margin_bottom = -3.0
 follow_focus = true
 

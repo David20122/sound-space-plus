@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://assets/font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://scripts/ui/menu/VersionNumber.gd" type="Script" id=2]
 [ext_resource path="res://assets/images/branding/icon.png" type="Texture" id=3]
 [ext_resource path="res://uitheme.tres" type="Theme" id=4]
 [ext_resource path="res://scripts/init.gd" type="Script" id=5]
+[ext_resource path="res://assets/font/Noto_Sans_JP/NotoSansJP-Medium.otf" type="DynamicFontData" id=6]
 [ext_resource path="res://assets/font/Lato/Lato-Bold.ttf" type="DynamicFontData" id=7]
 [ext_resource path="res://LSPatronList.gd" type="Script" id=8]
 
@@ -12,11 +13,13 @@
 size = 48
 use_filter = true
 font_data = ExtResource( 1 )
+fallback/0 = ExtResource( 6 )
 
 [sub_resource type="DynamicFont" id=2]
 size = 24
 use_filter = true
 font_data = ExtResource( 1 )
+fallback/0 = ExtResource( 6 )
 
 [sub_resource type="DynamicFont" id=3]
 size = 22

@@ -68,6 +68,7 @@ bg_color = Color( 0.560784, 0.560784, 0.560784, 0.690196 )
 size = 48
 use_filter = true
 font_data = ExtResource( 6 )
+fallback/0 = ExtResource( 31 )
 
 [sub_resource type="DynamicFont" id=7]
 size = 36
@@ -89,6 +90,7 @@ bg_color = Color( 0.54902, 1, 0, 1 )
 size = 36
 use_filter = true
 font_data = ExtResource( 5 )
+fallback/0 = ExtResource( 31 )
 
 [sub_resource type="DynamicFont" id=10]
 size = 48
@@ -162,6 +164,7 @@ font_data = ExtResource( 5 )
 size = 72
 use_filter = true
 font_data = ExtResource( 15 )
+fallback/0 = ExtResource( 31 )
 
 [sub_resource type="StyleBoxFlat" id=50]
 bg_color = Color( 0, 0, 0, 0.45098 )
@@ -184,18 +187,21 @@ bg_color = Color( 0.580392, 0.129412, 0.129412, 0.686275 )
 [sub_resource type="DynamicFont" id=90]
 size = 64
 font_data = ExtResource( 33 )
+fallback/0 = ExtResource( 31 )
 
 [sub_resource type="DynamicFont" id=17]
 size = 72
 outline_color = Color( 0, 0, 0, 0.333333 )
 use_filter = true
 font_data = ExtResource( 5 )
+fallback/0 = ExtResource( 31 )
 
 [sub_resource type="DynamicFont" id=75]
 size = 72
 outline_color = Color( 0.407843, 0.584314, 1, 1 )
 use_filter = true
 font_data = ExtResource( 5 )
+fallback/0 = ExtResource( 31 )
 
 [sub_resource type="DynamicFont" id=43]
 size = 28
@@ -203,6 +209,7 @@ outline_color = Color( 0, 0, 0, 0.333333 )
 use_filter = true
 extra_spacing_space = 3
 font_data = ExtResource( 5 )
+fallback/0 = ExtResource( 31 )
 
 [sub_resource type="DynamicFont" id=18]
 size = 44
@@ -213,6 +220,7 @@ font_data = ExtResource( 5 )
 size = 28
 use_filter = true
 font_data = ExtResource( 5 )
+fallback/0 = ExtResource( 31 )
 
 [sub_resource type="DynamicFont" id=20]
 size = 128
