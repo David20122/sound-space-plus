@@ -33,6 +33,7 @@ onready var smm_visibility:Dictionary = {
 	$L/Settings: true,
 	$L/Credits: true,
 	$L/ContentMgr: false,
+	$L/Language: false,
 	$L/StartVR: false,
 	$L/OldMenu: false,
 	$L/Quit: true,
@@ -73,6 +74,12 @@ func to_content_mgr():
 	Rhythia.conmgr_transit = "addsongs"
 	get_tree().change_scene("res://scenes/loaders/contentmgrload.tscn")
 
+func to_language():
+	get_node("../Press").play()
+	get_viewport().get_node("Menu").black_fade_target = true
+	yield(get_tree().create_timer(0.35),"timeout")
+	get_tree().change_scene("res://scenes/menu/language.tscn")
+
 func to_vr():
 	get_node("../Press").play()
 	get_viewport().get_node("Menu").black_fade_target = true
@@ -95,6 +102,7 @@ func _ready():
 	
 	$L/OldMenu.connect("pressed",self,"to_old_menu")
 	$L/ContentMgr.connect("pressed",self,"to_content_mgr")
+	$L/Language.connect("pressed",self,"to_language")
 	$L/StartVR.connect("pressed",self,"to_vr")
 	$L/Quit.connect("pressed",self,"quit")
 	

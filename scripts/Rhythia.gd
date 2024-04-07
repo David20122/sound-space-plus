@@ -747,6 +747,7 @@ var hit_pitch_max:float = 1.15
 var arcw_mode:bool = false # heheheha
 var sex_mode:bool = false
 
+var language:int = 0
 
 
 # Favorited songs
@@ -1232,6 +1233,11 @@ func load_saved_settings():
 			hit_pitch_max = data.hit_pitch_max
 		if data.has("half_ghost"):
 			half_ghost = data.half_ghost
+
+		if data.has("language"):
+			language = data.language
+			TranslationServer.set_locale(Globals.locale[language])
+
 		
 		lcol(data,"grade_s_color")
 		lcol(data,"panel_bg")
@@ -1638,7 +1644,8 @@ func save_settings():
 			show_stats = show_stats,
 			hit_pitch = hit_pitch,
 			hit_pitch_min = hit_pitch_min,
-			hit_pitch_max = hit_pitch_max
+			hit_pitch_max = hit_pitch_max,
+			language = language
 		}
 		
 		file.store_string(JSON.print(data, "\t"))

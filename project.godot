@@ -291,7 +291,7 @@ config/disable_native_file_dialogs.Android=true
 config/disable_native_file_dialogs.web=true
 config/disable_native_file_dialogs.OSX=true
 config/is_using_controller=true
-config/discord_rpc=true
+config/discord_rpc=false
 config/discord_rpc.editor=false
 networking/github_repo="krmeet/sound-space-plus"
 
@@ -506,6 +506,11 @@ retry={
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":96,"unicode":0,"echo":false,"script":null)
  ]
 }
+
+[locale]
+
+translations=PoolStringArray( "res://localization/localization.csv", "res://localization/localization.en.translation", "res://localization/localization.ja.translation" )
+locale_filter=[ 0, [ "en", "ja" ] ]
 
 [logging]
 

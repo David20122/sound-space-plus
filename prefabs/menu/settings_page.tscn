@@ -71,11 +71,13 @@
 size = 18
 use_filter = true
 font_data = ExtResource( 40 )
+fallback/0 = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=4]
 size = 14
 use_filter = true
 font_data = ExtResource( 2 )
+fallback/0 = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=3]
 use_filter = true
@@ -4222,9 +4224,6 @@ text = "Menu Music"
 align = 2
 valign = 1
 clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="AutoPreview" type="CheckBox" parent="M/Audio/Group/H"]
 margin_top = 408.0

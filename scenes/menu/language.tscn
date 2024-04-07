@@ -1,0 +1,176 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://assets/font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://uitheme.tres" type="Theme" id=2]
+[ext_resource path="res://scripts/ui/menu/languagemenu.gd" type="Script" id=3]
+[ext_resource path="res://scripts/ui/cmgr/CMgrExit.gd" type="Script" id=4]
+[ext_resource path="res://assets/font/Noto_Sans_JP/NotoSansJP-Medium.otf" type="DynamicFontData" id=7]
+[ext_resource path="res://assets/images/branding/icon.png" type="Texture" id=12]
+[ext_resource path="res://scripts/ui/menu/VersionNumber.gd" type="Script" id=17]
+[ext_resource path="res://assets/sfx/menu_full.mp3" type="AudioStream" id=70]
+
+[sub_resource type="StyleBoxFlat" id=70]
+bg_color = Color( 0.0588235, 0.0235294, 0.0666667, 1 )
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="DynamicFont" id=71]
+size = 22
+use_filter = true
+font_data = ExtResource( 1 )
+fallback/0 = ExtResource( 7 )
+
+[sub_resource type="StyleBoxFlat" id=73]
+bg_color = Color( 0.169973, 0.12043, 0.187988, 1 )
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id=74]
+bg_color = Color( 0.188235, 0.141176, 0.203922, 1 )
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.839216, 0.682353, 0.933333, 1 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id=75]
+bg_color = Color( 0.113725, 0.105882, 0.0941176, 1 )
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id=76]
+bg_color = Color( 0.129412, 0.0901961, 0.141176, 1 )
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="DynamicFont" id=77]
+use_filter = true
+font_data = ExtResource( 1 )
+fallback/0 = ExtResource( 7 )
+
+[sub_resource type="DynamicFont" id=21]
+size = 22
+use_filter = true
+font_data = ExtResource( 1 )
+
+[node name="LanguageMenu" type="ColorRect"]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+focus_mode = 1
+theme = ExtResource( 2 )
+color = Color( 0, 0, 0, 1 )
+script = ExtResource( 3 )
+
+[node name="MenuSong" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 70 )
+volume_db = -10.0
+bus = "Music"
+
+[node name="ChangeLanguage" type="Panel" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -220.0
+margin_top = -70.0
+margin_right = 220.0
+margin_bottom = 74.0
+custom_styles/panel = SubResource( 70 )
+
+[node name="Title" type="Label" parent="ChangeLanguage"]
+anchor_right = 1.0
+margin_bottom = 40.0
+custom_fonts/font = SubResource( 71 )
+text = "Select Language"
+align = 1
+valign = 1
+
+[node name="SelectLanguageWindow" type="ReferenceRect" parent="ChangeLanguage"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 35.0
+margin_bottom = -52.0
+border_color = Color( 1, 0, 0, 0 )
+
+[node name="languageselector" type="OptionButton" parent="ChangeLanguage/SelectLanguageWindow"]
+anchor_left = 0.482
+anchor_top = 1.326
+anchor_right = 0.482
+anchor_bottom = 1.326
+margin_left = -168.08
+margin_top = -62.582
+margin_right = 183.92
+margin_bottom = -33.582
+text = "Language"
+
+[node name="cancel" type="Button" parent="ChangeLanguage"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 45.0
+margin_top = -50.0
+margin_right = -45.0
+margin_bottom = -15.0
+custom_styles/hover = SubResource( 73 )
+custom_styles/pressed = SubResource( 73 )
+custom_styles/focus = SubResource( 74 )
+custom_styles/disabled = SubResource( 75 )
+custom_styles/normal = SubResource( 76 )
+action_mode = 0
+script = ExtResource( 4 )
+
+[node name="Title" type="Label" parent="ChangeLanguage/cancel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 77 )
+text = "Back"
+align = 1
+valign = 1
+
+[node name="VersionNumber" type="Label" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 55.0
+margin_top = -45.0
+margin_right = 344.0
+margin_bottom = -15.0
+grow_vertical = 2
+theme = ExtResource( 2 )
+custom_colors/font_color = Color( 1, 0.705882, 0.945098, 1 )
+custom_fonts/font = SubResource( 21 )
+text = "Rhythia  vX.Y.Z-stage"
+valign = 1
+script = ExtResource( 17 )
+
+[node name="TextureRect" type="TextureRect" parent="VersionNumber"]
+anchor_bottom = 1.0
+margin_left = -40.0
+margin_right = -10.0
+rect_min_size = Vector2( 30, 30 )
+texture = ExtResource( 12 )
+expand = true
+
+[node name="BlackFade" type="ColorRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="item_selected" from="ChangeLanguage/SelectLanguageWindow/languageselector" to="." method="_on_languageselector_item_selected"]

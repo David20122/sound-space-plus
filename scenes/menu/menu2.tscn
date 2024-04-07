@@ -1,4 +1,4 @@
-[gd_scene load_steps=215 format=2]
+[gd_scene load_steps=216 format=2]
 
 [ext_resource path="res://uitheme.tres" type="Theme" id=1]
 [ext_resource path="res://assets/font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=2]
@@ -101,6 +101,7 @@
 [ext_resource path="res://scripts/ui/menu/MenuMouse.gd" type="Script" id=99]
 [ext_resource path="res://scripts/ui/settings/CustomSpeed.gd" type="Script" id=100]
 [ext_resource path="res://scripts/ui/menu/buttons/ModHardRock.gd" type="Script" id=101]
+[ext_resource path="res://assets/images/ui/localization.png" type="Texture" id=102]
 
 [sub_resource type="Gradient" id=163]
 offsets = PoolRealArray( 0, 0.5, 1 )
@@ -555,6 +556,7 @@ font_data = ExtResource( 2 )
 [sub_resource type="DynamicFont" id=106]
 use_filter = true
 font_data = ExtResource( 2 )
+fallback/0 = ExtResource( 15 )
 
 [sub_resource type="DynamicFont" id=107]
 size = 24
@@ -4844,6 +4846,37 @@ custom_fonts/font = SubResource( 6 )
 text = "Content Manager"
 valign = 1
 
+[node name="Language" type="Button" parent="Sidebar/L"]
+margin_top = 290.0
+margin_right = 58.0
+margin_bottom = 348.0
+rect_min_size = Vector2( 0, 58 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/focus = SubResource( 3 )
+custom_styles/disabled = SubResource( 4 )
+custom_styles/normal = SubResource( 4 )
+toggle_mode = true
+action_mode = 0
+group = SubResource( 5 )
+
+[node name="Tex" type="TextureRect" parent="Sidebar/L/Language"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 48.0
+margin_bottom = 48.0
+texture = ExtResource( 102 )
+expand = true
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="Sidebar/L/Language"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 64.0
+custom_fonts/font = SubResource( 6 )
+text = "Language"
+valign = 1
+
 [node name="StartVR" type="Button" parent="Sidebar/L"]
 visible = false
 margin_top = 290.0
@@ -4909,9 +4942,9 @@ text = "Switch to Old Menu"
 valign = 1
 
 [node name="Quit" type="Button" parent="Sidebar/L"]
-margin_top = 290.0
+margin_top = 348.0
 margin_right = 58.0
-margin_bottom = 348.0
+margin_bottom = 406.0
 rect_min_size = Vector2( 0, 58 )
 custom_styles/hover = SubResource( 4 )
 custom_styles/pressed = SubResource( 2 )
