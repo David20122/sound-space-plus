@@ -1,4 +1,4 @@
-[gd_scene load_steps=214 format=2]
+[gd_scene load_steps=215 format=2]
 
 [ext_resource path="res://uitheme.tres" type="Theme" id=1]
 [ext_resource path="res://assets/font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=2]
@@ -100,6 +100,7 @@
 [ext_resource path="res://assets/images/cursors/circle.png" type="Texture" id=98]
 [ext_resource path="res://scripts/ui/menu/MenuMouse.gd" type="Script" id=99]
 [ext_resource path="res://scripts/ui/settings/CustomSpeed.gd" type="Script" id=100]
+[ext_resource path="res://scripts/ui/menu/buttons/ModHardRock.gd" type="Script" id=101]
 
 [sub_resource type="Gradient" id=163]
 offsets = PoolRealArray( 0, 0.5, 1 )
@@ -2992,9 +2993,9 @@ script = ExtResource( 100 )
 
 [node name="StartOffset" type="HSlider" parent="Main/Results/Results/ModsHolder/Mods"]
 margin_left = 139.0
-margin_top = 273.0
+margin_top = 304.0
 margin_right = 324.0
-margin_bottom = 266.0
+margin_bottom = 320.0
 theme = ExtResource( 1 )
 script = ExtResource( 59 )
 
@@ -3022,9 +3023,9 @@ align = 1
 
 [node name="HpModel" type="MenuButton" parent="Main/Results/Results/ModsHolder/Mods"]
 margin_left = 141.0
-margin_top = 233.0
+margin_top = 264.0
 margin_right = 325.0
-margin_bottom = 259.0
+margin_bottom = 290.0
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
@@ -3446,6 +3447,34 @@ theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.960784, 1, 0.478431, 1 )
 custom_fonts/font = SubResource( 91 )
 text = "Invert Mouse"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="HardRock" type="CheckBox" parent="Main/Results/Results/ModsHolder/Mods"]
+margin_left = 130.0
+margin_top = 225.0
+margin_right = 190.0
+margin_bottom = 257.0
+theme = ExtResource( 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 92 )
+action_mode = 0
+flat = true
+script = ExtResource( 101 )
+
+[node name="Label" type="Label" parent="Main/Results/Results/ModsHolder/Mods/HardRock"]
+margin_left = -115.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.960784, 1, 0.478431, 1 )
+custom_fonts/font = SubResource( 91 )
+text = "Hard Rock"
 align = 2
 valign = 1
 clip_text = true

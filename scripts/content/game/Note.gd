@@ -67,6 +67,10 @@ func reposition(ms:float,approachSpeed:float):
 			transform.origin.x = real_position.x + (rcoord.x * (current_dist * 0.1))
 			transform.origin.y = real_position.y + (rcoord.y * (current_dist * 0.1))
 		
+		if Rhythia.mod_hardrock:
+			transform.origin.x = real_position.x * 1.5
+			transform.origin.y = real_position.y * 1.5
+
 		if Rhythia.note_visual_approach:
 			$Approach.opacity = 1 - (current_dist / Rhythia.get("spawn_distance"))
 			

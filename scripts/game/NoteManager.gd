@@ -118,7 +118,7 @@ func note_reposition(i:int):
 			var rcoord = Vector2(earthquake_rng.randf_range(-0.25,0.25),earthquake_rng.randf_range(-0.25,0.25))
 			nt.origin.x = real_position.x + (rcoord.x * (current_dist * 0.1))
 			nt.origin.y = real_position.y + (rcoord.y * (current_dist * 0.1))
-		
+
 #		if Rhythia.note_visual_approach:
 #			$Approach.opacity = 1 - (current_dist / Rhythia.get("spawn_distance"))
 #
@@ -376,6 +376,7 @@ func spawn_notes(note_array:Array):
 				Transform() # note transform
 			]
 			
+			if Rhythia.mod_hardrock: note[0] = ((note[0] - Vector2(1,-1)) * 1.35) + Vector2(1,-1)
 			if Rhythia.mod_mirror_x: note[0].x = 2 - note[0].x
 			if Rhythia.mod_mirror_y: note[0].y = (-note[0].y) - 2
 			note[5] = note[5].scaled(note_transform_scale)
@@ -399,10 +400,13 @@ func _ready():
 		grid_pushback = pushback_defaults.do_pushback
 	else:
 		grid_pushback = pushback_defaults.never
-	
+
 	if Rhythia.speed_hitwindow:
 		hit_window = Rhythia.get("hitwindow_ms") * speed_multi
 	
+	if Rhythia.mod_hardrock:
+		hit_window = hit_window * 0.65
+
 	$Note.speed_multi = speed_multi
 	$Music.pitch_scale = speed_multi
 	if Rhythia.retain_song_pitch and not speed_multi == 1.0:

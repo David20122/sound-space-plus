@@ -28,18 +28,24 @@ func move_cursor(mdel:Vector2):
 	var ry = rpos.y
 	rx += mdel.x
 	ry += mdel.y
-	
+
 	rx = clamp(rx, (0 + sh.x + edger), (3 + sh.x - edger))
 	ry = clamp(ry, (0 + sh.y + edger), (3 + sh.y - edger))
-	
+
 	rpos.x = rx
 	rpos.y = ry
-	
+
 	var cx = rx
 	var cy = ry
-	cx = clamp(cx, (0 + sh.x + edgec), (3 + sh.x - edgec))
-	cy = clamp(cy, (0 + sh.y + edgec), (3 + sh.y - edgec))
-	
+
+	if Rhythia.mod_hardrock:
+		var hard_cock = edgec - 0.555
+		cx = clamp(cx, (0 + sh.x + hard_cock), (3 + sh.x - hard_cock))
+		cy = clamp(cy, (0 + sh.y + hard_cock), (3 + sh.y - hard_cock))
+	else:
+		cx = clamp(cx, (0 + sh.x + edgec), (3 + sh.x - edgec))
+		cy = clamp(cy, (0 + sh.y + edgec), (3 + sh.y - edgec))
+
 	transform.origin.x = cx
 	transform.origin.y = -cy
 
@@ -57,8 +63,14 @@ func move_cursor_abs(mdel:Vector2):
 	
 	var cx = rx
 	var cy = ry
-	cx = clamp(cx, (0 + sh.x + edgec), (3 + sh.x - edgec))
-	cy = clamp(cy, (0 + sh.y + edgec), (3 + sh.y - edgec))
+
+	if Rhythia.mod_hardrock:
+		var hard_cock = edgec - 0.53
+		cx = clamp(cx, (0 + sh.x + hard_cock), (3 + sh.x - hard_cock))
+		cy = clamp(cy, (0 + sh.y + hard_cock), (3 + sh.y - hard_cock))
+	else:
+		cx = clamp(cx, (0 + sh.x + edgec), (3 + sh.x - edgec))
+		cy = clamp(cy, (0 + sh.y + edgec), (3 + sh.y - edgec))
 	
 	transform.origin.x = cx
 	transform.origin.y = -cy

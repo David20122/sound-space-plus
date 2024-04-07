@@ -393,9 +393,13 @@ func _ready():
 	if !Rhythia.enable_grid:
 		Spawn.get_node("Inner").visible = false
 	
+	if Rhythia.mod_hardrock:
+		Spawn.get_node("Inner").scale *= 1.35
+		Spawn.get_node("Outer").scale *= 1.35
+
 	if !Rhythia.enable_border:
 		Spawn.get_node("Outer").visible = false
-	
+
 	if Rhythia.visual_mode or !Rhythia.show_left_panel:
 		$LeftHud.visible = false
 	
@@ -486,6 +490,7 @@ func _ready():
 	if Rhythia.mod_chaos: mods.append("Chaos")
 	if Rhythia.mod_earthquake: mods.append("Earthquake")
 	if Rhythia.mod_flashlight: mods.append("Masked")
+	if Rhythia.mod_hardrock: mods.append("Hard Rock")
 	if Rhythia.invert_mouse: mods.append("Mouse Inverted")
 	for i in range(mods.size()):
 		if i != 0: ms += " "

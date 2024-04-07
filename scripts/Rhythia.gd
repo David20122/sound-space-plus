@@ -468,6 +468,7 @@ var mod_sudden_death:bool = false setget set_mod_sudden_death
 var mod_chaos:bool = false setget set_mod_chaos
 var mod_earthquake:bool = false setget set_mod_earthquake
 var mod_flashlight:bool = false setget set_mod_flashlight
+var mod_hardrock:bool = false setget set_mod_hardrock
 # Modifiers - Custom values
 var start_offset:float = 0 setget _set_start_offset
 var note_hitbox_size:float = 1.140 setget _set_hitbox_size
@@ -522,6 +523,8 @@ func set_mod_earthquake(v:bool):
 	mod_earthquake = v; emit_signal("mods_changed")
 func set_mod_flashlight(v:bool):
 	mod_flashlight = v; emit_signal("mods_changed")
+func set_mod_hardrock(v:bool):
+	mod_hardrock = v; emit_signal("mods_changed")
 # Mod setters - Custom values
 func _set_start_offset(v:float):
 	start_offset = v; emit_signal("mods_changed")
@@ -823,6 +826,7 @@ func generate_pb_str(for_pb:bool=false):
 	if invert_mouse: pts.append("m_im")
 	if mod_earthquake: pts.append("m_earthquake")
 	if mod_flashlight: pts.append("m_flashlight")
+	if mod_hardrock: pts.append("m_hardrock")
 	if mod_nofail: pts.append("m_nofail") # for replays
 	
 	pts.sort()
@@ -852,6 +856,7 @@ func parse_pb_str(txt:String):
 	data.invert_mouse = false
 	data.mod_earthquake = false
 	data.mod_flashlight = false
+	data.mod_hardrock = false
 	data.mod_nofail = false
 	
 	for s in pts:
@@ -886,6 +891,7 @@ func parse_pb_str(txt:String):
 				"m_im": data.invert_mouse = true
 				"m_earthquake": data.mod_earthquake = true
 				"m_flashlight": data.mod_flashlight = true
+				"m_hardrock": data.mod_hardrock = true
 				"m_nofail": data.mod_nofail = true
 	return data
 var prev_state:Dictionary = {}
