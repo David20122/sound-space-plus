@@ -10,8 +10,8 @@ Play Music,Play Music,音楽を聴く
 Stop Playing,Stop Playing,聴くのをやめる
 Speed,Speed,スピード
 MISSES,MISSES,ミス
-PAUSES,PAUSES,ポーズ
-No Pauses,No Pauses,ポーズなし
+PAUSES,PAUSES,ストップ
+No Pauses,No Pauses,ストップなし
 PROGRESS,PROGRESS,プログレス
 ACCURACY,ACCURACY,精度
 MAX COMBO,MAX COMBO,最高コンボ
@@ -20,9 +20,9 @@ Map by,Map by,マッパー
 Song ID,Song ID,曲のID
 Nofail,Nofail,失敗なし
 Sudden Death,Sudden Death,即死
-Extra Energy,Extra Energy,多くのHP
+Extra Energy,Extra Energy,HP増加
 Easy Mode,Easy Mode,イージーモード
-No Regen,No Regen,体力の回復なし
+No Regen,No Regen,HP回復なし
 Hard Mode,Hard Mode,ハードモード
 Mirror X,Mirror X,X軸反転
 Mirror Y,Mirror Y,Y軸反転
@@ -31,13 +31,13 @@ Ghost,Ghost,ゴースト
 Chaos,Chaos,カオス
 Visual Map Mode,Visual Map Mode,シアターモード
 Masked,Masked,マスク付き
-Invert Mouse,Invert Mouse,フリップマウス
+Invert Mouse,Invert Mouse,マウス反転
 Hard Rock,Hard Rock,ハードロック
 Health Model,Health Model,ヘルスモード
 Start From,Start From,から始める
 NOTES,NOTES,ノート
 SCORE,SCORE,スコア
-PAUSED,PAUSED,ポーズした
+PAUSED,PAUSED,ストップした
 HOLD R TO EXIT,HOLD R TO EXIT,Rを押したままスキップ
 PRESS SPACE TO SKIP,PRESS SPACE TO SKIP,スキップするにはスペースをクリック
 You failed (new best!),You failed (new best!),失敗した　「ニューベスト」
@@ -51,7 +51,7 @@ Open User Folder,Open User Folder,ユーザーフォルダを開く
 Open Replay Folder,Open Replay Folder,リプレイフォルダーを開く
 Reload Content,Reload Content,再起動
 Disable Pausing,Disable Pausing,一時停止を無効にする
-name says it all,name says it all,
+name says it all,name says it all,名前は明白
 Custom Speed Rate,Custom Speed Rate,ノーツ速度
 "[default 100%] used by the custom speed modifier (speed+ mods are 115, 125, 135, and 145)","[default 100%] used by the custom speed modifier (speed+ mods are 115, 125, 135, and 145)",[デフォルト１００]
 Hitbox Size,Hitbox Size,ヒットボックスの大きさ
@@ -74,39 +74,59 @@ Spawn Distance,Spawn Distance,ノーツの出現距離
 [def. 40] distance from the grid that notes spawn (approach time = SD/AR),[def. 40] distance from the grid that notes spawn (approach time = SD/AR),[デフォルト４０]ノーツの出現開始位置
 Fade Length,Fade Length,ノーツの出現時間
 [def. 50%] percentage of the spawn distance that notes take to fade from invisible to fully opaque,[def. 50%] percentage of the spawn distance that notes take to fade from invisible to fully opaque,透明から不透明になるまでの距離
-Do Note Pushback,Do Note Pushback,
+Do Note Pushback,Do Note Pushback,ノーツプッシュバック
 "while enabled, notes will go past the grid when you miss, instead of always vanishing 0.1 units past the grid","while enabled, notes will go past the grid when you miss, instead of always vanishing 0.1 units past the grid",ミスしたノーツはグリッドを通り過ぎる
 Half Ghost,Half Ghost,半透明
 useful for patterns that fill the whole screen,useful for patterns that fill the whole screen,画面全体にノートがあるときに役立つ
 Note Spawn Effect,Note Spawn Effect,ノーツの出現エフェクト
-"alright, fine. no distractions for you.","alright, fine. no distractions for you.",
-Hit Effect Image,Hit Effect Image,ヒットエフェクトの画像
+"alright, fine. no distractions for you.","alright, fine. no distractions for you.",気が散らない！
+Hit Effect Image,Hit Effect Image,ヒットエフェクトのイメージ
 Click to replace,Click to replace,変える
-this image is used by hit effects with an asterisk (*) in their name,this image is used by hit effects with an asterisk (*) in their name,
+this image is used by hit effects with an asterisk (*) in their name,this image is used by hit effects with an asterisk (*) in their name,イメージは(*)がついたエフェクトにしか使われません
+Ripple* (no color),Ripple* (no color),画像*(無色)
+Ripple* (note color),Ripple* (note color),画像*(ノーツカラー)
+Ripple* (rainbow),Ripple*(rainbow),画像*(虹色)
+Shards (note color),Shards (note color),クリスタル(ノーツカラー)
+Shards (rainbow),Shards (rainbow),クリスタル(虹色)
+Shards (no color),Shards (no color),クリスタル(無色)
+Miss* (red),Miss* (red),ミス*(赤)
+Miss* (note color),Miss* (note color),ミス*(ノーツカラー)
+Miss* (rainbow),Miss* (rainbow),ミス*(虹色)
+Miss* (no color),Miss* (no color),ミス*(無色)
 Hit Effect,Hit Effect,ヒットエフェクト
 effect played when you hit a note,effect played when you hit a note,ヒットエフェクトの色
 Show Hit Effect,Show Hit Effect,ヒットエフェクトを表示
 plays your selected hit effect when you hit a note,plays your selected hit effect when you hit a note,ヒットエフェクトが移るようになる
 Hit Effect at Cursor,Hit Effect at Cursor,カーソル位置にエフェクトを表示
 hit effects will appear at the center of notes when this is off,hit effects will appear at the center of notes when this is off,ノーツの真ん中にエフェクトを表示
-Approach Squares,Approach Squares,
-squares on the grid that show note approach - similar to the circles in osu!,squares on the grid that show note approach - similar to the circles in osu!,
-Approach Follow,Approach Follow,
-makes it so the approach squares lock to the note,makes it so the approach squares lock to the note,
-Miss Effect Image,Miss Effect Image,ミスエフェクトの画像
-"same as above, but applies to your miss effect isntead","same as above, but applies to your miss effect isntead",
+Approach Squares,Approach Squares,アプローチガイド
+squares on the grid that show note approach - similar to the circles in osu!,squares on the grid that show note approach - similar to the circles in osu!,ノーツが近ずくとグリッドに四角を表示-osu!に似ている
+Approach Follow,Approach Follow,アプローチフォロー
+makes it so the approach squares lock to the note,makes it so the approach squares lock to the note,アプローチガイドがノーツについていく
+Miss Effect Image,Miss Effect Image,ミスエフェクトのイメージ
+"same as above, but applies to your miss effect isntead","same as above, but applies to your miss effect isntead",ミスエフェクトした時のイメージ
 Miss Effect,Miss Effect,ミスエフェクト
-hit effect but when you don't,hit effect but when you don't,ヒットした時のエフェクト
+hit effect but when you don't,hit effect but when you don't,ミスした時のエフェクト
+Ripple* (no color),Ripple* (no color),画像*(無色)
+Ripple* (note color),Ripple* (note color),画像*(ノーツカラー)
+Ripple* (rainbow),Ripple* (rainbow),画像*(虹色)
+Shards (note color),Shards (note color),クリスタル(ノーツカラー)
+Shards (rainbow),Shards (rainbow),クリスタル(虹色)
+Shards (no color),Shards (no color),クリスタル(無色)
+Miss* (red),Miss* (red),ミス*(赤)
+Miss* (note color),Miss* (note color),ミス*(ノーツカラー)
+Miss* (rainbow),Miss* (rainbow),ミス*(虹色)
+Miss* (no color),Miss* (no color),ミス*(無色)
 Show Miss Effect,Show Miss Effect,ミスエフェクトを表示
-"replace ""hit"" with ""miss"" in the description of the setting above this one","replace ""hit"" with ""miss"" in the description of the setting above this one",
+"replace ""hit"" with ""miss"" in the description of the setting above this one","replace ""hit"" with ""miss"" in the description of the setting above this one",ミスした時のエフェクト
 Replays & Recording,Replays & Recording,録画とリプレイ
 Record Replays,Record Replays,リプレイを保存
-records replays. what else did you expect...? (drag a replay file into the game to view),records replays. what else did you expect...? (drag a replay file into the game to view),
-Alt. Replay Camera,Alt. Replay Camera,
+records replays. what else did you expect...? (drag a replay file into the game to view),records replays. what else did you expect...? (drag a replay file into the game to view),自動的にリプレイを保存(リプレイファイルをゲームに移してみること可能）
+Alt. Replay Camera,Alt. Replay Camera,カメラアングルを追加
 alters the camera angle in replays - side view,alters the camera angle in replays - side view,リプレイ時のカメラアングルを横に変える
 Recording Mode,Recording Mode,録画モード
 Legacy,Legacy,
-Maximise,Maximise,最大
+Maximise,Maximise,最高
 Minimise,Minimise,最小
 [def. Maximise] changes the method used for dynamic fps,[def. Maximise] changes the method used for dynamic fps,[デフォルト最大]録画時のFPSの設定を変える
 Recording FPS,Recording FPS,録画FPS
@@ -114,35 +134,35 @@ Recording FPS,Recording FPS,録画FPS
 Camera & Controls,Camera & Controls,カメラとコントロール
 Sensitivity,Sensitivity,感度
 [def. 1] changes how much the cursor/camera move with mouse/touch input,[def. 1] changes how much the cursor/camera move with mouse/touch input,[デフォルト１]カーソルや画面の動く速さ
-Absolute Mode,Absolute Mode,
-turning this on will unlock the mouse while playing - useful for tablets,turning this on will unlock the mouse while playing - useful for tablets,
+Absolute Mode,Absolute Mode,マウスロック解除
+turning this on will unlock the mouse while playing - useful for tablets,turning this on will unlock the mouse while playing - useful for tablets,マウスロックが外れてタブレットでの使用が簡単になる
 No Controller Checks,No Controller Checks,コントローラーチェックを消す
 "when turned on, disables controller checks when starting a song - useful for controller players","when turned on, disables controller checks when starting a song - useful for controller players",つけるとゲーム前のコントローラーチェックが無くなる
-Absolute Scale,Absolute Scale,
-[def. 1] changes how much the cursor/camera move with absolute mode,[def. 1] changes how much the cursor/camera move with absolute mode,
-Camera Mode Presets,Camera Mode Presets,
+Absolute Scale,Absolute Scale,ロック解除時の感度
+[def. 1] changes how much the cursor/camera move with absolute mode,[def. 1] changes how much the cursor/camera move with absolute mode,[デフォルト１]ロック解除した時のカーソルやカメラの感度が変わる
+Camera Mode Presets,Camera Mode Presets,カメラ設定
 Half-lock,Half-lock,半固定
 Full-lock,Full-lock,全固定
 Reverse-lock,Reverse-lock,逆固定
 Spin,Spin,スピン
 Half-lock (faraway),Half-lock (faraway),半固定（遠い）
 Spin-lock (mid-pivot),Spin-lock (mid-pivot),スピン（真ん中固定）
-Camera Parallax,Camera Parallax,
-how much the camera moves with the cursor - affects everything,how much the camera moves with the cursor - affects everything,
-HUD Parallax,HUD Parallax,
-how much the hud moves with the cursor - added on top of camera parallax,how much the hud moves with the cursor - added on top of camera parallax,
-Grid Parallax,Grid Parallax,
-how much the note grid moves with the cursor - added on top of camera parallax,how much the note grid moves with the cursor - added on top of camera parallax,
+Camera Parallax,Camera Parallax,視差
+how much the camera moves with the cursor - affects everything,how much the camera moves with the cursor - affects everything,画面がカーソルと一緒に動く距離(画面全体）
+HUD Parallax,HUD Parallax,グリッド視差
+how much the hud moves with the cursor - added on top of camera parallax,how much the hud moves with the cursor - added on top of camera parallax,HUDがカーソルと一緒に動く距離
+Grid Parallax,Grid Parallax,HUD視差
+how much the note grid moves with the cursor - added on top of camera parallax,how much the note grid moves with the cursor - added on top of camera parallax,グリッドがカーソルと一緒に動く距離
 Camera Unlock,Camera Unlock,カメラのロックを解除
 "enables camera rotation - aka ""spin""","enables camera rotation - aka ""spin""",カメラの回転を可能にする
-Faraway Hud,Faraway Hud,
-moves the HUD back by 10 grid units (20 studs) and makes it larger,moves the HUD back by 10 grid units (20 studs) and makes it larger,ノーツ画面が離れて大きくなる
-Edge Buffer (Drift),Edge Buffer (Drift),
+Faraway Hud,Faraway Hud,HUDを離す
+moves the HUD back by 10 grid units (20 studs) and makes it larger,moves the HUD back by 10 grid units (20 studs) and makes it larger,HUDが画面が離れて大きくなる
+Edge Buffer (Drift),Edge Buffer (Drift),ドリフト
 "[def. 0] aka cursor drift; makes the cursor ""stick"" to the edges by letting it move slightly past the edges","[def. 0] aka cursor drift; makes the cursor ""stick"" to the edges by letting it move slightly past the edges",カーソルをグリッド外に動かせる距離
-Buffer Cursor,Buffer Cursor,
-"shows a mini cursor at the ""real"" position when you enter the edge buffer","shows a mini cursor at the ""real"" position when you enter the edge buffer",本当のカーソル位置を表示する
-Follow Buffer Cursor,Follow Buffer Cursor,
-makes the parallax follow the buffer cursor instead of the real one,makes the parallax follow the buffer cursor instead of the real one,
+Buffer Cursor,Buffer Cursor,バッファーカーソル
+"shows a mini cursor at the ""real"" position when you enter the edge buffer","shows a mini cursor at the ""real"" position when you enter the edge buffer",ドリフトがついてる時本当のカーソル位置を小さく表示する
+Follow Buffer Cursor,Follow Buffer Cursor,ドリフトに付いて行く
+makes the parallax follow the buffer cursor instead of the real one,makes the parallax follow the buffer cursor instead of the real one,視差をドリフトカーソルに合わせる
 Field of View,Field of View,視野（FOV)
 [def. 70] you know what this does,[def. 70] you know what this does,[デフォルト７０]
 Hit FOV,Hit FOV,ヒットFOV
@@ -151,205 +171,206 @@ Hit FOV Modes,Hit FOV Modes,ヒットＦＯＶの設定
 Normal,Normal,ノーマル
 Additive,Additive,累積
 Exponential,Exponential,指数増加
-Mode: Additive,Mode: Additive,
-Hit FOV Amplifier,Hit FOV Amplifier,
-[def. 2] how intense is the hit FOV pulsing is,[def. 2] how intense is the hit FOV pulsing is,
-Hit FOV Decay,Hit FOV Decay,
-[def. 20] how long it takes for hit FOV pulsing to wear-off,[def. 20] how long it takes for hit FOV pulsing to wear-off,
-Customization,Customization,
-Background World,Background World,
-background and environment used in the song player,background and environment used in the song player,
-Disable BG Effects,Disable BG Effects,
-only affects The Grid for now,only affects The Grid for now,
-Custom World BG,Custom World BG,
-"this is the background for the ""Custom Background"" world","this is the background for the ""Custom Background"" world",
-Cursor Image,Cursor Image,
-"ah, the cursor, arguably the most important part of this game.","ah, the cursor, arguably the most important part of this game.",
-Color Mode,Color Mode,
-how the cursor will be colored,how the cursor will be colored,
-Color,Color,
-"[def. #ffffff] color used for ""Single Color""","[def. #ffffff] color used for ""Single Color""",
-Cursor Scale,Cursor Scale,
-[def. 1] cursor size multiplier (doesn't affect hitboxes),[def. 1] cursor size multiplier (doesn't affect hitboxes),
-Cursor Spin,Cursor Spin,
-[def. 0°] makes the cursor image rotate,[def. 0°] makes the cursor image rotate,
-Cursor Trail,Cursor Trail,
-many of you have asked so i shall deliver,many of you have asked so i shall deliver,
-Smart Trail,Smart Trail,
-makes the trail smooth by using distance moved to spawn particles instead of having a constant number,makes the trail smooth by using distance moved to spawn particles instead of having a constant number,
-Trail Fade Mode,Trail Fade Mode,
-how the trail will fade out,how the trail will fade out,
-Trail Detail,Trail Detail,
-[def. 10] number of particles in the cursor trail / (smart trail) number spawned per grid unit,[def. 10] number of particles in the cursor trail / (smart trail) number spawned per grid unit,
-Trail Time,Trail Time,
-[def. 0.15] how long the cursor trail lasts in seconds,[def. 0.15] how long the cursor trail lasts in seconds,
-Touch Indicator,Touch Indicator,
-this is the image that shows up under your finger on a touchscreen,this is the image that shows up under your finger on a touchscreen,
-Graphics & Advanced,Graphics & Advanced,
-Render Scale,Render Scale,
-"GUI scale, higher = smaller","GUI scale, higher = smaller",
-Vsync,Vsync,
-makes the game smoother at the cost of slightly increased input lag,makes the game smoother at the cost of slightly increased input lag,
-Fullscreen,Fullscreen,
-"because you don't have anything else to focus on, do you?","because you don't have anything else to focus on, do you?",
-Auto-Maximize,Auto-Maximize,
-you might wanna turn this thing off if you're on an ultrawide display,you might wanna turn this thing off if you're on an ultrawide display,
-Show Warnings,Show Warnings,
-turning this off disables the warnings for things like high trail detail or unhittable hitwindows,turning this off disables the warnings for things like high trail detail or unhittable hitwindows,
-FPS Limit,FPS Limit,
-[0 = no limit] puts a limit on the framerate; use this if ssp is using 100% gpu,[0 = no limit] puts a limit on the framerate; use this if ssp is using 100% gpu,
-Audio,Audio,
-Master Volume,Master Volume,
-overall volume,overall volume,
-Music Volume,Music Volume,
-music volume,music volume,
-Hit Volume,Hit Volume,
-hit sound volume,hit sound volume,
-Miss Volume,Miss Volume,
-miss sound volume,miss sound volume,
-Fail Volume,Fail Volume,
-fail sound volume,fail sound volume,
-PB Volume,PB Volume,
-new best sound volume,new best sound volume,
-Hit Sound,Hit Sound,
-"customize this with a ""hit.mp3"" file in your save directory","customize this with a ""hit.mp3"" file in your save directory",
-Miss Sound,Miss Sound,
-"customize this with a ""miss.mp3"" file in your save directory","customize this with a ""miss.mp3"" file in your save directory",
-Disable Directional,Disable Directional,
-makes the hit/miss sounds non-directional,makes the hit/miss sounds non-directional,
-Universal Offset,Universal Offset,
-[def. 0 ms] offsets the music from the actual map (positive = music starts earlier),[def. 0 ms] offsets the music from the actual map (positive = music starts earlier),
-Menu Music,Menu Music,
-"customize this with a ""menu.mp3"" file in your save directory (default song by pyrule)","customize this with a ""menu.mp3"" file in your save directory (default song by pyrule)",
-Auto Preview Songs,Auto Preview Songs,
+Mode: Additive,Mode: Additive,モード：
+Hit FOV Amplifier,Hit FOV Amplifier,ヒットFOVの強さ
+[def. 2] how intense is the hit FOV pulsing is,[def. 2] how intense is the hit FOV pulsing is,[デフォルト２]ノーツをヒットした時のFOV反動の強さ
+Hit FOV Decay,Hit FOV Decay,ヒットFOVの減衰
+[def. 20] how long it takes for hit FOV pulsing to wear-off,[def. 20] how long it takes for hit FOV pulsing to wear-off,[デフォルト２０]ヒットFOVの反動が消えるまでの時間
+Customization,Customization,カスタマイズ
+Background World,Background World,背景
+background and environment used in the song player,background and environment used in the song player,メニューやゲーム中の背景
+Disable BG Effects,Disable BG Effects,背景を消す
+only affects The Grid for now,only affects The Grid for now,今はグリッドの背景しか変化しない
+Custom World BG,Custom World BG,カスタム背景
+"this is the background for the ""Custom Background"" world","this is the background for the ""Custom Background"" world",Custum Backgroundを選択したときの背景
+Cursor Image,Cursor Image,カーソルイメージ
+"ah, the cursor, arguably the most important part of this game.","ah, the cursor, arguably the most important part of this game.",カーソルに映るイメージを変える
+Color Mode,Color Mode,カーソルの色設定
+how the cursor will be colored,how the cursor will be colored,ヒット時カーソルの色の変更
+Color,Color,色
+"[def. #ffffff] color used for ""Single Color""","[def. #ffffff] color used for ""Single Color""","[デフォルト＃ffffff] ""Single Color""に使われる色"
+Cursor Scale,Cursor Scale,カーソルの大きさ
+[def. 1] cursor size multiplier (doesn't affect hitboxes),[def. 1] cursor size multiplier (doesn't affect hitboxes),[デフォルト１]カーソルの大きさを変える(当たり判定は変わらない）
+Cursor Spin,Cursor Spin,カーソル回転
+[def. 0°] makes the cursor image rotate,[def. 0°] makes the cursor image rotate,[デフォルト０°]カーソルのイメージが回転する
+Cursor Trail,Cursor Trail,カーソル軌跡
+many of you have asked so i shall deliver,many of you have asked so i shall deliver,カーソルを追う線
+Smart Trail,Smart Trail,スマートな軌跡
+makes the trail smooth by using distance moved to spawn particles instead of having a constant number,makes the trail smooth by using distance moved to spawn particles instead of having a constant number,パーティクルのスポーンに一定数ではなく移動距離を使用することで軌跡を滑らかにする
+Trail Fade Mode,Trail Fade Mode,軌跡フェードモード
+how the trail will fade out,how the trail will fade out,どれだけ軌跡がフェードアウトするか
+Trail Detail,Trail Detail,残像の詳細
+[def. 10] number of particles in the cursor trail / (smart trail) number spawned per grid unit,[def. 10] number of particles in the cursor trail / (smart trail) number spawned per grid unit,[デフォルト 10]カーソルの軌跡のパーティクル数 / (スマート軌跡)1グリッド単位あたりの生成数
+Trail Time,Trail Time,軌跡
+[def. 0.15] how long the cursor trail lasts in seconds,[def. 0.15] how long the cursor trail lasts in seconds,[デフォルト 0.15] 軌跡が何秒間残るか
+Touch Indicator,Touch Indicator,タッチインジケーター
+this is the image that shows up under your finger on a touchscreen,this is the image that shows up under your finger on a touchscreen,画面をタッチしたとき指の下に表示される画像
+Graphics & Advanced,Graphics & Advanced,グラフィック設定
+Render Scale,Render Scale,レンダースケール
+"GUI scale, higher = smaller","GUI scale, higher = smaller",GUIスケール higher = smaller
+Vsync,Vsync,Vsync
+makes the game smoother at the cost of slightly increased input lag,makes the game smoother at the cost of slightly increased input lag,入力ラグがわずかに増加する代償としてゲームがよりスムーズになる
+Fullscreen,Fullscreen,フルスクリーン
+"because you don't have anything else to focus on, do you?","because you don't have anything else to focus on, do you?",他に集中する事が無いからだろ？
+Auto-Maximize,Auto-Maximize,自動最大化
+you might wanna turn this thing off if you're on an ultrawide display,you might wanna turn this thing off if you're on an ultrawide display,ウルトラワイドディスプレイを使っている人はこれをオフにしたほうがいいかもしれない
+Show Warnings,Show Warnings,警告を表示
+turning this off disables the warnings for things like high trail detail or unhittable hitwindows,turning this off disables the warnings for things like high trail detail or unhittable hitwindows,これをオフにすると軌跡の詳細やヒットウィンドウがヒットしない場合などの警告が無効になります。
+FPS Limit,FPS Limit,FPS制限
+[0 = no limit] puts a limit on the framerate; use this if ssp is using 100% gpu,[0 = no limit] puts a limit on the framerate; use this if ssp is using 100% gpu,[0 = 制限無し] FPSを制限する　もしsspがGPUを100％使用していたら制限してください
+Audio,Audio,音声
+Master Volume,Master Volume,マスターボリューム
+overall volume,overall volume,全体のボリューム
+Music Volume,Music Volume,曲のボリューム
+music volume,music volume,曲のボリューム
+Hit Volume,Hit Volume,ヒットボリューム
+hit sound volume,hit sound volume,ヒットサウンドボリューム
+Miss Volume,Miss Volume,ミスボリューム
+miss sound volume,miss sound volume,ミスサウンドボリューム
+Fail Volume,Fail Volume,失敗ボリューム
+fail sound volume,fail sound volume,失敗サウンドボリューム
+PB Volume,PB Volume,PBボリューム
+new best sound volume,new best sound volume,ニューベストサウンドボリューム
+Hit Sound,Hit Sound,ヒットサウンド
+"customize this with a ""hit.mp3"" file in your save directory","customize this with a ""hit.mp3"" file in your save directory","音に""hit.mp3""と名前を付けセーブディレクトリに入れるとその音になる"
+Miss Sound,Miss Sound,ミスサウンド
+"customize this with a ""miss.mp3"" file in your save directory","customize this with a ""miss.mp3"" file in your save directory","音に""miss.mp3""と名前を付けセーブディレクトリに入れるとその音になる"
+Disable Directional,Disable Directional,指向性サウンドを無効にする
+makes the hit/miss sounds non-directional,makes the hit/miss sounds non-directional,hit/miss　の指向性を無効にする
+Universal Offset,Universal Offset,ユニバーサルオフセット
+[def. 0 ms] offsets the music from the actual map (positive = music starts earlier),[def. 0 ms] offsets the music from the actual map (positive = music starts earlier),[デフォルト .0ms] 実際のマップから音楽をオフセットする (positive = 音楽の開始が早い)
+Menu Music,Menu Music,メニュー音楽
+"customize this with a ""menu.mp3"" file in your save directory (default song by pyrule)","customize this with a ""menu.mp3"" file in your save directory (default song by pyrule)","曲に""menu.mp3""と名前を付けセーブディレクトリに入れるとその曲になる(デフォルトソングby pyrule)"
+Auto Preview Songs,Auto Preview Songs,自動プレビュー再生
 automatically play previews when a song is selected,automatically play previews when a song is selected,マップを選ぶと自動的に音楽が流れる
-UI Components,UI Components,
+UI Components,UI Components,UI設定
 Enable Grid,Enable Grid,グリッドを表示
-turns the note grid on or off,turns the note grid on or off,
+turns the note grid on or off,turns the note grid on or off,ノートのグリッドをオンまたはオフにする
 Enable Border,Enable Border,画面の端を表示
-turns the note grid border on or off,turns the note grid border on or off,
-Simple HUD,Simple HUD,
-changes the side panels to show only your misses and pauses,changes the side panels to show only your misses and pauses,
-Show Letter Grade,Show Letter Grade,
-"shows a letter grade (SS, S, A, etc.) above your accuracy","shows a letter grade (SS, S, A, etc.) above your accuracy",
-Show Settings,Show Settings,
-"shows your approach rate, hit window, and camera config at the start of songs (to show off)","shows your approach rate, hit window, and camera config at the start of songs (to show off)",
-Display True Combo,Display True Combo,
-displays the real value of your combo behind the grid,displays the real value of your combo behind the grid,
-Show Energy,Show Energy,
-i don't understand why you'd turn this off but people have asked so here you go,i don't understand why you'd turn this off but people have asked so here you go,
-Show Timer,Show Timer,
-tells you how far into a song you are (and the name of the song),tells you how far into a song you are (and the name of the song),
-Accuracy Bar,Accuracy Bar,
-shows your accuracy on a progress bar,shows your accuracy on a progress bar,
-Show Left Panel,Show Left Panel,
-"contains: combo meter, pause counter, accuracy","contains: combo meter, pause counter, accuracy",
-Show Right Panel,Show Right Panel,
-"contains; framerate, miss counter, notes hit / total notes","contains; framerate, miss counter, notes hit / total notes",
-Show Cursor,Show Cursor,
-"to prevent issues where people forget the turned the cursor off, this doesn't save","to prevent issues where people forget the turned the cursor off, this doesn't save",
-Attach Energy to Grid,Attach Energy to Grid,
-attaches your health bar + modifiers to the note grid,attaches your health bar + modifiers to the note grid,
-Attach Timer to Grid,Attach Timer to Grid,
-attaches the timer + song name to the note grid,attaches the timer + song name to the note grid,
-Score Popup,Score Popup,
-show the score you get from hitting a note at the bottom of the grid,show the score you get from hitting a note at the bottom of the grid,
-Billboard Popup,Billboard Popup,
-apply a billboard effect to the score popup,apply a billboard effect to the score popup,
-UI Colors,UI Colors,
-Theme Presets,Theme Presets,
-Classic,Classic,
-Inverted,Inverted,
-Rainbow Grid,Rainbow Grid,
-makes the grid rainbow,makes the grid rainbow,
-Rainbow HUD,Rainbow HUD,
-makes literally your entire HUD rainbow,makes literally your entire HUD rainbow,
-Panel Background,Panel Background,
-[def. 9b000000] background color of the left and right panels,[def. 9b000000] background color of the left and right panels,
+turns the note grid border on or off,turns the note grid border on or off,ノートのグリッドの境界線をオンまたはオフにする
+Simple HUD,Simple HUD,シンプルHUD 
+changes the side panels to show only your misses and pauses,changes the side panels to show only your misses and pauses,ミスとポーズだけを表示するようにサイドパネルを変更する
+Show Letter Grade,Show Letter Grade,グレードを表示する
+"shows a letter grade (SS, S, A, etc.) above your accuracy","shows a letter grade (SS, S, A, etc.) above your accuracy","SS, S, A, etc 　これらのグレードを表示"
+Show Settings,Show Settings,設定を表示
+"shows your approach rate, hit window, and camera config at the start of songs (to show off)","shows your approach rate, hit window, and camera config at the start of songs (to show off)",曲のはじめに approach rate. hit window. camera設定. を表示する(見せびらかすため)
+Display True Combo,Display True Combo,コンボ数を表示
+displays the real value of your combo behind the grid,displays the real value of your combo behind the grid,グリッドの後ろにコンボ数を表示
+Show Energy,Show Energy,HPを表示
+i don't understand why you'd turn this off but people have asked so here you go,i don't understand why you'd turn this off but people have asked so here you go,これをオフにする理由は分からないが、どうやってオフにするかを聞かれたので
+Show Timer,Show Timer,タイマーを表示
+tells you how far into a song you are (and the name of the song),tells you how far into a song you are (and the name of the song),曲名と曲のどこまでプレイしたかを表示
+Accuracy Bar,Accuracy Bar,精度バー
+shows your accuracy on a progress bar,shows your accuracy on a progress bar,進行バーの上に精度を表示
+Show Left Panel,Show Left Panel,左のパネルを表示
+"contains: combo meter, pause counter, accuracy","contains: combo meter, pause counter, accuracy",コンボメーター ポーズカウンター 精度 が含まれています
+Show Right Panel,Show Right Panel,右のパネルを表示
+"contains; framerate, miss counter, notes hit / total notes","contains; framerate, miss counter, notes hit / total notes",フレームレート ミスカウンター ノートヒット/トータルノート が含まれています
+Show Cursor,Show Cursor,カーソルを表示
+"to prevent issues where people forget the turned the cursor off, this doesn't save","to prevent issues where people forget the turned the cursor off, this doesn't save","誰かがカーソルをオフにしたことを忘れてしまう問題を防ぐ (これはセーブされません)
+"
+Attach Energy to Grid,Attach Energy to Grid,HPをグリッドに付ける
+attaches your health bar + modifiers to the note grid,attaches your health bar + modifiers to the note grid,ヘルスバートモディファイヤーをノートグリッドに付ける
+Attach Timer to Grid,Attach Timer to Grid,タイマーをグリッドに付ける
+attaches the timer + song name to the note grid,attaches the timer + song name to the note grid,タイマー＋曲名をノートグリッドに付ける 
+Score Popup,Score Popup,スコアポップアップ
+show the score you get from hitting a note at the bottom of the grid,show the score you get from hitting a note at the bottom of the grid,グリッドの下にhitして手にいれたスコアを表示します
+Billboard Popup,Billboard Popup,看板ポップアップ
+apply a billboard effect to the score popup,apply a billboard effect to the score popup,スコアポップアップに看板効果を適応する
+UI Colors,UI Colors,UIの色
+Theme Presets,Theme Presets,それらのプリセット
+Classic,Classic,クラシック
+Inverted,Inverted,反転した
+Rainbow Grid,Rainbow Grid,レインボーグリッド
+makes the grid rainbow,makes the grid rainbow,グリッドをレインボーにする
+Rainbow HUD,Rainbow HUD,レインボーHUD
+makes literally your entire HUD rainbow,makes literally your entire HUD rainbow,文字通りHUD全体をレインボーにする
+Panel Background,Panel Background,パネル背景
+[def. 9b000000] background color of the left and right panels,[def. 9b000000] background color of the left and right panels,[デフォルト 9b000000] 左と右のパネルの背景色
 Panel Text,Panel Text,
-[def. ffffff] color of any text on panels that doesn't have its own setting,[def. ffffff] color of any text on panels that doesn't have its own setting,
+[def. ffffff] color of any text on panels that doesn't have its own setting,[def. ffffff] color of any text on panels that doesn't have its own setting,[デフォルト ffffff] 独自の設定を持っていないパネル上のテキストの色 
 Score Counter,Score Counter,
-[def. ffffff] text color of the score counter,[def. ffffff] text color of the score counter,
+[def. ffffff] text color of the score counter,[def. ffffff] text color of the score counter,[デフォルト ffffff] スコアカウンターのテキストカラー
 Pause UI Opacity,Pause UI Opacity,
-"[def. 0.75] opacity of the ""paused"" screen","[def. 0.75] opacity of the ""paused"" screen",
-"""PAUSED""","""PAUSED""",
-"[def. 684400] text color of the ""paused"" message, empty color of unpause progress bar","[def. 684400] text color of the ""paused"" message, empty color of unpause progress bar",
-"""PAUSED"" (Unpausing)","""PAUSED"" (Unpausing)",
-[def. 80fff3] fill color of unpause progress bar,[def. 80fff3] fill color of unpause progress bar,
-"""Hold R to exit""","""Hold R to exit""",
-[def. ffdb00] text color of the give up hint,[def. ffdb00] text color of the give up hint,
-Combo Wheel - Fill,Combo Wheel - Fill,
-[def. 7bfff3] fill color of the combo display wheel,[def. 7bfff3] fill color of the combo display wheel,
-Combo Wheel - Empty,Combo Wheel - Empty,
-[def. b94b4b4b] empty color of the combo display wheel,[def. b94b4b4b] empty color of the combo display wheel,
-Accuracy Bar - Fill,Accuracy Bar - Fill,
+"[def. 0.75] opacity of the ""paused"" screen","[def. 0.75] opacity of the ""paused"" screen",[デフォルト 0.75] 一時停止画面の不透明度
+"""PAUSED""","""PAUSED""","""一時停止"""
+"[def. 684400] text color of the ""paused"" message, empty color of unpause progress bar","[def. 684400] text color of the ""paused"" message, empty color of unpause progress bar","[デフォルト 684400] ""一時停止した""を満たす色  一時停止解除進行バーの空の色"
+"""PAUSED"" (Unpausing)","""PAUSED"" (Unpausing)","""一時停止""(解除)"
+[def. 80fff3] fill color of unpause progress bar,[def. 80fff3] fill color of unpause progress bar,[デフォルト 80fff3]　一時停止解除進行バーを満たす色
+"""Hold R to exit""","""Hold R to exit""",""" R 長押しで終了"""
+[def. ffdb00] text color of the give up hint,[def. ffdb00] text color of the give up hint,[デフォルト ffdb00] 諦めるヒントの色
+Combo Wheel - Fill,Combo Wheel - Fill,コンボホイール - 満
+[def. 7bfff3] fill color of the combo display wheel,[def. 7bfff3] fill color of the combo display wheel,[デフォルト 7bfff3] コンボ表示ホイールを満たす色
+Combo Wheel - Empty,Combo Wheel - Empty,コンボホイール - 空
+[def. b94b4b4b] empty color of the combo display wheel,[def. b94b4b4b] empty color of the combo display wheel,[デフォルト b94b4b4b] コンボ表示ホイールの空の色
+Accuracy Bar - Fill,Accuracy Bar - Fill,精度バー － 満
 [def. 8cff00] fill color of the accuracy display bar,[def. 8cff00] fill color of the accuracy display bar,[デフォルト 8cff00] 精度バーを満たす色
-Accuracy Bar - Empty,Accuracy Bar - Empty,
+Accuracy Bar - Empty,Accuracy Bar - Empty,精度バー - 空
 [def. b08f8f8f] empty color of the accuracy display bar,[def. b08f8f8f] empty color of the accuracy display bar,[デフォルト b08f8f8f] 精度バーの空の色
-"""Giving up...""","""Giving up...""",
+"""Giving up...""","""Giving up...""","""諦める...."""
 "[def. ffffff] text color of the ""Giving up..."" and ""Skipping..."" messages","[def. ffffff] text color of the ""Giving up..."" and ""Skipping..."" messages","[デフォルト ffffff] ""諦める""と""スキップ中""の文字の色"
-Exit Wheel (Give up),Exit Wheel (Give up),
+Exit Wheel (Give up),Exit Wheel (Give up),終了ホイール(諦める)
 [def. ff8f2c] fill color of the exit progress wheel (before end of song),[def. ff8f2c] fill color of the exit progress wheel (before end of song),[デフォルト ff8f2c] 終了進行ホイールを満たす色(曲が終わる前)
-Exit Wheel (Skip),Exit Wheel (Skip),
+Exit Wheel (Skip),Exit Wheel (Skip),終了ホイール(スキップ)
 [def. 81ff75] fill color of the exit progress wheel (after end of song),[def. 81ff75] fill color of the exit progress wheel (after end of song),[デフォルト 81ff75] 終了進行ホイールを満たす色(曲が終わった後)
-Timer Text (Normal),Timer Text (Normal),
+Timer Text (Normal),Timer Text (Normal),タイマーテキスト(普通)
 [def. ffffff] text color of the song name and time display,[def. ffffff] text color of the song name and time display,[デフォルト ffffff] 曲の名前と時間表示のカラー
-Timer Text (End),Timer Text (End),
+Timer Text (End),Timer Text (End),タイマーテキスト(終わり)
 [def. 77ff77] text color of the song name and time display (after end of song),[def. 77ff77] text color of the song name and time display (after end of song),[デフォルト 77ff77] 曲の名前と時間表示のカラー（曲が終わった後)
-Timer Text (Skip),Timer Text (Skip),
+Timer Text (Skip),Timer Text (Skip),タイマーテキスト(スキップ)
 [def. b3ffff] text color of the song name and time display (when skipping is possible),[def. b3ffff] text color of the song name and time display (when skipping is possible),[デフォルト  b3ffff] 曲の名前と時間表示のカラー(スキップ可能時)
-Timer - Fill (Normal),Timer - Fill (Normal),
+Timer - Fill (Normal),Timer - Fill (Normal),タイマー - 満(普通)
 [def. ffffff] fill color of timer progress bar,[def. ffffff] fill color of timer progress bar,[デフォルト  ffffff] 進行バーのタイマーを満たす色
-Timer - Empty (Normal),Timer - Empty (Normal),
+Timer - Empty (Normal),Timer - Empty (Normal),タイマー - 空(普通)
 [def. af8f8f8f] empty color of timer progress bar,[def. af8f8f8f] empty color of timer progress bar,[デフォルト  af8f8f8f] 進行バーのタイマーの空の色
-Timer - Fill (End),Timer - Fill (End),
+Timer - Fill (End),Timer - Fill (End),タイマー - 満(終わり)
 [def. 25bf00] fill color of timer progress bar (after end of song),[def. 25bf00] fill color of timer progress bar (after end of song),[デフォルト 25bf00] 進行バーのタイマーを満たす色(曲が終わった後）
-Timer - Empty (End),Timer - Empty (End),
+Timer - Empty (End),Timer - Empty (End),タイマー - 空(終わり)
 [def. af008bf00] empty color of timer progress bar (after end of song),[def. af008bf00] empty color of timer progress bar (after end of song),[デフォルト  af008bf00] 進行バーのタイマーの空の色(曲が終わった後)
-Timer - Fill (Skip),Timer - Fill (Skip),
+Timer - Fill (Skip),Timer - Fill (Skip),タイマー - 満(スキップ)
 [def. b3ffff] fill color of timer progress bar (when skipping is possible),[def. b3ffff] fill color of timer progress bar (when skipping is possible),[デフォルト  63ffff] 進行バーのタイマーを満たす色(スキップ可能時)
-Timer - Empty (Skip),Timer - Empty (Skip),
+Timer - Empty (Skip),Timer - Empty (Skip),タイマー - 空(スキップ)
 [def. b0638f8f] empty color of timer progress bar (when skipping is possible),[def. b0638f8f] empty color of timer progress bar (when skipping is possible),[デフォルト  b0638f8f] 進行バーのタイマーの空の色(スキップ可能時)
-Miss Counter,Miss Counter,
+Miss Counter,Miss Counter,ミスカウンター
 [def. ffffff] text color of the miss counter,[def. ffffff] text color of the miss counter,[デフォルト  ffffff] ミスカウンターのテキストの色
-Miss Counter (Flash),Miss Counter (Flash),
+Miss Counter (Flash),Miss Counter (Flash),ミスカウンター(Flash)
 [def. ff0000] miss counter text briefly flashes this color when you get a miss,[def. ff0000] miss counter text briefly flashes this color when you get a miss,[デフォルト  ff0000] ミスしたときに、ミスカウンターのテキストが少しこの色に点滅する
-Pause Counter (Zero),Pause Counter (Zero),
+Pause Counter (Zero),Pause Counter (Zero),ポーズカウンター(Zero)
 [def. ffffff] color of the pause counter (with no pauses),[def. ffffff] color of the pause counter (with no pauses),[デフォルト ffffff] ポーズカウンターの色(ポーズ無し)
-Pause Counter (Used),Pause Counter (Used),
+Pause Counter (Used),Pause Counter (Used),ポーズカウンター(Used)
 [def. ff66ff] color of the pause counter (with at least 1 pause),[def. ff66ff] color of the pause counter (with at least 1 pause),[デフォルト  ff66ff] ポーズカウンターの色 (ポーズ回数が少なくとも１ある時)
-Grade SS - Saturation,Grade SS - Saturation,
+Grade SS - Saturation,Grade SS - Saturation,グレード SS - 彩度
 [def. 0.4] hsv saturation of rainbow effect on grade SS,[def. 0.4] hsv saturation of rainbow effect on grade SS,[デフォルト  0.4] グレードが SS の時のレインボー彩度のHSV値
-Grade SS - Value,Grade SS - Value,
+Grade SS - Value,Grade SS - Value,グレード SS - 値
 [def. 1] hsv value of rainbow effect on grade SS,[def. 1] hsv value of rainbow effect on grade SS,[デフォルト  1]グレードが SS の時のレインボー効果のHSV値
-Grade SS - Shine,Grade SS - Shine,
+Grade SS - Shine,Grade SS - Shine,グレード SS - 光
 [def. 1] level of shine shader when grade is SS,[def. 1] level of shine shader when grade is SS,[デフォルト  1] グレードが SS の時のグローレベル
-Grade S - Color,Grade S - Color,
+Grade S - Color,Grade S - Color,グレード S - 色
 [def. 91fffa] color of text when grade is S,[def. 91fffa] color of text when grade is S,[デフォルト  91fffa] グレードが S の時の色
-Grade S - Shine,Grade S - Shine,
+Grade S - Shine,Grade S - Shine,グレード S - 光
 [def. 0.5] level of shine shader when grade is S,[def. 0.5] level of shine shader when grade is S,[デフォルト  0.5] グレードが S の時のグローレベル
-Grade A - Color,Grade A - Color,
+Grade A - Color,Grade A - Color,グレード A - 色
 [def. 91ff92] color of text when grade is A,[def. 91ff92] color of text when grade is A,[デフォルト  91ff92] グレードが A の時の色
-Grade B - Color,Grade B - Color,
+Grade B - Color,Grade B - Color,グレード B - 色
 [def. e7ffc0] color of text when grade is B,[def. e7ffc0] color of text when grade is B,[デフォルト  e7ffc0] グレードが B の時の色
-Grade C - Color,Grade C - Color,
+Grade C - Color,Grade C - Color,グレード C -色
 [def. fcf7b3] color of text when grade is C,[def. fcf7b3] color of text when grade is C,[デフォルト  fcf7b3] グレードが C の時の色
-Grade D - Color,Grade D - Color,
+Grade D - Color,Grade D - Color,グレード D - 色
 [def. fcd0b3] color of text when grade is D,[def. fcd0b3] color of text when grade is D,[デフォルト  fcd0b3] グレードが D の時の色
-Grade F - Color,Grade F - Color,
+Grade F - Color,Grade F - Color,グレード F - 色
 [def. ff8282] color of text when grade is F,[def. ff8282] color of text when grade is F,[デフォルト  ff8282] グレードが F の時の色
 Experimental,Experimental,実験的
 WARNING,WARNING,警告
 "These features aren't completely ready yet, and could be very buggy, unstable, or just not work at all. Use them at your own risk.","These features aren't completely ready yet, and could be very buggy, unstable, or just not work at all. Use them at your own risk.",これらの機能はまだ完全に出来上がっていないため、不安定であったり全く機能しない可能性があります　自己責任で使用してください
-Ensure Hitsync,Ensure Hitsync,
-ensure that hitsounds are always (near-perfectly) synced to the map,ensure that hitsounds are always (near-perfectly) synced to the map,
+Ensure Hitsync,Ensure Hitsync,ヒットシンクを確保
+ensure that hitsounds are always (near-perfectly) synced to the map,ensure that hitsounds are always (near-perfectly) synced to the map,ヒット音が常に（ほぼ完璧に）マップに同期するようにする
 Retain Song Pitch,Retain Song Pitch,曲のピッチを維持
 "while this is enabled, speed modifiers will not impact the pitch of the beatmap's music","while this is enabled, speed modifiers will not impact the pitch of the beatmap's music",これが有効になっている間は、スピードモディファイアはビートマップの音楽のピッチに影響を与えない
 Show Extensive Stats,Show Extensive Stats,広範な統計を表示
 [UNFINISHED] displays some additional statistics about your gameplay while ingame,[UNFINISHED] displays some additional statistics about your gameplay while ingame,"""未完成"" ゲーム中にゲームプレイに関する追加の統計情報を表示"
 Play Intro Cutscene,Play Intro Cutscene,イントロカットシーンを再生
 Replay,Replay,リプレイ
-replays the intro cutscene,replays the intro cutscene,
+replays the intro cutscene,replays the intro cutscene,イントロカットシーンをリプレイする
 Disable Intro Cutscene,Disable Intro Cutscene,イントロカットシーンを無効にする
 disables the intro cutscene,disables the intro cutscene,イントロカットシーンを無効にする
 "Development mode is active, game mods will not be used.","Development mode is active, game mods will not be used.",開発者モードを有効　モッドは使用されません
@@ -402,12 +423,12 @@ No PB,No PB,PBなし
 [ NOFAIL ACTIVE ],[ NOFAIL ACTIVE ],[失敗なしオン]
 Mirror,Mirror,フリップ
 Vulnus Judgement,Vulnus Judgement,Vulnusヒットウインドー
-You failed!,You failed!,失敗した!
+You failed!,You failed!,失敗!
 Inverted Mouse,Inverted Mouse,マウスフリップ
 Personal Best,Personal Best,自己ベスト
 Best Attempt,Best Attempt,一番の試み
 You passed!,You passed!,クリアした!
 New best!,New best!,ニューベスト!
-Replay passed,Replay passed,
+Replay passed,Replay passed,リプレイ通過
 FULL COMBO,FULL COMBO,フルコンボ
 NO COMBO,NO COMBO,ノーコンボ
