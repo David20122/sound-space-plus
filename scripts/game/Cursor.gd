@@ -39,7 +39,7 @@ func move_cursor(mdel:Vector2):
 	var cy = ry
 
 	if Rhythia.mod_hardrock:
-		var hard_cock = edgec - 0.555
+		var hard_cock = edgec - 0.6
 		cx = clamp(cx, (0 + sh.x + hard_cock), (3 + sh.x - hard_cock))
 		cy = clamp(cy, (0 + sh.y + hard_cock), (3 + sh.y - hard_cock))
 	else:
@@ -65,7 +65,7 @@ func move_cursor_abs(mdel:Vector2):
 	var cy = ry
 
 	if Rhythia.mod_hardrock:
-		var hard_cock = edgec - 0.555
+		var hard_cock = edgec - 0.6
 		cx = clamp(cx, (0 + sh.x + hard_cock), (3 + sh.x - hard_cock))
 		cy = clamp(cy, (0 + sh.y + hard_cock), (3 + sh.y - hard_cock))
 	else:
