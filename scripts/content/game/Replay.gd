@@ -96,7 +96,7 @@ func read_data(from_path:String=""):
 			debug_txt.reserved_1 = file.get_64()
 			if sv >= 4: debug_txt.replay_hwid = file.get_line()
 			id = file.get_line()
-			var song_id = id.split(".")[0]
+			var song_id = id.substr(0, id.find_last(".")).substr(0, id.find_last("."))
 			var fsong = Rhythia.registry_song.get_item(song_id)
 			
 			debug_txt.replay_id = id
