@@ -53,7 +53,7 @@ func check_txt_requirements():
 	else:
 		if Rhythia.registry_song.idx_id.has(song.id) and !Rhythia.registry_song.get_item(song.id).is_online:
 			$TxtFile/done.disabled = true
-			$TxtFile/done/Title.text = "ID in use"
+			$TxtFile/done/Title.text = tr("ID in use")
 		else:
 			$TxtFile/done.disabled = false
 			$TxtFile/done/Title.text = "Finish"
