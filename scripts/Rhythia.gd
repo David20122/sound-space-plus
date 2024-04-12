@@ -1794,16 +1794,6 @@ func register_worlds():
 		"res://assets/worlds/covers/vaporwave.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
-		"ssp_seifuku", "Seifuku (TW: Gore)",
-		"res://assets/worlds/seifuku.tscn", "pyrule",
-		"res://assets/worlds/seifuku/scum.png"
-	))
-	registry_world.add_item(BackgroundWorld.new(
-		"ssp_seifuku_blurred", "Seifuku Blurred",
-		"res://assets/worlds/seifukub.tscn", "pyrule",
-		"res://assets/worlds/seifuku/scumb.png"
-	))
-	registry_world.add_item(BackgroundWorld.new(
 		"ssp_tri_tunnel", "Tri-Tunnel",
 		"res://assets/worlds/tri_tunnel.tscn", "Lexus, pyrule",
 		"res://assets/worlds/tri_tunnel/cover.png"
