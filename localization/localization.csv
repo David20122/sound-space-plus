@@ -1,24 +1,24 @@
 keys,en,ja
 ENGLISH,English,English
 JAPANESE,日本語,日本語
-Select Language,Select Language,言語を選ぶ
+Select Language,Select Language,言語を選択
 Back,Back,戻る
 Start!,Start!,スタート
 Favorite,Favorite,お気に入り
 Favorited!,Favorited!,お気に入り追加済み
 Play Music,Play Music,音楽を聴く
 Stop Playing,Stop Playing,聴くのをやめる
-Speed,Speed,スピード
+Speed,Speed,速さ
 MISSES,MISSES,ミス
-PAUSES,PAUSES,ストップ
-No Pauses,No Pauses,ストップなし
-PROGRESS,PROGRESS,プログレス
+PAUSES,PAUSES,一時停止
+No Pauses,No Pauses,一時停止なし
+PROGRESS,PROGRESS,進行度
 ACCURACY,ACCURACY,精度
 MAX COMBO,MAX COMBO,最高コンボ
-Modifiers,Modifiers,モッド
-Map by,Map by,マッパー
-Song ID,Song ID,曲のID
-Nofail,Nofail,失敗なし
+Modifiers,Modifiers,Mods
+Map by,Map by,制作者:
+Song ID,Song ID,ID:
+Nofail,Nofail,無敵
 Sudden Death,Sudden Death,即死
 Extra Energy,Extra Energy,HP増加
 Easy Mode,Easy Mode,イージーモード
@@ -28,165 +28,176 @@ Mirror X,Mirror X,X軸反転
 Mirror Y,Mirror Y,Y軸反転
 Earthquake,Earthquake,地震
 Ghost,Ghost,ゴースト
-Chaos,Chaos,カオス
+Chaos,Chaos,カオスモード
 Visual Map Mode,Visual Map Mode,シアターモード
 Masked,Masked,マスク付き
 Invert Mouse,Invert Mouse,マウス反転
 Hard Rock,Hard Rock,ハードロック
 Health Model,Health Model,ヘルスモード
-Start From,Start From,から始める
-NOTES,NOTES,ノート
+Start From,Start From,開始地点
+NOTES,NOTES,ノーツ
 SCORE,SCORE,スコア
-PAUSED,PAUSED,ストップした
-HOLD R TO EXIT,HOLD R TO EXIT,Rを押したままスキップ
+PAUSED,PAUSED,一時停止
+HOLD R TO EXIT,HOLD R TO EXIT,Rキーを長押しでスキップ
 PRESS SPACE TO SKIP,PRESS SPACE TO SKIP,スキップするにはスペースをクリック
-You failed (new best!),You failed (new best!),失敗した　「ニューベスト」
-Default (Sound Space),Default (Sound Space),デフォルト　「Sound Space」
-Default - same as Sound Space,Default - same as Sound Space,デフォルト、Sound Spaceと同じ
-Old (easier),Old (easier),旧「もっと簡単」
-"Old - 6 hp (10 on easy), regen 1 hp/hit","Old - 6 hp (10 on easy), regen 1 hp/hit","旧 - 6 HP (10 HP簡単で), 追加 1 hp/hit"
+You failed (new best!),You failed (new best!),失敗（新記録！）
+Default (Sound Space),Default (Sound Space),デフォルト（Sound Space）
+Default - same as Sound Space,Default - same as Sound Space,デフォルト - Sound Spaceと同じ
+Old (easier),Old (easier),旧（もっと簡単）
+"Old - 6 hp (10 on easy), regen 1 hp/hit","Old - 6 hp (10 on easy), regen 1 hp/hit","旧 - 6 hp (イージーでは10hp), 回復 1hp/hit"
 Giving up...,Giving up...,諦める
 Save,Save,保存
 Open User Folder,Open User Folder,ユーザーフォルダを開く
 Open Replay Folder,Open Replay Folder,リプレイフォルダーを開く
-Reload Content,Reload Content,再起動
+Reload Content,Reload Content,再読み込み
 Disable Pausing,Disable Pausing,一時停止を無効にする
-name says it all,name says it all,名前は明白
+name says it all,name says it all,名前の通り
 Custom Speed Rate,Custom Speed Rate,ノーツ速度
-"[default 100%] used by the custom speed modifier (speed+ mods are 115, 125, 135, and 145)","[default 100%] used by the custom speed modifier (speed+ mods are 115, 125, 135, and 145)",[デフォルト１００]
+"[default 100%] used by the custom speed modifier (speed+ mods are 115, 125, 135, and 145)","[default 100%] used by the custom speed modifier (speed+ mods are 115, 125, 135, and 145)","[デフォルト 100%] カスタム速度Modで使用 (スピードModは115, 125, 135, 145)"
 Hitbox Size,Hitbox Size,ヒットボックスの大きさ
-[def. 1.14] the size of note hitboxes in grid units (hit checking is done at the center of the cursor)   [1.5x = 1.71; 2x = 2.28],[def. 1.14] the size of note hitboxes in grid units (hit checking is done at the center of the cursor)   [1.5x = 1.71; 2x = 2.28],[デフォルト1.14]ノーツの当たり判定の大きさ
+[def. 1.14] the size of note hitboxes in grid units (hit checking is done at the center of the cursor)   [1.5x = 1.71; 2x = 2.28],[def. 1.14] the size of note hitboxes in grid units (hit checking is done at the center of the cursor)   [1.5x = 1.71; 2x = 2.28],[デフォルト 1.14] ノーツのヒットボックスの大きさをグリッド単位で指定（ヒットチェックはカーソルの中心） [1.5x = 1.71; 2x = 2.28]
 Hit Window,Hit Window,ヒット判定
-[def. 55ms] the length of time notes can be hit after reaching the grid   [1.5x = 83; 2x = 110],[def. 55ms] the length of time notes can be hit after reaching the grid   [1.5x = 83; 2x = 110],[デフォルト５５]グリッドに到着した後のヒット判定を変える
+[def. 55ms] the length of time notes can be hit after reaching the grid   [1.5x = 83; 2x = 110],[def. 55ms] the length of time notes can be hit after reaching the grid   [1.5x = 83; 2x = 110],グリッドに到達した後、ノートをヒットできる時間の長さ [基本値 = 55ms、拡張値 = 1.5倍 (83ms)、2倍 (110ms)]
 Counter Speed,Counter Speed,カウンター速度
-alters the hit window to counter the effects of speed mods,alters the hit window to counter the effects of speed mods,ノーツ速度によってヒット判定を変える
+alters the hit window to counter the effects of speed mods,alters the hit window to counter the effects of speed mods,スピードModの影響を打ち消すためにヒット判定を変更する
 Notes,Notes,ノーツ設定
 Note Colors,Note Colors,ノーツの色
 Note Mesh,Note Mesh,ノーツの形
 model used by notes,model used by notes,ノーツのモデル
+Rounded,Rounded,丸い
+Square,Square,四角
+Circle,Circle,円
+Block,Block,ブロック
+Front of Block,Front of Block,ブロックの前面
+Plane,Plane,プレーン
 Note Scale,Note Scale,ノーツの大きさ
-[def. 1] the visual size of the notes (doesn't affect hitboxes),[def. 1] the visual size of the notes (doesn't affect hitboxes),[デフォルト１]ノートの当たり判定は変わりません
-Note Opacity,Note Opacity,ノートの透明度
-[def. 100%] how opaque/transparent/visible the note appears,[def. 100%] how opaque/transparent/visible the note appears,[デフォルト１００％]ノーツの見えやすさを変える
-Approach Rate,Approach Rate,アプローチ速度
-[def. 40] the speed that notes move towards the grid. (note: this will be half of your AR in ss/vulnus),[def. 40] the speed that notes move towards the grid. (note: this will be half of your AR in ss/vulnus),[デフォルト４０]画面に地下ずく速さ
+[def. 1] the visual size of the notes (doesn't affect hitboxes),[def. 1] the visual size of the notes (doesn't affect hitboxes),ノーツの視覚的な大きさ（ヒットボックスには影響しない）
+Note Opacity,Note Opacity,ノーツの透明度
+[def. 100%] how opaque/transparent/visible the note appears,[def. 100%] how opaque/transparent/visible the note appears,[デフォルト 100%] ノーツの不透明度/視認性
+Approach Rate,Approach Rate,接近速度
+[def. 40] the speed that notes move towards the grid. (note: this will be half of your AR in ss/vulnus),[def. 40] the speed that notes move towards the grid. (note: this will be half of your AR in ss/vulnus),[デフォルト 40] ノーツがグリッドに向かって移動する速度。(注：ss/vulnusではARの半分になります。）
 Spawn Distance,Spawn Distance,ノーツの出現距離
-[def. 40] distance from the grid that notes spawn (approach time = SD/AR),[def. 40] distance from the grid that notes spawn (approach time = SD/AR),[デフォルト４０]ノーツの出現開始位置
+[def. 40] distance from the grid that notes spawn (approach time = SD/AR),[def. 40] distance from the grid that notes spawn (approach time = SD/AR),[デフォルト 40］ノーツがスポーンするグリッドからの距離（接近速度＝SD/AR）
 Fade Length,Fade Length,ノーツの出現時間
-[def. 50%] percentage of the spawn distance that notes take to fade from invisible to fully opaque,[def. 50%] percentage of the spawn distance that notes take to fade from invisible to fully opaque,透明から不透明になるまでの距離
+[def. 50%] percentage of the spawn distance that notes take to fade from invisible to fully opaque,[def. 50%] percentage of the spawn distance that notes take to fade from invisible to fully opaque,[デフォルト 50％] ノーツが透明から完全に不透明になるまでのスポーン距離のパーセンテージ
 Do Note Pushback,Do Note Pushback,ノーツプッシュバック
-"while enabled, notes will go past the grid when you miss, instead of always vanishing 0.1 units past the grid","while enabled, notes will go past the grid when you miss, instead of always vanishing 0.1 units past the grid",ミスしたノーツはグリッドを通り過ぎる
+"while enabled, notes will go past the grid when you miss, instead of always vanishing 0.1 units past the grid","while enabled, notes will go past the grid when you miss, instead of always vanishing 0.1 units past the grid",有効になっている場合、ミスしたときにノーツがグリッドを通り過ぎる。
 Half Ghost,Half Ghost,半透明
-useful for patterns that fill the whole screen,useful for patterns that fill the whole screen,画面全体にノートがあるときに役立つ
+useful for patterns that fill the whole screen,useful for patterns that fill the whole screen,画面全体にノーツがあるときに役立つ
 Note Spawn Effect,Note Spawn Effect,ノーツの出現エフェクト
 "alright, fine. no distractions for you.","alright, fine. no distractions for you.",気が散らない！
 Hit Effect Image,Hit Effect Image,ヒットエフェクトのイメージ
-Click to replace,Click to replace,変える
-this image is used by hit effects with an asterisk (*) in their name,this image is used by hit effects with an asterisk (*) in their name,イメージは(*)がついたエフェクトにしか使われません
-Ripple* (no color),Ripple* (no color),画像*(無色)
-Ripple* (note color),Ripple* (note color),画像*(ノーツカラー)
-Ripple* (rainbow),Ripple*(rainbow),画像*(虹色)
-Shards (note color),Shards (note color),クリスタル(ノーツカラー)
-Shards (rainbow),Shards (rainbow),クリスタル(虹色)
-Shards (no color),Shards (no color),クリスタル(無色)
-Miss* (red),Miss* (red),ミス*(赤)
-Miss* (note color),Miss* (note color),ミス*(ノーツカラー)
-Miss* (rainbow),Miss* (rainbow),ミス*(虹色)
-Miss* (no color),Miss* (no color),ミス*(無色)
+Click to replace,Click to replace,クリックで置き換え
+this image is used by hit effects with an asterisk (*) in their name,this image is used by hit effects with an asterisk (*) in their name,この画像は、名前にアスタリスク（*）が含まれるヒットエフェクトで使用されます。
+Ripple* (no color),Ripple* (no color),画像* (無色)
+Ripple* (note color),Ripple* (note color),画像* (ノーツの色)
+Ripple* (rainbow),Ripple*(rainbow),画像* (虹色)
+Shards (note color),Shards (note color),破片 (ノーツの色)
+Shards (rainbow),Shards (rainbow),破片 (虹色)
+Shards (no color),Shards (no color),破片 (無色)
+Miss* (red),Miss* (red),ミス* (赤)
+Miss* (note color),Miss* (note color),ミス* (ノーツの色)
+Miss* (rainbow),Miss* (rainbow),ミス* (虹色)
+Miss* (no color),Miss* (no color),ミス* (無色)
 Hit Effect,Hit Effect,ヒットエフェクト
-effect played when you hit a note,effect played when you hit a note,ヒットエフェクトの色
+effect played when you hit a note,effect played when you hit a note,ノーツを打った際のエフェクト
 Show Hit Effect,Show Hit Effect,ヒットエフェクトを表示
-plays your selected hit effect when you hit a note,plays your selected hit effect when you hit a note,ヒットエフェクトが移るようになる
-Hit Effect at Cursor,Hit Effect at Cursor,カーソル位置にエフェクトを表示
-hit effects will appear at the center of notes when this is off,hit effects will appear at the center of notes when this is off,ノーツの真ん中にエフェクトを表示
+plays your selected hit effect when you hit a note,plays your selected hit effect when you hit a note,ノーツを打った際に選択したヒット・エフェクトを再生する
+Hit Effect at Cursor,Hit Effect at Cursor,カーソルヒットエフェクトを表示
+hit effects will appear at the center of notes when this is off,hit effects will appear at the center of notes when this is off,これがオフの場合、ヒットエフェクトがノーツの中央に表示されます。
 Approach Squares,Approach Squares,アプローチガイド
-squares on the grid that show note approach - similar to the circles in osu!,squares on the grid that show note approach - similar to the circles in osu!,ノーツが近ずくとグリッドに四角を表示-osu!に似ている
+squares on the grid that show note approach - similar to the circles in osu!,squares on the grid that show note approach - similar to the circles in osu!,ノーツの接近を示すグリッド上の正方形 - Osu!のサークルに似ています！
 Approach Follow,Approach Follow,アプローチフォロー
 makes it so the approach squares lock to the note,makes it so the approach squares lock to the note,アプローチガイドがノーツについていく
-Miss Effect Image,Miss Effect Image,ミスエフェクトのイメージ
-"same as above, but applies to your miss effect isntead","same as above, but applies to your miss effect isntead",ミスエフェクトした時のイメージ
+Miss Effect Image,Miss Effect Image,ミスエフェクトの画像
+"same as above, but applies to your miss effect isntead","same as above, but applies to your miss effect isntead",上記と同じだが、代わりに自分のミス効果に適用される。
 Miss Effect,Miss Effect,ミスエフェクト
 hit effect but when you don't,hit effect but when you don't,ミスした時のエフェクト
-Ripple* (no color),Ripple* (no color),画像*(無色)
-Ripple* (note color),Ripple* (note color),画像*(ノーツカラー)
-Ripple* (rainbow),Ripple* (rainbow),画像*(虹色)
-Shards (note color),Shards (note color),クリスタル(ノーツカラー)
-Shards (rainbow),Shards (rainbow),クリスタル(虹色)
-Shards (no color),Shards (no color),クリスタル(無色)
-Miss* (red),Miss* (red),ミス*(赤)
-Miss* (note color),Miss* (note color),ミス*(ノーツカラー)
-Miss* (rainbow),Miss* (rainbow),ミス*(虹色)
-Miss* (no color),Miss* (no color),ミス*(無色)
+Ripple* (no color),Ripple* (no color),画像* (無色)
+Ripple* (note color),Ripple* (note color),画像* (ノーツの色)
+Ripple* (rainbow),Ripple* (rainbow),画像* (虹色)
+Shards (note color),Shards (note color),破片 (ノーツの色)
+Shards (rainbow),Shards (rainbow),破片 (虹色)
+Shards (no color),Shards (no color),破片 (無色)
+Miss* (red),Miss* (red),ミス* (赤)
+Miss* (note color),Miss* (note color),ミス* (ノーツの色)
+Miss* (rainbow),Miss* (rainbow),ミス* (虹色)
+Miss* (no color),Miss* (no color),ミス* (無色)
 Show Miss Effect,Show Miss Effect,ミスエフェクトを表示
-"replace ""hit"" with ""miss"" in the description of the setting above this one","replace ""hit"" with ""miss"" in the description of the setting above this one",ミスした時のエフェクト
+"replace ""hit"" with ""miss"" in the description of the setting above this one","replace ""hit"" with ""miss"" in the description of the setting above this one",この上の設定の説明の「ヒット」を「ミス」に置き換える。
 Replays & Recording,Replays & Recording,録画とリプレイ
-Record Replays,Record Replays,リプレイを保存
-records replays. what else did you expect...? (drag a replay file into the game to view),records replays. what else did you expect...? (drag a replay file into the game to view),自動的にリプレイを保存(リプレイファイルをゲームに移してみること可能）
+Record Replays,Record Replays,リプレイを録画
+records replays. what else did you expect...? (drag a replay file into the game to view),records replays. what else did you expect...? (drag a replay file into the game to view),リプレイを録画 (リプレイファイルをゲームにドラッグして表示する）
 Alt. Replay Camera,Alt. Replay Camera,カメラアングルを追加
 alters the camera angle in replays - side view,alters the camera angle in replays - side view,リプレイ時のカメラアングルを横に変える
 Recording Mode,Recording Mode,録画モード
-Legacy,Legacy,
+Legacy,Legacy,レガシー
 Maximise,Maximise,最高
-Minimise,Minimise,最小
-[def. Maximise] changes the method used for dynamic fps,[def. Maximise] changes the method used for dynamic fps,[デフォルト最大]録画時のFPSの設定を変える
+Minimise,Minimise,最低
+[def. Maximise] changes the method used for dynamic fps,[def. Maximise] changes the method used for dynamic fps,[デフォルト 最大] ダイナミックfpsに使用する方法を変更する。
 Recording FPS,Recording FPS,録画FPS
-[def. 30/144] changes the dynamic fps bounds of your replays,[def. 30/144] changes the dynamic fps bounds of your replays,[デフォルト30/144]リプレイのFPS制限を変える
-Camera & Controls,Camera & Controls,カメラとコントロール
+[def. 30/144] changes the dynamic fps bounds of your replays,[def. 30/144] changes the dynamic fps bounds of your replays,[デフォルト 30/144] リプレイのFPS制限を変える
+Camera & Controls,Camera & Controls,カメラと操作
 Sensitivity,Sensitivity,感度
-[def. 1] changes how much the cursor/camera move with mouse/touch input,[def. 1] changes how much the cursor/camera move with mouse/touch input,[デフォルト１]カーソルや画面の動く速さ
+[def. 1] changes how much the cursor/camera move with mouse/touch input,[def. 1] changes how much the cursor/camera move with mouse/touch input,[デフォルト 1] マウス/タッチ入力によるカーソル/カメラの感度
 Absolute Mode,Absolute Mode,マウスロック解除
-turning this on will unlock the mouse while playing - useful for tablets,turning this on will unlock the mouse while playing - useful for tablets,マウスロックが外れてタブレットでの使用が簡単になる
-No Controller Checks,No Controller Checks,コントローラーチェックを消す
-"when turned on, disables controller checks when starting a song - useful for controller players","when turned on, disables controller checks when starting a song - useful for controller players",つけるとゲーム前のコントローラーチェックが無くなる
+turning this on will unlock the mouse while playing - useful for tablets,turning this on will unlock the mouse while playing - useful for tablets,これをオンにすると、プレイ中にマウスのロックが解除されます - タブレットに便利
+No Controller Checks,No Controller Checks,コントローラーチェックをしない
+"when turned on, disables controller checks when starting a song - useful for controller players","when turned on, disables controller checks when starting a song - useful for controller players",オンにすると、曲の開始時にコントローラーのチェックを無効にする。
 Absolute Scale,Absolute Scale,ロック解除時の感度
-[def. 1] changes how much the cursor/camera move with absolute mode,[def. 1] changes how much the cursor/camera move with absolute mode,[デフォルト１]ロック解除した時のカーソルやカメラの感度が変わる
-Camera Mode Presets,Camera Mode Presets,カメラ設定
+[def. 1] changes how much the cursor/camera move with absolute mode,[def. 1] changes how much the cursor/camera move with absolute mode,[デフォルト 1] マウスロックを解除した際のカーソル/カメラの感度
+Camera Mode Presets,Camera Mode Presets,カメラモードのプリセット
 Half-lock,Half-lock,半固定
 Full-lock,Full-lock,全固定
 Reverse-lock,Reverse-lock,逆固定
 Spin,Spin,スピン
 Half-lock (faraway),Half-lock (faraway),半固定（遠い）
+,Full-lock (faraway),全固定（遠い）
+,Reverse-lock (faraway),逆固定（遠い）
 Spin-lock (mid-pivot),Spin-lock (mid-pivot),スピン（真ん中固定）
 Camera Parallax,Camera Parallax,視差
-how much the camera moves with the cursor - affects everything,how much the camera moves with the cursor - affects everything,画面がカーソルと一緒に動く距離(画面全体）
-HUD Parallax,HUD Parallax,グリッド視差
-how much the hud moves with the cursor - added on top of camera parallax,how much the hud moves with the cursor - added on top of camera parallax,HUDがカーソルと一緒に動く距離
+how much the camera moves with the cursor - affects everything,how much the camera moves with the cursor - affects everything,カーソルとカメラの移動量 - すべてに影響する
+HUD Parallax,HUD Parallax,HUD視差
+how much the hud moves with the cursor - added on top of camera parallax,how much the hud moves with the cursor - added on top of camera parallax,カーソルと一緒にHUDがどれだけ動くか - カメラ視差の上に追加される
 Grid Parallax,Grid Parallax,HUD視差
-how much the note grid moves with the cursor - added on top of camera parallax,how much the note grid moves with the cursor - added on top of camera parallax,グリッドがカーソルと一緒に動く距離
+how much the note grid moves with the cursor - added on top of camera parallax,how much the note grid moves with the cursor - added on top of camera parallax,カーソルとノートのグリッドの移動量 - カメラ視差に追加
 Camera Unlock,Camera Unlock,カメラのロックを解除
-"enables camera rotation - aka ""spin""","enables camera rotation - aka ""spin""",カメラの回転を可能にする
+"enables camera rotation - aka ""spin""","enables camera rotation - aka ""spin""",カメラの回転を有効にする - スピン
 Faraway Hud,Faraway Hud,HUDを離す
-moves the HUD back by 10 grid units (20 studs) and makes it larger,moves the HUD back by 10 grid units (20 studs) and makes it larger,HUDが画面が離れて大きくなる
-Edge Buffer (Drift),Edge Buffer (Drift),ドリフト
-"[def. 0] aka cursor drift; makes the cursor ""stick"" to the edges by letting it move slightly past the edges","[def. 0] aka cursor drift; makes the cursor ""stick"" to the edges by letting it move slightly past the edges",カーソルをグリッド外に動かせる距離
-Buffer Cursor,Buffer Cursor,バッファーカーソル
-"shows a mini cursor at the ""real"" position when you enter the edge buffer","shows a mini cursor at the ""real"" position when you enter the edge buffer",ドリフトがついてる時本当のカーソル位置を小さく表示する
+moves the HUD back by 10 grid units (20 studs) and makes it larger,moves the HUD back by 10 grid units (20 studs) and makes it larger,HUDを10グリッド単位（20スタッド）後退させ、大きくする。
+Edge Buffer (Drift),Edge Buffer (Drift),エッジバッファ (ドリフト)
+"[def. 0] aka cursor drift; makes the cursor ""stick"" to the edges by letting it move slightly past the edges","[def. 0] aka cursor drift; makes the cursor ""stick"" to the edges by letting it move slightly past the edges",[def. 0] 別名カーソルドリフト; カーソルをエッジから少しはみ出させることで、エッジに「くっつく」ようにする。
+Buffer Cursor,Buffer Cursor,バッファカーソル
+"shows a mini cursor at the ""real"" position when you enter the edge buffer","shows a mini cursor at the ""real"" position when you enter the edge buffer","エッジバッファに入ると、""実際の""位置にミニカーソルが表示される。"
 Follow Buffer Cursor,Follow Buffer Cursor,ドリフトに付いて行く
 makes the parallax follow the buffer cursor instead of the real one,makes the parallax follow the buffer cursor instead of the real one,視差をドリフトカーソルに合わせる
 Field of View,Field of View,視野（FOV)
-[def. 70] you know what this does,[def. 70] you know what this does,[デフォルト７０]
+[def. 70] you know what this does,[def. 70] you know what this does,[デフォルト 70] これが何を意味するか、あなたは知っている。
 Hit FOV,Hit FOV,ヒットFOV
 enables a FOV (Field of View) pulse when you hit a note,enables a FOV (Field of View) pulse when you hit a note,ノーツを打つと視野がぶれる
-Hit FOV Modes,Hit FOV Modes,ヒットＦＯＶの設定
+Hit FOV Modes,Hit FOV Modes,ヒットFOVモード
 Normal,Normal,ノーマル
 Additive,Additive,累積
 Exponential,Exponential,指数増加
-Mode: Additive,Mode: Additive,モード：
+Mode: Additive,Mode: Additive,モード: 累積
 Hit FOV Amplifier,Hit FOV Amplifier,ヒットFOVの強さ
-[def. 2] how intense is the hit FOV pulsing is,[def. 2] how intense is the hit FOV pulsing is,[デフォルト２]ノーツをヒットした時のFOV反動の強さ
+[def. 2] how intense is the hit FOV pulsing is,[def. 2] how intense is the hit FOV pulsing is,[デフォルト 2] ノーツをヒットした時のFOV反動の強さ
 Hit FOV Decay,Hit FOV Decay,ヒットFOVの減衰
-[def. 20] how long it takes for hit FOV pulsing to wear-off,[def. 20] how long it takes for hit FOV pulsing to wear-off,[デフォルト２０]ヒットFOVの反動が消えるまでの時間
+[def. 20] how long it takes for hit FOV pulsing to wear-off,[def. 20] how long it takes for hit FOV pulsing to wear-off,[デフォルト 20] ヒットFOVの反動が消えるまでの時間
 Customization,Customization,カスタマイズ
 Background World,Background World,背景
 background and environment used in the song player,background and environment used in the song player,メニューやゲーム中の背景
 Disable BG Effects,Disable BG Effects,背景を消す
 only affects The Grid for now,only affects The Grid for now,今はグリッドの背景しか変化しない
 Custom World BG,Custom World BG,カスタム背景
-"this is the background for the ""Custom Background"" world","this is the background for the ""Custom Background"" world",Custum Backgroundを選択したときの背景
+"this is the background for the ""Custom Background"" world","this is the background for the ""Custom Background"" world",カスタム背景を選択したときの背景
 Cursor Image,Cursor Image,カーソルイメージ
 "ah, the cursor, arguably the most important part of this game.","ah, the cursor, arguably the most important part of this game.",カーソルに映るイメージを変える
 Color Mode,Color Mode,カーソルの色設定
 how the cursor will be colored,how the cursor will be colored,ヒット時カーソルの色の変更
+Single Color,Single Color,一色
+Rainbow,Rainbow,虹色
+Note Color,Note Color,ノーツカの色
 Color,Color,色
 "[def. #ffffff] color used for ""Single Color""","[def. #ffffff] color used for ""Single Color""","[デフォルト＃ffffff] ""Single Color""に使われる色"
 Cursor Scale,Cursor Scale,カーソルの大きさ
@@ -199,6 +210,8 @@ Smart Trail,Smart Trail,スマートな軌跡
 makes the trail smooth by using distance moved to spawn particles instead of having a constant number,makes the trail smooth by using distance moved to spawn particles instead of having a constant number,パーティクルのスポーンに一定数ではなく移動距離を使用することで軌跡を滑らかにする
 Trail Fade Mode,Trail Fade Mode,軌跡フェードモード
 how the trail will fade out,how the trail will fade out,どれだけ軌跡がフェードアウトするか
+Scale only,Scale only,
+Opacity only,Opacity only,
 Trail Detail,Trail Detail,残像の詳細
 [def. 10] number of particles in the cursor trail / (smart trail) number spawned per grid unit,[def. 10] number of particles in the cursor trail / (smart trail) number spawned per grid unit,[デフォルト 10]カーソルの軌跡のパーティクル数 / (スマート軌跡)1グリッド単位あたりの生成数
 Trail Time,Trail Time,軌跡
@@ -253,7 +266,7 @@ changes the side panels to show only your misses and pauses,changes the side pan
 Show Letter Grade,Show Letter Grade,グレードを表示する
 "shows a letter grade (SS, S, A, etc.) above your accuracy","shows a letter grade (SS, S, A, etc.) above your accuracy","SS, S, A, etc 　これらのグレードを表示"
 Show Settings,Show Settings,設定を表示
-"shows your approach rate, hit window, and camera config at the start of songs (to show off)","shows your approach rate, hit window, and camera config at the start of songs (to show off)",曲のはじめに approach rate. hit window. camera設定. を表示する(見せびらかすため)
+"shows your approach rate, hit window, and camera config at the start of songs (to show off)","shows your approach rate, hit window, and camera config at the start of songs (to show off)",曲のはじめに approach rate. hit window. camera設定. を表示する(見せつけるため)
 Display True Combo,Display True Combo,コンボ数を表示
 displays the real value of your combo behind the grid,displays the real value of your combo behind the grid,グリッドの後ろにコンボ数を表示
 Show Energy,Show Energy,HPを表示
@@ -265,9 +278,9 @@ shows your accuracy on a progress bar,shows your accuracy on a progress bar,進�
 Show Left Panel,Show Left Panel,左のパネルを表示
 "contains: combo meter, pause counter, accuracy","contains: combo meter, pause counter, accuracy",コンボメーター ポーズカウンター 精度 が含まれています
 Show Right Panel,Show Right Panel,右のパネルを表示
-"contains; framerate, miss counter, notes hit / total notes","contains; framerate, miss counter, notes hit / total notes",フレームレート ミスカウンター ノートヒット/トータルノート が含まれています
+"contains: framerate, miss counter, notes hit / total notes","contains: framerate, miss counter, notes hit / total notes",フレームレート ミスカウンター ノートヒット/トータルノート が含まれています
 Show Cursor,Show Cursor,カーソルを表示
-"to prevent issues where people forget the turned the cursor off, this doesn't save","to prevent issues where people forget the turned the cursor off, this doesn't save","誰かがカーソルをオフにしたことを忘れてしまう問題を防ぐ (これはセーブされません)
+"to prevent issues where people forget they turned the cursor off, this doesn't save","to prevent issues where people forget they turned the cursor off, this doesn't save","誰かがカーソルをオフにしたことを忘れてしまう問題を防ぐ (これはセーブされません)
 "
 Attach Energy to Grid,Attach Energy to Grid,HPをグリッドに付ける
 attaches your health bar + modifiers to the note grid,attaches your health bar + modifiers to the note grid,ヘルスバートモディファイヤーをノートグリッドに付ける
@@ -287,11 +300,11 @@ Rainbow HUD,Rainbow HUD,レインボーHUD
 makes literally your entire HUD rainbow,makes literally your entire HUD rainbow,文字通りHUD全体をレインボーにする
 Panel Background,Panel Background,パネル背景
 [def. 9b000000] background color of the left and right panels,[def. 9b000000] background color of the left and right panels,[デフォルト 9b000000] 左と右のパネルの背景色
-Panel Text,Panel Text,
+Panel Text,Panel Text,パネルテキスト
 [def. ffffff] color of any text on panels that doesn't have its own setting,[def. ffffff] color of any text on panels that doesn't have its own setting,[デフォルト ffffff] 独自の設定を持っていないパネル上のテキストの色 
-Score Counter,Score Counter,
+Score Counter,Score Counter,スコアカウンター
 [def. ffffff] text color of the score counter,[def. ffffff] text color of the score counter,[デフォルト ffffff] スコアカウンターのテキストカラー
-Pause UI Opacity,Pause UI Opacity,
+Pause UI Opacity,Pause UI Opacity,ポーズUIの不透明度
 "[def. 0.75] opacity of the ""paused"" screen","[def. 0.75] opacity of the ""paused"" screen",[デフォルト 0.75] 一時停止画面の不透明度
 """PAUSED""","""PAUSED""","""一時停止"""
 "[def. 684400] text color of the ""paused"" message, empty color of unpause progress bar","[def. 684400] text color of the ""paused"" message, empty color of unpause progress bar","[デフォルト 684400] ""一時停止した""を満たす色  一時停止解除進行バーの空の色"
@@ -326,7 +339,7 @@ Timer - Empty (Normal),Timer - Empty (Normal),タイマー - 空(普通)
 Timer - Fill (End),Timer - Fill (End),タイマー - 満(終わり)
 [def. 25bf00] fill color of timer progress bar (after end of song),[def. 25bf00] fill color of timer progress bar (after end of song),[デフォルト 25bf00] 進行バーのタイマーを満たす色(曲が終わった後）
 Timer - Empty (End),Timer - Empty (End),タイマー - 空(終わり)
-[def. af008bf00] empty color of timer progress bar (after end of song),[def. af008bf00] empty color of timer progress bar (after end of song),[デフォルト  af008bf00] 進行バーのタイマーの空の色(曲が終わった後)
+[def. af008f00] empty color of timer progress bar (after end of song),[def. af008f00] empty color of timer progress bar (after end of song),[デフォルト  af008bf00] 進行バーのタイマーの空の色(曲が終わった後)
 Timer - Fill (Skip),Timer - Fill (Skip),タイマー - 満(スキップ)
 [def. b3ffff] fill color of timer progress bar (when skipping is possible),[def. b3ffff] fill color of timer progress bar (when skipping is possible),[デフォルト  63ffff] 進行バーのタイマーを満たす色(スキップ可能時)
 Timer - Empty (Skip),Timer - Empty (Skip),タイマー - 空(スキップ)
@@ -432,3 +445,57 @@ New best!,New best!,ニューベスト!
 Replay passed,Replay passed,リプレイ通過
 FULL COMBO,FULL COMBO,フルコンボ
 NO COMBO,NO COMBO,ノーコンボ
+Import Song,Import Song,マップを追加する
+Vulnus Map - Select Difficulty,Vulnus Map - Select Difficulty,ヴォルナスマップー難易度選択
+Import all difficulties,Import all difficulties,全難易度をインポートする
+Note: This option skips the edit screen.,Note: This option skips the edit screen.,：編集画面を飛ばす
+Select song type.,Select song type.,曲の種類を選択
+Raw Text Map,Raw Text Map,Raw Text マップ
+"Requires raw text data and the music/asset file.
+Use this if you have a .txt file or copied data.","Requires raw text data and the music/asset file.
+Use this if you have a .txt file or copied data.","Textファイルデータと音楽/アセットファイルが必要です
+.txt ファイルやコピーしたデータがある場合に使用してください"
+Sound Space Plus Map,Sound Space Plus Map,Sound Space Plus マップ
+"Requires a complete Sound Space Plus map file.
+Use this if you have an .sspm file.","Requires a complete Sound Space Plus map file.
+Use this if you have an .sspm file.","Sound Space Plusマップファイル(.sspm)が必要です 
+.sspm がある場合はこれを使用してください"
+Vulnus Map,Vulnus Map,Vulnus マップ
+"Requires a folder or .zip containing Vulnus map data.
+Use this if you have a folder containing .json files.","Requires a folder or .zip containing Vulnus map data.
+Use this if you have a folder containing .json files.","Vulnus のマップデータを含むファイルまたは .zip が必要です
+.jsonファイルを含むフォルダがある場合はこれを使用してください"
+Legacy Map Pack,Legacy Map Pack,Legacy Map Pack
+"Requires a folder containing a .sspmr file and audio.
+Use this if you have a pack of maps (ie. ssarchive).","Requires a folder containing a .sspmr file and audio.
+Use this if you have a pack of maps (ie. ssarchive).",".sspmrファイルとオーディオを含むフォルダが必要です
+マップのパック（ssarchiveなど）がある場合に使用してください"
+Return to menu,Return to menu,メニューに戻る
+Vulnus Map - Select File,Vulnus Map - Select File,ヴォルナスマップーファイルを選択
+"Import from a .zip, .rar, or .7z file","Import from a .zip, .rar, or .7z file",.zip .rar .7zip ファイルから加える
+Import from a folder,Import from a folder,フォルダーから加える
+Selected folder was missing a meta.json!,Selected folder was missing a meta.json!,選択したフォルダにmeta.jsonがありませんでした
+Selected folder was missing a meta.json!,Selected folder was missing a meta.json!,選択したフォルダにmeta.jsonがありませんでした
+Text Map - Select Files,Text Map - Select Files,Text Map - ファイルを選択
+Map data,Map data,マップデータ
+Required,Required,必要
+Open file,Open file,ファイルを開ける
+Paste data,Paste data,データを貼る
+Music,Music,音楽
+Preview,Preview,試す
+Temporary - use this for testing maps,Temporary - use this for testing maps,一時的-マップを試す時に使う
+(click field to edit),(click field to edit),編集する
+(click to replace),(click to replace),入れ替える
+Finish,Finish,終わる
+ID in use,ID in use,このIDはもう使われています。
+Mapper required,Mapper required,名前を入力して下さい
+Song name required,Song name required,曲名を入力して下さい
+Music file required,Music file required,ファイルを選択
+Map data required,Map data required,マップデータ必要
+Invalid map data,Invalid map data,このデータは読み込めません
+Stop previewing,Stop previewing,戻る
+Import cover,Import cover,カバーを選択
+Edit data,Edit data,データを編集
+Finishing,Finishing,読み込み中...
+Please wait...,Please wait...,LOADING...
+Exit,Exit,戻る
