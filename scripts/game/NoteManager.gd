@@ -143,7 +143,7 @@ func note_reposition(i:int):
 			if fade_out_enabled:
 				fade_out = ((1 - fade_out_base) + (pow(linstep(fade_out_end,fade_out_start,current_dist), 1.3) * fade_out_base)) * Rhythia.note_opacity
 			
-			alpha = min(min(fade_in,fade_out), alpha)
+			alpha = min(fade_in,fade_out)
 		
 		
 		$Notes.multimesh.set_instance_transform(i - current_note, nt)
