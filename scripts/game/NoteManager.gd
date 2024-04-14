@@ -139,9 +139,9 @@ func note_reposition(i:int):
 		if fade_in_enabled or fade_out_enabled:
 			
 			if fade_in_enabled: 
-				fade_in = pow(linstep(fade_in_start,fade_in_end,current_dist), 1.3)
+				fade_in = (pow(linstep(fade_in_start,fade_in_end,current_dist), 1.3)) * Rhythia.note_opacity
 			if fade_out_enabled:
-				fade_out = (1 - fade_out_base) + (pow(linstep(fade_out_end,fade_out_start,current_dist), 1.3) * fade_out_base)
+				fade_out = ((1 - fade_out_base) + (pow(linstep(fade_out_end,fade_out_start,current_dist), 1.3) * fade_out_base)) * Rhythia.note_opacity
 			
 			alpha = min(fade_in,fade_out)
 		
