@@ -409,7 +409,7 @@ script = ExtResource( 6 )
 [node name="Label" type="Label" parent="TabContainer/Gameplay/Modifiers/Group/H/HitboxSize/NoteHitboxSize"]
 margin_left = -395.0
 margin_top = 5.0
-margin_right = -15.0
+margin_right = -11.0
 margin_bottom = 25.0
 grow_horizontal = 0
 focus_mode = 2
@@ -453,7 +453,7 @@ script = ExtResource( 21 )
 [node name="Label" type="Label" parent="TabContainer/Gameplay/Modifiers/Group/H/HitWindow/HitWindow"]
 margin_left = -194.0
 margin_top = 7.0
-margin_right = -15.0
+margin_right = -11.0
 margin_bottom = 27.0
 grow_horizontal = 0
 focus_mode = 2
