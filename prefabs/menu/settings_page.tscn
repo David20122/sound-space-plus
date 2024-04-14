@@ -272,11 +272,12 @@ script = ExtResource( 59 )
 [node name="TabContainer" type="TabContainer" parent="."]
 margin_top = 59.0
 margin_right = 1280.0
-margin_bottom = 1001.0
+margin_bottom = 2271.0
 theme = ExtResource( 1 )
 tab_align = 0
 
 [node name="Gameplay" type="VBoxContainer" parent="TabContainer"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -322,7 +323,7 @@ script = ExtResource( 54 )
 target = "disable_pausing"
 
 [node name="Label" type="Label" parent="TabContainer/Gameplay/Modifiers/Group/H/DisablePause"]
-margin_left = -214.0
+margin_left = -183.0
 margin_top = 1.0
 margin_right = -10.0
 margin_bottom = 25.0
@@ -333,7 +334,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Disable Pausing"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="CustomSpeed" type="Control" parent="TabContainer/Gameplay/Modifiers/Group/H"]
 margin_top = 32.0
@@ -356,7 +356,7 @@ allow_greater = true
 suffix = "%"
 
 [node name="Label" type="Label" parent="TabContainer/Gameplay/Modifiers/Group/H/CustomSpeed/CustomSpeed"]
-margin_left = -205.0
+margin_left = -184.0
 margin_right = -10.0
 margin_bottom = 32.0
 focus_mode = 2
@@ -366,7 +366,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Custom Speed Rate"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/Gameplay/Modifiers/Group/H/CustomSpeed/CustomSpeed"]
 margin_left = 215.0
@@ -407,7 +406,7 @@ allow_greater = true
 script = ExtResource( 6 )
 
 [node name="Label" type="Label" parent="TabContainer/Gameplay/Modifiers/Group/H/HitboxSize/NoteHitboxSize"]
-margin_left = -395.0
+margin_left = -184.0
 margin_top = 5.0
 margin_right = -11.0
 margin_bottom = 25.0
@@ -451,7 +450,7 @@ suffix = "ms"
 script = ExtResource( 21 )
 
 [node name="Label" type="Label" parent="TabContainer/Gameplay/Modifiers/Group/H/HitWindow/HitWindow"]
-margin_left = -194.0
+margin_left = -183.0
 margin_top = 7.0
 margin_right = -11.0
 margin_bottom = 27.0
@@ -498,7 +497,7 @@ script = ExtResource( 54 )
 target = "speed_hitwindow"
 
 [node name="Label" type="Label" parent="TabContainer/Gameplay/Modifiers/Group/H/SpeedWindow"]
-margin_left = -152.0
+margin_left = -184.0
 margin_top = 4.0
 margin_right = -11.0
 margin_bottom = 24.0
@@ -509,7 +508,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Counter Speed"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="SEPARATOR" type="HSeparator" parent="TabContainer/Gameplay"]
 margin_top = 182.0
@@ -554,7 +552,7 @@ allow_lesser = true
 script = ExtResource( 22 )
 
 [node name="Label" type="Label" parent="TabContainer/Gameplay/Camera/Group/H/Sensitivity/Sensitivity"]
-margin_left = -210.0
+margin_left = -184.0
 margin_right = -10.0
 margin_bottom = 32.0
 focus_mode = 2
@@ -564,7 +562,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Sensitivity"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/Gameplay/Camera/Group/H/Sensitivity/Sensitivity"]
 margin_left = 215.0
@@ -599,7 +596,7 @@ target = "absolute_mode"
 
 [node name="Label" type="Label" parent="TabContainer/Gameplay/Camera/Group/H/LockMouse"]
 anchor_bottom = 1.0
-margin_left = -205.0
+margin_left = -184.0
 margin_right = -10.0
 grow_horizontal = 0
 focus_mode = 2
@@ -609,7 +606,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Absolute Mode"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="IgnoreController" type="CheckBox" parent="TabContainer/Gameplay/Camera/Group/H"]
 margin_top = 68.0
@@ -631,7 +627,7 @@ script = ExtResource( 54 )
 target = "ignore_controller_detection"
 
 [node name="Label" type="Label" parent="TabContainer/Gameplay/Camera/Group/H/IgnoreController"]
-margin_left = -229.0
+margin_left = -184.0
 margin_right = -10.0
 margin_bottom = 28.0
 theme = ExtResource( 1 )
@@ -639,7 +635,6 @@ custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
 text = "Disable Controller"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="LockMouseResize" type="Control" parent="TabContainer/Gameplay/Camera/Group/H"]
 margin_top = 100.0
@@ -661,7 +656,7 @@ allow_lesser = true
 script = ExtResource( 65 )
 
 [node name="Label" type="Label" parent="TabContainer/Gameplay/Camera/Group/H/LockMouseResize/LockMouseResize"]
-margin_left = -229.0
+margin_left = -183.0
 margin_right = -10.0
 margin_bottom = 32.0
 focus_mode = 2
@@ -671,7 +666,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Absolute Scale"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/Gameplay/Camera/Group/H/LockMouseResize/LockMouseResize"]
 margin_left = 215.0
@@ -747,7 +741,7 @@ allow_lesser = true
 script = ExtResource( 28 )
 
 [node name="Label" type="Label" parent="TabContainer/Gameplay/Camera/Group/H/Parallax/Parallax"]
-margin_left = -212.0
+margin_left = -186.0
 margin_right = -10.0
 margin_bottom = 32.0
 focus_mode = 2
@@ -757,7 +751,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Camera Parallax"
 align = 2
 valign = 1
-clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -801,7 +794,7 @@ allow_lesser = true
 script = ExtResource( 33 )
 
 [node name="Label" type="Label" parent="TabContainer/Gameplay/Camera/Group/H/UIParallax/UIParallax"]
-margin_left = -210.0
+margin_left = -184.0
 margin_right = -10.0
 margin_bottom = 32.0
 focus_mode = 2
@@ -811,7 +804,6 @@ custom_fonts/font = SubResource( 3 )
 text = "HUD Parallax"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/Gameplay/Camera/Group/H/UIParallax/UIParallax"]
 margin_left = 215.0
@@ -845,7 +837,7 @@ allow_lesser = true
 script = ExtResource( 34 )
 
 [node name="Label" type="Label" parent="TabContainer/Gameplay/Camera/Group/H/GridParallax/GridParallax"]
-margin_left = -212.0
+margin_left = -184.0
 margin_right = -10.0
 margin_bottom = 32.0
 focus_mode = 2
@@ -855,7 +847,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Grid Parallax"
 align = 2
 valign = 1
-clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -900,7 +891,7 @@ target = "cam_unlock"
 
 [node name="Label" type="Label" parent="TabContainer/Gameplay/Camera/Group/H/Spin"]
 anchor_bottom = 1.0
-margin_left = -229.0
+margin_left = -183.0
 margin_right = -10.0
 grow_horizontal = 0
 focus_mode = 2
@@ -910,7 +901,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Camera Unlock"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="FarawayHud" type="CheckBox" parent="TabContainer/Gameplay/Camera/Group/H"]
 margin_top = 362.0
@@ -933,7 +923,7 @@ target = "faraway_hud"
 
 [node name="Label" type="Label" parent="TabContainer/Gameplay/Camera/Group/H/FarawayHud"]
 anchor_bottom = 1.0
-margin_left = -215.0
+margin_left = -186.0
 margin_right = -10.0
 grow_horizontal = 0
 focus_mode = 2
@@ -943,7 +933,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Faraway Hud"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="EdgeBuffer" type="Control" parent="TabContainer/Gameplay/Camera/Group/H"]
 margin_top = 394.0
@@ -963,7 +952,7 @@ allow_greater = true
 script = ExtResource( 12 )
 
 [node name="Label" type="Label" parent="TabContainer/Gameplay/Camera/Group/H/EdgeBuffer/EdgeBuffer"]
-margin_left = -229.0
+margin_left = -183.0
 margin_right = -10.0
 margin_bottom = 32.0
 focus_mode = 2
@@ -973,7 +962,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Edge Buffer (Drift)"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/Gameplay/Camera/Group/H/EdgeBuffer/EdgeBuffer"]
 margin_left = 215.0
@@ -1009,7 +997,7 @@ target = "enable_drift_cursor"
 
 [node name="Label" type="Label" parent="TabContainer/Gameplay/Camera/Group/H/BufferCursor"]
 anchor_bottom = 1.0
-margin_left = -215.0
+margin_left = -186.0
 margin_right = -10.0
 grow_horizontal = 0
 focus_mode = 2
@@ -1019,7 +1007,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Buffer Cursor"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="BufferParallax" type="CheckBox" parent="TabContainer/Gameplay/Camera/Group/H"]
 margin_top = 462.0
@@ -1043,7 +1030,7 @@ target = "follow_drift_cursor"
 
 [node name="Label" type="Label" parent="TabContainer/Gameplay/Camera/Group/H/BufferParallax"]
 anchor_bottom = 1.0
-margin_left = -215.0
+margin_left = -184.0
 margin_right = -10.0
 grow_horizontal = 0
 focus_mode = 2
@@ -1053,7 +1040,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Follow Buffer Cursor"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="SEPARATOR3" type="HSeparator" parent="TabContainer/Gameplay/Camera/Group/H"]
 margin_top = 494.0
@@ -1082,7 +1068,7 @@ allow_lesser = true
 script = ExtResource( 39 )
 
 [node name="Label" type="Label" parent="TabContainer/Gameplay/Camera/Group/H/FOV/FOV"]
-margin_left = -229.0
+margin_left = -186.0
 margin_right = -10.0
 margin_bottom = 32.0
 focus_mode = 2
@@ -1092,7 +1078,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Field of View"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/Gameplay/Camera/Group/H/FOV/FOV"]
 margin_left = 215.0
@@ -1127,7 +1112,7 @@ target = "hit_fov"
 
 [node name="Label" type="Label" parent="TabContainer/Gameplay/Camera/Group/H/HitFOV"]
 anchor_bottom = 1.0
-margin_left = -215.0
+margin_left = -184.0
 margin_right = -10.0
 grow_horizontal = 0
 focus_mode = 2
@@ -1137,7 +1122,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Hit FOV"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="HitFOVMode" type="Control" parent="TabContainer/Gameplay/Camera/Group/H"]
 margin_top = 576.0
@@ -1203,7 +1187,7 @@ allow_lesser = true
 script = ExtResource( 47 )
 
 [node name="Label" type="Label" parent="TabContainer/Gameplay/Camera/Group/H/HitFOVAmplifier"]
-margin_left = -229.0
+margin_left = -184.0
 margin_right = -10.0
 margin_bottom = 32.0
 focus_mode = 2
@@ -1213,7 +1197,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Hit FOV Amplifier"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/Gameplay/Camera/Group/H/HitFOVAmplifier"]
 margin_left = 215.0
@@ -1245,7 +1228,7 @@ allow_lesser = true
 script = ExtResource( 49 )
 
 [node name="Label" type="Label" parent="TabContainer/Gameplay/Camera/Group/H/HitFOVDecay"]
-margin_left = -210.0
+margin_left = -183.0
 margin_right = -10.0
 margin_bottom = 32.0
 focus_mode = 2
@@ -1255,7 +1238,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Hit FOV Decay"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/Gameplay/Camera/Group/H/HitFOVDecay"]
 margin_left = 215.0
@@ -1301,6 +1283,14 @@ align = 2
 valign = 1
 clip_text = true
 
+[node name="SEPARATOR2" type="HSeparator" parent="TabContainer/Gameplay"]
+margin_top = 182.0
+margin_right = 651.0
+margin_bottom = 212.0
+rect_min_size = Vector2( 0, 10 )
+custom_constants/separation = 30
+custom_styles/separator = SubResource( 55 )
+
 [node name="Notes" type="VBoxContainer" parent="TabContainer"]
 visible = false
 anchor_right = 1.0
@@ -1339,7 +1329,7 @@ margin_bottom = 32.0
 rect_min_size = Vector2( 0, 32 )
 
 [node name="Label" type="Label" parent="TabContainer/Notes/Notes/Group/H/ColorSet2/Control"]
-margin_left = -115.0
+margin_left = -183.0
 margin_right = -10.0
 margin_bottom = 32.0
 focus_mode = 2
@@ -1349,7 +1339,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Note Colors"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="ColorSet" type="GridContainer" parent="TabContainer/Notes/Notes/Group/H/ColorSet2"]
 margin_top = 36.0
@@ -1466,6 +1455,7 @@ align = 0
 script = ExtResource( 16 )
 
 [node name="Label" type="Label" parent="TabContainer/Notes/Notes/Group/H/Mesh/Mesh"]
+anchor_left = -0.17
 margin_left = -149.0
 margin_right = -10.0
 margin_bottom = 32.0
@@ -1476,7 +1466,9 @@ custom_fonts/font = SubResource( 3 )
 text = "Note Mesh"
 align = 2
 valign = 1
-clip_text = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
 
 [node name="Desc" type="Label" parent="TabContainer/Notes/Notes/Group/H/Mesh/Mesh"]
 margin_left = 215.0
@@ -1512,6 +1504,7 @@ suffix = "x"
 script = ExtResource( 44 )
 
 [node name="Label" type="Label" parent="TabContainer/Notes/Notes/Group/H/NoteScale/NoteScale"]
+anchor_left = -0.34
 margin_left = -115.0
 margin_right = -10.0
 margin_bottom = 32.0
@@ -1522,9 +1515,8 @@ custom_fonts/font = SubResource( 3 )
 text = "Note Scale"
 align = 2
 valign = 1
-clip_text = true
 __meta__ = {
-"_edit_use_anchors_": false
+"_edit_use_anchors_": true
 }
 
 [node name="Desc" type="Label" parent="TabContainer/Notes/Notes/Group/H/NoteScale/NoteScale"]
@@ -1673,7 +1665,7 @@ suffix = "%"
 script = ExtResource( 63 )
 
 [node name="Label" type="Label" parent="TabContainer/Notes/Notes/Group/H/NoteOpacity/NoteOpacity"]
-margin_left = -115.0
+margin_left = -184.0
 margin_right = -10.0
 margin_bottom = 32.0
 focus_mode = 2
@@ -1683,10 +1675,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Note Opacity"
 align = 2
 valign = 1
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Desc" type="Label" parent="TabContainer/Notes/Notes/Group/H/NoteOpacity/NoteOpacity"]
 margin_left = 215.0
@@ -1731,7 +1719,7 @@ suffix = "m/s"
 script = ExtResource( 24 )
 
 [node name="Label" type="Label" parent="TabContainer/Notes/Notes/Group/H/ApproachRate/ApproachRate"]
-margin_left = -115.0
+margin_left = -183.0
 margin_right = -10.0
 margin_bottom = 32.0
 focus_mode = 2
@@ -1741,7 +1729,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Approach Rate"
 align = 2
 valign = 1
-clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -1781,7 +1768,7 @@ suffix = "m"
 script = ExtResource( 30 )
 
 [node name="Label" type="Label" parent="TabContainer/Notes/Notes/Group/H/SpawnDist/SpawnDist"]
-margin_left = -146.0
+margin_left = -184.0
 margin_right = -10.0
 margin_bottom = 32.0
 focus_mode = 2
@@ -1791,7 +1778,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Spawn Distance"
 align = 2
 valign = 1
-clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -1828,7 +1814,7 @@ suffix = "%"
 script = ExtResource( 37 )
 
 [node name="Label" type="Label" parent="TabContainer/Notes/Notes/Group/H/FadeLength/FadeLength"]
-margin_left = -149.0
+margin_left = -183.0
 margin_right = -10.0
 margin_bottom = 32.0
 focus_mode = 2
@@ -1838,7 +1824,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Fade Length"
 align = 2
 valign = 1
-clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -1877,7 +1862,7 @@ target = "do_note_pushback"
 
 [node name="Label" type="Label" parent="TabContainer/Notes/Notes/Group/H/DoNotePushback"]
 anchor_bottom = 1.0
-margin_left = -165.0
+margin_left = -183.0
 margin_right = -10.0
 focus_mode = 2
 theme = ExtResource( 1 )
@@ -1886,7 +1871,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Do Note Pushback"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="HalfGhost" type="CheckBox" parent="TabContainer/Notes/Notes/Group/H"]
 margin_top = 338.0
@@ -1910,7 +1894,7 @@ target = "half_ghost"
 
 [node name="Label" type="Label" parent="TabContainer/Notes/Notes/Group/H/HalfGhost"]
 anchor_bottom = 1.0
-margin_left = -165.0
+margin_left = -184.0
 margin_right = -10.0
 focus_mode = 2
 theme = ExtResource( 1 )
@@ -1919,7 +1903,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Half Ghost"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="SEPARATOR" type="HSeparator" parent="TabContainer/Notes/Notes/Group/H"]
 margin_top = 370.0
@@ -1951,7 +1934,7 @@ target = "note_spawn_effect"
 
 [node name="Label" type="Label" parent="TabContainer/Notes/Notes/Group/H/NoteSpawnEffect"]
 anchor_bottom = 1.0
-margin_left = -173.0
+margin_left = -183.0
 margin_right = -10.0
 focus_mode = 2
 theme = ExtResource( 1 )
@@ -1960,7 +1943,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Note Spawn Effect"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="SEPARATOR3" type="HSeparator" parent="TabContainer/Notes/Notes/Group/H"]
 margin_top = 416.0
@@ -1992,7 +1974,7 @@ target = "hit"
 default_image = ExtResource( 13 )
 
 [node name="Label" type="Label" parent="TabContainer/Notes/Notes/Group/H/HitRipple/HitEffect"]
-margin_left = -149.0
+margin_left = -184.0
 margin_right = -10.0
 margin_bottom = 32.0
 focus_mode = 2
@@ -2002,7 +1984,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Hit Effect Image"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="ImgPreview" type="TextureRect" parent="TabContainer/Notes/Notes/Group/H/HitRipple/HitEffect"]
 anchor_left = 1.0
@@ -2064,7 +2045,7 @@ align = 0
 script = ExtResource( 9 )
 
 [node name="Label" type="Label" parent="TabContainer/Notes/Notes/Group/H/HitEffect/Effect"]
-margin_left = -149.0
+margin_left = -184.0
 margin_right = -10.0
 margin_bottom = 32.0
 focus_mode = 2
@@ -2074,7 +2055,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Hit Effect"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/Notes/Notes/Group/H/HitEffect/Effect"]
 margin_left = 215.0
@@ -2111,7 +2091,7 @@ target = "show_hit_effect"
 
 [node name="Label" type="Label" parent="TabContainer/Notes/Notes/Group/H/ShowHitEffect"]
 anchor_bottom = 1.0
-margin_left = -165.0
+margin_left = -183.0
 margin_right = -10.0
 focus_mode = 2
 theme = ExtResource( 1 )
@@ -2120,7 +2100,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Show Hit Effect"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="HitEffectCursor" type="CheckBox" parent="TabContainer/Notes/Notes/Group/H"]
 margin_top = 534.0
@@ -2145,7 +2124,7 @@ target = "hit_effect_at_cursor"
 
 [node name="Label" type="Label" parent="TabContainer/Notes/Notes/Group/H/HitEffectCursor"]
 anchor_bottom = 1.0
-margin_left = -165.0
+margin_left = -184.0
 margin_right = -10.0
 focus_mode = 2
 theme = ExtResource( 1 )
@@ -2154,7 +2133,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Hit Effect at Cursor"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="ApproachSquares" type="CheckBox" parent="TabContainer/Notes/Notes/Group/H"]
 margin_top = 566.0
@@ -2178,7 +2156,7 @@ target = "note_visual_approach"
 
 [node name="Label" type="Label" parent="TabContainer/Notes/Notes/Group/H/ApproachSquares"]
 anchor_bottom = 1.0
-margin_left = -165.0
+margin_left = -184.0
 margin_right = -10.0
 focus_mode = 2
 theme = ExtResource( 1 )
@@ -2187,7 +2165,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Approach Squares"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="ApproachFollow" type="CheckBox" parent="TabContainer/Notes/Notes/Group/H"]
 margin_top = 598.0
@@ -2211,7 +2188,7 @@ target = "visual_approach_follow"
 
 [node name="Label" type="Label" parent="TabContainer/Notes/Notes/Group/H/ApproachFollow"]
 anchor_bottom = 1.0
-margin_left = -165.0
+margin_left = -184.0
 margin_right = -10.0
 focus_mode = 2
 theme = ExtResource( 1 )
@@ -2220,7 +2197,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Approach Follow"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="SEPARATOR4" type="HSeparator" parent="TabContainer/Notes/Notes/Group/H"]
 margin_top = 630.0
@@ -2252,7 +2228,7 @@ target = "miss"
 default_image = ExtResource( 13 )
 
 [node name="Label" type="Label" parent="TabContainer/Notes/Notes/Group/H/MissRipple/MissEffect"]
-margin_left = -149.0
+margin_left = -184.0
 margin_right = -10.0
 margin_bottom = 32.0
 focus_mode = 2
@@ -2262,7 +2238,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Miss Effect Image"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="ImgPreview" type="TextureRect" parent="TabContainer/Notes/Notes/Group/H/MissRipple/MissEffect"]
 anchor_left = 1.0
@@ -2324,7 +2299,7 @@ align = 0
 script = ExtResource( 35 )
 
 [node name="Label" type="Label" parent="TabContainer/Notes/Notes/Group/H/MissEffect/Effect"]
-margin_left = -149.0
+margin_left = -184.0
 margin_right = -10.0
 margin_bottom = 32.0
 focus_mode = 2
@@ -2334,7 +2309,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Miss Effect"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/Notes/Notes/Group/H/MissEffect/Effect"]
 margin_left = 215.0
@@ -2371,7 +2345,7 @@ target = "show_miss_effect"
 
 [node name="Label" type="Label" parent="TabContainer/Notes/Notes/Group/H/ShowMissEffect"]
 anchor_bottom = 1.0
-margin_left = -165.0
+margin_left = -184.0
 margin_right = -10.0
 focus_mode = 2
 theme = ExtResource( 1 )
@@ -2380,7 +2354,14 @@ custom_fonts/font = SubResource( 3 )
 text = "Show Miss Effect"
 align = 2
 valign = 1
-clip_text = true
+
+[node name="SEPARATOR" type="HSeparator" parent="TabContainer/Notes"]
+margin_top = 182.0
+margin_right = 651.0
+margin_bottom = 212.0
+rect_min_size = Vector2( 0, 10 )
+custom_constants/separation = 30
+custom_styles/separator = SubResource( 55 )
 
 [node name="World & Cursor" type="VBoxContainer" parent="TabContainer"]
 visible = false
@@ -2429,7 +2410,7 @@ align = 0
 script = ExtResource( 11 )
 
 [node name="Label" type="Label" parent="TabContainer/World & Cursor/Customization/Group/H/World/World"]
-margin_left = -149.0
+margin_left = -180.0
 margin_right = -10.0
 margin_bottom = 32.0
 focus_mode = 2
@@ -2439,7 +2420,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Background World"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/World & Cursor/Customization/Group/H/World/World"]
 margin_left = 215.0
@@ -2474,7 +2454,7 @@ target = "disable_bg_effects"
 
 [node name="Label" type="Label" parent="TabContainer/World & Cursor/Customization/Group/H/DisableBGEffects"]
 anchor_bottom = 1.0
-margin_left = -147.0
+margin_left = -180.0
 margin_right = -10.0
 focus_mode = 2
 theme = ExtResource( 1 )
@@ -2483,7 +2463,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Disable BG Effects"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="CustomBg" type="Control" parent="TabContainer/World & Cursor/Customization/Group/H"]
 margin_top = 68.0
@@ -2506,7 +2485,7 @@ target = "custombg"
 default_image = ExtResource( 48 )
 
 [node name="Label" type="Label" parent="TabContainer/World & Cursor/Customization/Group/H/CustomBg/CustomBg"]
-margin_left = -162.0
+margin_left = -180.0
 margin_right = -10.0
 margin_bottom = 32.0
 focus_mode = 2
@@ -2516,7 +2495,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Custom World BG"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="ImgPreview" type="TextureRect" parent="TabContainer/World & Cursor/Customization/Group/H/CustomBg/CustomBg"]
 anchor_left = 1.0
@@ -2583,7 +2561,7 @@ script = ExtResource( 45 )
 default_image = ExtResource( 15 )
 
 [node name="Label" type="Label" parent="TabContainer/World & Cursor/Customization/Group/H/CustomCursor/CustomCursor"]
-margin_left = -149.0
+margin_left = -183.0
 margin_right = -10.0
 margin_bottom = 32.0
 focus_mode = 2
@@ -2593,7 +2571,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Cursor Image"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/World & Cursor/Customization/Group/H/CustomCursor/CustomCursor"]
 margin_left = 294.0
@@ -2671,7 +2648,7 @@ options = [ "Single Color", "Rainbow", "Note Color" ]
 target = "cursor_color_type"
 
 [node name="Label" type="Label" parent="TabContainer/World & Cursor/Customization/Group/H/CursorColorType/Effect"]
-margin_left = -149.0
+margin_left = -180.0
 margin_right = -10.0
 margin_bottom = 32.0
 focus_mode = 2
@@ -2681,7 +2658,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Color Mode"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/World & Cursor/Customization/Group/H/CursorColorType/Effect"]
 margin_left = 215.0
@@ -2716,7 +2692,7 @@ script = ExtResource( 51 )
 target = "cursor_color"
 
 [node name="Label" type="Label" parent="TabContainer/World & Cursor/Customization/Group/H/cursor_color/Color"]
-margin_left = -151.0
+margin_left = -180.0
 margin_right = -10.0
 margin_bottom = 32.0
 focus_mode = 2
@@ -2726,7 +2702,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Color"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/World & Cursor/Customization/Group/H/cursor_color/Color"]
 margin_left = 115.0
@@ -2758,7 +2733,7 @@ allow_greater = true
 script = ExtResource( 17 )
 
 [node name="Label" type="Label" parent="TabContainer/World & Cursor/Customization/Group/H/CursorScale/CursorScale"]
-margin_left = -115.0
+margin_left = -180.0
 margin_right = -10.0
 margin_bottom = 32.0
 focus_mode = 2
@@ -2768,7 +2743,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Cursor Scale"
 align = 2
 valign = 1
-clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -2807,7 +2781,7 @@ suffix = "°/sec"
 script = ExtResource( 10 )
 
 [node name="Label" type="Label" parent="TabContainer/World & Cursor/Customization/Group/H/CursorSpin/CursorSpin"]
-margin_left = -146.0
+margin_left = -180.0
 margin_right = -10.0
 margin_bottom = 32.0
 focus_mode = 2
@@ -2817,7 +2791,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Cursor Spin"
 align = 2
 valign = 1
-clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -2862,7 +2835,7 @@ target = "cursor_trail"
 
 [node name="Label" type="Label" parent="TabContainer/World & Cursor/Customization/Group/H/CursorTrail"]
 anchor_bottom = 1.0
-margin_left = -147.0
+margin_left = -180.0
 margin_right = -10.0
 focus_mode = 2
 theme = ExtResource( 1 )
@@ -2871,7 +2844,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Cursor Trail"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="SmartTrail" type="CheckBox" parent="TabContainer/World & Cursor/Customization/Group/H"]
 margin_top = 344.0
@@ -2894,7 +2866,7 @@ target = "smart_trail"
 
 [node name="Label" type="Label" parent="TabContainer/World & Cursor/Customization/Group/H/SmartTrail"]
 anchor_bottom = 1.0
-margin_left = -147.0
+margin_left = -180.0
 margin_right = -10.0
 focus_mode = 2
 theme = ExtResource( 1 )
@@ -2903,7 +2875,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Smart Trail"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="CursorTrailMode" type="Control" parent="TabContainer/World & Cursor/Customization/Group/H"]
 margin_top = 376.0
@@ -2927,7 +2898,7 @@ align = 0
 script = ExtResource( 62 )
 
 [node name="Label" type="Label" parent="TabContainer/World & Cursor/Customization/Group/H/CursorTrailMode/Effect"]
-margin_left = -149.0
+margin_left = -180.0
 margin_right = -10.0
 margin_bottom = 32.0
 focus_mode = 2
@@ -2937,7 +2908,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Trail Fade Mode"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/World & Cursor/Customization/Group/H/CursorTrailMode/Effect"]
 margin_left = 215.0
@@ -2971,7 +2941,7 @@ allow_greater = true
 script = ExtResource( 53 )
 
 [node name="Label" type="Label" parent="TabContainer/World & Cursor/Customization/Group/H/TrailDetail/TrailDetail"]
-margin_left = -115.0
+margin_left = -183.0
 margin_right = -10.0
 margin_bottom = 32.0
 focus_mode = 2
@@ -2981,7 +2951,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Trail Detail"
 align = 2
 valign = 1
-clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -3019,7 +2988,7 @@ allow_greater = true
 script = ExtResource( 52 )
 
 [node name="Label" type="Label" parent="TabContainer/World & Cursor/Customization/Group/H/TrailTime/TrailTime"]
-margin_left = -146.0
+margin_left = -180.0
 margin_right = -10.0
 margin_bottom = 32.0
 focus_mode = 2
@@ -3029,7 +2998,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Trail Time"
 align = 2
 valign = 1
-clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -3075,7 +3043,7 @@ target = "touch"
 default_image = ExtResource( 15 )
 
 [node name="Label" type="Label" parent="TabContainer/World & Cursor/Customization/Group/H/TouchIndicator/TouchIndicator"]
-margin_left = -149.0
+margin_left = -180.0
 margin_right = -10.0
 margin_bottom = 32.0
 focus_mode = 2
@@ -3085,7 +3053,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Touch Indicator"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="ImgPreview" type="TextureRect" parent="TabContainer/World & Cursor/Customization/Group/H/TouchIndicator/TouchIndicator"]
 anchor_left = 1.0
@@ -3124,8 +3091,15 @@ disabled = true
 icon = ExtResource( 4 )
 expand_icon = true
 
+[node name="SEPARATOR" type="HSeparator" parent="TabContainer/World & Cursor"]
+margin_top = 182.0
+margin_right = 651.0
+margin_bottom = 212.0
+rect_min_size = Vector2( 0, 10 )
+custom_constants/separation = 30
+custom_styles/separator = SubResource( 55 )
+
 [node name="UI" type="VBoxContainer" parent="TabContainer"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -3173,7 +3147,7 @@ target = "enable_grid"
 
 [node name="Label" type="Label" parent="TabContainer/UI/UI/Group/H/Grid"]
 anchor_bottom = 1.0
-margin_left = -150.0
+margin_left = -180.0
 margin_right = -10.0
 grow_horizontal = 0
 focus_mode = 2
@@ -3183,7 +3157,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Enable Grid"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Border" type="CheckBox" parent="TabContainer/UI/UI/Group/H"]
 margin_top = 32.0
@@ -3210,7 +3183,7 @@ target = "enable_border"
 
 [node name="Label" type="Label" parent="TabContainer/UI/UI/Group/H/Border"]
 anchor_bottom = 1.0
-margin_left = -150.0
+margin_left = -180.0
 margin_right = -10.0
 grow_horizontal = 0
 focus_mode = 2
@@ -3220,7 +3193,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Enable Border"
 align = 2
 valign = 1
-clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -3250,7 +3222,7 @@ target = "simple_hud"
 
 [node name="Label" type="Label" parent="TabContainer/UI/UI/Group/H/SimpleHud"]
 anchor_bottom = 1.0
-margin_left = -150.0
+margin_left = -180.0
 margin_right = -10.0
 grow_horizontal = 0
 focus_mode = 2
@@ -3260,7 +3232,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Simple HUD"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="LetterGrade" type="CheckBox" parent="TabContainer/UI/UI/Group/H"]
 margin_top = 96.0
@@ -3287,7 +3258,7 @@ target = "show_letter_grade"
 
 [node name="Label" type="Label" parent="TabContainer/UI/UI/Group/H/LetterGrade"]
 anchor_bottom = 1.0
-margin_left = -150.0
+margin_left = -173.0
 margin_right = -10.0
 grow_horizontal = 0
 focus_mode = 2
@@ -3297,7 +3268,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Show Letter Grade"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Config" type="CheckBox" parent="TabContainer/UI/UI/Group/H"]
 margin_top = 128.0
@@ -3334,7 +3304,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Show Settings"
 align = 2
 valign = 1
-clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -3370,7 +3339,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Display True Combo"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="ShowHealth" type="CheckBox" parent="TabContainer/UI/UI/Group/H"]
 margin_top = 192.0
@@ -3403,7 +3371,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Show Energy"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="ShowTimer" type="CheckBox" parent="TabContainer/UI/UI/Group/H"]
 margin_top = 224.0
@@ -3436,7 +3403,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Show Timer"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="AccuracyBar" type="CheckBox" parent="TabContainer/UI/UI/Group/H"]
 margin_top = 256.0
@@ -3469,7 +3435,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Accuracy Bar"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="ShowLeftPanel" type="CheckBox" parent="TabContainer/UI/UI/Group/H"]
 margin_top = 288.0
@@ -3502,7 +3467,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Show Left Panel"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="ShowRightPanel" type="CheckBox" parent="TabContainer/UI/UI/Group/H"]
 margin_top = 320.0
@@ -3535,7 +3499,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Show Right Panel"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="ShowCursor" type="CheckBox" parent="TabContainer/UI/UI/Group/H"]
 margin_top = 352.0
@@ -3568,7 +3531,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Show Cursor"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="AttachHpToGrid" type="CheckBox" parent="TabContainer/UI/UI/Group/H"]
 margin_top = 384.0
@@ -3600,7 +3562,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Attach Energy to Grid"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="AttachTimerToGrid" type="CheckBox" parent="TabContainer/UI/UI/Group/H"]
 margin_top = 416.0
@@ -3623,7 +3584,7 @@ target = "attach_timer_to_grid"
 
 [node name="Label" type="Label" parent="TabContainer/UI/UI/Group/H/AttachTimerToGrid"]
 anchor_bottom = 1.0
-margin_left = -165.0
+margin_left = -180.0
 margin_right = -10.0
 focus_mode = 2
 theme = ExtResource( 1 )
@@ -3632,7 +3593,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Attach Timer to Grid"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Score Popup" type="CheckBox" parent="TabContainer/UI/UI/Group/H"]
 margin_top = 448.0
@@ -3665,7 +3625,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Score Popup"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="BillboardScore2" type="CheckBox" parent="TabContainer/UI/UI/Group/H"]
 margin_top = 480.0
@@ -3697,7 +3656,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Billboard Popup"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="MirrorButtons" type="CheckBox" parent="TabContainer/UI/UI/Group/H"]
 visible = false
@@ -3811,7 +3769,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Rainbow Grid"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="RainbowHUD" type="CheckBox" parent="TabContainer/UI/UIColor/Group/H"]
 margin_top = 76.0
@@ -3843,7 +3800,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Rainbow HUD"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="SEPARATOR" type="HSeparator" parent="TabContainer/UI/UIColor/Group/H"]
 margin_top = 108.0
@@ -3883,7 +3839,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Panel Background"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/panel_bg/Color"]
 margin_left = 115.0
@@ -3928,7 +3883,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Panel Text"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/panel_text/Color"]
 margin_left = 115.0
@@ -3973,7 +3927,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Score Counter"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/score_text_color/Color"]
 margin_left = 115.0
@@ -4014,7 +3967,7 @@ script = ExtResource( 50 )
 target = "pause_ui_opacity"
 
 [node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/pause_ui_opacity/SpinBox"]
-margin_left = -134.0
+margin_left = -180.0
 margin_right = -10.0
 margin_bottom = 32.0
 focus_mode = 2
@@ -4024,7 +3977,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Pause UI Opacity"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/pause_ui_opacity/SpinBox"]
 margin_left = 215.0
@@ -4069,7 +4021,6 @@ custom_fonts/font = SubResource( 3 )
 text = "\"PAUSED\""
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/unpause_empty_color/Color"]
 margin_left = 115.0
@@ -4114,7 +4065,6 @@ custom_fonts/font = SubResource( 3 )
 text = "\"PAUSED\" (Unpausing)"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/unpause_fill_color/Color"]
 margin_left = 115.0
@@ -4159,7 +4109,6 @@ custom_fonts/font = SubResource( 3 )
 text = "\"Hold R to exit\""
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/how_to_quit/Color"]
 margin_left = 115.0
@@ -4211,7 +4160,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Combo Wheel - Fill"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/combo_fill_color/Color"]
 margin_left = 115.0
@@ -4256,7 +4204,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Combo Wheel - Empty"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/combo_empty_color/Color"]
 margin_left = 115.0
@@ -4308,7 +4255,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Accuracy Bar - Fill"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/acc_fill_color/Color"]
 margin_left = 115.0
@@ -4353,7 +4299,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Accuracy Bar - Empty"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/acc_empty_color/Color"]
 margin_left = 115.0
@@ -4405,7 +4350,6 @@ custom_fonts/font = SubResource( 3 )
 text = "\"Giving up...\""
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/giveup_text/Color"]
 margin_left = 115.0
@@ -4450,7 +4394,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Exit Wheel (Give up)"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/giveup_fill_color/Color"]
 margin_left = 115.0
@@ -4485,7 +4428,7 @@ script = ExtResource( 51 )
 target = "giveup_fill_color_end_skip"
 
 [node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/giveup_fill_color_end_skip/Color"]
-margin_left = -151.0
+margin_left = -180.0
 margin_right = -10.0
 margin_bottom = 32.0
 focus_mode = 2
@@ -4495,7 +4438,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Exit Wheel (Skip)"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/giveup_fill_color_end_skip/Color"]
 margin_left = 115.0
@@ -4537,7 +4479,7 @@ script = ExtResource( 51 )
 target = "timer_text"
 
 [node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/timer_text/Color"]
-margin_left = -166.0
+margin_left = -183.0
 margin_right = -10.0
 margin_bottom = 32.0
 focus_mode = 2
@@ -4547,7 +4489,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Timer Text (Normal)"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/timer_text/Color"]
 margin_left = 115.0
@@ -4582,7 +4523,7 @@ script = ExtResource( 51 )
 target = "timer_text_done"
 
 [node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/timer_text_done/Color"]
-margin_left = -151.0
+margin_left = -184.0
 margin_right = -10.0
 margin_bottom = 32.0
 focus_mode = 2
@@ -4592,7 +4533,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Timer Text (End)"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/timer_text_done/Color"]
 margin_left = 115.0
@@ -4627,7 +4567,7 @@ script = ExtResource( 51 )
 target = "timer_text_canskip"
 
 [node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/timer_text_canskip/Color"]
-margin_left = -159.0
+margin_left = -183.0
 margin_right = -10.0
 margin_bottom = 32.0
 focus_mode = 2
@@ -4637,7 +4577,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Timer Text (Skip)"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/timer_text_canskip/Color"]
 margin_left = 115.0
@@ -4689,7 +4628,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Timer - Fill (Normal)"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/timer_fg/Color"]
 margin_left = 115.0
@@ -4734,7 +4672,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Timer - Empty (Normal)"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/timer_bg/Color"]
 margin_left = 115.0
@@ -4786,7 +4723,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Timer - Fill (End)"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/timer_fg_done/Color"]
 margin_left = 115.0
@@ -4831,7 +4767,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Timer - Empty (End)"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/timer_bg_done/Color"]
 margin_left = 115.0
@@ -4873,7 +4808,7 @@ script = ExtResource( 51 )
 target = "timer_fg_canskip"
 
 [node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/timer_fg_canskip/Color"]
-margin_left = -151.0
+margin_left = -180.0
 margin_right = -10.0
 margin_bottom = 32.0
 focus_mode = 2
@@ -4883,7 +4818,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Timer - Fill (Skip)"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/timer_fg_canskip/Color"]
 margin_left = 115.0
@@ -4918,7 +4852,7 @@ script = ExtResource( 51 )
 target = "timer_bg_canskip"
 
 [node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/timer_bg_canskip/Color"]
-margin_left = -159.0
+margin_left = -183.0
 margin_right = -10.0
 margin_bottom = 32.0
 focus_mode = 2
@@ -4928,7 +4862,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Timer - Empty (Skip)"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/timer_bg_canskip/Color"]
 margin_left = 115.0
@@ -4980,7 +4913,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Miss Counter"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/miss_text_color/Color"]
 margin_left = 115.0
@@ -5025,7 +4957,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Miss Counter (Flash)"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/miss_flash_color/Color"]
 margin_left = 115.0
@@ -5077,7 +5008,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Pause Counter (Zero)"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/pause_text_color/Color"]
 margin_left = 115.0
@@ -5122,7 +5052,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Pause Counter (Used)"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/pause_used_color/Color"]
 margin_left = 115.0
@@ -5173,7 +5102,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Grade SS - Saturation"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/grade_ss_saturation/SpinBox"]
 margin_left = 215.0
@@ -5217,7 +5145,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Grade SS - Value"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/grade_ss_value/SpinBox"]
 margin_left = 215.0
@@ -5261,7 +5188,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Grade SS - Shine"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/grade_ss_shine/SpinBox"]
 margin_left = 215.0
@@ -5313,7 +5239,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Grade S - Color"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/grade_s_color/Color"]
 margin_left = 115.0
@@ -5357,7 +5282,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Grade S - Shine"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/grade_s_shine/SpinBox"]
 margin_left = 215.0
@@ -5409,7 +5333,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Grade A - Color"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/grade_a_color/Color"]
 margin_left = 115.0
@@ -5454,7 +5377,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Grade B - Color"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/grade_b_color/Color"]
 margin_left = 115.0
@@ -5499,7 +5421,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Grade C - Color"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/grade_c_color/Color"]
 margin_left = 115.0
@@ -5544,7 +5465,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Grade D - Color"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/grade_d_color/Color"]
 margin_left = 115.0
@@ -5589,7 +5509,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Grade F - Color"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/grade_f_color/Color"]
 margin_left = 115.0
@@ -5602,6 +5521,14 @@ custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
 custom_fonts/font = SubResource( 4 )
 text = "[def. ##DEFAULT##] color of text when grade is F"
 valign = 1
+
+[node name="SEPARATOR" type="HSeparator" parent="TabContainer/UI"]
+margin_top = 2140.0
+margin_right = 1272.0
+margin_bottom = 2170.0
+rect_min_size = Vector2( 0, 10 )
+custom_constants/separation = 30
+custom_styles/separator = SubResource( 55 )
 
 [node name="Video & Audio" type="VBoxContainer" parent="TabContainer"]
 visible = false
@@ -5658,7 +5585,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Render Scale"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/Video & Audio/Graphics/Group/H/RenderScale"]
 margin_left = 215.0
@@ -5701,7 +5627,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Vsync"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Fullscreen" type="CheckBox" parent="TabContainer/Video & Audio/Graphics/Group/H"]
 margin_top = 68.0
@@ -5732,7 +5657,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Fullscreen"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="AutoMax" type="CheckBox" parent="TabContainer/Video & Audio/Graphics/Group/H"]
 margin_top = 100.0
@@ -5764,7 +5688,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Auto-Maximize"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Warnings" type="CheckBox" parent="TabContainer/Video & Audio/Graphics/Group/H"]
 margin_top = 132.0
@@ -5796,7 +5719,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Show Warnings"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="TargetFPS" type="Control" parent="TabContainer/Video & Audio/Graphics/Group/H"]
 margin_top = 164.0
@@ -5826,7 +5748,6 @@ custom_fonts/font = SubResource( 3 )
 text = "FPS Limit"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/Video & Audio/Graphics/Group/H/TargetFPS/Sensitivity"]
 margin_left = 215.0
@@ -5893,7 +5814,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Master Volume"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="db" type="SpinBox" parent="TabContainer/Video & Audio/Audio/Group/H/Master"]
 margin_left = 215.0
@@ -5950,7 +5870,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Music Volume"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="db" type="SpinBox" parent="TabContainer/Video & Audio/Audio/Group/H/Music"]
 margin_left = 215.0
@@ -6007,7 +5926,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Hit Volume"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="db" type="SpinBox" parent="TabContainer/Video & Audio/Audio/Group/H/HitSound2"]
 margin_left = 215.0
@@ -6064,7 +5982,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Miss Volume"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="db" type="SpinBox" parent="TabContainer/Video & Audio/Audio/Group/H/MissSound2"]
 margin_left = 215.0
@@ -6121,7 +6038,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Fail Volume"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="db" type="SpinBox" parent="TabContainer/Video & Audio/Audio/Group/H/FailSound"]
 margin_left = 215.0
@@ -6178,7 +6094,6 @@ custom_fonts/font = SubResource( 3 )
 text = "PB Volume"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="db" type="SpinBox" parent="TabContainer/Video & Audio/Audio/Group/H/PBSound"]
 margin_left = 215.0
@@ -6243,7 +6158,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Hit Sound"
 align = 2
 valign = 1
-clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -6279,7 +6193,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Miss Sound"
 align = 2
 valign = 1
-clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -6315,7 +6228,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Disable Directional"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="SEPARATOR" type="HSeparator" parent="TabContainer/Video & Audio/Audio/Group/H"]
 margin_top = 326.0
@@ -6355,7 +6267,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Universal Offset"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/Video & Audio/Audio/Group/H/MusicOffset/MusicOffset"]
 margin_left = 215.0
@@ -6399,7 +6310,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Menu Music"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="AutoPreview" type="CheckBox" parent="TabContainer/Video & Audio/Audio/Group/H"]
 margin_top = 408.0
@@ -6432,10 +6342,17 @@ custom_fonts/font = SubResource( 3 )
 text = "Auto Preview Songs"
 align = 2
 valign = 1
-clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="SEPARATOR2" type="HSeparator" parent="TabContainer/Video & Audio"]
+margin_top = 182.0
+margin_right = 651.0
+margin_bottom = 212.0
+rect_min_size = Vector2( 0, 10 )
+custom_constants/separation = 30
+custom_styles/separator = SubResource( 55 )
 
 [node name="Replays & Misc" type="VBoxContainer" parent="TabContainer"]
 visible = false
@@ -6491,7 +6408,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Record Replays"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="AltCam" type="CheckBox" parent="TabContainer/Replays & Misc/Recording/Group/H"]
 margin_top = 32.0
@@ -6523,7 +6439,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Alt. Replay Camera"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Mode" type="Control" parent="TabContainer/Replays & Misc/Recording/Group/H"]
 margin_top = 64.0
@@ -6553,7 +6468,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Recording Mode"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/Replays & Misc/Recording/Group/H/Mode/Mode"]
 margin_left = 215.0
@@ -6595,7 +6509,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Recording FPS"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/Replays & Misc/Recording/Group/H/FPS/FPS"]
 margin_left = 215.0
@@ -6727,7 +6640,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Ensure Hitsync"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="RetainSongPitch" type="CheckBox" parent="TabContainer/Replays & Misc/Experimental/Group/H"]
 margin_top = 141.0
@@ -6760,7 +6672,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Retain Song Pitch"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="ShowStats" type="CheckBox" parent="TabContainer/Replays & Misc/Experimental/Group/H"]
 margin_top = 173.0
@@ -6793,7 +6704,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Show Extensive Stats"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Avatar" type="Control" parent="TabContainer/Replays & Misc/Experimental/Group/H"]
 visible = false
@@ -6889,7 +6799,6 @@ custom_fonts/font = SubResource( 3 )
 text = "Play Intro Cutscene"
 align = 2
 valign = 1
-clip_text = true
 
 [node name="Desc" type="Label" parent="TabContainer/Replays & Misc/Experimental/Group/H/Intro/Play"]
 margin_left = 215.0
@@ -6934,7 +6843,14 @@ custom_fonts/font = SubResource( 3 )
 text = "Disable Intro Cutscene"
 align = 2
 valign = 1
-clip_text = true
+
+[node name="SEPARATOR" type="HSeparator" parent="TabContainer/Replays & Misc"]
+margin_top = 182.0
+margin_right = 651.0
+margin_bottom = 212.0
+rect_min_size = Vector2( 0, 10 )
+custom_constants/separation = 30
+custom_styles/separator = SubResource( 55 )
 
 [connection signal="value_changed" from="TabContainer/Video & Audio/Graphics/Group/H/RenderScale/Scale" to="TabContainer/Video & Audio/Graphics/Group/H/RenderScale/Scale" method="_on_Scale_value_changed"]
 [connection signal="pressed" from="TabContainer/Replays & Misc/Experimental/Group/H/Intro/Play" to="TabContainer/Replays & Misc/Experimental/Group/H/Intro/Play" method="_on_Play_pressed"]
