@@ -4171,6 +4171,7 @@ scroll_deadzone = 45
 [node name="L" parent="Main/Credits/C/S" instance=ExtResource( 7 )]
 
 [node name="Content" type="ReferenceRect" parent="Main"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
