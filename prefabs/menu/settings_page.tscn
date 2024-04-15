@@ -272,34 +272,30 @@ script = ExtResource( 59 )
 [node name="TabContainer" type="TabContainer" parent="."]
 margin_top = 59.0
 margin_right = 1280.0
-margin_bottom = 793.0
+margin_bottom = 1019.0
 theme = ExtResource( 1 )
 tab_align = 0
 
 [node name="Gameplay" type="VBoxContainer" parent="TabContainer"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 38.0
-margin_right = -4.0
-margin_bottom = -4.0
+margin_top = 30.0
 theme = ExtResource( 1 )
 custom_constants/separation = 0
 
 [node name="Modifiers" type="VBoxContainer" parent="TabContainer/Gameplay"]
-margin_right = 1272.0
+margin_right = 1280.0
 margin_bottom = 182.0
 
 [node name="Group" type="MarginContainer" parent="TabContainer/Gameplay/Modifiers"]
-margin_right = 1272.0
+margin_right = 1280.0
 margin_bottom = 182.0
 mouse_filter = 1
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="TabContainer/Gameplay/Modifiers/Group"]
 margin_left = 180.0
-margin_right = 1272.0
+margin_right = 1280.0
 margin_bottom = 182.0
 
 [node name="DisablePause" type="CheckBox" parent="TabContainer/Gameplay/Modifiers/Group/H"]
@@ -511,7 +507,7 @@ valign = 1
 
 [node name="SEPARATOR" type="HSeparator" parent="TabContainer/Gameplay"]
 margin_top = 182.0
-margin_right = 1272.0
+margin_right = 1280.0
 margin_bottom = 212.0
 rect_min_size = Vector2( 0, 10 )
 custom_constants/separation = 30
@@ -519,18 +515,18 @@ custom_styles/separator = SubResource( 55 )
 
 [node name="Camera" type="VBoxContainer" parent="TabContainer/Gameplay"]
 margin_top = 212.0
-margin_right = 1272.0
+margin_right = 1280.0
 margin_bottom = 900.0
 
 [node name="Group" type="MarginContainer" parent="TabContainer/Gameplay/Camera"]
-margin_right = 1272.0
+margin_right = 1280.0
 margin_bottom = 688.0
 mouse_filter = 1
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="TabContainer/Gameplay/Camera/Group"]
 margin_left = 180.0
-margin_right = 1272.0
+margin_right = 1280.0
 margin_bottom = 688.0
 
 [node name="Sensitivity" type="Control" parent="TabContainer/Gameplay/Camera/Group/H"]
@@ -1284,9 +1280,9 @@ valign = 1
 clip_text = true
 
 [node name="SEPARATOR2" type="HSeparator" parent="TabContainer/Gameplay"]
-margin_top = 182.0
-margin_right = 651.0
-margin_bottom = 212.0
+margin_top = 900.0
+margin_right = 1280.0
+margin_bottom = 930.0
 rect_min_size = Vector2( 0, 10 )
 custom_constants/separation = 30
 custom_styles/separator = SubResource( 55 )
@@ -5532,6 +5528,7 @@ custom_constants/separation = 30
 custom_styles/separator = SubResource( 55 )
 
 [node name="Video & Audio" type="VBoxContainer" parent="TabContainer"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
