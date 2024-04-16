@@ -1987,7 +1987,6 @@ shortcut_in_tooltip = false
 action_mode = 0
 
 [node name="Results" type="HBoxContainer" parent="Main"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 12.0
