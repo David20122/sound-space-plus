@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=22 format=2]
+[gd_resource type="Theme" load_steps=23 format=2]
 
 [ext_resource path="res://assets/font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/font/Noto_Sans_JP/NotoSansJP-Medium.otf" type="DynamicFontData" id=2]
@@ -161,6 +161,9 @@ shadow_size = 6
 
 [sub_resource type="StyleBoxLine" id=16]
 color = Color( 0.305882, 0.2, 0.32549, 0.847059 )
+
+[sub_resource type="StyleBoxFlat" id=19]
+bg_color = Color( 0.139943, 0.134583, 0.164063, 0.831373 )
 
 [sub_resource type="StyleBoxFlat" id=18]
 bg_color = Color( 0, 0, 0, 0.705882 )
@@ -442,9 +445,9 @@ RichTextLabel/styles/focus = null
 RichTextLabel/styles/normal = null
 ScrollContainer/styles/bg = null
 SpinBox/icons/updown = null
-TabContainer/colors/font_color_bg = Color( 0, 0, 0, 1 )
-TabContainer/colors/font_color_disabled = Color( 0, 0, 0, 1 )
-TabContainer/colors/font_color_fg = Color( 0, 0, 0, 1 )
+TabContainer/colors/font_color_bg = Color( 0.556863, 0.556863, 0.556863, 1 )
+TabContainer/colors/font_color_disabled = Color( 0.556863, 0.556863, 0.556863, 1 )
+TabContainer/colors/font_color_fg = Color( 0.937255, 0.937255, 0.937255, 1 )
 TabContainer/constants/hseparation = 4
 TabContainer/constants/label_valign_bg = 2
 TabContainer/constants/label_valign_fg = 0
@@ -457,7 +460,7 @@ TabContainer/icons/increment = null
 TabContainer/icons/increment_highlight = null
 TabContainer/icons/menu = null
 TabContainer/icons/menu_highlight = null
-TabContainer/styles/panel = null
+TabContainer/styles/panel = SubResource( 19 )
 TabContainer/styles/tab_bg = null
 TabContainer/styles/tab_disabled = null
 TabContainer/styles/tab_fg = null

@@ -7,32 +7,40 @@ onready var pages:Array = [
 	get_node("../Main/Results"),
 	get_node("../Main/MapRegistry"),
 	get_node("../Main/Settings"),
-	get_node("../Main/Credits")
+	get_node("../Main/Credits"),
+	get_node("../Main/Content"),
+	get_node("../Main/Language")
 ]
 onready var buttons:Array = [
 	$L/Results,
 	$L/MapSelect,
 	$L/Settings,
-	$L/Credits
+	$L/Credits,
+	$L/ContentMgr,
+	$L/Language
 ]
 var use_ver_b:Array = [
 	false,
 	false,
 	true,
+	false,
+	false,
 	false
 ]
 var hide_ver:Array = [
 	false,
 	false,
 	false,
-	true
+	true,
+	false,
+	false
 ]
 onready var smm_visibility:Dictionary = {
 	$L/Results: true,
 	$L/MapSelect: false,
 	$L/Settings: true,
 	$L/Credits: true,
-	$L/ContentMgr: false,
+	$L/ContentMgr: true,
 	$L/Language: false,
 	$L/StartVR: false,
 	$L/OldMenu: false,
@@ -67,19 +75,6 @@ func to_old_menu():
 	yield(get_tree().create_timer(0.35),"timeout")
 	get_tree().change_scene("res://scenes/loaders/menuload.tscn")
 
-func to_content_mgr():
-	get_node("../Press").play()
-	get_viewport().get_node("Menu").black_fade_target = true
-	yield(get_tree().create_timer(0.35),"timeout")
-	Rhythia.conmgr_transit = "addsongs"
-	get_tree().change_scene("res://scenes/loaders/contentmgrload.tscn")
-
-func to_language():
-	get_node("../Press").play()
-	get_viewport().get_node("Menu").black_fade_target = true
-	yield(get_tree().create_timer(0.35),"timeout")
-	get_tree().change_scene("res://scenes/menu/language.tscn")
-
 func to_vr():
 	get_node("../Press").play()
 	get_viewport().get_node("Menu").black_fade_target = true
@@ -101,8 +96,6 @@ func _ready():
 	else: press(1,true)
 	
 	$L/OldMenu.connect("pressed",self,"to_old_menu")
-	$L/ContentMgr.connect("pressed",self,"to_content_mgr")
-	$L/Language.connect("pressed",self,"to_language")
 	$L/StartVR.connect("pressed",self,"to_vr")
 	$L/Quit.connect("pressed",self,"quit")
 	
@@ -133,3 +126,9 @@ func _input(ev):
 		yield(get_tree(),"idle_frame")
 		get_node("Click").visible = !open
 		get_node("../SidebarClick").visible = open
+
+func _on_Sidebar_mouse_entered():
+	open = true
+	yield(get_tree(),"idle_frame")
+	get_node("Click").visible = !open
+	get_node("../SidebarClick").visible = open

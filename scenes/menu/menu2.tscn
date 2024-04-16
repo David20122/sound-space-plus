@@ -1,4 +1,4 @@
-[gd_scene load_steps=216 format=2]
+[gd_scene load_steps=208 format=2]
 
 [ext_resource path="res://uitheme.tres" type="Theme" id=1]
 [ext_resource path="res://assets/font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=2]
@@ -6,7 +6,7 @@
 [ext_resource path="res://assets/images/branding/icon.png" type="Texture" id=4]
 [ext_resource path="res://assets/sfx/hit.wav" type="AudioStream" id=5]
 [ext_resource path="res://scripts/ui/menu/buttons/Quit.gd" type="Script" id=6]
-[ext_resource path="res://assets/images/branding/logo.png" type="Texture" id=7]
+[ext_resource path="res://prefabs/menu/credits.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scripts/ui/menu/buttons/ContentMgrAddMap.gd" type="Script" id=8]
 [ext_resource path="res://scripts/ui/menu/buttons/PlaySong.gd" type="Script" id=9]
 [ext_resource path="res://scripts/ui/settings/MusicVolumeSetter.gd" type="Script" id=10]
@@ -102,6 +102,8 @@
 [ext_resource path="res://scripts/ui/settings/CustomSpeed.gd" type="Script" id=100]
 [ext_resource path="res://scripts/ui/menu/buttons/ModHardRock.gd" type="Script" id=101]
 [ext_resource path="res://assets/images/ui/localization.png" type="Texture" id=102]
+[ext_resource path="res://scenes/menu/contentmgr.tscn" type="PackedScene" id=103]
+[ext_resource path="res://scenes/menu/language.tscn" type="PackedScene" id=104]
 
 [sub_resource type="Gradient" id=163]
 offsets = PoolRealArray( 0, 0.5, 1 )
@@ -570,56 +572,6 @@ font_data = ExtResource( 2 )
 size = 24
 use_filter = true
 font_data = ExtResource( 2 )
-
-[sub_resource type="DynamicFont" id=158]
-size = 36
-use_filter = true
-font_data = ExtResource( 27 )
-
-[sub_resource type="DynamicFont" id=159]
-size = 24
-use_filter = true
-font_data = ExtResource( 27 )
-
-[sub_resource type="DynamicFont" id=109]
-size = 24
-use_filter = true
-font_data = ExtResource( 27 )
-
-[sub_resource type="DynamicFont" id=110]
-size = 20
-use_filter = true
-font_data = ExtResource( 27 )
-
-[sub_resource type="DynamicFont" id=111]
-size = 22
-use_filter = true
-font_data = ExtResource( 27 )
-
-[sub_resource type="DynamicFont" id=112]
-size = 18
-use_filter = true
-font_data = ExtResource( 27 )
-
-[sub_resource type="DynamicFont" id=113]
-size = 22
-use_filter = true
-font_data = ExtResource( 27 )
-
-[sub_resource type="DynamicFont" id=114]
-size = 18
-use_filter = true
-extra_spacing_top = -2
-extra_spacing_bottom = -2
-font_data = ExtResource( 27 )
-
-[sub_resource type="DynamicFont" id=160]
-size = 20
-use_filter = true
-font_data = ExtResource( 27 )
-
-[sub_resource type="StyleBoxLine" id=161]
-color = Color( 0.878431, 0.858824, 0.682353, 0.364706 )
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0, 0, 0, 1 )
@@ -4187,7 +4139,7 @@ scroll_horizontal_enabled = false
 [node name="F" parent="Main/Settings/S" instance=ExtResource( 49 )]
 anchor_right = 0.0
 margin_right = 1210.0
-margin_bottom = 5862.0
+margin_bottom = 915.0
 rect_clip_content = true
 
 [node name="Credits" type="ReferenceRect" parent="Main"]
@@ -4216,425 +4168,33 @@ follow_focus = true
 scroll_horizontal_enabled = false
 scroll_deadzone = 45
 
-[node name="L" type="VBoxContainer" parent="Main/Credits/C/S"]
-margin_right = 1216.0
-margin_bottom = 1115.0
-grow_horizontal = 2
-rect_min_size = Vector2( 700, 0 )
-size_flags_horizontal = 3
-custom_constants/separation = 12
-alignment = 1
+[node name="L" parent="Main/Credits/C/S" instance=ExtResource( 7 )]
 
-[node name="Logo" type="MarginContainer" parent="Main/Credits/C/S/L"]
-margin_right = 1204.0
-margin_bottom = 260.0
-rect_min_size = Vector2( 0, 200 )
-custom_constants/margin_top = -50
-custom_constants/margin_bottom = -50
-
-[node name="TextureRect" type="TextureRect" parent="Main/Credits/C/S/L/Logo"]
-margin_top = -50.0
-margin_right = 1204.0
-margin_bottom = 310.0
-rect_min_size = Vector2( 128, 360 )
-texture = ExtResource( 7 )
-expand = true
-stretch_mode = 6
-
-[node name="DevTeam" type="VBoxContainer" parent="Main/Credits/C/S/L"]
-margin_top = 272.0
-margin_right = 1204.0
-margin_bottom = 392.0
-grow_horizontal = 2
-custom_constants/separation = 8
-alignment = 1
-
-[node name="DevTitle2" type="Label" parent="Main/Credits/C/S/L/DevTeam"]
-margin_right = 1204.0
-margin_bottom = 44.0
-custom_colors/font_color = Color( 0.447059, 0.72549, 1, 1 )
-custom_fonts/font = SubResource( 158 )
-text = "-- development team --"
-align = 1
-
-[node name="C" type="CenterContainer" parent="Main/Credits/C/S/L/DevTeam"]
-margin_top = 52.0
-margin_right = 1204.0
-margin_bottom = 82.0
-
-[node name="H" type="HBoxContainer" parent="Main/Credits/C/S/L/DevTeam/C"]
-margin_left = 530.0
-margin_right = 673.0
-margin_bottom = 30.0
-alignment = 1
-
-[node name="Label" type="Label" parent="Main/Credits/C/S/L/DevTeam/C/H"]
-margin_right = 143.0
-margin_bottom = 30.0
-custom_colors/font_color = Color( 0.670588, 0.901961, 0.898039, 1 )
-custom_fonts/font = SubResource( 159 )
-text = "Jayden Jones"
-align = 1
-
-[node name="C2" type="CenterContainer" parent="Main/Credits/C/S/L/DevTeam"]
-margin_top = 90.0
-margin_right = 1204.0
-margin_bottom = 120.0
-
-[node name="H" type="HBoxContainer" parent="Main/Credits/C/S/L/DevTeam/C2"]
-margin_left = 530.0
-margin_right = 673.0
-margin_bottom = 30.0
-alignment = 1
-
-[node name="Label" type="Label" parent="Main/Credits/C/S/L/DevTeam/C2/H"]
-margin_right = 143.0
-margin_bottom = 30.0
-custom_colors/font_color = Color( 0.670588, 0.901961, 0.898039, 1 )
-custom_fonts/font = SubResource( 159 )
-text = "David (kiwie)"
-align = 1
-
-[node name="PatronTitle" type="Label" parent="Main/Credits/C/S/L"]
-margin_top = 404.0
-margin_right = 1204.0
-margin_bottom = 448.0
-custom_colors/font_color = Color( 1, 0.258824, 0.301961, 1 )
-custom_fonts/font = SubResource( 158 )
-text = "-- patreon supporters --"
-align = 1
-
-[node name="T3" type="VBoxContainer" parent="Main/Credits/C/S/L"]
-margin_top = 460.0
-margin_right = 1204.0
-margin_bottom = 490.0
-grow_horizontal = 2
-custom_constants/separation = 8
-alignment = 1
-
-[node name="Title" type="Label" parent="Main/Credits/C/S/L/T3"]
-margin_right = 1204.0
-margin_bottom = 30.0
-custom_colors/font_color = Color( 0.835294, 0.309804, 1, 1 )
-custom_fonts/font = SubResource( 109 )
-text = "- big money! -"
-align = 1
-
-[node name="Label" type="Label" parent="Main/Credits/C/S/L/T3"]
+[node name="Content" type="ReferenceRect" parent="Main"]
 visible = false
-margin_top = 38.0
-margin_right = 1204.0
-margin_bottom = 63.0
-custom_colors/font_color = Color( 0.972549, 0.721569, 1, 1 )
-custom_fonts/font = SubResource( 110 )
-text = "patron name 1"
-align = 1
-autowrap = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 4.0
+border_color = Color( 1, 0, 0, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="T2" type="VBoxContainer" parent="Main/Credits/C/S/L"]
-margin_top = 502.0
-margin_right = 1204.0
-margin_bottom = 529.0
-grow_horizontal = 2
-custom_constants/separation = 8
-alignment = 1
+[node name="Menu" parent="Main/Content" instance=ExtResource( 103 )]
 
-[node name="Title" type="Label" parent="Main/Credits/C/S/L/T2"]
-margin_right = 1204.0
-margin_bottom = 27.0
-custom_colors/font_color = Color( 0.34902, 0.937255, 0.380392, 1 )
-custom_fonts/font = SubResource( 111 )
-text = "- extra support! -"
-align = 1
-
-[node name="Label" type="Label" parent="Main/Credits/C/S/L/T2"]
+[node name="Language" type="ReferenceRect" parent="Main"]
 visible = false
-margin_top = 35.0
-margin_right = 1204.0
-margin_bottom = 57.0
-custom_colors/font_color = Color( 0.721569, 1, 0.737255, 1 )
-custom_fonts/font = SubResource( 112 )
-text = "patron name 2"
-align = 1
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 4.0
+border_color = Color( 1, 0, 0, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="T1" type="VBoxContainer" parent="Main/Credits/C/S/L"]
-margin_top = 541.0
-margin_right = 1204.0
-margin_bottom = 568.0
-grow_horizontal = 2
-custom_constants/separation = 8
-alignment = 1
-
-[node name="Title" type="Label" parent="Main/Credits/C/S/L/T1"]
-margin_right = 1204.0
-margin_bottom = 27.0
-custom_colors/font_color = Color( 0.45098, 0.854902, 0.847059, 1 )
-custom_fonts/font = SubResource( 113 )
-text = "- thank you! -"
-align = 1
-
-[node name="Label" type="Label" parent="Main/Credits/C/S/L/T1"]
-visible = false
-margin_top = 35.0
-margin_right = 1204.0
-margin_bottom = 53.0
-rect_min_size = Vector2( 400, 0 )
-custom_colors/font_color = Color( 0.803922, 0.972549, 1, 1 )
-custom_fonts/font = SubResource( 114 )
-text = "patron name 3"
-align = 1
-autowrap = true
-
-[node name="SpecialThanks" type="VBoxContainer" parent="Main/Credits/C/S/L"]
-margin_top = 580.0
-margin_right = 1204.0
-margin_bottom = 978.0
-grow_horizontal = 2
-custom_constants/separation = 8
-alignment = 1
-
-[node name="Title" type="Label" parent="Main/Credits/C/S/L/SpecialThanks"]
-margin_right = 1204.0
-margin_bottom = 44.0
-custom_colors/font_color = Color( 0.917647, 1, 0.447059, 1 )
-custom_fonts/font = SubResource( 158 )
-text = "-- special thanks --"
-align = 1
-
-[node name="C13" type="CenterContainer" parent="Main/Credits/C/S/L/SpecialThanks"]
-margin_top = 52.0
-margin_right = 1204.0
-margin_bottom = 77.0
-
-[node name="H" type="HBoxContainer" parent="Main/Credits/C/S/L/SpecialThanks/C13"]
-margin_left = 253.0
-margin_right = 950.0
-margin_bottom = 25.0
-alignment = 1
-
-[node name="Label" type="Label" parent="Main/Credits/C/S/L/SpecialThanks/C13/H"]
-margin_right = 697.0
-margin_bottom = 25.0
-custom_colors/font_color = Color( 0.878431, 0.858824, 0.682353, 1 )
-custom_fonts/font = SubResource( 160 )
-text = "Basil \"Chedski\" Cyathea - The person that started it all; unfortunately gone now"
-align = 1
-
-[node name="C7" type="CenterContainer" parent="Main/Credits/C/S/L/SpecialThanks"]
-margin_top = 85.0
-margin_right = 1204.0
-margin_bottom = 110.0
-
-[node name="H" type="HBoxContainer" parent="Main/Credits/C/S/L/SpecialThanks/C7"]
-margin_left = 398.0
-margin_right = 805.0
-margin_bottom = 25.0
-alignment = 1
-
-[node name="Label" type="Label" parent="Main/Credits/C/S/L/SpecialThanks/C7/H"]
-margin_right = 407.0
-margin_bottom = 25.0
-custom_colors/font_color = Color( 0.878431, 0.858824, 0.682353, 1 )
-custom_fonts/font = SubResource( 160 )
-text = "Morphox - Creator of the original Sound Space"
-align = 1
-
-[node name="C12" type="CenterContainer" parent="Main/Credits/C/S/L/SpecialThanks"]
-margin_top = 118.0
-margin_right = 1204.0
-margin_bottom = 143.0
-
-[node name="H" type="HBoxContainer" parent="Main/Credits/C/S/L/SpecialThanks/C12"]
-margin_left = 318.0
-margin_right = 885.0
-margin_bottom = 25.0
-alignment = 1
-
-[node name="Label" type="Label" parent="Main/Credits/C/S/L/SpecialThanks/C12/H"]
-margin_right = 567.0
-margin_bottom = 25.0
-custom_colors/font_color = Color( 0.878431, 0.858824, 0.682353, 1 )
-custom_fonts/font = SubResource( 160 )
-text = "ARCW - Singlehandedly starting a new era of community growth"
-align = 1
-
-[node name="C11" type="CenterContainer" parent="Main/Credits/C/S/L/SpecialThanks"]
-margin_top = 151.0
-margin_right = 1204.0
-margin_bottom = 176.0
-
-[node name="H" type="HBoxContainer" parent="Main/Credits/C/S/L/SpecialThanks/C11"]
-margin_left = 336.0
-margin_right = 867.0
-margin_bottom = 25.0
-alignment = 1
-
-[node name="Label" type="Label" parent="Main/Credits/C/S/L/SpecialThanks/C11/H"]
-margin_right = 531.0
-margin_bottom = 25.0
-custom_colors/font_color = Color( 0.878431, 0.858824, 0.682353, 1 )
-custom_fonts/font = SubResource( 160 )
-text = "frostlines - Provided massive amounts of feedback and ideas"
-align = 1
-
-[node name="C4" type="CenterContainer" parent="Main/Credits/C/S/L/SpecialThanks"]
-margin_top = 184.0
-margin_right = 1204.0
-margin_bottom = 209.0
-
-[node name="H" type="HBoxContainer" parent="Main/Credits/C/S/L/SpecialThanks/C4"]
-margin_left = 389.0
-margin_right = 814.0
-margin_bottom = 25.0
-alignment = 1
-
-[node name="Label" type="Label" parent="Main/Credits/C/S/L/SpecialThanks/C4/H"]
-margin_right = 425.0
-margin_bottom = 25.0
-custom_colors/font_color = Color( 0.878431, 0.858824, 0.682353, 1 )
-custom_fonts/font = SubResource( 160 )
-text = "Jayden Jones - Feedback and code contributions"
-align = 1
-
-[node name="C8" type="CenterContainer" parent="Main/Credits/C/S/L/SpecialThanks"]
-margin_top = 217.0
-margin_right = 1204.0
-margin_bottom = 242.0
-
-[node name="H" type="HBoxContainer" parent="Main/Credits/C/S/L/SpecialThanks/C8"]
-margin_left = 312.0
-margin_right = 892.0
-margin_bottom = 25.0
-alignment = 1
-
-[node name="Label" type="Label" parent="Main/Credits/C/S/L/SpecialThanks/C8/H"]
-margin_right = 580.0
-margin_bottom = 25.0
-custom_colors/font_color = Color( 0.878431, 0.858824, 0.682353, 1 )
-custom_fonts/font = SubResource( 160 )
-text = "David \"kiwie\" Guy - Created SSQE (map editor) and gave feedback"
-align = 1
-
-[node name="C9" type="CenterContainer" parent="Main/Credits/C/S/L/SpecialThanks"]
-margin_top = 250.0
-margin_right = 1204.0
-margin_bottom = 275.0
-
-[node name="H" type="HBoxContainer" parent="Main/Credits/C/S/L/SpecialThanks/C9"]
-margin_left = 380.0
-margin_right = 824.0
-margin_bottom = 25.0
-alignment = 1
-
-[node name="Label" type="Label" parent="Main/Credits/C/S/L/SpecialThanks/C9/H"]
-margin_right = 444.0
-margin_bottom = 25.0
-custom_colors/font_color = Color( 0.878431, 0.858824, 0.682353, 1 )
-custom_fonts/font = SubResource( 160 )
-text = "aixeria - Help with backend server code & security"
-align = 1
-
-[node name="C10" type="CenterContainer" parent="Main/Credits/C/S/L/SpecialThanks"]
-visible = false
-margin_top = 283.0
-margin_right = 1204.0
-margin_bottom = 308.0
-
-[node name="H" type="HBoxContainer" parent="Main/Credits/C/S/L/SpecialThanks/C10"]
-margin_left = 396.0
-margin_right = 808.0
-margin_bottom = 25.0
-alignment = 1
-
-[node name="Label" type="Label" parent="Main/Credits/C/S/L/SpecialThanks/C10/H"]
-margin_right = 412.0
-margin_bottom = 25.0
-custom_colors/font_color = Color( 0.878431, 0.858824, 0.682353, 1 )
-custom_fonts/font = SubResource( 160 )
-text = "Omega - Created the Circuit background world"
-align = 1
-
-[node name="C6" type="CenterContainer" parent="Main/Credits/C/S/L/SpecialThanks"]
-margin_top = 283.0
-margin_right = 1204.0
-margin_bottom = 299.0
-
-[node name="MarginContainer" type="MarginContainer" parent="Main/Credits/C/S/L/SpecialThanks/C6"]
-margin_left = 242.0
-margin_right = 962.0
-margin_bottom = 16.0
-custom_constants/margin_top = 8
-custom_constants/margin_bottom = 8
-
-[node name="H" type="Panel" parent="Main/Credits/C/S/L/SpecialThanks/C6/MarginContainer"]
-margin_top = 8.0
-margin_right = 720.0
-margin_bottom = 8.0
-rect_min_size = Vector2( 720, 0 )
-custom_styles/panel = SubResource( 161 )
-
-[node name="C5" type="CenterContainer" parent="Main/Credits/C/S/L/SpecialThanks"]
-margin_top = 307.0
-margin_right = 1204.0
-margin_bottom = 332.0
-
-[node name="H" type="HBoxContainer" parent="Main/Credits/C/S/L/SpecialThanks/C5"]
-margin_left = 294.0
-margin_right = 909.0
-margin_bottom = 25.0
-alignment = 1
-
-[node name="Label" type="Label" parent="Main/Credits/C/S/L/SpecialThanks/C5/H"]
-margin_right = 615.0
-margin_bottom = 25.0
-custom_colors/font_color = Color( 0.878431, 0.858824, 0.682353, 1 )
-custom_fonts/font = SubResource( 160 )
-text = "Past and present patrons - Quite literally paying for our Steam release"
-align = 1
-
-[node name="C" type="CenterContainer" parent="Main/Credits/C/S/L/SpecialThanks"]
-margin_top = 340.0
-margin_right = 1204.0
-margin_bottom = 365.0
-
-[node name="H" type="HBoxContainer" parent="Main/Credits/C/S/L/SpecialThanks/C"]
-margin_left = 276.0
-margin_right = 927.0
-margin_bottom = 25.0
-alignment = 1
-
-[node name="Label" type="Label" parent="Main/Credits/C/S/L/SpecialThanks/C/H"]
-margin_right = 651.0
-margin_bottom = 25.0
-custom_colors/font_color = Color( 0.878431, 0.858824, 0.682353, 1 )
-custom_fonts/font = SubResource( 160 )
-text = "Community staff - Helping people & keeping the community under control"
-align = 1
-
-[node name="C2" type="CenterContainer" parent="Main/Credits/C/S/L/SpecialThanks"]
-margin_top = 373.0
-margin_right = 1204.0
-margin_bottom = 398.0
-
-[node name="H" type="HBoxContainer" parent="Main/Credits/C/S/L/SpecialThanks/C2"]
-margin_left = 289.0
-margin_right = 915.0
-margin_bottom = 25.0
-alignment = 1
-
-[node name="Label" type="Label" parent="Main/Credits/C/S/L/SpecialThanks/C2/H"]
-margin_right = 626.0
-margin_bottom = 25.0
-custom_colors/font_color = Color( 0.878431, 0.858824, 0.682353, 1 )
-custom_fonts/font = SubResource( 160 )
-text = "The playtester team - Catching major bugs before they reach the public"
-align = 1
-
-[node name="SPACER" type="Control" parent="Main/Credits/C/S/L"]
-margin_top = 990.0
-margin_right = 1204.0
-margin_bottom = 1115.0
-rect_min_size = Vector2( 0, 125 )
+[node name="LanguageMenu" parent="Main/Language" instance=ExtResource( 104 )]
 
 [node name="Quit" type="Button" parent="."]
 visible = false
