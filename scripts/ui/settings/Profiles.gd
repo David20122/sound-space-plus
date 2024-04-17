@@ -10,9 +10,11 @@ func save_profile(path:String):
 		if err != OK: print("file.open errored - code " + String(err))
 		saveLoc.store_string(file.to_string())
 		saveLoc.close()
+		file.close()
 
 func on_pressed(i):
 	if i == profiles.size():
+		Rhythia.save_settings() # ensure everything is current
 		print("creating profile")
 		file= File.new()
 		var err:int = file.open(Globals.p("user://settings.json"), File.READ)

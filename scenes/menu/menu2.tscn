@@ -1987,6 +1987,7 @@ shortcut_in_tooltip = false
 action_mode = 0
 
 [node name="Results" type="HBoxContainer" parent="Main"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 12.0
@@ -1998,16 +1999,15 @@ script = ExtResource( 93 )
 
 [node name="CenterPush" type="VBoxContainer" parent="Main/Results"]
 visible = false
-margin_right = 640.0
-margin_bottom = 1041.0
+margin_right = 125.0
+margin_bottom = 681.0
 size_flags_horizontal = 3
 alignment = 2
 
 [node name="Button" type="Button" parent="Main/Results/CenterPush"]
-margin_left = 257.0
-margin_top = 507.0
-margin_right = 382.0
-margin_bottom = 534.0
+margin_top = 654.0
+margin_right = 125.0
+margin_bottom = 681.0
 rect_min_size = Vector2( 125, 27 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.729412, 0.729412, 0.729412, 1 )
