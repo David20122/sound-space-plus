@@ -51,7 +51,7 @@ Open User Folder,Open User Folder,ユーザーフォルダを開く
 Open Replay Folder,Open Replay Folder,リプレイフォルダーを開く
 Reload Content,Reload Content,再読み込み
 Disable Pausing,Disable Pausing,一時停止を無効にする
-name says it all,name says it all,名前の通り
+disallows pausing the map,disallows pausing the map,一時停止を使わない
 Custom Speed Rate,Custom Speed Rate,ノーツ速度
 "[default 100%] used by the custom speed modifier (speed+ mods are 115, 125, 135, and 145)","[default 100%] used by the custom speed modifier (speed+ mods are 115, 125, 135, and 145)","[デフォルト 100%] カスタム速度Modで使用 (スピードModは115, 125, 135, 145)"
 Hitbox Size,Hitbox Size,ヒットボックスの大きさ
@@ -110,7 +110,7 @@ squares on the grid that show note approach - similar to the circles in osu!,squ
 Approach Follow,Approach Follow,アプローチフォロー
 makes it so the approach squares lock to the note,makes it so the approach squares lock to the note,アプローチガイドがノーツについていく
 Miss Effect Image,Miss Effect Image,ミスエフェクトの画像
-"same as above, but applies to your miss effect isntead","same as above, but applies to your miss effect isntead",上記と同じだが、代わりに自分のミス効果に適用される。
+"same as above, but applies to your miss effect instead","same as above, but applies to your miss effect instead",上記と同じだが、代わりに自分のミス効果に適用される。
 Miss Effect,Miss Effect,ミスエフェクト
 hit effect but when you don't,hit effect but when you don't,ミスした時のエフェクト
 Ripple* (no color),Ripple* (no color),画像* (無色)
@@ -142,8 +142,8 @@ Sensitivity,Sensitivity,感度
 [def. 1] changes how much the cursor/camera move with mouse/touch input,[def. 1] changes how much the cursor/camera move with mouse/touch input,[デフォルト 1] マウス/タッチ入力によるカーソル/カメラの感度
 Absolute Mode,Absolute Mode,マウスロック解除
 turning this on will unlock the mouse while playing - useful for tablets,turning this on will unlock the mouse while playing - useful for tablets,これをオンにすると、プレイ中にマウスのロックが解除されます - タブレットに便利
-No Controller Checks,No Controller Checks,コントローラーチェックをしない
-"when turned on, disables controller checks when starting a song - useful for controller players","when turned on, disables controller checks when starting a song - useful for controller players",オンにすると、曲の開始時にコントローラーのチェックを無効にする。
+Disable Controller,Disable Controller,コントローラーチェックをしない
+disables controller checks when starting a song,disables controller checks when starting a song,オンにすると、曲の開始時にコントローラーのチェックを無効にする。
 Absolute Scale,Absolute Scale,ロック解除時の感度
 [def. 1] changes how much the cursor/camera move with absolute mode,[def. 1] changes how much the cursor/camera move with absolute mode,[デフォルト 1] マウスロックを解除した際のカーソル/カメラの感度
 Camera Mode Presets,Camera Mode Presets,カメラモードのプリセット
@@ -192,7 +192,7 @@ only affects The Grid for now,only affects The Grid for now,今はグリッド�
 Custom World BG,Custom World BG,カスタム背景
 "this is the background for the ""Custom Background"" world","this is the background for the ""Custom Background"" world",カスタム背景を選択したときの背景
 Cursor Image,Cursor Image,カーソルイメージ
-"ah, the cursor, arguably the most important part of this game.","ah, the cursor, arguably the most important part of this game.",カーソルに映るイメージを変える
+"ah, the cursor. arguably the most important part of this game.","ah, the cursor. arguably the most important part of this game.",カーソルに映るイメージを変える
 Color Mode,Color Mode,カーソルの色設定
 how the cursor will be colored,how the cursor will be colored,ヒット時カーソルの色の変更
 Single Color,Single Color,一色
@@ -210,8 +210,8 @@ Smart Trail,Smart Trail,スマートな軌跡
 makes the trail smooth by using distance moved to spawn particles instead of having a constant number,makes the trail smooth by using distance moved to spawn particles instead of having a constant number,パーティクルのスポーンに一定数ではなく移動距離を使用することで軌跡を滑らかにする
 Trail Fade Mode,Trail Fade Mode,軌跡フェードモード
 how the trail will fade out,how the trail will fade out,どれだけ軌跡がフェードアウトするか
-Scale only,Scale only,
-Opacity only,Opacity only,
+Scale only,Scale only,スケールだけ
+Opacity only,Opacity only,不透明性だけ
 Trail Detail,Trail Detail,残像の詳細
 [def. 10] number of particles in the cursor trail / (smart trail) number spawned per grid unit,[def. 10] number of particles in the cursor trail / (smart trail) number spawned per grid unit,[デフォルト 10]カーソルの軌跡のパーティクル数 / (スマート軌跡)1グリッド単位あたりの生成数
 Trail Time,Trail Time,軌跡
@@ -499,3 +499,15 @@ Edit data,Edit data,データを編集
 Finishing,Finishing,読み込み中...
 Please wait...,Please wait...,LOADING...
 Exit,Exit,戻る
+Select Profile,Select Profile,プリセットを選ぶ
+Create/Overwrite From Current,Create/Overwrite From Current,作ると交換する
+Gameplay,Gameplay,ゲームプレイ
+World & Cursor,World & Cursor,スペースとカーソル
+UI,UI,UI
+Video & Audio,Video & Audio,ビデオとオーディオ
+Replays & Misc,Replays & Misc,リプレイとその他
+Loading Menu,Loading Menu,
+Loading,Loading,
+Mapper,Mapper,マッパ
+Artist Name - Song Name,Artist Name - Song Name,アーティスト　ー　曲名
+Difficulty,Difficulty,難易度
