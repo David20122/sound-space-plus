@@ -8,9 +8,12 @@ func save_profile(path:String):
 		var saveLoc:File = File.new()
 		var err:int = saveLoc.open(path,File.WRITE)
 		if err != OK: print("file.open errored - code " + String(err))
-		saveLoc.store_string(file.to_string())
+		saveLoc.store_string(file.get_as_text())
 		saveLoc.close()
 		file.close()
+		# refresh the profile list
+		get_popup().clear()
+		_ready()
 
 func on_pressed(i):
 	if i == profiles.size():
@@ -35,7 +38,7 @@ func on_pressed(i):
 	get_tree().change_scene("res://scenes/init.tscn")
 	Rhythia.load_saved_settings(profile)
 	Rhythia.save_settings()
-	
+
 
 func _ready():
 	# for every file Globals.p("user://<something>.settings.json") add an item with the name of the file
@@ -51,4 +54,4 @@ func _ready():
 		get_popup().add_item(profiles[i].substr(profiles[i].find_last("/") + 1, profiles[i].find(".settings.json") - profiles[i].find_last("/") - 1), i)
 	get_popup().add_item("Create/Overwrite From Current", -1)
 	get_popup().connect("id_pressed",self,"on_pressed")
-	
+
