@@ -418,6 +418,7 @@ func update_rpc_song(): # Discord RPC
 		mods.append(mirrorst)
 	if mod_ghost: mods.append("Ghost")
 	if mod_nearsighted: mods.append("Nearsight")
+	if mod_hardrock: mods.append("Hard Rock")
 	
 	if mods.size() == 0: txt = "No modifiers"
 	else:
