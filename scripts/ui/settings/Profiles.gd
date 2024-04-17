@@ -33,7 +33,6 @@ func on_pressed(i):
 	get_tree().change_scene("res://scenes/init.tscn")
 	Rhythia.load_saved_settings(profile)
 	Rhythia.save_settings()
-	file.close()
 	
 
 func _ready():
