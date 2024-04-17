@@ -968,14 +968,14 @@ func lcol(data:Dictionary,target:String) -> void:
 
 # Settings file
 const current_sf_version = 48 # SV
-func load_saved_settings():
+func load_saved_settings(saveFile:String = Globals.p("user://settings.json")):
 	if Input.is_key_pressed(KEY_CONTROL) and Input.is_key_pressed(KEY_L): 
 		print("force settings read error")
 		return -1
 	var file:File = File.new()
 	
-	if file.file_exists(Globals.p("user://settings.json")):
-		var err = file.open(Globals.p("user://settings.json"),File.READ)
+	if file.file_exists(saveFile):
+		var err = file.open(saveFile, File.READ)
 		if err != OK:
 			print("file.open failed"); return -2
 		var decode = JSON.parse(file.get_as_text())

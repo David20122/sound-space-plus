@@ -1,4 +1,4 @@
-[gd_scene load_steps=88 format=2]
+[gd_scene load_steps=89 format=2]
 
 [ext_resource path="res://uitheme.tres" type="Theme" id=1]
 [ext_resource path="res://assets/font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=2]
@@ -17,6 +17,7 @@
 [ext_resource path="res://assets/images/cursors/circle.png" type="Texture" id=15]
 [ext_resource path="res://scripts/ui/settings/NoteMesh.gd" type="Script" id=16]
 [ext_resource path="res://scripts/ui/settings/CursorScale.gd" type="Script" id=17]
+[ext_resource path="res://scripts/ui/settings/Profiles.gd" type="Script" id=18]
 [ext_resource path="res://scripts/ui/settings/CameraPresets.gd" type="Script" id=19]
 [ext_resource path="res://scripts/ui/settings/SaveSettings.gd" type="Script" id=20]
 [ext_resource path="res://scripts/ui/settings/HitWindow.gd" type="Script" id=21]
@@ -233,9 +234,23 @@ theme = ExtResource( 1 )
 text = "Save"
 script = ExtResource( 20 )
 
-[node name="UserDir" type="Button" parent="TopButtons/HBoxContainer"]
+[node name="Presets" type="MenuButton" parent="TopButtons/HBoxContainer"]
 margin_left = 110.0
-margin_right = 260.0
+margin_right = 210.0
+margin_bottom = 33.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+text = "Select Profile"
+flat = false
+script = ExtResource( 18 )
+
+[node name="UserDir" type="Button" parent="TopButtons/HBoxContainer"]
+margin_left = 220.0
+margin_right = 370.0
 margin_bottom = 33.0
 rect_min_size = Vector2( 150, 0 )
 theme = ExtResource( 1 )
@@ -243,8 +258,8 @@ text = "Open User Folder"
 script = ExtResource( 5 )
 
 [node name="ReplayDir" type="Button" parent="TopButtons/HBoxContainer"]
-margin_left = 270.0
-margin_right = 440.0
+margin_left = 380.0
+margin_right = 550.0
 margin_bottom = 33.0
 rect_min_size = Vector2( 170, 0 )
 theme = ExtResource( 1 )
@@ -252,8 +267,8 @@ text = "Open Replay Folder"
 script = ExtResource( 14 )
 
 [node name="ArchiveConvert" type="Button" parent="TopButtons/HBoxContainer"]
-margin_left = 450.0
-margin_right = 675.0
+margin_left = 560.0
+margin_right = 785.0
 margin_bottom = 33.0
 rect_min_size = Vector2( 225, 0 )
 theme = ExtResource( 1 )
@@ -261,8 +276,8 @@ text = "Convert SS archive to .sspm"
 script = ExtResource( 36 )
 
 [node name="ReloadContent" type="Button" parent="TopButtons/HBoxContainer"]
-margin_left = 685.0
-margin_right = 825.0
+margin_left = 795.0
+margin_right = 935.0
 margin_bottom = 33.0
 rect_min_size = Vector2( 140, 0 )
 theme = ExtResource( 1 )
