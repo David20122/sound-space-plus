@@ -810,7 +810,7 @@ func do_coversel():
 	)
 
 func finish_map():
-	$TxtFile/H/audio/player.stop()
+#	$TxtFile/H/audio/player.stop()
 	$Edit.visible = false
 	$TxtFile.visible = false
 	$Finish.visible = true
@@ -840,6 +840,9 @@ func finish_map():
 			$Finish/Error.text = result
 			$Finish/Error.visible = true
 		$Finish/ok.visible = true
+	var list = $"/root/Menu/Main/MapRegistry/S/G"
+	list.prepare_songs()
+	list.reload_to_current_page()
 
 func back_to_menu():
 	get_parent().black_fade_target = true

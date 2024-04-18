@@ -591,6 +591,7 @@ align = 1
 valign = 1
 
 [node name="TxtFile" type="ReferenceRect" parent="AddSong"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 35.0
