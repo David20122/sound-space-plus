@@ -240,7 +240,9 @@ func prepare_songs():
 			Globals.DIFF_LOGIC: add_to = logic
 			Globals.DIFF_AMOGUS: add_to = amogus
 			_: add_to = unknown
-		add_to.append(map)
+		#if map not in add_to
+		if add_to.find(map) == -1:
+			add_to.append(map)
 #	Rhythia.connect("selected_song_changed",self,"on_map_selected")
 	easy.sort_custom(self,"sortsongsimple")
 	medium.sort_custom(self,"sortsongsimple")

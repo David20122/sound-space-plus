@@ -44,7 +44,6 @@ func _ready():
 	# for every file Globals.p("user://<something>.settings.json") add an item with the name of the file
 	profiles = Globals.get_files_recursive([Globals.p("user://")], 1, "json").files # just putting .settings.json here doesn't work :(
 	# remove ones that are not settings profiles
-	print(profiles)
 	for i in range(profiles.size() - 1, -1, -1): # reverse traversal, prevent bad index
 		if profiles[i].find(".settings.json") == -1:
 			profiles.remove(i)

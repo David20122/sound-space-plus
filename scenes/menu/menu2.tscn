@@ -1217,9 +1217,6 @@ custom_constants/vseparation = 4
 custom_constants/hseparation = 4
 columns = 5
 script = ExtResource( 22 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Press" type="AudioStreamPlayer" parent="Main/MapRegistry/S/G"]
 stream = ExtResource( 5 )
