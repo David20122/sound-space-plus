@@ -107,7 +107,7 @@ func reset_text_edit_screen():
 	txt_using_manual_id = false
 	edit_pop = true
 	song = Song.new(
-		generate_id("Artist Name - Song Name","mapper"),
+		generate_id(tr("Artist Name - Song Name"),"mapper"),
 		"Artist Name - Song Name",
 		"mapper"
 	)
@@ -125,8 +125,8 @@ func reset_text_edit_screen():
 	$TxtFile/H/E/Info/Id/T.text = "auto"
 	$TxtFile/H/E/Info/SongName.text = song.name
 	$TxtFile/H/E/Info/SongName/T.text = song.name
-	$TxtFile/H/E/Info/Difficulty.text = "Difficulty: " + Globals.difficulty_names[song.difficulty]
-	$TxtFile/H/E/Info/Mapper.text = "Mapper: %s" % song.creator
+	$TxtFile/H/E/Info/Difficulty.text = tr("Difficulty") + ": " + Globals.difficulty_names[song.difficulty]
+	$TxtFile/H/E/Info/Mapper.text = tr("Mapper") + ": %s" % song.creator
 	$TxtFile/H/E/Info/Mapper/T.text = song.creator
 	$TxtFile/H/E/Info/Difficulty/B.selected = (song.difficulty + 1)
 	
@@ -266,7 +266,7 @@ func populate_edit_screen():
 	$Edit/Info/SongName.text = song.name
 	$Edit/Info/SongName/T.text = song.name
 	$Edit/Info/Difficulty.text = "Difficulty: " + Globals.difficulty_names[song.difficulty]
-	$Edit/Info/Mapper.text = "Mapper: %s" % song.creator
+	$Edit/Info/Mapper.text = tr("Mapper") + ": %s" % song.creator
 	$Edit/Info/Mapper/T.text = song.creator
 	$Edit/Info/Difficulty/B.selected = (song.difficulty + 1)
 	if song.has_cover:
@@ -697,7 +697,7 @@ func edit_field(field:String,done:bool=false):
 						if $TxtFile/H/E/Info/Mapper/T.text.length() != 0:
 							song.creator = $TxtFile/H/E/Info/Mapper/T.text
 							$TxtFile/H/E/Info/Mapper/T.visible = false
-							$TxtFile/H/E/Info/Mapper.text = "Mapper: %s" % song.creator
+							$TxtFile/H/E/Info/Mapper.text = tr("Mapper") +": %s" % song.creator
 							if !txt_using_manual_id:
 								song.id = generate_id(song.name,song.creator)
 								$TxtFile/H/E/Info/Id.text = song.id
@@ -707,7 +707,7 @@ func edit_field(field:String,done:bool=false):
 						if $Edit/Info/Mapper/T.text.length() != 0:
 							song.creator = $Edit/Info/Mapper/T.text
 							$Edit/Info/Mapper/T.visible = false
-							$Edit/Info/Mapper.text = "Mapper: %s" % song.creator
+							$Edit/Info/Mapper.text = tr("Mapper") + ": %s" % song.creator
 				"id":
 					if maptype == T_TXT:
 						var id = $TxtFile/H/E/Info/Id/T.text
@@ -794,9 +794,9 @@ func difficulty_sel(i:int):
 	if edit_pop or !song: return
 	song.difficulty = i - 1
 	if maptype == T_TXT:
-		$TxtFile/H/E/Info/Difficulty.text = "Difficulty: " + Globals.difficulty_names[song.difficulty]
+		$TxtFile/H/E/Info/Difficulty.text = tr("Difficulty") + ": " + tr(Globals.difficulty_names[song.difficulty])
 	else:
-		$Edit/Info/Difficulty.text = "Difficulty: " + Globals.difficulty_names[song.difficulty]
+		$Edit/Info/Difficulty.text = tr("Difficulty") + ": " + tr(Globals.difficulty_names[song.difficulty])
 
 func set_use_cover(v:bool):
 	song.has_cover = v

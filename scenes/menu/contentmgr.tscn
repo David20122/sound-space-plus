@@ -26,11 +26,13 @@ corner_radius_bottom_left = 8
 size = 22
 use_filter = true
 font_data = ExtResource( 1 )
+fallback/0 = ExtResource( 7 )
 
 [sub_resource type="DynamicFont" id=72]
 size = 18
 use_filter = true
 font_data = ExtResource( 1 )
+fallback/0 = ExtResource( 7 )
 
 [sub_resource type="StyleBoxFlat" id=75]
 bg_color = Color( 0.169973, 0.12043, 0.187988, 1 )
@@ -69,6 +71,7 @@ size = 14
 use_filter = true
 extra_spacing_bottom = -4
 font_data = ExtResource( 1 )
+fallback/0 = ExtResource( 7 )
 
 [sub_resource type="StyleBoxFlat" id=74]
 bg_color = Color( 0.113725, 0.105882, 0.0941176, 1 )
@@ -85,6 +88,7 @@ font_data = ExtResource( 1 )
 size = 14
 use_filter = true
 font_data = ExtResource( 1 )
+fallback/0 = ExtResource( 7 )
 
 [sub_resource type="StyleBoxFlat" id=82]
 bg_color = Color( 0.074, 0.04, 0.08, 1 )
