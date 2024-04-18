@@ -105,7 +105,6 @@ margin_bottom = -33.582
 text = "Language"
 
 [node name="cancel" type="Button" parent="ChangeLanguage"]
-visible = false
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
