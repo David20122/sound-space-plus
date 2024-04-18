@@ -787,8 +787,6 @@ func onopen():
 	$TxtFile/H/audio/preview/Title.text = "Preview"
 	$TxtFile/H/audio/player.stop()
 	$TxtFile/H/Temp.pressed = false
-	if Rhythia.play_menu_music and !get_node("../MenuSong").playing:
-		get_node("../MenuSong").play()
 	
 	visible = true
 
