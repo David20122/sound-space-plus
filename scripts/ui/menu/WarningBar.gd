@@ -40,6 +40,10 @@ func display_warning(id:String):
 			$L.text = "You are currently using experimental settings. Expect bugs."
 			color = Color("#c1c1ac")
 #			color = Color("#dbd1a2")
+		"experimental_mod":
+			state = true
+			$L.text = "One or more mods you selected are currently experimental. Expect bugs."
+			color = Color("#77c1d1")
 		_:
 			assert(false)
 	$L2.text = $L.text
@@ -65,6 +69,9 @@ func check_warnings():
 		return "smm"
 	elif Rhythia.note_spawn_effect:
 		return "spawn"
+	# Temp mark HR as a Experimental due to issues :/
+	elif Rhythia.mod_hardrock:
+		return "experimental_mod"
 	elif OS.has_feature("debug"):
 		return "debug"
 	elif check_experimental_settings():
