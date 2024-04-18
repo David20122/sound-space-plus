@@ -137,8 +137,6 @@ func reset_text_edit_screen():
 	$TxtFile/H/audio/preview.disabled = true
 	$TxtFile/H/audio/preview.modulate = Color(0.5,0.5,0.5)
 	$TxtFile/H/audio/preview/Title.text = "Preview"
-	if Rhythia.play_menu_music and !get_node("../MenuSong").playing:
-		get_node("../MenuSong").play()
 	$TxtFile/H/audio/player.stop()
 	
 	$TxtFile/H/E/Cover/T.texture = load("res://assets/images/ui/placeholder_dark.jpg")
@@ -648,10 +646,10 @@ func file_selected(files:PoolStringArray):
 			check_txt(file.get_as_text())
 			file.close()
 		FO_SONG:
-			if Rhythia.play_menu_music and !get_node("../MenuSong").playing:
-				get_node("../MenuSong").play()
-			$TxtFile/H/audio/player.stop()
-			$TxtFile/H/audio/preview/Title.text = "Preview"
+#			if Rhythia.play_menu_music and !get_node("../MenuSong").playing:
+#				get_node("../MenuSong").play()
+#			$TxtFile/H/audio/player.stop()
+#			$TxtFile/H/audio/preview/Title.text = "Preview"
 			var stream = Globals.audioLoader.load_file(files[0])
 			if stream == Globals.error_sound:
 				$TxtFile/H/audio/preview.disabled = true
