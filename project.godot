@@ -293,7 +293,7 @@ config/disable_native_file_dialogs.OSX=true
 config/is_using_controller=true
 config/discord_rpc=true
 config/discord_rpc.editor=false
-networking/github_repo="krmeet/sound-space-plus"
+networking/github_repo="David20122/sound-space-plus"
 
 [audio]
 
