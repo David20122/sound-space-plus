@@ -501,6 +501,7 @@ var error_sound:AudioStream
 var audioLoader:AudioLoader = AudioLoader.new()
 var imageLoader:ImageLoader = ImageLoader.new()
 var confirm_prompt:ConfirmationPrompt2D
+var string_prompt:StringPrompt2D
 var file_sel:FileSelector2D
 var notify_gui:Notify2D
 
@@ -671,6 +672,9 @@ func _ready():
 	
 	confirm_prompt = load("res://prefabs/menu/confirm.tscn").instance()
 	rootg.call_deferred("add_child",confirm_prompt)
+
+	string_prompt = load("res://prefabs/menu/string.tscn").instance()
+	rootg.call_deferred("add_child",string_prompt)
 	
 	file_sel = load("res://prefabs/menu/filesel.tscn").instance()
 	rootg.call_deferred("add_child",file_sel)

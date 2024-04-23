@@ -1493,9 +1493,9 @@ func dser_float(s):
 	else:
 		return s
 
-func save_settings():
+func save_settings(saveFile:String = Globals.p("user://settings.json")):
 	var file:File = File.new()
-	var err:int = file.open(Globals.p("user://settings.json"),File.WRITE)
+	var err:int = file.open(Globals.p(saveFile),File.WRITE)
 	if err == OK:
 		var data = {
 			hlm_converted = hlm_converted,
