@@ -38,6 +38,8 @@ func on_pressed(i):
 			response = yield(Globals.string_prompt,"option_selected")
 			Globals.string_prompt.close()
 			if response == 0:
+				# wait a frame for the prompt to close
+				yield(get_tree().create_timer(0.6),"timeout")
 				valid = Globals.string_prompt.input.get_text().is_valid_filename()
 		
 		if response == 0:
@@ -102,8 +104,7 @@ func delete_profile(i):
 	print("Deleting profile: " + profile)
 	var userDir = Directory.new()
 	userDir.open(Globals.p("user://"))
-	userDir.remove(profile)
-	var res:int = userDir.remove(Globals.p("user://settings.json"))
+	var res:int = userDir.remove(profile)
 	if res != OK:
 		Globals.confirm_prompt.open(
 			"An error occurred while deleting your settings file. "+
