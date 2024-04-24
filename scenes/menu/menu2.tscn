@@ -714,6 +714,7 @@ anchor_bottom = 1.0
 margin_left = 4.0
 margin_top = 4.0
 margin_bottom = -35.0
+size_flags_horizontal = 0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -725,15 +726,19 @@ margin_top = 53.0
 margin_bottom = 3.0
 grow_vertical = 2
 rect_clip_content = true
+size_flags_horizontal = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Main/MapRegistry/S"]
 physics_interpolation_mode = 2
 margin_left = 349.0
-margin_top = 35.0
+margin_top = 217.0
 margin_right = 749.0
-margin_bottom = 619.0
+margin_bottom = 801.0
+grow_horizontal = 0
 grow_vertical = 2
 rect_min_size = Vector2( 400, 500 )
+size_flags_horizontal = 8
+alignment = 1
 script = ExtResource( 105 )
 
 [node name="Press" type="AudioStreamPlayer" parent="Main/MapRegistry/S/VBoxContainer"]
@@ -751,10 +756,12 @@ custom_styles/panel = SubResource( 70 )
 script = ExtResource( 18 )
 
 [node name="NODIF" type="Panel" parent="Main/MapRegistry/S/VBoxContainer"]
+margin_left = 100.0
 margin_top = 84.0
 margin_right = 400.0
 margin_bottom = 164.0
 rect_min_size = Vector2( 300, 80 )
+size_flags_horizontal = 8
 custom_styles/panel = SubResource( 70 )
 script = ExtResource( 18 )
 
@@ -871,10 +878,12 @@ __meta__ = {
 
 [node name="EASY" type="Panel" parent="Main/MapRegistry/S/VBoxContainer"]
 self_modulate = Color( 0, 1, 0, 1 )
+margin_left = 100.0
 margin_top = 168.0
 margin_right = 400.0
 margin_bottom = 248.0
 rect_min_size = Vector2( 300, 80 )
+size_flags_horizontal = 8
 custom_styles/panel = SubResource( 70 )
 script = ExtResource( 18 )
 
@@ -988,10 +997,12 @@ __meta__ = {
 
 [node name="MEDIUM" type="Panel" parent="Main/MapRegistry/S/VBoxContainer"]
 self_modulate = Color( 1, 0.72549, 0, 1 )
+margin_left = 272.0
 margin_top = 252.0
 margin_right = 400.0
 margin_bottom = 332.0
 rect_min_size = Vector2( 128, 80 )
+size_flags_horizontal = 8
 custom_styles/panel = SubResource( 70 )
 script = ExtResource( 18 )
 
@@ -1111,10 +1122,12 @@ __meta__ = {
 
 [node name="HARD" type="Panel" parent="Main/MapRegistry/S/VBoxContainer"]
 self_modulate = Color( 1, 0, 0, 1 )
+margin_left = 272.0
 margin_top = 336.0
 margin_right = 400.0
 margin_bottom = 416.0
 rect_min_size = Vector2( 128, 80 )
+size_flags_horizontal = 8
 custom_styles/panel = SubResource( 70 )
 script = ExtResource( 18 )
 
@@ -1231,10 +1244,12 @@ __meta__ = {
 
 [node name="LOGIC" type="Panel" parent="Main/MapRegistry/S/VBoxContainer"]
 self_modulate = Color( 0.843137, 0.415686, 1, 1 )
+margin_left = 272.0
 margin_top = 420.0
 margin_right = 400.0
 margin_bottom = 500.0
 rect_min_size = Vector2( 128, 80 )
+size_flags_horizontal = 8
 custom_styles/panel = SubResource( 70 )
 script = ExtResource( 18 )
 
@@ -1353,10 +1368,12 @@ __meta__ = {
 
 [node name="AMOGUS" type="Panel" parent="Main/MapRegistry/S/VBoxContainer"]
 self_modulate = Color( 0.211765, 0.188235, 0.309804, 1 )
+margin_left = 272.0
 margin_top = 504.0
 margin_right = 400.0
 margin_bottom = 584.0
 rect_min_size = Vector2( 128, 80 )
+size_flags_horizontal = 8
 custom_styles/panel = SubResource( 70 )
 script = ExtResource( 18 )
 

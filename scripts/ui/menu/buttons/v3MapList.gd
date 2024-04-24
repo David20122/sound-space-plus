@@ -93,6 +93,10 @@ func _physics_process(delta):
 		call_deferred("pg_down")
 	if scroll_up:
 		call_deferred("pg_up")
+	for i in btns.size():
+		var tween = get_tree().create_tween()
+		#btns[i].rect_min_size.x = rect_min_size.x - i*10
+		tween.tween_property(btns[i], "rect_min_size", Vector2(600-(10*(abs((page_size/2)-i))), 80), 0.25)
 
 func select_random():
 	if disp.size() == 0: return
