@@ -1,6 +1,6 @@
 extends ReferenceRect
 
-onready var G = get_parent().get_parent().get_node("S/G")
+onready var G = get_parent().get_parent().get_parent().get_node("S/VBoxContainer")
 
 func setc(n:Control,v:bool):
 	if v: n.modulate = Color(1,1,1,1)

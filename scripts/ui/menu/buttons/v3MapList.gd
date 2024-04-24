@@ -1,4 +1,4 @@
-extends GridContainer
+extends VBoxContainer
 
 signal search_updated
 
@@ -13,7 +13,8 @@ var show_online_maps:bool = true
 var flip_display:bool = false
 var flip_name:bool = false
 
-var page = 0
+var cur_map:int = 0
+var page_size:int = 10
 
 var favorite:Array = []
 var easy:Array = []
@@ -27,7 +28,14 @@ var disp:Array = []
 
 var ready:bool = false
 
+func next_index():
+	return cur_map + ceil(((page_size+1)/2) * 1.35)
+
+func prev_index():
+	return cur_map - ceil(((page_size+1)/2) * 1.35)
+
 func is_fav(s:Song): return favorite.has(s)
+
 func search_matches(s:Song):
 	return (
 		difficulty_filter.has(s.difficulty) and
@@ -38,6 +46,7 @@ func search_matches(s:Song):
 	)
 
 var has_been_pressed = false
+
 func play_song():
 	if !Rhythia.selected_song: return
 	if has_been_pressed: return
@@ -86,56 +95,27 @@ func select_random():
 		else: b.get_node("Select").pressed = false
 	switch_to_play_screen()
 
-var page_size = Vector2(-1,-1)
 func load_pg(is_resize:bool=false):
-	
-	var col = max(floor((get_parent().rect_size.x-124)/132),1)
-	if columns != col: columns = col
-	var spp = max(col*floor((get_parent().rect_size.y-74)/132),1)
-	if is_resize and Vector2(col,spp) == page_size: return
-	else: page_size = Vector2(col,spp)
-	
 	for n in btns: n.queue_free()
 	btns.clear()
-	if floor(float(disp.size())/spp) < page:
-		print("page too far! max: %s, actual: %s" % [floor(float(disp.size())/spp), page])
-		page = floor(float(disp.size())/spp)
-	for i in range(page*spp,((page+1)*spp)):
-		if i < disp.size():
-			var map:Song = disp[i]
-			var btn:Panel
-			match map.difficulty:
-				Globals.DIFF_EASY: btn = $EASY.duplicate()
-				Globals.DIFF_MEDIUM: btn = $MEDIUM.duplicate()
-				Globals.DIFF_HARD: btn = $HARD.duplicate()
-				Globals.DIFF_LOGIC: btn = $LOGIC.duplicate()
-				Globals.DIFF_AMOGUS: btn = $AMOGUS.duplicate()
-				_: btn = $NODIF.duplicate()
-			btn.get_node("Label").visible = false
-			if map.has_cover:
-				btn.get_node("Cover").visible = true
-				btn.get_node("Cover").texture = map.cover
 
-			btn.get_node("Name").visible = true
-			btn.get_node("Name").text = map.name
-			btns.append(btn)
-			btn.song = map
-			if map.warning != "" || map.is_broken:
-				if map.is_broken: btn.get_node("Name").modulate = Color(1,0.4,0.4)
-				else: btn.get_node("Name").modulate = Color(1,1,0.2)
-			var rbtn:Button = btn.get_node("Select")
-			if is_fav(map): btn.get_node("F").visible = true
-			btn.get_node("Cloud").visible = map.is_online
-			rbtn.disabled = false
-			rbtn.connect("pressed",self,"on_pressed",[i])
-			if map == Rhythia.selected_song:
-				btn.get_node("Select").pressed = true
-			add_child(btn)
-			btn.visible = true
-			
-	get_parent().get_node("P").rect_position.x = (col*132) + 66
-	get_parent().get_node("P").rect_size.y = ((spp/col)*132)+12
-	get_parent().get_node("M").rect_size.y = ((spp/col)*132)+12
+	if disp.size() == 0: return
+	page_size = ((get_parent().rect_size.y)/80) * 1.2
+	if page_size % 2 != 0:
+		page_size += 1
+	print("page_size: ", page_size)
+	cur_map = clamp(cur_map, 0, disp.size() - 1)
+	print ("cur_map: ", cur_map, " ", disp[cur_map].name)
+	print ("next_index: ", next_index())
+	print ("prev_index: ", prev_index())
+	for i in range(prev_index() + 1, next_index()):
+		var btn:Panel = make_song_button(i)
+		btns.append(btn)
+		add_child(btn)
+		btn.visible = true
+	get_parent().get_node("P").rect_position.x = rect_position.x + rect_size.x + 25
+#	get_parent().get_node("P").rect_size.y = ((spp/col)*132)+12
+#	get_parent().get_node("M").rect_size.y = ((spp/col)*132)+12
 
 func append_filtering_favorites(to:Array,from:Array):
 	for s in from:
@@ -169,7 +149,7 @@ func build_list():
 
 func reload_to_current_page(_a=null):
 	build_list()
-	if ready: Rhythia.last_page_num = page
+	if ready: Rhythia.last_page_num = cur_map
 	load_pg()
 
 func update_search_text(txt:String):
@@ -250,11 +230,72 @@ func prepare_songs():
 	logic.sort_custom(self,"sortsongsimple")
 	amogus.sort_custom(self,"sortsongsimple")
 
-func pg(dir:int):
+func make_song_button(id:int=-1):
+	if id < 0 or id >= disp.size():
+		var btn:Panel = $EMPTY.duplicate()
+		return btn
+	var map:Song = disp[id]
+	if map == null: return
+	var btn:Panel
+	match map.difficulty:
+		Globals.DIFF_EASY: btn = $EASY.duplicate()
+		Globals.DIFF_MEDIUM: btn = $MEDIUM.duplicate()
+		Globals.DIFF_HARD: btn = $HARD.duplicate()
+		Globals.DIFF_LOGIC: btn = $LOGIC.duplicate()
+		Globals.DIFF_AMOGUS: btn = $AMOGUS.duplicate()
+		_: btn = $NODIF.duplicate()
+	btn.get_node("Label").visible = false
+	if map.has_cover:
+		btn.get_node("Cover").visible = true
+		btn.get_node("Cover").texture = map.cover
+	btn.get_node("Name").visible = true
+	btn.get_node("Name").text = map.name
+	btn.song = map
+	if map.warning != "" || map.is_broken:
+		if map.is_broken: btn.get_node("Name").modulate = Color(1,0.4,0.4)
+		else: btn.get_node("Name").modulate = Color(1,1,0.2)
+	var rbtn:Button = btn.get_node("Select")
+	if is_fav(map): btn.get_node("F").visible = true
+	btn.get_node("Cloud").visible = map.is_online
+	rbtn.disabled = false
+	rbtn.connect("pressed",self,"on_pressed",[id])
+	if map == Rhythia.selected_song:
+		btn.get_node("Select").pressed = true
+	return btn
+
+func pg_up():
+	if cur_map < 0: return
+	cur_map -= 1
+	Rhythia.last_page_num = cur_map
+
 	$Press.play()
-	page = clamp(page + dir, 0, floor(songs.size()))
-	Rhythia.last_page_num = page
-	load_pg()
+	var out:Panel = btns.pop_back()
+	tween_out(out) # freed in tween
+
+	var btn:Panel = make_song_button(prev_index())
+	btns.insert(0,btn) # BEFORE
+	add_child(btn) 
+	move_child(btn, 0) # to top
+	btn.rect_min_size = Vector2(1, 0)
+	btn.visible = true
+	tween_in(btn)
+	
+func pg_down():
+	if cur_map >= disp.size() - 1: return
+	cur_map += 1
+	Rhythia.last_page_num = cur_map
+	
+	$Press.play()
+	var out:Panel = btns.pop_front()
+	tween_out(out) # freed in tween
+#	yield(get_tree().create_timer(1),"timeout")
+#	out.queue_free()
+	var btn:Panel = make_song_button(next_index())
+	btns.append(btn) # AFTER
+	add_child(btn) # at end
+	btn.rect_min_size = Vector2(1, 0)
+	btn.visible = true
+	tween_in(btn)
 
 #var last_size = OS.window_size
 #func _process(delta):
@@ -262,21 +303,31 @@ func pg(dir:int):
 #		last_size = OS.window_size
 #		load_pg()
 
+func tween_out(p:Panel):
+	var tween = get_tree().create_tween()
+	tween.tween_property(p, "rect_min_size", Vector2(1, 0), 0.08)
+	tween.tween_callback(p, "queue_free")
+
+func tween_in(p:Panel):
+	var tween = get_tree().create_tween()
+	tween.tween_property(p, "rect_min_size", Vector2(1, 80), 0.08)
+	
+
 func _input(ev:InputEvent):
 	if is_visible_in_tree() and ev is InputEventMouseButton and ev.is_pressed():
 		if ev.button_index == BUTTON_WHEEL_UP:
-			pg(-1)
+			call_deferred("pg_up")
 		elif ev.button_index == BUTTON_WHEEL_DOWN:
-			pg(1)
+			call_deferred("pg_down")
 
 func handle_window_resize():
 	if ready: load_pg(true)
 
 func firstload():
-	get_parent().get_node("P").connect("pressed",self,"pg",[1])
-	get_parent().get_node("M").connect("pressed",self,"pg",[-1])
+	get_parent().get_node("P").connect("pressed",self,"pg_down")
+	get_parent().get_node("M").connect("pressed",self,"pg_up")
 	get_parent().get_node("Random").connect("pressed",self,"select_random")
-	page = Rhythia.last_page_num
+	cur_map = Rhythia.last_page_num
 	prepare_songs()
 	reload_to_current_page()
 	ready = true
@@ -294,4 +345,5 @@ func _ready():
 	$LOGIC.visible = false
 	$AMOGUS.visible = false
 	$NODIF.visible = false
+	$EMPTY.visible = false
 	call_deferred("firstload")
