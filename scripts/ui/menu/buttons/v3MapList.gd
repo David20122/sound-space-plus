@@ -93,10 +93,6 @@ func _physics_process(delta):
 		call_deferred("pg_down")
 	if scroll_up:
 		call_deferred("pg_up")
-	for i in btns.size():
-		var tween = get_tree().create_tween()
-		#btns[i].rect_min_size.x = rect_min_size.x - i*10
-		tween.tween_property(btns[i], "rect_min_size", Vector2(600-(10*(abs((page_size/2)-i))), 80), 0.25)
 
 func select_random():
 	if disp.size() == 0: return
@@ -125,6 +121,7 @@ func load_pg(is_resize:bool=false):
 		add_child(btn)
 		btn.visible = true
 	get_parent().get_node("P").rect_position.x = rect_position.x + rect_size.x + 25
+	tween_length()
 #	get_parent().get_node("P").rect_size.y = ((spp/col)*132)+12
 #	get_parent().get_node("M").rect_size.y = ((spp/col)*132)+12
 
@@ -244,6 +241,7 @@ func prepare_songs():
 func make_song_button(id:int=-1):
 	if id < 0 or id >= disp.size():
 		var btn:Panel = $EMPTY.duplicate()
+		btn.rect_min_size = Vector2(50, 0)
 		return btn
 	var map:Song = disp[id]
 	if map == null: return
@@ -255,6 +253,7 @@ func make_song_button(id:int=-1):
 		Globals.DIFF_LOGIC: btn = $LOGIC.duplicate()
 		Globals.DIFF_AMOGUS: btn = $AMOGUS.duplicate()
 		_: btn = $NODIF.duplicate()
+	btn.rect_min_size = Vector2(50, 0)
 	btn.get_node("Label").visible = false
 	if map.has_cover:
 		btn.get_node("Cover").visible = true
@@ -287,9 +286,9 @@ func pg_up():
 	btns.insert(0,btn) # BEFORE
 	add_child(btn) 
 	move_child(btn, 0) # to top
-	btn.rect_min_size = Vector2(1, 0)
 	btn.visible = true
 	tween_in(btn)
+	tween_length()
 	
 func pg_down():
 	if cur_map >= disp.size() - 1: return
@@ -304,9 +303,9 @@ func pg_down():
 	var btn:Panel = make_song_button(next_index())
 	btns.append(btn) # AFTER
 	add_child(btn) # at end
-	btn.rect_min_size = Vector2(1, 0)
 	btn.visible = true
 	tween_in(btn)
+	tween_length()
 
 #var last_size = OS.window_size
 #func _process(delta):
@@ -321,7 +320,12 @@ func tween_out(p:Panel):
 
 func tween_in(p:Panel):
 	var tween = get_tree().create_tween()
-	tween.tween_property(p, "rect_min_size", Vector2(1, 80), 0.25)
+	tween.tween_property(p, "rect_min_size", Vector2(50, 80), 0.25)
+
+func tween_length():
+	for i in btns.size():
+		var tween = get_tree().create_tween()
+		tween.tween_property(btns[i], "rect_min_size", Vector2(600-(10*(abs((page_size/2)-i))), 80), 0.25)
 	
 
 func _input(ev:InputEvent):

@@ -730,9 +730,9 @@ size_flags_horizontal = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Main/MapRegistry/S"]
 physics_interpolation_mode = 2
-margin_left = 349.0
+margin_left = 403.0
 margin_top = 217.0
-margin_right = 749.0
+margin_right = 803.0
 margin_bottom = 801.0
 grow_horizontal = 0
 grow_vertical = 2
@@ -799,6 +799,8 @@ clip_text = true
 
 [node name="Cover" type="TextureRect" parent="Main/MapRegistry/S/VBoxContainer/NODIF"]
 visible = false
+modulate = Color( 1, 1, 1, 0.588235 )
+self_modulate = Color( 1, 1, 1, 0.588235 )
 material = SubResource( 72 )
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -860,7 +862,7 @@ group = SubResource( 67 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 10.0
+margin_left = 30.0
 margin_top = 6.0
 margin_right = -10.0
 margin_bottom = -6.0
@@ -868,7 +870,6 @@ custom_constants/line_spacing = 0
 custom_fonts/font = SubResource( 74 )
 text = "OR3O
 [bongo cat & friends] meow"
-align = 1
 valign = 1
 autowrap = true
 clip_text = true
@@ -918,6 +919,8 @@ clip_text = true
 
 [node name="Cover" type="TextureRect" parent="Main/MapRegistry/S/VBoxContainer/EASY"]
 visible = false
+modulate = Color( 1, 1, 1, 0.588235 )
+self_modulate = Color( 1, 1, 1, 0.588235 )
 material = SubResource( 72 )
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -979,7 +982,7 @@ group = SubResource( 67 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 10.0
+margin_left = 30.0
 margin_top = 6.0
 margin_right = -10.0
 margin_bottom = -6.0
@@ -987,7 +990,6 @@ custom_constants/line_spacing = 0
 custom_fonts/font = SubResource( 74 )
 text = "OR3O
 [bongo cat & friends] meow"
-align = 1
 valign = 1
 autowrap = true
 clip_text = true
@@ -1043,6 +1045,8 @@ __meta__ = {
 
 [node name="Cover" type="TextureRect" parent="Main/MapRegistry/S/VBoxContainer/MEDIUM"]
 visible = false
+modulate = Color( 1, 1, 1, 0.588235 )
+self_modulate = Color( 1, 1, 1, 0.588235 )
 material = SubResource( 72 )
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1104,7 +1108,7 @@ group = SubResource( 67 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 10.0
+margin_left = 30.0
 margin_top = 6.0
 margin_right = -10.0
 margin_bottom = -6.0
@@ -1112,7 +1116,6 @@ custom_constants/line_spacing = 0
 custom_fonts/font = SubResource( 74 )
 text = "OR3O
 [bongo cat & friends] meow"
-align = 1
 valign = 1
 autowrap = true
 clip_text = true
@@ -1165,6 +1168,8 @@ __meta__ = {
 
 [node name="Cover" type="TextureRect" parent="Main/MapRegistry/S/VBoxContainer/HARD"]
 visible = false
+modulate = Color( 1, 1, 1, 0.588235 )
+self_modulate = Color( 1, 1, 1, 0.588235 )
 material = SubResource( 72 )
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1226,7 +1231,7 @@ group = SubResource( 67 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 10.0
+margin_left = 30.0
 margin_top = 6.0
 margin_right = -10.0
 margin_bottom = -6.0
@@ -1234,7 +1239,6 @@ custom_constants/line_spacing = 0
 custom_fonts/font = SubResource( 74 )
 text = "OR3O
 [bongo cat & friends] meow"
-align = 1
 valign = 1
 autowrap = true
 clip_text = true
@@ -1287,6 +1291,8 @@ __meta__ = {
 
 [node name="Cover" type="TextureRect" parent="Main/MapRegistry/S/VBoxContainer/LOGIC"]
 visible = false
+modulate = Color( 1, 1, 1, 0.588235 )
+self_modulate = Color( 1, 1, 1, 0.588235 )
 material = SubResource( 72 )
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1350,7 +1356,7 @@ __meta__ = {
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 10.0
+margin_left = 30.0
 margin_top = 6.0
 margin_right = -10.0
 margin_bottom = -6.0
@@ -1358,7 +1364,6 @@ custom_constants/line_spacing = 0
 custom_fonts/font = SubResource( 74 )
 text = "OR3O
 [bongo cat & friends] meow"
-align = 1
 valign = 1
 autowrap = true
 clip_text = true
@@ -1411,6 +1416,8 @@ __meta__ = {
 
 [node name="Cover" type="TextureRect" parent="Main/MapRegistry/S/VBoxContainer/AMOGUS"]
 visible = false
+modulate = Color( 1, 1, 1, 0.588235 )
+self_modulate = Color( 1, 1, 1, 0.588235 )
 material = SubResource( 72 )
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1472,7 +1479,7 @@ group = SubResource( 67 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 10.0
+margin_left = 30.0
 margin_top = 6.0
 margin_right = -10.0
 margin_bottom = -6.0
@@ -1480,7 +1487,6 @@ custom_constants/line_spacing = 0
 custom_fonts/font = SubResource( 74 )
 text = "OR3O
 [bongo cat & friends] meow"
-align = 1
 valign = 1
 autowrap = true
 clip_text = true
@@ -2244,9 +2250,9 @@ __meta__ = {
 
 [node name="P" type="Button" parent="Main/MapRegistry/S"]
 anchor_bottom = 1.0
-margin_left = 760.0
+margin_left = 818.0
 margin_top = 34.0
-margin_right = 810.0
+margin_right = 868.0
 margin_bottom = -28.0
 theme = ExtResource( 1 )
 custom_styles/hover = SubResource( 80 )
