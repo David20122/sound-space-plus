@@ -32,10 +32,10 @@ var scroll_up:bool = false
 var scroll_down:bool = false
 
 func next_index():
-	return cur_map + ceil(((page_size+1)/2) * 1.35)
+	return cur_map + floor(((page_size + 1)/2) * 1.2)
 
 func prev_index():
-	return cur_map - ceil(((page_size+1)/2) * 1.35)
+	return cur_map - floor(((page_size + 1)/2) * 1.2)
 
 func is_fav(s:Song): return favorite.has(s)
 
@@ -115,7 +115,7 @@ func load_pg(is_resize:bool=false):
 	print ("cur_map: ", cur_map, " ", disp[cur_map].name)
 	print ("next_index: ", next_index())
 	print ("prev_index: ", prev_index())
-	for i in range(prev_index() + 1, next_index()):
+	for i in range(prev_index(), next_index() + 1):
 		var btn:Panel = make_song_button(i)
 		btns.append(btn)
 		add_child(btn)
@@ -315,7 +315,7 @@ func pg_down():
 
 func tween_out(p:Panel):
 	var tween = get_tree().create_tween()
-	tween.tween_property(p, "rect_min_size", Vector2(1, 0), 0.25)
+	tween.tween_property(p, "rect_min_size", Vector2(50, 0), 0.25)
 	tween.tween_callback(p, "queue_free")
 
 func tween_in(p:Panel):
