@@ -28,6 +28,9 @@ var disp:Array = []
 
 var ready:bool = false
 
+var scroll_up:bool = false
+var scroll_down:bool = false
+
 func next_index():
 	return cur_map + ceil(((page_size+1)/2) * 1.35)
 
@@ -84,8 +87,12 @@ func _process(delta):
 		was_maximized = OS.window_maximized
 		was_fullscreen = OS.window_fullscreen
 		handle_window_resize()
-#		yield(get_tree().create_timer(0.1),"timeout")
-#		load_pg()
+
+func _physics_process(delta):
+	if scroll_down:
+		call_deferred("pg_down")
+	if scroll_up:
+		call_deferred("pg_up")
 
 func select_random():
 	if disp.size() == 0: return
@@ -305,12 +312,12 @@ func pg_down():
 
 func tween_out(p:Panel):
 	var tween = get_tree().create_tween()
-	tween.tween_property(p, "rect_min_size", Vector2(1, 0), 0.08)
+	tween.tween_property(p, "rect_min_size", Vector2(1, 0), 0.25)
 	tween.tween_callback(p, "queue_free")
 
 func tween_in(p:Panel):
 	var tween = get_tree().create_tween()
-	tween.tween_property(p, "rect_min_size", Vector2(1, 80), 0.08)
+	tween.tween_property(p, "rect_min_size", Vector2(1, 80), 0.25)
 	
 
 func _input(ev:InputEvent):
@@ -324,8 +331,14 @@ func handle_window_resize():
 	if ready: load_pg(true)
 
 func firstload():
-	get_parent().get_node("P").connect("pressed",self,"pg_down")
-	get_parent().get_node("M").connect("pressed",self,"pg_up")
+#	get_parent().get_node("P").connect("pressed",self,"pg_down")
+#	get_parent().get_node("M").connect("pressed",self,"pg_up")
+# if the button is held down, it will keep scrolling call a loop on a thread and stop it when the button is released
+	get_parent().get_node("P").connect("button_down",self,"pg_down_cont")
+	get_parent().get_node("M").connect("button_down",self,"pg_up_cont")
+	get_parent().get_node("P").connect("button_up",self,"pg_down_stop")
+	get_parent().get_node("M").connect("button_up",self,"pg_up_stop")
+	
 	get_parent().get_node("Random").connect("pressed",self,"select_random")
 	cur_map = Rhythia.last_page_num
 	prepare_songs()
@@ -335,6 +348,18 @@ func firstload():
 	Rhythia.connect("download_done",self,"reload_to_current_page")
 	get_viewport().connect("size_changed",self,"handle_window_resize")
 	Rhythia.emit_signal("map_list_ready")
+
+func pg_up_cont():
+	scroll_up = true
+	
+func pg_up_stop():
+	scroll_up = false
+
+func pg_down_cont():
+	scroll_down = true
+
+func pg_down_stop():
+	scroll_down = false
 
 func _ready():
 	randomize()
@@ -346,4 +371,5 @@ func _ready():
 	$AMOGUS.visible = false
 	$NODIF.visible = false
 	$EMPTY.visible = false
+	Engine.iterations_per_second = 25
 	call_deferred("firstload")

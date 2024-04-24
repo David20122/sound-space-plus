@@ -727,6 +727,7 @@ grow_vertical = 2
 rect_clip_content = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Main/MapRegistry/S"]
+physics_interpolation_mode = 2
 margin_left = 349.0
 margin_top = 35.0
 margin_right = 749.0
