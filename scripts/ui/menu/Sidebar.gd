@@ -4,8 +4,8 @@ var open:bool = false
 var open_amt:float = 1
 
 onready var pages:Array = [
-	get_node("../Main/Results"),
-	get_node("../Main/MapRegistry"),
+#	get_node("../Main/Results"),
+	get_node("../Main/Maps"),
 	get_node("../Main/Settings"),
 	get_node("../Main/Credits"),
 	get_node("../Main/Content"),
@@ -13,14 +13,14 @@ onready var pages:Array = [
 ]
 onready var buttons:Array = [
 	$L/Results,
-	$L/MapSelect,
+#	$L/MapSelect,
 	$L/Settings,
 	$L/Credits,
 	$L/ContentMgr,
 	$L/Language
 ]
 var use_ver_b:Array = [
-	false,
+#	false,
 	false,
 	true,
 	false,
@@ -28,7 +28,7 @@ var use_ver_b:Array = [
 	false
 ]
 var hide_ver:Array = [
-	false,
+#	false,
 	false,
 	false,
 	true,
@@ -36,7 +36,7 @@ var hide_ver:Array = [
 	false
 ]
 onready var smm_visibility:Dictionary = {
-	$L/Results: true,
+#	$L/Results: true,
 	$L/MapSelect: false,
 	$L/Settings: true,
 	$L/Credits: true,
@@ -92,8 +92,7 @@ func _ready():
 	for i in range(buttons.size()):
 		buttons[i].connect("pressed",self,"press",[i])
 	
-	if Rhythia.just_ended_song || Rhythia.single_map_mode: press(0,true)
-	else: press(1,true)
+	press(0,true)
 	
 	$L/OldMenu.connect("pressed",self,"to_old_menu")
 	$L/StartVR.connect("pressed",self,"to_vr")

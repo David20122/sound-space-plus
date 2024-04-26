@@ -162,3 +162,5 @@ func _ready():
 	else:
 		show_pb()
 	Rhythia.just_ended_song = false
+	var list = $"/root/Menu/Main/Maps/MapRegistry/S/VBoxContainer"
+	list.switch_to_play_screen()

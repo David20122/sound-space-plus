@@ -30,6 +30,10 @@ var ready:bool = false
 
 var scroll_up:bool = false
 var scroll_down:bool = false
+var scroll_target:int = 0
+var scrolling_to:bool = false
+
+var size_x:int = 0
 
 func next_index():
 	return cur_map + floor(((page_size + 1)/2) * 1.2)
@@ -60,7 +64,10 @@ func play_song():
 
 var pt = 1
 func on_pressed(i):
+	if i < 0: return
 	$Press.play()
+	scroll_to(i)
+
 	var s:Song = disp[i]
 	if s != Rhythia.selected_song:
 		Rhythia.select_song(s)
@@ -69,15 +76,15 @@ func on_pressed(i):
 		if pt < 0.25:
 			play_song()
 	pt = 0
-	switch_to_play_screen()
-
-var auto_switch_to_play:bool = true
+	get_viewport().get_node("Menu/Main/Maps/Results").visible = true
+	
 func switch_to_play_screen():
-	if !auto_switch_to_play: return
 	if Rhythia.menu_target == "res://scenes/menu/menu.tscn": return
-	get_viewport().get_node("Menu/Main/MapRegistry").visible = false
-	get_viewport().get_node("Menu/Main/Results").visible = true
-	get_viewport().get_node("Menu/Sidebar/L/Results").pressed = true
+	if disp.find(Rhythia.registry_song.get_item(Rhythia.selected_song.id)) == -1:
+		reset_filters()
+	get_viewport().get_node("Menu/Sidebar").press(0,true)
+	cur_map = disp.find(Rhythia.registry_song.get_item(Rhythia.selected_song.id))
+	load_pg(true)
 
 var was_maximized = OS.window_maximized
 var was_fullscreen = OS.window_fullscreen
@@ -89,41 +96,47 @@ func _process(delta):
 		handle_window_resize()
 
 func _physics_process(delta):
+	if scrolling_to:
+		if scroll_target < cur_map:
+			call_deferred("pg_up")
+		elif scroll_target > cur_map:
+			call_deferred("pg_down")
+		else:
+			scrolling_to = false
+			if disp[cur_map] != Rhythia.selected_song:
+				Rhythia.select_song(disp[cur_map])
 	if scroll_down:
 		call_deferred("pg_down")
 	if scroll_up:
 		call_deferred("pg_up")
+	tween_length()
 
 func select_random():
 	if disp.size() == 0: return
-	on_pressed(randi()%disp.size())
-	for b in btns:
-		if b.song == Rhythia.selected_song: b.get_node("Select").pressed = true
-		else: b.get_node("Select").pressed = false
-	switch_to_play_screen()
+	cur_map = randi()%disp.size()
+	load_pg(true)
+	
 
-func load_pg(is_resize:bool=false):
+func load_pg(select_cur:bool=false):
 	for n in btns: n.queue_free()
 	btns.clear()
 
 	if disp.size() == 0: return
-	page_size = ((get_parent().rect_size.y)/80) * 1.2
+	page_size = ((get_parent().rect_size.y)/90) * 1.5
 	if page_size % 2 != 0:
 		page_size += 1
-	print("page_size: ", page_size)
+	#page size isnt accurate, its a ballpark
 	cur_map = clamp(cur_map, 0, disp.size() - 1)
-	print ("cur_map: ", cur_map, " ", disp[cur_map].name)
-	print ("next_index: ", next_index())
-	print ("prev_index: ", prev_index())
 	for i in range(prev_index(), next_index() + 1):
 		var btn:Panel = make_song_button(i)
+		btn.rect_min_size = Vector2(350, 90)
 		btns.append(btn)
 		add_child(btn)
 		btn.visible = true
-	get_parent().get_node("P").rect_position.x = rect_position.x + rect_size.x + 25
-	tween_length()
-#	get_parent().get_node("P").rect_size.y = ((spp/col)*132)+12
-#	get_parent().get_node("M").rect_size.y = ((spp/col)*132)+12
+		if i == cur_map and select_cur:
+			if btn.song != Rhythia.selected_song:
+				Rhythia.select_song(btn.song)
+				btn.get_node("Select").pressed = true
 
 func append_filtering_favorites(to:Array,from:Array):
 	for s in from:
@@ -156,8 +169,8 @@ func build_list():
 		append_filtering_favorites(disp,unknown)
 
 func reload_to_current_page(_a=null):
+	scrolling_to = false
 	build_list()
-	if ready: Rhythia.last_page_num = cur_map
 	load_pg()
 
 func update_search_text(txt:String):
@@ -217,6 +230,15 @@ func sortsong(a:Song, b:Song):
 		else: return ad < bd
 	else: return sortsongsimple(a,b)
 
+func reset_filters():
+	update_search_text("")
+	update_author_search_text("")
+	update_search_dfil([Globals.DIFF_EASY,Globals.DIFF_MEDIUM,Globals.DIFF_HARD,Globals.DIFF_LOGIC,Globals.DIFF_AMOGUS])
+	update_search_showbroken(false)
+	update_search_showonline(true)
+	update_search_flipped(false)
+	update_search_flip_name(false)
+
 func prepare_songs():
 	for i in range(songs.size()):
 		var map:Song = songs[i]
@@ -231,7 +253,6 @@ func prepare_songs():
 		#if map not in add_to
 		if add_to.find(map) == -1:
 			add_to.append(map)
-#	Rhythia.connect("selected_song_changed",self,"on_map_selected")
 	easy.sort_custom(self,"sortsongsimple")
 	medium.sort_custom(self,"sortsongsimple")
 	hard.sort_custom(self,"sortsongsimple")
@@ -241,7 +262,7 @@ func prepare_songs():
 func make_song_button(id:int=-1):
 	if id < 0 or id >= disp.size():
 		var btn:Panel = $EMPTY.duplicate()
-		btn.rect_min_size = Vector2(50, 0)
+		btn.rect_min_size = Vector2(350, 0)
 		return btn
 	var map:Song = disp[id]
 	if map == null: return
@@ -253,7 +274,7 @@ func make_song_button(id:int=-1):
 		Globals.DIFF_LOGIC: btn = $LOGIC.duplicate()
 		Globals.DIFF_AMOGUS: btn = $AMOGUS.duplicate()
 		_: btn = $NODIF.duplicate()
-	btn.rect_min_size = Vector2(50, 0)
+	btn.rect_min_size = Vector2(size_x - 50, 0)
 	btn.get_node("Label").visible = false
 	if map.has_cover:
 		btn.get_node("Cover").visible = true
@@ -276,7 +297,6 @@ func make_song_button(id:int=-1):
 func pg_up():
 	if cur_map < 0: return
 	cur_map -= 1
-	Rhythia.last_page_num = cur_map
 
 	$Press.play()
 	var out:Panel = btns.pop_back()
@@ -288,86 +308,86 @@ func pg_up():
 	move_child(btn, 0) # to top
 	btn.visible = true
 	tween_in(btn)
-	tween_length()
 	
 func pg_down():
 	if cur_map >= disp.size() - 1: return
 	cur_map += 1
-	Rhythia.last_page_num = cur_map
 	
 	$Press.play()
 	var out:Panel = btns.pop_front()
 	tween_out(out) # freed in tween
-#	yield(get_tree().create_timer(1),"timeout")
-#	out.queue_free()
 	var btn:Panel = make_song_button(next_index())
 	btns.append(btn) # AFTER
 	add_child(btn) # at end
 	btn.visible = true
 	tween_in(btn)
-	tween_length()
-
-#var last_size = OS.window_size
-#func _process(delta):
-#	if OS.window_size != last_size:
-#		last_size = OS.window_size
-#		load_pg()
 
 func tween_out(p:Panel):
 	var tween = get_tree().create_tween()
-	tween.tween_property(p, "rect_min_size", Vector2(50, 0), 0.25)
+	tween.tween_property(p, "rect_min_size", Vector2(size_x - 50, 0), 0.2)
 	tween.tween_callback(p, "queue_free")
 
 func tween_in(p:Panel):
 	var tween = get_tree().create_tween()
-	tween.tween_property(p, "rect_min_size", Vector2(50, 80), 0.25)
+	tween.tween_property(p, "rect_min_size", Vector2(size_x - 50, 80), 0.2)
 
 func tween_length():
 	for i in btns.size():
 		var tween = get_tree().create_tween()
-		tween.tween_property(btns[i], "rect_min_size", Vector2(600-(10*(abs((page_size/2)-i))), 80), 0.25)
+		tween.tween_property(btns[i], "rect_min_size", Vector2(size_x-(15*(abs((page_size/2)-i +1))), 90), 0.2)
 	
 
 func _input(ev:InputEvent):
 	if is_visible_in_tree() and ev is InputEventMouseButton and ev.is_pressed():
 		if ev.button_index == BUTTON_WHEEL_UP:
+			scrolling_to = false
 			call_deferred("pg_up")
 		elif ev.button_index == BUTTON_WHEEL_DOWN:
+			scrolling_to = false
 			call_deferred("pg_down")
 
 func handle_window_resize():
 	if ready: load_pg(true)
 
 func firstload():
-#	get_parent().get_node("P").connect("pressed",self,"pg_down")
-#	get_parent().get_node("M").connect("pressed",self,"pg_up")
-# if the button is held down, it will keep scrolling call a loop on a thread and stop it when the button is released
-	get_parent().get_node("P").connect("button_down",self,"pg_down_cont")
-	get_parent().get_node("M").connect("button_down",self,"pg_up_cont")
-	get_parent().get_node("P").connect("button_up",self,"pg_down_stop")
-	get_parent().get_node("M").connect("button_up",self,"pg_up_stop")
+#	if the button is held down, it will keep scrolling
+	get_parent().get_parent().get_parent().get_node("ScrollControl/P").connect("button_down",self,"pg_down_cont")
+	get_parent().get_parent().get_parent().get_node("ScrollControl/M").connect("button_down",self,"pg_up_cont")
+	get_parent().get_parent().get_parent().get_node("ScrollControl/P").connect("button_up",self,"pg_down_stop")
+	get_parent().get_parent().get_parent().get_node("ScrollControl/M").connect("button_up",self,"pg_up_stop")
 	
-	get_parent().get_node("Random").connect("pressed",self,"select_random")
-	cur_map = Rhythia.last_page_num
+	get_parent().get_parent().get_node("T/Random").connect("pressed",self,"select_random")
 	prepare_songs()
 	reload_to_current_page()
 	ready = true
 	Rhythia.connect("favorite_songs_changed",self,"reload_to_current_page")
-	Rhythia.connect("download_done",self,"reload_to_current_page")
+	Rhythia.connect("download_done",self,"update_clouds")
 	get_viewport().connect("size_changed",self,"handle_window_resize")
 	Rhythia.emit_signal("map_list_ready")
 
+func update_clouds():
+	for btn in btns:
+		if btn.has_node("Cloud") and btn.song:
+			btn.get_node("Cloud").visible = btn.song.is_online
+
 func pg_up_cont():
+	scrolling_to = false
 	scroll_up = true
 	
 func pg_up_stop():
 	scroll_up = false
 
 func pg_down_cont():
+	scrolling_to = false
 	scroll_down = true
 
 func pg_down_stop():
 	scroll_down = false
+
+func scroll_to(i:int):
+	if i < 0 or i >= disp.size(): return
+	scroll_target = i
+	scrolling_to = true
 
 func _ready():
 	randomize()
@@ -379,5 +399,9 @@ func _ready():
 	$AMOGUS.visible = false
 	$NODIF.visible = false
 	$EMPTY.visible = false
-	Engine.iterations_per_second = 25
+
+	Engine.iterations_per_second = 18
 	call_deferred("firstload")
+	#tryna get the screen size but uh it no change
+	size_x = get_parent().get_parent().get_parent().rect_min_size.x/3
+	print("size_x: ", size_x)

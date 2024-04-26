@@ -40,7 +40,7 @@ func _ready():
 		
 		get_tree().create_timer(300).connect("timeout",self,"idle_status")
 		
-	get_node("Main/MapRegistry/T/HBoxContainer/Search").grab_focus()
+	get_node("Main/Maps/MapRegistry/T/Search").grab_focus()
 
 var black_fade_target:bool = false
 var black_fade:float = 1
