@@ -52,10 +52,17 @@ func update_letter_grade(acc:float=0):
 	$LetterGrade.text = grade
 	$LetterGrade.material.set_shader_param("shine",shine)
 	$LetterGrade.set("custom_colors/font_color",gcol)
+	
+	# make gcol more transparent
+	gcol.a = 0.1
+	$LetterGrade2.text = grade
+	$LetterGrade2.set("custom_colors/font_color",gcol)
+	
 
 func _process(delta):
 	if rainbow_letter_grade:
 		$LetterGrade.set("custom_colors/font_color",Color.from_hsv(Rhythia.rainbow_t*0.1,0.4,1))
+		$LetterGrade2.set("custom_colors/font_color",Color.from_hsv(Rhythia.rainbow_t*0.1,0.4,0.1))
 
 func show_pb(_s=null):
 	if Rhythia.selected_song != null:
@@ -96,6 +103,7 @@ func show_pb(_s=null):
 			visible = true
 			$Result.text = "No PB"
 			$LetterGrade.text = "-"
+			$LetterGrade2.text = ""
 			rainbow_letter_grade = false
 			$LetterGrade.set("custom_colors/font_color",Color(1,1,1))
 			$LetterGrade.material.set_shader_param("shine",0)

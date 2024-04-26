@@ -79,6 +79,7 @@ func on_pressed(i):
 	get_viewport().get_node("Menu/Main/Maps/Results").visible = true
 	
 func switch_to_play_screen():
+	size_list()
 	if Rhythia.menu_target == "res://scenes/menu/menu.tscn": return
 	if disp.find(Rhythia.registry_song.get_item(Rhythia.selected_song.id)) == -1:
 		reset_filters()
@@ -118,6 +119,7 @@ func select_random():
 	
 
 func load_pg(select_cur:bool=false):
+	size_list()
 	for n in btns: n.queue_free()
 	btns.clear()
 
@@ -262,7 +264,7 @@ func prepare_songs():
 func make_song_button(id:int=-1):
 	if id < 0 or id >= disp.size():
 		var btn:Panel = $EMPTY.duplicate()
-		btn.rect_min_size = Vector2(350, 0)
+		btn.rect_min_size = Vector2(size_x - (page_size/2) * 10, 0)
 		return btn
 	var map:Song = disp[id]
 	if map == null: return
@@ -324,17 +326,17 @@ func pg_down():
 
 func tween_out(p:Panel):
 	var tween = get_tree().create_tween()
-	tween.tween_property(p, "rect_min_size", Vector2(size_x - 50, 0), 0.2)
+	tween.tween_property(p, "rect_min_size", Vector2(size_x - (page_size/2) * 10, 0), 0.2)
 	tween.tween_callback(p, "queue_free")
 
 func tween_in(p:Panel):
 	var tween = get_tree().create_tween()
-	tween.tween_property(p, "rect_min_size", Vector2(size_x - 50, 80), 0.2)
+	tween.tween_property(p, "rect_min_size", Vector2(size_x - (page_size/2) * 10, 80), 0.2)
 
 func tween_length():
 	for i in btns.size():
 		var tween = get_tree().create_tween()
-		tween.tween_property(btns[i], "rect_min_size", Vector2(size_x-(15*(abs((page_size/2)-i +1))), 90), 0.2)
+		tween.tween_property(btns[i], "rect_min_size", Vector2(size_x-(15*(abs((page_size/2)-i +1))), 90), 0.15)
 	
 
 func _input(ev:InputEvent):
@@ -347,7 +349,7 @@ func _input(ev:InputEvent):
 			call_deferred("pg_down")
 
 func handle_window_resize():
-	if ready: load_pg(true)
+	if ready: _ready()
 
 func firstload():
 #	if the button is held down, it will keep scrolling
@@ -403,5 +405,10 @@ func _ready():
 	Engine.iterations_per_second = 18
 	call_deferred("firstload")
 	#tryna get the screen size but uh it no change
-	size_x = get_parent().get_parent().get_parent().rect_min_size.x/3
+	size_list()
+	
 	print("size_x: ", size_x)
+
+func size_list():
+	size_x = get_viewport_rect().size.x/2.8
+	$"..".rect_min_size.x = size_x

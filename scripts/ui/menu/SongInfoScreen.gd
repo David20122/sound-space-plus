@@ -39,22 +39,15 @@ func update(_s=null):
 	$RS/H1/Info/M/V/Id/L.text = map.id
 	$RS/H1/Info/M/V/Name/L.text = map.name
 	$RS/H1/Info/M/V/SongName/L.text = map.song
-	$RS/H1/Info/M/V/SongName.visible = map.name != map.song
+#	$RS/H1/Info/M/V/SongName.visible = map.name != map.song
 	$RS/H1/Info/M/V/Mapper/L.text = map.creator
-	$RS/H1/Info/D/Difficulty.text = map.custom_data.get("difficulty_name",
+	$RS/HMid/Difficulty.text = map.custom_data.get("difficulty_name",
 		Globals.difficulty_names.get(map.difficulty,"INVALID DIFFICULTY ID")
 	)
-	$RS/H1/Info/D/Difficulty.modulate = Globals.difficulty_colors.get(map.difficulty,Color("#ffffff"))
-	$RS/H1/Info/D/DifficultySmaller.modulate = Globals.difficulty_colors.get(map.difficulty,Color("#ffffff"))
+	$RS/HMid/Difficulty.modulate = Globals.difficulty_colors.get(map.difficulty,Color("#ffffff"))
 	$RS/H1/Info/D/Data.text = "%s - %s notes" % [get_time_ms(map.last_ms),comma_sep(map.note_count)]
 	
-	if $RS/H1/Info/D/Difficulty.text.length() > 10:
-		$RS/H1/Info/D/Difficulty.visible = false
-		$RS/H1/Info/D/DifficultySmaller.visible = true
-		$RS/H1/Info/D/DifficultySmaller.text = $RS/H1/Info/D/Difficulty.text
-	else:
-		$RS/H1/Info/D/Difficulty.visible = true
-		$RS/H1/Info/D/DifficultySmaller.visible = false
+	$RS/HMid/Difficulty.visible = true
 	
 	$RS/H1/Info/M/V/Mapper.visible = !Rhythia.single_map_mode_txt
 	$RS/H1/Info/M/V/Id.visible = !Rhythia.single_map_mode_txt
@@ -66,7 +59,7 @@ func update(_s=null):
 	else: txt += tr("Hitboxes: %s, ") % Rhythia.note_hitbox_size
 	if Rhythia.hitwindow_ms == 55: txt += tr("default hitwindow")
 	else: txt += tr("hitwindow: %s ms") % Rhythia.hitwindow_ms
-	$RS/Hitboxes.text = txt
+	$RS/HMid/Hitboxes.text = txt
 	
 	for i in range(difficulty_btns.size()):
 		var n:Panel = difficulty_btns[i]
