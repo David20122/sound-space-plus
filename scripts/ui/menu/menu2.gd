@@ -39,8 +39,6 @@ func _ready():
 		Discord.activity_manager.update_activity(activity)
 		
 		get_tree().create_timer(300).connect("timeout",self,"idle_status")
-		
-	get_node("Main/Maps/MapRegistry/T/Search").grab_focus()
 
 var black_fade_target:bool = false
 var black_fade:float = 1
