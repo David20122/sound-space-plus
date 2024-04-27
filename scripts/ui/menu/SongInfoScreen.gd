@@ -34,24 +34,24 @@ func update(_s=null):
 #	$Deleted.visible = (map.id == "!DELETED")
 	$RS.visible = (map.id != "!DELETED")
 	$RS/H2/EndInfo.visible = true
-	$RS/H1/Info/M/V/Buttons/Control/Actions.visible = true
+	$RS/H1/Info/Control/Actions.visible = true
 #	$Actions.visible = true
-	$RS/H1/Info/M/V/Id/L.text = map.id
-	$RS/H1/Info/M/V/Name/L.text = map.name
-	$RS/H1/Info/M/V/SongName/L.text = map.song
-#	$RS/H1/Info/M/V/SongName.visible = map.name != map.song
-	$RS/H1/Info/M/V/Mapper/L.text = map.creator
+	$RS/H1/Info/Id/Id.text = map.id
+	$RS/H1/Info/Name/Name.text = map.name
+	$RS/H1/Info/SongName/SongName.text = map.song
+#	$RS/H1/Info/SongName.visible = map.name != map.song
+	$RS/H1/Info/Mapper/Mapper.text = map.creator
 	$RS/HMid/Difficulty.text = map.custom_data.get("difficulty_name",
 		Globals.difficulty_names.get(map.difficulty,"INVALID DIFFICULTY ID")
 	)
 	$RS/HMid/Difficulty.modulate = Globals.difficulty_colors.get(map.difficulty,Color("#ffffff"))
-	$RS/H1/Info/D/Data.text = "%s - %s notes" % [get_time_ms(map.last_ms),comma_sep(map.note_count)]
+	$RS/H1/Info/Data/Data.text = "%s - %s notes" % [get_time_ms(map.last_ms),comma_sep(map.note_count)]
 	
 	$RS/HMid/Difficulty.visible = true
 	
-	$RS/H1/Info/M/V/Mapper.visible = !Rhythia.single_map_mode_txt
-	$RS/H1/Info/M/V/Id.visible = !Rhythia.single_map_mode_txt
-	$RS/H1/Info/M/V/SMM.visible = Rhythia.single_map_mode
+	$RS/H1/Info/Mapper.visible = !Rhythia.single_map_mode_txt
+	$RS/H1/Info/Id.visible = !Rhythia.single_map_mode_txt
+	$RS/H1/Info/SMM.visible = Rhythia.single_map_mode
 	
 	
 	var txt = ""
@@ -75,22 +75,22 @@ func update(_s=null):
 			n.get_node("Name").text = map.name
 	
 	if map.warning != "":
-		$RS/H1/Info/M/V/Warning.visible = true
-		$RS/H1/Info/M/V/Warning/L.text = map.warning
+		$RS/H1/Info/Warning.visible = true
+		$RS/H1/Info/Warning.text = map.warning
 		if map.is_broken:
-			$RS/H1/Info/M/V/Warning/L.set("custom_colors/font_color",Color(1,0,0))
-#			$Info/M/V/Run/Run.disabled = true
-#			$Info/M/V/Buttons/Control/Favorite.disabled = true
-#			$Info/M/V/Buttons/Control/PreviewMusic.disabled = true
+			$RS/H1/Info/Warning.set("custom_colors/font_color",Color(1,0,0))
+#			$Info/Run/Run.disabled = true
+#			$Info/Buttons/Control/Favorite.disabled = true
+#			$Info/Control/PreviewMusic.disabled = true
 		else:
-			$RS/H1/Info/M/V/Warning/L.set("custom_colors/font_color",Color(1,1,0))
-#			$Info/M/V/Run/Run.disabled = false
-#			$Info/M/V/Buttons/Control/Favorite.disabled = false
-#			$Info/M/V/Buttons/Control/PreviewMusic.disabled = false
-	else: $RS/H1/Info/M/V/Warning.visible = false
-	$RS/H1/Info/M/V/Run/Run.disabled = false
-	$RS/H1/Info/M/V/Buttons/Control/Actions.disabled = false
-	$RS/H1/Info/M/V/Buttons/Control/PreviewMusic.disabled = false
+			$RS/H1/Info/Warning/Warning.set("custom_colors/font_color",Color(1,1,0))
+#			$Info/Run/Run.disabled = false
+#			$Info/Control/Favorite.disabled = false
+#			$Info/Control/PreviewMusic.disabled = false
+	else: $RS/H1/Info/Warning.visible = false
+	$RS/H1/Info/Run.disabled = false
+	$RS/H1/Info/Control/Actions.disabled = false
+	$RS/H1/Info/Control/PreviewMusic.disabled = false
 	
 	$Actions/Convert.disabled = (
 		$Actions/Convert.debounce or
@@ -143,6 +143,6 @@ func _ready():
 	else:
 		$RS.visible = false
 		$RS/H2/EndInfo.visible = false
-		$RS/H1/Info/M/V/Run/Run.disabled = true
-		$RS/H1/Info/M/V/Buttons/Control/Actions.disabled = true
-		$RS/H1/Info/M/V/Buttons/Control/PreviewMusic.disabled = true
+		$RS/H1/Info/Run.disabled = true
+		$RS/H1/Info/Control/Actions.disabled = true
+		$RS/H1/Info/Control/PreviewMusic.disabled = true
