@@ -188,7 +188,7 @@ func load_pg(select_cur:bool=false):
 
 func append_filtering_favorites(to:Array,from:Array):
 	for s in from:
-		if search_matches(s) and !is_fav(s):
+		if !is_fav(s) and search_matches(s):
 			to.append(s)
 
 
@@ -197,7 +197,7 @@ func build_list():
 	favorite = []
 	for id in Rhythia.favorite_songs:
 		var s = Rhythia.registry_song.get_item(id)
-		if s and search_matches(s) and Rhythia.is_favorite(id):
+		if s and Rhythia.is_favorite(id) and search_matches(s):
 			favorite.append(s)
 	favorite.sort_custom(self,"sortsong")
 	disp.append_array(favorite)
@@ -400,7 +400,7 @@ func _input(ev:InputEvent):
 			call_deferred("pg_down")
 
 func handle_window_resize():
-	if ready: _ready()
+	if ready: reload_to_current_page()
 
 func firstload():
 #	if the button is held down, it will keep scrolling
