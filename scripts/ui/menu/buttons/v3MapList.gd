@@ -292,6 +292,8 @@ func make_song_button(id:int=-1):
 	btn.get_node("Cloud").visible = map.is_online
 	rbtn.disabled = false
 	rbtn.connect("pressed",self,"on_pressed",[id])
+	#set the pressed action mode to release so it doesn't trigger on mouse down
+	rbtn.action_mode = 1
 	if map == Rhythia.selected_song:
 		btn.get_node("Select").pressed = true
 	return btn
