@@ -2419,6 +2419,18 @@ func do_init(_ud=null):
 			#if fmod(i,max(min(floor(float(allmaps.size())/200),40),5)) == 0: yield(get_tree(),"idle_frame")
 			convert_song_pbs(allmaps[i])
 	
+	emit_signal("init_stage_reached","Loading Covers\nFor your convenience")
+	yield(get_tree(),"idle_frame")
+	var allmaps:Array = registry_song.get_items()
+	for i in range(allmaps.size()):
+		emit_signal("init_stage_reached","Loading Covers\n%.0f%%" % (
+			100*(float(i)/float(allmaps.size()))
+		))
+		if (OS.get_ticks_msec() - lt) >= load_target_frame_time * 1000:
+			lt = OS.get_ticks_msec()
+			yield(get_tree(),"idle_frame")
+		allmaps[i]._get_cover()
+	
 	# Load favorite songs
 	# Check if VR is available
 	if !first_init_done:

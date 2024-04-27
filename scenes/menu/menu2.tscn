@@ -706,8 +706,6 @@ size_flags_horizontal = 2
 size_flags_vertical = 7
 
 [node name="Results" type="HBoxContainer" parent="Main/Maps"]
-margin_right = 652.0
-margin_bottom = 745.0
 rect_min_size = Vector2( 0, 600 )
 size_flags_horizontal = 7
 size_flags_vertical = 7
@@ -716,11 +714,10 @@ alignment = 1
 script = ExtResource( 93 )
 
 [node name="Results" type="VBoxContainer" parent="Main/Maps/Results"]
-margin_right = 652.0
-margin_bottom = 745.0
 rect_min_size = Vector2( 615, 600 )
 size_flags_horizontal = 7
 size_flags_vertical = 3
+alignment = 1
 script = ExtResource( 28 )
 
 [node name="Actions" type="VBoxContainer" parent="Main/Maps/Results/Results"]
@@ -770,29 +767,29 @@ initial_path = "~/Downloads"
 filters = PoolStringArray( "*.txt ; Text files" )
 
 [node name="RS" type="VBoxContainer" parent="Main/Maps/Results/Results"]
-margin_right = 652.0
-margin_bottom = 745.0
 rect_min_size = Vector2( 0, 600 )
+size_flags_horizontal = 7
 size_flags_vertical = 7
 alignment = 1
 
 [node name="HSeparator4" type="HSeparator" parent="Main/Maps/Results/Results/RS"]
 modulate = Color( 1, 1, 1, 0 )
 margin_right = 652.0
-margin_bottom = 11.0
+margin_bottom = 4.0
 size_flags_vertical = 3
 
 [node name="HSeparator2" type="HSeparator" parent="Main/Maps/Results/Results/RS"]
-margin_top = 15.0
+margin_top = 8.0
 margin_right = 652.0
-margin_bottom = 19.0
+margin_bottom = 12.0
 
 [node name="H1" type="HBoxContainer" parent="Main/Maps/Results/Results/RS"]
-margin_top = 23.0
+margin_top = 16.0
 margin_right = 652.0
-margin_bottom = 244.0
-size_flags_horizontal = 3
+margin_bottom = 237.0
+size_flags_horizontal = 7
 size_flags_vertical = 3
+alignment = 1
 
 [node name="ButtonDisp" type="AspectRatioContainer" parent="Main/Maps/Results/Results/RS/H1"]
 margin_right = 190.0
@@ -1266,7 +1263,7 @@ margin_bottom = 221.0
 margin_left = 202.0
 margin_right = 652.0
 margin_bottom = 221.0
-size_flags_horizontal = 3
+size_flags_horizontal = 7
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
 custom_constants/separation = 0
@@ -1600,14 +1597,14 @@ bus = "Music"
 
 [node name="HSeparator3" type="HSeparator" parent="Main/Maps/Results/Results/RS"]
 modulate = Color( 1, 1, 1, 0 )
-margin_top = 248.0
+margin_top = 241.0
 margin_right = 652.0
-margin_bottom = 252.0
+margin_bottom = 245.0
 
 [node name="HMid" type="HBoxContainer" parent="Main/Maps/Results/Results/RS"]
-margin_top = 256.0
+margin_top = 249.0
 margin_right = 652.0
-margin_bottom = 296.0
+margin_bottom = 289.0
 rect_min_size = Vector2( 0, 40 )
 size_flags_horizontal = 7
 size_flags_vertical = 0
@@ -1680,15 +1677,15 @@ margin_right = 651.0
 margin_bottom = 40.0
 
 [node name="HSeparator" type="HSeparator" parent="Main/Maps/Results/Results/RS"]
-margin_top = 300.0
+margin_top = 293.0
 margin_right = 652.0
-margin_bottom = 311.0
+margin_bottom = 297.0
 size_flags_vertical = 3
 
 [node name="ModsTitle" type="Label" parent="Main/Maps/Results/Results/RS"]
-margin_top = 315.0
+margin_top = 301.0
 margin_right = 652.0
-margin_bottom = 345.0
+margin_bottom = 331.0
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 1, 0.756863, 0.960784, 1 )
@@ -1697,9 +1694,9 @@ text = "                  Modifiers"
 align = 1
 
 [node name="H2" type="HBoxContainer" parent="Main/Maps/Results/Results/RS"]
-margin_top = 349.0
+margin_top = 335.0
 margin_right = 652.0
-margin_bottom = 719.0
+margin_bottom = 705.0
 size_flags_horizontal = 7
 size_flags_vertical = 3
 alignment = 2
@@ -2853,9 +2850,9 @@ size_flags_horizontal = 3
 
 [node name="HSeparator5" type="HSeparator" parent="Main/Maps/Results/Results/RS"]
 modulate = Color( 1, 1, 1, 0 )
-margin_top = 723.0
+margin_top = 709.0
 margin_right = 652.0
-margin_bottom = 745.0
+margin_bottom = 713.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
 
