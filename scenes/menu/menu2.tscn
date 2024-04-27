@@ -1613,23 +1613,24 @@ size_flags_horizontal = 7
 size_flags_vertical = 0
 
 [node name="VSeparator2" type="VSeparator" parent="Main/Maps/Results/Results/RS/HMid"]
+visible = false
 modulate = Color( 1, 1, 1, 0 )
-margin_right = 36.0
+margin_right = 4.0
 margin_bottom = 40.0
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.5
+size_flags_stretch_ratio = 0.2
 
 [node name="Difficulty" type="Label" parent="Main/Maps/Results/Results/RS/HMid"]
-margin_left = 40.0
 margin_top = 5.0
-margin_right = 247.0
+margin_right = 213.0
 margin_bottom = 35.0
 focus_mode = 2
+size_flags_horizontal = 7
 theme = ExtResource( 1 )
 custom_fonts/font = SubResource( 97 )
 text = "Eternal Damnation"
-align = 2
+align = 1
 valign = 1
+autowrap = true
 
 [node name="Label" type="Label" parent="Main/Maps/Results/Results/RS/HMid/Difficulty"]
 visible = false
@@ -1649,31 +1650,34 @@ __meta__ = {
 }
 
 [node name="VSeparator3" type="VSeparator" parent="Main/Maps/Results/Results/RS/HMid"]
+visible = false
 modulate = Color( 1, 1, 1, 0 )
-margin_left = 251.0
-margin_right = 324.0
+margin_left = 211.0
+margin_right = 354.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
 
 [node name="Hitboxes" type="Label" parent="Main/Maps/Results/Results/RS/HMid"]
-margin_left = 328.0
+margin_left = 217.0
 margin_top = 10.0
-margin_right = 575.0
+margin_right = 643.0
 margin_bottom = 30.0
 focus_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.717647, 1, 0.760784, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
 custom_fonts/font = SubResource( 90 )
 text = "Default hitboxes, default hitwindow"
+align = 1
 valign = 1
 
 [node name="VSeparator" type="VSeparator" parent="Main/Maps/Results/Results/RS/HMid"]
 modulate = Color( 1, 1, 1, 0 )
-margin_left = 579.0
-margin_right = 652.0
+margin_left = 647.0
+margin_right = 651.0
 margin_bottom = 40.0
-size_flags_horizontal = 3
 
 [node name="HSeparator" type="HSeparator" parent="Main/Maps/Results/Results/RS"]
 margin_top = 300.0
