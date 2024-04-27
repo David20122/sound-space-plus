@@ -13,7 +13,7 @@ func _input(event): # any unicode input starts search
 	# remain the ability to type in other textboxes i wonder if you can tell if type focus is happening
 	if get_focus_owner() == self: return
 	if get_focus_owner() == $"/root/Menu/Main/Maps/MapRegistry/T/AuthorSearch": return
-	if get_focus_owner() == $"/root/Menu/Main/Maps/Results/Results/RS/H2/Mods/SpeedMod/C/CustomSpeed": return
+	if get_focus_owner() == $"/root/Menu/Main/Maps/Results/Results/RS/H2/Mods/SpeedMod/C/CustomSpeed".get_line_edit(): return
 	if get_focus_owner() == $"/root/Menu/Main/Maps/Results/Results/RS/H2/Mods/StartOffset/TimeTextBox": return
 	
 	if not is_visible_in_tree(): return
