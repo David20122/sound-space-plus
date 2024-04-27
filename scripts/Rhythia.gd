@@ -2419,6 +2419,7 @@ func do_init(_ud=null):
 			#if fmod(i,max(min(floor(float(allmaps.size())/200),40),5)) == 0: yield(get_tree(),"idle_frame")
 			convert_song_pbs(allmaps[i])
 	
+	# Load Covers
 	emit_signal("init_stage_reached","Loading Covers\nFor your convenience")
 	yield(get_tree(),"idle_frame")
 	var allmaps:Array = registry_song.get_items()
