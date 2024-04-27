@@ -85,6 +85,11 @@ func on_pressed(i):
 	else:
 		print(pt)
 		if pt < 0.25:
+			# make sure all the things are stopped
+			check_drag = false
+			dragged = false
+			scrolling_to = false
+			momentum = 0
 			play_song()
 	pt = 0
 	get_viewport().get_node("Menu/Main/Maps/Results").visible = true
@@ -453,7 +458,7 @@ func _ready():
 	$NODIF.visible = false
 	$EMPTY.visible = false
 
-	Engine.iterations_per_second = 50
+	Engine.iterations_per_second = 45
 	call_deferred("firstload")
 	#tryna get the screen size but uh it no change
 	size_list()
