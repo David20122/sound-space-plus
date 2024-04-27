@@ -33,6 +33,14 @@ var scroll_down:bool = false
 var scroll_target:int = 0
 var scrolling_to:bool = false
 
+var check_drag:bool = false
+var dragged:bool = false
+var drag_cur_map:int = 0
+var drag_start:Vector2 = Vector2()
+var drag_offset:Vector2 = Vector2()
+
+var momentum:float = 0
+
 var size_x:int = 0
 
 func next_index():
@@ -64,6 +72,9 @@ func play_song():
 
 var pt = 1
 func on_pressed(i):
+	if dragged:
+		dragged = false
+		return
 	if i < 0: return
 	$Press.play()
 	scroll_to(i)
@@ -97,6 +108,28 @@ func _process(delta):
 		handle_window_resize()
 
 func _physics_process(delta):
+	if check_drag or dragged:
+		drag_offset = get_global_mouse_position()
+		var diff = drag_offset - drag_start
+		if abs(diff.y) > 40:
+			check_drag = false
+			dragged = true
+			if cur_map + int(diff.y/80) < drag_cur_map:
+				call_deferred("pg_down")
+			elif cur_map + int(diff.y/80) > drag_cur_map:
+				call_deferred("pg_up")
+
+	# when the mouse is released, the list will scroll based on the momentum
+	if momentum != 0:
+		momentum = lerp(momentum, 0, 0.4)
+		if abs(momentum) < 0.4:
+			momentum = 0
+		else:
+			if momentum < 0:
+				call_deferred("pg_up")
+			else:
+				call_deferred("pg_down")
+
 	if scrolling_to:
 		if scroll_target < cur_map:
 			call_deferred("pg_up")
@@ -111,6 +144,19 @@ func _physics_process(delta):
 	if scroll_up:
 		call_deferred("pg_up")
 	tween_length()
+
+func check_drag_on():
+	momentum = 0
+	dragged = false
+	check_drag = true
+	drag_start = get_global_mouse_position()
+	drag_offset = drag_start
+	drag_cur_map = cur_map
+
+func check_drag_off():
+	check_drag = false
+	dragged = false
+	momentum = (drag_offset - get_global_mouse_position()).y 
 
 func select_random():
 	if disp.size() == 0: return
@@ -294,6 +340,9 @@ func make_song_button(id:int=-1):
 	rbtn.connect("pressed",self,"on_pressed",[id])
 	#set the pressed action mode to release so it doesn't trigger on mouse down
 	rbtn.action_mode = 1
+	rbtn.connect("button_down", self, "check_drag_on")
+	rbtn.connect("button_up", self, "check_drag_off")
+	rbtn.keep_pressed_outside = true
 	if map == Rhythia.selected_song:
 		btn.get_node("Select").pressed = true
 	return btn
