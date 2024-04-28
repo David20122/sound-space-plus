@@ -458,7 +458,7 @@ func _ready():
 	$NODIF.visible = false
 	$EMPTY.visible = false
 
-	Engine.iterations_per_second = 45
+	Engine.iterations_per_second = 60
 	call_deferred("firstload")
 	#tryna get the screen size but uh it no change
 	size_list()
