@@ -98,12 +98,8 @@ func _get_cover():
 			imgtex.create_from_image(img)
 			cover = imgtex
 	elif songType == Globals.MAP_SSPM2:
-		var img:Image = Image.new()
 		var cbuf:PoolByteArray = file.get_buffer(cover_length)
-		img.load_png_from_buffer(cbuf)
-		var imgtex:ImageTexture = ImageTexture.new()
-		imgtex.create_from_image(img)
-		cover = imgtex
+		cover = Globals.imageLoader.load_buffer(cbuf) as ImageTexture
 	file.close()
 #	cover.call_deferred("unreference")
 	return cover
