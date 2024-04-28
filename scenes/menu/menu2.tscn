@@ -185,6 +185,7 @@ outline_size = 3
 outline_color = Color( 0, 0, 0, 0.313726 )
 use_filter = true
 font_data = ExtResource( 2 )
+fallback/0 = ExtResource( 15 )
 
 [sub_resource type="Shader" id=129]
 code = "shader_type canvas_item;

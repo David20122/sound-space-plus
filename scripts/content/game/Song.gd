@@ -90,13 +90,13 @@ func _get_cover():
 				var clen:int = file.get_64()
 				var cbuf:PoolByteArray = file.get_buffer(clen)
 				img.create_from_data(w,h,mip,format,cbuf)
+				var imgtex:ImageTexture = ImageTexture.new()
+				imgtex.create_from_image(img)
+				cover = imgtex
 			elif ct == 2:
 				var clen:int = file.get_64()
 				var cbuf:PoolByteArray = file.get_buffer(clen)
-				img.load_png_from_buffer(cbuf)
-			var imgtex:ImageTexture = ImageTexture.new()
-			imgtex.create_from_image(img)
-			cover = imgtex
+				cover = Globals.imageLoader.load_buffer(cbuf) as ImageTexture
 	elif songType == Globals.MAP_SSPM2:
 		var cbuf:PoolByteArray = file.get_buffer(cover_length)
 		cover = Globals.imageLoader.load_buffer(cbuf) as ImageTexture
