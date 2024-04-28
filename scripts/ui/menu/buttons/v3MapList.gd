@@ -334,7 +334,7 @@ func make_song_button(id:int=-1):
 		btn.get_node("Cover").texture = map.cover
 	btn.get_node("Name").visible = true
 	if map.name.length() > 80:
-		btn.get_node("Name").text = strip_diactritics(map.name)
+		btn.get_node("Name").text = strip_diacritics(map.name)
 	else:
 		btn.get_node("Name").text = map.name
 	btn.song = map
