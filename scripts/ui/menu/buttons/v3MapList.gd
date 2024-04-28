@@ -119,9 +119,9 @@ func _physics_process(delta):
 		if abs(diff.y) > 40:
 			check_drag = false
 			dragged = true
-			if cur_map + int(diff.y/70) < drag_cur_map:
+			if cur_map + int(diff.y/80) < drag_cur_map:
 				call_deferred("pg_down")
-			elif cur_map + int(diff.y/70) > drag_cur_map:
+			elif cur_map + int(diff.y/80) > drag_cur_map:
 				call_deferred("pg_up")
 
 	# when the mouse is released, the list will scroll based on the momentum
