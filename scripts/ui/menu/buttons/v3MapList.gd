@@ -510,9 +510,9 @@ func strip_diactritics(s:String): # we hardcoding tonight   -  edit nvm im liter
 			removed = false
 			continue
 		var byte_value = pool[i]
-		if i == 0:
-			continue
-		var prev_byte = pool[i - 1]
+		var prev_byte = -1
+		if i != 0:
+			prev_byte = pool[i - 1]
 		
 		if byte_value in byte_values_to_remove:
 			# If the current byte his preceded by 0xcc or 0xcd, remove it and previous byte
