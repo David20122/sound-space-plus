@@ -25,6 +25,7 @@ func files_dropped(files:PoolStringArray,_screen:int):
 				song = Rhythia.registry_song.add_sspm_map("user://maps/%s.sspm" % song.id)
 		var list = $"/root/Menu/Main/Maps/MapRegistry/S/VBoxContainer"
 		list.prepare_songs()
+		list.build_list()
 #		list.reload_to_current_page()
 		if song:
 			Rhythia.select_song(song)
