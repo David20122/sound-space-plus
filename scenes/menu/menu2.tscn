@@ -701,14 +701,14 @@ rect_pivot_offset = Vector2( -398, 64 )
 [node name="Maps" type="HBoxContainer" parent="Main"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_bottom = 25.0
+margin_bottom = 22.0
 rect_min_size = Vector2( 1220, 720 )
 size_flags_horizontal = 2
 size_flags_vertical = 7
 
 [node name="Results" type="HBoxContainer" parent="Main/Maps"]
 margin_right = 652.0
-margin_bottom = 751.0
+margin_bottom = 742.0
 rect_min_size = Vector2( 0, 600 )
 size_flags_horizontal = 7
 size_flags_vertical = 7
@@ -718,7 +718,7 @@ script = ExtResource( 93 )
 
 [node name="Results" type="VBoxContainer" parent="Main/Maps/Results"]
 margin_right = 652.0
-margin_bottom = 751.0
+margin_bottom = 742.0
 rect_min_size = Vector2( 615, 600 )
 size_flags_horizontal = 7
 size_flags_vertical = 3
@@ -773,7 +773,7 @@ filters = PoolStringArray( "*.txt ; Text files" )
 
 [node name="RS" type="VBoxContainer" parent="Main/Maps/Results/Results"]
 margin_right = 652.0
-margin_bottom = 751.0
+margin_bottom = 742.0
 rect_min_size = Vector2( 0, 600 )
 size_flags_horizontal = 7
 size_flags_vertical = 7
@@ -782,19 +782,19 @@ alignment = 1
 [node name="HSeparator4" type="HSeparator" parent="Main/Maps/Results/Results/RS"]
 modulate = Color( 1, 1, 1, 0 )
 margin_right = 652.0
-margin_bottom = 4.0
+margin_bottom = 5.0
 size_flags_vertical = 3
 
 [node name="HSeparator2" type="HSeparator" parent="Main/Maps/Results/Results/RS"]
-margin_top = 8.0
+margin_top = 9.0
 margin_right = 652.0
-margin_bottom = 12.0
+margin_bottom = 14.0
 size_flags_vertical = 3
 
 [node name="H1" type="HBoxContainer" parent="Main/Maps/Results/Results/RS"]
-margin_top = 16.0
+margin_top = 18.0
 margin_right = 652.0
-margin_bottom = 267.0
+margin_bottom = 269.0
 size_flags_horizontal = 7
 size_flags_vertical = 3
 size_flags_stretch_ratio = 3.0
@@ -1625,14 +1625,14 @@ bus = "Music"
 
 [node name="HSeparator3" type="HSeparator" parent="Main/Maps/Results/Results/RS"]
 modulate = Color( 1, 1, 1, 0 )
-margin_top = 271.0
+margin_top = 273.0
 margin_right = 652.0
-margin_bottom = 275.0
+margin_bottom = 277.0
 
 [node name="HMid" type="HBoxContainer" parent="Main/Maps/Results/Results/RS"]
-margin_top = 279.0
+margin_top = 281.0
 margin_right = 652.0
-margin_bottom = 319.0
+margin_bottom = 321.0
 rect_min_size = Vector2( 0, 40 )
 size_flags_horizontal = 7
 size_flags_vertical = 0
@@ -1705,22 +1705,22 @@ margin_right = 651.0
 margin_bottom = 40.0
 
 [node name="HSeparator" type="HSeparator" parent="Main/Maps/Results/Results/RS"]
-margin_top = 323.0
+margin_top = 325.0
 margin_right = 652.0
-margin_bottom = 327.0
+margin_bottom = 330.0
 size_flags_vertical = 3
 
 [node name="HSeparator6" type="HSeparator" parent="Main/Maps/Results/Results/RS"]
 modulate = Color( 1, 1, 1, 0 )
-margin_top = 331.0
+margin_top = 334.0
 margin_right = 652.0
-margin_bottom = 335.0
+margin_bottom = 339.0
 size_flags_vertical = 3
 
 [node name="ModsTitle" type="Label" parent="Main/Maps/Results/Results/RS"]
-margin_top = 339.0
+margin_top = 343.0
 margin_right = 652.0
-margin_bottom = 369.0
+margin_bottom = 373.0
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 1, 0.756863, 0.960784, 1 )
@@ -1729,9 +1729,9 @@ text = "                  Modifiers"
 align = 1
 
 [node name="H2" type="HBoxContainer" parent="Main/Maps/Results/Results/RS"]
-margin_top = 373.0
+margin_top = 377.0
 margin_right = 652.0
-margin_bottom = 743.0
+margin_bottom = 727.0
 size_flags_horizontal = 7
 size_flags_vertical = 3
 alignment = 2
@@ -1739,13 +1739,13 @@ alignment = 2
 [node name="VSeparator2" type="VSeparator" parent="Main/Maps/Results/Results/RS/H2"]
 modulate = Color( 1, 1, 1, 0 )
 margin_right = 4.0
-margin_bottom = 370.0
+margin_bottom = 350.0
 size_flags_horizontal = 3
 
 [node name="EndInfo" type="ReferenceRect" parent="Main/Maps/Results/Results/RS/H2"]
 margin_left = 8.0
 margin_right = 282.0
-margin_bottom = 370.0
+margin_bottom = 350.0
 rect_min_size = Vector2( 274, 280 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -2017,14 +2017,14 @@ valign = 1
 modulate = Color( 1, 1, 1, 0 )
 margin_left = 286.0
 margin_right = 290.0
-margin_bottom = 370.0
+margin_bottom = 350.0
 size_flags_horizontal = 3
 
 [node name="Mods" type="ReferenceRect" parent="Main/Maps/Results/Results/RS/H2"]
 margin_left = 294.0
 margin_right = 644.0
-margin_bottom = 370.0
-rect_min_size = Vector2( 350, 370 )
+margin_bottom = 350.0
+rect_min_size = Vector2( 350, 350 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 __meta__ = {
@@ -2041,7 +2041,7 @@ border_color = Color( 0, 1, 1, 0 )
 script = ExtResource( 32 )
 
 [node name="Label" type="Label" parent="Main/Maps/Results/Results/RS/H2/Mods/SpeedMod"]
-margin_left = -51.0
+margin_left = 7.0
 margin_top = -35.0
 margin_right = 54.0
 margin_bottom = -3.0
@@ -2453,9 +2453,9 @@ text = "0:00"
 align = 1
 
 [node name="HpModel" type="MenuButton" parent="Main/Maps/Results/Results/RS/H2/Mods"]
-margin_left = 141.0
+margin_left = 107.0
 margin_top = 319.0
-margin_right = 325.0
+margin_right = 291.0
 margin_bottom = 345.0
 focus_mode = 2
 theme = ExtResource( 1 )
@@ -2513,9 +2513,9 @@ __meta__ = {
 }
 
 [node name="NoFail" type="CheckBox" parent="Main/Maps/Results/Results/RS/H2/Mods"]
-margin_left = 130.0
+margin_left = 96.0
 margin_top = 100.0
-margin_right = 190.0
+margin_right = 156.0
 margin_bottom = 132.0
 theme = ExtResource( 1 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -2541,9 +2541,9 @@ valign = 1
 clip_text = true
 
 [node name="SuddenDeath" type="CheckBox" parent="Main/Maps/Results/Results/RS/H2/Mods"]
-margin_left = 310.0
+margin_left = 276.0
 margin_top = 100.0
-margin_right = 370.0
+margin_right = 336.0
 margin_bottom = 132.0
 theme = ExtResource( 1 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -2569,9 +2569,9 @@ valign = 1
 clip_text = true
 
 [node name="EasyMode" type="CheckBox" parent="Main/Maps/Results/Results/RS/H2/Mods"]
-margin_left = 130.0
+margin_left = 96.0
 margin_top = 130.0
-margin_right = 207.0
+margin_right = 173.0
 margin_bottom = 162.0
 theme = ExtResource( 1 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -2597,9 +2597,9 @@ valign = 1
 clip_text = true
 
 [node name="HardMode" type="CheckBox" parent="Main/Maps/Results/Results/RS/H2/Mods"]
-margin_left = 310.0
+margin_left = 276.0
 margin_top = 129.0
-margin_right = 390.0
+margin_right = 356.0
 margin_bottom = 161.0
 theme = ExtResource( 1 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -2625,9 +2625,9 @@ valign = 1
 clip_text = true
 
 [node name="MirrorX" type="CheckBox" parent="Main/Maps/Results/Results/RS/H2/Mods"]
-margin_left = 130.0
+margin_left = 96.0
 margin_top = 160.0
-margin_right = 190.0
+margin_right = 156.0
 margin_bottom = 192.0
 theme = ExtResource( 1 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -2653,9 +2653,9 @@ valign = 1
 clip_text = true
 
 [node name="MirrorY" type="CheckBox" parent="Main/Maps/Results/Results/RS/H2/Mods"]
-margin_left = 310.0
+margin_left = 276.0
 margin_top = 160.0
-margin_right = 370.0
+margin_right = 336.0
 margin_bottom = 192.0
 theme = ExtResource( 1 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -2713,9 +2713,9 @@ __meta__ = {
 }
 
 [node name="Earthquake" type="CheckBox" parent="Main/Maps/Results/Results/RS/H2/Mods"]
-margin_left = 130.0
+margin_left = 96.0
 margin_top = 190.0
-margin_right = 190.0
+margin_right = 156.0
 margin_bottom = 222.0
 theme = ExtResource( 1 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -2741,9 +2741,9 @@ valign = 1
 clip_text = true
 
 [node name="Chaos" type="CheckBox" parent="Main/Maps/Results/Results/RS/H2/Mods"]
-margin_left = 130.0
+margin_left = 96.0
 margin_top = 220.0
-margin_right = 190.0
+margin_right = 156.0
 margin_bottom = 252.0
 theme = ExtResource( 1 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -2769,9 +2769,9 @@ valign = 1
 clip_text = true
 
 [node name="Flashlight" type="CheckBox" parent="Main/Maps/Results/Results/RS/H2/Mods"]
-margin_left = 130.0
+margin_left = 96.0
 margin_top = 250.0
-margin_right = 190.0
+margin_right = 156.0
 margin_bottom = 282.0
 theme = ExtResource( 1 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -2797,9 +2797,9 @@ valign = 1
 clip_text = true
 
 [node name="Ghost" type="CheckBox" parent="Main/Maps/Results/Results/RS/H2/Mods"]
-margin_left = 310.0
+margin_left = 276.0
 margin_top = 190.0
-margin_right = 370.0
+margin_right = 336.0
 margin_bottom = 222.0
 theme = ExtResource( 1 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -2825,9 +2825,9 @@ valign = 1
 clip_text = true
 
 [node name="VisualMode" type="CheckBox" parent="Main/Maps/Results/Results/RS/H2/Mods"]
-margin_left = 310.0
+margin_left = 276.0
 margin_top = 220.0
-margin_right = 370.0
+margin_right = 336.0
 margin_bottom = 252.0
 theme = ExtResource( 1 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -2853,9 +2853,9 @@ valign = 1
 clip_text = true
 
 [node name="InvertMouse" type="CheckBox" parent="Main/Maps/Results/Results/RS/H2/Mods"]
-margin_left = 310.0
+margin_left = 276.0
 margin_top = 250.0
-margin_right = 370.0
+margin_right = 336.0
 margin_bottom = 282.0
 theme = ExtResource( 1 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -2881,9 +2881,9 @@ valign = 1
 clip_text = true
 
 [node name="HardRock" type="CheckBox" parent="Main/Maps/Results/Results/RS/H2/Mods"]
-margin_left = 130.0
+margin_left = 96.0
 margin_top = 280.0
-margin_right = 190.0
+margin_right = 156.0
 margin_bottom = 312.0
 theme = ExtResource( 1 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -2912,14 +2912,14 @@ clip_text = true
 modulate = Color( 1, 1, 1, 0 )
 margin_left = 648.0
 margin_right = 652.0
-margin_bottom = 370.0
+margin_bottom = 350.0
 size_flags_horizontal = 3
 
 [node name="HSeparator5" type="HSeparator" parent="Main/Maps/Results/Results/RS"]
 modulate = Color( 1, 1, 1, 0 )
-margin_top = 747.0
+margin_top = 731.0
 margin_right = 652.0
-margin_bottom = 751.0
+margin_bottom = 742.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
 
@@ -2958,7 +2958,7 @@ __meta__ = {
 [node name="MapRegistry" type="VBoxContainer" parent="Main/Maps"]
 margin_left = 656.0
 margin_right = 1072.0
-margin_bottom = 751.0
+margin_bottom = 742.0
 grow_horizontal = 0
 rect_min_size = Vector2( 200, 686 )
 rect_clip_content = true
@@ -3019,7 +3019,7 @@ text = "Select random from search"
 [node name="S" type="Control" parent="Main/Maps/MapRegistry"]
 margin_top = 54.0
 margin_right = 416.0
-margin_bottom = 751.0
+margin_bottom = 742.0
 grow_vertical = 2
 rect_min_size = Vector2( 340, 688 )
 rect_clip_content = true
@@ -3786,7 +3786,7 @@ pitch_scale = 1.25
 [node name="ScrollControl" type="VBoxContainer" parent="Main/Maps"]
 margin_left = 1076.0
 margin_right = 1116.0
-margin_bottom = 751.0
+margin_bottom = 742.0
 
 [node name="bump" type="Button" parent="Main/Maps/ScrollControl"]
 modulate = Color( 1, 1, 1, 0 )
@@ -3799,7 +3799,7 @@ action_mode = 0
 [node name="M" type="Button" parent="Main/Maps/ScrollControl"]
 margin_top = 54.0
 margin_right = 40.0
-margin_bottom = 400.0
+margin_bottom = 396.0
 rect_min_size = Vector2( 40, 0 )
 rect_pivot_offset = Vector2( 8, 476 )
 size_flags_vertical = 3
@@ -3826,9 +3826,9 @@ valign = 1
 clip_text = true
 
 [node name="P" type="Button" parent="Main/Maps/ScrollControl"]
-margin_top = 404.0
+margin_top = 400.0
 margin_right = 40.0
-margin_bottom = 751.0
+margin_bottom = 742.0
 rect_min_size = Vector2( 40, 0 )
 rect_pivot_offset = Vector2( 8, 476 )
 size_flags_vertical = 3
@@ -3860,13 +3860,13 @@ clip_text = true
 modulate = Color( 1, 1, 1, 0 )
 margin_left = 1120.0
 margin_right = 1125.0
-margin_bottom = 751.0
+margin_bottom = 742.0
 custom_constants/separation = 5
 
 [node name="Filters" type="VBoxContainer" parent="Main/Maps"]
 margin_left = 1129.0
 margin_right = 1206.0
-margin_bottom = 751.0
+margin_bottom = 742.0
 size_flags_horizontal = 5
 size_flags_vertical = 3
 custom_constants/separation = 7
@@ -4314,7 +4314,7 @@ group = SubResource( 67 )
 modulate = Color( 1, 1, 1, 0 )
 margin_left = 1210.0
 margin_right = 1220.0
-margin_bottom = 751.0
+margin_bottom = 742.0
 custom_constants/separation = 10
 
 [node name="Settings" type="ReferenceRect" parent="Main"]

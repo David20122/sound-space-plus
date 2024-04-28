@@ -44,10 +44,10 @@ var momentum:float = 0
 var size_x:int = 0
 
 func next_index():
-	return cur_map + floor(((page_size + 1)/2) * 1.2)
+	return cur_map + int(floor(((page_size + 1)/2) * 1.2))
 
 func prev_index():
-	return cur_map - floor(((page_size + 1)/2) * 1.2)
+	return cur_map - int(floor(((page_size + 1)/2) * 1.2))
 
 func is_fav(s:Song): return favorite.has(s)
 
@@ -315,7 +315,7 @@ func prepare_songs():
 func make_song_button(id:int=-1):
 	if id < 0 or id >= disp.size():
 		var btn:Panel = $EMPTY.duplicate()
-		btn.rect_min_size = Vector2(size_x - (page_size/2) * 10, 0)
+		btn.rect_min_size = Vector2(int(size_x - (page_size/2) * 10), 0)
 		return btn
 	var map:Song = disp[id]
 	if map == null: return
@@ -333,7 +333,10 @@ func make_song_button(id:int=-1):
 		btn.get_node("Cover").visible = true
 		btn.get_node("Cover").texture = map.cover
 	btn.get_node("Name").visible = true
-	btn.get_node("Name").text = map.name
+	if map.name.length() > 80:
+		btn.get_node("Name").text = strip_diactritics(map.name)
+	else:
+		btn.get_node("Name").text = map.name
 	btn.song = map
 	if map.warning != "" || map.is_broken:
 		if map.is_broken: btn.get_node("Name").modulate = Color(1,0.4,0.4)
@@ -468,3 +471,55 @@ func _ready():
 func size_list():
 	size_x = get_viewport_rect().size.x/2.8
 	$"..".rect_min_size.x = size_x
+
+func strip_diactritics(s:String): # we hardcoding tonight   -  edit nvm im literally a genius
+#	var diacritics = "[̴̧̳̦̜̱͖̲̺͊͜1̷̨̛̝̼̓͒8̶̳̘̥̰̌̋̎͛̐͛̄̾ͅ6̶̡̛̦̻̭̅͝0̷̼̤͓̹͚͇͐͒́͗̿̍͋̕͜ ̸̦̥̻͈̳̥̲͖̆̀̽̋͘Ḇ̴̢̲̞̰͉̬͙̮̗͒̿̉͛͊P̸̩͉̻͓̱͕͖͉͕̉͌̈̅̃̈͑̚͜͝M̶̡̜͕̺̞͔̾̉ ̵̠̈È̸̛̤̖͍̈̓̏̒̆̋͘x̸̨̛͉̀͛͑͑́t̸̲̹̖̺̥̪̙͗̒̓̆̀͒͒̚r̷̲̩̦̓̔̓̑̀̿́̕͝ã̷̢̢̤̹̹̝̓͌̃͂t̸̲͉͊̀o̸͉͈̿̿̌͋̋n̶̗̺̩̱̠͚͌͛̈́͂̃̀̚͠͝ȩ̷̠̻͕̠̫̗͖̹̊]̶͖̙̳̳̲̪̌̆̄̈͊͛͘͜͜͜͝ ̸̧̩͕̲́̇̃̑A̶̱̖͔̪̦̮̐̉̀͗͊̚͝w̶̢͕̬̪̞̲͚͕̫̠̎̀̾̌̓̊̚͝͠â̵͇̮͖̜̱͙̗k̸̢̛̥̩͈̤̩͍̱͍͇̆̆̀̎̓͐̊̕ȩ̵̦̙̠̬̔̍́̚s̴̡̬̦̈́̈̄͌̃͠y̶̙͒͐̉̆̔ ̸̙̦̲̃͆̇́́͂͠C̵̨̖̻̯̪͎̀̊̄̏͛͗͝h̵̨̦̫̖͇̮̥̿͊̎̂͝r̴̖̙̤͖̤̻̝̬̗̓̄̓̆̇̈́̇̄͠ḭ̷̧̧͙̲͈̬̦̮̈́̀͗͌̕ͅs̴̯̿t̸̡̡͈̰̮͎̺͌̏ͅḿ̸̢̛̼̼͖̗ã̵̢̢̬͜s̶̡̙̼̥̣̺̻̭̱̈̈́̆̒̒̈́͠ͅ ̷̧̗͌́̐̌̽̅͠B̴̨̡̢̟͕̦̹͉̺̔ͅë̷̻̞͎̬͎̗͋̀͐́̅l̷̛̠̪͕͖̊̾l̶̹̤͊͊s̷̛͉͛͌̐͘̚̚͘ ̷͕̯̲̟̦̥͍̞͑̾̀͆͛͑̂͊͐R̵̮̮͖̥̜̠̖̥̲͇̋́i̵̟͚̭̣̙̫̙̘͍͛̍͝ͅņ̷̩͉̮̭͙̌͆g̵̨̡̹̗̗͍̟̟̩̓̾̂̍̆ ̴̺̥̙͉͉̾̉̽f̴͓̏̿̅̋͛̓̓o̴͈̎̀͒̏̚͠͝r̷̡̬͉͇̞̉̈̀ ̶̡̛̘̭̩͓̟̊̆̓̓̏̇͝͝H̴̢͓̫̰́̈̋E̶̛̛̥̬̯̺͊̏̽̀L̵̟̮̞̫̟͗̑̀͂̽͑̔̐̉̕L̷̛̹̼͎̰͗̾̆͋̊́̆͆"
+#	if s.is_subsequence_ofi(diacritics):
+#		return "[1860] BPM Extratone Awakesy Christmas Bells Ring for HELL"
+#	return s
+# ^^ this map is the only reason im doing this ^^
+#	this removes all COMBINING UTF8 values to prevent spammed diactritics also known as zalgo text since it lags the maplist
+#	i found those values at https://www.utf8-chartable.de/unicode-utf8-table.pl?number=1024&utf8=0x -  starts at U+0300 ends at U+036F
+#	print(s)
+	var pool:PoolByteArray = s.to_utf8()
+#	print(pool)
+	var output_bytes: Array = []
+	
+	# List of UTF-8 byte values to remove
+	var byte_values_to_remove = [
+		0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86,
+		0x87, 0x88, 0x89, 0x8a, 0x8b, 0x8c, 0x8d,
+		0x8e, 0x8f, 0x90, 0x91, 0x92, 0x93, 0x94,
+		0x95, 0x96, 0x97, 0x98, 0x99, 0x9a, 0x9b,
+		0x9c, 0x9d, 0x9e, 0x9f, 0xa0, 0xa1, 0xa2,
+		0xa3, 0xa4, 0xa5, 0xa6, 0xa7, 0xa8, 0xa9,
+		0xaa, 0xab, 0xac, 0xad, 0xae, 0xaf, 0xb0,
+		0xb1, 0xb2, 0xb3, 0xb4, 0xb5, 0xb6, 0xb7,
+		0xb8, 0xb9, 0xba, 0xbb, 0xbc, 0xbd, 0xbe,
+		0xbf, 0x80, 0x81, 0x82, 0x83, 0x84, 0x85,
+		0x86, 0x87, 0x88, 0x89, 0x8a, 0x8b, 0x8c,
+		0x8d, 0x8e, 0x8f, 0x90, 0x91, 0x92, 0x93,
+		0x94, 0x95, 0x96, 0x97, 0x98, 0x99, 0x9a,
+		0x9b, 0x9c, 0x9d, 0x9e, 0x9f, 0xa0, 0xa1
+	]
+	
+#	var prev_byte: int = -1
+	var removed:bool = false
+	for i in range(pool.size() - 1, -1, -1):
+		if removed:
+			removed = false
+			continue
+		var byte_value = pool[i]
+		if i == 0:
+			continue
+		var prev_byte = pool[i - 1]
+		
+		if byte_value in byte_values_to_remove:
+			# If the current byte his preceded by 0xcc or 0xcd, remove it and previous byte
+			if prev_byte == 0xcc or prev_byte == 0xcd:
+				removed = true
+				continue
+		output_bytes.insert(0, byte_value)
+	
+	return PoolByteArray(output_bytes).get_string_from_utf8()
+	
