@@ -29,6 +29,14 @@ func _ready():
 	if Rhythia.is_lacunella_enabled():
 		$Game/Avatar/Head/Accessories/CubellaHair.visible = true
 
+	# Shaders
+	if Rhythia.vhs_shader:
+		$Camera/VHS.visible = true
+		$AltCam/VHS.visible = true
+	else:
+		$Camera/VHS.visible = false
+		$AltCam/VHS.visible = false
+
 func _process(delta):
 	if Input.is_action_just_pressed("debug_freecam_toggle") and debug: # Should only be enabled in Debug/Developer mode
 		state = !state

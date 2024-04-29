@@ -1,4 +1,4 @@
-[gd_scene load_steps=89 format=2]
+[gd_scene load_steps=91 format=2]
 
 [ext_resource path="res://uitheme.tres" type="Theme" id=1]
 [ext_resource path="res://assets/font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=2]
@@ -30,6 +30,7 @@
 [ext_resource path="res://scripts/ui/settings/Parallax.gd" type="Script" id=28]
 [ext_resource path="res://scripts/ui/settings/ColorSet.gd" type="Script" id=29]
 [ext_resource path="res://scripts/ui/settings/SpawnDist.gd" type="Script" id=30]
+[ext_resource path="res://scripts/ui/settings/Glow.gd" type="Script" id=31]
 [ext_resource path="res://assets/font/NotoColorEmoji.ttf" type="DynamicFontData" id=32]
 [ext_resource path="res://scripts/ui/settings/UIParallax.gd" type="Script" id=33]
 [ext_resource path="res://scripts/ui/settings/GridParallax.gd" type="Script" id=34]
@@ -39,6 +40,7 @@
 [ext_resource path="res://assets/images/ui/placeholder.jpg" type="Texture" id=38]
 [ext_resource path="res://scripts/ui/settings/fov.gd" type="Script" id=39]
 [ext_resource path="res://assets/font/Lato/Lato-Bold.ttf" type="DynamicFontData" id=40]
+[ext_resource path="res://scripts/ui/settings/Bloom.gd" type="Script" id=41]
 [ext_resource path="res://scripts/ui/settings/NoteScale.gd" type="Script" id=44]
 [ext_resource path="res://scripts/ui/settings/ReplaceCustomFile.gd" type="Script" id=45]
 [ext_resource path="res://addons/native_dialogs/bin/native_dialog_open_file.gdns" type="Script" id=46]
@@ -65,6 +67,9 @@
 [ext_resource path="res://scripts/ui/settings/ReplayLimit.gd" type="Script" id=67]
 [ext_resource path="res://scripts/ui/settings/ReplayMode.gd" type="Script" id=68]
 
+[sub_resource type="StyleBoxLine" id=55]
+color = Color( 0.690196, 0.690196, 0.690196, 0.588235 )
+
 [sub_resource type="DynamicFont" id=4]
 size = 14
 use_filter = true
@@ -75,9 +80,6 @@ fallback/0 = ExtResource( 3 )
 use_filter = true
 font_data = ExtResource( 2 )
 fallback/0 = ExtResource( 3 )
-
-[sub_resource type="StyleBoxLine" id=55]
-color = Color( 0.690196, 0.690196, 0.690196, 0.588235 )
 
 [sub_resource type="DynamicFont" id=58]
 size = 14
@@ -287,20 +289,29 @@ script = ExtResource( 59 )
 [node name="TabContainer" type="TabContainer" parent="."]
 margin_top = 59.0
 margin_right = 1280.0
-margin_bottom = 1019.0
+margin_bottom = 819.0
 theme = ExtResource( 1 )
 tab_align = 0
 
 [node name="Gameplay" type="VBoxContainer" parent="TabContainer"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 30.0
 theme = ExtResource( 1 )
 custom_constants/separation = 0
 
-[node name="Modifiers" type="VBoxContainer" parent="TabContainer/Gameplay"]
+[node name="SEPARATOR3" type="HSeparator" parent="TabContainer/Gameplay"]
 margin_right = 1280.0
-margin_bottom = 182.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 0, 10 )
+custom_constants/separation = 30
+custom_styles/separator = SubResource( 55 )
+
+[node name="Modifiers" type="VBoxContainer" parent="TabContainer/Gameplay"]
+margin_top = 30.0
+margin_right = 1280.0
+margin_bottom = 212.0
 
 [node name="Group" type="MarginContainer" parent="TabContainer/Gameplay/Modifiers"]
 margin_right = 1280.0
@@ -521,17 +532,17 @@ align = 2
 valign = 1
 
 [node name="SEPARATOR" type="HSeparator" parent="TabContainer/Gameplay"]
-margin_top = 182.0
+margin_top = 212.0
 margin_right = 1280.0
-margin_bottom = 212.0
+margin_bottom = 242.0
 rect_min_size = Vector2( 0, 10 )
 custom_constants/separation = 30
 custom_styles/separator = SubResource( 55 )
 
 [node name="Camera" type="VBoxContainer" parent="TabContainer/Gameplay"]
-margin_top = 212.0
+margin_top = 242.0
 margin_right = 1280.0
-margin_bottom = 900.0
+margin_bottom = 930.0
 
 [node name="Group" type="MarginContainer" parent="TabContainer/Gameplay/Camera"]
 margin_right = 1280.0
@@ -1295,9 +1306,9 @@ valign = 1
 clip_text = true
 
 [node name="SEPARATOR2" type="HSeparator" parent="TabContainer/Gameplay"]
-margin_top = 900.0
+margin_top = 930.0
 margin_right = 1280.0
-margin_bottom = 930.0
+margin_bottom = 960.0
 rect_min_size = Vector2( 0, 10 )
 custom_constants/separation = 30
 custom_styles/separator = SubResource( 55 )
@@ -1306,36 +1317,41 @@ custom_styles/separator = SubResource( 55 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 38.0
-margin_right = -4.0
-margin_bottom = -4.0
+margin_top = 30.0
 custom_constants/separation = 0
 
+[node name="SEPARATOR2" type="HSeparator" parent="TabContainer/Notes"]
+margin_right = 1280.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 0, 10 )
+custom_constants/separation = 30
+custom_styles/separator = SubResource( 55 )
+
 [node name="Notes" type="VBoxContainer" parent="TabContainer/Notes"]
-margin_right = 1272.0
-margin_bottom = 744.0
+margin_top = 30.0
+margin_right = 1280.0
+margin_bottom = 774.0
 
 [node name="Group" type="MarginContainer" parent="TabContainer/Notes/Notes"]
-margin_right = 1272.0
+margin_right = 1280.0
 margin_bottom = 744.0
 mouse_filter = 1
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="TabContainer/Notes/Notes/Group"]
 margin_left = 180.0
-margin_right = 1272.0
+margin_right = 1280.0
 margin_bottom = 744.0
 
 [node name="ColorSet2" type="VBoxContainer" parent="TabContainer/Notes/Notes/Group/H"]
-margin_right = 1092.0
+margin_right = 1100.0
 margin_bottom = 72.0
 rect_min_size = Vector2( 200, 72 )
 size_flags_horizontal = 3
 size_flags_vertical = 9
 
 [node name="Control" type="Control" parent="TabContainer/Notes/Notes/Group/H/ColorSet2"]
-margin_right = 1092.0
+margin_right = 1100.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 0, 32 )
 
@@ -1353,7 +1369,7 @@ valign = 1
 
 [node name="ColorSet" type="GridContainer" parent="TabContainer/Notes/Notes/Group/H/ColorSet2"]
 margin_top = 36.0
-margin_right = 1092.0
+margin_right = 1100.0
 margin_bottom = 36.0
 rect_pivot_offset = Vector2( -180, -271 )
 custom_constants/vseparation = 42
@@ -1445,7 +1461,7 @@ clip_text = true
 
 [node name="Mesh" type="Control" parent="TabContainer/Notes/Notes/Group/H"]
 margin_top = 76.0
-margin_right = 1092.0
+margin_right = 1100.0
 margin_bottom = 108.0
 rect_min_size = Vector2( 200, 32 )
 mouse_filter = 1
@@ -1495,7 +1511,7 @@ valign = 1
 
 [node name="NoteScale" type="Control" parent="TabContainer/Notes/Notes/Group/H"]
 margin_top = 112.0
-margin_right = 1092.0
+margin_right = 1100.0
 margin_bottom = 144.0
 rect_min_size = Vector2( 200, 32 )
 mouse_filter = 1
@@ -1657,7 +1673,7 @@ valign = 1
 
 [node name="NoteOpacity" type="Control" parent="TabContainer/Notes/Notes/Group/H"]
 margin_top = 148.0
-margin_right = 1092.0
+margin_right = 1100.0
 margin_bottom = 180.0
 rect_min_size = Vector2( 200, 32 )
 mouse_filter = 1
@@ -1701,14 +1717,14 @@ valign = 1
 
 [node name="SEPARATOR2" type="HSeparator" parent="TabContainer/Notes/Notes/Group/H"]
 margin_top = 184.0
-margin_right = 1092.0
+margin_right = 1100.0
 margin_bottom = 194.0
 rect_min_size = Vector2( 0, 10 )
 custom_styles/separator = SubResource( 55 )
 
 [node name="ApproachRate" type="Control" parent="TabContainer/Notes/Notes/Group/H"]
 margin_top = 198.0
-margin_right = 1092.0
+margin_right = 1100.0
 margin_bottom = 230.0
 rect_min_size = Vector2( 200, 32 )
 mouse_filter = 1
@@ -1758,7 +1774,7 @@ valign = 1
 
 [node name="SpawnDist" type="Control" parent="TabContainer/Notes/Notes/Group/H"]
 margin_top = 234.0
-margin_right = 1092.0
+margin_right = 1100.0
 margin_bottom = 266.0
 rect_min_size = Vector2( 200, 32 )
 mouse_filter = 1
@@ -1807,7 +1823,7 @@ valign = 1
 
 [node name="FadeLength" type="Control" parent="TabContainer/Notes/Notes/Group/H"]
 margin_top = 270.0
-margin_right = 1092.0
+margin_right = 1100.0
 margin_bottom = 302.0
 rect_min_size = Vector2( 200, 32 )
 mouse_filter = 1
@@ -1853,7 +1869,7 @@ valign = 1
 
 [node name="DoNotePushback" type="CheckBox" parent="TabContainer/Notes/Notes/Group/H"]
 margin_top = 306.0
-margin_right = 1092.0
+margin_right = 1100.0
 margin_bottom = 334.0
 rect_min_size = Vector2( 0, 28 )
 mouse_filter = 1
@@ -1885,7 +1901,7 @@ valign = 1
 
 [node name="HalfGhost" type="CheckBox" parent="TabContainer/Notes/Notes/Group/H"]
 margin_top = 338.0
-margin_right = 1092.0
+margin_right = 1100.0
 margin_bottom = 366.0
 rect_min_size = Vector2( 0, 28 )
 mouse_filter = 1
@@ -1917,14 +1933,14 @@ valign = 1
 
 [node name="SEPARATOR" type="HSeparator" parent="TabContainer/Notes/Notes/Group/H"]
 margin_top = 370.0
-margin_right = 1092.0
+margin_right = 1100.0
 margin_bottom = 380.0
 rect_min_size = Vector2( 0, 10 )
 custom_styles/separator = SubResource( 55 )
 
 [node name="NoteSpawnEffect" type="CheckBox" parent="TabContainer/Notes/Notes/Group/H"]
 margin_top = 384.0
-margin_right = 1092.0
+margin_right = 1100.0
 margin_bottom = 412.0
 rect_min_size = Vector2( 0, 28 )
 mouse_filter = 1
@@ -1957,14 +1973,14 @@ valign = 1
 
 [node name="SEPARATOR3" type="HSeparator" parent="TabContainer/Notes/Notes/Group/H"]
 margin_top = 416.0
-margin_right = 1092.0
+margin_right = 1100.0
 margin_bottom = 426.0
 rect_min_size = Vector2( 0, 10 )
 custom_styles/separator = SubResource( 55 )
 
 [node name="HitRipple" type="Control" parent="TabContainer/Notes/Notes/Group/H"]
 margin_top = 430.0
-margin_right = 1092.0
+margin_right = 1100.0
 margin_bottom = 462.0
 rect_min_size = Vector2( 200, 32 )
 mouse_filter = 1
@@ -2035,7 +2051,7 @@ expand_icon = true
 
 [node name="HitEffect" type="Control" parent="TabContainer/Notes/Notes/Group/H"]
 margin_top = 466.0
-margin_right = 1092.0
+margin_right = 1100.0
 margin_bottom = 498.0
 rect_min_size = Vector2( 200, 32 )
 mouse_filter = 1
@@ -2081,7 +2097,7 @@ valign = 1
 
 [node name="ShowHitEffect" type="CheckBox" parent="TabContainer/Notes/Notes/Group/H"]
 margin_top = 502.0
-margin_right = 1092.0
+margin_right = 1100.0
 margin_bottom = 530.0
 rect_min_size = Vector2( 0, 28 )
 mouse_filter = 1
@@ -2114,7 +2130,7 @@ valign = 1
 
 [node name="HitEffectCursor" type="CheckBox" parent="TabContainer/Notes/Notes/Group/H"]
 margin_top = 534.0
-margin_right = 1092.0
+margin_right = 1100.0
 margin_bottom = 562.0
 rect_min_size = Vector2( 0, 28 )
 mouse_filter = 1
@@ -2147,7 +2163,7 @@ valign = 1
 
 [node name="ApproachSquares" type="CheckBox" parent="TabContainer/Notes/Notes/Group/H"]
 margin_top = 566.0
-margin_right = 1092.0
+margin_right = 1100.0
 margin_bottom = 594.0
 rect_min_size = Vector2( 0, 28 )
 mouse_filter = 1
@@ -2179,7 +2195,7 @@ valign = 1
 
 [node name="ApproachFollow" type="CheckBox" parent="TabContainer/Notes/Notes/Group/H"]
 margin_top = 598.0
-margin_right = 1092.0
+margin_right = 1100.0
 margin_bottom = 626.0
 rect_min_size = Vector2( 0, 28 )
 mouse_filter = 1
@@ -2211,14 +2227,14 @@ valign = 1
 
 [node name="SEPARATOR4" type="HSeparator" parent="TabContainer/Notes/Notes/Group/H"]
 margin_top = 630.0
-margin_right = 1092.0
+margin_right = 1100.0
 margin_bottom = 640.0
 rect_min_size = Vector2( 0, 10 )
 custom_styles/separator = SubResource( 55 )
 
 [node name="MissRipple" type="Control" parent="TabContainer/Notes/Notes/Group/H"]
 margin_top = 644.0
-margin_right = 1092.0
+margin_right = 1100.0
 margin_bottom = 676.0
 rect_min_size = Vector2( 200, 32 )
 mouse_filter = 1
@@ -2289,7 +2305,7 @@ expand_icon = true
 
 [node name="MissEffect" type="Control" parent="TabContainer/Notes/Notes/Group/H"]
 margin_top = 680.0
-margin_right = 1092.0
+margin_right = 1100.0
 margin_bottom = 712.0
 rect_min_size = Vector2( 200, 32 )
 mouse_filter = 1
@@ -2335,7 +2351,7 @@ valign = 1
 
 [node name="ShowMissEffect" type="CheckBox" parent="TabContainer/Notes/Notes/Group/H"]
 margin_top = 716.0
-margin_right = 1092.0
+margin_right = 1100.0
 margin_bottom = 744.0
 rect_min_size = Vector2( 0, 28 )
 mouse_filter = 1
@@ -2367,45 +2383,49 @@ align = 2
 valign = 1
 
 [node name="SEPARATOR" type="HSeparator" parent="TabContainer/Notes"]
-margin_top = 182.0
-margin_right = 651.0
-margin_bottom = 212.0
+margin_top = 774.0
+margin_right = 1280.0
+margin_bottom = 804.0
 rect_min_size = Vector2( 0, 10 )
 custom_constants/separation = 30
 custom_styles/separator = SubResource( 55 )
 
 [node name="World & Cursor" type="VBoxContainer" parent="TabContainer"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 38.0
-margin_right = -4.0
-margin_bottom = -4.0
+margin_top = 30.0
 custom_constants/separation = 0
 
-[node name="Customization" type="VBoxContainer" parent="TabContainer/World & Cursor"]
-margin_right = 1272.0
-margin_bottom = 542.0
+[node name="SEPARATOR3" type="HSeparator" parent="TabContainer/World & Cursor"]
+margin_right = 1280.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 0, 10 )
+custom_constants/separation = 30
+custom_styles/separator = SubResource( 55 )
 
-[node name="Group" type="MarginContainer" parent="TabContainer/World & Cursor/Customization"]
-margin_right = 1272.0
-margin_bottom = 542.0
+[node name="World" type="VBoxContainer" parent="TabContainer/World & Cursor"]
+margin_top = 30.0
+margin_right = 1280.0
+margin_bottom = 246.0
+
+[node name="Group" type="MarginContainer" parent="TabContainer/World & Cursor/World"]
+margin_right = 1280.0
+margin_bottom = 216.0
 mouse_filter = 1
 custom_constants/margin_left = 180
 custom_constants/margin_bottom = 12
 
-[node name="H" type="GridContainer" parent="TabContainer/World & Cursor/Customization/Group"]
+[node name="H" type="GridContainer" parent="TabContainer/World & Cursor/World/Group"]
 margin_left = 180.0
-margin_right = 1272.0
-margin_bottom = 530.0
+margin_right = 1280.0
+margin_bottom = 204.0
 
-[node name="World" type="Control" parent="TabContainer/World & Cursor/Customization/Group/H"]
-margin_right = 658.0
+[node name="World" type="Control" parent="TabContainer/World & Cursor/World/Group/H"]
+margin_right = 225.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 200, 32 )
 
-[node name="World" type="MenuButton" parent="TabContainer/World & Cursor/Customization/Group/H/World"]
+[node name="World" type="MenuButton" parent="TabContainer/World & Cursor/World/Group/H/World"]
 margin_right = 200.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 200, 32 )
@@ -2420,7 +2440,7 @@ flat = false
 align = 0
 script = ExtResource( 11 )
 
-[node name="Label" type="Label" parent="TabContainer/World & Cursor/Customization/Group/H/World/World"]
+[node name="Label" type="Label" parent="TabContainer/World & Cursor/World/Group/H/World/World"]
 margin_left = -180.0
 margin_right = -10.0
 margin_bottom = 32.0
@@ -2432,7 +2452,7 @@ text = "Background World"
 align = 2
 valign = 1
 
-[node name="Desc" type="Label" parent="TabContainer/World & Cursor/Customization/Group/H/World/World"]
+[node name="Desc" type="Label" parent="TabContainer/World & Cursor/World/Group/H/World/World"]
 margin_left = 215.0
 margin_right = 562.0
 margin_bottom = 32.0
@@ -2444,9 +2464,9 @@ custom_fonts/font = SubResource( 4 )
 text = "background and environment used in the song player"
 valign = 1
 
-[node name="DisableBGEffects" type="CheckBox" parent="TabContainer/World & Cursor/Customization/Group/H"]
+[node name="DisableBGEffects" type="CheckBox" parent="TabContainer/World & Cursor/World/Group/H"]
 margin_top = 36.0
-margin_right = 658.0
+margin_right = 225.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
@@ -2463,7 +2483,7 @@ flat = true
 script = ExtResource( 54 )
 target = "disable_bg_effects"
 
-[node name="Label" type="Label" parent="TabContainer/World & Cursor/Customization/Group/H/DisableBGEffects"]
+[node name="Label" type="Label" parent="TabContainer/World & Cursor/World/Group/H/DisableBGEffects"]
 anchor_bottom = 1.0
 margin_left = -180.0
 margin_right = -10.0
@@ -2475,13 +2495,13 @@ text = "Disable BG Effects"
 align = 2
 valign = 1
 
-[node name="CustomBg" type="Control" parent="TabContainer/World & Cursor/Customization/Group/H"]
+[node name="CustomBg" type="Control" parent="TabContainer/World & Cursor/World/Group/H"]
 margin_top = 68.0
-margin_right = 658.0
+margin_right = 225.0
 margin_bottom = 100.0
 rect_min_size = Vector2( 200, 32 )
 
-[node name="CustomBg" type="Button" parent="TabContainer/World & Cursor/Customization/Group/H/CustomBg"]
+[node name="CustomBg" type="Button" parent="TabContainer/World & Cursor/World/Group/H/CustomBg"]
 margin_right = 200.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 200, 32 )
@@ -2495,7 +2515,7 @@ script = ExtResource( 45 )
 target = "custombg"
 default_image = ExtResource( 48 )
 
-[node name="Label" type="Label" parent="TabContainer/World & Cursor/Customization/Group/H/CustomBg/CustomBg"]
+[node name="Label" type="Label" parent="TabContainer/World & Cursor/World/Group/H/CustomBg/CustomBg"]
 margin_left = -180.0
 margin_right = -10.0
 margin_bottom = 32.0
@@ -2507,7 +2527,7 @@ text = "Custom World BG"
 align = 2
 valign = 1
 
-[node name="ImgPreview" type="TextureRect" parent="TabContainer/World & Cursor/Customization/Group/H/CustomBg/CustomBg"]
+[node name="ImgPreview" type="TextureRect" parent="TabContainer/World & Cursor/World/Group/H/CustomBg/CustomBg"]
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = 5.0
@@ -2517,7 +2537,7 @@ texture = ExtResource( 48 )
 expand = true
 stretch_mode = 1
 
-[node name="Desc" type="Label" parent="TabContainer/World & Cursor/Customization/Group/H/CustomBg/CustomBg"]
+[node name="Desc" type="Label" parent="TabContainer/World & Cursor/World/Group/H/CustomBg/CustomBg"]
 margin_left = 294.0
 margin_right = 657.0
 margin_bottom = 32.0
@@ -2529,7 +2549,7 @@ custom_fonts/font = SubResource( 4 )
 text = "this is the background for the \"Custom Background\" world"
 valign = 1
 
-[node name="Clear" type="Button" parent="TabContainer/World & Cursor/Customization/Group/H/CustomBg/CustomBg"]
+[node name="Clear" type="Button" parent="TabContainer/World & Cursor/World/Group/H/CustomBg/CustomBg"]
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = 42.0
@@ -2544,20 +2564,152 @@ disabled = true
 icon = ExtResource( 4 )
 expand_icon = true
 
-[node name="SEPARATOR5" type="HSeparator" parent="TabContainer/World & Cursor/Customization/Group/H"]
+[node name="Glow" type="Control" parent="TabContainer/World & Cursor/World/Group/H"]
 margin_top = 104.0
-margin_right = 658.0
-margin_bottom = 114.0
-rect_min_size = Vector2( 0, 10 )
-custom_styles/separator = SubResource( 55 )
-
-[node name="CustomCursor" type="Control" parent="TabContainer/World & Cursor/Customization/Group/H"]
-margin_top = 118.0
-margin_right = 658.0
-margin_bottom = 150.0
+margin_right = 225.0
+margin_bottom = 136.0
 rect_min_size = Vector2( 200, 32 )
 
-[node name="CustomCursor" type="Button" parent="TabContainer/World & Cursor/Customization/Group/H/CustomCursor"]
+[node name="Glow" type="SpinBox" parent="TabContainer/World & Cursor/World/Group/H/Glow"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+rect_pivot_offset = Vector2( 286, 276 )
+focus_mode = 2
+theme = ExtResource( 1 )
+max_value = 10.0
+step = 0.1
+allow_greater = true
+script = ExtResource( 31 )
+
+[node name="Label" type="Label" parent="TabContainer/World & Cursor/World/Group/H/Glow/Glow"]
+margin_left = -183.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Glow"
+align = 2
+valign = 1
+
+[node name="Desc" type="Label" parent="TabContainer/World & Cursor/World/Group/H/Glow/Glow"]
+margin_left = 215.0
+margin_right = 562.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 4 )
+text = "[def. 0] sets intensity of glow"
+valign = 1
+
+[node name="Bloom" type="Control" parent="TabContainer/World & Cursor/World/Group/H"]
+margin_top = 140.0
+margin_right = 225.0
+margin_bottom = 172.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="Bloom" type="SpinBox" parent="TabContainer/World & Cursor/World/Group/H/Bloom"]
+margin_right = 200.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+rect_pivot_offset = Vector2( 286, 276 )
+focus_mode = 2
+theme = ExtResource( 1 )
+max_value = 10.0
+step = 0.1
+allow_greater = true
+script = ExtResource( 41 )
+
+[node name="Label" type="Label" parent="TabContainer/World & Cursor/World/Group/H/Bloom/Bloom"]
+margin_left = -183.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Bloom"
+align = 2
+valign = 1
+
+[node name="Desc" type="Label" parent="TabContainer/World & Cursor/World/Group/H/Bloom/Bloom"]
+margin_left = 215.0
+margin_right = 562.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 4 )
+text = "[def. 0] sets bloom amount"
+valign = 1
+
+[node name="VHSShader" type="CheckBox" parent="TabContainer/World & Cursor/World/Group/H"]
+margin_top = 176.0
+margin_right = 225.0
+margin_bottom = 204.0
+rect_min_size = Vector2( 0, 28 )
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_fonts/font = SubResource( 4 )
+action_mode = 0
+text = "applies a vhs effect to the camera"
+flat = true
+script = ExtResource( 54 )
+target = "vhs_shader"
+
+[node name="Label" type="Label" parent="TabContainer/World & Cursor/World/Group/H/VHSShader"]
+anchor_bottom = 1.0
+margin_left = -180.0
+margin_right = -10.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "VHS Shader"
+align = 2
+valign = 1
+
+[node name="SEPARATOR2" type="HSeparator" parent="TabContainer/World & Cursor"]
+margin_top = 246.0
+margin_right = 1280.0
+margin_bottom = 276.0
+rect_min_size = Vector2( 0, 10 )
+custom_constants/separation = 30
+custom_styles/separator = SubResource( 55 )
+
+[node name="Cursor" type="VBoxContainer" parent="TabContainer/World & Cursor"]
+margin_top = 276.0
+margin_right = 1280.0
+margin_bottom = 700.0
+
+[node name="Group" type="MarginContainer" parent="TabContainer/World & Cursor/Cursor"]
+margin_right = 1280.0
+margin_bottom = 424.0
+mouse_filter = 1
+custom_constants/margin_left = 180
+custom_constants/margin_bottom = 12
+
+[node name="H" type="GridContainer" parent="TabContainer/World & Cursor/Cursor/Group"]
+margin_left = 180.0
+margin_right = 1280.0
+margin_bottom = 412.0
+
+[node name="CustomCursor" type="Control" parent="TabContainer/World & Cursor/Cursor/Group/H"]
+margin_right = 658.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 200, 32 )
+
+[node name="CustomCursor" type="Button" parent="TabContainer/World & Cursor/Cursor/Group/H/CustomCursor"]
 margin_right = 200.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 200, 32 )
@@ -2571,7 +2723,7 @@ text = "Click to replace"
 script = ExtResource( 45 )
 default_image = ExtResource( 15 )
 
-[node name="Label" type="Label" parent="TabContainer/World & Cursor/Customization/Group/H/CustomCursor/CustomCursor"]
+[node name="Label" type="Label" parent="TabContainer/World & Cursor/Cursor/Group/H/CustomCursor/CustomCursor"]
 margin_left = -183.0
 margin_right = -10.0
 margin_bottom = 32.0
@@ -2583,7 +2735,7 @@ text = "Cursor Image"
 align = 2
 valign = 1
 
-[node name="Desc" type="Label" parent="TabContainer/World & Cursor/Customization/Group/H/CustomCursor/CustomCursor"]
+[node name="Desc" type="Label" parent="TabContainer/World & Cursor/Cursor/Group/H/CustomCursor/CustomCursor"]
 margin_left = 294.0
 margin_right = 672.0
 margin_bottom = 32.0
@@ -2595,7 +2747,7 @@ custom_fonts/font = SubResource( 4 )
 text = "ah, the cursor. arguably the most important part of this game."
 valign = 1
 
-[node name="ImgPreview" type="TextureRect" parent="TabContainer/World & Cursor/Customization/Group/H/CustomCursor/CustomCursor"]
+[node name="ImgPreview" type="TextureRect" parent="TabContainer/World & Cursor/Cursor/Group/H/CustomCursor/CustomCursor"]
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = 5.0
@@ -2605,7 +2757,7 @@ texture = ExtResource( 15 )
 expand = true
 stretch_mode = 1
 
-[node name="Button" type="Button" parent="TabContainer/World & Cursor/Customization/Group/H/CustomCursor/CustomCursor"]
+[node name="Button" type="Button" parent="TabContainer/World & Cursor/Cursor/Group/H/CustomCursor/CustomCursor"]
 visible = false
 anchor_left = 1.0
 anchor_right = 1.0
@@ -2613,14 +2765,14 @@ margin_left = 42.0
 margin_right = 74.0
 margin_bottom = 32.0
 
-[node name="TextureRect" type="TextureRect" parent="TabContainer/World & Cursor/Customization/Group/H/CustomCursor/CustomCursor/Button"]
+[node name="TextureRect" type="TextureRect" parent="TabContainer/World & Cursor/Cursor/Group/H/CustomCursor/CustomCursor/Button"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource( 4 )
 expand = true
 stretch_mode = 4
 
-[node name="Clear" type="Button" parent="TabContainer/World & Cursor/Customization/Group/H/CustomCursor/CustomCursor"]
+[node name="Clear" type="Button" parent="TabContainer/World & Cursor/Cursor/Group/H/CustomCursor/CustomCursor"]
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = 42.0
@@ -2635,13 +2787,13 @@ disabled = true
 icon = ExtResource( 4 )
 expand_icon = true
 
-[node name="CursorColorType" type="Control" parent="TabContainer/World & Cursor/Customization/Group/H"]
-margin_top = 154.0
+[node name="CursorColorType" type="Control" parent="TabContainer/World & Cursor/Cursor/Group/H"]
+margin_top = 36.0
 margin_right = 658.0
-margin_bottom = 186.0
+margin_bottom = 68.0
 rect_min_size = Vector2( 200, 32 )
 
-[node name="Effect" type="MenuButton" parent="TabContainer/World & Cursor/Customization/Group/H/CursorColorType"]
+[node name="Effect" type="MenuButton" parent="TabContainer/World & Cursor/Cursor/Group/H/CursorColorType"]
 margin_right = 200.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 200, 32 )
@@ -2658,7 +2810,7 @@ script = ExtResource( 58 )
 options = [ "Single Color", "Rainbow", "Note Color" ]
 target = "cursor_color_type"
 
-[node name="Label" type="Label" parent="TabContainer/World & Cursor/Customization/Group/H/CursorColorType/Effect"]
+[node name="Label" type="Label" parent="TabContainer/World & Cursor/Cursor/Group/H/CursorColorType/Effect"]
 margin_left = -180.0
 margin_right = -10.0
 margin_bottom = 32.0
@@ -2670,7 +2822,7 @@ text = "Color Mode"
 align = 2
 valign = 1
 
-[node name="Desc" type="Label" parent="TabContainer/World & Cursor/Customization/Group/H/CursorColorType/Effect"]
+[node name="Desc" type="Label" parent="TabContainer/World & Cursor/Cursor/Group/H/CursorColorType/Effect"]
 margin_left = 215.0
 margin_right = 562.0
 margin_bottom = 32.0
@@ -2682,13 +2834,13 @@ custom_fonts/font = SubResource( 4 )
 text = "how the cursor will be colored"
 valign = 1
 
-[node name="cursor_color" type="Control" parent="TabContainer/World & Cursor/Customization/Group/H"]
-margin_top = 190.0
+[node name="cursor_color" type="Control" parent="TabContainer/World & Cursor/Cursor/Group/H"]
+margin_top = 72.0
 margin_right = 658.0
-margin_bottom = 222.0
+margin_bottom = 104.0
 rect_min_size = Vector2( 200, 32 )
 
-[node name="Color" type="ColorPickerButton" parent="TabContainer/World & Cursor/Customization/Group/H/cursor_color"]
+[node name="Color" type="ColorPickerButton" parent="TabContainer/World & Cursor/Cursor/Group/H/cursor_color"]
 margin_right = 100.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 100, 32 )
@@ -2702,7 +2854,7 @@ custom_styles/normal = SubResource( 54 )
 script = ExtResource( 51 )
 target = "cursor_color"
 
-[node name="Label" type="Label" parent="TabContainer/World & Cursor/Customization/Group/H/cursor_color/Color"]
+[node name="Label" type="Label" parent="TabContainer/World & Cursor/Cursor/Group/H/cursor_color/Color"]
 margin_left = -180.0
 margin_right = -10.0
 margin_bottom = 32.0
@@ -2714,7 +2866,7 @@ text = "Color"
 align = 2
 valign = 1
 
-[node name="Desc" type="Label" parent="TabContainer/World & Cursor/Customization/Group/H/cursor_color/Color"]
+[node name="Desc" type="Label" parent="TabContainer/World & Cursor/Cursor/Group/H/cursor_color/Color"]
 margin_left = 115.0
 margin_right = 462.0
 margin_bottom = 32.0
@@ -2726,13 +2878,13 @@ custom_fonts/font = SubResource( 4 )
 text = "[def. #ffffff] color used for \"Single Color\""
 valign = 1
 
-[node name="CursorScale" type="Control" parent="TabContainer/World & Cursor/Customization/Group/H"]
-margin_top = 226.0
+[node name="CursorScale" type="Control" parent="TabContainer/World & Cursor/Cursor/Group/H"]
+margin_top = 108.0
 margin_right = 658.0
-margin_bottom = 258.0
+margin_bottom = 140.0
 rect_min_size = Vector2( 200, 32 )
 
-[node name="CursorScale" type="SpinBox" parent="TabContainer/World & Cursor/Customization/Group/H/CursorScale"]
+[node name="CursorScale" type="SpinBox" parent="TabContainer/World & Cursor/Cursor/Group/H/CursorScale"]
 margin_right = 200.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 200, 32 )
@@ -2743,7 +2895,7 @@ value = 1.0
 allow_greater = true
 script = ExtResource( 17 )
 
-[node name="Label" type="Label" parent="TabContainer/World & Cursor/Customization/Group/H/CursorScale/CursorScale"]
+[node name="Label" type="Label" parent="TabContainer/World & Cursor/Cursor/Group/H/CursorScale/CursorScale"]
 margin_left = -180.0
 margin_right = -10.0
 margin_bottom = 32.0
@@ -2758,7 +2910,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Desc" type="Label" parent="TabContainer/World & Cursor/Customization/Group/H/CursorScale/CursorScale"]
+[node name="Desc" type="Label" parent="TabContainer/World & Cursor/Cursor/Group/H/CursorScale/CursorScale"]
 margin_left = 215.0
 margin_right = 562.0
 margin_bottom = 32.0
@@ -2770,13 +2922,13 @@ custom_fonts/font = SubResource( 4 )
 text = "[def. 1] cursor size multiplier (doesn't affect hitboxes)"
 valign = 1
 
-[node name="CursorSpin" type="Control" parent="TabContainer/World & Cursor/Customization/Group/H"]
-margin_top = 262.0
+[node name="CursorSpin" type="Control" parent="TabContainer/World & Cursor/Cursor/Group/H"]
+margin_top = 144.0
 margin_right = 658.0
-margin_bottom = 294.0
+margin_bottom = 176.0
 rect_min_size = Vector2( 200, 32 )
 
-[node name="CursorSpin" type="SpinBox" parent="TabContainer/World & Cursor/Customization/Group/H/CursorSpin"]
+[node name="CursorSpin" type="SpinBox" parent="TabContainer/World & Cursor/Cursor/Group/H/CursorSpin"]
 margin_right = 200.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 200, 32 )
@@ -2791,7 +2943,7 @@ allow_lesser = true
 suffix = "°/sec"
 script = ExtResource( 10 )
 
-[node name="Label" type="Label" parent="TabContainer/World & Cursor/Customization/Group/H/CursorSpin/CursorSpin"]
+[node name="Label" type="Label" parent="TabContainer/World & Cursor/Cursor/Group/H/CursorSpin/CursorSpin"]
 margin_left = -180.0
 margin_right = -10.0
 margin_bottom = 32.0
@@ -2806,7 +2958,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Desc" type="Label" parent="TabContainer/World & Cursor/Customization/Group/H/CursorSpin/CursorSpin"]
+[node name="Desc" type="Label" parent="TabContainer/World & Cursor/Cursor/Group/H/CursorSpin/CursorSpin"]
 margin_left = 215.0
 margin_right = 562.0
 margin_bottom = 32.0
@@ -2818,17 +2970,17 @@ custom_fonts/font = SubResource( 4 )
 text = "[def. 0°] makes the cursor image rotate"
 valign = 1
 
-[node name="SEPARATOR7" type="HSeparator" parent="TabContainer/World & Cursor/Customization/Group/H"]
-margin_top = 298.0
+[node name="SEPARATOR7" type="HSeparator" parent="TabContainer/World & Cursor/Cursor/Group/H"]
+margin_top = 180.0
 margin_right = 658.0
-margin_bottom = 308.0
+margin_bottom = 190.0
 rect_min_size = Vector2( 0, 10 )
 custom_styles/separator = SubResource( 55 )
 
-[node name="CursorTrail" type="CheckBox" parent="TabContainer/World & Cursor/Customization/Group/H"]
-margin_top = 312.0
+[node name="CursorTrail" type="CheckBox" parent="TabContainer/World & Cursor/Cursor/Group/H"]
+margin_top = 194.0
 margin_right = 658.0
-margin_bottom = 340.0
+margin_bottom = 222.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
@@ -2844,7 +2996,7 @@ flat = true
 script = ExtResource( 54 )
 target = "cursor_trail"
 
-[node name="Label" type="Label" parent="TabContainer/World & Cursor/Customization/Group/H/CursorTrail"]
+[node name="Label" type="Label" parent="TabContainer/World & Cursor/Cursor/Group/H/CursorTrail"]
 anchor_bottom = 1.0
 margin_left = -180.0
 margin_right = -10.0
@@ -2856,10 +3008,10 @@ text = "Cursor Trail"
 align = 2
 valign = 1
 
-[node name="SmartTrail" type="CheckBox" parent="TabContainer/World & Cursor/Customization/Group/H"]
-margin_top = 344.0
+[node name="SmartTrail" type="CheckBox" parent="TabContainer/World & Cursor/Cursor/Group/H"]
+margin_top = 226.0
 margin_right = 658.0
-margin_bottom = 372.0
+margin_bottom = 254.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
@@ -2875,7 +3027,7 @@ flat = true
 script = ExtResource( 54 )
 target = "smart_trail"
 
-[node name="Label" type="Label" parent="TabContainer/World & Cursor/Customization/Group/H/SmartTrail"]
+[node name="Label" type="Label" parent="TabContainer/World & Cursor/Cursor/Group/H/SmartTrail"]
 anchor_bottom = 1.0
 margin_left = -180.0
 margin_right = -10.0
@@ -2887,13 +3039,13 @@ text = "Smart Trail"
 align = 2
 valign = 1
 
-[node name="CursorTrailMode" type="Control" parent="TabContainer/World & Cursor/Customization/Group/H"]
-margin_top = 376.0
+[node name="CursorTrailMode" type="Control" parent="TabContainer/World & Cursor/Cursor/Group/H"]
+margin_top = 258.0
 margin_right = 658.0
-margin_bottom = 408.0
+margin_bottom = 290.0
 rect_min_size = Vector2( 200, 32 )
 
-[node name="Effect" type="MenuButton" parent="TabContainer/World & Cursor/Customization/Group/H/CursorTrailMode"]
+[node name="Effect" type="MenuButton" parent="TabContainer/World & Cursor/Cursor/Group/H/CursorTrailMode"]
 margin_right = 200.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 200, 32 )
@@ -2908,7 +3060,7 @@ flat = false
 align = 0
 script = ExtResource( 62 )
 
-[node name="Label" type="Label" parent="TabContainer/World & Cursor/Customization/Group/H/CursorTrailMode/Effect"]
+[node name="Label" type="Label" parent="TabContainer/World & Cursor/Cursor/Group/H/CursorTrailMode/Effect"]
 margin_left = -180.0
 margin_right = -10.0
 margin_bottom = 32.0
@@ -2920,7 +3072,7 @@ text = "Trail Fade Mode"
 align = 2
 valign = 1
 
-[node name="Desc" type="Label" parent="TabContainer/World & Cursor/Customization/Group/H/CursorTrailMode/Effect"]
+[node name="Desc" type="Label" parent="TabContainer/World & Cursor/Cursor/Group/H/CursorTrailMode/Effect"]
 margin_left = 215.0
 margin_right = 562.0
 margin_bottom = 32.0
@@ -2932,13 +3084,13 @@ custom_fonts/font = SubResource( 4 )
 text = "how the trail will fade out"
 valign = 1
 
-[node name="TrailDetail" type="Control" parent="TabContainer/World & Cursor/Customization/Group/H"]
-margin_top = 412.0
+[node name="TrailDetail" type="Control" parent="TabContainer/World & Cursor/Cursor/Group/H"]
+margin_top = 294.0
 margin_right = 658.0
-margin_bottom = 444.0
+margin_bottom = 326.0
 rect_min_size = Vector2( 200, 32 )
 
-[node name="TrailDetail" type="SpinBox" parent="TabContainer/World & Cursor/Customization/Group/H/TrailDetail"]
+[node name="TrailDetail" type="SpinBox" parent="TabContainer/World & Cursor/Cursor/Group/H/TrailDetail"]
 margin_right = 200.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 200, 32 )
@@ -2951,7 +3103,7 @@ value = 10.0
 allow_greater = true
 script = ExtResource( 53 )
 
-[node name="Label" type="Label" parent="TabContainer/World & Cursor/Customization/Group/H/TrailDetail/TrailDetail"]
+[node name="Label" type="Label" parent="TabContainer/World & Cursor/Cursor/Group/H/TrailDetail/TrailDetail"]
 margin_left = -183.0
 margin_right = -10.0
 margin_bottom = 32.0
@@ -2966,7 +3118,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Desc" type="Label" parent="TabContainer/World & Cursor/Customization/Group/H/TrailDetail/TrailDetail"]
+[node name="Desc" type="Label" parent="TabContainer/World & Cursor/Cursor/Group/H/TrailDetail/TrailDetail"]
 margin_left = 215.0
 margin_right = 562.0
 margin_bottom = 32.0
@@ -2978,13 +3130,13 @@ custom_fonts/font = SubResource( 4 )
 text = "[def. 10] number of particles in the cursor trail / (smart trail) number spawned per grid unit"
 valign = 1
 
-[node name="TrailTime" type="Control" parent="TabContainer/World & Cursor/Customization/Group/H"]
-margin_top = 448.0
+[node name="TrailTime" type="Control" parent="TabContainer/World & Cursor/Cursor/Group/H"]
+margin_top = 330.0
 margin_right = 658.0
-margin_bottom = 480.0
+margin_bottom = 362.0
 rect_min_size = Vector2( 200, 32 )
 
-[node name="TrailTime" type="SpinBox" parent="TabContainer/World & Cursor/Customization/Group/H/TrailTime"]
+[node name="TrailTime" type="SpinBox" parent="TabContainer/World & Cursor/Cursor/Group/H/TrailTime"]
 margin_right = 200.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 200, 32 )
@@ -2998,7 +3150,7 @@ value = 0.15
 allow_greater = true
 script = ExtResource( 52 )
 
-[node name="Label" type="Label" parent="TabContainer/World & Cursor/Customization/Group/H/TrailTime/TrailTime"]
+[node name="Label" type="Label" parent="TabContainer/World & Cursor/Cursor/Group/H/TrailTime/TrailTime"]
 margin_left = -180.0
 margin_right = -10.0
 margin_bottom = 32.0
@@ -3013,7 +3165,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Desc" type="Label" parent="TabContainer/World & Cursor/Customization/Group/H/TrailTime/TrailTime"]
+[node name="Desc" type="Label" parent="TabContainer/World & Cursor/Cursor/Group/H/TrailTime/TrailTime"]
 margin_left = 215.0
 margin_right = 562.0
 margin_bottom = 32.0
@@ -3025,20 +3177,20 @@ custom_fonts/font = SubResource( 4 )
 text = "[def. 0.15] how long the cursor trail lasts in seconds"
 valign = 1
 
-[node name="SEPARATOR3" type="HSeparator" parent="TabContainer/World & Cursor/Customization/Group/H"]
-margin_top = 484.0
+[node name="SEPARATOR3" type="HSeparator" parent="TabContainer/World & Cursor/Cursor/Group/H"]
+margin_top = 366.0
 margin_right = 658.0
-margin_bottom = 494.0
+margin_bottom = 376.0
 rect_min_size = Vector2( 0, 10 )
 custom_styles/separator = SubResource( 55 )
 
-[node name="TouchIndicator" type="Control" parent="TabContainer/World & Cursor/Customization/Group/H"]
-margin_top = 498.0
+[node name="TouchIndicator" type="Control" parent="TabContainer/World & Cursor/Cursor/Group/H"]
+margin_top = 380.0
 margin_right = 658.0
-margin_bottom = 530.0
+margin_bottom = 412.0
 rect_min_size = Vector2( 200, 32 )
 
-[node name="TouchIndicator" type="Button" parent="TabContainer/World & Cursor/Customization/Group/H/TouchIndicator"]
+[node name="TouchIndicator" type="Button" parent="TabContainer/World & Cursor/Cursor/Group/H/TouchIndicator"]
 margin_right = 200.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 200, 32 )
@@ -3053,7 +3205,7 @@ script = ExtResource( 45 )
 target = "touch"
 default_image = ExtResource( 15 )
 
-[node name="Label" type="Label" parent="TabContainer/World & Cursor/Customization/Group/H/TouchIndicator/TouchIndicator"]
+[node name="Label" type="Label" parent="TabContainer/World & Cursor/Cursor/Group/H/TouchIndicator/TouchIndicator"]
 margin_left = -180.0
 margin_right = -10.0
 margin_bottom = 32.0
@@ -3065,7 +3217,7 @@ text = "Touch Indicator"
 align = 2
 valign = 1
 
-[node name="ImgPreview" type="TextureRect" parent="TabContainer/World & Cursor/Customization/Group/H/TouchIndicator/TouchIndicator"]
+[node name="ImgPreview" type="TextureRect" parent="TabContainer/World & Cursor/Cursor/Group/H/TouchIndicator/TouchIndicator"]
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = 5.0
@@ -3075,7 +3227,7 @@ texture = ExtResource( 15 )
 expand = true
 stretch_mode = 1
 
-[node name="Desc" type="Label" parent="TabContainer/World & Cursor/Customization/Group/H/TouchIndicator/TouchIndicator"]
+[node name="Desc" type="Label" parent="TabContainer/World & Cursor/Cursor/Group/H/TouchIndicator/TouchIndicator"]
 margin_left = 294.0
 margin_right = 703.0
 margin_bottom = 32.0
@@ -3087,7 +3239,7 @@ custom_fonts/font = SubResource( 4 )
 text = "this is the image that shows up under your finger on a touchscreen"
 valign = 1
 
-[node name="Clear" type="Button" parent="TabContainer/World & Cursor/Customization/Group/H/TouchIndicator/TouchIndicator"]
+[node name="Clear" type="Button" parent="TabContainer/World & Cursor/Cursor/Group/H/TouchIndicator/TouchIndicator"]
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = 42.0
@@ -3103,9 +3255,9 @@ icon = ExtResource( 4 )
 expand_icon = true
 
 [node name="SEPARATOR" type="HSeparator" parent="TabContainer/World & Cursor"]
-margin_top = 182.0
-margin_right = 651.0
-margin_bottom = 212.0
+margin_top = 700.0
+margin_right = 1280.0
+margin_bottom = 730.0
 rect_min_size = Vector2( 0, 10 )
 custom_constants/separation = 30
 custom_styles/separator = SubResource( 55 )
@@ -3114,25 +3266,30 @@ custom_styles/separator = SubResource( 55 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 38.0
-margin_right = -4.0
-margin_bottom = -4.0
+margin_top = 30.0
 custom_constants/separation = 0
 
+[node name="SEPARATOR2" type="HSeparator" parent="TabContainer/UI"]
+margin_right = 1280.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 0, 10 )
+custom_constants/separation = 30
+custom_styles/separator = SubResource( 55 )
+
 [node name="UI" type="VBoxContainer" parent="TabContainer/UI"]
-margin_right = 1272.0
-margin_bottom = 508.0
+margin_top = 30.0
+margin_right = 1280.0
+margin_bottom = 538.0
 
 [node name="Group" type="MarginContainer" parent="TabContainer/UI/UI"]
-margin_right = 1272.0
+margin_right = 1280.0
 margin_bottom = 508.0
 mouse_filter = 1
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="TabContainer/UI/UI/Group"]
 margin_left = 180.0
-margin_right = 1272.0
+margin_right = 1280.0
 margin_bottom = 508.0
 
 [node name="Grid" type="CheckBox" parent="TabContainer/UI/UI/Group/H"]
@@ -3703,19 +3860,19 @@ valign = 1
 clip_text = true
 
 [node name="UIColor" type="VBoxContainer" parent="TabContainer/UI"]
-margin_top = 508.0
-margin_right = 1272.0
-margin_bottom = 2140.0
+margin_top = 538.0
+margin_right = 1280.0
+margin_bottom = 2170.0
 
 [node name="Group" type="MarginContainer" parent="TabContainer/UI/UIColor"]
-margin_right = 1272.0
+margin_right = 1280.0
 margin_bottom = 1632.0
 mouse_filter = 1
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="TabContainer/UI/UIColor/Group"]
 margin_left = 180.0
-margin_right = 1272.0
+margin_right = 1280.0
 margin_bottom = 1632.0
 
 [node name="Presets" type="Control" parent="TabContainer/UI/UIColor/Group/H"]
@@ -5535,9 +5692,9 @@ text = "[def. ##DEFAULT##] color of text when grade is F"
 valign = 1
 
 [node name="SEPARATOR" type="HSeparator" parent="TabContainer/UI"]
-margin_top = 2140.0
-margin_right = 1272.0
-margin_bottom = 2170.0
+margin_top = 2170.0
+margin_right = 1280.0
+margin_bottom = 2200.0
 rect_min_size = Vector2( 0, 10 )
 custom_constants/separation = 30
 custom_styles/separator = SubResource( 55 )
@@ -5551,6 +5708,14 @@ margin_top = 38.0
 margin_right = -4.0
 margin_bottom = -4.0
 custom_constants/separation = 0
+
+[node name="SEPARATOR3" type="HSeparator" parent="TabContainer/Video & Audio"]
+margin_top = 542.0
+margin_right = 1280.0
+margin_bottom = 572.0
+rect_min_size = Vector2( 0, 10 )
+custom_constants/separation = 30
+custom_styles/separator = SubResource( 55 )
 
 [node name="Graphics" type="VBoxContainer" parent="TabContainer/Video & Audio"]
 margin_right = 1272.0
@@ -6376,6 +6541,14 @@ margin_right = -4.0
 margin_bottom = -4.0
 custom_constants/separation = 0
 
+[node name="SEPARATOR2" type="HSeparator" parent="TabContainer/Replays & Misc"]
+margin_top = 542.0
+margin_right = 1280.0
+margin_bottom = 572.0
+rect_min_size = Vector2( 0, 10 )
+custom_constants/separation = 30
+custom_styles/separator = SubResource( 55 )
+
 [node name="Recording" type="VBoxContainer" parent="TabContainer/Replays & Misc"]
 margin_right = 1272.0
 margin_bottom = 132.0
@@ -6533,6 +6706,14 @@ custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
 custom_fonts/font = SubResource( 4 )
 text = "[def. 30/144] changes the dynamic fps bounds of your replays"
 valign = 1
+
+[node name="SEPARATOR3" type="HSeparator" parent="TabContainer/Replays & Misc"]
+margin_top = 542.0
+margin_right = 1280.0
+margin_bottom = 572.0
+rect_min_size = Vector2( 0, 10 )
+custom_constants/separation = 30
+custom_styles/separator = SubResource( 55 )
 
 [node name="Experimental" type="VBoxContainer" parent="TabContainer/Replays & Misc"]
 margin_top = 132.0

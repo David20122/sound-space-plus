@@ -1,8 +1,8 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/worlds/baseplate/studs.png" type="Texture" id=1]
 [ext_resource path="res://assets/worlds/space/starmap_4k.png" type="Texture" id=2]
-
+[ext_resource path="res://assets/worlds/general/space.gd" type="Script" id=3]
 
 [sub_resource type="PanoramaSky" id=7]
 panorama = ExtResource( 2 )
@@ -34,6 +34,7 @@ uv1_scale = Vector3( 512, 336, 512 )
 size = Vector3( 512, 20, 512 )
 
 [node name="baseplate" type="Spatial"]
+script = ExtResource( 3 )
 
 [node name="env" type="WorldEnvironment" parent="."]
 environment = SubResource( 2 )
@@ -42,4 +43,3 @@ environment = SubResource( 2 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -32, 0 )
 material_override = SubResource( 5 )
 mesh = SubResource( 6 )
-material/0 = null

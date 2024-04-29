@@ -1,10 +1,9 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=12 format=2]
 
-[ext_resource path="res://assets/shaders/VHS.shader" type="Shader" id=1]
+[ext_resource path="res://assets/worlds/general/space.gd" type="Script" id=1]
 [ext_resource path="res://assets/shaders/vertex_shader.gdshader" type="Shader" id=4]
 [ext_resource path="res://assets/worlds/vaporwave/scripts/time_setter.gd" type="Script" id=5]
 [ext_resource path="res://assets/shaders/sun.gdshader" type="Shader" id=6]
-
 
 [sub_resource type="Environment" id=6]
 background_mode = 2
@@ -52,19 +51,8 @@ shader_param/time_float = null
 [sub_resource type="PlaneMesh" id=11]
 material = SubResource( 10 )
 
-[sub_resource type="ShaderMaterial" id=15]
-shader = ExtResource( 1 )
-shader_param/colored = false
-shader_param/color_amount = 0.0
-shader_param/grain_amount = 0.07
-shader_param/grain_size = 1.0
-shader_param/lum_amount = 1.3
-shader_param/tape_wave_amount = 0.003
-shader_param/tape_crease_amount = 2.5
-shader_param/color_displacement = 1.0
-shader_param/lines_velocity = 0.1
-
 [node name="vaporwave" type="Spatial"]
+script = ExtResource( 1 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 6 )
@@ -80,11 +68,3 @@ transform = Transform( 80, 0.00254105, -1.11073e-10, 0, -3.49691e-06, -80, -0.00
 mesh = SubResource( 11 )
 skeleton = NodePath("../../../../..")
 script = ExtResource( 5 )
-
-[node name="Camera" type="Camera" parent="WorldEnvironment"]
-far = 8192.0
-
-[node name="ColorRect" type="ColorRect" parent="WorldEnvironment/Camera"]
-material = SubResource( 15 )
-anchor_right = 1.0
-anchor_bottom = 1.0

@@ -1,4 +1,6 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/worlds/general/space.gd" type="Script" id=1]
 
 [sub_resource type="Environment" id=1]
 background_mode = 1
@@ -17,6 +19,7 @@ fog_height_max = -18.5
 fog_height_curve = 0.68302
 
 [node name="Space" type="Spatial"]
+script = ExtResource( 1 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 1 )

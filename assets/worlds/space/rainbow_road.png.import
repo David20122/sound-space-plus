@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/rainbow_road.png-4d8c9c4c8789c61706fc4038f24afb29.stex"
+path="res://.import/rainbow_road.png-fb16980bd37af68b943d101f35b662e8.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/worlds/rainbow_road/rainbow_road.png"
-dest_files=[ "res://.import/rainbow_road.png-4d8c9c4c8789c61706fc4038f24afb29.stex" ]
+source_file="res://assets/worlds/space/rainbow_road.png"
+dest_files=[ "res://.import/rainbow_road.png-fb16980bd37af68b943d101f35b662e8.stex" ]
 
 [params]
 
