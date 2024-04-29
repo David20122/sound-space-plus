@@ -20,24 +20,24 @@ onready var buttons:Array = [
 	$L/Language
 ]
 var use_ver_b:Array = [
-#	false,
 	false,
+#	false,
 	true,
 	false,
 	false,
 	false
 ]
 var hide_ver:Array = [
-#	false,
 	false,
+#	false,
 	false,
 	true,
 	false,
 	false
 ]
 onready var smm_visibility:Dictionary = {
-#	$L/Results: true,
-	$L/MapSelect: false,
+	$L/Results: true,
+#	$L/MapSelect: true,
 	$L/Settings: true,
 	$L/Credits: true,
 	$L/ContentMgr: true,

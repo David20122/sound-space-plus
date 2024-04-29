@@ -716,6 +716,12 @@ custom_constants/separation = 15
 alignment = 1
 script = ExtResource( 93 )
 
+[node name="VSeparator" type="VSeparator" parent="Main/Maps/Results"]
+visible = false
+modulate = Color( 1, 1, 1, 0 )
+margin_right = 4.0
+margin_bottom = 742.0
+
 [node name="Results" type="VBoxContainer" parent="Main/Maps/Results"]
 margin_right = 652.0
 margin_bottom = 742.0
@@ -1483,16 +1489,16 @@ __meta__ = {
 }
 
 [node name="SMM" type="HBoxContainer" parent="Main/Maps/Results/Results/RS/H1/Info"]
+visible = false
 margin_top = 146.0
 margin_right = 420.0
-margin_bottom = 146.0
+margin_bottom = 166.0
 
 [node name="SMM" type="Label" parent="Main/Maps/Results/Results/RS/H1/Info/SMM"]
-visible = false
-margin_top = 25.0
-margin_right = 401.0
-margin_bottom = 45.0
+margin_right = 420.0
+margin_bottom = 20.0
 focus_mode = 2
+size_flags_horizontal = 3
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 1, 0.760784, 0.490196, 1 )
 custom_fonts/font = SubResource( 91 )
@@ -1717,15 +1723,28 @@ margin_right = 652.0
 margin_bottom = 339.0
 size_flags_vertical = 3
 
-[node name="ModsTitle" type="Label" parent="Main/Maps/Results/Results/RS"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Main/Maps/Results/Results/RS"]
 margin_top = 343.0
 margin_right = 652.0
 margin_bottom = 373.0
+
+[node name="Label" type="Label" parent="Main/Maps/Results/Results/RS/HBoxContainer"]
+margin_top = 5.0
+margin_right = 259.0
+margin_bottom = 25.0
+size_flags_horizontal = 3
+
+[node name="ModsTitle" type="Label" parent="Main/Maps/Results/Results/RS/HBoxContainer"]
+margin_left = 263.0
+margin_right = 652.0
+margin_bottom = 30.0
 focus_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.5
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 1, 0.756863, 0.960784, 1 )
 custom_fonts/font = SubResource( 89 )
-text = "                  Modifiers"
+text = "Modifiers"
 align = 1
 
 [node name="H2" type="HBoxContainer" parent="Main/Maps/Results/Results/RS"]
@@ -2954,6 +2973,12 @@ color = Color( 0, 0, 0, 0.815686 )
 __meta__ = {
 "_edit_use_anchors_": true
 }
+
+[node name="VSeparator2" type="VSeparator" parent="Main/Maps/Results"]
+visible = false
+modulate = Color( 1, 1, 1, 0 )
+margin_right = 4.0
+margin_bottom = 742.0
 
 [node name="MapRegistry" type="VBoxContainer" parent="Main/Maps"]
 margin_left = 656.0
