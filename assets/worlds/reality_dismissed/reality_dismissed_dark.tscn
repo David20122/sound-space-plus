@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=2]
 
-[ext_resource path="res://assets/worlds/reality_dismissed.gd" type="Script" id=1]
+[ext_resource path="res://assets/worlds/reality_dismissed/reality_dismissed.gd" type="Script" id=1]
 
 
 [sub_resource type="Environment" id=2]

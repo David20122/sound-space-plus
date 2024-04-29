@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/neon_tunnel.png-9951e441c2b26869dcb9af77058ace0e.stex"
+path="res://.import/space_tunnel.png-de5452bf598697290db9b80a0556eee0.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/worlds/covers/neon_tunnel.png"
-dest_files=[ "res://.import/neon_tunnel.png-9951e441c2b26869dcb9af77058ace0e.stex" ]
+source_file="res://assets/worlds/neon_tunnel/space_tunnel.png"
+dest_files=[ "res://.import/space_tunnel.png-de5452bf598697290db9b80a0556eee0.stex" ]
 
 [params]
 

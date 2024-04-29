@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/baseplate.png-6cde879d4fb8bad4cde81f603fda5b3f.stex"
+path="res://.import/neon_tunnel.png-ca8d4b39edbd3c1869e06be357b393e4.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/worlds/covers/baseplate.png"
-dest_files=[ "res://.import/baseplate.png-6cde879d4fb8bad4cde81f603fda5b3f.stex" ]
+source_file="res://assets/worlds/neon_tunnel/neon_tunnel.png"
+dest_files=[ "res://.import/neon_tunnel.png-ca8d4b39edbd3c1869e06be357b393e4.stex" ]
 
 [params]
 

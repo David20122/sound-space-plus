@@ -1726,82 +1726,77 @@ func register_worlds():
 	# idI:String,nameI:String,pathI:String,creatorI:String="Unknown"
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_space_tunnel", "Neon Corners",
-		"res://assets/worlds/space_tunnel.tscn", "Chedski",
-		"res://assets/worlds/covers/space_tunnel.png"
+		"res://assets/worlds/neon_tunnel/space_tunnel.tscn", "Chedski",
+		"res://assets/worlds/space_tunnel/space_tunnel.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_neon_tunnel", "Neon Rings",
-		"res://assets/worlds/neon_tunnel.tscn", "Chedski",
-		"res://assets/worlds/covers/neon_tunnel.png"
+		"res://assets/worlds/neon_tunnel/neon_tunnel.tscn", "Chedski",
+		"res://assets/worlds/neon_tunnel/neon_tunnel.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_deep_space", "Deep Space",
-		"res://assets/worlds/deep_space.tscn", "Chedski",
+		"res://assets/worlds/deep_space/deep_space.tscn", "Chedski",
 		"res://assets/worlds/covers/deep_space.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_void", "VOID",
-		"res://assets/worlds/void.tscn", "Chedski",
-		"res://assets/worlds/covers/void.png"
+		"res://assets/worlds/void/void.tscn", "Chedski",
+		"res://assets/worlds/void/void.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_rainbow_road", "Rainbow Road",
-		"res://assets/worlds/rainbow_road.tscn", "Chedski",
-		"res://assets/worlds/covers/rainbow_road.png"
-	))
-	registry_world.add_item(BackgroundWorld.new(
-		"ssp_rainbow_road_nb", "Rainbow Road (no bloom)",
-		"res://assets/worlds/rainbow_road.tscn", "Chedski",
-		"res://assets/worlds/covers/rainbow_road.png"
+		"res://assets/worlds/rainbow_road/rainbow_road.tscn", "Chedski",
+		"res://assets/worlds/rainbow_road/rainbow_road.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_cubic", "Cubic",
-		"res://assets/worlds/cubic.tscn", "Chedski",
-		"res://assets/worlds/covers/cubic.png"
+		"res://assets/worlds/cubic/cubic.tscn", "Chedski",
+		"res://assets/worlds/cubic/cubic.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_classic", "Beyond",
-		"res://assets/worlds/classic.tscn", "Chedski",
-		"res://assets/worlds/covers/classic.png"
+		"res://assets/worlds/classic/classic.tscn", "Chedski",
+		"res://assets/worlds/classic/classic.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_reality_dismissed", "Reality Dismissed",
-		"res://assets/worlds/reality_dismissed.tscn", "pyrule",
-		"res://assets/worlds/covers/custom.png"
+		"res://assets/worlds/reality_dismissed/reality_dismissed.tscn", "pyrule",
+		"res://assets/worlds/custom/custom.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_reality_dismissed_dark", "Reality Dismissed (Dark)",
-		"res://assets/worlds/reality_dismissed_dark.tscn", "pyrule",
-		"res://assets/worlds/covers/custom.png"
+		"res://assets/worlds/reality_dismissed/reality_dismissed_dark.tscn", "pyrule",
+		"res://assets/worlds/custom/custom.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_baseplate", "Baseplate (Day)",
-		"res://assets/worlds/baseplate.tscn", "pyrule",
-		"res://assets/worlds/covers/baseplate.png"
+		"res://assets/worlds/baseplate/baseplate.tscn", "pyrule",
+		"res://assets/worlds/baseplate/baseplate.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_baseplate_night", "Baseplate (Night)",
-		"res://assets/worlds/baseplate_night.tscn", "pyrule",
-		"res://assets/worlds/covers/baseplate.png"
+		"res://assets/worlds/baseplate/baseplate_night.tscn", "pyrule",
+		"res://assets/worlds/baseplate/baseplate.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_event_horizon", "Event Horizon",
-		"res://assets/worlds/event_horizon.tscn", "Chedski",
-		"res://assets/worlds/covers/custom.png"
+		"res://assets/worlds/event_horizon/event_horizon.tscn", "Chedski",
+		"res://assets/worlds/custom/custom.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_vaporwave", "v a p o r w a v e",
-		"res://assets/worlds/vaporwave.tscn", "balt",
-		"res://assets/worlds/covers/vaporwave.png"
+		"res://assets/worlds/vaporwave/vaporwave.tscn", "balt",
+		"res://assets/worlds/vaporwave/vaporwave.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_tri_tunnel", "Tri-Tunnel",
-		"res://assets/worlds/tri_tunnel.tscn", "Lexus, pyrule",
+		"res://assets/worlds/tri_tunnel/tri_tunnel.tscn", "Lexus, pyrule",
 		"res://assets/worlds/tri_tunnel/cover.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_grid", "The Grid",
-		"res://assets/worlds/grid.tscn", "hi",
+		"res://assets/worlds/grid/grid.tscn", "hi",
 		"res://assets/worlds/tri_tunnel/cover.png"
 	))
 #	registry_world.add_item(BackgroundWorld.new(
@@ -1819,13 +1814,13 @@ func register_worlds():
 	# Custom content
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_custombg", "Custom Background",
-		"res://assets/worlds/custombg.tscn", "Someone",
-		"res://assets/images/error.jpg"
+		"res://assets/worlds/custom/custombg.tscn", "Someone",
+		"res://assets/worlds/custom/custom.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_custom", "Modworld",
-		"res://assets/worlds/custom.tscn", "Someone",
-		"res://assets/worlds/covers/custom.png"
+		"res://assets/worlds/custom/custom.tscn", "Someone",
+		"res://assets/worlds/custom/custom.png"
 	))
 
 func register_meshes():

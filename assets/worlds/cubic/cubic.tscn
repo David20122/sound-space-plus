@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://assets/worlds/cubic_cube.gd" type="Script" id=1]
-[ext_resource path="res://assets/worlds/cubic.gd" type="Script" id=2]
+[ext_resource path="res://assets/worlds/cubic/cubic_cube.gd" type="Script" id=1]
+[ext_resource path="res://assets/worlds/cubic/cubic.gd" type="Script" id=2]
 
 
 [sub_resource type="Environment" id=2]

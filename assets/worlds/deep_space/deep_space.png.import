@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/skybox.png-4f148a4748e2dcd2dfe222e0a4749533.stex"
+path="res://.import/deep_space.png-e7e0e6f9ca1b628f07ea06c3b54b0126.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/worlds/skybox.png"
-dest_files=[ "res://.import/skybox.png-4f148a4748e2dcd2dfe222e0a4749533.stex" ]
+source_file="res://assets/worlds/deep_space/deep_space.png"
+dest_files=[ "res://.import/deep_space.png-e7e0e6f9ca1b628f07ea06c3b54b0126.stex" ]
 
 [params]
 

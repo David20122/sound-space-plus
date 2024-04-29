@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/custom.png-e9255542bbb977db30fe04b791c4b7cc.stex"
+path="res://.import/cubic.png-d96d35567fe05acc27283c9a211364b4.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/worlds/covers/custom.png"
-dest_files=[ "res://.import/custom.png-e9255542bbb977db30fe04b791c4b7cc.stex" ]
+source_file="res://assets/worlds/cubic/cubic.png"
+dest_files=[ "res://.import/cubic.png-d96d35567fe05acc27283c9a211364b4.stex" ]
 
 [params]
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://assets/worlds/studs.png" type="Texture" id=1]
-[ext_resource path="res://assets/worlds/skybox.png" type="Texture" id=2]
+[ext_resource path="res://assets/worlds/baseplate/studs.png" type="Texture" id=1]
+[ext_resource path="res://assets/worlds/baseplate/skybox.png" type="Texture" id=2]
 
 
 [sub_resource type="PanoramaSky" id=7]

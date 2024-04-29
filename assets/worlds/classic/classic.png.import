@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/deep_space.png-198ee11098c899c1a51bddea1a799ba7.stex"
+path="res://.import/classic.png-e25f92e560c0068cc417f7ca1119d0aa.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/worlds/covers/deep_space.png"
-dest_files=[ "res://.import/deep_space.png-198ee11098c899c1a51bddea1a799ba7.stex" ]
+source_file="res://assets/worlds/classic/classic.png"
+dest_files=[ "res://.import/classic.png-e25f92e560c0068cc417f7ca1119d0aa.stex" ]
 
 [params]
 
