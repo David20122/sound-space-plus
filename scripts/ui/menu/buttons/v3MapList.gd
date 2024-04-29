@@ -106,13 +106,6 @@ func switch_to_play_screen():
 var was_maximized = OS.window_maximized
 var was_fullscreen = OS.window_fullscreen
 func _process(delta):
-	pt += delta
-	if OS.window_maximized != was_maximized or OS.window_fullscreen != was_fullscreen:
-		was_maximized = OS.window_maximized
-		was_fullscreen = OS.window_fullscreen
-		handle_window_resize()
-
-func _physics_process(delta):
 	if check_drag or dragged:
 		drag_offset = get_global_mouse_position()
 		var diff = drag_offset - drag_start
@@ -124,7 +117,14 @@ func _physics_process(delta):
 			elif cur_map + int(diff.y/80) > drag_cur_map:
 				call_deferred("pg_up")
 
-	# when the mouse is released, the list will scroll based on the momentum
+	pt += delta
+	if OS.window_maximized != was_maximized or OS.window_fullscreen != was_fullscreen:
+		was_maximized = OS.window_maximized
+		was_fullscreen = OS.window_fullscreen
+		handle_window_resize()
+
+func _physics_process(delta):
+	# when the mouse is released from drag, the list will scroll based on the momentum
 	if momentum != 0:
 		momentum = lerp(momentum, 0, 0.3)
 		if abs(momentum) < 0.3:
