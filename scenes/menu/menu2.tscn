@@ -722,7 +722,7 @@ modulate = Color( 1, 1, 1, 0 )
 margin_right = 4.0
 margin_bottom = 742.0
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.4
+size_flags_stretch_ratio = 0.35
 
 [node name="Results" type="VBoxContainer" parent="Main/Maps/Results"]
 margin_right = 652.0
@@ -2982,7 +2982,7 @@ modulate = Color( 1, 1, 1, 0 )
 margin_right = 4.0
 margin_bottom = 742.0
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.4
+size_flags_stretch_ratio = 0.45
 
 [node name="MapRegistry" type="VBoxContainer" parent="Main/Maps"]
 margin_left = 656.0
