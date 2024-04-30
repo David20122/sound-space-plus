@@ -740,7 +740,6 @@ var render_scale:float = 1
 var glow:float = 0
 var bloom:float = 0
 var vhs_shader:bool = false
-var vertex_shader:bool = false
 
 # Settings - Experimental
 var ensure_hitsync:bool = false
@@ -1279,6 +1278,11 @@ func load_saved_settings(saveFile:String = Globals.p("user://settings.json")):
 		lcol(data,"grade_d_color")
 		lcol(data,"grade_f_color")
 		lcol(data,"cursor_color")
+
+		if data.has("glow"):
+			glow = data.glow
+		if data.has("bloom"):
+			bloom = data.bloom
 		
 	
 	elif file.file_exists(Globals.p("user://settings")):
@@ -1652,7 +1656,9 @@ func save_settings(saveFile:String = Globals.p("user://settings.json")):
 			hit_pitch = hit_pitch,
 			hit_pitch_min = hit_pitch_min,
 			hit_pitch_max = hit_pitch_max,
-			language = language
+			language = language,
+			glow = glow,
+			bloom = bloom
 		}
 		
 		file.store_string(JSON.print(data, "\t"))
@@ -1752,8 +1758,8 @@ func register_worlds():
 	))
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_rainbow_road", "Rainbow Road",
-		"res://assets/worlds/rainbow_road/rainbow_road.tscn", "Chedski",
-		"res://assets/worlds/rainbow_road/rainbow_road.png"
+		"res://assets/worlds/space/rainbow_road.tscn", "Chedski",
+		"res://assets/worlds/space/rainbow_road.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_cubic", "Cubic",

@@ -2579,7 +2579,6 @@ focus_mode = 2
 theme = ExtResource( 1 )
 max_value = 10.0
 step = 0.1
-allow_greater = true
 script = ExtResource( 31 )
 
 [node name="Label" type="Label" parent="TabContainer/World & Cursor/World/Group/H/Glow/Glow"]
@@ -2621,7 +2620,6 @@ focus_mode = 2
 theme = ExtResource( 1 )
 max_value = 10.0
 step = 0.1
-allow_greater = true
 script = ExtResource( 41 )
 
 [node name="Label" type="Label" parent="TabContainer/World & Cursor/World/Group/H/Bloom/Bloom"]
