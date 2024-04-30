@@ -3954,6 +3954,7 @@ action_mode = 0
 text = "online"
 flat = true
 script = ExtResource( 92 )
+target = "last_search_incl_online"
 
 [node name="DiffSort" type="CheckBox" parent="Main/Maps/Filters"]
 margin_top = 148.0
@@ -4057,9 +4058,6 @@ custom_styles/disabled = SubResource( 65 )
 custom_styles/normal = SubResource( 66 )
 action_mode = 0
 group = SubResource( 67 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="EASY" type="Panel" parent="Main/Maps/Filters"]
 self_modulate = Color( 0, 1, 0, 1 )
