@@ -286,7 +286,7 @@ func sortsong(a:Song, b:Song):
 func reset_filters():
 	update_search_text("")
 	update_author_search_text("")
-	update_search_dfil([Globals.DIFF_EASY,Globals.DIFF_MEDIUM,Globals.DIFF_HARD,Globals.DIFF_LOGIC,Globals.DIFF_AMOGUS])
+	update_search_dfil([Globals.DIFF_UNKNOWN,Globals.DIFF_EASY,Globals.DIFF_MEDIUM,Globals.DIFF_HARD,Globals.DIFF_LOGIC,Globals.DIFF_AMOGUS])
 	update_search_showbroken(false)
 	update_search_showonline(true)
 	update_search_flipped(false)
@@ -408,6 +408,7 @@ func _input(ev:InputEvent):
 			call_deferred("pg_down")
 
 func handle_window_resize():
+	get_tree().reload_current_scene()
 	if ready: reload_to_current_page()
 
 func firstload():
@@ -460,6 +461,8 @@ func _ready():
 	$AMOGUS.visible = false
 	$NODIF.visible = false
 	$EMPTY.visible = false
+
+	difficulty_filter = Rhythia.last_difficulty_filter
 
 	Engine.iterations_per_second = 60
 	call_deferred("firstload")

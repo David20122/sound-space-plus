@@ -153,12 +153,12 @@ var last_search_flip_sort:bool = false
 var last_search_flip_name_sort:bool = false
 var last_page_num:int = 0
 var last_difficulty_filter:Array = [
+	Globals.DIFF_UNKNOWN,
 	Globals.DIFF_EASY,
 	Globals.DIFF_MEDIUM,
 	Globals.DIFF_HARD,
 	Globals.DIFF_LOGIC,
-	Globals.DIFF_AMOGUS,
-	Globals.DIFF_UNKNOWN
+	Globals.DIFF_AMOGUS
 ]
 
 # VR
@@ -1283,6 +1283,8 @@ func load_saved_settings(saveFile:String = Globals.p("user://settings.json")):
 			glow = data.glow
 		if data.has("bloom"):
 			bloom = data.bloom
+		if data.has("vhs_shader"):
+			vhs_shader = data.vhs_shader
 		
 	
 	elif file.file_exists(Globals.p("user://settings")):
@@ -1658,7 +1660,8 @@ func save_settings(saveFile:String = Globals.p("user://settings.json")):
 			hit_pitch_max = hit_pitch_max,
 			language = language,
 			glow = glow,
-			bloom = bloom
+			bloom = bloom,
+			vhs_shader = vhs_shader,
 		}
 		
 		file.store_string(JSON.print(data, "\t"))
