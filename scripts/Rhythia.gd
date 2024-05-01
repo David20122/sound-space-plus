@@ -153,12 +153,12 @@ var last_search_flip_sort:bool = false
 var last_search_flip_name_sort:bool = false
 var last_page_num:int = 0
 var last_difficulty_filter:Array = [
+	Globals.DIFF_UNKNOWN,
 	Globals.DIFF_EASY,
 	Globals.DIFF_MEDIUM,
 	Globals.DIFF_HARD,
 	Globals.DIFF_LOGIC,
-	Globals.DIFF_AMOGUS,
-	Globals.DIFF_UNKNOWN
+	Globals.DIFF_AMOGUS
 ]
 
 # VR
@@ -736,6 +736,11 @@ var auto_maximize:bool = false
 # Settings - Graphics & Advanced
 var render_scale:float = 1
 
+# Settings - Shaders
+var glow:float = 0
+var bloom:float = 0
+var vhs_shader:bool = false
+
 # Settings - Experimental
 var ensure_hitsync:bool = false
 var hitsync_offset:float = 0 # don't save this yet; probably not even a necessary setting
@@ -1273,6 +1278,13 @@ func load_saved_settings(saveFile:String = Globals.p("user://settings.json")):
 		lcol(data,"grade_d_color")
 		lcol(data,"grade_f_color")
 		lcol(data,"cursor_color")
+
+		if data.has("glow"):
+			glow = data.glow
+		if data.has("bloom"):
+			bloom = data.bloom
+		if data.has("vhs_shader"):
+			vhs_shader = data.vhs_shader
 		
 	
 	elif file.file_exists(Globals.p("user://settings")):
@@ -1493,9 +1505,9 @@ func dser_float(s):
 	else:
 		return s
 
-func save_settings():
+func save_settings(saveFile:String = Globals.p("user://settings.json")):
 	var file:File = File.new()
-	var err:int = file.open(Globals.p("user://settings.json"),File.WRITE)
+	var err:int = file.open(Globals.p(saveFile),File.WRITE)
 	if err == OK:
 		var data = {
 			hlm_converted = hlm_converted,
@@ -1646,7 +1658,10 @@ func save_settings():
 			hit_pitch = hit_pitch,
 			hit_pitch_min = hit_pitch_min,
 			hit_pitch_max = hit_pitch_max,
-			language = language
+			language = language,
+			glow = glow,
+			bloom = bloom,
+			vhs_shader = vhs_shader,
 		}
 		
 		file.store_string(JSON.print(data, "\t"))
@@ -1726,82 +1741,77 @@ func register_worlds():
 	# idI:String,nameI:String,pathI:String,creatorI:String="Unknown"
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_space_tunnel", "Neon Corners",
-		"res://assets/worlds/space_tunnel.tscn", "Chedski",
-		"res://assets/worlds/covers/space_tunnel.png"
+		"res://assets/worlds/neon_tunnel/space_tunnel.tscn", "Chedski",
+		"res://assets/worlds/space_tunnel/space_tunnel.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_neon_tunnel", "Neon Rings",
-		"res://assets/worlds/neon_tunnel.tscn", "Chedski",
-		"res://assets/worlds/covers/neon_tunnel.png"
+		"res://assets/worlds/neon_tunnel/neon_tunnel.tscn", "Chedski",
+		"res://assets/worlds/neon_tunnel/neon_tunnel.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_deep_space", "Deep Space",
-		"res://assets/worlds/deep_space.tscn", "Chedski",
+		"res://assets/worlds/deep_space/deep_space.tscn", "Chedski",
 		"res://assets/worlds/covers/deep_space.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_void", "VOID",
-		"res://assets/worlds/void.tscn", "Chedski",
-		"res://assets/worlds/covers/void.png"
+		"res://assets/worlds/void/void.tscn", "Chedski",
+		"res://assets/worlds/void/void.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_rainbow_road", "Rainbow Road",
-		"res://assets/worlds/rainbow_road.tscn", "Chedski",
-		"res://assets/worlds/covers/rainbow_road.png"
-	))
-	registry_world.add_item(BackgroundWorld.new(
-		"ssp_rainbow_road_nb", "Rainbow Road (no bloom)",
-		"res://assets/worlds/rainbow_road.tscn", "Chedski",
-		"res://assets/worlds/covers/rainbow_road.png"
+		"res://assets/worlds/space/rainbow_road.tscn", "Chedski",
+		"res://assets/worlds/space/rainbow_road.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_cubic", "Cubic",
-		"res://assets/worlds/cubic.tscn", "Chedski",
-		"res://assets/worlds/covers/cubic.png"
+		"res://assets/worlds/cubic/cubic.tscn", "Chedski",
+		"res://assets/worlds/cubic/cubic.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_classic", "Beyond",
-		"res://assets/worlds/classic.tscn", "Chedski",
-		"res://assets/worlds/covers/classic.png"
+		"res://assets/worlds/classic/classic.tscn", "Chedski",
+		"res://assets/worlds/classic/classic.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_reality_dismissed", "Reality Dismissed",
-		"res://assets/worlds/reality_dismissed.tscn", "pyrule",
-		"res://assets/worlds/covers/custom.png"
+		"res://assets/worlds/reality_dismissed/reality_dismissed.tscn", "pyrule",
+		"res://assets/worlds/custom/custom.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_reality_dismissed_dark", "Reality Dismissed (Dark)",
-		"res://assets/worlds/reality_dismissed_dark.tscn", "pyrule",
-		"res://assets/worlds/covers/custom.png"
+		"res://assets/worlds/reality_dismissed/reality_dismissed_dark.tscn", "pyrule",
+		"res://assets/worlds/custom/custom.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_baseplate", "Baseplate (Day)",
-		"res://assets/worlds/baseplate.tscn", "pyrule",
-		"res://assets/worlds/covers/baseplate.png"
+		"res://assets/worlds/baseplate/baseplate.tscn", "pyrule",
+		"res://assets/worlds/baseplate/baseplate.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_baseplate_night", "Baseplate (Night)",
-		"res://assets/worlds/baseplate_night.tscn", "pyrule",
-		"res://assets/worlds/covers/baseplate.png"
+		"res://assets/worlds/baseplate/baseplate_night.tscn", "pyrule",
+		"res://assets/worlds/baseplate/baseplate.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_event_horizon", "Event Horizon",
-		"res://assets/worlds/event_horizon.tscn", "Chedski",
-		"res://assets/worlds/covers/custom.png"
+		"res://assets/worlds/event_horizon/event_horizon.tscn", "Chedski",
+		"res://assets/worlds/custom/custom.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_vaporwave", "v a p o r w a v e",
-		"res://assets/worlds/vaporwave.tscn", "balt",
-		"res://assets/worlds/covers/vaporwave.png"
+		"res://assets/worlds/vaporwave/vaporwave.tscn", "balt",
+		"res://assets/worlds/vaporwave/vaporwave.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_tri_tunnel", "Tri-Tunnel",
-		"res://assets/worlds/tri_tunnel.tscn", "Lexus, pyrule",
+		"res://assets/worlds/tri_tunnel/tri_tunnel.tscn", "Lexus, pyrule",
 		"res://assets/worlds/tri_tunnel/cover.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_grid", "The Grid",
-		"res://assets/worlds/grid.tscn", "hi",
+		"res://assets/worlds/grid/grid.tscn", "hi",
 		"res://assets/worlds/tri_tunnel/cover.png"
 	))
 #	registry_world.add_item(BackgroundWorld.new(
@@ -1819,13 +1829,13 @@ func register_worlds():
 	# Custom content
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_custombg", "Custom Background",
-		"res://assets/worlds/custombg.tscn", "Someone",
-		"res://assets/images/error.jpg"
+		"res://assets/worlds/custom/custombg.tscn", "Someone",
+		"res://assets/worlds/custom/custom.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_custom", "Modworld",
-		"res://assets/worlds/custom.tscn", "Someone",
-		"res://assets/worlds/covers/custom.png"
+		"res://assets/worlds/custom/custom.tscn", "Someone",
+		"res://assets/worlds/custom/custom.png"
 	))
 
 func register_meshes():
@@ -2418,6 +2428,19 @@ func do_init(_ud=null):
 				yield(get_tree(),"idle_frame")
 			#if fmod(i,max(min(floor(float(allmaps.size())/200),40),5)) == 0: yield(get_tree(),"idle_frame")
 			convert_song_pbs(allmaps[i])
+	
+	# Load Covers
+	emit_signal("init_stage_reached","Loading Covers\nFor your convenience")
+	yield(get_tree(),"idle_frame")
+	var allmaps:Array = registry_song.get_items()
+	for i in range(allmaps.size()):
+		emit_signal("init_stage_reached","Loading Covers\n%.0f%%" % (
+			100*(float(i)/float(allmaps.size()))
+		))
+		if (OS.get_ticks_msec() - lt) >= load_target_frame_time * 1000:
+			lt = OS.get_ticks_msec()
+			yield(get_tree(),"idle_frame")
+		allmaps[i]._get_cover()
 	
 	# Load favorite songs
 	# Check if VR is available

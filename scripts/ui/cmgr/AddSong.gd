@@ -840,7 +840,7 @@ func finish_map():
 			$Finish/Error.text = result
 			$Finish/Error.visible = true
 		$Finish/ok.visible = true
-	var list = $"/root/Menu/Main/MapRegistry/S/G"
+	var list = $"/root/Menu/Main/Maps/MapRegistry/S/VBoxContainer"
 	list.prepare_songs()
 	list.reload_to_current_page()
 

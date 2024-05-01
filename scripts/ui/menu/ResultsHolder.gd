@@ -2,27 +2,26 @@ extends HBoxContainer
 
 var centered:bool = false
 
-func upd():
-	if centered:
-		$CenterPush.visible = false
-		$LeftPush/CenterContainer/Button.visible = false
-	else:
-		$CenterPush.visible = false
-		$LeftPush/CenterContainer/Button.visible = true
 
 func center():
 	centered = true
 	Rhythia.was_map_screen_centered = true
-	upd()
-
+	$VSeparator.visible = true
+	$VSeparator2.visible = true
+	$"../MapRegistry".visible = false
+	$"../ScrollControl".visible = false
+	$"../Filters".visible = false
+	
 func uncenter():
 	centered = false
 	Rhythia.was_map_screen_centered = false
-	upd()
-
+	$VSeparator.visible = false
+	$VSeparator2.visible = false
+	$"../MapRegistry".visible = false
+	$"../ScrollControl".visible = false
+	$"../Filters".visible = false
 
 func _ready():
 	centered = Rhythia.was_map_screen_centered
-	upd()
-	$CenterPush/Button.connect("pressed",self,"uncenter")
-	$LeftPush/CenterContainer/Button.connect("pressed",self,"center")
+	if Rhythia.single_map_mode:
+		center()

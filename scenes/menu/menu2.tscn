@@ -1,4 +1,4 @@
-[gd_scene load_steps=208 format=2]
+[gd_scene load_steps=206 format=2]
 
 [ext_resource path="res://uitheme.tres" type="Theme" id=1]
 [ext_resource path="res://assets/font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=2]
@@ -21,7 +21,7 @@
 [ext_resource path="res://scripts/ui/menu/buttons/MapIncludeBroken.gd" type="Script" id=19]
 [ext_resource path="res://scripts/ui/menu/buttons/diffSort.gd" type="Script" id=20]
 [ext_resource path="res://scripts/ui/menu/buttons/MapSearch.gd" type="Script" id=21]
-[ext_resource path="res://scripts/ui/menu/buttons/v2MapList.gd" type="Script" id=22]
+[ext_resource path="res://scripts/ui/menu/buttons/clipinput.gd" type="Script" id=22]
 [ext_resource path="res://scripts/ui/menu/buttons/NameSort.gd" type="Script" id=23]
 [ext_resource path="res://assets/images/ui/arrow_down.png" type="Texture" id=24]
 [ext_resource path="res://assets/images/ui/arrow_up.png" type="Texture" id=25]
@@ -46,7 +46,6 @@
 [ext_resource path="res://scripts/ui/menu/buttons/SuddenDeath.gd" type="Script" id=44]
 [ext_resource path="res://scripts/ui/menu/buttons/Ghost.gd" type="Script" id=45]
 [ext_resource path="res://scripts/ui/menu/rainbow.gd" type="Script" id=46]
-[ext_resource path="res://scripts/ui/menu/buttons/PlayAutoSwitch.gd" type="Script" id=47]
 [ext_resource path="res://scripts/ui/menu/buttons/PatreonCredits.gd" type="Script" id=48]
 [ext_resource path="res://prefabs/menu/settings_page.tscn" type="PackedScene" id=49]
 [ext_resource path="res://assets/font/UbuntuMono/Regular.ttf" type="DynamicFontData" id=50]
@@ -104,6 +103,7 @@
 [ext_resource path="res://assets/images/ui/localization.png" type="Texture" id=102]
 [ext_resource path="res://scenes/menu/contentmgr.tscn" type="PackedScene" id=103]
 [ext_resource path="res://scenes/menu/language.tscn" type="PackedScene" id=104]
+[ext_resource path="res://scripts/ui/menu/buttons/v3MapList.gd" type="Script" id=105]
 
 [sub_resource type="Gradient" id=163]
 offsets = PoolRealArray( 0, 0.5, 1 )
@@ -147,12 +147,12 @@ scale_curve = SubResource( 166 )
 color = Color( 1, 1, 1, 0.0156863 )
 color_ramp = SubResource( 164 )
 
-[sub_resource type="StyleBoxFlat" id=59]
+[sub_resource type="StyleBoxFlat" id=70]
 draw_center = false
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
 border_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="Shader" id=128]
@@ -167,11 +167,25 @@ void fragment() {
 [sub_resource type="ShaderMaterial" id=60]
 shader = SubResource( 128 )
 
-[sub_resource type="DynamicFont" id=61]
-outline_size = 1
-outline_color = Color( 0, 0, 0, 0.207843 )
+[sub_resource type="Shader" id=130]
+code = "shader_type canvas_item;
+
+void fragment() {
+	vec2 muv = (UV - vec2(0.5)) * 2.0;
+	float m = 1.0 - max(abs(muv.x),abs(muv.y));
+	COLOR = vec4(vec3((0.5 + clamp((m*1.5+0.5),0.0,1.0)/2.0)),1.0) * texture(TEXTURE,UV);
+}"
+
+[sub_resource type="ShaderMaterial" id=72]
+shader = SubResource( 130 )
+
+[sub_resource type="DynamicFont" id=74]
+size = 17
+outline_size = 3
+outline_color = Color( 0, 0, 0, 0.313726 )
 use_filter = true
-font_data = ExtResource( 14 )
+font_data = ExtResource( 2 )
+fallback/0 = ExtResource( 15 )
 
 [sub_resource type="Shader" id=129]
 code = "shader_type canvas_item;
@@ -187,52 +201,6 @@ shader = SubResource( 129 )
 [sub_resource type="StyleBoxFlat" id=63]
 bg_color = Color( 0.6, 0.6, 0.6, 0.0941176 )
 
-[sub_resource type="StyleBoxEmpty" id=64]
-
-[sub_resource type="StyleBoxEmpty" id=65]
-
-[sub_resource type="StyleBoxEmpty" id=66]
-
-[sub_resource type="ButtonGroup" id=67]
-
-[sub_resource type="DynamicFont" id=68]
-outline_size = 1
-outline_color = Color( 0, 0, 0, 0.207843 )
-use_filter = true
-font_data = ExtResource( 15 )
-
-[sub_resource type="DynamicFont" id=69]
-size = 14
-font_data = ExtResource( 2 )
-fallback/0 = ExtResource( 15 )
-
-[sub_resource type="StyleBoxFlat" id=70]
-draw_center = false
-border_width_left = 6
-border_width_top = 6
-border_width_right = 6
-border_width_bottom = 6
-border_color = Color( 1, 1, 1, 1 )
-
-[sub_resource type="DynamicFont" id=71]
-size = 32
-outline_size = 3
-outline_color = Color( 0, 0, 0, 0.207843 )
-use_filter = true
-font_data = ExtResource( 14 )
-
-[sub_resource type="Shader" id=130]
-code = "shader_type canvas_item;
-
-void fragment() {
-	vec2 muv = (UV - vec2(0.5)) * 2.0;
-	float m = 1.0 - max(abs(muv.x),abs(muv.y));
-	COLOR = vec4(vec3((0.5 + clamp((m*1.5+0.5),0.0,1.0)/2.0)),1.0) * texture(TEXTURE,UV);
-}"
-
-[sub_resource type="ShaderMaterial" id=72]
-shader = SubResource( 130 )
-
 [sub_resource type="StyleBoxFlat" id=73]
 bg_color = Color( 1, 1, 0.937255, 0.333333 )
 border_width_left = 6
@@ -246,77 +214,103 @@ expand_margin_right = 2.0
 expand_margin_top = 2.0
 expand_margin_bottom = 2.0
 
-[sub_resource type="DynamicFont" id=74]
-size = 14
-outline_size = 2
-outline_color = Color( 0, 0, 0, 0.207843 )
+[sub_resource type="StyleBoxEmpty" id=64]
+
+[sub_resource type="StyleBoxEmpty" id=65]
+
+[sub_resource type="StyleBoxEmpty" id=66]
+
+[sub_resource type="DynamicFont" id=98]
+size = 18
+use_filter = true
+font_data = ExtResource( 27 )
+fallback/0 = ExtResource( 15 )
+
+[sub_resource type="DynamicFont" id=91]
 use_filter = true
 font_data = ExtResource( 2 )
+fallback/0 = ExtResource( 15 )
 
-[sub_resource type="DynamicFont" id=75]
-size = 32
-outline_size = 3
-outline_color = Color( 0, 0, 0, 0.207843 )
+[sub_resource type="DynamicFont" id=116]
+size = 17
 use_filter = true
-extra_spacing_char = 1
-font_data = ExtResource( 14 )
+font_data = ExtResource( 27 )
+fallback/0 = ExtResource( 15 )
 
-[sub_resource type="DynamicFont" id=76]
-size = 24
-outline_size = 3
-outline_color = Color( 0, 0, 0, 0.207843 )
+[sub_resource type="DynamicFont" id=117]
 use_filter = true
-font_data = ExtResource( 14 )
+font_data = ExtResource( 27 )
+fallback/0 = ExtResource( 15 )
 
-[sub_resource type="DynamicFont" id=77]
-size = 28
-outline_size = 3
-outline_color = Color( 0, 0, 0, 0.207843 )
+[sub_resource type="DynamicFont" id=118]
 use_filter = true
-extra_spacing_char = 1
-font_data = ExtResource( 14 )
+font_data = ExtResource( 50 )
+fallback/0 = ExtResource( 15 )
 
-[sub_resource type="DynamicFont" id=78]
-size = 28
-outline_size = 3
-outline_color = Color( 0, 0, 0, 0.207843 )
+[sub_resource type="DynamicFont" id=99]
 use_filter = true
-font_data = ExtResource( 14 )
+font_data = ExtResource( 27 )
+fallback/0 = ExtResource( 15 )
 
-[sub_resource type="DynamicFont" id=79]
-size = 72
-outline_size = 3
-outline_color = Color( 0, 0, 0, 0.207843 )
+[sub_resource type="DynamicFont" id=119]
+size = 20
 use_filter = true
-extra_spacing_top = -6
-font_data = ExtResource( 15 )
+font_data = ExtResource( 27 )
+fallback/0 = ExtResource( 15 )
 
-[sub_resource type="StyleBoxFlat" id=80]
-bg_color = Color( 0.654902, 0.654902, 0.654902, 0.588235 )
+[sub_resource type="StyleBoxFlat" id=120]
+bg_color = Color( 0.12549, 0.0941176, 0.258824, 1 )
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+corner_detail = 10
+shadow_color = Color( 0.368627, 0.466667, 1, 0.6 )
+shadow_size = 7
+anti_aliasing_size = 1.761
 
-[sub_resource type="StyleBoxFlat" id=81]
-bg_color = Color( 0.623529, 0.623529, 0.623529, 0.509804 )
+[sub_resource type="StyleBoxFlat" id=121]
+bg_color = Color( 0.0627451, 0.0431373, 0.152941, 1 )
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+corner_detail = 10
+shadow_color = Color( 0.403922, 0.494118, 1, 0.721569 )
+shadow_size = 12
+anti_aliasing_size = 1.761
 
-[sub_resource type="StyleBoxEmpty" id=82]
+[sub_resource type="StyleBoxEmpty" id=122]
 
-[sub_resource type="StyleBoxFlat" id=83]
-bg_color = Color( 0.211765, 0.211765, 0.211765, 0.443137 )
+[sub_resource type="StyleBoxFlat" id=123]
+bg_color = Color( 0.0627451, 0.0470588, 0.141176, 1 )
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+corner_detail = 10
+shadow_color = Color( 0.1961, 0.246185, 0.53, 0.6 )
+anti_aliasing_size = 1.761
 
-[sub_resource type="StyleBoxFlat" id=84]
-bg_color = Color( 0.503906, 0.503906, 0.503906, 0.509804 )
+[sub_resource type="StyleBoxFlat" id=124]
+bg_color = Color( 0.105882, 0.0784314, 0.235294, 1 )
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+corner_detail = 10
+shadow_color = Color( 0.368627, 0.466667, 1, 0.6 )
+shadow_size = 5
+anti_aliasing_size = 1.761
 
-[sub_resource type="ShortCut" id=85]
-
-[sub_resource type="StyleBoxFlat" id=156]
-content_margin_left = 6.0
-content_margin_right = 6.0
-bg_color = Color( 0, 0, 0, 0.313726 )
+[sub_resource type="StyleBoxFlat" id=88]
+bg_color = Color( 0.498039, 0.894118, 1, 1 )
 corner_radius_top_left = 6
 corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 
-[sub_resource type="DynamicFont" id=89]
+[sub_resource type="DynamicFont" id=97]
 size = 24
 use_filter = true
 font_data = ExtResource( 27 )
@@ -327,10 +321,58 @@ use_filter = true
 font_data = ExtResource( 2 )
 fallback/0 = ExtResource( 15 )
 
-[sub_resource type="DynamicFont" id=91]
+[sub_resource type="DynamicFont" id=89]
+size = 24
+use_filter = true
+font_data = ExtResource( 27 )
+fallback/0 = ExtResource( 15 )
+
+[sub_resource type="Shader" id=131]
+code = "shader_type canvas_item;
+
+uniform float amount = 0.0;
+
+void fragment() {
+	vec2 uv = UV + vec2(TIME * -0.07);
+	float mult = ( 0.8 + (( 1.0 - amount ) * 0.2) + (amount * 0.2 * sin(length( uv*38.0) )) );
+	COLOR.rgb *= texture(TEXTURE,UV).rgb * mult;
+	COLOR.a *= texture(TEXTURE,UV).a;
+	
+}"
+
+[sub_resource type="ShaderMaterial" id=126]
+shader = SubResource( 131 )
+shader_param/amount = 0.0
+
+[sub_resource type="DynamicFont" id=176]
+size = 418
+use_filter = true
+extra_spacing_char = -59
+font_data = ExtResource( 27 )
+
+[sub_resource type="DynamicFont" id=127]
+size = 35
+use_filter = true
+font_data = ExtResource( 27 )
+
+[sub_resource type="DynamicFont" id=105]
+size = 28
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=106]
 use_filter = true
 font_data = ExtResource( 2 )
 fallback/0 = ExtResource( 15 )
+
+[sub_resource type="DynamicFont" id=107]
+size = 24
+use_filter = true
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=108]
+size = 24
+use_filter = true
+font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=92]
 size = 14
@@ -435,143 +477,91 @@ size = 12
 use_filter = true
 font_data = ExtResource( 2 )
 
-[sub_resource type="DynamicFont" id=97]
+[sub_resource type="ButtonGroup" id=67]
+
+[sub_resource type="DynamicFont" id=71]
+size = 32
+outline_size = 3
+outline_color = Color( 0, 0, 0, 0.207843 )
+use_filter = true
+font_data = ExtResource( 14 )
+
+[sub_resource type="DynamicFont" id=75]
+size = 32
+outline_size = 3
+outline_color = Color( 0, 0, 0, 0.207843 )
+use_filter = true
+extra_spacing_char = 1
+font_data = ExtResource( 14 )
+
+[sub_resource type="DynamicFont" id=76]
 size = 24
+outline_size = 3
+outline_color = Color( 0, 0, 0, 0.207843 )
 use_filter = true
-font_data = ExtResource( 27 )
-fallback/0 = ExtResource( 15 )
+font_data = ExtResource( 14 )
 
-[sub_resource type="DynamicFont" id=162]
-size = 18
-use_filter = true
-font_data = ExtResource( 27 )
-fallback/0 = ExtResource( 15 )
-
-[sub_resource type="DynamicFont" id=98]
-size = 18
-use_filter = true
-font_data = ExtResource( 27 )
-fallback/0 = ExtResource( 15 )
-
-[sub_resource type="DynamicFont" id=116]
-size = 17
-use_filter = true
-font_data = ExtResource( 27 )
-fallback/0 = ExtResource( 15 )
-
-[sub_resource type="DynamicFont" id=117]
-use_filter = true
-font_data = ExtResource( 27 )
-fallback/0 = ExtResource( 15 )
-
-[sub_resource type="DynamicFont" id=118]
-use_filter = true
-font_data = ExtResource( 50 )
-fallback/0 = ExtResource( 15 )
-
-[sub_resource type="DynamicFont" id=99]
-use_filter = true
-font_data = ExtResource( 27 )
-fallback/0 = ExtResource( 15 )
-
-[sub_resource type="DynamicFont" id=119]
-size = 20
-use_filter = true
-font_data = ExtResource( 27 )
-fallback/0 = ExtResource( 15 )
-
-[sub_resource type="StyleBoxFlat" id=120]
-bg_color = Color( 0.12549, 0.0941176, 0.258824, 1 )
-corner_radius_top_left = 24
-corner_radius_top_right = 24
-corner_radius_bottom_right = 24
-corner_radius_bottom_left = 24
-corner_detail = 10
-shadow_color = Color( 0.368627, 0.466667, 1, 0.6 )
-shadow_size = 7
-anti_aliasing_size = 1.761
-
-[sub_resource type="StyleBoxFlat" id=121]
-bg_color = Color( 0.0627451, 0.0431373, 0.152941, 1 )
-corner_radius_top_left = 24
-corner_radius_top_right = 24
-corner_radius_bottom_right = 24
-corner_radius_bottom_left = 24
-corner_detail = 10
-shadow_color = Color( 0.403922, 0.494118, 1, 0.721569 )
-shadow_size = 12
-anti_aliasing_size = 1.761
-
-[sub_resource type="StyleBoxEmpty" id=122]
-
-[sub_resource type="StyleBoxFlat" id=123]
-bg_color = Color( 0.0627451, 0.0470588, 0.141176, 1 )
-corner_radius_top_left = 24
-corner_radius_top_right = 24
-corner_radius_bottom_right = 24
-corner_radius_bottom_left = 24
-corner_detail = 10
-shadow_color = Color( 0.1961, 0.246185, 0.53, 0.6 )
-anti_aliasing_size = 1.761
-
-[sub_resource type="StyleBoxFlat" id=124]
-bg_color = Color( 0.105882, 0.0784314, 0.235294, 1 )
-corner_radius_top_left = 24
-corner_radius_top_right = 24
-corner_radius_bottom_right = 24
-corner_radius_bottom_left = 24
-corner_detail = 10
-shadow_color = Color( 0.368627, 0.466667, 1, 0.6 )
-shadow_size = 5
-anti_aliasing_size = 1.761
-
-[sub_resource type="StyleBoxFlat" id=88]
-bg_color = Color( 0.498039, 0.894118, 1, 1 )
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
-
-[sub_resource type="Shader" id=131]
-code = "shader_type canvas_item;
-
-uniform float amount = 0.0;
-
-void fragment() {
-	vec2 uv = UV + vec2(TIME * -0.07);
-	float mult = ( 0.8 + (( 1.0 - amount ) * 0.2) + (amount * 0.2 * sin(length( uv*38.0) )) );
-	COLOR.rgb *= texture(TEXTURE,UV).rgb * mult;
-	COLOR.a *= texture(TEXTURE,UV).a;
-	
-}"
-
-[sub_resource type="ShaderMaterial" id=126]
-shader = SubResource( 131 )
-shader_param/amount = 0.0
-
-[sub_resource type="DynamicFont" id=127]
+[sub_resource type="DynamicFont" id=77]
 size = 28
+outline_size = 3
+outline_color = Color( 0, 0, 0, 0.207843 )
 use_filter = true
-font_data = ExtResource( 27 )
+extra_spacing_char = 1
+font_data = ExtResource( 14 )
 
-[sub_resource type="DynamicFont" id=105]
+[sub_resource type="DynamicFont" id=78]
 size = 28
-font_data = ExtResource( 2 )
-
-[sub_resource type="DynamicFont" id=106]
+outline_size = 3
+outline_color = Color( 0, 0, 0, 0.207843 )
 use_filter = true
+font_data = ExtResource( 14 )
+
+[sub_resource type="DynamicFont" id=79]
+size = 72
+outline_size = 3
+outline_color = Color( 0, 0, 0, 0.207843 )
+use_filter = true
+extra_spacing_top = -6
+font_data = ExtResource( 15 )
+
+[sub_resource type="StyleBoxFlat" id=80]
+bg_color = Color( 0.654902, 0.654902, 0.654902, 0.588235 )
+
+[sub_resource type="StyleBoxFlat" id=81]
+bg_color = Color( 0.623529, 0.623529, 0.623529, 0.509804 )
+
+[sub_resource type="StyleBoxEmpty" id=82]
+
+[sub_resource type="StyleBoxFlat" id=83]
+bg_color = Color( 0.211765, 0.211765, 0.211765, 0.443137 )
+
+[sub_resource type="StyleBoxFlat" id=84]
+bg_color = Color( 0.503906, 0.503906, 0.503906, 0.509804 )
+
+[sub_resource type="DynamicFont" id=69]
+size = 14
 font_data = ExtResource( 2 )
 fallback/0 = ExtResource( 15 )
 
-[sub_resource type="DynamicFont" id=107]
-size = 24
-use_filter = true
-font_data = ExtResource( 2 )
+[sub_resource type="StyleBoxFlat" id=59]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 1, 1, 1, 1 )
 
-[sub_resource type="DynamicFont" id=108]
-size = 24
+[sub_resource type="DynamicFont" id=61]
+outline_size = 1
+outline_color = Color( 0, 0, 0, 0.207843 )
 use_filter = true
-font_data = ExtResource( 2 )
+font_data = ExtResource( 14 )
+
+[sub_resource type="DynamicFont" id=68]
+outline_size = 1
+outline_color = Color( 0, 0, 0, 0.207843 )
+use_filter = true
+font_data = ExtResource( 15 )
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0, 0, 0, 1 )
@@ -705,1344 +695,137 @@ pitch_scale = 1.25
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 60.0
+rect_min_size = Vector2( 1220, 0 )
 rect_pivot_offset = Vector2( -398, 64 )
 
-[node name="MapRegistry" type="ReferenceRect" parent="Main"]
+[node name="Maps" type="HBoxContainer" parent="Main"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 4.0
-margin_bottom = -35.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="T" type="ReferenceRect" parent="Main/MapRegistry"]
-anchor_right = 1.0
-margin_bottom = 32.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Search" type="LineEdit" parent="Main/MapRegistry/T"]
-margin_right = 180.0
-margin_bottom = 32.0
-theme = ExtResource( 1 )
-clear_button_enabled = true
-placeholder_text = "Search"
-script = ExtResource( 21 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="AuthorSearch" type="LineEdit" parent="Main/MapRegistry/T"]
-margin_left = 185.0
-margin_right = 310.0
-margin_bottom = 32.0
-theme = ExtResource( 1 )
-clear_button_enabled = true
-placeholder_text = "Author"
-script = ExtResource( 91 )
-
-[node name="D" type="ReferenceRect" parent="Main/MapRegistry/T"]
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -202.0
-script = ExtResource( 20 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="NODIF" type="Panel" parent="Main/MapRegistry/T/D"]
-margin_right = 32.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 32, 32 )
-custom_styles/panel = SubResource( 59 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="TextureRect" type="TextureRect" parent="Main/MapRegistry/T/D/NODIF"]
-modulate = Color( 0.501961, 0.501961, 0.501961, 1 )
-show_behind_parent = true
-material = SubResource( 60 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 2.0
-margin_top = 2.0
-margin_right = -2.0
-margin_bottom = -2.0
-texture = ExtResource( 16 )
-expand = true
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="Label" type="Label" parent="Main/MapRegistry/T/D/NODIF"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-rect_pivot_offset = Vector2( 42, 42 )
-custom_fonts/font = SubResource( 61 )
-text = "N"
-align = 1
-valign = 1
-autowrap = true
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Select" type="Button" parent="Main/MapRegistry/T/D/NODIF"]
-material = SubResource( 62 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_styles/hover = SubResource( 63 )
-custom_styles/pressed = SubResource( 63 )
-custom_styles/focus = SubResource( 64 )
-custom_styles/disabled = SubResource( 65 )
-custom_styles/normal = SubResource( 66 )
-action_mode = 0
-group = SubResource( 67 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="EASY" type="Panel" parent="Main/MapRegistry/T/D"]
-self_modulate = Color( 0, 1, 0, 1 )
-margin_left = 34.0
-margin_right = 66.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 32, 32 )
-custom_styles/panel = SubResource( 59 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="TextureRect" type="TextureRect" parent="Main/MapRegistry/T/D/EASY"]
-modulate = Color( 0.501961, 0.501961, 0.501961, 1 )
-self_modulate = Color( 0, 1, 0, 1 )
-show_behind_parent = true
-material = SubResource( 60 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 2.0
-margin_top = 2.0
-margin_right = -2.0
-margin_bottom = -2.0
-texture = ExtResource( 16 )
-expand = true
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="Label" type="Label" parent="Main/MapRegistry/T/D/EASY"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-rect_pivot_offset = Vector2( 42, 42 )
-custom_fonts/font = SubResource( 61 )
-text = "E"
-align = 1
-valign = 1
-autowrap = true
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Select" type="Button" parent="Main/MapRegistry/T/D/EASY"]
-material = SubResource( 62 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_styles/hover = SubResource( 63 )
-custom_styles/pressed = SubResource( 63 )
-custom_styles/focus = SubResource( 64 )
-custom_styles/disabled = SubResource( 65 )
-custom_styles/normal = SubResource( 66 )
-action_mode = 0
-group = SubResource( 67 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="MEDIUM" type="Panel" parent="Main/MapRegistry/T/D"]
-self_modulate = Color( 1, 0.72549, 0, 1 )
-margin_left = 68.0
-margin_right = 100.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 32, 32 )
-custom_styles/panel = SubResource( 59 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="TextureRect" type="TextureRect" parent="Main/MapRegistry/T/D/MEDIUM"]
-modulate = Color( 0.501961, 0.501961, 0.501961, 1 )
-self_modulate = Color( 1, 0.72549, 0, 1 )
-show_behind_parent = true
-material = SubResource( 60 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 2.0
-margin_top = 2.0
-margin_right = -2.0
-margin_bottom = -2.0
-texture = ExtResource( 16 )
-expand = true
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="Label" type="Label" parent="Main/MapRegistry/T/D/MEDIUM"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-rect_pivot_offset = Vector2( 42, 42 )
-custom_fonts/font = SubResource( 61 )
-text = "M"
-align = 1
-valign = 1
-autowrap = true
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Select" type="Button" parent="Main/MapRegistry/T/D/MEDIUM"]
-material = SubResource( 62 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_styles/hover = SubResource( 63 )
-custom_styles/pressed = SubResource( 63 )
-custom_styles/focus = SubResource( 64 )
-custom_styles/disabled = SubResource( 65 )
-custom_styles/normal = SubResource( 66 )
-action_mode = 0
-group = SubResource( 67 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="HARD" type="Panel" parent="Main/MapRegistry/T/D"]
-self_modulate = Color( 1, 0, 0, 1 )
-margin_left = 102.0
-margin_right = 134.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 32, 32 )
-custom_styles/panel = SubResource( 59 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="TextureRect" type="TextureRect" parent="Main/MapRegistry/T/D/HARD"]
-modulate = Color( 0.501961, 0.501961, 0.501961, 1 )
-self_modulate = Color( 1, 0, 0, 1 )
-show_behind_parent = true
-material = SubResource( 60 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 2.0
-margin_top = 2.0
-margin_right = -2.0
-margin_bottom = -2.0
-texture = ExtResource( 16 )
-expand = true
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="Label" type="Label" parent="Main/MapRegistry/T/D/HARD"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-rect_pivot_offset = Vector2( 42, 42 )
-custom_fonts/font = SubResource( 61 )
-text = "H"
-align = 1
-valign = 1
-autowrap = true
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Select" type="Button" parent="Main/MapRegistry/T/D/HARD"]
-material = SubResource( 62 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_styles/hover = SubResource( 63 )
-custom_styles/pressed = SubResource( 63 )
-custom_styles/focus = SubResource( 64 )
-custom_styles/disabled = SubResource( 65 )
-custom_styles/normal = SubResource( 66 )
-action_mode = 0
-group = SubResource( 67 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="LOGIC" type="Panel" parent="Main/MapRegistry/T/D"]
-self_modulate = Color( 0.843137, 0.415686, 1, 1 )
-margin_left = 136.0
-margin_right = 168.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 32, 32 )
-custom_styles/panel = SubResource( 59 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="TextureRect" type="TextureRect" parent="Main/MapRegistry/T/D/LOGIC"]
-modulate = Color( 0.501961, 0.501961, 0.501961, 1 )
-self_modulate = Color( 0.843137, 0.415686, 1, 1 )
-show_behind_parent = true
-material = SubResource( 60 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 2.0
-margin_top = 2.0
-margin_right = -2.0
-margin_bottom = -2.0
-texture = ExtResource( 16 )
-expand = true
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="Label" type="Label" parent="Main/MapRegistry/T/D/LOGIC"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-rect_pivot_offset = Vector2( 42, 42 )
-custom_fonts/font = SubResource( 61 )
-text = "L"
-align = 1
-valign = 1
-autowrap = true
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Select" type="Button" parent="Main/MapRegistry/T/D/LOGIC"]
-material = SubResource( 62 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_styles/hover = SubResource( 63 )
-custom_styles/pressed = SubResource( 63 )
-custom_styles/focus = SubResource( 64 )
-custom_styles/disabled = SubResource( 65 )
-custom_styles/normal = SubResource( 66 )
-action_mode = 0
-group = SubResource( 67 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="AMOGUS" type="Panel" parent="Main/MapRegistry/T/D"]
-self_modulate = Color( 0.211765, 0.188235, 0.309804, 1 )
-margin_left = 170.0
-margin_right = 202.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 32, 32 )
-custom_styles/panel = SubResource( 59 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="TextureRect" type="TextureRect" parent="Main/MapRegistry/T/D/AMOGUS"]
-modulate = Color( 0.501961, 0.501961, 0.501961, 1 )
-self_modulate = Color( 0.211765, 0.188235, 0.309804, 1 )
-show_behind_parent = true
-material = SubResource( 60 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 2.0
-margin_top = 2.0
-margin_right = -2.0
-margin_bottom = -2.0
-texture = ExtResource( 16 )
-expand = true
-
-[node name="Label" type="Label" parent="Main/MapRegistry/T/D/AMOGUS"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_right = -1.0
-margin_bottom = -3.0
-custom_fonts/font = SubResource( 68 )
-text = "助"
-align = 1
-valign = 1
-autowrap = true
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Select" type="Button" parent="Main/MapRegistry/T/D/AMOGUS"]
-material = SubResource( 62 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_styles/hover = SubResource( 63 )
-custom_styles/pressed = SubResource( 63 )
-custom_styles/focus = SubResource( 64 )
-custom_styles/disabled = SubResource( 65 )
-custom_styles/normal = SubResource( 66 )
-action_mode = 0
-group = SubResource( 67 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Broken" type="CheckBox" parent="Main/MapRegistry/T"]
-margin_left = 316.0
-margin_right = 392.0
-margin_bottom = 32.0
-theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
-custom_colors/font_color_focus = Color( 0.670588, 0.556863, 0.556863, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
-custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
-custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
-custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
-custom_fonts/font = SubResource( 69 )
-action_mode = 0
-text = "broken"
-flat = true
-script = ExtResource( 19 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Online" type="CheckBox" parent="Main/MapRegistry/T"]
-margin_left = 392.0
-margin_right = 468.0
-margin_bottom = 32.0
-theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
-custom_colors/font_color_focus = Color( 0.670588, 0.556863, 0.556863, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
-custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
-custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
-custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
-custom_fonts/font = SubResource( 69 )
-pressed = true
-action_mode = 0
-text = "online"
-flat = true
-script = ExtResource( 92 )
-
-[node name="AutoSwitch" type="CheckBox" parent="Main/MapRegistry/T"]
-margin_left = 602.0
-margin_right = 735.0
-margin_bottom = 32.0
-theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
-custom_colors/font_color_focus = Color( 0.670588, 0.556863, 0.556863, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
-custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
-custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
-custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
-custom_fonts/font = SubResource( 69 )
-action_mode = 0
-text = "auto play screen"
-flat = true
-script = ExtResource( 47 )
-
-[node name="DiffSort" type="CheckBox" parent="Main/MapRegistry/T"]
-margin_left = 461.0
-margin_right = 550.0
-margin_bottom = 32.0
-theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
-custom_colors/font_color_focus = Color( 0.670588, 0.556863, 0.556863, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
-custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
-custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
-custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
-custom_fonts/font = SubResource( 69 )
-custom_icons/checked = ExtResource( 24 )
-custom_icons/unchecked = ExtResource( 25 )
-action_mode = 0
-text = "difficulty"
-flat = true
-script = ExtResource( 17 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="NameSort" type="CheckBox" parent="Main/MapRegistry/T"]
-margin_left = 543.0
-margin_right = 609.0
-margin_bottom = 32.0
-theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
-custom_colors/font_color_focus = Color( 0.670588, 0.556863, 0.556863, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
-custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
-custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
-custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
-custom_fonts/font = SubResource( 69 )
-custom_icons/checked = ExtResource( 24 )
-custom_icons/unchecked = ExtResource( 25 )
-action_mode = 0
-text = "name"
-flat = true
-script = ExtResource( 23 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="S" type="Control" parent="Main/MapRegistry"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 35.0
-rect_clip_content = true
-
-[node name="Random" type="Button" parent="Main/MapRegistry/S"]
-margin_left = 6.0
-margin_top = 1.0
-margin_right = 204.0
-margin_bottom = 29.0
-theme = ExtResource( 1 )
-action_mode = 0
-text = "Select random from search"
-
-[node name="G" type="GridContainer" parent="Main/MapRegistry/S"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 62.0
-margin_top = 40.0
-margin_right = -62.0
-margin_bottom = -34.0
-grow_horizontal = 0
-custom_constants/vseparation = 4
-custom_constants/hseparation = 4
-columns = 5
-script = ExtResource( 22 )
-
-[node name="Press" type="AudioStreamPlayer" parent="Main/MapRegistry/S/G"]
-stream = ExtResource( 5 )
-volume_db = -35.0
-pitch_scale = 1.25
-
-[node name="NODIF" type="Panel" parent="Main/MapRegistry/S/G"]
-margin_right = 128.0
-margin_bottom = 128.0
-rect_min_size = Vector2( 128, 128 )
-custom_styles/panel = SubResource( 70 )
-script = ExtResource( 18 )
-
-[node name="TextureRect" type="TextureRect" parent="Main/MapRegistry/S/G/NODIF"]
-modulate = Color( 0.501961, 0.501961, 0.501961, 1 )
-show_behind_parent = true
-material = SubResource( 60 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 6.0
-margin_top = 6.0
-margin_right = -6.0
-margin_bottom = -6.0
-texture = ExtResource( 16 )
-expand = true
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="Label" type="Label" parent="Main/MapRegistry/S/G/NODIF"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 6.0
-margin_top = 6.0
-margin_right = -6.0
-margin_bottom = -6.0
-rect_pivot_offset = Vector2( 42, 42 )
-custom_fonts/font = SubResource( 71 )
-text = "N/A"
-align = 1
-valign = 1
-autowrap = true
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Cover" type="TextureRect" parent="Main/MapRegistry/S/G/NODIF"]
-visible = false
-material = SubResource( 72 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 6.0
-margin_top = 6.0
-margin_right = -6.0
-margin_bottom = -6.0
-expand = true
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="F" type="TextureRect" parent="Main/MapRegistry/S/G/NODIF"]
-visible = false
-modulate = Color( 1, 0.36, 0.36, 1 )
-margin_left = -1.0
-margin_top = -1.0
-margin_right = 31.0
-margin_bottom = 31.0
-texture = ExtResource( 26 )
-expand = true
-stretch_mode = 6
-script = ExtResource( 46 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Cloud" type="TextureRect" parent="Main/MapRegistry/S/G/NODIF"]
-visible = false
-modulate = Color( 1, 1, 1, 0.384314 )
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -41.0
-margin_top = -38.0
-margin_right = -9.0
-margin_bottom = -6.0
-texture = ExtResource( 67 )
-expand = true
-stretch_mode = 6
-
-[node name="Select" type="Button" parent="Main/MapRegistry/S/G/NODIF"]
-material = SubResource( 62 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_styles/hover = SubResource( 63 )
-custom_styles/pressed = SubResource( 73 )
-custom_styles/focus = SubResource( 64 )
-custom_styles/disabled = SubResource( 65 )
-custom_styles/normal = SubResource( 66 )
-disabled = true
-toggle_mode = true
-action_mode = 0
-group = SubResource( 67 )
-
-[node name="Name" type="Label" parent="Main/MapRegistry/S/G/NODIF"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 10.0
-margin_top = 6.0
-margin_right = -10.0
-margin_bottom = -6.0
-custom_constants/line_spacing = 0
-custom_fonts/font = SubResource( 74 )
-text = "OR3O
-[bongo cat & friends] meow"
-align = 1
-valign = 1
-autowrap = true
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="EASY" type="Panel" parent="Main/MapRegistry/S/G"]
-self_modulate = Color( 0, 1, 0, 1 )
-margin_left = 132.0
-margin_right = 260.0
-margin_bottom = 128.0
-rect_min_size = Vector2( 128, 128 )
-custom_styles/panel = SubResource( 70 )
-script = ExtResource( 18 )
-
-[node name="TextureRect" type="TextureRect" parent="Main/MapRegistry/S/G/EASY"]
-modulate = Color( 0.501961, 0.501961, 0.501961, 1 )
-self_modulate = Color( 0, 1, 0, 1 )
-show_behind_parent = true
-material = SubResource( 60 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 6.0
-margin_top = 6.0
-margin_right = -6.0
-margin_bottom = -6.0
-texture = ExtResource( 16 )
-expand = true
-
-[node name="Label" type="Label" parent="Main/MapRegistry/S/G/EASY"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 6.0
-margin_top = 6.0
-margin_right = -6.0
-margin_bottom = -6.0
-custom_fonts/font = SubResource( 75 )
-text = "EASY"
-align = 1
-valign = 1
-autowrap = true
-clip_text = true
-
-[node name="Cover" type="TextureRect" parent="Main/MapRegistry/S/G/EASY"]
-visible = false
-material = SubResource( 72 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 6.0
-margin_top = 6.0
-margin_right = -6.0
-margin_bottom = -6.0
-expand = true
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="F" type="TextureRect" parent="Main/MapRegistry/S/G/EASY"]
-visible = false
-modulate = Color( 0.690196, 0.141176, 1, 1 )
-margin_left = -1.0
-margin_top = -1.0
-margin_right = 31.0
-margin_bottom = 31.0
-texture = ExtResource( 26 )
-expand = true
-stretch_mode = 6
-script = ExtResource( 46 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Cloud" type="TextureRect" parent="Main/MapRegistry/S/G/EASY"]
-visible = false
-modulate = Color( 1, 1, 1, 0.384314 )
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -41.0
-margin_top = -38.0
-margin_right = -9.0
-margin_bottom = -6.0
-texture = ExtResource( 67 )
-expand = true
-stretch_mode = 6
-
-[node name="Select" type="Button" parent="Main/MapRegistry/S/G/EASY"]
-material = SubResource( 62 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_styles/hover = SubResource( 63 )
-custom_styles/pressed = SubResource( 73 )
-custom_styles/focus = SubResource( 64 )
-custom_styles/disabled = SubResource( 65 )
-custom_styles/normal = SubResource( 66 )
-disabled = true
-toggle_mode = true
-action_mode = 0
-group = SubResource( 67 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Name" type="Label" parent="Main/MapRegistry/S/G/EASY"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 10.0
-margin_top = 6.0
-margin_right = -10.0
-margin_bottom = -6.0
-custom_constants/line_spacing = 0
-custom_fonts/font = SubResource( 74 )
-text = "OR3O
-[bongo cat & friends] meow"
-align = 1
-valign = 1
-autowrap = true
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="MEDIUM" type="Panel" parent="Main/MapRegistry/S/G"]
-self_modulate = Color( 1, 0.72549, 0, 1 )
-margin_left = 264.0
-margin_right = 392.0
-margin_bottom = 128.0
-rect_min_size = Vector2( 128, 128 )
-custom_styles/panel = SubResource( 70 )
-script = ExtResource( 18 )
-
-[node name="TextureRect" type="TextureRect" parent="Main/MapRegistry/S/G/MEDIUM"]
-modulate = Color( 0.501961, 0.501961, 0.501961, 1 )
-self_modulate = Color( 1, 0.72549, 0, 1 )
-show_behind_parent = true
-material = SubResource( 60 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 6.0
-margin_top = 6.0
-margin_right = -6.0
-margin_bottom = -6.0
-texture = ExtResource( 16 )
-expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="Main/MapRegistry/S/G/MEDIUM"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 6.0
-margin_top = 6.0
-margin_right = -6.0
-margin_bottom = -6.0
-custom_fonts/font = SubResource( 76 )
-text = "MEDIUM"
-align = 1
-valign = 1
-autowrap = true
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Cover" type="TextureRect" parent="Main/MapRegistry/S/G/MEDIUM"]
-visible = false
-material = SubResource( 72 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 6.0
-margin_top = 6.0
-margin_right = -6.0
-margin_bottom = -6.0
-expand = true
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="F" type="TextureRect" parent="Main/MapRegistry/S/G/MEDIUM"]
-visible = false
-modulate = Color( 0.2548, 0.57148, 0.91, 1 )
-margin_left = -1.0
-margin_top = -1.0
-margin_right = 31.0
-margin_bottom = 31.0
-texture = ExtResource( 26 )
-expand = true
-stretch_mode = 6
-script = ExtResource( 46 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Cloud" type="TextureRect" parent="Main/MapRegistry/S/G/MEDIUM"]
-visible = false
-modulate = Color( 1, 1, 1, 0.384314 )
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -41.0
-margin_top = -38.0
-margin_right = -9.0
-margin_bottom = -6.0
-texture = ExtResource( 67 )
-expand = true
-stretch_mode = 6
-
-[node name="Select" type="Button" parent="Main/MapRegistry/S/G/MEDIUM"]
-material = SubResource( 62 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_styles/hover = SubResource( 63 )
-custom_styles/pressed = SubResource( 73 )
-custom_styles/focus = SubResource( 64 )
-custom_styles/disabled = SubResource( 65 )
-custom_styles/normal = SubResource( 66 )
-disabled = true
-toggle_mode = true
-action_mode = 0
-group = SubResource( 67 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Name" type="Label" parent="Main/MapRegistry/S/G/MEDIUM"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 10.0
-margin_top = 6.0
-margin_right = -10.0
-margin_bottom = -6.0
-custom_constants/line_spacing = 0
-custom_fonts/font = SubResource( 74 )
-text = "OR3O
-[bongo cat & friends] meow"
-align = 1
-valign = 1
-autowrap = true
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="HARD" type="Panel" parent="Main/MapRegistry/S/G"]
-self_modulate = Color( 1, 0, 0, 1 )
-margin_left = 396.0
-margin_right = 524.0
-margin_bottom = 128.0
-rect_min_size = Vector2( 128, 128 )
-custom_styles/panel = SubResource( 70 )
-script = ExtResource( 18 )
-
-[node name="TextureRect" type="TextureRect" parent="Main/MapRegistry/S/G/HARD"]
-modulate = Color( 0.501961, 0.501961, 0.501961, 1 )
-self_modulate = Color( 1, 0, 0, 1 )
-show_behind_parent = true
-material = SubResource( 60 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 6.0
-margin_top = 6.0
-margin_right = -6.0
-margin_bottom = -6.0
-texture = ExtResource( 16 )
-expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="Main/MapRegistry/S/G/HARD"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 6.0
-margin_top = 6.0
-margin_right = -6.0
-margin_bottom = -6.0
-custom_fonts/font = SubResource( 77 )
-text = "HARD"
-align = 1
-valign = 1
-autowrap = true
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Cover" type="TextureRect" parent="Main/MapRegistry/S/G/HARD"]
-visible = false
-material = SubResource( 72 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 6.0
-margin_top = 6.0
-margin_right = -6.0
-margin_bottom = -6.0
-expand = true
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="F" type="TextureRect" parent="Main/MapRegistry/S/G/HARD"]
-visible = false
-modulate = Color( 0.321569, 0.662745, 0.25098, 1 )
-margin_left = -1.0
-margin_top = -1.0
-margin_right = 31.0
-margin_bottom = 31.0
-texture = ExtResource( 26 )
-expand = true
-stretch_mode = 6
-script = ExtResource( 46 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Cloud" type="TextureRect" parent="Main/MapRegistry/S/G/HARD"]
-visible = false
-modulate = Color( 1, 1, 1, 0.384314 )
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -41.0
-margin_top = -38.0
-margin_right = -9.0
-margin_bottom = -6.0
-texture = ExtResource( 67 )
-expand = true
-stretch_mode = 6
-
-[node name="Select" type="Button" parent="Main/MapRegistry/S/G/HARD"]
-material = SubResource( 62 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_styles/hover = SubResource( 63 )
-custom_styles/pressed = SubResource( 73 )
-custom_styles/focus = SubResource( 64 )
-custom_styles/disabled = SubResource( 65 )
-custom_styles/normal = SubResource( 66 )
-disabled = true
-toggle_mode = true
-action_mode = 0
-group = SubResource( 67 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Name" type="Label" parent="Main/MapRegistry/S/G/HARD"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 10.0
-margin_top = 6.0
-margin_right = -10.0
-margin_bottom = -6.0
-custom_constants/line_spacing = 0
-custom_fonts/font = SubResource( 74 )
-text = "OR3O
-[bongo cat & friends] meow"
-align = 1
-valign = 1
-autowrap = true
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="LOGIC" type="Panel" parent="Main/MapRegistry/S/G"]
-self_modulate = Color( 0.843137, 0.415686, 1, 1 )
-margin_left = 528.0
-margin_right = 656.0
-margin_bottom = 128.0
-rect_min_size = Vector2( 128, 128 )
-custom_styles/panel = SubResource( 70 )
-script = ExtResource( 18 )
-
-[node name="TextureRect" type="TextureRect" parent="Main/MapRegistry/S/G/LOGIC"]
-modulate = Color( 0.501961, 0.501961, 0.501961, 1 )
-self_modulate = Color( 0.843137, 0.415686, 1, 1 )
-show_behind_parent = true
-material = SubResource( 60 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 6.0
-margin_top = 6.0
-margin_right = -6.0
-margin_bottom = -6.0
-texture = ExtResource( 16 )
-expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="Main/MapRegistry/S/G/LOGIC"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 6.0
-margin_top = 6.0
-margin_right = -6.0
-margin_bottom = -6.0
-custom_fonts/font = SubResource( 78 )
-text = "LOGIC?"
-align = 1
-valign = 1
-autowrap = true
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Cover" type="TextureRect" parent="Main/MapRegistry/S/G/LOGIC"]
-visible = false
-material = SubResource( 72 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 6.0
-margin_top = 6.0
-margin_right = -6.0
-margin_bottom = -6.0
-expand = true
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="F" type="TextureRect" parent="Main/MapRegistry/S/G/LOGIC"]
-visible = false
-margin_left = -1.0
-margin_top = -1.0
-margin_right = 31.0
-margin_bottom = 31.0
-texture = ExtResource( 26 )
-expand = true
-stretch_mode = 6
-script = ExtResource( 46 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Cloud" type="TextureRect" parent="Main/MapRegistry/S/G/LOGIC"]
-visible = false
-modulate = Color( 1, 1, 1, 0.384314 )
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -41.0
-margin_top = -38.0
-margin_right = -9.0
-margin_bottom = -6.0
-texture = ExtResource( 67 )
-expand = true
-stretch_mode = 6
-
-[node name="Select" type="Button" parent="Main/MapRegistry/S/G/LOGIC"]
-material = SubResource( 62 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_styles/hover = SubResource( 63 )
-custom_styles/pressed = SubResource( 73 )
-custom_styles/focus = SubResource( 64 )
-custom_styles/disabled = SubResource( 65 )
-custom_styles/normal = SubResource( 66 )
-disabled = true
-toggle_mode = true
-action_mode = 0
-group = SubResource( 67 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Name" type="Label" parent="Main/MapRegistry/S/G/LOGIC"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 10.0
-margin_top = 6.0
-margin_right = -10.0
-margin_bottom = -6.0
-custom_constants/line_spacing = 0
-custom_fonts/font = SubResource( 74 )
-text = "OR3O
-[bongo cat & friends] meow"
-align = 1
-valign = 1
-autowrap = true
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="AMOGUS" type="Panel" parent="Main/MapRegistry/S/G"]
-self_modulate = Color( 0.211765, 0.188235, 0.309804, 1 )
-margin_top = 132.0
-margin_right = 128.0
-margin_bottom = 260.0
-rect_min_size = Vector2( 128, 128 )
-custom_styles/panel = SubResource( 70 )
-script = ExtResource( 18 )
-
-[node name="TextureRect" type="TextureRect" parent="Main/MapRegistry/S/G/AMOGUS"]
-modulate = Color( 0.501961, 0.501961, 0.501961, 1 )
-self_modulate = Color( 0.211765, 0.188235, 0.309804, 1 )
-show_behind_parent = true
-material = SubResource( 60 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 6.0
-margin_top = 6.0
-margin_right = -6.0
-margin_bottom = -6.0
-texture = ExtResource( 16 )
-expand = true
-
-[node name="Label" type="Label" parent="Main/MapRegistry/S/G/AMOGUS"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 6.0
-margin_top = 6.0
-margin_right = -6.0
-margin_bottom = -6.0
-custom_fonts/font = SubResource( 79 )
-text = "助"
-align = 1
-valign = 1
-autowrap = true
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Cover" type="TextureRect" parent="Main/MapRegistry/S/G/AMOGUS"]
-visible = false
-material = SubResource( 72 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 6.0
-margin_top = 6.0
-margin_right = -6.0
-margin_bottom = -6.0
-expand = true
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="F" type="TextureRect" parent="Main/MapRegistry/S/G/AMOGUS"]
-visible = false
-modulate = Color( 0.419608, 0.498039, 1, 1 )
-margin_left = -1.0
-margin_top = -1.0
-margin_right = 31.0
-margin_bottom = 31.0
-texture = ExtResource( 26 )
-expand = true
-stretch_mode = 6
-script = ExtResource( 46 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Cloud" type="TextureRect" parent="Main/MapRegistry/S/G/AMOGUS"]
-visible = false
-modulate = Color( 1, 1, 1, 0.384314 )
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -41.0
-margin_top = -38.0
-margin_right = -9.0
-margin_bottom = -6.0
-texture = ExtResource( 67 )
-expand = true
-stretch_mode = 6
-
-[node name="Select" type="Button" parent="Main/MapRegistry/S/G/AMOGUS"]
-material = SubResource( 62 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_styles/hover = SubResource( 63 )
-custom_styles/pressed = SubResource( 73 )
-custom_styles/focus = SubResource( 64 )
-custom_styles/disabled = SubResource( 65 )
-custom_styles/normal = SubResource( 66 )
-disabled = true
-toggle_mode = true
-action_mode = 0
-group = SubResource( 67 )
-
-[node name="Name" type="Label" parent="Main/MapRegistry/S/G/AMOGUS"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 10.0
-margin_top = 6.0
-margin_right = -10.0
-margin_bottom = -6.0
-custom_constants/line_spacing = 0
-custom_fonts/font = SubResource( 74 )
-text = "OR3O
-[bongo cat & friends] meow"
-align = 1
-valign = 1
-autowrap = true
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="P" type="Button" parent="Main/MapRegistry/S"]
-anchor_bottom = 1.0
-margin_left = 724.0
-margin_top = 34.0
-margin_right = 774.0
-margin_bottom = -28.0
-theme = ExtResource( 1 )
-custom_styles/hover = SubResource( 80 )
-custom_styles/pressed = SubResource( 81 )
-custom_styles/focus = SubResource( 82 )
-custom_styles/disabled = SubResource( 83 )
-custom_styles/normal = SubResource( 84 )
-shortcut_in_tooltip = false
-action_mode = 0
-shortcut = SubResource( 85 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="M" type="Button" parent="Main/MapRegistry/S"]
-anchor_bottom = 1.0
-margin_left = 6.0
-margin_top = 34.0
-margin_right = 56.0
-margin_bottom = -28.0
-theme = ExtResource( 1 )
-custom_styles/hover = SubResource( 80 )
-custom_styles/pressed = SubResource( 81 )
-custom_styles/focus = SubResource( 82 )
-custom_styles/disabled = SubResource( 83 )
-custom_styles/normal = SubResource( 84 )
-shortcut_in_tooltip = false
-action_mode = 0
-
-[node name="Results" type="HBoxContainer" parent="Main"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 12.0
-margin_top = 4.0
-margin_bottom = -35.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 1220, 720 )
+size_flags_horizontal = 2
+size_flags_vertical = 7
+
+[node name="Results" type="HBoxContainer" parent="Main/Maps"]
+margin_right = 652.0
+margin_bottom = 742.0
+rect_min_size = Vector2( 0, 600 )
+size_flags_horizontal = 7
+size_flags_vertical = 7
 custom_constants/separation = 15
 alignment = 1
 script = ExtResource( 93 )
 
-[node name="CenterPush" type="VBoxContainer" parent="Main/Results"]
+[node name="VSeparator" type="VSeparator" parent="Main/Maps/Results"]
 visible = false
-margin_right = 125.0
-margin_bottom = 681.0
+modulate = Color( 1, 1, 1, 0 )
+margin_right = 4.0
+margin_bottom = 742.0
 size_flags_horizontal = 3
-alignment = 2
+size_flags_stretch_ratio = 0.35
 
-[node name="Button" type="Button" parent="Main/Results/CenterPush"]
-margin_top = 654.0
-margin_right = 125.0
-margin_bottom = 681.0
-rect_min_size = Vector2( 125, 27 )
-theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.729412, 0.729412, 0.729412, 1 )
-custom_colors/font_color_focus = Color( 0.729412, 0.729412, 0.729412, 1 )
-custom_colors/font_color = Color( 0.729412, 0.729412, 0.729412, 1 )
-custom_colors/font_color_hover = Color( 0.729412, 0.729412, 0.729412, 1 )
-custom_colors/font_color_pressed = Color( 0.729412, 0.729412, 0.729412, 1 )
-custom_styles/hover = SubResource( 156 )
-custom_styles/pressed = SubResource( 156 )
-custom_styles/disabled = SubResource( 156 )
-custom_styles/normal = SubResource( 156 )
-action_mode = 0
-text = "Move to side"
-clip_text = true
-
-[node name="Results" type="ReferenceRect" parent="Main/Results"]
-margin_right = 1200.0
-margin_bottom = 681.0
-rect_min_size = Vector2( 1200, 0 )
+[node name="Results" type="VBoxContainer" parent="Main/Maps/Results"]
+margin_right = 652.0
+margin_bottom = 742.0
+rect_min_size = Vector2( 615, 600 )
+size_flags_horizontal = 7
 size_flags_vertical = 3
+alignment = 1
 script = ExtResource( 28 )
 
-[node name="ButtonDisp" type="Control" parent="Main/Results/Results"]
-margin_top = 16.0
-margin_right = 128.0
-margin_bottom = 144.0
+[node name="Actions" type="VBoxContainer" parent="Main/Maps/Results/Results"]
+visible = false
+margin_right = 225.0
+margin_bottom = 89.0
+theme = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
 
-[node name="NODIF" type="Panel" parent="Main/Results/Results/ButtonDisp"]
-margin_right = 128.0
-margin_bottom = 128.0
+[node name="Convert" type="Button" parent="Main/Maps/Results/Results/Actions"]
+margin_right = 225.0
+margin_bottom = 27.0
+rect_min_size = Vector2( 225, 27 )
+theme = ExtResource( 1 )
+action_mode = 0
+text = "Convert map to .sspm"
+clip_text = true
+script = ExtResource( 39 )
+
+[node name="Difficulty" type="OptionButton" parent="Main/Maps/Results/Results/Actions"]
+margin_top = 31.0
+margin_right = 225.0
+margin_bottom = 58.0
+rect_min_size = Vector2( 225, 27 )
+theme = ExtResource( 1 )
+text = "Set difficulty"
+align = 1
+script = ExtResource( 40 )
+
+[node name="ExportTxt" type="Button" parent="Main/Maps/Results/Results/Actions"]
+margin_top = 62.0
+margin_right = 225.0
+margin_bottom = 89.0
+rect_min_size = Vector2( 225, 27 )
+theme = ExtResource( 1 )
+action_mode = 0
+text = "Export map data"
+clip_text = true
+script = ExtResource( 58 )
+
+[node name="SaveFile" type="Node" parent="Main/Maps/Results/Results/Actions/ExportTxt"]
+script = ExtResource( 57 )
+title = "Save map data..."
+initial_path = "~/Downloads"
+filters = PoolStringArray( "*.txt ; Text files" )
+
+[node name="RS" type="VBoxContainer" parent="Main/Maps/Results/Results"]
+margin_right = 652.0
+margin_bottom = 742.0
+rect_min_size = Vector2( 0, 600 )
+size_flags_horizontal = 7
+size_flags_vertical = 7
+alignment = 1
+
+[node name="HSeparator4" type="HSeparator" parent="Main/Maps/Results/Results/RS"]
+modulate = Color( 1, 1, 1, 0 )
+margin_right = 652.0
+margin_bottom = 5.0
+size_flags_vertical = 3
+
+[node name="HSeparator2" type="HSeparator" parent="Main/Maps/Results/Results/RS"]
+margin_top = 9.0
+margin_right = 652.0
+margin_bottom = 14.0
+size_flags_vertical = 3
+
+[node name="H1" type="HBoxContainer" parent="Main/Maps/Results/Results/RS"]
+margin_top = 18.0
+margin_right = 652.0
+margin_bottom = 269.0
+size_flags_horizontal = 7
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.0
+alignment = 1
+
+[node name="ButtonDisp" type="AspectRatioContainer" parent="Main/Maps/Results/Results/RS/H1"]
+margin_right = 220.0
+margin_bottom = 251.0
+rect_min_size = Vector2( 128, 200 )
+size_flags_horizontal = 7
+size_flags_vertical = 7
+
+[node name="NODIF" type="Panel" parent="Main/Maps/Results/Results/RS/H1/ButtonDisp"]
+margin_top = 15.5
+margin_right = 220.0
+margin_bottom = 235.5
 rect_min_size = Vector2( 128, 128 )
 mouse_filter = 1
+size_flags_horizontal = 3
+size_flags_vertical = 3
 custom_styles/panel = SubResource( 70 )
 
-[node name="TextureRect" type="TextureRect" parent="Main/Results/Results/ButtonDisp/NODIF"]
+[node name="TextureRect" type="TextureRect" parent="Main/Maps/Results/Results/RS/H1/ButtonDisp/NODIF"]
 modulate = Color( 0.501961, 0.501961, 0.501961, 1 )
 show_behind_parent = true
 material = SubResource( 60 )
@@ -2055,7 +838,7 @@ margin_bottom = -6.0
 texture = ExtResource( 16 )
 expand = true
 
-[node name="Cover" type="TextureRect" parent="Main/Results/Results/ButtonDisp/NODIF"]
+[node name="Cover" type="TextureRect" parent="Main/Maps/Results/Results/RS/H1/ButtonDisp/NODIF"]
 visible = false
 material = SubResource( 72 )
 anchor_right = 1.0
@@ -2069,7 +852,7 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="F" type="TextureRect" parent="Main/Results/Results/ButtonDisp/NODIF"]
+[node name="F" type="TextureRect" parent="Main/Maps/Results/Results/RS/H1/ButtonDisp/NODIF"]
 visible = false
 modulate = Color( 1, 0.360784, 0.360784, 1 )
 margin_left = -1.0
@@ -2084,7 +867,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Name" type="Label" parent="Main/Results/Results/ButtonDisp/NODIF"]
+[node name="Name" type="Label" parent="Main/Maps/Results/Results/RS/H1/ButtonDisp/NODIF"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 10.0
@@ -2098,16 +881,19 @@ valign = 1
 autowrap = true
 clip_text = true
 
-[node name="EASY" type="Panel" parent="Main/Results/Results/ButtonDisp"]
+[node name="EASY" type="Panel" parent="Main/Maps/Results/Results/RS/H1/ButtonDisp"]
 visible = false
 self_modulate = Color( 0, 1, 0, 1 )
-margin_right = 128.0
-margin_bottom = 128.0
+margin_top = 15.5
+margin_right = 220.0
+margin_bottom = 235.5
 rect_min_size = Vector2( 128, 128 )
 mouse_filter = 1
+size_flags_horizontal = 3
+size_flags_vertical = 3
 custom_styles/panel = SubResource( 70 )
 
-[node name="TextureRect" type="TextureRect" parent="Main/Results/Results/ButtonDisp/EASY"]
+[node name="TextureRect" type="TextureRect" parent="Main/Maps/Results/Results/RS/H1/ButtonDisp/EASY"]
 modulate = Color( 0.501961, 0.501961, 0.501961, 1 )
 self_modulate = Color( 0, 1, 0, 1 )
 show_behind_parent = true
@@ -2124,7 +910,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Cover" type="TextureRect" parent="Main/Results/Results/ButtonDisp/EASY"]
+[node name="Cover" type="TextureRect" parent="Main/Maps/Results/Results/RS/H1/ButtonDisp/EASY"]
 visible = false
 material = SubResource( 72 )
 anchor_right = 1.0
@@ -2138,7 +924,7 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="F" type="TextureRect" parent="Main/Results/Results/ButtonDisp/EASY"]
+[node name="F" type="TextureRect" parent="Main/Maps/Results/Results/RS/H1/ButtonDisp/EASY"]
 visible = false
 modulate = Color( 0.690196, 0.141176, 1, 1 )
 margin_left = -1.0
@@ -2153,7 +939,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Name" type="Label" parent="Main/Results/Results/ButtonDisp/EASY"]
+[node name="Name" type="Label" parent="Main/Maps/Results/Results/RS/H1/ButtonDisp/EASY"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 10.0
@@ -2171,16 +957,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MEDIUM" type="Panel" parent="Main/Results/Results/ButtonDisp"]
+[node name="MEDIUM" type="Panel" parent="Main/Maps/Results/Results/RS/H1/ButtonDisp"]
 visible = false
 self_modulate = Color( 1, 0.72549, 0, 1 )
-margin_right = 128.0
-margin_bottom = 128.0
+margin_top = 15.5
+margin_right = 220.0
+margin_bottom = 235.5
 rect_min_size = Vector2( 128, 128 )
 mouse_filter = 1
+size_flags_horizontal = 3
+size_flags_vertical = 3
 custom_styles/panel = SubResource( 70 )
 
-[node name="TextureRect" type="TextureRect" parent="Main/Results/Results/ButtonDisp/MEDIUM"]
+[node name="TextureRect" type="TextureRect" parent="Main/Maps/Results/Results/RS/H1/ButtonDisp/MEDIUM"]
 modulate = Color( 0.501961, 0.501961, 0.501961, 1 )
 self_modulate = Color( 1, 0.72549, 0, 1 )
 show_behind_parent = true
@@ -2197,7 +986,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Cover" type="TextureRect" parent="Main/Results/Results/ButtonDisp/MEDIUM"]
+[node name="Cover" type="TextureRect" parent="Main/Maps/Results/Results/RS/H1/ButtonDisp/MEDIUM"]
 visible = false
 material = SubResource( 72 )
 anchor_right = 1.0
@@ -2211,7 +1000,7 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="F" type="TextureRect" parent="Main/Results/Results/ButtonDisp/MEDIUM"]
+[node name="F" type="TextureRect" parent="Main/Maps/Results/Results/RS/H1/ButtonDisp/MEDIUM"]
 visible = false
 modulate = Color( 0.2548, 0.57148, 0.91, 1 )
 margin_left = -1.0
@@ -2226,7 +1015,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Name" type="Label" parent="Main/Results/Results/ButtonDisp/MEDIUM"]
+[node name="Name" type="Label" parent="Main/Maps/Results/Results/RS/H1/ButtonDisp/MEDIUM"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 10.0
@@ -2244,16 +1033,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HARD" type="Panel" parent="Main/Results/Results/ButtonDisp"]
+[node name="HARD" type="Panel" parent="Main/Maps/Results/Results/RS/H1/ButtonDisp"]
 visible = false
 self_modulate = Color( 1, 0, 0, 1 )
-margin_right = 128.0
-margin_bottom = 128.0
+margin_top = 15.5
+margin_right = 220.0
+margin_bottom = 235.5
 rect_min_size = Vector2( 128, 128 )
 mouse_filter = 1
+size_flags_horizontal = 3
+size_flags_vertical = 3
 custom_styles/panel = SubResource( 70 )
 
-[node name="TextureRect" type="TextureRect" parent="Main/Results/Results/ButtonDisp/HARD"]
+[node name="TextureRect" type="TextureRect" parent="Main/Maps/Results/Results/RS/H1/ButtonDisp/HARD"]
 modulate = Color( 0.501961, 0.501961, 0.501961, 1 )
 self_modulate = Color( 1, 0, 0, 1 )
 show_behind_parent = true
@@ -2270,7 +1062,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Cover" type="TextureRect" parent="Main/Results/Results/ButtonDisp/HARD"]
+[node name="Cover" type="TextureRect" parent="Main/Maps/Results/Results/RS/H1/ButtonDisp/HARD"]
 visible = false
 material = SubResource( 72 )
 anchor_right = 1.0
@@ -2284,7 +1076,7 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="F" type="TextureRect" parent="Main/Results/Results/ButtonDisp/HARD"]
+[node name="F" type="TextureRect" parent="Main/Maps/Results/Results/RS/H1/ButtonDisp/HARD"]
 visible = false
 modulate = Color( 0.321569, 0.662745, 0.25098, 1 )
 margin_left = -1.0
@@ -2299,7 +1091,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Name" type="Label" parent="Main/Results/Results/ButtonDisp/HARD"]
+[node name="Name" type="Label" parent="Main/Maps/Results/Results/RS/H1/ButtonDisp/HARD"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 10.0
@@ -2317,16 +1109,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="LOGIC" type="Panel" parent="Main/Results/Results/ButtonDisp"]
+[node name="LOGIC" type="Panel" parent="Main/Maps/Results/Results/RS/H1/ButtonDisp"]
 visible = false
 self_modulate = Color( 0.843137, 0.415686, 1, 1 )
-margin_right = 128.0
-margin_bottom = 128.0
+margin_top = 15.5
+margin_right = 220.0
+margin_bottom = 235.5
 rect_min_size = Vector2( 128, 128 )
 mouse_filter = 1
+size_flags_horizontal = 3
+size_flags_vertical = 3
 custom_styles/panel = SubResource( 70 )
 
-[node name="TextureRect" type="TextureRect" parent="Main/Results/Results/ButtonDisp/LOGIC"]
+[node name="TextureRect" type="TextureRect" parent="Main/Maps/Results/Results/RS/H1/ButtonDisp/LOGIC"]
 modulate = Color( 0.501961, 0.501961, 0.501961, 1 )
 self_modulate = Color( 0.843137, 0.415686, 1, 1 )
 show_behind_parent = true
@@ -2343,7 +1138,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Cover" type="TextureRect" parent="Main/Results/Results/ButtonDisp/LOGIC"]
+[node name="Cover" type="TextureRect" parent="Main/Maps/Results/Results/RS/H1/ButtonDisp/LOGIC"]
 visible = false
 material = SubResource( 72 )
 anchor_right = 1.0
@@ -2357,7 +1152,7 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="F" type="TextureRect" parent="Main/Results/Results/ButtonDisp/LOGIC"]
+[node name="F" type="TextureRect" parent="Main/Maps/Results/Results/RS/H1/ButtonDisp/LOGIC"]
 visible = false
 margin_left = -1.0
 margin_top = -1.0
@@ -2371,7 +1166,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Name" type="Label" parent="Main/Results/Results/ButtonDisp/LOGIC"]
+[node name="Name" type="Label" parent="Main/Maps/Results/Results/RS/H1/ButtonDisp/LOGIC"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 10.0
@@ -2389,16 +1184,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TASUKETE" type="Panel" parent="Main/Results/Results/ButtonDisp"]
+[node name="TASUKETE" type="Panel" parent="Main/Maps/Results/Results/RS/H1/ButtonDisp"]
 visible = false
 self_modulate = Color( 0.211765, 0.188235, 0.309804, 1 )
-margin_right = 128.0
-margin_bottom = 128.0
+margin_top = 15.5
+margin_right = 220.0
+margin_bottom = 235.5
 rect_min_size = Vector2( 128, 128 )
 mouse_filter = 1
+size_flags_horizontal = 3
+size_flags_vertical = 3
 custom_styles/panel = SubResource( 70 )
 
-[node name="TextureRect" type="TextureRect" parent="Main/Results/Results/ButtonDisp/TASUKETE"]
+[node name="TextureRect" type="TextureRect" parent="Main/Maps/Results/Results/RS/H1/ButtonDisp/TASUKETE"]
 modulate = Color( 0.501961, 0.501961, 0.501961, 1 )
 self_modulate = Color( 0.211765, 0.188235, 0.309804, 1 )
 show_behind_parent = true
@@ -2412,7 +1210,7 @@ margin_bottom = -6.0
 texture = ExtResource( 16 )
 expand = true
 
-[node name="Cover" type="TextureRect" parent="Main/Results/Results/ButtonDisp/TASUKETE"]
+[node name="Cover" type="TextureRect" parent="Main/Maps/Results/Results/RS/H1/ButtonDisp/TASUKETE"]
 visible = false
 material = SubResource( 72 )
 anchor_right = 1.0
@@ -2426,7 +1224,7 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="F" type="TextureRect" parent="Main/Results/Results/ButtonDisp/TASUKETE"]
+[node name="F" type="TextureRect" parent="Main/Maps/Results/Results/RS/H1/ButtonDisp/TASUKETE"]
 visible = false
 modulate = Color( 0.419608, 0.498039, 1, 1 )
 margin_left = -1.0
@@ -2441,7 +1239,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Name" type="Label" parent="Main/Results/Results/ButtonDisp/TASUKETE"]
+[node name="Name" type="Label" parent="Main/Maps/Results/Results/RS/H1/ButtonDisp/TASUKETE"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 10.0
@@ -2459,10 +1257,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Select" type="Button" parent="Main/Results/Results/ButtonDisp"]
+[node name="Select" type="Button" parent="Main/Maps/Results/Results/RS/H1/ButtonDisp"]
+visible = false
 material = SubResource( 62 )
-anchor_right = 1.0
-anchor_bottom = 1.0
+margin_top = 15.5
+margin_right = 220.0
+margin_bottom = 235.5
 custom_styles/hover = SubResource( 63 )
 custom_styles/pressed = SubResource( 73 )
 custom_styles/focus = SubResource( 64 )
@@ -2470,107 +1270,802 @@ custom_styles/disabled = SubResource( 65 )
 custom_styles/normal = SubResource( 66 )
 action_mode = 0
 
-[node name="Actions" type="VBoxContainer" parent="Main/Results/Results"]
-visible = false
-margin_left = 347.0
-margin_top = 280.0
-margin_right = 572.0
-margin_bottom = 307.0
+[node name="VSeparator" type="VSeparator" parent="Main/Maps/Results/Results/RS/H1"]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 224.0
+margin_right = 228.0
+margin_bottom = 251.0
+size_flags_vertical = 3
+
+[node name="Info" type="VBoxContainer" parent="Main/Maps/Results/Results/RS/H1"]
+margin_left = 232.0
+margin_right = 652.0
+margin_bottom = 251.0
+rect_min_size = Vector2( 0, 225 )
+size_flags_horizontal = 7
+size_flags_vertical = 7
+size_flags_stretch_ratio = 1.9
+custom_constants/separation = 0
+
+[node name="Data" type="HBoxContainer" parent="Main/Maps/Results/Results/RS/H1/Info"]
+margin_right = 420.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Data" type="Label" parent="Main/Maps/Results/Results/RS/H1/Info/Data"]
+margin_right = 420.0
+margin_bottom = 22.0
+focus_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 7
 theme = ExtResource( 1 )
+custom_fonts/font = SubResource( 98 )
+text = "-"
+valign = 1
+
+[node name="Label" type="Label" parent="Main/Maps/Results/Results/RS/H1/Info/Data/Data"]
+visible = false
+margin_left = -85.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.698039, 0.901961, 0.639216, 1 )
+custom_fonts/font = SubResource( 91 )
+text = "Difficulty:"
+align = 2
+valign = 1
+clip_text = true
 __meta__ = {
-"_edit_group_": true
+"_edit_use_anchors_": false
 }
 
-[node name="Convert" type="Button" parent="Main/Results/Results/Actions"]
-margin_right = 225.0
-margin_bottom = 27.0
-rect_min_size = Vector2( 225, 27 )
-theme = ExtResource( 1 )
-action_mode = 0
-text = "Convert map to .sspm"
-clip_text = true
-script = ExtResource( 39 )
+[node name="HSeparator4" type="HSeparator" parent="Main/Maps/Results/Results/RS/H1/Info"]
+modulate = Color( 1, 1, 1, 0 )
+margin_top = 22.0
+margin_right = 420.0
+margin_bottom = 26.0
+rect_min_size = Vector2( 0, 2 )
+size_flags_vertical = 3
 
-[node name="Difficulty" type="OptionButton" parent="Main/Results/Results/Actions"]
-margin_top = 31.0
-margin_right = 225.0
-margin_bottom = 58.0
-rect_min_size = Vector2( 225, 27 )
-theme = ExtResource( 1 )
-text = "Set difficulty"
-align = 1
-script = ExtResource( 40 )
+[node name="Name" type="HBoxContainer" parent="Main/Maps/Results/Results/RS/H1/Info"]
+margin_top = 26.0
+margin_right = 420.0
+margin_bottom = 71.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
-[node name="ExportTxt" type="Button" parent="Main/Results/Results/Actions"]
-margin_top = 62.0
-margin_right = 225.0
-margin_bottom = 89.0
-rect_min_size = Vector2( 225, 27 )
-theme = ExtResource( 1 )
-action_mode = 0
-text = "Export map data"
-clip_text = true
-script = ExtResource( 58 )
-
-[node name="SaveFile" type="Node" parent="Main/Results/Results/Actions/ExportTxt"]
-script = ExtResource( 57 )
-title = "Save map data..."
-initial_path = "~/Downloads"
-filters = PoolStringArray( "*.txt ; Text files" )
-
-[node name="ModsTitle" type="Label" parent="Main/Results/Results"]
-margin_left = 601.0
-margin_top = 15.0
-margin_right = 735.0
-margin_bottom = 53.0
+[node name="Label" type="Label" parent="Main/Maps/Results/Results/RS/H1/Info/Name"]
+visible = false
+margin_top = 24.0
+margin_right = 1.0
+margin_bottom = 44.0
 focus_mode = 2
 theme = ExtResource( 1 )
-custom_colors/font_color = Color( 1, 0.756863, 0.960784, 1 )
-custom_fonts/font = SubResource( 89 )
-text = "Modifiers"
+custom_colors/font_color = Color( 0.698039, 0.901961, 0.639216, 1 )
+custom_fonts/font = SubResource( 91 )
+text = "Name:"
+align = 2
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Hitboxes" type="Label" parent="Main/Results/Results"]
-margin_left = 768.0
-margin_top = 16.0
-margin_right = 1192.0
+[node name="Name" type="Label" parent="Main/Maps/Results/Results/RS/H1/Info/Name"]
+margin_right = 420.0
+margin_bottom = 45.0
+rect_min_size = Vector2( 0, 45 )
+focus_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 7
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.568627, 0.956863, 1, 1 )
+custom_fonts/font = SubResource( 116 )
+text = "-"
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HSeparator3" type="HSeparator" parent="Main/Maps/Results/Results/RS/H1/Info"]
+modulate = Color( 1, 1, 1, 0 )
+margin_top = 71.0
+margin_right = 420.0
+margin_bottom = 81.0
+rect_min_size = Vector2( 0, 10 )
+size_flags_vertical = 3
+
+[node name="SongName" type="HBoxContainer" parent="Main/Maps/Results/Results/RS/H1/Info"]
+visible = false
+margin_top = 21.0
+margin_right = 427.0
 margin_bottom = 46.0
+size_flags_horizontal = 3
+
+[node name="Title" type="Label" parent="Main/Maps/Results/Results/RS/H1/Info/SongName"]
+margin_top = 2.0
+margin_right = 70.0
+margin_bottom = 22.0
 focus_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.698039, 0.901961, 0.639216, 1 )
+custom_fonts/font = SubResource( 91 )
+text = "Song"
+align = 2
+valign = 1
+clip_text = true
+
+[node name="SongName" type="Label" parent="Main/Maps/Results/Results/RS/H1/Info/SongName"]
+margin_left = 74.0
+margin_right = 427.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 0, 25 )
+focus_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 7
+size_flags_stretch_ratio = 5.0
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.952941, 0.752941, 1, 1 )
+custom_fonts/font = SubResource( 117 )
+text = "-"
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Mapper" type="HBoxContainer" parent="Main/Maps/Results/Results/RS/H1/Info"]
+margin_top = 81.0
+margin_right = 420.0
+margin_bottom = 106.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Title" type="Label" parent="Main/Maps/Results/Results/RS/H1/Info/Mapper"]
+margin_right = 61.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 61, 0 )
+focus_mode = 2
+size_flags_vertical = 1
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.698039, 0.901961, 0.639216, 1 )
+custom_fonts/font = SubResource( 91 )
+text = "Map By: "
+align = 2
+clip_text = true
+
+[node name="Mapper" type="Label" parent="Main/Maps/Results/Results/RS/H1/Info/Mapper"]
+margin_left = 65.0
+margin_right = 420.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 0, 25 )
+focus_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 5.0
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.952941, 0.752941, 1, 1 )
+custom_fonts/font = SubResource( 117 )
+text = "-"
+autowrap = true
+
+[node name="Id" type="HBoxContainer" parent="Main/Maps/Results/Results/RS/H1/Info"]
+margin_top = 106.0
+margin_right = 420.0
+margin_bottom = 146.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Title" type="Label" parent="Main/Maps/Results/Results/RS/H1/Info/Id"]
+margin_right = 60.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 60, 0 )
+focus_mode = 2
+size_flags_vertical = 1
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.698039, 0.901961, 0.639216, 1 )
+custom_fonts/font = SubResource( 91 )
+text = "Song ID: "
+align = 2
+clip_text = true
+
+[node name="Id" type="Label" parent="Main/Maps/Results/Results/RS/H1/Info/Id"]
+margin_left = 64.0
+margin_right = 420.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 40 )
+focus_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 5.0
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.6, 0.6, 0.6, 1 )
+custom_fonts/font = SubResource( 118 )
+text = "-"
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SMM" type="HBoxContainer" parent="Main/Maps/Results/Results/RS/H1/Info"]
+visible = false
+margin_top = 146.0
+margin_right = 420.0
+margin_bottom = 166.0
+
+[node name="SMM" type="Label" parent="Main/Maps/Results/Results/RS/H1/Info/SMM"]
+margin_right = 420.0
+margin_bottom = 20.0
+focus_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.760784, 0.490196, 1 )
+custom_fonts/font = SubResource( 91 )
+text = "Single Map Mode"
+valign = 1
+clip_text = true
+
+[node name="Warning" type="HBoxContainer" parent="Main/Maps/Results/Results/RS/H1/Info"]
+visible = false
+margin_top = 71.0
+margin_right = 427.0
+margin_bottom = 71.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Warning" type="Label" parent="Main/Maps/Results/Results/RS/H1/Info/Warning"]
+visible = false
+margin_top = 25.0
+margin_right = 401.0
+margin_bottom = 45.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 1, 0, 1 )
+custom_fonts/font = SubResource( 99 )
+text = "Warning text goes here"
+align = 1
+valign = 1
+
+[node name="HSeparator2" type="HSeparator" parent="Main/Maps/Results/Results/RS/H1/Info"]
+modulate = Color( 1, 1, 1, 0 )
+margin_top = 146.0
+margin_right = 420.0
+margin_bottom = 161.0
+rect_min_size = Vector2( 0, 15 )
+size_flags_vertical = 3
+
+[node name="Run" type="Button" parent="Main/Maps/Results/Results/RS/H1/Info"]
+margin_top = 161.0
+margin_right = 420.0
+margin_bottom = 209.0
+rect_min_size = Vector2( 0, 48 )
+hint_tooltip = "(Spacebar, Xbox A)"
+size_flags_vertical = 2
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.576471, 0.576471, 0.576471, 1 )
+custom_colors/font_color_focus = Color( 0.541176, 1, 0.580392, 1 )
+custom_colors/font_color = Color( 0.541176, 1, 0.580392, 1 )
+custom_colors/font_color_hover = Color( 0.631373, 1, 0.913725, 1 )
+custom_colors/font_color_pressed = Color( 0, 1, 0.976471, 1 )
+custom_fonts/font = SubResource( 119 )
+custom_styles/hover = SubResource( 120 )
+custom_styles/pressed = SubResource( 121 )
+custom_styles/focus = SubResource( 122 )
+custom_styles/disabled = SubResource( 123 )
+custom_styles/normal = SubResource( 124 )
+toggle_mode = true
+action_mode = 0
+text = "Start!"
+script = ExtResource( 30 )
+
+[node name="HSeparator" type="HSeparator" parent="Main/Maps/Results/Results/RS/H1/Info"]
+modulate = Color( 1, 1, 1, 0 )
+margin_top = 209.0
+margin_right = 420.0
+margin_bottom = 219.0
+rect_min_size = Vector2( 0, 10 )
+size_flags_vertical = 3
+
+[node name="Control" type="HBoxContainer" parent="Main/Maps/Results/Results/RS/H1/Info"]
+margin_top = 219.0
+margin_right = 420.0
+margin_bottom = 251.0
+rect_min_size = Vector2( 0, 32 )
+size_flags_vertical = 3
+custom_constants/separation = 12
+
+[node name="Actions" type="MenuButton" parent="Main/Maps/Results/Results/RS/H1/Info/Control"]
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+size_flags_vertical = 2
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+icon = ExtResource( 90 )
+flat = false
+icon_align = 1
+expand_icon = true
+script = ExtResource( 89 )
+
+[node name="Favorite" type="Button" parent="Main/Maps/Results/Results/RS/H1/Info/Control"]
+margin_left = 44.0
+margin_right = 226.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 0, 32 )
+size_flags_horizontal = 3
+size_flags_vertical = 2
+theme = ExtResource( 1 )
+custom_styles/pressed = SubResource( 88 )
+toggle_mode = true
+action_mode = 0
+text = "Favorite"
+script = ExtResource( 38 )
+
+[node name="PreviewMusic" type="Button" parent="Main/Maps/Results/Results/RS/H1/Info/Control"]
+margin_left = 238.0
+margin_right = 420.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 0, 32 )
+size_flags_horizontal = 3
+size_flags_vertical = 2
+theme = ExtResource( 1 )
+action_mode = 0
+text = "Play Music"
+script = ExtResource( 9 )
+
+[node name="Song" type="AudioStreamPlayer" parent="Main/Maps/Results/Results/RS/H1/Info/Control/PreviewMusic"]
+pause_mode = 2
+bus = "Music"
+script = ExtResource( 10 )
+
+[node name="MenuSong" type="AudioStreamPlayer" parent="Main/Maps/Results/Results/RS/H1/Info/Control/PreviewMusic"]
+pause_mode = 2
+stream = ExtResource( 11 )
+volume_db = -10.0
+bus = "Music"
+
+[node name="HSeparator3" type="HSeparator" parent="Main/Maps/Results/Results/RS"]
+modulate = Color( 1, 1, 1, 0 )
+margin_top = 273.0
+margin_right = 652.0
+margin_bottom = 277.0
+
+[node name="HMid" type="HBoxContainer" parent="Main/Maps/Results/Results/RS"]
+margin_top = 281.0
+margin_right = 652.0
+margin_bottom = 321.0
+rect_min_size = Vector2( 0, 40 )
+size_flags_horizontal = 7
+size_flags_vertical = 0
+
+[node name="VSeparator2" type="VSeparator" parent="Main/Maps/Results/Results/RS/HMid"]
+visible = false
+modulate = Color( 1, 1, 1, 0 )
+margin_right = 4.0
+margin_bottom = 40.0
+size_flags_stretch_ratio = 0.2
+
+[node name="Difficulty" type="Label" parent="Main/Maps/Results/Results/RS/HMid"]
+margin_top = 5.0
+margin_right = 213.0
+margin_bottom = 35.0
+focus_mode = 2
+size_flags_horizontal = 7
+theme = ExtResource( 1 )
+custom_fonts/font = SubResource( 97 )
+text = "Eternal Damnation"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="Label" type="Label" parent="Main/Maps/Results/Results/RS/HMid/Difficulty"]
+visible = false
+margin_left = -85.0
+margin_right = -10.0
+margin_bottom = 32.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.698039, 0.901961, 0.639216, 1 )
+custom_fonts/font = SubResource( 91 )
+text = "Difficulty:"
+align = 2
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VSeparator3" type="VSeparator" parent="Main/Maps/Results/Results/RS/HMid"]
+visible = false
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 211.0
+margin_right = 354.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+
+[node name="Hitboxes" type="Label" parent="Main/Maps/Results/Results/RS/HMid"]
+margin_left = 217.0
+margin_top = 10.0
+margin_right = 643.0
+margin_bottom = 30.0
+focus_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.717647, 1, 0.760784, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
 custom_fonts/font = SubResource( 90 )
 text = "Default hitboxes, default hitwindow"
+align = 1
+valign = 1
+
+[node name="VSeparator" type="VSeparator" parent="Main/Maps/Results/Results/RS/HMid"]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 647.0
+margin_right = 651.0
+margin_bottom = 40.0
+
+[node name="HSeparator" type="HSeparator" parent="Main/Maps/Results/Results/RS"]
+margin_top = 325.0
+margin_right = 652.0
+margin_bottom = 330.0
+size_flags_vertical = 3
+
+[node name="HSeparator6" type="HSeparator" parent="Main/Maps/Results/Results/RS"]
+modulate = Color( 1, 1, 1, 0 )
+margin_top = 334.0
+margin_right = 652.0
+margin_bottom = 339.0
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Main/Maps/Results/Results/RS"]
+margin_top = 343.0
+margin_right = 652.0
+margin_bottom = 373.0
+
+[node name="Label" type="Label" parent="Main/Maps/Results/Results/RS/HBoxContainer"]
+margin_top = 5.0
+margin_right = 259.0
+margin_bottom = 25.0
+size_flags_horizontal = 3
+
+[node name="ModsTitle" type="Label" parent="Main/Maps/Results/Results/RS/HBoxContainer"]
+margin_left = 263.0
+margin_right = 652.0
+margin_bottom = 30.0
+focus_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.5
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.756863, 0.960784, 1 )
+custom_fonts/font = SubResource( 89 )
+text = "Modifiers"
+align = 1
+
+[node name="H2" type="HBoxContainer" parent="Main/Maps/Results/Results/RS"]
+margin_top = 377.0
+margin_right = 652.0
+margin_bottom = 727.0
+size_flags_horizontal = 7
+size_flags_vertical = 3
+alignment = 2
+
+[node name="VSeparator2" type="VSeparator" parent="Main/Maps/Results/Results/RS/H2"]
+modulate = Color( 1, 1, 1, 0 )
+margin_right = 4.0
+margin_bottom = 350.0
+size_flags_horizontal = 3
+
+[node name="EndInfo" type="ReferenceRect" parent="Main/Maps/Results/Results/RS/H2"]
+margin_left = 8.0
+margin_right = 282.0
+margin_bottom = 350.0
+rect_min_size = Vector2( 274, 280 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 29 )
+
+[node name="NewBest" type="AudioStreamPlayer" parent="Main/Maps/Results/Results/RS/H2/EndInfo"]
+stream = ExtResource( 31 )
+pitch_scale = 0.8
+bus = "PBSound"
+
+[node name="LetterGrade2" type="Label" parent="Main/Maps/Results/Results/RS/H2/EndInfo"]
+material = SubResource( 126 )
+margin_left = 6.0
+margin_top = -107.0
+margin_right = 280.0
+margin_bottom = 396.0
+grow_horizontal = 2
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 1, 1, 0.0784314 )
+custom_fonts/font = SubResource( 176 )
+text = "S"
+align = 1
+valign = 1
+
+[node name="Result" type="Label" parent="Main/Maps/Results/Results/RS/H2/EndInfo"]
+margin_left = 5.0
+margin_right = 273.0
+margin_bottom = 44.0
+focus_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.917647, 0.52549, 0.290196, 1 )
+custom_fonts/font = SubResource( 89 )
+align = 1
+valign = 1
+
+[node name="LetterGrade" type="Label" parent="Main/Maps/Results/Results/RS/H2/EndInfo"]
+visible = false
+material = SubResource( 126 )
+margin_left = 172.0
+margin_right = 271.0
+margin_bottom = 44.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 127 )
+text = "S"
 align = 2
-valign = 2
+valign = 1
 
-[node name="ModsHolder" type="ScrollContainer" parent="Main/Results/Results"]
-anchor_bottom = 1.0
-margin_left = 715.0
-margin_top = 48.0
-margin_right = 1198.0
-margin_bottom = -3.0
-follow_focus = true
+[node name="Misses" type="Label" parent="Main/Maps/Results/Results/RS/H2/EndInfo"]
+margin_left = 5.0
+margin_top = 72.0
+margin_right = 144.0
+margin_bottom = 119.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.917647, 0.290196, 0.290196, 1 )
+custom_fonts/font = SubResource( 105 )
+text = "-"
+align = 1
+valign = 1
 
-[node name="Mods" type="ReferenceRect" parent="Main/Results/Results/ModsHolder"]
-margin_right = 456.0
-margin_bottom = 270.0
-rect_min_size = Vector2( 456, 270 )
+[node name="Title" type="Label" parent="Main/Maps/Results/Results/RS/H2/EndInfo/Misses"]
+margin_top = -24.0
+margin_right = 139.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.917647, 0.290196, 0.290196, 1 )
+custom_fonts/font = SubResource( 106 )
+text = "MISSES"
+align = 1
+valign = 1
+
+[node name="FullCombo" type="Label" parent="Main/Maps/Results/Results/RS/H2/EndInfo"]
+visible = false
+margin_left = 5.0
+margin_top = 72.0
+margin_right = 144.0
+margin_bottom = 119.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.572549, 0.937255, 0.976471, 1 )
+custom_fonts/font = SubResource( 107 )
+text = "Full Combo"
+align = 1
+valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SpeedMod" type="ReferenceRect" parent="Main/Results/Results/ModsHolder/Mods"]
-margin_left = 80.0
-margin_right = 370.0
-margin_bottom = 32.0
+[node name="Title" type="Label" parent="Main/Maps/Results/Results/RS/H2/EndInfo/FullCombo"]
+margin_top = -24.0
+margin_right = 139.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.572549, 0.937255, 0.976471, 1 )
+custom_fonts/font = SubResource( 106 )
+text = "MISSES"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Pauses" type="Label" parent="Main/Maps/Results/Results/RS/H2/EndInfo"]
+margin_left = 135.0
+margin_top = 72.0
+margin_right = 274.0
+margin_bottom = 119.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.984314, 0.552941, 1, 1 )
+custom_fonts/font = SubResource( 105 )
+text = "-"
+align = 1
+valign = 1
+
+[node name="Title" type="Label" parent="Main/Maps/Results/Results/RS/H2/EndInfo/Pauses"]
+anchor_left = -0.971
+anchor_top = -1.532
+anchor_right = -0.971
+anchor_bottom = -1.532
+margin_left = 132.969
+margin_top = 48.004
+margin_right = 273.969
+margin_bottom = 72.004
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.984314, 0.552941, 1, 1 )
+custom_fonts/font = SubResource( 106 )
+text = "PAUSES"
+align = 1
+valign = 1
+
+[node name="NoPauses" type="Label" parent="Main/Maps/Results/Results/RS/H2/EndInfo"]
+margin_left = 134.0
+margin_top = 72.0
+margin_right = 273.0
+margin_bottom = 119.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.443137, 1, 0.607843, 1 )
+custom_fonts/font = SubResource( 107 )
+text = "No Pauses"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="Main/Maps/Results/Results/RS/H2/EndInfo/NoPauses"]
+anchor_left = -1.036
+anchor_top = -1.532
+anchor_right = -1.036
+anchor_bottom = -1.532
+margin_left = 144.004
+margin_top = 48.004
+margin_right = 283.004
+margin_bottom = 72.004
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.443137, 1, 0.607843, 1 )
+custom_fonts/font = SubResource( 106 )
+text = "PAUSES"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Progress" type="Label" parent="Main/Maps/Results/Results/RS/H2/EndInfo"]
+margin_left = 5.0
+margin_top = 152.0
+margin_right = 144.0
+margin_bottom = 232.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.956863, 0.552941, 1 )
+custom_fonts/font = SubResource( 108 )
+text = "-
+-"
+align = 1
+valign = 1
+
+[node name="Title" type="Label" parent="Main/Maps/Results/Results/RS/H2/EndInfo/Progress"]
+anchor_left = -0.036
+anchor_top = -1.9
+anchor_right = -0.036
+anchor_bottom = -1.9
+margin_left = 4.004
+margin_top = 129.0
+margin_right = 143.004
+margin_bottom = 153.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.956863, 0.552941, 1 )
+custom_fonts/font = SubResource( 106 )
+text = "PROGRESS"
+align = 1
+valign = 1
+
+[node name="Accuracy" type="Label" parent="Main/Maps/Results/Results/RS/H2/EndInfo"]
+margin_left = 135.0
+margin_top = 152.0
+margin_right = 274.0
+margin_bottom = 232.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.623529, 0.67451, 1, 1 )
+custom_fonts/font = SubResource( 108 )
+text = "-
+-"
+align = 1
+valign = 1
+
+[node name="Title" type="Label" parent="Main/Maps/Results/Results/RS/H2/EndInfo/Accuracy"]
+anchor_left = -0.971
+anchor_top = -1.9
+anchor_right = -0.971
+anchor_bottom = -1.9
+margin_left = 134.969
+margin_top = 128.0
+margin_right = 273.969
+margin_bottom = 152.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.623529, 0.67451, 1, 1 )
+custom_fonts/font = SubResource( 106 )
+text = "ACCURACY"
+align = 1
+valign = 1
+
+[node name="MaxCombo" type="Label" parent="Main/Maps/Results/Results/RS/H2/EndInfo"]
+modulate = Color( 0.572549, 1, 0.568627, 1 )
+margin_left = 70.0
+margin_top = 255.0
+margin_right = 210.0
+margin_bottom = 328.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.623529, 0.67451, 1, 1 )
+custom_fonts/font = SubResource( 108 )
+text = "-
+"
+align = 1
+valign = 1
+uppercase = true
+
+[node name="Title" type="Label" parent="Main/Maps/Results/Results/RS/H2/EndInfo/MaxCombo"]
+anchor_left = -0.5
+anchor_top = -3.493
+anchor_right = -0.5
+anchor_bottom = -3.493
+margin_left = 70.0
+margin_top = 230.989
+margin_right = 209.0
+margin_bottom = 254.989
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.623529, 0.67451, 1, 1 )
+custom_fonts/font = SubResource( 106 )
+text = "MAX COMBO"
+align = 1
+valign = 1
+
+[node name="VSeparator" type="VSeparator" parent="Main/Maps/Results/Results/RS/H2"]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 286.0
+margin_right = 290.0
+margin_bottom = 350.0
+size_flags_horizontal = 3
+
+[node name="Mods" type="ReferenceRect" parent="Main/Maps/Results/Results/RS/H2"]
+margin_left = 294.0
+margin_right = 644.0
+margin_bottom = 350.0
+rect_min_size = Vector2( 350, 350 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SpeedMod" type="ReferenceRect" parent="Main/Maps/Results/Results/RS/H2/Mods"]
+margin_left = -7.0
+margin_top = 65.0
+margin_right = 283.0
+margin_bottom = 97.0
 theme = ExtResource( 1 )
 border_color = Color( 0, 1, 1, 0 )
 script = ExtResource( 32 )
 
-[node name="Label" type="Label" parent="Main/Results/Results/ModsHolder/Mods/SpeedMod"]
-margin_left = -115.0
-margin_right = -10.0
-margin_bottom = 32.0
+[node name="Label" type="Label" parent="Main/Maps/Results/Results/RS/H2/Mods/SpeedMod"]
+margin_left = 7.0
+margin_top = -35.0
+margin_right = 54.0
+margin_bottom = -3.0
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.960784, 1, 0.478431, 1 )
@@ -2580,13 +2075,15 @@ align = 2
 valign = 1
 clip_text = true
 
-[node name="C" type="HBoxContainer" parent="Main/Results/Results/ModsHolder/Mods/SpeedMod"]
+[node name="C" type="HBoxContainer" parent="Main/Maps/Results/Results/RS/H2/Mods/SpeedMod"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 87.0
 alignment = 1
 
-[node name="MMM" type="Button" parent="Main/Results/Results/ModsHolder/Mods/SpeedMod/C"]
-margin_right = 32.0
+[node name="MMM" type="Button" parent="Main/Maps/Results/Results/RS/H2/Mods/SpeedMod/C"]
+margin_left = 3.0
+margin_right = 35.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 32, 32 )
 focus_mode = 1
@@ -2605,7 +2102,7 @@ action_mode = 0
 group = SubResource( 93 )
 expand_icon = true
 
-[node name="Label2" type="Label" parent="Main/Results/Results/ModsHolder/Mods/SpeedMod/C/MMM"]
+[node name="Label2" type="Label" parent="Main/Maps/Results/Results/RS/H2/Mods/SpeedMod/C/MMM"]
 visible = false
 anchor_left = 0.5
 anchor_right = 0.5
@@ -2627,9 +2124,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MM" type="Button" parent="Main/Results/Results/ModsHolder/Mods/SpeedMod/C"]
-margin_left = 36.0
-margin_right = 68.0
+[node name="MM" type="Button" parent="Main/Maps/Results/Results/RS/H2/Mods/SpeedMod/C"]
+margin_left = 39.0
+margin_right = 71.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 32, 32 )
 focus_mode = 1
@@ -2648,7 +2145,7 @@ action_mode = 0
 group = SubResource( 93 )
 expand_icon = true
 
-[node name="Label2" type="Label" parent="Main/Results/Results/ModsHolder/Mods/SpeedMod/C/MM"]
+[node name="Label2" type="Label" parent="Main/Maps/Results/Results/RS/H2/Mods/SpeedMod/C/MM"]
 visible = false
 anchor_left = 0.5
 anchor_right = 0.5
@@ -2667,9 +2164,9 @@ text = "<<"
 align = 1
 clip_text = true
 
-[node name="M" type="Button" parent="Main/Results/Results/ModsHolder/Mods/SpeedMod/C"]
-margin_left = 72.0
-margin_right = 104.0
+[node name="M" type="Button" parent="Main/Maps/Results/Results/RS/H2/Mods/SpeedMod/C"]
+margin_left = 75.0
+margin_right = 107.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 32, 32 )
 focus_mode = 1
@@ -2688,7 +2185,7 @@ action_mode = 0
 group = SubResource( 93 )
 expand_icon = true
 
-[node name="Label2" type="Label" parent="Main/Results/Results/ModsHolder/Mods/SpeedMod/C/M"]
+[node name="Label2" type="Label" parent="Main/Maps/Results/Results/RS/H2/Mods/SpeedMod/C/M"]
 visible = false
 anchor_left = 0.5
 anchor_right = 0.5
@@ -2707,9 +2204,9 @@ text = "<"
 align = 1
 clip_text = true
 
-[node name="Normal" type="CheckBox" parent="Main/Results/Results/ModsHolder/Mods/SpeedMod/C"]
-margin_left = 108.0
-margin_right = 124.0
+[node name="Normal" type="CheckBox" parent="Main/Maps/Results/Results/RS/H2/Mods/SpeedMod/C"]
+margin_left = 111.0
+margin_right = 127.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 16, 0 )
 theme = ExtResource( 1 )
@@ -2726,7 +2223,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label2" type="Label" parent="Main/Results/Results/ModsHolder/Mods/SpeedMod/C/Normal"]
+[node name="Label2" type="Label" parent="Main/Maps/Results/Results/RS/H2/Mods/SpeedMod/C/Normal"]
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -50.0
@@ -2744,9 +2241,9 @@ text = "="
 align = 1
 clip_text = true
 
-[node name="P" type="Button" parent="Main/Results/Results/ModsHolder/Mods/SpeedMod/C"]
-margin_left = 128.0
-margin_right = 160.0
+[node name="P" type="Button" parent="Main/Maps/Results/Results/RS/H2/Mods/SpeedMod/C"]
+margin_left = 131.0
+margin_right = 163.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 32, 32 )
 focus_mode = 1
@@ -2765,7 +2262,7 @@ action_mode = 0
 group = SubResource( 93 )
 expand_icon = true
 
-[node name="Label2" type="Label" parent="Main/Results/Results/ModsHolder/Mods/SpeedMod/C/P"]
+[node name="Label2" type="Label" parent="Main/Maps/Results/Results/RS/H2/Mods/SpeedMod/C/P"]
 visible = false
 anchor_left = 0.5
 anchor_right = 0.5
@@ -2787,9 +2284,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PP" type="Button" parent="Main/Results/Results/ModsHolder/Mods/SpeedMod/C"]
-margin_left = 164.0
-margin_right = 196.0
+[node name="PP" type="Button" parent="Main/Maps/Results/Results/RS/H2/Mods/SpeedMod/C"]
+margin_left = 167.0
+margin_right = 199.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 32, 32 )
 focus_mode = 1
@@ -2808,7 +2305,7 @@ action_mode = 0
 group = SubResource( 93 )
 expand_icon = true
 
-[node name="Label2" type="Label" parent="Main/Results/Results/ModsHolder/Mods/SpeedMod/C/PP"]
+[node name="Label2" type="Label" parent="Main/Maps/Results/Results/RS/H2/Mods/SpeedMod/C/PP"]
 visible = false
 anchor_left = 0.5
 anchor_right = 0.5
@@ -2830,9 +2327,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PPP" type="Button" parent="Main/Results/Results/ModsHolder/Mods/SpeedMod/C"]
-margin_left = 200.0
-margin_right = 232.0
+[node name="PPP" type="Button" parent="Main/Maps/Results/Results/RS/H2/Mods/SpeedMod/C"]
+margin_left = 203.0
+margin_right = 235.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 32, 32 )
 focus_mode = 1
@@ -2851,7 +2348,7 @@ action_mode = 0
 group = SubResource( 93 )
 expand_icon = true
 
-[node name="Label2" type="Label" parent="Main/Results/Results/ModsHolder/Mods/SpeedMod/C/PPP"]
+[node name="Label2" type="Label" parent="Main/Maps/Results/Results/RS/H2/Mods/SpeedMod/C/PPP"]
 visible = false
 anchor_left = 0.5
 anchor_right = 0.5
@@ -2873,9 +2370,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PPPP" type="Button" parent="Main/Results/Results/ModsHolder/Mods/SpeedMod/C"]
-margin_left = 236.0
-margin_right = 268.0
+[node name="PPPP" type="Button" parent="Main/Maps/Results/Results/RS/H2/Mods/SpeedMod/C"]
+margin_left = 239.0
+margin_right = 271.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 32, 32 )
 focus_mode = 1
@@ -2894,7 +2391,7 @@ action_mode = 0
 group = SubResource( 93 )
 expand_icon = true
 
-[node name="Label2" type="Label" parent="Main/Results/Results/ModsHolder/Mods/SpeedMod/C/PPPP"]
+[node name="Label2" type="Label" parent="Main/Maps/Results/Results/RS/H2/Mods/SpeedMod/C/PPPP"]
 visible = false
 anchor_left = 0.5
 anchor_right = 0.5
@@ -2913,9 +2410,9 @@ text = ">>>>"
 align = 1
 clip_text = true
 
-[node name="Custom" type="CheckBox" parent="Main/Results/Results/ModsHolder/Mods/SpeedMod/C"]
-margin_left = 272.0
-margin_right = 296.0
+[node name="Custom" type="CheckBox" parent="Main/Maps/Results/Results/RS/H2/Mods/SpeedMod/C"]
+margin_left = 275.0
+margin_right = 299.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 24, 0 )
 theme = ExtResource( 1 )
@@ -2929,9 +2426,9 @@ group = SubResource( 93 )
 flat = true
 expand_icon = true
 
-[node name="CustomSpeed" type="SpinBox" parent="Main/Results/Results/ModsHolder/Mods/SpeedMod/C"]
-margin_left = 300.0
-margin_right = 370.0
+[node name="CustomSpeed" type="SpinBox" parent="Main/Maps/Results/Results/RS/H2/Mods/SpeedMod/C"]
+margin_left = 303.0
+margin_right = 373.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 70, 5 )
 rect_pivot_offset = Vector2( 286, 872 )
@@ -2946,16 +2443,16 @@ allow_greater = true
 suffix = "%"
 script = ExtResource( 100 )
 
-[node name="StartOffset" type="HSlider" parent="Main/Results/Results/ModsHolder/Mods"]
-margin_left = 139.0
-margin_top = 304.0
-margin_right = 324.0
-margin_bottom = 320.0
+[node name="StartOffset" type="HSlider" parent="Main/Maps/Results/Results/RS/H2/Mods"]
+margin_left = 89.0
+margin_top = 9.0
+margin_right = 274.0
+margin_bottom = 25.0
 theme = ExtResource( 1 )
 script = ExtResource( 59 )
 
-[node name="Label" type="Label" parent="Main/Results/Results/ModsHolder/Mods/StartOffset"]
-margin_left = -149.0
+[node name="Label" type="Label" parent="Main/Maps/Results/Results/RS/H2/Mods/StartOffset"]
+margin_left = -89.0
 margin_top = -13.0
 margin_right = -10.0
 margin_bottom = 26.0
@@ -2968,7 +2465,7 @@ align = 2
 valign = 1
 clip_text = true
 
-[node name="TimeTextBox" type="LineEdit" parent="Main/Results/Results/ModsHolder/Mods/StartOffset"]
+[node name="TimeTextBox" type="LineEdit" parent="Main/Maps/Results/Results/RS/H2/Mods/StartOffset"]
 margin_left = 188.0
 margin_top = -6.0
 margin_right = 244.0
@@ -2976,11 +2473,11 @@ margin_bottom = 22.0
 text = "0:00"
 align = 1
 
-[node name="HpModel" type="MenuButton" parent="Main/Results/Results/ModsHolder/Mods"]
-margin_left = 141.0
-margin_top = 264.0
-margin_right = 325.0
-margin_bottom = 290.0
+[node name="HpModel" type="MenuButton" parent="Main/Maps/Results/Results/RS/H2/Mods"]
+margin_left = 107.0
+margin_top = 319.0
+margin_right = 291.0
+margin_bottom = 345.0
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
@@ -2991,7 +2488,7 @@ flat = false
 align = 0
 script = ExtResource( 41 )
 
-[node name="Label" type="Label" parent="Main/Results/Results/ModsHolder/Mods/HpModel"]
+[node name="Label" type="Label" parent="Main/Maps/Results/Results/RS/H2/Mods/HpModel"]
 margin_left = -149.0
 margin_right = -10.0
 margin_bottom = 26.0
@@ -3004,7 +2501,7 @@ align = 2
 valign = 1
 clip_text = true
 
-[node name="GradeSystem" type="MenuButton" parent="Main/Results/Results/ModsHolder/Mods"]
+[node name="GradeSystem" type="MenuButton" parent="Main/Maps/Results/Results/RS/H2/Mods"]
 visible = false
 margin_left = 130.0
 margin_top = 238.0
@@ -3020,7 +2517,7 @@ flat = false
 align = 0
 script = ExtResource( 62 )
 
-[node name="Label" type="Label" parent="Main/Results/Results/ModsHolder/Mods/GradeSystem"]
+[node name="Label" type="Label" parent="Main/Maps/Results/Results/RS/H2/Mods/GradeSystem"]
 margin_left = -149.0
 margin_right = -10.0
 margin_bottom = 26.0
@@ -3036,11 +2533,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="NoFail" type="CheckBox" parent="Main/Results/Results/ModsHolder/Mods"]
-margin_left = 130.0
-margin_top = 45.0
-margin_right = 190.0
-margin_bottom = 77.0
+[node name="NoFail" type="CheckBox" parent="Main/Maps/Results/Results/RS/H2/Mods"]
+margin_left = 96.0
+margin_top = 100.0
+margin_right = 156.0
+margin_bottom = 132.0
 theme = ExtResource( 1 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -3051,7 +2548,7 @@ action_mode = 0
 flat = true
 script = ExtResource( 33 )
 
-[node name="Label" type="Label" parent="Main/Results/Results/ModsHolder/Mods/NoFail"]
+[node name="Label" type="Label" parent="Main/Maps/Results/Results/RS/H2/Mods/NoFail"]
 margin_left = -115.0
 margin_right = -10.0
 margin_bottom = 32.0
@@ -3064,11 +2561,11 @@ align = 2
 valign = 1
 clip_text = true
 
-[node name="SuddenDeath" type="CheckBox" parent="Main/Results/Results/ModsHolder/Mods"]
-margin_left = 310.0
-margin_top = 45.0
-margin_right = 370.0
-margin_bottom = 77.0
+[node name="SuddenDeath" type="CheckBox" parent="Main/Maps/Results/Results/RS/H2/Mods"]
+margin_left = 276.0
+margin_top = 100.0
+margin_right = 336.0
+margin_bottom = 132.0
 theme = ExtResource( 1 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -3079,7 +2576,7 @@ action_mode = 0
 flat = true
 script = ExtResource( 44 )
 
-[node name="Label" type="Label" parent="Main/Results/Results/ModsHolder/Mods/SuddenDeath"]
+[node name="Label" type="Label" parent="Main/Maps/Results/Results/RS/H2/Mods/SuddenDeath"]
 margin_left = -115.0
 margin_right = -10.0
 margin_bottom = 32.0
@@ -3092,11 +2589,11 @@ align = 2
 valign = 1
 clip_text = true
 
-[node name="EasyMode" type="CheckBox" parent="Main/Results/Results/ModsHolder/Mods"]
-margin_left = 130.0
-margin_top = 75.0
-margin_right = 207.0
-margin_bottom = 107.0
+[node name="EasyMode" type="CheckBox" parent="Main/Maps/Results/Results/RS/H2/Mods"]
+margin_left = 96.0
+margin_top = 130.0
+margin_right = 173.0
+margin_bottom = 162.0
 theme = ExtResource( 1 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -3104,11 +2601,10 @@ custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_fonts/font = SubResource( 96 )
 action_mode = 0
-text = "Easy Mode"
 flat = true
 script = ExtResource( 35 )
 
-[node name="Label" type="Label" parent="Main/Results/Results/ModsHolder/Mods/EasyMode"]
+[node name="Label" type="Label" parent="Main/Maps/Results/Results/RS/H2/Mods/EasyMode"]
 margin_left = -115.0
 margin_right = -10.0
 margin_bottom = 32.0
@@ -3121,11 +2617,11 @@ align = 2
 valign = 1
 clip_text = true
 
-[node name="HardMode" type="CheckBox" parent="Main/Results/Results/ModsHolder/Mods"]
-margin_left = 310.0
-margin_top = 74.0
-margin_right = 390.0
-margin_bottom = 106.0
+[node name="HardMode" type="CheckBox" parent="Main/Maps/Results/Results/RS/H2/Mods"]
+margin_left = 276.0
+margin_top = 129.0
+margin_right = 356.0
+margin_bottom = 161.0
 theme = ExtResource( 1 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -3133,11 +2629,10 @@ custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_fonts/font = SubResource( 96 )
 action_mode = 0
-text = "Hard Mode"
 flat = true
 script = ExtResource( 34 )
 
-[node name="Label" type="Label" parent="Main/Results/Results/ModsHolder/Mods/HardMode"]
+[node name="Label" type="Label" parent="Main/Maps/Results/Results/RS/H2/Mods/HardMode"]
 margin_left = -89.0
 margin_right = -10.0
 margin_bottom = 32.0
@@ -3150,11 +2645,11 @@ align = 2
 valign = 1
 clip_text = true
 
-[node name="MirrorX" type="CheckBox" parent="Main/Results/Results/ModsHolder/Mods"]
-margin_left = 130.0
-margin_top = 105.0
-margin_right = 190.0
-margin_bottom = 137.0
+[node name="MirrorX" type="CheckBox" parent="Main/Maps/Results/Results/RS/H2/Mods"]
+margin_left = 96.0
+margin_top = 160.0
+margin_right = 156.0
+margin_bottom = 192.0
 theme = ExtResource( 1 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -3165,7 +2660,7 @@ action_mode = 0
 flat = true
 script = ExtResource( 36 )
 
-[node name="Label" type="Label" parent="Main/Results/Results/ModsHolder/Mods/MirrorX"]
+[node name="Label" type="Label" parent="Main/Maps/Results/Results/RS/H2/Mods/MirrorX"]
 margin_left = -115.0
 margin_right = -10.0
 margin_bottom = 32.0
@@ -3178,11 +2673,11 @@ align = 2
 valign = 1
 clip_text = true
 
-[node name="MirrorY" type="CheckBox" parent="Main/Results/Results/ModsHolder/Mods"]
-margin_left = 310.0
-margin_top = 105.0
-margin_right = 370.0
-margin_bottom = 137.0
+[node name="MirrorY" type="CheckBox" parent="Main/Maps/Results/Results/RS/H2/Mods"]
+margin_left = 276.0
+margin_top = 160.0
+margin_right = 336.0
+margin_bottom = 192.0
 theme = ExtResource( 1 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -3193,7 +2688,7 @@ action_mode = 0
 flat = true
 script = ExtResource( 37 )
 
-[node name="Label" type="Label" parent="Main/Results/Results/ModsHolder/Mods/MirrorY"]
+[node name="Label" type="Label" parent="Main/Maps/Results/Results/RS/H2/Mods/MirrorY"]
 margin_left = -115.0
 margin_right = -10.0
 margin_bottom = 32.0
@@ -3206,7 +2701,7 @@ align = 2
 valign = 1
 clip_text = true
 
-[node name="Nearsight" type="CheckBox" parent="Main/Results/Results/ModsHolder/Mods"]
+[node name="Nearsight" type="CheckBox" parent="Main/Maps/Results/Results/RS/H2/Mods"]
 visible = false
 margin_left = 130.0
 margin_top = 135.0
@@ -3222,7 +2717,7 @@ action_mode = 0
 flat = true
 script = ExtResource( 43 )
 
-[node name="Label" type="Label" parent="Main/Results/Results/ModsHolder/Mods/Nearsight"]
+[node name="Label" type="Label" parent="Main/Maps/Results/Results/RS/H2/Mods/Nearsight"]
 margin_left = -115.0
 margin_right = -10.0
 margin_bottom = 32.0
@@ -3238,11 +2733,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Earthquake" type="CheckBox" parent="Main/Results/Results/ModsHolder/Mods"]
-margin_left = 130.0
-margin_top = 135.0
-margin_right = 190.0
-margin_bottom = 167.0
+[node name="Earthquake" type="CheckBox" parent="Main/Maps/Results/Results/RS/H2/Mods"]
+margin_left = 96.0
+margin_top = 190.0
+margin_right = 156.0
+margin_bottom = 222.0
 theme = ExtResource( 1 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -3253,7 +2748,7 @@ action_mode = 0
 flat = true
 script = ExtResource( 94 )
 
-[node name="Label" type="Label" parent="Main/Results/Results/ModsHolder/Mods/Earthquake"]
+[node name="Label" type="Label" parent="Main/Maps/Results/Results/RS/H2/Mods/Earthquake"]
 margin_left = -115.0
 margin_right = -10.0
 margin_bottom = 32.0
@@ -3266,11 +2761,11 @@ align = 2
 valign = 1
 clip_text = true
 
-[node name="Chaos" type="CheckBox" parent="Main/Results/Results/ModsHolder/Mods"]
-margin_left = 130.0
-margin_top = 165.0
-margin_right = 190.0
-margin_bottom = 197.0
+[node name="Chaos" type="CheckBox" parent="Main/Maps/Results/Results/RS/H2/Mods"]
+margin_left = 96.0
+margin_top = 220.0
+margin_right = 156.0
+margin_bottom = 252.0
 theme = ExtResource( 1 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -3281,7 +2776,7 @@ action_mode = 0
 flat = true
 script = ExtResource( 60 )
 
-[node name="Label" type="Label" parent="Main/Results/Results/ModsHolder/Mods/Chaos"]
+[node name="Label" type="Label" parent="Main/Maps/Results/Results/RS/H2/Mods/Chaos"]
 margin_left = -115.0
 margin_right = -10.0
 margin_bottom = 32.0
@@ -3294,11 +2789,11 @@ align = 2
 valign = 1
 clip_text = true
 
-[node name="Flashlight" type="CheckBox" parent="Main/Results/Results/ModsHolder/Mods"]
-margin_left = 130.0
-margin_top = 195.0
-margin_right = 190.0
-margin_bottom = 227.0
+[node name="Flashlight" type="CheckBox" parent="Main/Maps/Results/Results/RS/H2/Mods"]
+margin_left = 96.0
+margin_top = 250.0
+margin_right = 156.0
+margin_bottom = 282.0
 theme = ExtResource( 1 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -3309,7 +2804,7 @@ action_mode = 0
 flat = true
 script = ExtResource( 96 )
 
-[node name="Label" type="Label" parent="Main/Results/Results/ModsHolder/Mods/Flashlight"]
+[node name="Label" type="Label" parent="Main/Maps/Results/Results/RS/H2/Mods/Flashlight"]
 margin_left = -115.0
 margin_right = -10.0
 margin_bottom = 32.0
@@ -3322,11 +2817,11 @@ align = 2
 valign = 1
 clip_text = true
 
-[node name="Ghost" type="CheckBox" parent="Main/Results/Results/ModsHolder/Mods"]
-margin_left = 310.0
-margin_top = 135.0
-margin_right = 370.0
-margin_bottom = 167.0
+[node name="Ghost" type="CheckBox" parent="Main/Maps/Results/Results/RS/H2/Mods"]
+margin_left = 276.0
+margin_top = 190.0
+margin_right = 336.0
+margin_bottom = 222.0
 theme = ExtResource( 1 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -3337,7 +2832,7 @@ action_mode = 0
 flat = true
 script = ExtResource( 45 )
 
-[node name="Label" type="Label" parent="Main/Results/Results/ModsHolder/Mods/Ghost"]
+[node name="Label" type="Label" parent="Main/Maps/Results/Results/RS/H2/Mods/Ghost"]
 margin_left = -115.0
 margin_right = -10.0
 margin_bottom = 32.0
@@ -3350,11 +2845,11 @@ align = 2
 valign = 1
 clip_text = true
 
-[node name="VisualMode" type="CheckBox" parent="Main/Results/Results/ModsHolder/Mods"]
-margin_left = 310.0
-margin_top = 165.0
-margin_right = 370.0
-margin_bottom = 197.0
+[node name="VisualMode" type="CheckBox" parent="Main/Maps/Results/Results/RS/H2/Mods"]
+margin_left = 276.0
+margin_top = 220.0
+margin_right = 336.0
+margin_bottom = 252.0
 theme = ExtResource( 1 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -3365,7 +2860,7 @@ action_mode = 0
 flat = true
 script = ExtResource( 63 )
 
-[node name="Label" type="Label" parent="Main/Results/Results/ModsHolder/Mods/VisualMode"]
+[node name="Label" type="Label" parent="Main/Maps/Results/Results/RS/H2/Mods/VisualMode"]
 margin_left = -138.0
 margin_right = -10.0
 margin_bottom = 32.0
@@ -3378,11 +2873,11 @@ align = 2
 valign = 1
 clip_text = true
 
-[node name="InvertMouse" type="CheckBox" parent="Main/Results/Results/ModsHolder/Mods"]
-margin_left = 310.0
-margin_top = 195.0
-margin_right = 370.0
-margin_bottom = 227.0
+[node name="InvertMouse" type="CheckBox" parent="Main/Maps/Results/Results/RS/H2/Mods"]
+margin_left = 276.0
+margin_top = 250.0
+margin_right = 336.0
+margin_bottom = 282.0
 theme = ExtResource( 1 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -3393,7 +2888,7 @@ action_mode = 0
 flat = true
 script = ExtResource( 97 )
 
-[node name="Label" type="Label" parent="Main/Results/Results/ModsHolder/Mods/InvertMouse"]
+[node name="Label" type="Label" parent="Main/Maps/Results/Results/RS/H2/Mods/InvertMouse"]
 margin_left = -138.0
 margin_right = -10.0
 margin_bottom = 32.0
@@ -3406,11 +2901,11 @@ align = 2
 valign = 1
 clip_text = true
 
-[node name="HardRock" type="CheckBox" parent="Main/Results/Results/ModsHolder/Mods"]
-margin_left = 130.0
-margin_top = 225.0
-margin_right = 190.0
-margin_bottom = 257.0
+[node name="HardRock" type="CheckBox" parent="Main/Maps/Results/Results/RS/H2/Mods"]
+margin_left = 96.0
+margin_top = 280.0
+margin_right = 156.0
+margin_bottom = 312.0
 theme = ExtResource( 1 )
 custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
 custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
@@ -3421,7 +2916,7 @@ action_mode = 0
 flat = true
 script = ExtResource( 101 )
 
-[node name="Label" type="Label" parent="Main/Results/Results/ModsHolder/Mods/HardRock"]
+[node name="Label" type="Label" parent="Main/Maps/Results/Results/RS/H2/Mods/HardRock"]
 margin_left = -115.0
 margin_right = -10.0
 margin_bottom = 32.0
@@ -3434,629 +2929,29 @@ align = 2
 valign = 1
 clip_text = true
 
-[node name="Info" type="VBoxContainer" parent="Main/Results/Results"]
-margin_left = 138.0
-margin_top = 15.0
-margin_right = 588.0
-margin_bottom = 240.0
-custom_constants/separation = 0
-
-[node name="D" type="Control" parent="Main/Results/Results/Info"]
-margin_right = 450.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 450, 32 )
-focus_mode = 2
-theme = ExtResource( 1 )
-
-[node name="Difficulty" type="Label" parent="Main/Results/Results/Info/D"]
-margin_right = 450.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_fonts/font = SubResource( 97 )
-text = "-"
-align = 2
-valign = 1
-
-[node name="Label" type="Label" parent="Main/Results/Results/Info/D/Difficulty"]
-visible = false
-margin_left = -85.0
-margin_right = -10.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.698039, 0.901961, 0.639216, 1 )
-custom_fonts/font = SubResource( 91 )
-text = "Difficulty:"
-align = 2
-valign = 1
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="DifficultySmaller" type="Label" parent="Main/Results/Results/Info/D"]
-visible = false
-margin_left = 269.0
-margin_right = 435.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_fonts/font = SubResource( 162 )
-text = "-"
-align = 2
-valign = 1
-autowrap = true
-
-[node name="Label" type="Label" parent="Main/Results/Results/Info/D/DifficultySmaller"]
-visible = false
-margin_left = -85.0
-margin_right = -10.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.698039, 0.901961, 0.639216, 1 )
-custom_fonts/font = SubResource( 91 )
-text = "Difficulty:"
-align = 2
-valign = 1
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Data" type="Label" parent="Main/Results/Results/Info/D"]
-margin_right = 425.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_fonts/font = SubResource( 98 )
-text = "-"
-valign = 1
-
-[node name="Label" type="Label" parent="Main/Results/Results/Info/D/Data"]
-visible = false
-margin_left = -85.0
-margin_right = -10.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.698039, 0.901961, 0.639216, 1 )
-custom_fonts/font = SubResource( 91 )
-text = "Difficulty:"
-align = 2
-valign = 1
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="M" type="MarginContainer" parent="Main/Results/Results/Info"]
-margin_top = 32.0
-margin_right = 450.0
-margin_bottom = 221.0
-custom_constants/margin_right = 13
-custom_constants/margin_left = 13
-
-[node name="V" type="VBoxContainer" parent="Main/Results/Results/Info/M"]
-margin_left = 13.0
-margin_right = 437.0
-margin_bottom = 189.0
-custom_constants/separation = 0
-
-[node name="Name" type="MarginContainer" parent="Main/Results/Results/Info/M/V"]
-margin_right = 424.0
-margin_bottom = 32.0
-custom_constants/margin_top = 6
-custom_constants/margin_bottom = 5
-
-[node name="L" type="Label" parent="Main/Results/Results/Info/M/V/Name"]
-margin_top = 6.0
-margin_right = 424.0
-margin_bottom = 27.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.568627, 0.956863, 1, 1 )
-custom_fonts/font = SubResource( 116 )
-text = "-"
-valign = 1
-autowrap = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="Main/Results/Results/Info/M/V/Name/L"]
-visible = false
-margin_left = -85.0
-margin_right = -10.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.698039, 0.901961, 0.639216, 1 )
-custom_fonts/font = SubResource( 91 )
-text = "Name:"
-align = 2
-valign = 1
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="SongName" type="MarginContainer" parent="Main/Results/Results/Info/M/V"]
-visible = false
-margin_top = 32.0
-margin_right = 424.0
-margin_bottom = 57.0
-custom_constants/margin_left = 62
-
-[node name="L" type="Label" parent="Main/Results/Results/Info/M/V/SongName"]
-margin_left = 62.0
-margin_right = 424.0
-margin_bottom = 25.0
-rect_min_size = Vector2( 0, 25 )
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.952941, 0.752941, 1, 1 )
-custom_fonts/font = SubResource( 117 )
-text = "-"
-valign = 1
-autowrap = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Title" type="Label" parent="Main/Results/Results/Info/M/V/SongName/L"]
-margin_left = -68.0
-margin_right = -6.0
-margin_bottom = 25.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.698039, 0.901961, 0.639216, 1 )
-custom_fonts/font = SubResource( 91 )
-text = "Song"
-align = 2
-valign = 1
-clip_text = true
-
-[node name="Mapper" type="MarginContainer" parent="Main/Results/Results/Info/M/V"]
-margin_top = 32.0
-margin_right = 424.0
-margin_bottom = 57.0
-custom_constants/margin_left = 62
-
-[node name="L" type="Label" parent="Main/Results/Results/Info/M/V/Mapper"]
-margin_left = 62.0
-margin_right = 424.0
-margin_bottom = 25.0
-rect_min_size = Vector2( 0, 25 )
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.952941, 0.752941, 1, 1 )
-custom_fonts/font = SubResource( 117 )
-text = "-"
-valign = 1
-autowrap = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Title" type="Label" parent="Main/Results/Results/Info/M/V/Mapper/L"]
-margin_left = -68.0
-margin_right = -6.0
-margin_bottom = 25.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.698039, 0.901961, 0.639216, 1 )
-custom_fonts/font = SubResource( 91 )
-text = "Map by"
-align = 2
-valign = 1
-clip_text = true
-
-[node name="Id" type="MarginContainer" parent="Main/Results/Results/Info/M/V"]
-margin_top = 57.0
-margin_right = 424.0
-margin_bottom = 82.0
-custom_constants/margin_left = 62
-
-[node name="L" type="Label" parent="Main/Results/Results/Info/M/V/Id"]
-margin_left = 62.0
-margin_right = 424.0
-margin_bottom = 25.0
-rect_min_size = Vector2( 0, 25 )
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.6, 0.6, 0.6, 1 )
-custom_fonts/font = SubResource( 118 )
-text = "-"
-valign = 1
-autowrap = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Title" type="Label" parent="Main/Results/Results/Info/M/V/Id/L"]
-margin_left = -85.0
-margin_right = -6.0
-margin_bottom = 25.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.698039, 0.901961, 0.639216, 1 )
-custom_fonts/font = SubResource( 91 )
-text = "Song ID"
-align = 2
-valign = 1
-clip_text = true
-
-[node name="SMM" type="MarginContainer" parent="Main/Results/Results/Info/M/V"]
-visible = false
-margin_top = 82.0
-margin_right = 424.0
-margin_bottom = 102.0
-custom_constants/margin_left = 3
-
-[node name="Title" type="Label" parent="Main/Results/Results/Info/M/V/SMM"]
-margin_left = 3.0
-margin_right = 424.0
-margin_bottom = 20.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 1, 0.760784, 0.490196, 1 )
-custom_fonts/font = SubResource( 91 )
-text = "Single Map Mode"
-valign = 1
-clip_text = true
-
-[node name="Warning" type="MarginContainer" parent="Main/Results/Results/Info/M/V"]
-visible = false
-margin_top = 106.0
-margin_right = 399.0
-margin_bottom = 131.0
-custom_constants/margin_top = 5
-
-[node name="L" type="Label" parent="Main/Results/Results/Info/M/V/Warning"]
-margin_top = 5.0
-margin_right = 399.0
-margin_bottom = 25.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 1, 1, 0, 1 )
-custom_fonts/font = SubResource( 99 )
-text = "Warning text goes here"
-align = 1
-valign = 1
-
-[node name="Run" type="MarginContainer" parent="Main/Results/Results/Info/M/V"]
-margin_top = 82.0
-margin_right = 424.0
-margin_bottom = 145.0
-custom_constants/margin_top = 15
-
-[node name="Run" type="Button" parent="Main/Results/Results/Info/M/V/Run"]
-margin_top = 15.0
-margin_right = 424.0
-margin_bottom = 63.0
-rect_min_size = Vector2( 0, 48 )
-hint_tooltip = "(Spacebar, Xbox A)"
-theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.576471, 0.576471, 0.576471, 1 )
-custom_colors/font_color_focus = Color( 0.541176, 1, 0.580392, 1 )
-custom_colors/font_color = Color( 0.541176, 1, 0.580392, 1 )
-custom_colors/font_color_hover = Color( 0.631373, 1, 0.913725, 1 )
-custom_colors/font_color_pressed = Color( 0, 1, 0.976471, 1 )
-custom_fonts/font = SubResource( 119 )
-custom_styles/hover = SubResource( 120 )
-custom_styles/pressed = SubResource( 121 )
-custom_styles/focus = SubResource( 122 )
-custom_styles/disabled = SubResource( 123 )
-custom_styles/normal = SubResource( 124 )
-toggle_mode = true
-action_mode = 0
-text = "Start!"
-script = ExtResource( 30 )
-
-[node name="Buttons" type="MarginContainer" parent="Main/Results/Results/Info/M/V"]
-margin_top = 145.0
-margin_right = 424.0
-margin_bottom = 189.0
-custom_constants/margin_right = 5
-custom_constants/margin_top = 12
-custom_constants/margin_left = 5
-
-[node name="Control" type="HBoxContainer" parent="Main/Results/Results/Info/M/V/Buttons"]
-margin_left = 5.0
-margin_top = 12.0
-margin_right = 419.0
-margin_bottom = 44.0
-rect_min_size = Vector2( 0, 32 )
-custom_constants/separation = 12
-
-[node name="Favorite" type="Button" parent="Main/Results/Results/Info/M/V/Buttons/Control"]
-margin_right = 179.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 0, 32 )
+[node name="VSeparator3" type="VSeparator" parent="Main/Maps/Results/Results/RS/H2"]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 648.0
+margin_right = 652.0
+margin_bottom = 350.0
 size_flags_horizontal = 3
-theme = ExtResource( 1 )
-custom_styles/pressed = SubResource( 88 )
-toggle_mode = true
-action_mode = 0
-text = "Favorite"
-script = ExtResource( 38 )
 
-[node name="PreviewMusic" type="Button" parent="Main/Results/Results/Info/M/V/Buttons/Control"]
-margin_left = 191.0
-margin_right = 370.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 0, 32 )
-size_flags_horizontal = 3
-theme = ExtResource( 1 )
-action_mode = 0
-text = "Play Music"
-script = ExtResource( 9 )
+[node name="HSeparator5" type="HSeparator" parent="Main/Maps/Results/Results/RS"]
+modulate = Color( 1, 1, 1, 0 )
+margin_top = 731.0
+margin_right = 652.0
+margin_bottom = 742.0
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
 
-[node name="Song" type="AudioStreamPlayer" parent="Main/Results/Results/Info/M/V/Buttons/Control/PreviewMusic"]
-pause_mode = 2
-bus = "Music"
-script = ExtResource( 10 )
-
-[node name="MenuSong" type="AudioStreamPlayer" parent="Main/Results/Results/Info/M/V/Buttons/Control/PreviewMusic"]
-pause_mode = 2
-stream = ExtResource( 11 )
-volume_db = -10.0
-bus = "Music"
-
-[node name="Actions" type="MenuButton" parent="Main/Results/Results/Info/M/V/Buttons/Control"]
-margin_left = 382.0
-margin_right = 414.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 32, 32 )
-theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
-custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
-custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
-icon = ExtResource( 90 )
-flat = false
-icon_align = 1
-expand_icon = true
-script = ExtResource( 89 )
-
-[node name="EndInfo" type="ReferenceRect" parent="Main/Results/Results"]
-margin_left = 16.0
-margin_top = 277.0
-margin_right = 299.0
-margin_bottom = 597.0
-rect_min_size = Vector2( 283, 232 )
-script = ExtResource( 29 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="NewBest" type="AudioStreamPlayer" parent="Main/Results/Results/EndInfo"]
-stream = ExtResource( 31 )
-pitch_scale = 0.8
-bus = "PBSound"
-
-[node name="Result" type="Label" parent="Main/Results/Results/EndInfo"]
-margin_left = 5.0
-margin_right = 273.0
-margin_bottom = 44.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.917647, 0.52549, 0.290196, 1 )
-custom_fonts/font = SubResource( 89 )
-valign = 1
-
-[node name="LetterGrade" type="Label" parent="Main/Results/Results/EndInfo"]
-material = SubResource( 126 )
-margin_left = 148.0
-margin_right = 279.0
-margin_bottom = 44.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-custom_fonts/font = SubResource( 127 )
-align = 2
-valign = 1
-
-[node name="Misses" type="Label" parent="Main/Results/Results/EndInfo"]
-margin_left = 5.0
-margin_top = 72.0
-margin_right = 144.0
-margin_bottom = 119.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.917647, 0.290196, 0.290196, 1 )
-custom_fonts/font = SubResource( 105 )
-text = "-"
-align = 1
-valign = 1
-
-[node name="Title" type="Label" parent="Main/Results/Results/EndInfo/Misses"]
-margin_top = -24.0
-margin_right = 139.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.917647, 0.290196, 0.290196, 1 )
-custom_fonts/font = SubResource( 106 )
-text = "MISSES"
-align = 1
-valign = 1
-
-[node name="FullCombo" type="Label" parent="Main/Results/Results/EndInfo"]
+[node name="Deleted" type="CenterContainer" parent="Main/Maps/Results/Results"]
 visible = false
-margin_left = 5.0
-margin_top = 72.0
-margin_right = 144.0
-margin_bottom = 119.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.572549, 0.937255, 0.976471, 1 )
-custom_fonts/font = SubResource( 107 )
-text = "Full Combo"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
+margin_right = 294.0
+margin_bottom = 158.0
 
-[node name="Title" type="Label" parent="Main/Results/Results/EndInfo/FullCombo"]
-margin_top = -24.0
-margin_right = 139.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.572549, 0.937255, 0.976471, 1 )
-custom_fonts/font = SubResource( 106 )
-text = "MISSES"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Pauses" type="Label" parent="Main/Results/Results/EndInfo"]
-margin_left = 144.0
-margin_top = 72.0
-margin_right = 283.0
-margin_bottom = 119.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.984314, 0.552941, 1, 1 )
-custom_fonts/font = SubResource( 105 )
-text = "-"
-align = 1
-valign = 1
-
-[node name="Title" type="Label" parent="Main/Results/Results/EndInfo/Pauses"]
-margin_top = -24.0
-margin_right = 139.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.984314, 0.552941, 1, 1 )
-custom_fonts/font = SubResource( 106 )
-text = "PAUSES"
-align = 1
-valign = 1
-
-[node name="NoPauses" type="Label" parent="Main/Results/Results/EndInfo"]
-visible = false
-margin_left = 144.0
-margin_top = 72.0
-margin_right = 283.0
-margin_bottom = 119.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.443137, 1, 0.607843, 1 )
-custom_fonts/font = SubResource( 107 )
-text = "No Pauses"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Title" type="Label" parent="Main/Results/Results/EndInfo/NoPauses"]
-margin_top = -24.0
-margin_right = 139.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.443137, 1, 0.607843, 1 )
-custom_fonts/font = SubResource( 106 )
-text = "PAUSES"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Progress" type="Label" parent="Main/Results/Results/EndInfo"]
-margin_left = 5.0
-margin_top = 152.0
-margin_right = 144.0
-margin_bottom = 232.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 1, 0.956863, 0.552941, 1 )
-custom_fonts/font = SubResource( 108 )
-text = "-
--"
-align = 1
-valign = 1
-
-[node name="Title" type="Label" parent="Main/Results/Results/EndInfo/Progress"]
-margin_top = -24.0
-margin_right = 139.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 1, 0.956863, 0.552941, 1 )
-custom_fonts/font = SubResource( 106 )
-text = "PROGRESS"
-align = 1
-valign = 1
-
-[node name="Accuracy" type="Label" parent="Main/Results/Results/EndInfo"]
-margin_left = 144.0
-margin_top = 152.0
-margin_right = 283.0
-margin_bottom = 232.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.623529, 0.67451, 1, 1 )
-custom_fonts/font = SubResource( 108 )
-text = "-
--"
-align = 1
-valign = 1
-
-[node name="Title" type="Label" parent="Main/Results/Results/EndInfo/Accuracy"]
-margin_top = -24.0
-margin_right = 139.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.623529, 0.67451, 1, 1 )
-custom_fonts/font = SubResource( 106 )
-text = "ACCURACY"
-align = 1
-valign = 1
-
-[node name="MaxCombo" type="Label" parent="Main/Results/Results/EndInfo"]
-modulate = Color( 0.572549, 1, 0.568627, 1 )
-margin_left = 70.0
-margin_top = 255.0
-margin_right = 210.0
-margin_bottom = 328.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.623529, 0.67451, 1, 1 )
-custom_fonts/font = SubResource( 108 )
-text = "-
-"
-align = 1
-valign = 1
-uppercase = true
-
-[node name="Title" type="Label" parent="Main/Results/Results/EndInfo/MaxCombo"]
-margin_top = -24.0
-margin_right = 139.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.623529, 0.67451, 1, 1 )
-custom_fonts/font = SubResource( 106 )
-text = "MAX COMBO"
-align = 1
-valign = 1
-
-[node name="Deleted" type="CenterContainer" parent="Main/Results/Results"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-
-[node name="Text" type="Label" parent="Main/Results/Results/Deleted"]
-margin_left = 453.0
-margin_top = 261.0
-margin_right = 747.0
-margin_bottom = 419.0
+[node name="Text" type="Label" parent="Main/Maps/Results/Results/Deleted"]
+margin_right = 294.0
+margin_bottom = 158.0
 custom_colors/font_color = Color( 0.956863, 0.729412, 0.537255, 1 )
 text = "The selected map has been deleted.
 
@@ -4068,7 +2963,7 @@ text = "The selected map has been deleted.
 align = 1
 valign = 1
 
-[node name="ColorRect" type="ColorRect" parent="Main/Results/Results/Deleted/Text"]
+[node name="ColorRect" type="ColorRect" parent="Main/Maps/Results/Results/Deleted/Text"]
 show_behind_parent = true
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -4081,43 +2976,1373 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="LeftPush" type="HBoxContainer" parent="Main/Results"]
-margin_left = 1215.0
-margin_right = 1219.0
-margin_bottom = 681.0
+[node name="VSeparator2" type="VSeparator" parent="Main/Maps/Results"]
+visible = false
+modulate = Color( 1, 1, 1, 0 )
+margin_right = 4.0
+margin_bottom = 742.0
 size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.45
 
-[node name="CenterContainer" type="VBoxContainer" parent="Main/Results/LeftPush"]
-margin_bottom = 681.0
-size_flags_horizontal = 3
+[node name="MapRegistry" type="VBoxContainer" parent="Main/Maps"]
+margin_left = 656.0
+margin_right = 1072.0
+margin_bottom = 742.0
+grow_horizontal = 0
+rect_min_size = Vector2( 200, 686 )
+rect_clip_content = true
+size_flags_horizontal = 11
+size_flags_vertical = 3
 alignment = 2
 
-[node name="Button" type="Button" parent="Main/Results/LeftPush/CenterContainer"]
-visible = false
-margin_top = 654.0
-margin_right = 125.0
-margin_bottom = 681.0
-rect_min_size = Vector2( 125, 27 )
+[node name="T" type="HBoxContainer" parent="Main/Maps/MapRegistry"]
+margin_right = 416.0
+margin_bottom = 50.0
+grow_horizontal = 0
+rect_min_size = Vector2( 0, 50 )
+size_flags_horizontal = 6
+size_flags_vertical = 5
+custom_constants/separation = 7
+
+[node name="Search" type="LineEdit" parent="Main/Maps/MapRegistry/T"]
+margin_top = 11.0
+margin_right = 120.0
+margin_bottom = 39.0
+rect_min_size = Vector2( 120, 0 )
+size_flags_horizontal = 7
+size_flags_vertical = 4
+size_flags_stretch_ratio = 2.0
 theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.729412, 0.729412, 0.729412, 1 )
-custom_colors/font_color_focus = Color( 0.729412, 0.729412, 0.729412, 1 )
-custom_colors/font_color = Color( 0.729412, 0.729412, 0.729412, 1 )
-custom_colors/font_color_hover = Color( 0.729412, 0.729412, 0.729412, 1 )
-custom_colors/font_color_pressed = Color( 0.729412, 0.729412, 0.729412, 1 )
-custom_styles/hover = SubResource( 156 )
-custom_styles/pressed = SubResource( 156 )
-custom_styles/disabled = SubResource( 156 )
-custom_styles/normal = SubResource( 156 )
+clear_button_enabled = true
+placeholder_text = "Search"
+script = ExtResource( 21 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AuthorSearch" type="LineEdit" parent="Main/Maps/MapRegistry/T"]
+margin_left = 127.0
+margin_top = 10.0
+margin_right = 227.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 100, 30 )
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme = ExtResource( 1 )
+clear_button_enabled = true
+placeholder_text = "Author"
+script = ExtResource( 91 )
+
+[node name="Random" type="Button" parent="Main/Maps/MapRegistry/T"]
+margin_left = 234.0
+margin_top = 10.0
+margin_right = 416.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 30 )
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme = ExtResource( 1 )
 action_mode = 0
-text = "Move to center"
+text = "Select random from search"
+
+[node name="S" type="Control" parent="Main/Maps/MapRegistry"]
+margin_top = 54.0
+margin_right = 416.0
+margin_bottom = 742.0
+grow_vertical = 2
+rect_min_size = Vector2( 340, 688 )
+rect_clip_content = true
+size_flags_horizontal = 11
+size_flags_vertical = 3
+script = ExtResource( 22 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Main/Maps/MapRegistry/S"]
+physics_interpolation_mode = 2
+show_behind_parent = true
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -443.0
+margin_top = 1.0
+margin_right = 7.0
+margin_bottom = 655.0
+grow_horizontal = 0
+grow_vertical = 2
+rect_min_size = Vector2( 420, 600 )
+rect_pivot_offset = Vector2( -244, -205 )
+rect_clip_content = true
+size_flags_horizontal = 11
+size_flags_vertical = 7
+custom_constants/separation = 2
+alignment = 2
+script = ExtResource( 105 )
+
+[node name="EMPTY" type="Panel" parent="Main/Maps/MapRegistry/S/VBoxContainer"]
+modulate = Color( 1, 1, 1, 0 )
+self_modulate = Color( 1, 1, 1, 0 )
+margin_left = 50.0
+margin_top = 12.0
+margin_right = 450.0
+margin_bottom = 102.0
+rect_min_size = Vector2( 400, 90 )
+size_flags_horizontal = 8
+custom_styles/panel = SubResource( 70 )
+script = ExtResource( 18 )
+
+[node name="Select" type="Button" parent="Main/Maps/MapRegistry/S/VBoxContainer/EMPTY"]
+visible = false
+material = SubResource( 62 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/hover = SubResource( 63 )
+custom_styles/pressed = SubResource( 73 )
+custom_styles/focus = SubResource( 64 )
+custom_styles/disabled = SubResource( 65 )
+custom_styles/normal = SubResource( 66 )
+disabled = true
+toggle_mode = true
+action_mode = 0
+group = SubResource( 67 )
+
+[node name="NODIF" type="Panel" parent="Main/Maps/MapRegistry/S/VBoxContainer"]
+margin_left = 50.0
+margin_top = 104.0
+margin_right = 450.0
+margin_bottom = 194.0
+rect_min_size = Vector2( 400, 90 )
+size_flags_horizontal = 8
+custom_styles/panel = SubResource( 70 )
+script = ExtResource( 18 )
+
+[node name="TextureRect" type="TextureRect" parent="Main/Maps/MapRegistry/S/VBoxContainer/NODIF"]
+modulate = Color( 0.501961, 0.501961, 0.501961, 1 )
+show_behind_parent = true
+material = SubResource( 60 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+texture = ExtResource( 16 )
+expand = true
+stretch_mode = 7
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Label" type="Label" parent="Main/Maps/MapRegistry/S/VBoxContainer/NODIF"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+rect_pivot_offset = Vector2( 42, 42 )
+custom_fonts/font = SubResource( 71 )
+text = "N/A"
+align = 1
+valign = 1
+autowrap = true
 clip_text = true
 
-[node name="Control" type="Control" parent="Main/Results/LeftPush"]
+[node name="Cover" type="TextureRect" parent="Main/Maps/MapRegistry/S/VBoxContainer/NODIF"]
+visible = false
+modulate = Color( 1, 1, 1, 0.588235 )
+self_modulate = Color( 1, 1, 1, 0.588235 )
+material = SubResource( 72 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+expand = true
+stretch_mode = 7
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="F" type="TextureRect" parent="Main/Maps/MapRegistry/S/VBoxContainer/NODIF"]
+visible = false
+modulate = Color( 1, 0.360784, 0.360784, 0.784314 )
 margin_left = 4.0
-margin_right = 4.0
-margin_bottom = 681.0
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 2.0
+margin_top = 3.0
+margin_right = 36.0
+margin_bottom = 35.0
+texture = ExtResource( 26 )
+expand = true
+stretch_mode = 6
+script = ExtResource( 46 )
+
+[node name="Cloud" type="TextureRect" parent="Main/Maps/MapRegistry/S/VBoxContainer/NODIF"]
+visible = false
+modulate = Color( 1, 1, 1, 0.384314 )
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -41.0
+margin_top = -38.0
+margin_right = -9.0
+margin_bottom = -6.0
+texture = ExtResource( 67 )
+expand = true
+stretch_mode = 6
+
+[node name="Select" type="Button" parent="Main/Maps/MapRegistry/S/VBoxContainer/NODIF"]
+material = SubResource( 62 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/hover = SubResource( 63 )
+custom_styles/pressed = SubResource( 73 )
+custom_styles/focus = SubResource( 64 )
+custom_styles/disabled = SubResource( 65 )
+custom_styles/normal = SubResource( 66 )
+disabled = true
+toggle_mode = true
+action_mode = 0
+group = SubResource( 67 )
+
+[node name="Name" type="Label" parent="Main/Maps/MapRegistry/S/VBoxContainer/NODIF"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 30.0
+margin_top = 6.0
+margin_right = -75.0
+margin_bottom = -6.0
+theme = ExtResource( 1 )
+custom_constants/line_spacing = 0
+custom_fonts/font = SubResource( 74 )
+text = "OR3O
+[bongo cat & friends] meow"
+valign = 1
+autowrap = true
+clip_text = true
+
+[node name="EASY" type="Panel" parent="Main/Maps/MapRegistry/S/VBoxContainer"]
+self_modulate = Color( 0, 1, 0, 1 )
+margin_left = 50.0
+margin_top = 196.0
+margin_right = 450.0
+margin_bottom = 286.0
+rect_min_size = Vector2( 400, 90 )
+size_flags_horizontal = 8
+custom_styles/panel = SubResource( 70 )
+script = ExtResource( 18 )
+
+[node name="TextureRect" type="TextureRect" parent="Main/Maps/MapRegistry/S/VBoxContainer/EASY"]
+modulate = Color( 0.501961, 0.501961, 0.501961, 1 )
+self_modulate = Color( 0, 1, 0, 1 )
+show_behind_parent = true
+material = SubResource( 60 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+texture = ExtResource( 16 )
+expand = true
+stretch_mode = 7
+
+[node name="Label" type="Label" parent="Main/Maps/MapRegistry/S/VBoxContainer/EASY"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+custom_fonts/font = SubResource( 75 )
+text = "EASY"
+align = 1
+valign = 1
+autowrap = true
+clip_text = true
+
+[node name="Cover" type="TextureRect" parent="Main/Maps/MapRegistry/S/VBoxContainer/EASY"]
+visible = false
+modulate = Color( 1, 1, 1, 0.588235 )
+self_modulate = Color( 1, 1, 1, 0.588235 )
+material = SubResource( 72 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+expand = true
+stretch_mode = 7
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="F" type="TextureRect" parent="Main/Maps/MapRegistry/S/VBoxContainer/EASY"]
+visible = false
+modulate = Color( 1, 0.360784, 0.360784, 0.784314 )
+margin_left = 4.0
+margin_top = 3.0
+margin_right = 36.0
+margin_bottom = 35.0
+texture = ExtResource( 26 )
+expand = true
+stretch_mode = 6
+script = ExtResource( 46 )
+
+[node name="Cloud" type="TextureRect" parent="Main/Maps/MapRegistry/S/VBoxContainer/EASY"]
+visible = false
+modulate = Color( 1, 1, 1, 0.384314 )
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -41.0
+margin_top = -38.0
+margin_right = -9.0
+margin_bottom = -6.0
+texture = ExtResource( 67 )
+expand = true
+stretch_mode = 6
+
+[node name="Select" type="Button" parent="Main/Maps/MapRegistry/S/VBoxContainer/EASY"]
+material = SubResource( 62 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/hover = SubResource( 63 )
+custom_styles/pressed = SubResource( 73 )
+custom_styles/focus = SubResource( 64 )
+custom_styles/disabled = SubResource( 65 )
+custom_styles/normal = SubResource( 66 )
+disabled = true
+toggle_mode = true
+action_mode = 0
+group = SubResource( 67 )
+
+[node name="Name" type="Label" parent="Main/Maps/MapRegistry/S/VBoxContainer/EASY"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 30.0
+margin_top = 6.0
+margin_right = -75.0
+margin_bottom = -6.0
+theme = ExtResource( 1 )
+custom_constants/line_spacing = 0
+custom_fonts/font = SubResource( 74 )
+text = "OR3O
+[bongo cat & friends] meow"
+valign = 1
+autowrap = true
+clip_text = true
+
+[node name="MEDIUM" type="Panel" parent="Main/Maps/MapRegistry/S/VBoxContainer"]
+self_modulate = Color( 1, 0.72549, 0, 1 )
+margin_left = 50.0
+margin_top = 288.0
+margin_right = 450.0
+margin_bottom = 378.0
+rect_min_size = Vector2( 400, 90 )
+size_flags_horizontal = 8
+custom_styles/panel = SubResource( 70 )
+script = ExtResource( 18 )
+
+[node name="TextureRect" type="TextureRect" parent="Main/Maps/MapRegistry/S/VBoxContainer/MEDIUM"]
+modulate = Color( 0.501961, 0.501961, 0.501961, 1 )
+self_modulate = Color( 1, 0.72549, 0, 1 )
+show_behind_parent = true
+material = SubResource( 60 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+texture = ExtResource( 16 )
+expand = true
+stretch_mode = 7
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Main/Maps/MapRegistry/S/VBoxContainer/MEDIUM"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+custom_fonts/font = SubResource( 76 )
+text = "MEDIUM"
+align = 1
+valign = 1
+autowrap = true
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Cover" type="TextureRect" parent="Main/Maps/MapRegistry/S/VBoxContainer/MEDIUM"]
+visible = false
+modulate = Color( 1, 1, 1, 0.588235 )
+self_modulate = Color( 1, 1, 1, 0.588235 )
+material = SubResource( 72 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+expand = true
+stretch_mode = 7
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="F" type="TextureRect" parent="Main/Maps/MapRegistry/S/VBoxContainer/MEDIUM"]
+visible = false
+modulate = Color( 1, 0.360784, 0.360784, 0.784314 )
+margin_left = 4.0
+margin_top = 3.0
+margin_right = 36.0
+margin_bottom = 35.0
+texture = ExtResource( 26 )
+expand = true
+stretch_mode = 6
+script = ExtResource( 46 )
+
+[node name="Cloud" type="TextureRect" parent="Main/Maps/MapRegistry/S/VBoxContainer/MEDIUM"]
+visible = false
+modulate = Color( 1, 1, 1, 0.384314 )
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -41.0
+margin_top = -38.0
+margin_right = -9.0
+margin_bottom = -6.0
+texture = ExtResource( 67 )
+expand = true
+stretch_mode = 6
+
+[node name="Select" type="Button" parent="Main/Maps/MapRegistry/S/VBoxContainer/MEDIUM"]
+material = SubResource( 62 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/hover = SubResource( 63 )
+custom_styles/pressed = SubResource( 73 )
+custom_styles/focus = SubResource( 64 )
+custom_styles/disabled = SubResource( 65 )
+custom_styles/normal = SubResource( 66 )
+disabled = true
+toggle_mode = true
+action_mode = 0
+group = SubResource( 67 )
+
+[node name="Name" type="Label" parent="Main/Maps/MapRegistry/S/VBoxContainer/MEDIUM"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 30.0
+margin_top = 6.0
+margin_right = -75.0
+margin_bottom = -6.0
+theme = ExtResource( 1 )
+custom_constants/line_spacing = 0
+custom_fonts/font = SubResource( 74 )
+text = "OR3O
+[bongo cat & friends] meow"
+valign = 1
+autowrap = true
+clip_text = true
+
+[node name="HARD" type="Panel" parent="Main/Maps/MapRegistry/S/VBoxContainer"]
+self_modulate = Color( 1, 0, 0, 1 )
+margin_left = 50.0
+margin_top = 380.0
+margin_right = 450.0
+margin_bottom = 470.0
+rect_min_size = Vector2( 400, 90 )
+size_flags_horizontal = 8
+custom_styles/panel = SubResource( 70 )
+script = ExtResource( 18 )
+
+[node name="TextureRect" type="TextureRect" parent="Main/Maps/MapRegistry/S/VBoxContainer/HARD"]
+modulate = Color( 0.501961, 0.501961, 0.501961, 1 )
+self_modulate = Color( 1, 0, 0, 1 )
+show_behind_parent = true
+material = SubResource( 60 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+texture = ExtResource( 16 )
+expand = true
+stretch_mode = 7
+
+[node name="Label" type="Label" parent="Main/Maps/MapRegistry/S/VBoxContainer/HARD"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+custom_fonts/font = SubResource( 77 )
+text = "HARD"
+align = 1
+valign = 1
+autowrap = true
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Cover" type="TextureRect" parent="Main/Maps/MapRegistry/S/VBoxContainer/HARD"]
+visible = false
+modulate = Color( 1, 1, 1, 0.588235 )
+self_modulate = Color( 1, 1, 1, 0.588235 )
+material = SubResource( 72 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+expand = true
+stretch_mode = 7
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="F" type="TextureRect" parent="Main/Maps/MapRegistry/S/VBoxContainer/HARD"]
+visible = false
+modulate = Color( 1, 0.360784, 0.360784, 0.784314 )
+margin_left = 4.0
+margin_top = 3.0
+margin_right = 36.0
+margin_bottom = 35.0
+texture = ExtResource( 26 )
+expand = true
+stretch_mode = 6
+script = ExtResource( 46 )
+
+[node name="Cloud" type="TextureRect" parent="Main/Maps/MapRegistry/S/VBoxContainer/HARD"]
+visible = false
+modulate = Color( 1, 1, 1, 0.384314 )
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -41.0
+margin_top = -38.0
+margin_right = -9.0
+margin_bottom = -6.0
+texture = ExtResource( 67 )
+expand = true
+stretch_mode = 6
+
+[node name="Select" type="Button" parent="Main/Maps/MapRegistry/S/VBoxContainer/HARD"]
+material = SubResource( 62 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/hover = SubResource( 63 )
+custom_styles/pressed = SubResource( 73 )
+custom_styles/focus = SubResource( 64 )
+custom_styles/disabled = SubResource( 65 )
+custom_styles/normal = SubResource( 66 )
+disabled = true
+toggle_mode = true
+action_mode = 0
+group = SubResource( 67 )
+
+[node name="Name" type="Label" parent="Main/Maps/MapRegistry/S/VBoxContainer/HARD"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 30.0
+margin_top = 6.0
+margin_right = -75.0
+margin_bottom = -6.0
+theme = ExtResource( 1 )
+custom_constants/line_spacing = 0
+custom_fonts/font = SubResource( 74 )
+text = "OR3O
+[bongo cat & friends] meow"
+valign = 1
+autowrap = true
+clip_text = true
+
+[node name="LOGIC" type="Panel" parent="Main/Maps/MapRegistry/S/VBoxContainer"]
+self_modulate = Color( 0.843137, 0.415686, 1, 1 )
+margin_left = 50.0
+margin_top = 472.0
+margin_right = 450.0
+margin_bottom = 562.0
+rect_min_size = Vector2( 400, 90 )
+size_flags_horizontal = 8
+custom_styles/panel = SubResource( 70 )
+script = ExtResource( 18 )
+
+[node name="TextureRect" type="TextureRect" parent="Main/Maps/MapRegistry/S/VBoxContainer/LOGIC"]
+modulate = Color( 0.501961, 0.501961, 0.501961, 1 )
+self_modulate = Color( 0.843137, 0.415686, 1, 1 )
+show_behind_parent = true
+material = SubResource( 60 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+texture = ExtResource( 16 )
+expand = true
+stretch_mode = 7
+
+[node name="Label" type="Label" parent="Main/Maps/MapRegistry/S/VBoxContainer/LOGIC"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+custom_fonts/font = SubResource( 78 )
+text = "LOGIC?"
+align = 1
+valign = 1
+autowrap = true
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Cover" type="TextureRect" parent="Main/Maps/MapRegistry/S/VBoxContainer/LOGIC"]
+visible = false
+modulate = Color( 1, 1, 1, 0.588235 )
+self_modulate = Color( 1, 1, 1, 0.588235 )
+material = SubResource( 72 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+expand = true
+stretch_mode = 7
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="F" type="TextureRect" parent="Main/Maps/MapRegistry/S/VBoxContainer/LOGIC"]
+visible = false
+modulate = Color( 1, 0.360784, 0.360784, 0.784314 )
+margin_left = 4.0
+margin_top = 3.0
+margin_right = 36.0
+margin_bottom = 35.0
+texture = ExtResource( 26 )
+expand = true
+stretch_mode = 6
+script = ExtResource( 46 )
+
+[node name="Cloud" type="TextureRect" parent="Main/Maps/MapRegistry/S/VBoxContainer/LOGIC"]
+visible = false
+modulate = Color( 1, 1, 1, 0.384314 )
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -41.0
+margin_top = -38.0
+margin_right = -9.0
+margin_bottom = -6.0
+texture = ExtResource( 67 )
+expand = true
+stretch_mode = 6
+
+[node name="Select" type="Button" parent="Main/Maps/MapRegistry/S/VBoxContainer/LOGIC"]
+material = SubResource( 62 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/hover = SubResource( 63 )
+custom_styles/pressed = SubResource( 73 )
+custom_styles/focus = SubResource( 64 )
+custom_styles/disabled = SubResource( 65 )
+custom_styles/normal = SubResource( 66 )
+disabled = true
+toggle_mode = true
+action_mode = 0
+group = SubResource( 67 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="Label" parent="Main/Maps/MapRegistry/S/VBoxContainer/LOGIC"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 30.0
+margin_top = 6.0
+margin_right = -75.0
+margin_bottom = -6.0
+theme = ExtResource( 1 )
+custom_constants/line_spacing = 0
+custom_fonts/font = SubResource( 74 )
+text = "OR3O
+[bongo cat & friends] meow"
+valign = 1
+autowrap = true
+clip_text = true
+
+[node name="AMOGUS" type="Panel" parent="Main/Maps/MapRegistry/S/VBoxContainer"]
+self_modulate = Color( 0.211765, 0.188235, 0.309804, 1 )
+margin_left = 50.0
+margin_top = 564.0
+margin_right = 450.0
+margin_bottom = 654.0
+rect_min_size = Vector2( 400, 90 )
+size_flags_horizontal = 8
+custom_styles/panel = SubResource( 70 )
+script = ExtResource( 18 )
+
+[node name="TextureRect" type="TextureRect" parent="Main/Maps/MapRegistry/S/VBoxContainer/AMOGUS"]
+modulate = Color( 0.501961, 0.501961, 0.501961, 1 )
+self_modulate = Color( 0.211765, 0.188235, 0.309804, 1 )
+show_behind_parent = true
+material = SubResource( 60 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+texture = ExtResource( 16 )
+expand = true
+stretch_mode = 7
+
+[node name="Label" type="Label" parent="Main/Maps/MapRegistry/S/VBoxContainer/AMOGUS"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+custom_fonts/font = SubResource( 79 )
+text = "助"
+align = 1
+valign = 1
+autowrap = true
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Cover" type="TextureRect" parent="Main/Maps/MapRegistry/S/VBoxContainer/AMOGUS"]
+visible = false
+modulate = Color( 1, 1, 1, 0.588235 )
+self_modulate = Color( 1, 1, 1, 0.588235 )
+material = SubResource( 72 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 6.0
+margin_right = -6.0
+margin_bottom = -6.0
+expand = true
+stretch_mode = 7
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="F" type="TextureRect" parent="Main/Maps/MapRegistry/S/VBoxContainer/AMOGUS"]
+visible = false
+modulate = Color( 1, 0.360784, 0.360784, 0.784314 )
+margin_left = 4.0
+margin_top = 3.0
+margin_right = 36.0
+margin_bottom = 35.0
+texture = ExtResource( 26 )
+expand = true
+stretch_mode = 6
+script = ExtResource( 46 )
+
+[node name="Cloud" type="TextureRect" parent="Main/Maps/MapRegistry/S/VBoxContainer/AMOGUS"]
+visible = false
+modulate = Color( 1, 1, 1, 0.384314 )
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -41.0
+margin_top = -38.0
+margin_right = -9.0
+margin_bottom = -6.0
+texture = ExtResource( 67 )
+expand = true
+stretch_mode = 6
+
+[node name="Select" type="Button" parent="Main/Maps/MapRegistry/S/VBoxContainer/AMOGUS"]
+material = SubResource( 62 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/hover = SubResource( 63 )
+custom_styles/pressed = SubResource( 73 )
+custom_styles/focus = SubResource( 64 )
+custom_styles/disabled = SubResource( 65 )
+custom_styles/normal = SubResource( 66 )
+disabled = true
+toggle_mode = true
+action_mode = 0
+group = SubResource( 67 )
+
+[node name="Name" type="Label" parent="Main/Maps/MapRegistry/S/VBoxContainer/AMOGUS"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 30.0
+margin_top = 6.0
+margin_right = -75.0
+margin_bottom = -6.0
+theme = ExtResource( 1 )
+custom_constants/line_spacing = 0
+custom_fonts/font = SubResource( 74 )
+text = "OR3O
+[bongo cat & friends] meow"
+valign = 1
+autowrap = true
+clip_text = true
+
+[node name="Press" type="AudioStreamPlayer" parent="Main/Maps/MapRegistry/S/VBoxContainer"]
+stream = ExtResource( 5 )
+volume_db = -16.0
+pitch_scale = 1.25
+
+[node name="ScrollControl" type="VBoxContainer" parent="Main/Maps"]
+margin_left = 1076.0
+margin_right = 1116.0
+margin_bottom = 742.0
+
+[node name="bump" type="Button" parent="Main/Maps/ScrollControl"]
+modulate = Color( 1, 1, 1, 0 )
+margin_right = 40.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 0, 50 )
+theme = ExtResource( 1 )
+action_mode = 0
+
+[node name="M" type="Button" parent="Main/Maps/ScrollControl"]
+margin_top = 54.0
+margin_right = 40.0
+margin_bottom = 396.0
+rect_min_size = Vector2( 40, 0 )
+rect_pivot_offset = Vector2( 8, 476 )
+size_flags_vertical = 3
+theme = ExtResource( 1 )
+custom_styles/hover = SubResource( 80 )
+custom_styles/pressed = SubResource( 81 )
+custom_styles/focus = SubResource( 82 )
+custom_styles/disabled = SubResource( 83 )
+custom_styles/normal = SubResource( 84 )
+shortcut_in_tooltip = false
+action_mode = 0
+
+[node name="Label" type="Label" parent="Main/Maps/ScrollControl/M"]
+modulate = Color( 0.203922, 0.188235, 0.188235, 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 6.0
+margin_bottom = -6.0
+custom_fonts/font = SubResource( 77 )
+text = "U
+P"
+align = 1
+valign = 1
+clip_text = true
+
+[node name="P" type="Button" parent="Main/Maps/ScrollControl"]
+margin_top = 400.0
+margin_right = 40.0
+margin_bottom = 742.0
+rect_min_size = Vector2( 40, 0 )
+rect_pivot_offset = Vector2( 8, 476 )
+size_flags_vertical = 3
+theme = ExtResource( 1 )
+custom_styles/hover = SubResource( 80 )
+custom_styles/pressed = SubResource( 81 )
+custom_styles/focus = SubResource( 82 )
+custom_styles/disabled = SubResource( 83 )
+custom_styles/normal = SubResource( 84 )
+shortcut_in_tooltip = false
+action_mode = 0
+
+[node name="Label" type="Label" parent="Main/Maps/ScrollControl/P"]
+modulate = Color( 0.203922, 0.188235, 0.188235, 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 6.0
+margin_bottom = -6.0
+custom_fonts/font = SubResource( 77 )
+text = "D
+O
+W
+N"
+align = 1
+valign = 1
+clip_text = true
+
+[node name="VSeparator2" type="VSeparator" parent="Main/Maps"]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 1120.0
+margin_right = 1125.0
+margin_bottom = 742.0
+custom_constants/separation = 5
+
+[node name="Filters" type="VBoxContainer" parent="Main/Maps"]
+margin_left = 1129.0
+margin_right = 1206.0
+margin_bottom = 742.0
+size_flags_horizontal = 5
+size_flags_vertical = 3
+custom_constants/separation = 7
+script = ExtResource( 20 )
+
+[node name="bump" type="Button" parent="Main/Maps/Filters"]
+modulate = Color( 1, 1, 1, 0 )
+margin_right = 77.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 0, 50 )
+theme = ExtResource( 1 )
+action_mode = 0
+
+[node name="Label" type="Label" parent="Main/Maps/Filters"]
+margin_top = 57.0
+margin_right = 77.0
+margin_bottom = 77.0
+text = "Filters"
+
+[node name="Broken" type="CheckBox" parent="Main/Maps/Filters"]
+margin_top = 84.0
+margin_right = 77.0
+margin_bottom = 109.0
+rect_min_size = Vector2( 0, 25 )
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_focus = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 69 )
+action_mode = 0
+text = "broken"
+flat = true
+script = ExtResource( 19 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Online" type="CheckBox" parent="Main/Maps/Filters"]
+margin_top = 116.0
+margin_right = 77.0
+margin_bottom = 141.0
+rect_min_size = Vector2( 0, 25 )
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_focus = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 69 )
+pressed = true
+action_mode = 0
+text = "online"
+flat = true
+script = ExtResource( 92 )
+target = "last_search_incl_online"
+
+[node name="DiffSort" type="CheckBox" parent="Main/Maps/Filters"]
+margin_top = 148.0
+margin_right = 77.0
+margin_bottom = 173.0
+rect_min_size = Vector2( 0, 25 )
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_focus = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 69 )
+custom_icons/checked = ExtResource( 24 )
+custom_icons/unchecked = ExtResource( 25 )
+action_mode = 0
+text = "difficulty"
+flat = true
+script = ExtResource( 17 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NameSort" type="CheckBox" parent="Main/Maps/Filters"]
+margin_top = 180.0
+margin_right = 77.0
+margin_bottom = 205.0
+rect_min_size = Vector2( 0, 25 )
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_focus = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
+custom_fonts/font = SubResource( 69 )
+custom_icons/checked = ExtResource( 24 )
+custom_icons/unchecked = ExtResource( 25 )
+action_mode = 0
+text = "name"
+flat = true
+script = ExtResource( 23 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="space" type="Control" parent="Main/Maps/Filters"]
+margin_top = 212.0
+margin_right = 77.0
+margin_bottom = 212.0
+rect_min_size = Vector2( 20, 0 )
+
+[node name="NODIF" type="Panel" parent="Main/Maps/Filters"]
+margin_top = 219.0
+margin_right = 32.0
+margin_bottom = 251.0
+rect_min_size = Vector2( 32, 32 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+custom_styles/panel = SubResource( 59 )
+
+[node name="TextureRect" type="TextureRect" parent="Main/Maps/Filters/NODIF"]
+modulate = Color( 0.501961, 0.501961, 0.501961, 1 )
+show_behind_parent = true
+material = SubResource( 60 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -2.0
+texture = ExtResource( 16 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Label" type="Label" parent="Main/Maps/Filters/NODIF"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 42, 42 )
+custom_fonts/font = SubResource( 61 )
+text = "N"
+align = 1
+valign = 1
+autowrap = true
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Select" type="Button" parent="Main/Maps/Filters/NODIF"]
+material = SubResource( 62 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/hover = SubResource( 63 )
+custom_styles/pressed = SubResource( 63 )
+custom_styles/focus = SubResource( 64 )
+custom_styles/disabled = SubResource( 65 )
+custom_styles/normal = SubResource( 66 )
+action_mode = 0
+group = SubResource( 67 )
+
+[node name="EASY" type="Panel" parent="Main/Maps/Filters"]
+self_modulate = Color( 0, 1, 0, 1 )
+margin_top = 258.0
+margin_right = 32.0
+margin_bottom = 290.0
+rect_min_size = Vector2( 32, 32 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+custom_styles/panel = SubResource( 59 )
+
+[node name="TextureRect" type="TextureRect" parent="Main/Maps/Filters/EASY"]
+modulate = Color( 0.501961, 0.501961, 0.501961, 1 )
+self_modulate = Color( 0, 1, 0, 1 )
+show_behind_parent = true
+material = SubResource( 60 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -2.0
+texture = ExtResource( 16 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Label" type="Label" parent="Main/Maps/Filters/EASY"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 42, 42 )
+custom_fonts/font = SubResource( 61 )
+text = "E"
+align = 1
+valign = 1
+autowrap = true
+clip_text = true
+
+[node name="Select" type="Button" parent="Main/Maps/Filters/EASY"]
+material = SubResource( 62 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/hover = SubResource( 63 )
+custom_styles/pressed = SubResource( 63 )
+custom_styles/focus = SubResource( 64 )
+custom_styles/disabled = SubResource( 65 )
+custom_styles/normal = SubResource( 66 )
+action_mode = 0
+group = SubResource( 67 )
+
+[node name="MEDIUM" type="Panel" parent="Main/Maps/Filters"]
+self_modulate = Color( 1, 0.72549, 0, 1 )
+margin_top = 297.0
+margin_right = 32.0
+margin_bottom = 329.0
+rect_min_size = Vector2( 32, 32 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+custom_styles/panel = SubResource( 59 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="Main/Maps/Filters/MEDIUM"]
+modulate = Color( 0.501961, 0.501961, 0.501961, 1 )
+self_modulate = Color( 1, 0.72549, 0, 1 )
+show_behind_parent = true
+material = SubResource( 60 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -2.0
+texture = ExtResource( 16 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Label" type="Label" parent="Main/Maps/Filters/MEDIUM"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 42, 42 )
+custom_fonts/font = SubResource( 61 )
+text = "M"
+align = 1
+valign = 1
+autowrap = true
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Select" type="Button" parent="Main/Maps/Filters/MEDIUM"]
+material = SubResource( 62 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/hover = SubResource( 63 )
+custom_styles/pressed = SubResource( 63 )
+custom_styles/focus = SubResource( 64 )
+custom_styles/disabled = SubResource( 65 )
+custom_styles/normal = SubResource( 66 )
+action_mode = 0
+group = SubResource( 67 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HARD" type="Panel" parent="Main/Maps/Filters"]
+self_modulate = Color( 1, 0, 0, 1 )
+margin_top = 336.0
+margin_right = 32.0
+margin_bottom = 368.0
+rect_min_size = Vector2( 32, 32 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+custom_styles/panel = SubResource( 59 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="Main/Maps/Filters/HARD"]
+modulate = Color( 0.501961, 0.501961, 0.501961, 1 )
+self_modulate = Color( 1, 0, 0, 1 )
+show_behind_parent = true
+material = SubResource( 60 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -2.0
+texture = ExtResource( 16 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Label" type="Label" parent="Main/Maps/Filters/HARD"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 42, 42 )
+custom_fonts/font = SubResource( 61 )
+text = "H"
+align = 1
+valign = 1
+autowrap = true
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Select" type="Button" parent="Main/Maps/Filters/HARD"]
+material = SubResource( 62 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/hover = SubResource( 63 )
+custom_styles/pressed = SubResource( 63 )
+custom_styles/focus = SubResource( 64 )
+custom_styles/disabled = SubResource( 65 )
+custom_styles/normal = SubResource( 66 )
+action_mode = 0
+group = SubResource( 67 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LOGIC" type="Panel" parent="Main/Maps/Filters"]
+self_modulate = Color( 0.843137, 0.415686, 1, 1 )
+margin_top = 375.0
+margin_right = 32.0
+margin_bottom = 407.0
+rect_min_size = Vector2( 32, 32 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+custom_styles/panel = SubResource( 59 )
+
+[node name="TextureRect" type="TextureRect" parent="Main/Maps/Filters/LOGIC"]
+modulate = Color( 0.501961, 0.501961, 0.501961, 1 )
+self_modulate = Color( 0.843137, 0.415686, 1, 1 )
+show_behind_parent = true
+material = SubResource( 60 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -2.0
+texture = ExtResource( 16 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Label" type="Label" parent="Main/Maps/Filters/LOGIC"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 42, 42 )
+custom_fonts/font = SubResource( 61 )
+text = "L"
+align = 1
+valign = 1
+autowrap = true
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Select" type="Button" parent="Main/Maps/Filters/LOGIC"]
+material = SubResource( 62 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/hover = SubResource( 63 )
+custom_styles/pressed = SubResource( 63 )
+custom_styles/focus = SubResource( 64 )
+custom_styles/disabled = SubResource( 65 )
+custom_styles/normal = SubResource( 66 )
+action_mode = 0
+group = SubResource( 67 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AMOGUS" type="Panel" parent="Main/Maps/Filters"]
+self_modulate = Color( 0.211765, 0.188235, 0.309804, 1 )
+margin_top = 414.0
+margin_right = 32.0
+margin_bottom = 446.0
+rect_min_size = Vector2( 32, 32 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+custom_styles/panel = SubResource( 59 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="Main/Maps/Filters/AMOGUS"]
+modulate = Color( 0.501961, 0.501961, 0.501961, 1 )
+self_modulate = Color( 0.211765, 0.188235, 0.309804, 1 )
+show_behind_parent = true
+material = SubResource( 60 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -2.0
+texture = ExtResource( 16 )
+expand = true
+
+[node name="Label" type="Label" parent="Main/Maps/Filters/AMOGUS"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -1.0
+margin_bottom = -3.0
+custom_fonts/font = SubResource( 68 )
+text = "助"
+align = 1
+valign = 1
+autowrap = true
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Select" type="Button" parent="Main/Maps/Filters/AMOGUS"]
+material = SubResource( 62 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/hover = SubResource( 63 )
+custom_styles/pressed = SubResource( 63 )
+custom_styles/focus = SubResource( 64 )
+custom_styles/disabled = SubResource( 65 )
+custom_styles/normal = SubResource( 66 )
+action_mode = 0
+group = SubResource( 67 )
+
+[node name="VSeparator3" type="VSeparator" parent="Main/Maps"]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 1210.0
+margin_right = 1220.0
+margin_bottom = 742.0
+custom_constants/separation = 10
 
 [node name="Settings" type="ReferenceRect" parent="Main"]
 visible = false
@@ -4178,6 +4403,7 @@ __meta__ = {
 }
 
 [node name="Menu" parent="Main/Content" instance=ExtResource( 103 )]
+script = null
 
 [node name="Language" type="ReferenceRect" parent="Main"]
 visible = false
@@ -4283,6 +4509,7 @@ text = "Play Song"
 valign = 1
 
 [node name="MapSelect" type="Button" parent="Sidebar/L"]
+visible = false
 margin_top = 58.0
 margin_right = 58.0
 margin_bottom = 116.0
@@ -4315,9 +4542,9 @@ text = "Song Select"
 valign = 1
 
 [node name="Settings" type="Button" parent="Sidebar/L"]
-margin_top = 116.0
+margin_top = 58.0
 margin_right = 58.0
-margin_bottom = 174.0
+margin_bottom = 116.0
 rect_min_size = Vector2( 0, 58 )
 custom_styles/hover = SubResource( 4 )
 custom_styles/pressed = SubResource( 2 )
@@ -4346,9 +4573,9 @@ text = "Settings"
 valign = 1
 
 [node name="Credits" type="Button" parent="Sidebar/L"]
-margin_top = 174.0
+margin_top = 116.0
 margin_right = 58.0
-margin_bottom = 232.0
+margin_bottom = 174.0
 rect_min_size = Vector2( 0, 58 )
 custom_styles/hover = SubResource( 4 )
 custom_styles/pressed = SubResource( 2 )
@@ -4377,9 +4604,9 @@ text = "Credits"
 valign = 1
 
 [node name="ContentMgr" type="Button" parent="Sidebar/L"]
-margin_top = 232.0
+margin_top = 174.0
 margin_right = 58.0
-margin_bottom = 290.0
+margin_bottom = 232.0
 rect_min_size = Vector2( 0, 58 )
 custom_styles/hover = SubResource( 4 )
 custom_styles/pressed = SubResource( 2 )
@@ -4408,9 +4635,9 @@ text = "Content Manager"
 valign = 1
 
 [node name="Language" type="Button" parent="Sidebar/L"]
-margin_top = 290.0
+margin_top = 232.0
 margin_right = 58.0
-margin_bottom = 348.0
+margin_bottom = 290.0
 rect_min_size = Vector2( 0, 58 )
 custom_styles/hover = SubResource( 4 )
 custom_styles/pressed = SubResource( 2 )
@@ -4503,9 +4730,9 @@ text = "Switch to Old Menu"
 valign = 1
 
 [node name="Quit" type="Button" parent="Sidebar/L"]
-margin_top = 348.0
+margin_top = 290.0
 margin_right = 58.0
-margin_bottom = 406.0
+margin_bottom = 348.0
 rect_min_size = Vector2( 0, 58 )
 custom_styles/hover = SubResource( 4 )
 custom_styles/pressed = SubResource( 2 )

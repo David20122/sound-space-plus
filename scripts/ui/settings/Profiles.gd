@@ -3,6 +3,9 @@ extends MenuButton
 var profiles
 var file:File
 
+var overwrite_submenu = PopupMenu.new()
+var delete_submenu = PopupMenu.new()
+
 func save_profile(path:String):
 	if path:
 		var saveLoc:File = File.new()
@@ -11,24 +14,41 @@ func save_profile(path:String):
 		saveLoc.store_string(file.get_as_text())
 		saveLoc.close()
 		file.close()
+
 		# refresh the profile list
-		get_popup().clear()
 		_ready()
 
 func on_pressed(i):
-	if i == profiles.size():
-		Rhythia.save_settings() # ensure everything is current
-		print("creating profile")
-		file= File.new()
-		var err:int = file.open(Globals.p("user://settings.json"), File.READ)
-		if err == OK: # will be FILE_NOT_FOUND if it doesn't exist
-			Globals.file_sel.save_file(
-				self,
-				"save_profile",
-				["*.settings.json ; Settings Profile (*.settings.json)"],
-				Globals.p("user://") + "profile.settings.json"
+	if i == profiles.size() + 1: # Create New From Current
+		var title = "Enter Profile Name"
+		var valid = false
+		var response:int = 0
+		while !valid and response != 1:
+			Globals.string_prompt.open(
+				"Input a valid file name for the new profile",
+				title,
+				"Profile Name",
+				[
+					{ text = "OK" },
+					{ text = "Cancel", wait = 0 }
+				]
 			)
+			title = "Invalid Profile Name"
+			Globals.string_prompt.s_alert.play()
+			response = yield(Globals.string_prompt,"option_selected")
+			Globals.string_prompt.close()
+			if response == 0:
+				# wait a frame for the prompt to close
+				yield(get_tree().create_timer(0.6),"timeout")
+				valid = Globals.string_prompt.input.get_text().is_valid_filename()
+		
+		if response == 0:
+			Rhythia.save_settings() # ensure the current settings are saved
+			Rhythia.save_settings(Globals.p("user://" + Globals.string_prompt.input.get_text() + ".settings.json"))
+		_ready()
 		return
+
+	# load the selected profile
 	var profile = profiles[i]
 	print("Loading profile: " + profile)
 	# overwrite Globals.p("user://settings.json") with the selected profile
@@ -41,6 +61,9 @@ func on_pressed(i):
 
 
 func _ready():
+	get_popup().clear()
+	delete_submenu.clear()
+	overwrite_submenu.clear()
 	# for every file Globals.p("user://<something>.settings.json") add an item with the name of the file
 	profiles = Globals.get_files_recursive([Globals.p("user://")], 1, "json").files # just putting .settings.json here doesn't work :(
 	# remove ones that are not settings profiles
@@ -50,7 +73,47 @@ func _ready():
 
 	#.substr(profiles[i].find_last("/") + 1, profiles[i].find(".settings.json") - profiles[i].find_last("/") - 1)
 	for i in range(profiles.size()):
-		get_popup().add_item(profiles[i].substr(profiles[i].find_last("/") + 1, profiles[i].find(".settings.json") - profiles[i].find_last("/") - 1), i)
-	get_popup().add_item("Create/Overwrite From Current", -1)
+		var profileName = profiles[i].substr(profiles[i].find_last("/") + 1, profiles[i].find(".settings.json") - profiles[i].find_last("/") - 1)
+		get_popup().add_item(profileName, i)
+		delete_submenu.add_item(profileName, i)
+		overwrite_submenu.add_item(profileName, i)
+	
+	get_popup().add_separator()
+	get_popup().add_item("Create New From Current", -1)
+	
+	overwrite_submenu.name = "Overwrite"
+	delete_submenu.name = "Delete"
+
+	get_popup().call_deferred("add_child", overwrite_submenu)
+	get_popup().call_deferred("add_child", delete_submenu)
+
+	overwrite_submenu.connect("id_pressed",self,"overwrite_profile")
+	delete_submenu.connect("id_pressed",self,"delete_profile")
+
+	get_popup().add_submenu_item("Overwrite Profile", "Overwrite", -1)
+	get_popup().add_submenu_item("Delete Profile", "Delete", -1)
 	get_popup().connect("id_pressed",self,"on_pressed")
 
+func overwrite_profile(i):
+	var profile = profiles[i]
+	print("Overwriting profile: " + profile)
+	Rhythia.save_settings(profile)
+
+func delete_profile(i):
+	var profile = profiles[i]
+	print("Deleting profile: " + profile)
+	var userDir = Directory.new()
+	userDir.open(Globals.p("user://"))
+	var res:int = userDir.remove(profile)
+	if res != OK:
+		Globals.confirm_prompt.open(
+			"An error occurred while deleting your settings file. "+
+			"Try manually deleting it, and if that doesn't work, "+
+			"please ask for help in the Discord server.\n"+
+			"https://discord.gg/rhythia"+
+			"\n(error code %s)" % res,
+			"Error",
+			[{text="OK"}]
+		)
+
+	_ready()

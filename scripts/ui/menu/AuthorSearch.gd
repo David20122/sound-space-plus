@@ -1,7 +1,7 @@
 extends LineEdit
 
 func update_txt(_v=null):
-	get_parent().get_parent().get_node("S/G").update_author_search_text(text)
+	get_parent().get_parent().get_node("S/VBoxContainer").update_author_search_text(text)
 	Rhythia.last_author_search_str = text
 
 func _ready():
