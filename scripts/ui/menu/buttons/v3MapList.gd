@@ -406,6 +406,12 @@ func _input(ev:InputEvent):
 		elif ev.button_index == BUTTON_WHEEL_DOWN:
 			scrolling_to = false
 			call_deferred("pg_down")
+	if ev is InputEventKey and ev.is_pressed():
+		#if f2 is pressed, it will select a random map
+		if ev.scancode == KEY_F2:
+			print("F2")
+			select_random()
+		
 
 func handle_window_resize():
 	get_tree().reload_current_scene()
