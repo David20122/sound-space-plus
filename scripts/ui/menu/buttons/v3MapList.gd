@@ -452,6 +452,9 @@ func scroll_to(i:int):
 	scrolling_to = true
 
 func _ready():
+	var thread = Thread.new() # Load Covers
+	thread.start(self, "_load_covers")
+
 	randomize()
 	if !visible: return
 	$EASY.visible = false
@@ -474,6 +477,11 @@ func _ready():
 func size_list():
 	size_x = get_viewport_rect().size.x/2.8
 	$"..".rect_min_size.x = size_x
+
+func _load_covers():
+	var allmaps:Array = Rhythia.registry_song.get_items()
+	for i in range(allmaps.size()):
+		allmaps[i]._get_cover()
 
 func strip_diacritics(s:String): # we hardcoding tonight   -  edit nvm im literally a genius
 #	var diacritics = "[̴̧̳̦̜̱͖̲̺͊͜1̷̨̛̝̼̓͒8̶̳̘̥̰̌̋̎͛̐͛̄̾ͅ6̶̡̛̦̻̭̅͝0̷̼̤͓̹͚͇͐͒́͗̿̍͋̕͜ ̸̦̥̻͈̳̥̲͖̆̀̽̋͘Ḇ̴̢̲̞̰͉̬͙̮̗͒̿̉͛͊P̸̩͉̻͓̱͕͖͉͕̉͌̈̅̃̈͑̚͜͝M̶̡̜͕̺̞͔̾̉ ̵̠̈È̸̛̤̖͍̈̓̏̒̆̋͘x̸̨̛͉̀͛͑͑́t̸̲̹̖̺̥̪̙͗̒̓̆̀͒͒̚r̷̲̩̦̓̔̓̑̀̿́̕͝ã̷̢̢̤̹̹̝̓͌̃͂t̸̲͉͊̀o̸͉͈̿̿̌͋̋n̶̗̺̩̱̠͚͌͛̈́͂̃̀̚͠͝ȩ̷̠̻͕̠̫̗͖̹̊]̶͖̙̳̳̲̪̌̆̄̈͊͛͘͜͜͜͝ ̸̧̩͕̲́̇̃̑A̶̱̖͔̪̦̮̐̉̀͗͊̚͝w̶̢͕̬̪̞̲͚͕̫̠̎̀̾̌̓̊̚͝͠â̵͇̮͖̜̱͙̗k̸̢̛̥̩͈̤̩͍̱͍͇̆̆̀̎̓͐̊̕ȩ̵̦̙̠̬̔̍́̚s̴̡̬̦̈́̈̄͌̃͠y̶̙͒͐̉̆̔ ̸̙̦̲̃͆̇́́͂͠C̵̨̖̻̯̪͎̀̊̄̏͛͗͝h̵̨̦̫̖͇̮̥̿͊̎̂͝r̴̖̙̤͖̤̻̝̬̗̓̄̓̆̇̈́̇̄͠ḭ̷̧̧͙̲͈̬̦̮̈́̀͗͌̕ͅs̴̯̿t̸̡̡͈̰̮͎̺͌̏ͅḿ̸̢̛̼̼͖̗ã̵̢̢̬͜s̶̡̙̼̥̣̺̻̭̱̈̈́̆̒̒̈́͠ͅ ̷̧̗͌́̐̌̽̅͠B̴̨̡̢̟͕̦̹͉̺̔ͅë̷̻̞͎̬͎̗͋̀͐́̅l̷̛̠̪͕͖̊̾l̶̹̤͊͊s̷̛͉͛͌̐͘̚̚͘ ̷͕̯̲̟̦̥͍̞͑̾̀͆͛͑̂͊͐R̵̮̮͖̥̜̠̖̥̲͇̋́i̵̟͚̭̣̙̫̙̘͍͛̍͝ͅņ̷̩͉̮̭͙̌͆g̵̨̡̹̗̗͍̟̟̩̓̾̂̍̆ ̴̺̥̙͉͉̾̉̽f̴͓̏̿̅̋͛̓̓o̴͈̎̀͒̏̚͠͝r̷̡̬͉͇̞̉̈̀ ̶̡̛̘̭̩͓̟̊̆̓̓̏̇͝͝H̴̢͓̫̰́̈̋E̶̛̛̥̬̯̺͊̏̽̀L̵̟̮̞̫̟͗̑̀͂̽͑̔̐̉̕L̷̛̹̼͎̰͗̾̆͋̊́̆͆"
