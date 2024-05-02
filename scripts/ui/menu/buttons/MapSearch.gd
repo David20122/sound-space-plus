@@ -20,6 +20,11 @@ func _input(event): # any unicode input starts search
 	if event is InputEventKey and event.is_pressed():
 		#if space return so you can use space to play map
 		if event.scancode == KEY_SPACE: return
+		if event.scancode == KEY_BACKSPACE:
+			if len(text) == 0: return
+			else: 
+				clear()
+				grab_focus()
 		var unicode = event.get_unicode()
 		if unicode != 0:
 			grab_focus()
