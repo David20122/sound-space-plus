@@ -734,7 +734,6 @@ var show_warnings:bool = true
 var auto_maximize:bool = false
 
 # Settings - Graphics & Advanced
-var render_scale:float = 1
 
 # Settings - Shaders
 var glow:float = 0
@@ -742,6 +741,7 @@ var bloom:float = 0
 var vhs_shader:bool = false
 
 # Settings - Experimental
+var render_scale:float = 1
 var ensure_hitsync:bool = false
 var hitsync_offset:float = 0 # don't save this yet; probably not even a necessary setting
 var retain_song_pitch:bool = false # not recommended as this is very heavy to compute, but people want it
