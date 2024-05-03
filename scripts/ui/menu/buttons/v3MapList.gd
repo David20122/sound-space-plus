@@ -2,6 +2,8 @@ extends VBoxContainer
 
 signal search_updated
 
+var thread:Thread
+
 var songs:Array = Rhythia.registry_song.get_items()
 var btns:Array = []
 
@@ -414,8 +416,8 @@ func _input(ev:InputEvent):
 		
 
 func handle_window_resize():
-	get_tree().reload_current_scene()
-	if ready: reload_to_current_page()
+#	get_tree().reload_current_scene()
+	if ready: size_list()
 
 func firstload():
 #	if the button is held down, it will keep scrolling
@@ -458,7 +460,7 @@ func scroll_to(i:int):
 	scrolling_to = true
 
 func _ready():
-	var thread = Thread.new() # Load Covers
+	thread = Thread.new() # Load Covers
 	thread.start(self, "_load_covers")
 
 	randomize()
@@ -479,6 +481,9 @@ func _ready():
 	size_list()
 	
 	print("size_x: ", size_x)
+
+func _exit_tree():
+	thread.wait_to_finish()
 
 func size_list():
 	size_x = get_viewport_rect().size.x/2.8
