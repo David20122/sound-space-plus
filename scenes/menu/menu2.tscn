@@ -707,7 +707,7 @@ size_flags_horizontal = 2
 size_flags_vertical = 7
 
 [node name="Results" type="HBoxContainer" parent="Main/Maps"]
-margin_right = 615.0
+margin_right = 655.0
 margin_bottom = 742.0
 rect_min_size = Vector2( 0, 600 )
 size_flags_horizontal = 7
@@ -724,9 +724,17 @@ margin_bottom = 742.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.35
 
-[node name="Results" type="VBoxContainer" parent="Main/Maps/Results"]
-margin_right = 615.0
+[node name="VSeparator3" type="VSeparator" parent="Main/Maps/Results"]
+modulate = Color( 1, 1, 1, 0 )
+margin_right = 4.0
 margin_bottom = 742.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.01
+
+[node name="Results" type="VBoxContainer" parent="Main/Maps/Results"]
+margin_left = 19.0
+margin_right = 655.0
+margin_bottom = 703.433
 rect_min_size = Vector2( 615, 600 )
 size_flags_horizontal = 7
 size_flags_vertical = 3
@@ -780,44 +788,45 @@ initial_path = "~/Downloads"
 filters = PoolStringArray( "*.txt ; Text files" )
 
 [node name="RS" type="VBoxContainer" parent="Main/Maps/Results/Results"]
-margin_right = 615.0
-margin_bottom = 742.0
+margin_right = 636.0
+margin_bottom = 703.0
 size_flags_horizontal = 7
 size_flags_vertical = 7
 alignment = 1
 
 [node name="HSeparator4" type="HSeparator" parent="Main/Maps/Results/Results/RS"]
+visible = false
 modulate = Color( 1, 1, 1, 0 )
-margin_right = 615.0
-margin_bottom = 13.0
+margin_right = 636.0
+margin_bottom = 21.0
 size_flags_vertical = 3
 
 [node name="HSeparator2" type="HSeparator" parent="Main/Maps/Results/Results/RS"]
-margin_top = 17.0
-margin_right = 615.0
-margin_bottom = 30.0
+margin_right = 636.0
+margin_bottom = 11.0
 size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
 
 [node name="H1" type="HBoxContainer" parent="Main/Maps/Results/Results/RS"]
-margin_top = 34.0
-margin_right = 615.0
-margin_bottom = 285.0
+margin_top = 15.0
+margin_right = 636.0
+margin_bottom = 266.0
 size_flags_horizontal = 7
 size_flags_vertical = 3
 size_flags_stretch_ratio = 3.0
 alignment = 1
 
 [node name="ButtonDisp" type="AspectRatioContainer" parent="Main/Maps/Results/Results/RS/H1"]
-margin_right = 207.0
+margin_right = 212.0
 margin_bottom = 251.0
 rect_min_size = Vector2( 128, 200 )
 size_flags_horizontal = 7
 size_flags_vertical = 7
 
 [node name="NODIF" type="Panel" parent="Main/Maps/Results/Results/RS/H1/ButtonDisp"]
-margin_top = 22.0
-margin_right = 207.0
-margin_bottom = 229.0
+margin_top = 19.5
+margin_right = 212.0
+margin_bottom = 231.5
 rect_min_size = Vector2( 128, 128 )
 mouse_filter = 1
 size_flags_horizontal = 3
@@ -883,9 +892,9 @@ clip_text = true
 [node name="EASY" type="Panel" parent="Main/Maps/Results/Results/RS/H1/ButtonDisp"]
 visible = false
 self_modulate = Color( 0, 1, 0, 1 )
-margin_top = 22.0
-margin_right = 207.0
-margin_bottom = 229.0
+margin_top = 19.5
+margin_right = 212.0
+margin_bottom = 231.5
 rect_min_size = Vector2( 128, 128 )
 mouse_filter = 1
 size_flags_horizontal = 3
@@ -959,9 +968,9 @@ __meta__ = {
 [node name="MEDIUM" type="Panel" parent="Main/Maps/Results/Results/RS/H1/ButtonDisp"]
 visible = false
 self_modulate = Color( 1, 0.72549, 0, 1 )
-margin_top = 22.0
-margin_right = 207.0
-margin_bottom = 229.0
+margin_top = 19.5
+margin_right = 212.0
+margin_bottom = 231.5
 rect_min_size = Vector2( 128, 128 )
 mouse_filter = 1
 size_flags_horizontal = 3
@@ -1035,9 +1044,9 @@ __meta__ = {
 [node name="HARD" type="Panel" parent="Main/Maps/Results/Results/RS/H1/ButtonDisp"]
 visible = false
 self_modulate = Color( 1, 0, 0, 1 )
-margin_top = 22.0
-margin_right = 207.0
-margin_bottom = 229.0
+margin_top = 19.5
+margin_right = 212.0
+margin_bottom = 231.5
 rect_min_size = Vector2( 128, 128 )
 mouse_filter = 1
 size_flags_horizontal = 3
@@ -1111,9 +1120,9 @@ __meta__ = {
 [node name="LOGIC" type="Panel" parent="Main/Maps/Results/Results/RS/H1/ButtonDisp"]
 visible = false
 self_modulate = Color( 0.843137, 0.415686, 1, 1 )
-margin_top = 22.0
-margin_right = 207.0
-margin_bottom = 229.0
+margin_top = 19.5
+margin_right = 212.0
+margin_bottom = 231.5
 rect_min_size = Vector2( 128, 128 )
 mouse_filter = 1
 size_flags_horizontal = 3
@@ -1186,9 +1195,9 @@ __meta__ = {
 [node name="TASUKETE" type="Panel" parent="Main/Maps/Results/Results/RS/H1/ButtonDisp"]
 visible = false
 self_modulate = Color( 0.211765, 0.188235, 0.309804, 1 )
-margin_top = 22.0
-margin_right = 207.0
-margin_bottom = 229.0
+margin_top = 19.5
+margin_right = 212.0
+margin_bottom = 231.5
 rect_min_size = Vector2( 128, 128 )
 mouse_filter = 1
 size_flags_horizontal = 3
@@ -1259,9 +1268,9 @@ __meta__ = {
 [node name="Select" type="Button" parent="Main/Maps/Results/Results/RS/H1/ButtonDisp"]
 visible = false
 material = SubResource( 62 )
-margin_top = 22.0
-margin_right = 207.0
-margin_bottom = 229.0
+margin_top = 19.5
+margin_right = 212.0
+margin_bottom = 231.5
 custom_styles/hover = SubResource( 63 )
 custom_styles/pressed = SubResource( 73 )
 custom_styles/focus = SubResource( 64 )
@@ -1271,14 +1280,16 @@ action_mode = 0
 
 [node name="VSeparator" type="VSeparator" parent="Main/Maps/Results/Results/RS/H1"]
 modulate = Color( 1, 1, 1, 0 )
-margin_left = 211.0
-margin_right = 215.0
+margin_left = 216.0
+margin_right = 227.0
 margin_bottom = 251.0
+size_flags_horizontal = 3
 size_flags_vertical = 3
+size_flags_stretch_ratio = 0.05
 
 [node name="Info" type="VBoxContainer" parent="Main/Maps/Results/Results/RS/H1"]
-margin_left = 219.0
-margin_right = 615.0
+margin_left = 231.0
+margin_right = 636.0
 margin_bottom = 251.0
 rect_min_size = Vector2( 0, 225 )
 size_flags_horizontal = 7
@@ -1287,13 +1298,13 @@ size_flags_stretch_ratio = 1.9
 custom_constants/separation = 0
 
 [node name="Data" type="HBoxContainer" parent="Main/Maps/Results/Results/RS/H1/Info"]
-margin_right = 396.0
+margin_right = 405.0
 margin_bottom = 22.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Data" type="Label" parent="Main/Maps/Results/Results/RS/H1/Info/Data"]
-margin_right = 396.0
+margin_right = 405.0
 margin_bottom = 22.0
 focus_mode = 2
 size_flags_horizontal = 3
@@ -1323,14 +1334,14 @@ __meta__ = {
 [node name="HSeparator4" type="HSeparator" parent="Main/Maps/Results/Results/RS/H1/Info"]
 modulate = Color( 1, 1, 1, 0 )
 margin_top = 22.0
-margin_right = 396.0
+margin_right = 405.0
 margin_bottom = 26.0
 rect_min_size = Vector2( 0, 2 )
 size_flags_vertical = 3
 
 [node name="Name" type="HBoxContainer" parent="Main/Maps/Results/Results/RS/H1/Info"]
 margin_top = 26.0
-margin_right = 396.0
+margin_right = 405.0
 margin_bottom = 71.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -1353,7 +1364,7 @@ __meta__ = {
 }
 
 [node name="Name" type="Label" parent="Main/Maps/Results/Results/RS/H1/Info/Name"]
-margin_right = 396.0
+margin_right = 405.0
 margin_bottom = 45.0
 rect_min_size = Vector2( 0, 45 )
 focus_mode = 2
@@ -1371,7 +1382,7 @@ __meta__ = {
 [node name="HSeparator3" type="HSeparator" parent="Main/Maps/Results/Results/RS/H1/Info"]
 modulate = Color( 1, 1, 1, 0 )
 margin_top = 71.0
-margin_right = 396.0
+margin_right = 405.0
 margin_bottom = 81.0
 rect_min_size = Vector2( 0, 10 )
 size_flags_vertical = 3
@@ -1418,7 +1429,7 @@ __meta__ = {
 
 [node name="Mapper" type="HBoxContainer" parent="Main/Maps/Results/Results/RS/H1/Info"]
 margin_top = 81.0
-margin_right = 396.0
+margin_right = 405.0
 margin_bottom = 106.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -1438,7 +1449,7 @@ clip_text = true
 
 [node name="Mapper" type="Label" parent="Main/Maps/Results/Results/RS/H1/Info/Mapper"]
 margin_left = 65.0
-margin_right = 396.0
+margin_right = 405.0
 margin_bottom = 25.0
 rect_min_size = Vector2( 0, 25 )
 focus_mode = 2
@@ -1453,7 +1464,7 @@ autowrap = true
 
 [node name="Id" type="HBoxContainer" parent="Main/Maps/Results/Results/RS/H1/Info"]
 margin_top = 106.0
-margin_right = 396.0
+margin_right = 405.0
 margin_bottom = 146.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -1473,7 +1484,7 @@ clip_text = true
 
 [node name="Id" type="Label" parent="Main/Maps/Results/Results/RS/H1/Info/Id"]
 margin_left = 64.0
-margin_right = 396.0
+margin_right = 405.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 0, 40 )
 focus_mode = 2
@@ -1531,14 +1542,14 @@ valign = 1
 [node name="HSeparator2" type="HSeparator" parent="Main/Maps/Results/Results/RS/H1/Info"]
 modulate = Color( 1, 1, 1, 0 )
 margin_top = 146.0
-margin_right = 396.0
+margin_right = 405.0
 margin_bottom = 161.0
 rect_min_size = Vector2( 0, 15 )
 size_flags_vertical = 3
 
 [node name="Run" type="Button" parent="Main/Maps/Results/Results/RS/H1/Info"]
 margin_top = 161.0
-margin_right = 396.0
+margin_right = 405.0
 margin_bottom = 209.0
 rect_min_size = Vector2( 0, 48 )
 hint_tooltip = "(Spacebar, Xbox A)"
@@ -1563,14 +1574,14 @@ script = ExtResource( 30 )
 [node name="HSeparator" type="HSeparator" parent="Main/Maps/Results/Results/RS/H1/Info"]
 modulate = Color( 1, 1, 1, 0 )
 margin_top = 209.0
-margin_right = 396.0
+margin_right = 405.0
 margin_bottom = 219.0
 rect_min_size = Vector2( 0, 10 )
 size_flags_vertical = 3
 
 [node name="Control" type="HBoxContainer" parent="Main/Maps/Results/Results/RS/H1/Info"]
 margin_top = 219.0
-margin_right = 396.0
+margin_right = 405.0
 margin_bottom = 251.0
 rect_min_size = Vector2( 0, 32 )
 size_flags_vertical = 3
@@ -1595,7 +1606,7 @@ script = ExtResource( 89 )
 
 [node name="Favorite" type="Button" parent="Main/Maps/Results/Results/RS/H1/Info/Control"]
 margin_left = 44.0
-margin_right = 214.0
+margin_right = 218.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 0, 32 )
 size_flags_horizontal = 3
@@ -1608,8 +1619,8 @@ text = "Favorite"
 script = ExtResource( 38 )
 
 [node name="PreviewMusic" type="Button" parent="Main/Maps/Results/Results/RS/H1/Info/Control"]
-margin_left = 226.0
-margin_right = 396.0
+margin_left = 230.0
+margin_right = 405.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 0, 32 )
 size_flags_horizontal = 3
@@ -1632,14 +1643,14 @@ bus = "Music"
 
 [node name="HSeparator3" type="HSeparator" parent="Main/Maps/Results/Results/RS"]
 modulate = Color( 1, 1, 1, 0 )
-margin_top = 289.0
-margin_right = 615.0
-margin_bottom = 293.0
+margin_top = 270.0
+margin_right = 636.0
+margin_bottom = 274.0
 
 [node name="HMid" type="HBoxContainer" parent="Main/Maps/Results/Results/RS"]
-margin_top = 297.0
-margin_right = 615.0
-margin_bottom = 360.0
+margin_top = 278.0
+margin_right = 636.0
+margin_bottom = 318.0
 rect_min_size = Vector2( 0, 40 )
 size_flags_horizontal = 7
 size_flags_vertical = 0
@@ -1652,8 +1663,9 @@ margin_bottom = 40.0
 size_flags_stretch_ratio = 0.2
 
 [node name="Difficulty" type="Label" parent="Main/Maps/Results/Results/RS/HMid"]
-margin_right = 201.0
-margin_bottom = 63.0
+margin_top = 5.0
+margin_right = 208.0
+margin_bottom = 35.0
 focus_mode = 2
 size_flags_horizontal = 7
 theme = ExtResource( 1 )
@@ -1689,10 +1701,10 @@ margin_bottom = 40.0
 size_flags_horizontal = 3
 
 [node name="Hitboxes" type="Label" parent="Main/Maps/Results/Results/RS/HMid"]
-margin_left = 205.0
-margin_top = 21.0
-margin_right = 607.0
-margin_bottom = 41.0
+margin_left = 212.0
+margin_top = 10.0
+margin_right = 628.0
+margin_bottom = 30.0
 focus_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
@@ -1706,37 +1718,39 @@ valign = 1
 
 [node name="VSeparator" type="VSeparator" parent="Main/Maps/Results/Results/RS/HMid"]
 modulate = Color( 1, 1, 1, 0 )
-margin_left = 611.0
-margin_right = 615.0
-margin_bottom = 63.0
+margin_left = 632.0
+margin_right = 636.0
+margin_bottom = 40.0
 
 [node name="HSeparator" type="HSeparator" parent="Main/Maps/Results/Results/RS"]
-margin_top = 364.0
-margin_right = 615.0
-margin_bottom = 377.0
+margin_top = 322.0
+margin_right = 636.0
+margin_bottom = 334.0
 size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
 
 [node name="HSeparator6" type="HSeparator" parent="Main/Maps/Results/Results/RS"]
+visible = false
 modulate = Color( 1, 1, 1, 0 )
-margin_top = 381.0
-margin_right = 615.0
-margin_bottom = 394.0
+margin_top = 369.0
+margin_right = 636.0
+margin_bottom = 386.0
 size_flags_vertical = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Main/Maps/Results/Results/RS"]
-margin_top = 398.0
-margin_right = 615.0
-margin_bottom = 428.0
+margin_top = 338.0
+margin_right = 636.0
+margin_bottom = 368.0
 
 [node name="Label" type="Label" parent="Main/Maps/Results/Results/RS/HBoxContainer"]
 margin_top = 5.0
-margin_right = 244.0
+margin_right = 252.0
 margin_bottom = 25.0
 size_flags_horizontal = 3
 
 [node name="ModsTitle" type="Label" parent="Main/Maps/Results/Results/RS/HBoxContainer"]
-margin_left = 248.0
-margin_right = 615.0
+margin_left = 256.0
+margin_right = 636.0
 margin_bottom = 30.0
 focus_mode = 2
 size_flags_horizontal = 3
@@ -1748,22 +1762,22 @@ text = "Modifiers"
 align = 1
 
 [node name="H2" type="HBoxContainer" parent="Main/Maps/Results/Results/RS"]
-margin_top = 432.0
-margin_right = 615.0
-margin_bottom = 712.0
+margin_top = 372.0
+margin_right = 636.0
+margin_bottom = 652.0
 size_flags_horizontal = 7
 size_flags_vertical = 3
 alignment = 2
 
 [node name="VSeparator2" type="VSeparator" parent="Main/Maps/Results/Results/RS/H2"]
 modulate = Color( 1, 1, 1, 0 )
-margin_right = 81.0
+margin_right = 4.0
 margin_bottom = 280.0
 size_flags_horizontal = 3
 
 [node name="EndInfo" type="ReferenceRect" parent="Main/Maps/Results/Results/RS/H2"]
-margin_left = 85.0
-margin_right = 359.0
+margin_left = 8.0
+margin_right = 282.0
 margin_bottom = 280.0
 rect_min_size = Vector2( 274, 280 )
 size_flags_horizontal = 3
@@ -2034,15 +2048,16 @@ valign = 1
 
 [node name="VSeparator" type="VSeparator" parent="Main/Maps/Results/Results/RS/H2"]
 modulate = Color( 1, 1, 1, 0 )
-margin_left = 363.0
-margin_right = 444.0
+margin_left = 286.0
+margin_right = 290.0
 margin_bottom = 280.0
 size_flags_horizontal = 3
 
 [node name="Mods" type="ReferenceRect" parent="Main/Maps/Results/Results/RS/H2"]
-margin_left = 448.0
-margin_right = 529.0
+margin_left = 294.0
+margin_right = 628.064
 margin_bottom = 280.0
+rect_min_size = Vector2( 334.064, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 __meta__ = {
@@ -2928,16 +2943,16 @@ clip_text = true
 
 [node name="VSeparator3" type="VSeparator" parent="Main/Maps/Results/Results/RS/H2"]
 modulate = Color( 1, 1, 1, 0 )
-margin_left = 533.0
-margin_right = 615.0
+margin_left = 632.0
+margin_right = 636.0
 margin_bottom = 280.0
 size_flags_horizontal = 3
 
 [node name="HSeparator5" type="HSeparator" parent="Main/Maps/Results/Results/RS"]
 modulate = Color( 1, 1, 1, 0 )
-margin_top = 716.0
-margin_right = 615.0
-margin_bottom = 742.0
+margin_top = 656.0
+margin_right = 636.0
+margin_bottom = 703.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
 
@@ -2982,8 +2997,8 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.45
 
 [node name="MapRegistry" type="VBoxContainer" parent="Main/Maps"]
-margin_left = 619.0
-margin_right = 1072.0
+margin_left = 659.0
+margin_right = 1086.0
 margin_bottom = 742.0
 grow_horizontal = 0
 rect_min_size = Vector2( 200, 686 )
@@ -2993,18 +3008,24 @@ size_flags_vertical = 3
 alignment = 2
 
 [node name="T" type="HBoxContainer" parent="Main/Maps/MapRegistry"]
-margin_left = 18.0
-margin_right = 434.0
+margin_right = 427.0
 margin_bottom = 50.0
 grow_horizontal = 0
 rect_min_size = Vector2( 0, 50 )
-size_flags_horizontal = 6
+size_flags_horizontal = 7
 size_flags_vertical = 5
 custom_constants/separation = 7
 
+[node name="VSeparator" type="VSeparator" parent="Main/Maps/MapRegistry/T"]
+modulate = Color( 1, 1, 1, 0 )
+margin_right = 4.0
+margin_bottom = 50.0
+size_flags_horizontal = 3
+
 [node name="Search" type="LineEdit" parent="Main/Maps/MapRegistry/T"]
+margin_left = 11.0
 margin_top = 11.0
-margin_right = 120.0
+margin_right = 131.0
 margin_bottom = 39.0
 rect_min_size = Vector2( 120, 0 )
 size_flags_horizontal = 7
@@ -3019,9 +3040,9 @@ __meta__ = {
 }
 
 [node name="AuthorSearch" type="LineEdit" parent="Main/Maps/MapRegistry/T"]
-margin_left = 127.0
+margin_left = 138.0
 margin_top = 10.0
-margin_right = 227.0
+margin_right = 238.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 100, 30 )
 size_flags_horizontal = 3
@@ -3032,9 +3053,9 @@ placeholder_text = "Author"
 script = ExtResource( 91 )
 
 [node name="Random" type="Button" parent="Main/Maps/MapRegistry/T"]
-margin_left = 234.0
+margin_left = 245.0
 margin_top = 10.0
-margin_right = 416.0
+margin_right = 427.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 0, 30 )
 size_flags_horizontal = 3
@@ -3045,7 +3066,7 @@ text = "Select random from search"
 
 [node name="S" type="Control" parent="Main/Maps/MapRegistry"]
 margin_top = 54.0
-margin_right = 453.0
+margin_right = 427.0
 margin_bottom = 742.0
 grow_vertical = 2
 rect_min_size = Vector2( 340, 688 )
@@ -3058,12 +3079,13 @@ script = ExtResource( 22 )
 physics_interpolation_mode = 2
 show_behind_parent = true
 anchor_left = 1.015
+anchor_top = 0.001
 anchor_right = 1.015
-anchor_bottom = 0.5
+anchor_bottom = 0.723
 margin_left = -449.795
-margin_top = 1.0
+margin_top = 0.312
 margin_right = 0.204956
-margin_bottom = 311.0
+margin_bottom = 157.576
 grow_horizontal = 0
 grow_vertical = 2
 rect_min_size = Vector2( 420, 600 )
@@ -3812,8 +3834,8 @@ volume_db = -16.0
 pitch_scale = 1.25
 
 [node name="ScrollControl" type="VBoxContainer" parent="Main/Maps"]
-margin_left = 1076.0
-margin_right = 1116.0
+margin_left = 1090.0
+margin_right = 1130.0
 margin_bottom = 742.0
 
 [node name="bump" type="Button" parent="Main/Maps/ScrollControl"]
@@ -3886,14 +3908,14 @@ clip_text = true
 
 [node name="VSeparator2" type="VSeparator" parent="Main/Maps"]
 modulate = Color( 1, 1, 1, 0 )
-margin_left = 1120.0
-margin_right = 1125.0
+margin_left = 1134.0
+margin_right = 1139.0
 margin_bottom = 742.0
 custom_constants/separation = 5
 
 [node name="Filters" type="VBoxContainer" parent="Main/Maps"]
-margin_left = 1129.0
-margin_right = 1206.0
+margin_left = 1143.0
+margin_right = 1220.0
 margin_bottom = 742.0
 size_flags_horizontal = 5
 size_flags_vertical = 3
@@ -4338,8 +4360,8 @@ group = SubResource( 67 )
 
 [node name="VSeparator3" type="VSeparator" parent="Main/Maps"]
 modulate = Color( 1, 1, 1, 0 )
-margin_left = 1210.0
-margin_right = 1220.0
+margin_left = 1224.0
+margin_right = 1234.0
 margin_bottom = 742.0
 custom_constants/separation = 10
 
