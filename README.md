@@ -2,8 +2,6 @@
 
 While you're here, join our discord in [here](https://discord.gg/rhythia)
 
-Support the game on [Liberapay](https://liberapay.com/kermeet/)
-
 # Table of contents
 (Stuff you will see in this README)
 
