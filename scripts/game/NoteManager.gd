@@ -409,7 +409,9 @@ func _ready():
 
 	$Note.speed_multi = speed_multi
 	$Music.pitch_scale = speed_multi
-	if Rhythia.retain_song_pitch and not speed_multi == 1.0:
+	# reset any pitch shift
+	AudioServer.remove_bus_effect(AudioServer.get_bus_index("Music"),0)
+	if Rhythia.retain_song_pitch and not speed_multi == 1.0 :
 		var shift = AudioEffectPitchShift.new()
 		shift.pitch_scale = 1.0 / speed_multi
 		AudioServer.add_bus_effect(AudioServer.get_bus_index("Music"),shift)
