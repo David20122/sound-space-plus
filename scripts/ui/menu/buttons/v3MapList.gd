@@ -390,12 +390,12 @@ func tween_out(p:Panel):
 
 func tween_in(p:Panel):
 	var tween = get_tree().create_tween()
-	tween.tween_property(p, "rect_min_size", Vector2(size_x - (page_size/2) * 10, 80), 0.2)
+	tween.tween_property(p, "rect_min_size", Vector2(size_x - (next_index() - prev_index())/2 * 10, 90), 0.2)
 
 func tween_length():
 	for i in btns.size():
 		var tween = get_tree().create_tween()
-		tween.tween_property(btns[i], "rect_min_size", Vector2(size_x-(15*(abs((page_size/2)-i +1))), 90), 0.15)
+		tween.tween_property(btns[i], "rect_min_size", Vector2(size_x-(15*(abs((next_index() - prev_index())/2-i))), 90), 0.15)
 	
 
 func _input(ev:InputEvent):
