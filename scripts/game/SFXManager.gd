@@ -2,21 +2,24 @@ extends Node
 
 const MAX_NODES = 48
 var hitSounds = []
+var hitSoundsParent
 
 func clear_all_children():
-	for i in self.get_children():
+	for i in hitSoundsParent.get_children():
 		i.queue_free()
 	hitSounds.clear()
 
 func setup():
+	hitSoundsParent = get_parent().get_node("Song/Game/Spawn/HitSounds")
 	clear_all_children()
 	if (Rhythia.sfx_2d):
 		for i in MAX_NODES:
 			var hitsound = AudioStreamPlayer.new()
 			hitsound.set_stream(Rhythia.hit_snd)
 			hitsound.set_bus("HitSound")
+			hitsound.pause_mode = PAUSE_MODE_PROCESS
 			hitSounds.append(hitsound)
-			add_child(hitsound)
+			hitSoundsParent.add_child(hitsound)
 	elif (!Rhythia.sfx_2d):
 		for i in MAX_NODES:
 			var hitsound = AudioStreamPlayer3D.new()
@@ -27,7 +30,7 @@ func setup():
 			hitsound.attenuation_filter_db = 0
 			hitsound.pause_mode = PAUSE_MODE_PROCESS
 			hitSounds.append(hitsound)
-			add_child(hitsound)
+			hitSoundsParent.add_child(hitsound)
 
 func play_hitsfx(transform):
 	for sound in hitSounds:
