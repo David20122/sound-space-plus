@@ -289,11 +289,12 @@ script = ExtResource( 59 )
 [node name="TabContainer" type="TabContainer" parent="."]
 margin_top = 59.0
 margin_right = 1280.0
-margin_bottom = 1049.0
+margin_bottom = 548.0
 theme = ExtResource( 1 )
 tab_align = 0
 
 [node name="Gameplay" type="VBoxContainer" parent="TabContainer"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 30.0
@@ -5757,9 +5758,9 @@ align = 2
 valign = 1
 
 [node name="Fullscreen" type="CheckBox" parent="TabContainer/Video & Audio/Graphics/Group/H"]
-margin_top = 68.0
+margin_top = 32.0
 margin_right = 594.0
-margin_bottom = 96.0
+margin_bottom = 60.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
@@ -5787,9 +5788,9 @@ align = 2
 valign = 1
 
 [node name="AutoMax" type="CheckBox" parent="TabContainer/Video & Audio/Graphics/Group/H"]
-margin_top = 100.0
+margin_top = 64.0
 margin_right = 594.0
-margin_bottom = 128.0
+margin_bottom = 92.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
@@ -5818,9 +5819,9 @@ align = 2
 valign = 1
 
 [node name="Warnings" type="CheckBox" parent="TabContainer/Video & Audio/Graphics/Group/H"]
-margin_top = 132.0
+margin_top = 96.0
 margin_right = 594.0
-margin_bottom = 160.0
+margin_bottom = 124.0
 rect_min_size = Vector2( 0, 28 )
 theme = ExtResource( 1 )
 custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
@@ -5849,9 +5850,9 @@ align = 2
 valign = 1
 
 [node name="TargetFPS" type="Control" parent="TabContainer/Video & Audio/Graphics/Group/H"]
-margin_top = 164.0
+margin_top = 128.0
 margin_right = 594.0
-margin_bottom = 196.0
+margin_bottom = 160.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="Sensitivity" type="SpinBox" parent="TabContainer/Video & Audio/Graphics/Group/H/TargetFPS"]
@@ -5890,27 +5891,27 @@ text = "[0 = no limit] puts a limit on the framerate; use this if ssp is using 1
 valign = 1
 
 [node name="SEPARATOR" type="HSeparator" parent="TabContainer/Video & Audio"]
-margin_top = 196.0
-margin_right = 1272.0
-margin_bottom = 226.0
+margin_top = 190.0
+margin_right = 1280.0
+margin_bottom = 220.0
 rect_min_size = Vector2( 0, 10 )
 custom_constants/separation = 30
 custom_styles/separator = SubResource( 55 )
 
 [node name="Audio" type="VBoxContainer" parent="TabContainer/Video & Audio"]
-margin_top = 226.0
-margin_right = 1272.0
-margin_bottom = 662.0
+margin_top = 220.0
+margin_right = 1280.0
+margin_bottom = 656.0
 
 [node name="Group" type="MarginContainer" parent="TabContainer/Video & Audio/Audio"]
-margin_right = 1272.0
+margin_right = 1280.0
 margin_bottom = 436.0
 mouse_filter = 1
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="TabContainer/Video & Audio/Audio/Group"]
 margin_left = 180.0
-margin_right = 1272.0
+margin_right = 1280.0
 margin_bottom = 436.0
 
 [node name="Master" type="Control" parent="TabContainer/Video & Audio/Audio/Group/H"]
@@ -6475,44 +6476,40 @@ __meta__ = {
 }
 
 [node name="SEPARATOR2" type="HSeparator" parent="TabContainer/Video & Audio"]
-margin_top = 662.0
-margin_right = 1272.0
-margin_bottom = 692.0
+margin_top = 656.0
+margin_right = 1280.0
+margin_bottom = 686.0
 rect_min_size = Vector2( 0, 10 )
 custom_constants/separation = 30
 custom_styles/separator = SubResource( 55 )
 
 [node name="Replays & Misc" type="VBoxContainer" parent="TabContainer"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 38.0
-margin_right = -4.0
-margin_bottom = -4.0
+margin_top = 30.0
 custom_constants/separation = 0
 
 [node name="SEPARATOR2" type="HSeparator" parent="TabContainer/Replays & Misc"]
-margin_top = 542.0
 margin_right = 1280.0
-margin_bottom = 572.0
+margin_bottom = 30.0
 rect_min_size = Vector2( 0, 10 )
 custom_constants/separation = 30
 custom_styles/separator = SubResource( 55 )
 
 [node name="Recording" type="VBoxContainer" parent="TabContainer/Replays & Misc"]
-margin_right = 1272.0
-margin_bottom = 132.0
+margin_top = 30.0
+margin_right = 1280.0
+margin_bottom = 162.0
 
 [node name="Group" type="MarginContainer" parent="TabContainer/Replays & Misc/Recording"]
-margin_right = 1272.0
+margin_right = 1280.0
 margin_bottom = 132.0
 mouse_filter = 1
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="TabContainer/Replays & Misc/Recording/Group"]
 margin_left = 180.0
-margin_right = 1272.0
+margin_right = 1280.0
 margin_bottom = 132.0
 
 [node name="Replays" type="CheckBox" parent="TabContainer/Replays & Misc/Recording/Group/H"]
@@ -6659,28 +6656,28 @@ text = "[def. 30/144] changes the dynamic fps bounds of your replays"
 valign = 1
 
 [node name="SEPARATOR3" type="HSeparator" parent="TabContainer/Replays & Misc"]
-margin_top = 542.0
+margin_top = 162.0
 margin_right = 1280.0
-margin_bottom = 572.0
+margin_bottom = 192.0
 rect_min_size = Vector2( 0, 10 )
 custom_constants/separation = 30
 custom_styles/separator = SubResource( 55 )
 
 [node name="Experimental" type="VBoxContainer" parent="TabContainer/Replays & Misc"]
-margin_top = 132.0
-margin_right = 1272.0
-margin_bottom = 401.0
+margin_top = 192.0
+margin_right = 1280.0
+margin_bottom = 429.0
 
 [node name="Group" type="MarginContainer" parent="TabContainer/Replays & Misc/Experimental"]
-margin_right = 1272.0
-margin_bottom = 269.0
+margin_right = 1280.0
+margin_bottom = 237.0
 mouse_filter = 1
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="TabContainer/Replays & Misc/Experimental/Group"]
 margin_left = 180.0
-margin_right = 1272.0
-margin_bottom = 269.0
+margin_right = 1280.0
+margin_bottom = 237.0
 
 [node name="ExpWarning" type="MarginContainer" parent="TabContainer/Replays & Misc/Experimental/Group/H"]
 margin_right = 827.0
@@ -6754,6 +6751,7 @@ custom_fonts/font = SubResource( 49 )
 text = "These features aren't completely ready yet, and could be very buggy, unstable, or just not work at all. Use them at your own risk."
 
 [node name="HitSync" type="CheckBox" parent="TabContainer/Replays & Misc/Experimental/Group/H"]
+visible = false
 margin_top = 109.0
 margin_right = 827.0
 margin_bottom = 137.0
@@ -6786,9 +6784,9 @@ align = 2
 valign = 1
 
 [node name="RetainSongPitch" type="CheckBox" parent="TabContainer/Replays & Misc/Experimental/Group/H"]
-margin_top = 141.0
+margin_top = 109.0
 margin_right = 827.0
-margin_bottom = 169.0
+margin_bottom = 137.0
 rect_min_size = Vector2( 0, 28 )
 mouse_filter = 1
 theme = ExtResource( 1 )
@@ -6818,9 +6816,9 @@ align = 2
 valign = 1
 
 [node name="ShowStats" type="CheckBox" parent="TabContainer/Replays & Misc/Experimental/Group/H"]
-margin_top = 173.0
+margin_top = 141.0
 margin_right = 827.0
-margin_bottom = 201.0
+margin_bottom = 169.0
 rect_min_size = Vector2( 0, 28 )
 mouse_filter = 1
 theme = ExtResource( 1 )
@@ -6904,9 +6902,9 @@ text = "literally you | experimental avatar editor. nowhere near done. visible i
 valign = 1
 
 [node name="Intro" type="Control" parent="TabContainer/Replays & Misc/Experimental/Group/H"]
-margin_top = 205.0
+margin_top = 173.0
 margin_right = 827.0
-margin_bottom = 237.0
+margin_bottom = 205.0
 rect_min_size = Vector2( 200, 32 )
 mouse_filter = 1
 
@@ -6957,9 +6955,9 @@ text = "replays the intro cutscene"
 valign = 1
 
 [node name="DisableIntro" type="CheckBox" parent="TabContainer/Replays & Misc/Experimental/Group/H"]
-margin_top = 241.0
+margin_top = 209.0
 margin_right = 827.0
-margin_bottom = 269.0
+margin_bottom = 237.0
 rect_min_size = Vector2( 0, 28 )
 mouse_filter = 1
 theme = ExtResource( 1 )
@@ -7034,9 +7032,9 @@ text = "GUI scale, higher = smaller"
 valign = 1
 
 [node name="SEPARATOR" type="HSeparator" parent="TabContainer/Replays & Misc"]
-margin_top = 461.0
+margin_top = 429.0
 margin_right = 1280.0
-margin_bottom = 491.0
+margin_bottom = 459.0
 rect_min_size = Vector2( 0, 10 )
 custom_constants/separation = 30
 custom_styles/separator = SubResource( 55 )
