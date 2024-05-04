@@ -2,6 +2,8 @@ extends VBoxContainer
 
 signal search_updated
 
+var thread:Thread
+
 var songs:Array = Rhythia.registry_song.get_items()
 var btns:Array = []
 
@@ -390,12 +392,12 @@ func tween_out(p:Panel):
 
 func tween_in(p:Panel):
 	var tween = get_tree().create_tween()
-	tween.tween_property(p, "rect_min_size", Vector2(size_x - (page_size/2) * 10, 80), 0.2)
+	tween.tween_property(p, "rect_min_size", Vector2(size_x - (next_index() - prev_index())/2 * 10, 90), 0.2)
 
 func tween_length():
 	for i in btns.size():
 		var tween = get_tree().create_tween()
-		tween.tween_property(btns[i], "rect_min_size", Vector2(size_x-(15*(abs((page_size/2)-i +1))), 90), 0.15)
+		tween.tween_property(btns[i], "rect_min_size", Vector2(size_x-(15*(abs((next_index() - prev_index())/2-i))), 90), 0.15)
 	
 
 func _input(ev:InputEvent):
@@ -406,10 +408,16 @@ func _input(ev:InputEvent):
 		elif ev.button_index == BUTTON_WHEEL_DOWN:
 			scrolling_to = false
 			call_deferred("pg_down")
+	if ev is InputEventKey and ev.is_pressed():
+		#if f2 is pressed, it will select a random map
+		if ev.scancode == KEY_F2:
+			print("F2")
+			select_random()
+		
 
 func handle_window_resize():
-	get_tree().reload_current_scene()
-	if ready: reload_to_current_page()
+#	get_tree().reload_current_scene()
+	if ready: size_list()
 
 func firstload():
 #	if the button is held down, it will keep scrolling
@@ -452,7 +460,7 @@ func scroll_to(i:int):
 	scrolling_to = true
 
 func _ready():
-	var thread = Thread.new() # Load Covers
+	thread = Thread.new() # Load Covers
 	thread.start(self, "_load_covers")
 
 	randomize()
@@ -473,6 +481,9 @@ func _ready():
 	size_list()
 	
 	print("size_x: ", size_x)
+
+func _exit_tree():
+	thread.wait_to_finish()
 
 func size_list():
 	size_x = get_viewport_rect().size.x/2.8
