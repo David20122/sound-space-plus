@@ -2,8 +2,6 @@
 
 While you're here, join our discord in [here](https://discord.gg/rhythia)
 
-Support the game on [Liberapay](https://liberapay.com/kermeet/)
-
 # Table of contents
 (Stuff you will see in this README)
 
@@ -24,13 +22,13 @@ Support the game on [Liberapay](https://liberapay.com/kermeet/)
 
 - There's no point in git cloning this repository.
 
-  - Head to the [releases tab](https://github.com/Gapva/SSPReleases/releases) to Download this game.
+  - Head to the [releases tab](https://github.com/David20122/sound-space-plus/releases) to Download this game.
 
 - As of the Apr16 Update, Androids don't have a User Folder, this is temporary and will be changed in the future.
 
 ### For Windows users: <a href="#dl-main" id="dl-win"/>
 
-- In [releases](https://github.com/Gapva/SSPReleases/releases), press on the `windows.zip` folder to download it
+- In [releases](https://github.com/David20122/sound-space-plus/releases), press on the `windows.zip` folder to download it
 
 - Once downloaded, do the following:
   - Right click the folder and extract it to either a custom folder [RECOMMENDED] or the folder you downloaded to [NOT RECOMMENDED]. Alternatively, you can open the zip file and drag the contents inside to a custom folder.
@@ -38,7 +36,7 @@ Support the game on [Liberapay](https://liberapay.com/kermeet/)
 
 ### For Linux users: <a href="#dl-main" id="dl-penguin"/>
 
-- In [releases](https://github.com/Gapva/SSPReleases/releases), press on the `linux.zip` folder to download it
+- In [releases](https://github.com/David20122/sound-space-plus/releases), press on the `linux.zip` folder to download it
 
 - Once downloaded do the following:
   - If you have a GUI File Explorer:
@@ -94,7 +92,7 @@ As the time goes, we all have the necessity to update what's old correct?
 
 ### Here's how you do it then.
 
-- Head to the [latest version of the game](https://github.com/Gapva/SSPReleases/releases/latest) and Download it
+- Head to the [latest version of the game](https://github.com/David20122/sound-space-plus/releases/latest) and Download it
 - On the location where your folder is delete or replace every file inside it
   - Keep in mind that you <ins>**__DON'T__**</ins> lose your passes, replays or maps when update the game, those are located in the [user folder](#usr)
   - [Apr25 Update] Windows and Linux users now have an integrated auto-updater as of the Apr25 update. Android and MacOS auto-updaters will come soon. [Click here to access the latest releases with auto-updaters](https://github.com/krmeet/sound-space-plus/releases/latest)
