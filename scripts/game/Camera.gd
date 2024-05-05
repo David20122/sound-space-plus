@@ -7,8 +7,12 @@ var sh:Vector2 = Vector2(-0.5,-0.5)
 onready var cursor = get_node("../Game/Spawn/Cursor")
 
 var phase:int = 0
+
+func _physics_process(delta):
+	if Rhythia.hit_fov_decay != 0:
+		fov += (Rhythia.get("fov") - fov) / Rhythia.hit_fov_decay
+
 func _process(delta):
-	fov += (Rhythia.get("fov") - fov) / Rhythia.hit_fov_decay
 	if Rhythia.get("cam_unlock"):
 		var hlpower = (0.1 * Rhythia.get("parallax"))
 		var hlm = 0.25
