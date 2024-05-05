@@ -184,18 +184,18 @@ var miss_flash:float = 0
 
 func update_timer(ms:float,canSkip:bool=false):
 	var qms = ms + Spawn.ms_offset
-	var lms = Game.last_ms
+	var lms = Game.last_ms 
 	
 	if Rhythia.queue_active:
 		lms = Rhythia.queue_end_length + (3000 * (Rhythia.song_queue.size() - 1))
 	
-	var s = clamp(floor(qms/1000),0,lms/1000)
+	var s = clamp(floor(qms/1000),0,lms/1000) / Globals.speed_multi[Rhythia.mod_speed_level]
 	var m = floor(s / 60)
 	var rs = fmod(s,60)
 	
-	var ls = floor(lms/1000)
-	var lm = floor(ls / 60)
-	var lrs = fmod(ls,60)
+	var ls = floor(lms/1000) / Globals.speed_multi[Rhythia.mod_speed_level]
+	var lm = floor(ls / 60) 
+	var lrs = fmod(ls,60) 
 	
 	if !Rhythia.rainbow_hud:
 		if canSkip:
@@ -216,7 +216,7 @@ func update_timer(ms:float,canSkip:bool=false):
 			for n in get_tree().get_nodes_in_group("timer_text"):
 				paint(n,timer_text)
 	
-	timebar.value = clamp(qms/lms,0,1)
+	timebar.value = (clamp(qms/lms,0,1)) 
 	if canSkip: timelabel.text = "PRESS SPACE TO SKIP"
 	elif canSkip and OS.has_feature("Android"): timelabel.text = "TAP TO SKIP"
 	else: timelabel.text = "%d:%02d / %d:%02d" % [m,rs,lm,lrs]

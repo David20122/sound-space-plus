@@ -8,14 +8,15 @@ func value_changed(value):
 	call_deferred("upd_label")
 
 func on_map_selected(map):
-	self.max_value = get_seconds_from_ms(Rhythia.selected_song.last_ms)
+	self.max_value = get_seconds_from_ms(Rhythia.selected_song.last_ms) / Globals.speed_multi[Rhythia.mod_speed_level]
 	self.value = 0
 	
 func _ready():
 	connect("value_changed",self,"value_changed")
 	$TimeTextBox.connect("text_entered", self, "time_text_entered")
 	Rhythia.connect("selected_song_changed",self,"on_map_selected")
-	
+	Rhythia.connect("speed_mod_changed", self, "_on_speed_mod_changed")
+
 	if (Rhythia.selected_song != null):	# after song pass
 		on_map_selected(null)
 		self.value = Rhythia.start_offset / 1000
@@ -33,3 +34,7 @@ func upd_label():
 	var minutes = floor(total_seconds / 60)
 	var seconds = total_seconds % 60
 	$TimeTextBox.text = "%d:%02d" % [minutes,seconds]
+
+func _on_speed_mod_changed():
+	self.max_value = get_seconds_from_ms(Rhythia.selected_song.last_ms) / Globals.speed_multi[Rhythia.mod_speed_level]
+	upd_label()

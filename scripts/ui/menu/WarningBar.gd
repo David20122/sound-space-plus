@@ -50,7 +50,6 @@ func display_warning(id:String):
 
 var experimental_settings = [
 	"show_stats",
-	"ensure_hitsync",
 	"retain_song_pitch",
 ]
 

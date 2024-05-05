@@ -288,18 +288,19 @@ func reposition_notes(force:bool=false,rerun_start:int=-1):
 				if !Rhythia.replaying and Rhythia.record_replays:
 					Rhythia.replay.note_hit(i)
 				notes[i][2] = Globals.NSTATE_HIT
-				if Rhythia.play_hit_snd and !Rhythia.ensure_hitsync:
-					var sfx
-					if Rhythia.sfx_2d:
-						sfx = $Hit2D.duplicate()
-						add_child(sfx)
-					else:
-						sfx = $Hit.duplicate()
-						add_child(sfx)
-						sfx.transform = notes[i][5]
-					sfx.connect("finished", sfx, "queue_free")
-					if Rhythia.hit_pitch: sfx.pitch_scale = rand_range(Rhythia.hit_pitch_min,Rhythia.hit_pitch_max)
-					sfx.play()
+#				if Rhythia.play_hit_snd and !Rhythia.ensure_hitsync:
+#					var sfx
+#					if Rhythia.sfx_2d:
+#						sfx = $Hit2D.duplicate()
+#						add_child(sfx)
+#					else:
+#						sfx = $Hit.duplicate()
+#						add_child(sfx)
+#						sfx.transform = notes[i][5]
+#					sfx.connect("finished", sfx, "queue_free")
+#					if Rhythia.hit_pitch: sfx.pitch_scale = rand_range(Rhythia.hit_pitch_min,Rhythia.hit_pitch_max)
+				if Rhythia.play_hit_snd:
+					SFXManager.play_hitsfx(notes[i][5])
 				var pos:Vector3 = Vector3(
 					$Cursor.global_transform.origin.x,
 					$Cursor.global_transform.origin.y,
@@ -319,16 +320,6 @@ func reposition_notes(force:bool=false,rerun_start:int=-1):
 				prev_ms = notems
 		elif ms > (notems + hit_window) + 100:
 #			$Label.text += "PASS %s\n" % [ i ]
-
-			# ensure hitsync ; not compatible with spatial hitsounds
-			if Rhythia.play_hit_snd and Rhythia.ensure_hitsync:
-				var dhs = $Hit2D.duplicate()
-				dhs.set_script(load("res://classes/hitsync_free.gd"))
-				add_child(dhs)
-				var played = false
-				if not played:
-					played = true
-					dhs.play()
 		
 			current_note = i + 1
 #	$Label.text += "last note is visible!"
@@ -417,9 +408,10 @@ func _ready():
 		shift.pitch_scale = 1.0 / speed_multi
 		AudioServer.add_bus_effect(AudioServer.get_bus_index("Music"),shift)
 	$Miss.stream = Rhythia.miss_snd
-	$Hit.stream = Rhythia.hit_snd
+#	$Hit.stream = Rhythia.hit_snd
 	$Miss2D.stream = Rhythia.miss_snd
-	$Hit2D.stream = Rhythia.hit_snd
+#	$Hit2D.stream = Rhythia.hit_snd
+	SFXManager.setup()
 	
 	
 	if !Rhythia.replaying and Rhythia.record_replays:

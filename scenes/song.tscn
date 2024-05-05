@@ -342,6 +342,8 @@ note_solid_mat = SubResource( 79 )
 note_transparent_mat = SubResource( 80 )
 asq_mat = SubResource( 82 )
 
+[node name="HitSounds" type="Spatial" parent="Game/Spawn"]
+
 [node name="SpawnEffect" type="MultiMeshInstance" parent="Game/Spawn"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5 )
 cast_shadow = 0
@@ -349,13 +351,11 @@ generate_lightmap = false
 multimesh = SubResource( 77 )
 
 [node name="Notes" type="MultiMeshInstance" parent="Game/Spawn"]
-sorting_offset = 1.0
 cast_shadow = 0
 generate_lightmap = false
 multimesh = SubResource( 77 )
 
 [node name="ASq" type="MultiMeshInstance" parent="Game/Spawn"]
-sorting_offset = 2.0
 cast_shadow = 0
 generate_lightmap = false
 
