@@ -111,6 +111,10 @@ func _ready():
 func _process(delta:float):
 	if Input.is_action_just_pressed("ui_quicksettings"):
 		press(1)
+
+	if Input.is_action_just_pressed("menu_quickbar"):
+		open = true
+	
 	if open == true and open_amt != 1:
 		open_amt = min(open_amt + max((1 - open_amt) * delta * 14, 0.05*delta),1)
 #		if open_amt > 0.99: open_amt = 1
