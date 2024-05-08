@@ -4,7 +4,8 @@ var ov
 
 func upd():
 	if Rhythia.mod_hardrock:
-		Rhythia.edge_drift = ((value + 1) * 1.6) - 1
+		var nv = ((value + 1) * 1.6) - 1
+		Rhythia.edge_drift = nv
 	else:
 		Rhythia.edge_drift = ov
 
