@@ -13,8 +13,8 @@ func _ready():
 	add_items()
 
 func add_items():
-	drop_down_menu.add_item(tr("English")
-	drop_down_menu.add_item(tr("Japanese)
+	$ItemList.add_item(tr("English"))
+	$ItemList.add_item(tr("Japanese"))
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
