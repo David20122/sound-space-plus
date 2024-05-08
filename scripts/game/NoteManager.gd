@@ -396,7 +396,7 @@ func _ready():
 		hit_window = Rhythia.get("hitwindow_ms") * speed_multi
 	
 	if Rhythia.mod_hardrock:
-		hit_window = hit_window * 0.65
+		hit_window = hit_window * 0.75
 
 	$Note.speed_multi = speed_multi
 	$Music.pitch_scale = speed_multi
