@@ -3,6 +3,7 @@ extends Camera
 var cursor_offset = Vector3(1,-1,0)
 var replay_offset = Vector3(1,-1,0)
 var sh:Vector2 = Vector2(-0.5,-0.5)
+var edgec:float = 0.13125
 
 onready var cursor = get_node("../Game/Spawn/Cursor")
 
@@ -37,8 +38,13 @@ func _process(delta):
 				var cx = centeroff.x
 				var cy = -centeroff.y
 				cursor.rpos = Vector2(cx,cy)
-				cx = clamp(cx, (0 + sh.x), (3 + sh.x))
-				cy = clamp(cy, (0 + sh.y), (3 + sh.y))
+				if Rhythia.mod_hardrock:
+					var hard_cock = edgec - 0.6
+					cx = clamp(cx, (0 + sh.x + hard_cock), (3 + sh.x - hard_cock))
+					cy = clamp(cy, (0 + sh.y + hard_cock), (3 + sh.y - hard_cock))
+				else:
+					cx = clamp(cx, (0 + sh.x + edgec), (3 + sh.x - edgec))
+					cy = clamp(cy, (0 + sh.y + edgec), (3 + sh.y - edgec))
 				centeroff.x = cx - cursor_offset.x
 				centeroff.y = -cy - cursor_offset.y
 				cursor.transform.origin = centeroff + cursor_offset
