@@ -393,11 +393,26 @@ func _ready():
 	if !Rhythia.enable_grid:
 		Spawn.get_node("Inner").visible = false
 	
-	# --------------------------------------------- removing this because people keep complaining about it
+	# --------------------------------------------- making this a setting cuz fog wants to lol
 
-	# if Rhythia.mod_hardrock:
-	# 	Spawn.get_node("Inner").scale *= 1.35
-	# 	Spawn.get_node("Outer").scale *= 1.35
+	if Rhythia.mod_hardrock and Rhythia.expand_hud_onhr:
+		var HUDScale:Array = [
+			$TimerHud,
+			$LeftHud,
+			$RightHud,
+			$EnergyHud,
+			$ComboHud,
+		]
+		Spawn.get_node("Inner").scale *= 1.35
+		Spawn.get_node("Outer").scale *= 1.35
+		$TimerHud.transform.origin += Vector3(0, 0.385, 0)
+		$LeftHud.transform.origin += Vector3(-0.50, 0, 0)
+		$RightHud.transform.origin += Vector3(0.50, 0, 0)
+		$EnergyHud.transform.origin += Vector3(0, -0.45, 0)
+		$ComboHud.transform.origin += Vector3(0, 0.40, 0)
+
+		for l in HUDScale:
+			l.scale *= 0.85
 
 	if !Rhythia.enable_border:
 		Spawn.get_node("Outer").visible = false

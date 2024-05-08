@@ -207,6 +207,9 @@ var fail_asp:AudioStreamPlayer = AudioStreamPlayer.new()
 # Controller ignore settings
 var ignore_controller_detection:bool = false
 
+# HUD with HR
+var expand_hud_onhr:bool = false
+
 # VR startup
 func start_vr():
 	if vr:
@@ -1210,6 +1213,8 @@ func load_saved_settings(saveFile:String = Globals.p("user://settings.json")):
 			disable_intro = data.disable_intro
 		if data.has("ignore_controller_detection"):
 			ignore_controller_detection = data.ignore_controller_detection
+		if data.has("expand_hud_onhr"):
+			expand_hud_onhr = data.expand_hud_onhr
 		
 		if data.has("master_volume"):
 			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), dser_float(data.master_volume))
@@ -1485,6 +1490,8 @@ func load_saved_settings(saveFile:String = Globals.p("user://settings.json")):
 			trail_mode_opacity = bool(file.get_8())
 		if sv >= 48:
 			ignore_controller_detection = bool(file.get_8())
+		if sv >= 49:
+			expand_hud_onhr = bool(file.get_8())
 		file.close()
 		save_settings()
 	return 0
@@ -1604,6 +1611,7 @@ func save_settings(saveFile:String = Globals.p("user://settings.json")):
 			target_fps = Engine.target_fps,
 			disable_intro = disable_intro,
 			ignore_controller_detection = ignore_controller_detection,
+			expand_hud_onhr = expand_hud_onhr,
 			
 			master_volume = ser_float(clamp(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Master")),-80,1000000)),
 			music_volume = ser_float(clamp(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Music")),-80,1000000)),

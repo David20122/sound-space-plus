@@ -51,6 +51,7 @@ func display_warning(id:String):
 var experimental_settings = [
 	"show_stats",
 	"retain_song_pitch",
+	"expand_hud_onhr"
 ]
 
 func check_experimental_settings():
