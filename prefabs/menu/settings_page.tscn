@@ -1,4 +1,4 @@
-[gd_scene load_steps=91 format=2]
+[gd_scene load_steps=92 format=2]
 
 [ext_resource path="res://uitheme.tres" type="Theme" id=1]
 [ext_resource path="res://assets/font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=2]
@@ -203,6 +203,11 @@ use_filter = true
 font_data = ExtResource( 2 )
 fallback/0 = ExtResource( 3 )
 
+[sub_resource type="DynamicFont" id=59]
+size = 14
+use_filter = true
+font_data = ExtResource( 2 )
+
 [node name="F" type="VBoxContainer"]
 anchor_right = 1.0
 margin_bottom = 2155.0
@@ -289,12 +294,11 @@ script = ExtResource( 59 )
 [node name="TabContainer" type="TabContainer" parent="."]
 margin_top = 59.0
 margin_right = 1280.0
-margin_bottom = 548.0
+margin_bottom = 1049.0
 theme = ExtResource( 1 )
 tab_align = 0
 
 [node name="Gameplay" type="VBoxContainer" parent="TabContainer"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 30.0
@@ -3881,8 +3885,9 @@ rect_min_size = Vector2( 200, 40 )
 
 [node name="Presets" type="MenuButton" parent="TabContainer/UI/UIColor/Group/H/Presets"]
 margin_left = -10.0
+margin_top = 8.0
 margin_right = 194.0
-margin_bottom = 32.0
+margin_bottom = 40.0
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
@@ -6484,6 +6489,7 @@ custom_constants/separation = 30
 custom_styles/separator = SubResource( 55 )
 
 [node name="Replays & Misc" type="VBoxContainer" parent="TabContainer"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 30.0
@@ -6666,18 +6672,18 @@ custom_styles/separator = SubResource( 55 )
 [node name="Experimental" type="VBoxContainer" parent="TabContainer/Replays & Misc"]
 margin_top = 192.0
 margin_right = 1280.0
-margin_bottom = 429.0
+margin_bottom = 450.0
 
 [node name="Group" type="MarginContainer" parent="TabContainer/Replays & Misc/Experimental"]
 margin_right = 1280.0
-margin_bottom = 237.0
+margin_bottom = 258.0
 mouse_filter = 1
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="TabContainer/Replays & Misc/Experimental/Group"]
 margin_left = 180.0
 margin_right = 1280.0
-margin_bottom = 237.0
+margin_bottom = 258.0
 
 [node name="ExpWarning" type="MarginContainer" parent="TabContainer/Replays & Misc/Experimental/Group/H"]
 margin_right = 827.0
@@ -6849,9 +6855,9 @@ valign = 1
 
 [node name="Avatar" type="Control" parent="TabContainer/Replays & Misc/Experimental/Group/H"]
 visible = false
-margin_top = 269.0
+margin_top = 173.0
 margin_right = 827.0
-margin_bottom = 301.0
+margin_bottom = 205.0
 rect_min_size = Vector2( 200, 32 )
 
 [node name="Editor" type="Button" parent="TabContainer/Replays & Misc/Experimental/Group/H/Avatar"]
@@ -7031,10 +7037,41 @@ custom_fonts/font = SubResource( 4 )
 text = "GUI scale, higher = smaller"
 valign = 1
 
+[node name="ExpandHUDonHR" type="CheckBox" parent="TabContainer/Replays & Misc/Experimental/Group/H"]
+margin_top = 241.0
+margin_right = 827.0
+margin_bottom = 258.0
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_fonts/font = SubResource( 59 )
+action_mode = 0
+text = "expands the HUD when using Hard Rock"
+flat = true
+script = ExtResource( 54 )
+target = "expand_hud_onhr"
+
+[node name="Label" type="Label" parent="TabContainer/Replays & Misc/Experimental/Group/H/ExpandHUDonHR"]
+margin_left = -191.0
+margin_right = -11.0
+margin_bottom = 20.0
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+text = "Expand HUD on HR"
+align = 2
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
 [node name="SEPARATOR" type="HSeparator" parent="TabContainer/Replays & Misc"]
-margin_top = 429.0
+margin_top = 450.0
 margin_right = 1280.0
-margin_bottom = 459.0
+margin_bottom = 480.0
 rect_min_size = Vector2( 0, 10 )
 custom_constants/separation = 30
 custom_styles/separator = SubResource( 55 )
