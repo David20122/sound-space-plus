@@ -57,7 +57,7 @@ func update(_s=null):
 	var txt = ""
 	if Rhythia.note_hitbox_size == 1.140: txt += tr("Default hitboxes, ")
 	else: txt += tr("Hitboxes: %s, ") % Rhythia.note_hitbox_size
-	if Rhythia.hitwindow_ms == 55: txt += tr("default hitwindow")
+	if Rhythia.hitwindow_ms == 50: txt += tr("default hitwindow")
 	else: txt += tr("hitwindow: %s ms") % Rhythia.hitwindow_ms
 	$RS/HMid/Hitboxes.text = txt
 	
