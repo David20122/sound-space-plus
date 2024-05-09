@@ -8,7 +8,7 @@ func value_changed(value):
 	call_deferred("upd_label")
 
 func on_map_selected(map):
-	self.max_value = get_seconds_from_ms(Rhythia.selected_song.last_ms) / Globals.speed_multi[Rhythia.mod_speed_level]
+	self.max_value = get_seconds_from_ms(Rhythia.selected_song.last_ms)
 	self.value = 0
 	
 func _ready():
@@ -30,11 +30,10 @@ func time_text_entered(new_text):
 	self.value = total_seconds
 		
 func upd_label():
-	var total_seconds = int(self.value)
+	var total_seconds = int(self.value / Globals.speed_multi[Rhythia.mod_speed_level])
 	var minutes = floor(total_seconds / 60)
-	var seconds = total_seconds % 60
+	var seconds = (total_seconds % 60)
 	$TimeTextBox.text = "%d:%02d" % [minutes,seconds]
 
 func _on_speed_mod_changed():
-	self.max_value = get_seconds_from_ms(Rhythia.selected_song.last_ms) / Globals.speed_multi[Rhythia.mod_speed_level]
 	upd_label()
