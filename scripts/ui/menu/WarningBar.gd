@@ -51,7 +51,6 @@ func display_warning(id:String):
 var experimental_settings = [
 	"show_stats",
 	"retain_song_pitch",
-	"expand_hud_onhr"
 ]
 
 func check_experimental_settings():
@@ -70,8 +69,8 @@ func check_warnings():
 	elif Rhythia.note_spawn_effect:
 		return "spawn"
 	# Temp mark HR as a Experimental due to issues :/
-	elif Rhythia.mod_hardrock:
-		return "experimental_mod"
+	#elif Rhythia.mod_hardrock:
+	#	return "experimental_mod"
 	elif OS.has_feature("debug"):
 		return "debug"
 	elif check_experimental_settings():

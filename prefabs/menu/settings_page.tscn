@@ -176,6 +176,11 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
+[sub_resource type="DynamicFont" id=59]
+size = 14
+use_filter = true
+font_data = ExtResource( 2 )
+
 [sub_resource type="StyleBoxFlat" id=48]
 bg_color = Color( 0.219608, 0.145098, 0.145098, 1 )
 border_width_left = 2
@@ -202,11 +207,6 @@ fallback/0 = ExtResource( 3 )
 use_filter = true
 font_data = ExtResource( 2 )
 fallback/0 = ExtResource( 3 )
-
-[sub_resource type="DynamicFont" id=59]
-size = 14
-use_filter = true
-font_data = ExtResource( 2 )
 
 [node name="F" type="VBoxContainer"]
 anchor_right = 1.0
@@ -3282,18 +3282,18 @@ custom_styles/separator = SubResource( 55 )
 [node name="UI" type="VBoxContainer" parent="TabContainer/UI"]
 margin_top = 30.0
 margin_right = 1280.0
-margin_bottom = 538.0
+margin_bottom = 559.0
 
 [node name="Group" type="MarginContainer" parent="TabContainer/UI/UI"]
 margin_right = 1280.0
-margin_bottom = 508.0
+margin_bottom = 529.0
 mouse_filter = 1
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="TabContainer/UI/UI/Group"]
 margin_left = 180.0
 margin_right = 1280.0
-margin_bottom = 508.0
+margin_bottom = 529.0
 
 [node name="Grid" type="CheckBox" parent="TabContainer/UI/UI/Group/H"]
 margin_right = 582.0
@@ -3862,10 +3862,42 @@ align = 2
 valign = 1
 clip_text = true
 
+[node name="ExpandHUDonHR" type="CheckBox" parent="TabContainer/UI/UI/Group/H"]
+margin_top = 512.0
+margin_right = 582.0
+margin_bottom = 529.0
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_fonts/font = SubResource( 59 )
+pressed = true
+action_mode = 0
+text = "expands the HUD when using Hard Rock"
+flat = true
+script = ExtResource( 54 )
+target = "expand_hud_onhr"
+
+[node name="Label" type="Label" parent="TabContainer/UI/UI/Group/H/ExpandHUDonHR"]
+margin_left = -191.0
+margin_right = -11.0
+margin_bottom = 20.0
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+text = "Expand HUD on HR"
+align = 2
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
 [node name="UIColor" type="VBoxContainer" parent="TabContainer/UI"]
-margin_top = 538.0
+margin_top = 559.0
 margin_right = 1280.0
-margin_bottom = 2170.0
+margin_bottom = 2191.0
 
 [node name="Group" type="MarginContainer" parent="TabContainer/UI/UIColor"]
 margin_right = 1280.0
@@ -5696,9 +5728,9 @@ text = "[def. ##DEFAULT##] color of text when grade is F"
 valign = 1
 
 [node name="SEPARATOR" type="HSeparator" parent="TabContainer/UI"]
-margin_top = 2170.0
+margin_top = 2191.0
 margin_right = 1280.0
-margin_bottom = 2200.0
+margin_bottom = 2221.0
 rect_min_size = Vector2( 0, 10 )
 custom_constants/separation = 30
 custom_styles/separator = SubResource( 55 )
@@ -6672,18 +6704,18 @@ custom_styles/separator = SubResource( 55 )
 [node name="Experimental" type="VBoxContainer" parent="TabContainer/Replays & Misc"]
 margin_top = 192.0
 margin_right = 1280.0
-margin_bottom = 450.0
+margin_bottom = 429.0
 
 [node name="Group" type="MarginContainer" parent="TabContainer/Replays & Misc/Experimental"]
 margin_right = 1280.0
-margin_bottom = 258.0
+margin_bottom = 237.0
 mouse_filter = 1
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="TabContainer/Replays & Misc/Experimental/Group"]
 margin_left = 180.0
 margin_right = 1280.0
-margin_bottom = 258.0
+margin_bottom = 237.0
 
 [node name="ExpWarning" type="MarginContainer" parent="TabContainer/Replays & Misc/Experimental/Group/H"]
 margin_right = 827.0
@@ -7037,41 +7069,10 @@ custom_fonts/font = SubResource( 4 )
 text = "GUI scale, higher = smaller"
 valign = 1
 
-[node name="ExpandHUDonHR" type="CheckBox" parent="TabContainer/Replays & Misc/Experimental/Group/H"]
-margin_top = 241.0
-margin_right = 827.0
-margin_bottom = 258.0
-theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_fonts/font = SubResource( 59 )
-action_mode = 0
-text = "expands the HUD when using Hard Rock"
-flat = true
-script = ExtResource( 54 )
-target = "expand_hud_onhr"
-
-[node name="Label" type="Label" parent="TabContainer/Replays & Misc/Experimental/Group/H/ExpandHUDonHR"]
-margin_left = -191.0
-margin_right = -11.0
-margin_bottom = 20.0
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-text = "Expand HUD on HR"
-align = 2
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
 [node name="SEPARATOR" type="HSeparator" parent="TabContainer/Replays & Misc"]
-margin_top = 450.0
+margin_top = 429.0
 margin_right = 1280.0
-margin_bottom = 480.0
+margin_bottom = 459.0
 rect_min_size = Vector2( 0, 10 )
 custom_constants/separation = 30
 custom_styles/separator = SubResource( 55 )
