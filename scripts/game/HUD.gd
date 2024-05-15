@@ -516,7 +516,7 @@ func _ready():
 	
 	#if Rhythia.hitwindow_ms == 58 and Rhythia.note_hitbox_size == 1.140:
 	#	ms += tr("Vulnus Judgement")
-	if Rhythia.hitwindow_ms != 50 or Rhythia.note_hitbox_size != 1.140:
+	if Rhythia.hitwindow_ms != 55 or Rhythia.note_hitbox_size != 1.140:
 		ms += "HW: %.0f ms | HB: %.02f m" % [Rhythia.hitwindow_ms,Rhythia.note_hitbox_size]
 	
 	modtxt.text = ms

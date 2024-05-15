@@ -477,7 +477,7 @@ var mod_hardrock:bool = false setget set_mod_hardrock
 # Modifiers - Custom values
 var start_offset:float = 0 setget _set_start_offset
 var note_hitbox_size:float = 1.140 setget _set_hitbox_size
-var hitwindow_ms:float = 50 setget _set_hitwindow
+var hitwindow_ms:float = 55 setget _set_hitwindow
 var custom_speed:float = 1 setget _set_custom_speed
 # Modifiers - Special
 var health_model:int = Globals.HP_SOUNDSPACE setget _set_health_model
@@ -2415,7 +2415,7 @@ func do_init(_ud=null):
 	
 	# Read PB data
 	if convert_pb_format:
-		hitwindow_ms = 50
+		hitwindow_ms = 55
 		note_hitbox_size = 1.14
 		
 		emit_signal("init_stage_reached","Upgrading personal best data\nReading legacy data")
