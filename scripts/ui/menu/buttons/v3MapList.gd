@@ -2,6 +2,7 @@ extends VBoxContainer
 
 signal search_updated
 signal reset_filters
+signal lock_type
 
 var thread:Thread
 
@@ -68,6 +69,7 @@ var has_been_pressed = false
 func play_song():
 	if !Rhythia.selected_song: return
 	if has_been_pressed: return
+	emit_signal("lock_type") # prevent input to line edits (MapSearch and AuthorSearch)
 	has_been_pressed = true
 	get_viewport().get_node("Menu").black_fade_target = true
 	yield(get_tree().create_timer(0.35),"timeout")
