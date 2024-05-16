@@ -8,6 +8,11 @@ func _ready():
 	connect("text_changed",self,"update_txt")
 	text = Rhythia.last_search_str
 	update_txt()
+	get_parent().get_parent().get_node("S/VBoxContainer").connect("reset_filters",self,"_on_reset_filters")
+
+func _on_reset_filters():
+	text = ""
+	update_txt()
 
 func _input(event): # any unicode input starts search
 	# remain the ability to type in other textboxes i wonder if you can tell if type focus is happening

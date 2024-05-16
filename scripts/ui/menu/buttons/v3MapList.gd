@@ -1,6 +1,7 @@
 extends VBoxContainer
 
 signal search_updated
+signal reset_filters
 
 var thread:Thread
 
@@ -286,8 +287,8 @@ func sortsong(a:Song, b:Song):
 	else: return sortsongsimple(a,b)
 
 func reset_filters():
-	update_search_text("")
-	update_author_search_text("")
+	print("resetting filters")
+	emit_signal("reset_filters") # updates line edits (MapSearch and AuthorSearch)
 	update_search_dfil([Globals.DIFF_UNKNOWN,Globals.DIFF_EASY,Globals.DIFF_MEDIUM,Globals.DIFF_HARD,Globals.DIFF_LOGIC,Globals.DIFF_AMOGUS])
 	update_search_showbroken(false)
 #	update_search_showonline(true) # main purpose of this is to show maps you have downloaded already, and this creates a little inconsistent behavior
