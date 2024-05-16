@@ -99,7 +99,7 @@ func on_pressed(i):
 func switch_to_play_screen():
 	size_list()
 	if Rhythia.menu_target == "res://scenes/menu/menu.tscn": return
-	if disp.find(Rhythia.registry_song.get_item(Rhythia.selected_song.id)) == -1:
+	if disp.find(Rhythia.registry_song.get_item(Rhythia.selected_song.id)) == -1: #if the selected song is not in the list, reset filters to show it
 		reset_filters()
 	get_viewport().get_node("Menu/Sidebar").press(0,true)
 	cur_map = disp.find(Rhythia.registry_song.get_item(Rhythia.selected_song.id))
@@ -290,7 +290,7 @@ func reset_filters():
 	update_author_search_text("")
 	update_search_dfil([Globals.DIFF_UNKNOWN,Globals.DIFF_EASY,Globals.DIFF_MEDIUM,Globals.DIFF_HARD,Globals.DIFF_LOGIC,Globals.DIFF_AMOGUS])
 	update_search_showbroken(false)
-	update_search_showonline(true)
+#	update_search_showonline(true) # main purpose of this is to show maps you have downloaded already, and this creates a little inconsistent behavior
 	update_search_flipped(false)
 	update_search_flip_name(false)
 
