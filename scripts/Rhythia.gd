@@ -1751,7 +1751,7 @@ func register_worlds():
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_space_tunnel", "Neon Corners",
 		"res://assets/worlds/neon_tunnel/space_tunnel.tscn", "Chedski",
-		"res://assets/worlds/space_tunnel/space_tunnel.png"
+		"res://assets/worlds/neon_tunnel/space_tunnel.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_neon_tunnel", "Neon Rings",
@@ -1761,7 +1761,7 @@ func register_worlds():
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_deep_space", "Deep Space",
 		"res://assets/worlds/deep_space/deep_space.tscn", "Chedski",
-		"res://assets/worlds/covers/deep_space.png"
+		"res://assets/worlds/deep_space/deep_space.png"
 	))
 	registry_world.add_item(BackgroundWorld.new(
 		"ssp_void", "VOID",

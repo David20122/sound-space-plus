@@ -93,7 +93,6 @@ func _ready():
 		buttons[i].connect("pressed",self,"press",[i])
 	
 	press(0,true)
-	Input.connect("menu_quickbar",self,"press", [true])
 	$Click.connect("mouse_entered",self,"_on_Sidebar", [true])
 	$L.connect("mouse_entered",self,"_on_Sidebar", [true])
 	connect("mouse_exited",self,"_on_Sidebar", [false])
