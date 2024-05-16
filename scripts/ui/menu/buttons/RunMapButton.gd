@@ -1,5 +1,7 @@
 extends Button
 
+signal lock_type
+
 var has_been_pressed:bool = false
 var detected_controllers = Input.get_connected_joypads().size()
 
@@ -50,6 +52,7 @@ func _pressed():
 	# button functionality
 	if !Rhythia.selected_song: return
 	if has_been_pressed: return
+	emit_signal("lock_type") # lock input to line edits (MapSearch and AuthorSearch)
 	
 	# Controller detection
 	if detected_controllers >= 1 and !Rhythia.ignore_controller_detection:

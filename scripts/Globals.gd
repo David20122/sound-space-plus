@@ -698,3 +698,5 @@ func _ready():
 	if OS.has_feature("debug"):
 		rootg.call_deferred("add_child",fps_disp)
 		fps_visible = true
+	#wait for thread
+	thread.wait_to_finish()

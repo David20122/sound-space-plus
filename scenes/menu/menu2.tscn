@@ -3068,13 +3068,12 @@ script = ExtResource( 22 )
 [node name="VBoxContainer" type="VBoxContainer" parent="Main/Maps/MapRegistry/S"]
 physics_interpolation_mode = 2
 show_behind_parent = true
-anchor_left = 1.015
-anchor_top = 0.001
-anchor_right = 1.015
+anchor_left = 1.008
+anchor_right = 1.008
 anchor_bottom = 0.688
-margin_left = -449.795
-margin_top = 0.312
-margin_right = 0.204956
+margin_left = -458.881
+margin_top = 1.0
+margin_right = 3.09595
 margin_bottom = 181.656
 grow_horizontal = 0
 grow_vertical = 2
@@ -3089,9 +3088,9 @@ script = ExtResource( 105 )
 [node name="EMPTY" type="Panel" parent="Main/Maps/MapRegistry/S/VBoxContainer"]
 modulate = Color( 1, 1, 1, 0 )
 self_modulate = Color( 1, 1, 1, 0 )
-margin_left = 49.0
+margin_left = 61.0
 margin_top = 12.0
-margin_right = 449.0
+margin_right = 461.0
 margin_bottom = 102.0
 rect_min_size = Vector2( 400, 90 )
 size_flags_horizontal = 8
@@ -3114,9 +3113,9 @@ action_mode = 0
 group = SubResource( 67 )
 
 [node name="NODIF" type="Panel" parent="Main/Maps/MapRegistry/S/VBoxContainer"]
-margin_left = 49.0
+margin_left = 61.0
 margin_top = 104.0
-margin_right = 449.0
+margin_right = 461.0
 margin_bottom = 194.0
 rect_min_size = Vector2( 400, 90 )
 size_flags_horizontal = 8
@@ -3231,9 +3230,9 @@ clip_text = true
 
 [node name="EASY" type="Panel" parent="Main/Maps/MapRegistry/S/VBoxContainer"]
 self_modulate = Color( 0, 1, 0, 1 )
-margin_left = 49.0
+margin_left = 61.0
 margin_top = 196.0
-margin_right = 449.0
+margin_right = 461.0
 margin_bottom = 286.0
 rect_min_size = Vector2( 400, 90 )
 size_flags_horizontal = 8
@@ -3345,9 +3344,9 @@ clip_text = true
 
 [node name="MEDIUM" type="Panel" parent="Main/Maps/MapRegistry/S/VBoxContainer"]
 self_modulate = Color( 1, 0.72549, 0, 1 )
-margin_left = 49.0
+margin_left = 61.0
 margin_top = 288.0
-margin_right = 449.0
+margin_right = 461.0
 margin_bottom = 378.0
 rect_min_size = Vector2( 400, 90 )
 size_flags_horizontal = 8
@@ -3465,9 +3464,9 @@ clip_text = true
 
 [node name="HARD" type="Panel" parent="Main/Maps/MapRegistry/S/VBoxContainer"]
 self_modulate = Color( 1, 0, 0, 1 )
-margin_left = 49.0
+margin_left = 61.0
 margin_top = 380.0
-margin_right = 449.0
+margin_right = 461.0
 margin_bottom = 470.0
 rect_min_size = Vector2( 400, 90 )
 size_flags_horizontal = 8
@@ -3582,9 +3581,9 @@ clip_text = true
 
 [node name="LOGIC" type="Panel" parent="Main/Maps/MapRegistry/S/VBoxContainer"]
 self_modulate = Color( 0.843137, 0.415686, 1, 1 )
-margin_left = 49.0
+margin_left = 61.0
 margin_top = 472.0
-margin_right = 449.0
+margin_right = 461.0
 margin_bottom = 562.0
 rect_min_size = Vector2( 400, 90 )
 size_flags_horizontal = 8
@@ -3702,9 +3701,9 @@ clip_text = true
 
 [node name="AMOGUS" type="Panel" parent="Main/Maps/MapRegistry/S/VBoxContainer"]
 self_modulate = Color( 0.211765, 0.188235, 0.309804, 1 )
-margin_left = 49.0
+margin_left = 61.0
 margin_top = 564.0
-margin_right = 449.0
+margin_right = 461.0
 margin_bottom = 654.0
 rect_min_size = Vector2( 400, 90 )
 size_flags_horizontal = 8

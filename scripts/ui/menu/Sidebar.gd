@@ -53,15 +53,16 @@ func press(bi:int,q:bool=false):
 		pages[i].visible = i == bi
 		buttons[i].pressed = i == bi
 	yield(get_tree(),"idle_frame")
-	open = false
+
 	get_node("../VersionNumber").visible = !use_ver_b[bi]
 	get_node("../VersionNumberB").visible = use_ver_b[bi]
 	if (hide_ver[bi]):
 		get_node("../VersionNumber").self_modulate = Color(1,1,1,0)
 	else:
 		get_node("../VersionNumber").self_modulate = Color(1,1,1,1)
-	get_node("Click").visible = !open
-	get_node("../SidebarClick").visible = open
+#	open = false
+#	get_node("Click").visible = !open
+#	get_node("../SidebarClick").visible = open
 
 func to_old_menu():
 	get_node("../Press").play()
@@ -87,13 +88,14 @@ func quit():
 	yield(get_tree().create_timer(0.35),"timeout")
 	get_tree().quit()
 	
-
 func _ready():
 	for i in range(buttons.size()):
 		buttons[i].connect("pressed",self,"press",[i])
 	
 	press(0,true)
-	
+	$Click.connect("mouse_entered",self,"_on_Sidebar", [true])
+	$L.connect("mouse_entered",self,"_on_Sidebar", [true])
+	connect("mouse_exited",self,"_on_Sidebar", [false])
 	$L/OldMenu.connect("pressed",self,"to_old_menu")
 	$L/StartVR.connect("pressed",self,"to_vr")
 	$L/Quit.connect("pressed",self,"quit")
@@ -107,13 +109,10 @@ func _ready():
 		for n in $L.get_children():
 			n.visible = smm_visibility.get(n,false)
 	
-
 func _process(delta:float):
-	if Input.is_action_just_pressed("ui_quicksettings"):
-		press(1)
-
-	if Input.is_action_just_pressed("menu_quickbar"):
-		open = true
+	if open and not Rect2(get_global_rect()).has_point(get_global_mouse_position()): # mouse_exited is not reliable
+		open = false
+		get_node("Click").visible = !open
 	
 	if open == true and open_amt != 1:
 		open_amt = min(open_amt + max((1 - open_amt) * delta * 14, 0.05*delta),1)
@@ -131,9 +130,14 @@ func _input(ev):
 		yield(get_tree(),"idle_frame")
 		get_node("Click").visible = !open
 		get_node("../SidebarClick").visible = open
+	
+	if Input.is_action_just_pressed("ui_quicksettings"):
+		press(1)
 
-func _on_Sidebar_mouse_entered():
-	open = true
-	yield(get_tree(),"idle_frame")
+	if Input.is_action_just_pressed("menu_quickbar"): # uuhhh no, mouse checks won't work with this
+		open = true
+		get_node("Click").visible = !open
+
+func _on_Sidebar(isEntered: bool):
+	open = isEntered
 	get_node("Click").visible = !open
-	get_node("../SidebarClick").visible = open
