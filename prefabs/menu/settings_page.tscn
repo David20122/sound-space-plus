@@ -498,7 +498,7 @@ theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
 custom_fonts/font = SubResource( 4 )
-text = "[def. 50ms] the length of time notes can be hit after reaching the grid   [1.5x = 83; 2x = 110]"
+text = "[def. 55ms] the length of time notes can be hit after reaching the grid   [1.5x = 83; 2x = 110]"
 valign = 1
 
 [node name="SpeedWindow" type="CheckBox" parent="TabContainer/Gameplay/Modifiers/Group/H"]
