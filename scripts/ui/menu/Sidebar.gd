@@ -111,8 +111,7 @@ func _ready():
 	
 func _process(delta:float):
 	if open and not Rect2(get_global_rect()).has_point(get_global_mouse_position()): # mouse_exited is not reliable
-		open = false
-		get_node("Click").visible = !open
+		_on_Sidebar(false)
 	
 	if open == true and open_amt != 1:
 		open_amt = min(open_amt + max((1 - open_amt) * delta * 14, 0.05*delta),1)
@@ -141,3 +140,4 @@ func _input(ev):
 func _on_Sidebar(isEntered: bool):
 	open = isEntered
 	get_node("Click").visible = !open
+	get_node("../SidebarClick").visible = open
