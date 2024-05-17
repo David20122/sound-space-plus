@@ -5,7 +5,7 @@
 
 
 [sub_resource type="DynamicFontData" id=2]
-font_path = "res://font/Lato/Lato-Regular.ttf"
+font_path = "res://assets/font/Lato/Lato-Regular.ttf"
 
 [sub_resource type="DynamicFont" id=1]
 size = 18
