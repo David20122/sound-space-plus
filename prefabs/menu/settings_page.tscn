@@ -294,7 +294,7 @@ script = ExtResource( 59 )
 [node name="TabContainer" type="TabContainer" parent="."]
 margin_top = 59.0
 margin_right = 1280.0
-margin_bottom = 1049.0
+margin_bottom = 1081.0
 theme = ExtResource( 1 )
 tab_align = 0
 
@@ -315,18 +315,18 @@ custom_styles/separator = SubResource( 55 )
 [node name="Modifiers" type="VBoxContainer" parent="TabContainer/Gameplay"]
 margin_top = 30.0
 margin_right = 1280.0
-margin_bottom = 212.0
+margin_bottom = 244.0
 
 [node name="Group" type="MarginContainer" parent="TabContainer/Gameplay/Modifiers"]
 margin_right = 1280.0
-margin_bottom = 182.0
+margin_bottom = 214.0
 mouse_filter = 1
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="TabContainer/Gameplay/Modifiers/Group"]
 margin_left = 180.0
 margin_right = 1280.0
-margin_bottom = 182.0
+margin_bottom = 214.0
 
 [node name="DisablePause" type="CheckBox" parent="TabContainer/Gameplay/Modifiers/Group/H"]
 margin_right = 379.0
@@ -535,18 +535,52 @@ text = "Counter Speed"
 align = 2
 valign = 1
 
+[node name="RestartOnDeath" type="CheckBox" parent="TabContainer/Gameplay/Modifiers/Group/H"]
+margin_top = 186.0
+margin_right = 379.0
+margin_bottom = 214.0
+rect_min_size = Vector2( 0, 28 )
+mouse_filter = 1
+theme = ExtResource( 1 )
+custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_fonts/font = SubResource( 4 )
+pressed = true
+action_mode = 0
+text = "restarts the map upon death instead of returning to menu"
+flat = true
+script = ExtResource( 54 )
+target = "restart_on_death"
+
+[node name="Label" type="Label" parent="TabContainer/Gameplay/Modifiers/Group/H/RestartOnDeath"]
+margin_left = -184.0
+margin_top = 4.0
+margin_right = -11.0
+margin_bottom = 24.0
+focus_mode = 2
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Restart on Death"
+align = 2
+valign = 1
+
 [node name="SEPARATOR" type="HSeparator" parent="TabContainer/Gameplay"]
-margin_top = 212.0
+margin_top = 244.0
 margin_right = 1280.0
-margin_bottom = 242.0
+margin_bottom = 274.0
 rect_min_size = Vector2( 0, 10 )
 custom_constants/separation = 30
 custom_styles/separator = SubResource( 55 )
 
 [node name="Camera" type="VBoxContainer" parent="TabContainer/Gameplay"]
-margin_top = 242.0
+margin_top = 274.0
 margin_right = 1280.0
-margin_bottom = 930.0
+margin_bottom = 962.0
 
 [node name="Group" type="MarginContainer" parent="TabContainer/Gameplay/Camera"]
 margin_right = 1280.0
@@ -1310,9 +1344,9 @@ valign = 1
 clip_text = true
 
 [node name="SEPARATOR2" type="HSeparator" parent="TabContainer/Gameplay"]
-margin_top = 930.0
+margin_top = 962.0
 margin_right = 1280.0
-margin_bottom = 960.0
+margin_bottom = 992.0
 rect_min_size = Vector2( 0, 10 )
 custom_constants/separation = 30
 custom_styles/separator = SubResource( 55 )
