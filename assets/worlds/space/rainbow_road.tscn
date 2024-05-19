@@ -1,13 +1,12 @@
 [gd_scene load_steps=23 format=2]
 
-[ext_resource path="res://assets/worlds/space/r_road01.png" type="Texture" id=1]
+[ext_resource path="res://assets/worlds/space/r_road01_desat.png" type="Texture" id=1]
 [ext_resource path="res://assets/worlds/space/road_normal.png" type="Texture" id=2]
 [ext_resource path="res://assets/worlds/space/vignette.svg" type="Texture" id=3]
 [ext_resource path="res://assets/worlds/space/rainbow_road.gd" type="Script" id=4]
 [ext_resource path="res://assets/worlds/space/starmap_4k.png" type="Texture" id=5]
 [ext_resource path="res://assets/worlds/space/gradient.png" type="Texture" id=6]
 [ext_resource path="res://assets/worlds/space/star_bit.obj" type="ArrayMesh" id=8]
-
 
 [sub_resource type="PanoramaSky" id=1]
 panorama = ExtResource( 5 )
@@ -32,7 +31,6 @@ fog_height_max = -18.5
 fog_height_curve = 0.68302
 ss_reflections_max_steps = 16
 ss_reflections_fade_in = 0.243676
-glow_enabled = true
 glow_levels/3 = false
 glow_intensity = 0.98
 glow_bloom = 0.31
@@ -156,6 +154,7 @@ draw_pass_1 = ExtResource( 8 )
 
 [node name="RainbowRoad" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, -1.06581e-14, 0, 1, 0, 1.06581e-14, 0, 1, 0, -1.7, 0 )
+cast_shadow = 0
 mesh = SubResource( 15 )
 script = ExtResource( 4 )
 
