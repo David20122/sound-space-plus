@@ -1,7 +1,9 @@
 [gd_resource type="Shader" format=2]
 
 [resource]
-code = "shader_type spatial;
+code = "// NOTE: Shader automatically converted from Godot Engine 3.5.3.stable's SpatialMaterial.
+
+shader_type spatial;
 render_mode async_hidden,blend_add,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx,unshaded;
 uniform vec4 albedo : hint_color;
 uniform sampler2D texture_albedo : hint_albedo;
@@ -17,23 +19,17 @@ uniform vec3 uv1_offset;
 uniform vec3 uv2_scale;
 uniform vec3 uv2_offset;
 
-void vertex() {
-	UV=UV*uv1_scale.xy+uv1_offset.xy;
-
-	float rotation = TIME * speed;
-	vec2 pivot = vec2(0, 0);
-	vec3 uv = VERTEX;
-	
-	float cosa = cos(rotation);
-	float sina = sin(rotation);
-	uv.x -= pivot.x;
-	uv.y -= pivot.y;
-
-	VERTEX = vec3((cosa * uv.x - sina * uv.y) + pivot.x, (cosa * uv.y + sina * uv.x) + pivot.y, uv.z);
+vec2 rotate2D(vec2 v, float a) {
+	float s = sin(a);
+	float c = cos(a);
+	mat2 m = mat2(vec2(c,-s),vec2(s,c));
+	return m * v;
 }
 
-
-
+void vertex() {
+	UV=UV*uv1_scale.xy+uv1_offset.xy;
+	VERTEX.xz = rotate2D(VERTEX.xz,TIME * speed);
+}
 
 void fragment() {
 	vec2 base_uv = UV;
