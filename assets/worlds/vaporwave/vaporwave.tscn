@@ -9,7 +9,6 @@
 background_mode = 2
 ambient_light_color = Color( 0.3, 0.3, 0.3, 1 )
 ambient_light_sky_contribution = 0.0
-glow_enabled = true
 glow_intensity = 1.21
 glow_strength = 1.11
 glow_bloom = 0.12
