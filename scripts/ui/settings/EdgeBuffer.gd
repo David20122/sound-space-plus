@@ -9,8 +9,11 @@ func upd():
 	else:
 		Rhythia.edge_drift = ov
 
-#func _process(_d):
-#	if value != Rhythia.edge_drift: upd()
+func _process(_d):
+	if value != Rhythia.edge_drift and Rhythia.mod_hardrock:
+		return
+	elif value != Rhythia.edge_drift and !Rhythia.mod_hardrock:
+		upd()
 
 func _on_Rhythia_mods_changed():
 	upd()
