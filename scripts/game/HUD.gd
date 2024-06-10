@@ -189,11 +189,11 @@ func update_timer(ms:float,canSkip:bool=false):
 	if Rhythia.queue_active:
 		lms = Rhythia.queue_end_length + (3000 * (Rhythia.song_queue.size() - 1))
 	
-	var s = clamp((qms/1000),0,lms/1000) / Globals.speed_multi[Rhythia.mod_speed_level]
+	var s = clamp(floor(qms/1000),0,lms/1000)
 	var m = floor(s / 60)
 	var rs = fmod(s,60)
 	
-	var ls = (lms/1000) / Globals.speed_multi[Rhythia.mod_speed_level]
+	var ls = floor(lms/1000)
 	var lm = floor(ls / 60) 
 	var lrs = fmod(ls,60) 
 	

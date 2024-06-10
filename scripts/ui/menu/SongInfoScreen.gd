@@ -45,7 +45,7 @@ func update(_s=null):
 		Globals.difficulty_names.get(map.difficulty,"INVALID DIFFICULTY ID")
 	)
 	$RS/HMid/Difficulty.modulate = Globals.difficulty_colors.get(map.difficulty,Color("#ffffff"))
-	$RS/H1/Info/Data/Data.text = "%s - %s notes" % [get_time_ms(map.last_ms / Globals.speed_multi[Rhythia.mod_speed_level]),comma_sep(map.note_count)]
+	$RS/H1/Info/Data/Data.text = "%s - %s notes" % [get_time_ms(map.last_ms),comma_sep(map.note_count)]
 	
 	$RS/HMid/Difficulty.visible = true
 	
