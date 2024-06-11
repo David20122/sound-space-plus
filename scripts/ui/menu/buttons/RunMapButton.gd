@@ -34,6 +34,7 @@ func files_dropped(files:PoolStringArray,_screen:int):
 			list.switch_to_play_screen()
 
 func _input(event:InputEvent):
+	if not is_visible_in_tree(): return
 	if get_focus_owner() == $"/root/Menu/Main/Maps/MapRegistry/T/Search": return
 	if get_focus_owner() == $"/root/Menu/Main/Maps/MapRegistry/T/AuthorSearch": return
 	if get_viewport().get_node("Menu/Main/Maps/Results").visible == true:
