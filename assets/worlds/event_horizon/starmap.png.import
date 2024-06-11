@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/starmap.png-00f75a830ae0b48eb52ddd6ca350da37.stex"
+path="res://.import/starmap.png-ae7e61dad9d692ef74f7a85881b8d098.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/worlds/space/starmap.png"
-dest_files=[ "res://.import/starmap.png-00f75a830ae0b48eb52ddd6ca350da37.stex" ]
+source_file="res://assets/worlds/event_horizon/starmap.png"
+dest_files=[ "res://.import/starmap.png-ae7e61dad9d692ef74f7a85881b8d098.stex" ]
 
 [params]
 
