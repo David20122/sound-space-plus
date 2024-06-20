@@ -486,6 +486,7 @@ var visual_mode:bool = false setget set_visual_mode
 var invert_mouse:bool = false setget set_invert_mouse
 var disable_pausing:bool = false
 var speed_hitwindow:bool = true
+var restart_on_death:bool = true
 
 # Mod setters - Normal
 func set_mod_extra_energy(v:bool):
@@ -1052,6 +1053,8 @@ func load_saved_settings(saveFile:String = Globals.p("user://settings.json")):
 			hitwindow_ms = data.hitwindow_ms
 		if data.has("speed_hitwindow"):
 			speed_hitwindow = data.speed_hitwindow
+		if data.has("restart_on_death"):
+			restart_on_death = data.restart_on_death
 		if data.has("cursor_spin"): 
 			cursor_spin = data.cursor_spin
 		if data.has("selected_space"): 
@@ -1553,6 +1556,7 @@ func save_settings(saveFile:String = Globals.p("user://settings.json")):
 			follow_drift_cursor = follow_drift_cursor,
 			hitwindow_ms = hitwindow_ms,
 			speed_hitwindow = speed_hitwindow,
+			restart_on_death = restart_on_death,
 			cursor_spin = cursor_spin,
 			note_size = note_size,
 			note_opacity = note_opacity,
