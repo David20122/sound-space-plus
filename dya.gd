@@ -1,8 +1,8 @@
 extends Control
 
 func _ready():
-    # Github file limiter sucks, make this feature work by adding the video found in the link below inside of the dya child in dya.tscn:
-    # https://drive.google.com/file/d/1TPrnleFUK8yzb_J6JZE50RIIdfcHoU9i/view?usp=sharing
+	# Get the video using
+	# git lfs fetch --all
 	$dya.play()
 
 func _on_dya_finished():
