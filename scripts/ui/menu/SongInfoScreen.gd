@@ -64,7 +64,7 @@ func update(_s=null):
 
 	if map.creator == "DyamoDash":
 		$RS/H1/Info/Mapper/Mapper.text = map.creator + " ♡"
-		$RS/HMid/Hitboxes.text = txt + "\nHave you seen the Dyamo easter egg?\nHold D Y A on Startup!"
+		$RS/HMid/Hitboxes.text = txt + "\nHave you seen the Dyamo easter egg?\nHold D Y A when starting the game!"
 
 	
 	for i in range(difficulty_btns.size()):
