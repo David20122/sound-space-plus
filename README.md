@@ -103,3 +103,8 @@ After cloning the repository download the Discord Game SDK and put the following
 - `discord_game_sdk.dll`  
 - `discord_game_sdk.dylib`  
 - `discord_game_sdk.so` (__rename to `libdiscord_game_sdk.so`__)  
+
+Don't forget to fetch the big files that are missing using
+```sh
+$ git lfs fetch --all
+```
