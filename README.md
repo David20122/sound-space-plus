@@ -107,4 +107,5 @@ After cloning the repository download the Discord Game SDK and put the following
 Don't forget to fetch the big files that are missing using
 ```sh
 $ git lfs fetch --all
+$ git lfs pull
 ```
