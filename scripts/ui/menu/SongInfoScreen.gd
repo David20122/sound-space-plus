@@ -52,14 +52,20 @@ func update(_s=null):
 	$RS/H1/Info/Mapper.visible = !Rhythia.single_map_mode_txt
 	$RS/H1/Info/Id.visible = !Rhythia.single_map_mode_txt
 	$RS/H1/Info/SMM.visible = Rhythia.single_map_mode
-	
-	
+
+	#print(map.creator)
+
 	var txt = ""
 	if Rhythia.note_hitbox_size == 1.140: txt += tr("Default hitboxes, ")
 	else: txt += tr("Hitboxes: %s, ") % Rhythia.note_hitbox_size
 	if Rhythia.hitwindow_ms == 55: txt += tr("default hitwindow")
 	else: txt += tr("hitwindow: %s ms") % Rhythia.hitwindow_ms
 	$RS/HMid/Hitboxes.text = txt
+
+	if map.creator == "DyamoDash":
+		$RS/H1/Info/Mapper/Mapper.text = map.creator + " ♡"
+		$RS/HMid/Hitboxes.text = txt + "\nHave you seen the Dyamo easter egg?\nHold D Y A on Startup!"
+
 	
 	for i in range(difficulty_btns.size()):
 		var n:Panel = difficulty_btns[i]

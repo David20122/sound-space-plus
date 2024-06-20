@@ -756,6 +756,7 @@ var hit_pitch_max:float = 1.15
 
 var arcw_mode:bool = false # heheheha
 var sex_mode:bool = false
+var memory_lane:bool = false # :(
 
 var language:int = 0
 
@@ -2470,6 +2471,9 @@ func do_init(_ud=null):
 	if Input.is_key_pressed(KEY_S) and Input.is_key_pressed(KEY_E) and Input.is_key_pressed(KEY_X):
 		sex_mode = true
 		alert = "Sex mode enabled successfully."
+	if Input.is_key_pressed(KEY_D) and Input.is_key_pressed(KEY_Y) and Input.is_key_pressed(KEY_A):
+		memory_lane = true
+		alert = "Memory Lane enabled successfully."
 
 	var alert_snd_played:bool = false
 	if alert != "":

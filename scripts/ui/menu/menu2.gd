@@ -18,6 +18,8 @@ func _ready():
 		get_tree().change_scene("res://w.tscn")
 	if Rhythia.sex_mode:
 		get_tree().change_scene("res://sex.tscn")
+	if Rhythia.memory_lane:
+		get_tree().change_scene("res://dya.tscn")
 	
 	# fix audio pitchshifts
 	if AudioServer.get_bus_effect_count(AudioServer.get_bus_index("Music")) > 0:

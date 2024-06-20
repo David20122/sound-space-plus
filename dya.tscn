@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/images/ui/dya.webm" type="VideoStream" id=1]
+[ext_resource path="res://dya.gd" type="Script" id=2]
+
+[node name="dya" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+
+[node name="bg" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="dya" type="VideoPlayer" parent="."]
+margin_right = 1920.0
+margin_bottom = 1080.0
+stream = ExtResource( 1 )
+volume_db = 15.0
+expand = false
+
+[connection signal="finished" from="dya" to="." method="_on_dya_finished"]
