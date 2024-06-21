@@ -6,6 +6,7 @@ var ifading = false
 var fading = false
 var can_skip = false
 var can_skip2 = false
+var date = OS.get_datetime()
 
 func _ready():
 	
@@ -18,7 +19,7 @@ func _ready():
 		$Avatar/Head/CubellaHair.visible = true
 
 	# for max
-	if Rhythia.memory_lacu():
+	if Rhythia.memory_lacu() or (date.month == 6 and date.day == 19):
 		$Avatar/Head/CubellaHair.visible = true
 		$Avatar/Head/CubellaHair/Hair.visible = false
 		$Avatar/Head/CubellaHair/Ears.visible = false
