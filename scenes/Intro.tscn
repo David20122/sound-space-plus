@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=2]
+[gd_scene load_steps=63 format=2]
 
 [ext_resource path="res://assets/blocks/cube.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://assets/accessories/alt_cubella_hair/ears.obj" type="ArrayMesh" id=2]
@@ -10,7 +10,6 @@
 [ext_resource path="res://assets/animations/Idle.tres" type="Animation" id=26]
 [ext_resource path="res://scripts/Intro.gd" type="Script" id=27]
 [ext_resource path="res://assets/sfx/music/yay.mp3" type="AudioStream" id=28]
-
 
 [sub_resource type="SpatialMaterial" id=60]
 flags_unshaded = true
@@ -179,6 +178,28 @@ shader_param/use_image = false
 material = SubResource( 119 )
 left_to_right = 1.0
 size = Vector3( 2, 2, 1 )
+
+[sub_resource type="Gradient" id=121]
+offsets = PoolRealArray( 1 )
+colors = PoolColorArray( 0.581543, 0.572456, 0.572456, 1 )
+
+[sub_resource type="GradientTexture" id=122]
+gradient = SubResource( 121 )
+
+[sub_resource type="SpatialMaterial" id=123]
+flags_unshaded = true
+albedo_texture = SubResource( 122 )
+
+[sub_resource type="Gradient" id=124]
+offsets = PoolRealArray( 1 )
+colors = PoolColorArray( 0.803922, 0.482353, 0.858824, 1 )
+
+[sub_resource type="GradientTexture" id=125]
+gradient = SubResource( 124 )
+
+[sub_resource type="SpatialMaterial" id=126]
+flags_unshaded = true
+albedo_texture = SubResource( 125 )
 
 [sub_resource type="ArrayMesh" id=68]
 surfaces/0 = {
@@ -737,6 +758,24 @@ mesh = SubResource( 118 )
 [node name="ElfL" type="MeshInstance" parent="Avatar/Head/CubellaHair"]
 transform = Transform( 0.5, 5.28485e-08, -1.64102e-14, 7.54979e-08, -0.35, -4.25748e-09, 4.26326e-14, -7.45058e-09, 0.2, -1.5, -0.1, -0.5 )
 mesh = SubResource( 118 )
+
+[node name="Hair_dya" type="MeshInstance" parent="Avatar/Head/CubellaHair"]
+transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, -0.15, 0 )
+visible = false
+material_override = SubResource( 123 )
+mesh = ExtResource( 4 )
+
+[node name="Outline" type="MeshInstance" parent="Avatar/Head/CubellaHair/Hair_dya"]
+mesh = SubResource( 113 )
+
+[node name="Ears_dya" type="MeshInstance" parent="Avatar/Head/CubellaHair"]
+transform = Transform( -0.9, 0, 7.86805e-08, 0, 0.8, 0, -7.86805e-08, 0, -0.9, 0, 0, -0.1 )
+visible = false
+material_override = SubResource( 126 )
+mesh = ExtResource( 2 )
+
+[node name="Outline" type="MeshInstance" parent="Avatar/Head/CubellaHair/Ears_dya"]
+mesh = SubResource( 113 )
 
 [node name="Torso" type="MeshInstance" parent="Avatar"]
 transform = Transform( 0.15, 0, 0, 0, 0.25, 0, 0, 0, 0.15, 0, -0.775, 2 )

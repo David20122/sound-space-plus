@@ -486,7 +486,7 @@ var visual_mode:bool = false setget set_visual_mode
 var invert_mouse:bool = false setget set_invert_mouse
 var disable_pausing:bool = false
 var speed_hitwindow:bool = true
-var restart_on_death:bool = true
+var restart_on_death:bool = false
 
 # Mod setters - Normal
 func set_mod_extra_energy(v:bool):
@@ -969,6 +969,15 @@ func is_lacunella_enabled():
 		cdat.open("user://lacunella.dat",File.READ)
 		var ctxt = cdat.get_as_text()
 		if ctxt.to_upper() == "MEOW": return true
+	return false
+
+# for max
+func memory_lacu():
+	var cdata = File.new()
+	if cdata.file_exists("user://memory.dat"):
+		cdata.open("user://memory.dat",File.READ)
+		var ctxt = cdata.get_as_text()
+		if ctxt.to_upper() == "DYAMO": return true
 	return false
 
 # Settings save/load helpers

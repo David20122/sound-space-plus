@@ -16,6 +16,16 @@ func _ready():
 	# lacunella
 	if Rhythia.is_lacunella_enabled():
 		$Avatar/Head/CubellaHair.visible = true
+
+	# for max
+	if Rhythia.memory_lacu():
+		$Avatar/Head/CubellaHair.visible = true
+		$Avatar/Head/CubellaHair/Hair.visible = false
+		$Avatar/Head/CubellaHair/Ears.visible = false
+		$Avatar/Head/CubellaHair/ElfL.visible = false
+		$Avatar/Head/CubellaHair/ElfR.visible = false
+		$Avatar/Head/CubellaHair/Hair_dya.visible = true
+		$Avatar/Head/CubellaHair/Ears_dya.visible = true
 	
 	if OS.has_feature("Android"):
 		$Skip.text = "Tap to skip"
