@@ -471,7 +471,7 @@ rect_pivot_offset = Vector2( 286, 800 )
 focus_mode = 2
 theme = ExtResource( 1 )
 max_value = 1000.0
-value = 50.0
+value = 55.0
 suffix = "ms"
 script = ExtResource( 21 )
 
