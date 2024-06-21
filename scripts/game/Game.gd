@@ -114,9 +114,8 @@ func end(end_type:int):
 			loadMapFile()
 			ending = false
 			return
-	
-	if Rhythia.get("restart_on_death") == true and end_type == Globals.END_FAIL:
-		get_tree().reload_current_scene()
+	elif Rhythia.restart_on_death and end_type == Globals.END_FAIL and !Rhythia.replaying:
+		get_tree().change_scene("res://scenes/song.tscn")
 	else:
 		black_fade_target = true
 		yield(get_tree().create_timer(0.35),"timeout")
