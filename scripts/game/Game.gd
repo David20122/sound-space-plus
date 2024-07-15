@@ -115,6 +115,16 @@ func end(end_type:int):
 			ending = false
 			return
 	elif Rhythia.restart_on_death and end_type == Globals.END_FAIL and !Rhythia.replaying:
+		if Rhythia.do_pb_check_and_set():
+			print("Logging PB, restarting death")
+		"""
+		Change this func and one in EndInfo.gd to display PB when giving up with restart_on_death (since its the only escape outside of passing)
+		It saves the PB yet it shows you failed until you reload the song in the menu
+		My poor brain is fuming with this code lmao
+
+		- helmeto
+		"""
+		
 		get_tree().change_scene("res://scenes/song.tscn")
 	else:
 		black_fade_target = true
