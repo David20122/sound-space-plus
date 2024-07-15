@@ -1,6 +1,6 @@
 extends Node
 
-# https://chedski.net/ssp/mapdb
+# https://cdn.rhythia.net/index.json
 
 var mapdb_api:String = ""
 
@@ -145,7 +145,7 @@ func load_db_maps():
 		if !yield(self,"_connection_test"):
 			Globals.notify(
 				Globals.NOTIFY_ERROR,
-				"Online maps will not be loaded - failed to connect",
+				"Online maps will not be loaded - failed to connect.\n\nMake sure your system clock is Synchronized!",
 				"No Connection"
 			)
 			emit_signal("db_maps_done")
