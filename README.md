@@ -1,7 +1,7 @@
 # Sound Space Plus
 > "Rhyt-Rhythmia"
 >
-> - Edward "BTMC" Ling, 2024
+> - Edward "BMC" Ling, 2024
 
 While you're here, join our discord in [here](https://discord.gg/rhythia)
 
