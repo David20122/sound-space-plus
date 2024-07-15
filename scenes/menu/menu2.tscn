@@ -2907,6 +2907,7 @@ valign = 1
 clip_text = true
 
 [node name="HardRock" type="CheckBox" parent="Main/Maps/Results/Results/RS/H2/Mods"]
+visible = false
 margin_left = 96.0
 margin_top = 280.0
 margin_right = 156.0

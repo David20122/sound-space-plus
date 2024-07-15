@@ -3316,18 +3316,18 @@ custom_styles/separator = SubResource( 55 )
 [node name="UI" type="VBoxContainer" parent="TabContainer/UI"]
 margin_top = 30.0
 margin_right = 1280.0
-margin_bottom = 559.0
+margin_bottom = 538.0
 
 [node name="Group" type="MarginContainer" parent="TabContainer/UI/UI"]
 margin_right = 1280.0
-margin_bottom = 529.0
+margin_bottom = 508.0
 mouse_filter = 1
 custom_constants/margin_left = 180
 
 [node name="H" type="GridContainer" parent="TabContainer/UI/UI/Group"]
 margin_left = 180.0
 margin_right = 1280.0
-margin_bottom = 529.0
+margin_bottom = 508.0
 
 [node name="Grid" type="CheckBox" parent="TabContainer/UI/UI/Group/H"]
 margin_right = 582.0
@@ -3897,6 +3897,7 @@ valign = 1
 clip_text = true
 
 [node name="ExpandHUDonHR" type="CheckBox" parent="TabContainer/UI/UI/Group/H"]
+visible = false
 margin_top = 512.0
 margin_right = 582.0
 margin_bottom = 529.0
@@ -3929,9 +3930,9 @@ __meta__ = {
 }
 
 [node name="UIColor" type="VBoxContainer" parent="TabContainer/UI"]
-margin_top = 559.0
+margin_top = 538.0
 margin_right = 1280.0
-margin_bottom = 2191.0
+margin_bottom = 2170.0
 
 [node name="Group" type="MarginContainer" parent="TabContainer/UI/UIColor"]
 margin_right = 1280.0
@@ -5762,9 +5763,9 @@ text = "[def. ##DEFAULT##] color of text when grade is F"
 valign = 1
 
 [node name="SEPARATOR" type="HSeparator" parent="TabContainer/UI"]
-margin_top = 2191.0
+margin_top = 2170.0
 margin_right = 1280.0
-margin_bottom = 2221.0
+margin_bottom = 2200.0
 rect_min_size = Vector2( 0, 10 )
 custom_constants/separation = 30
 custom_styles/separator = SubResource( 55 )
