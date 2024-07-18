@@ -1,7 +1,16 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://assets/images/branding/logo.png" type="Texture" id=1]
 [ext_resource path="res://assets/font/Lato/Lato-Bold.ttf" type="DynamicFontData" id=2]
+
+[sub_resource type="DynamicFont" id=162]
+size = 40
+use_filter = true
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=163]
+size = 25
+font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=158]
 size = 36
@@ -78,10 +87,42 @@ texture = ExtResource( 1 )
 expand = true
 stretch_mode = 6
 
-[node name="DevTeam" type="VBoxContainer" parent="."]
+[node name="InLovingMemory" type="VBoxContainer" parent="."]
 margin_top = 272.0
 margin_right = 1216.0
-margin_bottom = 392.0
+margin_bottom = 390.0
+
+[node name="MemoryTitle" type="Label" parent="InLovingMemory"]
+margin_right = 1216.0
+margin_bottom = 49.0
+custom_colors/font_color = Color( 0.890196, 0.294118, 0.494118, 1 )
+custom_fonts/font = SubResource( 162 )
+text = "-- in loving memory of --"
+align = 1
+
+[node name="CM" type="CenterContainer" parent="InLovingMemory"]
+margin_top = 53.0
+margin_right = 1216.0
+margin_bottom = 118.0
+
+[node name="HM" type="HBoxContainer" parent="InLovingMemory/CM"]
+margin_left = 458.0
+margin_right = 757.0
+margin_bottom = 65.0
+
+[node name="Label" type="Label" parent="InLovingMemory/CM/HM"]
+margin_right = 299.0
+margin_bottom = 65.0
+custom_colors/font_color = Color( 0.835294, 0.470588, 0.854902, 1 )
+custom_fonts/font = SubResource( 163 )
+text = "DyamoDash
+06/07/2004 - 06/19/2024"
+align = 1
+
+[node name="DevTeam" type="VBoxContainer" parent="."]
+margin_top = 402.0
+margin_right = 1216.0
+margin_bottom = 522.0
 grow_horizontal = 2
 custom_constants/separation = 8
 alignment = 1
@@ -133,18 +174,18 @@ text = "kiwie"
 align = 1
 
 [node name="ContribTitle" type="Label" parent="."]
-margin_top = 404.0
+margin_top = 534.0
 margin_right = 1216.0
-margin_bottom = 448.0
+margin_bottom = 578.0
 custom_colors/font_color = Color( 1, 0.258824, 0.301961, 1 )
 custom_fonts/font = SubResource( 158 )
 text = "-- contributors --"
 align = 1
 
 [node name="C1" type="VBoxContainer" parent="."]
-margin_top = 460.0
+margin_top = 590.0
 margin_right = 1216.0
-margin_bottom = 523.0
+margin_bottom = 653.0
 grow_horizontal = 2
 custom_constants/separation = 8
 alignment = 1
@@ -168,9 +209,9 @@ align = 1
 autowrap = true
 
 [node name="C2" type="VBoxContainer" parent="."]
-margin_top = 535.0
+margin_top = 665.0
 margin_right = 1216.0
-margin_bottom = 598.0
+margin_bottom = 728.0
 grow_horizontal = 2
 custom_constants/separation = 8
 alignment = 1
@@ -194,18 +235,18 @@ align = 1
 autowrap = true
 
 [node name="PatronTitle" type="Label" parent="."]
-margin_top = 610.0
+margin_top = 740.0
 margin_right = 1216.0
-margin_bottom = 654.0
+margin_bottom = 784.0
 custom_colors/font_color = Color( 1, 0.258824, 0.301961, 1 )
 custom_fonts/font = SubResource( 158 )
 text = "-- patreon supporters --"
 align = 1
 
 [node name="T3" type="VBoxContainer" parent="."]
-margin_top = 666.0
+margin_top = 796.0
 margin_right = 1216.0
-margin_bottom = 696.0
+margin_bottom = 826.0
 grow_horizontal = 2
 custom_constants/separation = 8
 alignment = 1
@@ -230,9 +271,9 @@ align = 1
 autowrap = true
 
 [node name="T2" type="VBoxContainer" parent="."]
-margin_top = 708.0
+margin_top = 838.0
 margin_right = 1216.0
-margin_bottom = 735.0
+margin_bottom = 865.0
 grow_horizontal = 2
 custom_constants/separation = 8
 alignment = 1
@@ -248,7 +289,7 @@ align = 1
 [node name="Label" type="Label" parent="T2"]
 visible = false
 margin_top = 35.0
-margin_right = 1204.0
+margin_right = 1216.0
 margin_bottom = 57.0
 custom_colors/font_color = Color( 0.721569, 1, 0.737255, 1 )
 custom_fonts/font = SubResource( 112 )
@@ -256,9 +297,9 @@ text = "patron name 2"
 align = 1
 
 [node name="T1" type="VBoxContainer" parent="."]
-margin_top = 747.0
+margin_top = 877.0
 margin_right = 1216.0
-margin_bottom = 774.0
+margin_bottom = 904.0
 grow_horizontal = 2
 custom_constants/separation = 8
 alignment = 1
@@ -284,9 +325,9 @@ align = 1
 autowrap = true
 
 [node name="SpecialThanks" type="VBoxContainer" parent="."]
-margin_top = 786.0
+margin_top = 916.0
 margin_right = 1216.0
-margin_bottom = 1151.0
+margin_bottom = 1281.0
 grow_horizontal = 2
 custom_constants/separation = 8
 alignment = 1
@@ -510,7 +551,7 @@ text = "The playtester team - Catching major bugs before they reach the public"
 align = 1
 
 [node name="SPACER" type="Control" parent="."]
-margin_top = 1163.0
+margin_top = 1293.0
 margin_right = 1216.0
-margin_bottom = 1288.0
+margin_bottom = 1418.0
 rect_min_size = Vector2( 0, 125 )
