@@ -5842,6 +5842,7 @@ custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
 custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
 custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
 custom_fonts/font = SubResource( 4 )
+pressed = true
 action_mode = 0
 text = "because you don't have anything else to focus on, do you?"
 flat = true

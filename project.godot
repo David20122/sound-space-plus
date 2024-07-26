@@ -332,6 +332,7 @@ settings/change_time_per_screen=true
 
 window/size/width=1280
 window/size/height=720
+window/size/fullscreen=true
 window/vsync/use_vsync=false
 window/handheld/orientation="sensor_landscape"
 window/stretch/mode.mobile="2d"
@@ -547,6 +548,7 @@ common/enable_pause_aware_picking=true
 [rendering]
 
 quality/driver/fallback_to_gles2=true
+2d/options/use_nvidia_rect_flicker_workaround=true
 threads/thread_model=2
 vram_compression/import_etc=true
 quality/directional_shadow/size=1024
