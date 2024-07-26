@@ -548,7 +548,6 @@ common/enable_pause_aware_picking=true
 [rendering]
 
 quality/driver/fallback_to_gles2=true
-2d/options/use_nvidia_rect_flicker_workaround=true
 threads/thread_model=2
 vram_compression/import_etc=true
 quality/directional_shadow/size=1024
