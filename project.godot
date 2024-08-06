@@ -263,6 +263,7 @@ boot_splash/image="res://assets/images/branding/splash.png"
 boot_splash/fullsize=false
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://assets/images/branding/icon.png"
+config/macos_native_icon="res://icon.icns"
 config/windows_native_icon="res://icon.ico"
 config/quit_on_go_back=false
 config/version="july27-2024"
