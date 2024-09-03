@@ -1,12 +1,12 @@
 extends Resource
 class_name NoteEffect
 
-export(String) var id
-export(String) var name
-export(String) var creator
-export(String, FILE, "*.tscn") var path
+export var id: String
+export var name: String
+export var creator: String = "Unknown"
+export var path: String
 
-func _init(idI:String, nameI:String, pathI:String, creatorI:String="Unknown"):
+func _init(idI: String, nameI: String, pathI: String, creatorI: String = "Unknown"):
 	id = idI
 	name = nameI
 	path = pathI

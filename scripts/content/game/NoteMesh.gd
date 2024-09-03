@@ -1,28 +1,27 @@
 extends Resource
 class_name NoteMesh
 
-var id:String
-var name:String
-var creator:String
+var id: String
+var name: String
+var creator: String = "Unknown"
+var path: String
+var cover: Texture = null
+var has_cover: bool = false
 
-var path:String
-
-var cover:Texture
-var has_cover:bool = false
-
-func load_png(file:String):
+func load_png(file: String) -> Texture:
+	if file.begins_with("res://"):
+		return ResourceLoader.load(file) as Texture
 	var imgtex = ImageTexture.new()
-	var res = imgtex.load(file)
-	if res != OK: return null
-	else: return imgtex
+	if imgtex.load(file) != OK:
+		print("Failed to load image from path: ", file)
+		return null
+	return imgtex
 
-func _init(idI:String,nameI:String,pathI:String,creatorI:String="Unknown",coverI:String=""):
+func _init(idI: String, nameI: String, pathI: String, creatorI: String = "Unknown", coverI: String = "") -> void:
 	id = idI
 	name = nameI
 	creator = creatorI
 	path = pathI
-	if coverI != "":
-		var c = load_png(coverI)
-		if c:
-			cover = c
-			has_cover = true
+	if coverI:
+		cover = load_png(coverI)
+		has_cover = cover != null
