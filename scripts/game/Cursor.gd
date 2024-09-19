@@ -62,8 +62,13 @@ func move_cursor_abs(mdel:Vector2):
 	var rx = mdel.x
 	var ry = mdel.y
 
-	rx = clamp(rx, (0 + sh.x + edger), (3 + sh.x - edger))
-	ry = clamp(ry, (0 + sh.y + edger), (3 + sh.y - edger))
+	if Rhythia.mod_hardrock:
+		var hard_cock = edger - 0.6
+		rx = clamp(rx, (0 + sh.x + hard_cock), (3 + sh.x - hard_cock))
+		ry = clamp(ry, (0 + sh.y + hard_cock), (3 + sh.y - hard_cock))
+	else:
+		rx = clamp(rx, (0 + sh.x + edger), (3 + sh.x - edger))
+		ry = clamp(ry, (0 + sh.y + edger), (3 + sh.y - edger))
 
 	rpos.x = rx
 	rpos.y = ry
