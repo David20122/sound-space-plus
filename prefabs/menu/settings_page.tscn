@@ -3327,7 +3327,7 @@ custom_constants/margin_left = 180
 [node name="H" type="GridContainer" parent="TabContainer/UI/UI/Group"]
 margin_left = 180.0
 margin_right = 1280.0
-margin_bottom = 508.0
+margin_bottom = 529.0
 
 [node name="Grid" type="CheckBox" parent="TabContainer/UI/UI/Group/H"]
 margin_right = 582.0
@@ -3897,7 +3897,6 @@ valign = 1
 clip_text = true
 
 [node name="ExpandHUDonHR" type="CheckBox" parent="TabContainer/UI/UI/Group/H"]
-visible = false
 margin_top = 512.0
 margin_right = 582.0
 margin_bottom = 529.0

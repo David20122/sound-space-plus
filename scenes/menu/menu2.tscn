@@ -2907,7 +2907,6 @@ valign = 1
 clip_text = true
 
 [node name="HardRock" type="CheckBox" parent="Main/Maps/Results/Results/RS/H2/Mods"]
-visible = false
 margin_left = 96.0
 margin_top = 280.0
 margin_right = 156.0
@@ -4400,7 +4399,7 @@ scroll_horizontal_enabled = false
 scroll_deadzone = 45
 
 [node name="L" parent="Main/Credits/C/S" instance=ExtResource( 7 )]
-margin_bottom = 1288.0
+margin_bottom = 1521.0
 
 [node name="Content" type="ReferenceRect" parent="Main"]
 visible = false
