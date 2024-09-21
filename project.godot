@@ -297,8 +297,8 @@ config/disable_native_file_dialogs.Android=true
 config/disable_native_file_dialogs.web=true
 config/disable_native_file_dialogs.OSX=true
 config/is_using_controller=true
-config/discord_rpc=true
-config/discord_rpc.editor=true
+config/discord_rpc=false
+config/discord_rpc.editor=false
 networking/github_repo="David20122/sound-space-plus"
 
 [audio]

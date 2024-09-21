@@ -32,7 +32,7 @@ func _ready():
 	if ProjectSettings.get_setting("application/config/discord_rpc"):
 		var activity = Discord.Activity.new()
 		activity.set_type(Discord.ActivityType.Playing)
-		activity.set_details("Main Menu")
+		activity.set_details("Main Menu")	
 		activity.set_state("Selecting a song")
 
 		var assets = activity.get_assets()
