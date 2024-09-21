@@ -29,9 +29,14 @@ func move_cursor(mdel:Vector2):
 	rx += mdel.x
 	ry += mdel.y
 
-	rx = clamp(rx, (0 + sh.x + edger), (3 + sh.x - edger))
-	ry = clamp(ry, (0 + sh.y + edger), (3 + sh.y - edger))
-
+	if Rhythia.mod_hardrock:
+		var hard_cock = edger - 0.6
+		rx = clamp(rx, (0 + sh.x + hard_cock), (3 + sh.x - hard_cock))
+		ry = clamp(ry, (0 + sh.y + hard_cock), (3 + sh.y - hard_cock))
+	else:
+		rx = clamp(rx, (0 + sh.x + edger), (3 + sh.x - edger))
+		ry = clamp(ry, (0 + sh.y + edger), (3 + sh.y - edger))
+		
 	rpos.x = rx
 	rpos.y = ry
 
@@ -40,6 +45,8 @@ func move_cursor(mdel:Vector2):
 
 	if Rhythia.mod_hardrock:
 		var hard_cock = edgec - 0.6
+		# rx = clamp(rx, (0 + sh.x + (edger - 0.6), (3 + sh.x - (edger - 0.6)))
+		# ry = clamp(ry, (0 + sh.y + (edger - 0.6), (3 + sh.y - (edger - 0.6)))
 		cx = clamp(cx, (0 + sh.x + hard_cock), (3 + sh.x - hard_cock))
 		cy = clamp(cy, (0 + sh.y + hard_cock), (3 + sh.y - hard_cock))
 	else:
@@ -54,13 +61,18 @@ func move_cursor(mdel:Vector2):
 func move_cursor_abs(mdel:Vector2):
 	var rx = mdel.x
 	var ry = mdel.y
-	
-	rx = clamp(rx, (0 + sh.x + edger), (3 + sh.x - edger))
-	ry = clamp(ry, (0 + sh.y + edger), (3 + sh.y - edger))
-	
+
+	if Rhythia.mod_hardrock:
+		var hard_cock = edger - 0.6
+		rx = clamp(rx, (0 + sh.x + hard_cock), (3 + sh.x - hard_cock))
+		ry = clamp(ry, (0 + sh.y + hard_cock), (3 + sh.y - hard_cock))
+	else:
+		rx = clamp(rx, (0 + sh.x + edger), (3 + sh.x - edger))
+		ry = clamp(ry, (0 + sh.y + edger), (3 + sh.y - edger))
+
 	rpos.x = rx
 	rpos.y = ry
-	
+
 	var cx = rx
 	var cy = ry
 
@@ -71,7 +83,7 @@ func move_cursor_abs(mdel:Vector2):
 	else:
 		cx = clamp(cx, (0 + sh.x + edgec), (3 + sh.x - edgec))
 		cy = clamp(cy, (0 + sh.y + edgec), (3 + sh.y - edgec))
-	
+
 	transform.origin.x = cx
 	transform.origin.y = -cy
 
@@ -91,7 +103,7 @@ func _input(event:InputEvent):
 				move_mode = C_JOYSTICK
 			elif event is InputEventMouseMotion:
 				move_mode = C_MOUSE
-		
+
 		if move_mode == C_JOYSTICK:
 			var v_strength = (Input.get_action_strength("joy_up") + (Input.get_action_strength("joy_down") * -1)) * -1
 			var h_strength = (Input.get_action_strength("joy_right") + (Input.get_action_strength("joy_left") * -1)) * 1
@@ -115,7 +127,7 @@ func _input(event:InputEvent):
 						move_cursor_abs(get_absolute_position())
 					else:
 						move_cursor(event.relative * 0.018 * Rhythia.sensitivity / Rhythia.render_scale)
-			
+
 		if (event is InputEventScreenDrag):
 			$VisualPos.visible = true
 			$VisualPos.rect_position = event.position
@@ -170,7 +182,7 @@ func _process(delta):
 	if Input.is_key_pressed(KEY_C):
 		ct = fmod(ct+delta,3)
 		global_transform.origin = Vector3(ct-1.5,sin(ct*4),global_transform.origin.z)
-	
+
 	if Rhythia.replaying:
 		var p
 		if Rhythia.replay.sv == 1 or Rhythia.replay.autoplayer: p = Rhythia.replay.get_cursor_position(get_parent().ms)
@@ -180,7 +192,7 @@ func _process(delta):
 			transform.origin.y = p.y
 		else:
 			move_cursor_abs(Vector2(p.x,p.y))
-	
+
 	if Rhythia.show_cursor and Rhythia.cursor_trail and Rhythia.smart_trail and trail_started:
 		var start_p = global_transform.origin
 		var end_p = prev_pos
@@ -207,7 +219,7 @@ func _process(delta):
 				trail.connect("cache_me",self,"cache_trail",[trail])
 				total_trail_segments += 1
 				new += 1
-			
+
 			trail.start_smart(v*delta,pos,rot)
 		if $L.visible:
 			$L.text = "amount this frame: %s\nnewly spawned: %s\nfrom cache: %s\n\nwaiting: %s\nactive: %s\ntotal: %s" % [
@@ -223,7 +235,7 @@ func _process(delta):
 
 func _ready():
 	if !Rhythia.show_cursor: visible = false
-	
+
 	if !Rhythia.replaying:
 		if not Rhythia.absolute_mode:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -232,7 +244,7 @@ func _ready():
 			Input.set_custom_mouse_cursor(load("res://assets/images/ui/blank.png"))
 	else:
 		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
-	
+
 	var mat:SpatialMaterial = $Mesh.get("material/0")
 	$Mesh.scale = Vector3(Rhythia.cursor_scale,Rhythia.cursor_scale,Rhythia.cursor_scale)
 	$Mesh2.scale = Vector3(Rhythia.cursor_scale,Rhythia.cursor_scale,Rhythia.cursor_scale)
@@ -240,26 +252,26 @@ func _ready():
 	if img:
 		mat.albedo_color = Color(1,1,1)
 		mat.albedo_texture = img
-	
+
 	mat = get_node("../../CursorTrail/Mesh").get("material/0")
 	var img2 = Globals.imageLoader.load_if_exists("user://trail")
 	if img2: mat.albedo_texture = img2
 	elif img: mat.albedo_texture = img
-	
+
 	img = Globals.imageLoader.load_if_exists("user://touch")
 	if img: $VisualPos/T.texture = img
-	
+
 	$L.visible = ProjectSettings.get_setting("application/config/show_trail_debug")
-	
+
 	prev_pos = global_transform.origin
 	prev_rot = $Mesh.rotation_degrees.x
-	
+
 	if Rhythia.cursor_color_type == Globals.CURSOR_NOTE_COLOR:
 		recolor(Rhythia.selected_colorset.colors[-1])
 		get_parent().connect("hit",self,"recolor")
 	elif Rhythia.cursor_color_type == Globals.CURSOR_CUSTOM_COLOR:
 		recolor(Rhythia.cursor_color)
-	
+
 	if Rhythia.cursor_trail:
 		if Rhythia.smart_trail:
 			yield(get_tree(),"idle_frame")

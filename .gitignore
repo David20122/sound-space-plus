@@ -8,3 +8,5 @@ export_presets.cfg
 .mono/
 addons/discord_game_sdk/bin/**
 
+.vscode/settings.json
+.gitignore

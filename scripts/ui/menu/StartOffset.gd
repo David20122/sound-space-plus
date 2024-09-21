@@ -32,5 +32,8 @@ func upd_label():
 	var total_seconds = int(self.value)
 	var minutes = floor(total_seconds / 60)
 	var seconds = total_seconds % 60
-	
+	var SongPreview = $"/root/Menu/Main/Maps/Results/Results/RS/H1/Info/Control/PreviewMusic/Song"
+	if SongPreview.playing:
+		# SongPreview.seek(total_seconds * Globals.speed_multi[Rhythia.mod_speed_level])
+		SongPreview.seek(total_seconds)
 	$TimeTextBox.text = "%d:%02d" % [minutes,seconds]
