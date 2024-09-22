@@ -2,24 +2,24 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/flashlight.svg-5dee48fd89429bfde258dad7ce012723.stex"
+path="res://.import/flashlight.png-a53fd6698235fde00e7c8bc0d6d1edc7.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/ui/flashlight.svg"
-dest_files=[ "res://.import/flashlight.svg-5dee48fd89429bfde258dad7ce012723.stex" ]
+source_file="res://assets/images/ui/flashlight.png"
+dest_files=[ "res://.import/flashlight.png-a53fd6698235fde00e7c8bc0d6d1edc7.stex" ]
 
 [params]
 
-compress/mode=0
+compress/mode=3
 compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
-flags/repeat=0
+flags/repeat=true
 flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
@@ -32,4 +32,4 @@ process/normal_map_invert_y=false
 stream=false
 size_limit=0
 detect_3d=false
-svg/scale=1.0
+svg/scale=2.0

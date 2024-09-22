@@ -420,6 +420,7 @@ func update_rpc_song(): # Discord RPC
 		if Rhythia.mod_mirror_y: mirrorst += "Y"
 		mods.append(mirrorst)
 	if mod_ghost: mods.append("Ghost")
+	if mod_flashlight: mods.append("Flashlight")
 	if mod_nearsighted: mods.append("Nearsight")
 	if mod_hardrock: mods.append("Hard Rock")
 	if replay.autoplayer: mods.append("Auto")
