@@ -2810,7 +2810,7 @@ flat = true
 script = ExtResource( 96 )
 
 [node name="Label" type="Label" parent="Main/Maps/Results/Results/RS/H2/Mods/Flashlight"]
-margin_left = -115.0
+margin_left = -143.0
 margin_right = -10.0
 margin_bottom = 32.0
 focus_mode = 2
