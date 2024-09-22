@@ -1264,6 +1264,10 @@ func load_saved_settings(saveFile:String = Globals.p("user://settings.json")):
 			language = data.language
 			TranslationServer.set_locale(Globals.locale[language])
 
+		# menu2 settings
+
+		if data.has("last_search_incl_online"):
+			last_search_incl_online = data.last_search_incl_online
 		
 		lcol(data,"grade_s_color")
 		lcol(data,"panel_bg")
@@ -1506,6 +1510,8 @@ func load_saved_settings(saveFile:String = Globals.p("user://settings.json")):
 			ignore_controller_detection = bool(file.get_8())
 		if sv >= 49:
 			expand_hud_onhr = bool(file.get_8())
+		if sv >= 50:
+			last_search_incl_online = bool(file.get8())
 		file.close()
 		save_settings()
 	return 0
@@ -1627,6 +1633,7 @@ func save_settings(saveFile:String = Globals.p("user://settings.json")):
 			disable_intro = disable_intro,
 			ignore_controller_detection = ignore_controller_detection,
 			expand_hud_onhr = expand_hud_onhr,
+			last_search_incl_online = last_search_incl_online,
 			
 			master_volume = ser_float(clamp(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Master")),-80,1000000)),
 			music_volume = ser_float(clamp(AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Music")),-80,1000000)),
