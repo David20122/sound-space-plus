@@ -292,7 +292,7 @@ script = ExtResource( 59 )
 [node name="TabContainer" type="TabContainer" parent="."]
 margin_top = 59.0
 margin_right = 1280.0
-margin_bottom = 2313.0
+margin_bottom = 548.0
 theme = ExtResource( 1 )
 tab_align = 0
 
@@ -2174,12 +2174,12 @@ margin_bottom = 64.0
 rect_min_size = Vector2( 0, 28 )
 hint_tooltip = "only affects The Grid for now"
 theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_disabled = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_focus = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_pressed = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 4 )
 action_mode = 0
 text = "Disable BG Effects"
@@ -2327,12 +2327,12 @@ margin_bottom = 204.0
 rect_min_size = Vector2( 0, 28 )
 hint_tooltip = "applies a vhs effect to the camera"
 theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_disabled = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_focus = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_pressed = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 4 )
 action_mode = 0
 text = "VHS Shader"
@@ -2589,12 +2589,12 @@ margin_bottom = 222.0
 rect_min_size = Vector2( 0, 28 )
 hint_tooltip = "many of you have asked so i shall deliver"
 theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_disabled = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_focus = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_pressed = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 4 )
 action_mode = 0
 text = "Cursor Trail"
@@ -2609,12 +2609,12 @@ margin_bottom = 254.0
 rect_min_size = Vector2( 0, 28 )
 hint_tooltip = "makes the trail smooth by using distance moved to spawn particles instead of having a constant number"
 theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_disabled = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_focus = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_pressed = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 4 )
 action_mode = 0
 text = "Smart Trail"
@@ -2800,6 +2800,7 @@ custom_constants/separation = 30
 custom_styles/separator = SubResource( 55 )
 
 [node name="UI" type="VBoxContainer" parent="TabContainer"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 30.0
@@ -2835,12 +2836,12 @@ margin_bottom = 28.0
 rect_min_size = Vector2( 0, 28 )
 hint_tooltip = "turns the note grid on or off"
 theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_disabled = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_focus = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_pressed = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 4 )
 pressed = true
 action_mode = 0
@@ -2859,12 +2860,12 @@ margin_bottom = 60.0
 rect_min_size = Vector2( 0, 28 )
 hint_tooltip = "turns the note grid border on or off"
 theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_disabled = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_focus = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_pressed = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 4 )
 pressed = true
 action_mode = 0
@@ -2883,12 +2884,12 @@ margin_bottom = 92.0
 rect_min_size = Vector2( 0, 28 )
 hint_tooltip = "changes the side panels to show only your misses and pauses"
 theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_disabled = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_focus = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_pressed = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 4 )
 pressed = true
 action_mode = 0
@@ -2907,12 +2908,12 @@ margin_bottom = 124.0
 rect_min_size = Vector2( 0, 28 )
 hint_tooltip = "shows a letter grade (SS, S, A, etc.) above your accuracy"
 theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_disabled = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_focus = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_pressed = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 4 )
 pressed = true
 action_mode = 0
@@ -2931,12 +2932,12 @@ margin_bottom = 156.0
 rect_min_size = Vector2( 0, 28 )
 hint_tooltip = "shows your approach rate, hit window, and camera config at the start of songs (to show off)"
 theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_disabled = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_focus = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_pressed = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 4 )
 pressed = true
 action_mode = 0
@@ -2955,12 +2956,12 @@ margin_bottom = 188.0
 rect_min_size = Vector2( 0, 28 )
 hint_tooltip = "displays the real value of your combo behind the grid"
 theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_disabled = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_focus = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_pressed = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 4 )
 pressed = true
 action_mode = 0
@@ -2976,12 +2977,12 @@ margin_bottom = 220.0
 rect_min_size = Vector2( 0, 28 )
 hint_tooltip = "i don't understand why you'd turn this off but people have asked so here you go"
 theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_disabled = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_focus = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_pressed = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 4 )
 pressed = true
 action_mode = 0
@@ -2997,12 +2998,12 @@ margin_bottom = 252.0
 rect_min_size = Vector2( 0, 28 )
 hint_tooltip = "tells you how far into a song you are (and the name of the song)"
 theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_disabled = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_focus = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_pressed = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 4 )
 pressed = true
 action_mode = 0
@@ -3018,12 +3019,12 @@ margin_bottom = 284.0
 rect_min_size = Vector2( 0, 28 )
 hint_tooltip = "shows your accuracy on a progress bar"
 theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_disabled = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_focus = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_pressed = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 4 )
 pressed = true
 action_mode = 0
@@ -3039,12 +3040,12 @@ margin_bottom = 316.0
 rect_min_size = Vector2( 0, 28 )
 hint_tooltip = "contains: combo meter, pause counter, accuracy"
 theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_disabled = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_focus = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_pressed = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 4 )
 pressed = true
 action_mode = 0
@@ -3060,12 +3061,12 @@ margin_bottom = 348.0
 rect_min_size = Vector2( 0, 28 )
 hint_tooltip = "contains: framerate, miss counter, notes hit / total notes"
 theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_disabled = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_focus = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_pressed = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 4 )
 pressed = true
 action_mode = 0
@@ -3081,12 +3082,12 @@ margin_bottom = 380.0
 rect_min_size = Vector2( 0, 28 )
 hint_tooltip = "to prevent issues where people forget they turned the cursor off, this doesn't save"
 theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_disabled = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_focus = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_pressed = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 4 )
 pressed = true
 action_mode = 0
@@ -3102,12 +3103,12 @@ margin_bottom = 412.0
 rect_min_size = Vector2( 0, 28 )
 hint_tooltip = "attaches your health bar + modifiers to the note grid"
 theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_disabled = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_focus = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_pressed = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 4 )
 action_mode = 0
 text = "Attach Energy to Grid"
@@ -3122,12 +3123,12 @@ margin_bottom = 444.0
 rect_min_size = Vector2( 0, 28 )
 hint_tooltip = "attaches the timer + song name to the note grid"
 theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_disabled = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_focus = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_pressed = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 4 )
 action_mode = 0
 text = "Attach Timer to Grid"
@@ -3142,12 +3143,12 @@ margin_bottom = 476.0
 rect_min_size = Vector2( 0, 28 )
 hint_tooltip = "show the score you get from hitting a note at the bottom of the grid"
 theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_disabled = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_focus = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_pressed = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 4 )
 pressed = true
 action_mode = 0
@@ -3163,12 +3164,12 @@ margin_bottom = 508.0
 rect_min_size = Vector2( 0, 28 )
 hint_tooltip = "apply a billboard effect to the score popup"
 theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_disabled = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_focus = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_pressed = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 4 )
 action_mode = 0
 text = "Billboard Popup"
@@ -3215,12 +3216,12 @@ margin_right = 170.0
 margin_bottom = 532.0
 hint_tooltip = "expands the HUD when using Hard Rock"
 theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_disabled = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_focus = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_pressed = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 59 )
 pressed = true
 action_mode = 0
@@ -3286,12 +3287,12 @@ margin_bottom = 72.0
 rect_min_size = Vector2( 0, 28 )
 hint_tooltip = "makes the grid rainbow"
 theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_disabled = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_focus = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_pressed = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 4 )
 action_mode = 0
 text = "Rainbow Grid"
@@ -3306,12 +3307,12 @@ margin_bottom = 104.0
 rect_min_size = Vector2( 0, 28 )
 hint_tooltip = "makes literally your entire HUD rainbow"
 theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_disabled = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_focus = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_pressed = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 4 )
 action_mode = 0
 text = "Rainbow HUD"
@@ -3330,12 +3331,14 @@ custom_styles/separator = SubResource( 55 )
 margin_top = 122.0
 margin_right = 500.0
 margin_bottom = 154.0
+hint_tooltip = "[def. ##DEFAULT##] background color of the left and right panels"
 
 [node name="Color" type="ColorPickerButton" parent="TabContainer/UI/UIColor/Group/H/panel_bg"]
 margin_right = 100.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 100, 32 )
 rect_pivot_offset = Vector2( 286, -36 )
+hint_tooltip = "[def. ##DEFAULT##] background color of the left and right panels"
 theme = ExtResource( 1 )
 custom_styles/hover = SubResource( 50 )
 custom_styles/pressed = SubResource( 51 )
@@ -3345,10 +3348,11 @@ custom_styles/normal = SubResource( 54 )
 script = ExtResource( 51 )
 target = "panel_bg"
 
-[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/panel_bg/Color"]
-margin_left = -151.0
-margin_right = -10.0
-margin_bottom = 32.0
+[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/panel_bg"]
+margin_left = 104.0
+margin_top = 6.0
+margin_right = 229.0
+margin_bottom = 26.0
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
@@ -3357,28 +3361,18 @@ text = "Panel Background"
 align = 2
 valign = 1
 
-[node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/panel_bg/Color"]
-margin_left = 115.0
-margin_right = 462.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[def. ##DEFAULT##] background color of the left and right panels"
-valign = 1
-
 [node name="panel_text" type="HBoxContainer" parent="TabContainer/UI/UIColor/Group/H"]
 margin_top = 158.0
 margin_right = 500.0
 margin_bottom = 190.0
+hint_tooltip = "[def. ##DEFAULT##] color of any text on panels that doesn't have its own setting"
 
 [node name="Color" type="ColorPickerButton" parent="TabContainer/UI/UIColor/Group/H/panel_text"]
 margin_right = 100.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 100, 32 )
 rect_pivot_offset = Vector2( 286, -36 )
+hint_tooltip = "[def. ##DEFAULT##] color of any text on panels that doesn't have its own setting"
 theme = ExtResource( 1 )
 custom_styles/hover = SubResource( 50 )
 custom_styles/pressed = SubResource( 51 )
@@ -3388,10 +3382,11 @@ custom_styles/normal = SubResource( 54 )
 script = ExtResource( 51 )
 target = "panel_text"
 
-[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/panel_text/Color"]
-margin_left = -151.0
-margin_right = -10.0
-margin_bottom = 32.0
+[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/panel_text"]
+margin_left = 104.0
+margin_top = 6.0
+margin_right = 177.0
+margin_bottom = 26.0
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
@@ -3400,28 +3395,18 @@ text = "Panel Text"
 align = 2
 valign = 1
 
-[node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/panel_text/Color"]
-margin_left = 115.0
-margin_right = 462.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[def. ##DEFAULT##] color of any text on panels that doesn't have its own setting"
-valign = 1
-
 [node name="score_text_color" type="HBoxContainer" parent="TabContainer/UI/UIColor/Group/H"]
 margin_top = 194.0
 margin_right = 500.0
 margin_bottom = 226.0
+hint_tooltip = "[def. ##DEFAULT##] text color of the score counter"
 
 [node name="Color" type="ColorPickerButton" parent="TabContainer/UI/UIColor/Group/H/score_text_color"]
 margin_right = 100.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 100, 32 )
 rect_pivot_offset = Vector2( 286, -36 )
+hint_tooltip = "[def. ##DEFAULT##] text color of the score counter"
 theme = ExtResource( 1 )
 custom_styles/hover = SubResource( 50 )
 custom_styles/pressed = SubResource( 51 )
@@ -3431,28 +3416,17 @@ custom_styles/normal = SubResource( 54 )
 script = ExtResource( 51 )
 target = "score_text_color"
 
-[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/score_text_color/Color"]
-margin_left = -151.0
-margin_right = -10.0
-margin_bottom = 32.0
+[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/score_text_color"]
+margin_left = 104.0
+margin_top = 6.0
+margin_right = 203.0
+margin_bottom = 26.0
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 3 )
 text = "Score Counter"
 align = 2
-valign = 1
-
-[node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/score_text_color/Color"]
-margin_left = 115.0
-margin_right = 462.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[def. ##DEFAULT##] text color of the score counter"
 valign = 1
 
 [node name="SEPARATOR2" type="HSeparator" parent="TabContainer/UI/UIColor/Group/H"]
@@ -3466,12 +3440,14 @@ custom_styles/separator = SubResource( 55 )
 margin_top = 244.0
 margin_right = 500.0
 margin_bottom = 276.0
+hint_tooltip = "[def. ##DEFAULT##] opacity of the \"paused\" screen"
 
 [node name="SpinBox" type="SpinBox" parent="TabContainer/UI/UIColor/Group/H/pause_ui_opacity"]
 margin_right = 200.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 200, 32 )
 rect_pivot_offset = Vector2( 286, -36 )
+hint_tooltip = "[def. ##DEFAULT##] opacity of the \"paused\" screen"
 focus_mode = 2
 theme = ExtResource( 1 )
 max_value = 1.0
@@ -3480,10 +3456,11 @@ value = 1.0
 script = ExtResource( 50 )
 target = "pause_ui_opacity"
 
-[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/pause_ui_opacity/SpinBox"]
-margin_left = -180.0
-margin_right = -10.0
-margin_bottom = 32.0
+[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/pause_ui_opacity"]
+margin_left = 204.0
+margin_top = 6.0
+margin_right = 324.0
+margin_bottom = 26.0
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
@@ -3492,28 +3469,18 @@ text = "Pause UI Opacity"
 align = 2
 valign = 1
 
-[node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/pause_ui_opacity/SpinBox"]
-margin_left = 215.0
-margin_right = 562.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[def. ##DEFAULT##] opacity of the \"paused\" screen"
-valign = 1
-
 [node name="unpause_empty_color" type="HBoxContainer" parent="TabContainer/UI/UIColor/Group/H"]
 margin_top = 280.0
 margin_right = 500.0
 margin_bottom = 312.0
+hint_tooltip = "[def. ##DEFAULT##] text color of the \"paused\" message, empty color of unpause progress bar"
 
 [node name="Color" type="ColorPickerButton" parent="TabContainer/UI/UIColor/Group/H/unpause_empty_color"]
 margin_right = 100.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 100, 32 )
 rect_pivot_offset = Vector2( 286, -36 )
+hint_tooltip = "[def. ##DEFAULT##] text color of the \"paused\" message, empty color of unpause progress bar"
 theme = ExtResource( 1 )
 custom_styles/hover = SubResource( 50 )
 custom_styles/pressed = SubResource( 51 )
@@ -3523,10 +3490,11 @@ custom_styles/normal = SubResource( 54 )
 script = ExtResource( 51 )
 target = "unpause_empty_color"
 
-[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/unpause_empty_color/Color"]
-margin_left = -151.0
-margin_right = -10.0
-margin_bottom = 32.0
+[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/unpause_empty_color"]
+margin_left = 104.0
+margin_top = 6.0
+margin_right = 178.0
+margin_bottom = 26.0
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
@@ -3535,28 +3503,18 @@ text = "\"PAUSED\""
 align = 2
 valign = 1
 
-[node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/unpause_empty_color/Color"]
-margin_left = 115.0
-margin_right = 462.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[def. ##DEFAULT##] text color of the \"paused\" message, empty color of unpause progress bar"
-valign = 1
-
 [node name="unpause_fill_color" type="HBoxContainer" parent="TabContainer/UI/UIColor/Group/H"]
 margin_top = 316.0
 margin_right = 500.0
 margin_bottom = 348.0
+hint_tooltip = "[def. ##DEFAULT##] fill color of unpause progress bar"
 
 [node name="Color" type="ColorPickerButton" parent="TabContainer/UI/UIColor/Group/H/unpause_fill_color"]
 margin_right = 100.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 100, 32 )
 rect_pivot_offset = Vector2( 286, -36 )
+hint_tooltip = "[def. ##DEFAULT##] fill color of unpause progress bar"
 theme = ExtResource( 1 )
 custom_styles/hover = SubResource( 50 )
 custom_styles/pressed = SubResource( 51 )
@@ -3566,10 +3524,11 @@ custom_styles/normal = SubResource( 54 )
 script = ExtResource( 51 )
 target = "unpause_fill_color"
 
-[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/unpause_fill_color/Color"]
-margin_left = -180.0
-margin_right = -10.0
-margin_bottom = 32.0
+[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/unpause_fill_color"]
+margin_left = 104.0
+margin_top = 6.0
+margin_right = 266.0
+margin_bottom = 26.0
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
@@ -3578,28 +3537,18 @@ text = "\"PAUSED\" (Unpausing)"
 align = 2
 valign = 1
 
-[node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/unpause_fill_color/Color"]
-margin_left = 115.0
-margin_right = 462.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[def. ##DEFAULT##] fill color of unpause progress bar"
-valign = 1
-
 [node name="how_to_quit" type="HBoxContainer" parent="TabContainer/UI/UIColor/Group/H"]
 margin_top = 352.0
 margin_right = 500.0
 margin_bottom = 384.0
+hint_tooltip = "[def. ##DEFAULT##] text color of the give up hint"
 
 [node name="Color" type="ColorPickerButton" parent="TabContainer/UI/UIColor/Group/H/how_to_quit"]
 margin_right = 100.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 100, 32 )
 rect_pivot_offset = Vector2( 286, -36 )
+hint_tooltip = "[def. ##DEFAULT##] text color of the give up hint"
 theme = ExtResource( 1 )
 custom_styles/hover = SubResource( 50 )
 custom_styles/pressed = SubResource( 51 )
@@ -3609,28 +3558,17 @@ custom_styles/normal = SubResource( 54 )
 script = ExtResource( 51 )
 target = "how_to_quit"
 
-[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/how_to_quit/Color"]
-margin_left = -151.0
-margin_right = -10.0
-margin_bottom = 32.0
+[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/how_to_quit"]
+margin_left = 104.0
+margin_top = 6.0
+margin_right = 210.0
+margin_bottom = 26.0
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 3 )
 text = "\"Hold R to exit\""
 align = 2
-valign = 1
-
-[node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/how_to_quit/Color"]
-margin_left = 115.0
-margin_right = 462.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[def. ##DEFAULT##] text color of the give up hint"
 valign = 1
 
 [node name="SEPARATOR3" type="HSeparator" parent="TabContainer/UI/UIColor/Group/H"]
@@ -3644,12 +3582,14 @@ custom_styles/separator = SubResource( 55 )
 margin_top = 402.0
 margin_right = 500.0
 margin_bottom = 434.0
+hint_tooltip = "[def. ##DEFAULT##] fill color of the combo display wheel"
 
 [node name="Color" type="ColorPickerButton" parent="TabContainer/UI/UIColor/Group/H/combo_fill_color"]
 margin_right = 100.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 100, 32 )
 rect_pivot_offset = Vector2( 286, -36 )
+hint_tooltip = "[def. ##DEFAULT##] fill color of the combo display wheel"
 theme = ExtResource( 1 )
 custom_styles/hover = SubResource( 50 )
 custom_styles/pressed = SubResource( 51 )
@@ -3659,10 +3599,11 @@ custom_styles/normal = SubResource( 54 )
 script = ExtResource( 51 )
 target = "combo_fill_color"
 
-[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/combo_fill_color/Color"]
-margin_left = -157.0
-margin_right = -10.0
-margin_bottom = 32.0
+[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/combo_fill_color"]
+margin_left = 104.0
+margin_top = 6.0
+margin_right = 236.0
+margin_bottom = 26.0
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
@@ -3671,28 +3612,18 @@ text = "Combo Wheel - Fill"
 align = 2
 valign = 1
 
-[node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/combo_fill_color/Color"]
-margin_left = 115.0
-margin_right = 462.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[def. ##DEFAULT##] fill color of the combo display wheel"
-valign = 1
-
 [node name="combo_empty_color" type="HBoxContainer" parent="TabContainer/UI/UIColor/Group/H"]
 margin_top = 438.0
 margin_right = 500.0
 margin_bottom = 470.0
+hint_tooltip = "[def. ##DEFAULT##] empty color of the combo display wheel"
 
 [node name="Color" type="ColorPickerButton" parent="TabContainer/UI/UIColor/Group/H/combo_empty_color"]
 margin_right = 100.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 100, 32 )
 rect_pivot_offset = Vector2( 286, -36 )
+hint_tooltip = "[def. ##DEFAULT##] empty color of the combo display wheel"
 theme = ExtResource( 1 )
 custom_styles/hover = SubResource( 50 )
 custom_styles/pressed = SubResource( 51 )
@@ -3702,28 +3633,17 @@ custom_styles/normal = SubResource( 54 )
 script = ExtResource( 51 )
 target = "combo_empty_color"
 
-[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/combo_empty_color/Color"]
-margin_left = -180.0
-margin_right = -10.0
-margin_bottom = 32.0
+[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/combo_empty_color"]
+margin_left = 104.0
+margin_top = 6.0
+margin_right = 260.0
+margin_bottom = 26.0
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 3 )
 text = "Combo Wheel - Empty"
 align = 2
-valign = 1
-
-[node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/combo_empty_color/Color"]
-margin_left = 115.0
-margin_right = 462.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[def. ##DEFAULT##] empty color of the combo display wheel"
 valign = 1
 
 [node name="SEPARATOR4" type="HSeparator" parent="TabContainer/UI/UIColor/Group/H"]
@@ -3737,12 +3657,14 @@ custom_styles/separator = SubResource( 55 )
 margin_top = 488.0
 margin_right = 500.0
 margin_bottom = 520.0
+hint_tooltip = "[def. ##DEFAULT##] fill color of the accuracy display bar"
 
 [node name="Color" type="ColorPickerButton" parent="TabContainer/UI/UIColor/Group/H/acc_fill_color"]
 margin_right = 100.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 100, 32 )
 rect_pivot_offset = Vector2( 286, -36 )
+hint_tooltip = "[def. ##DEFAULT##] fill color of the accuracy display bar"
 theme = ExtResource( 1 )
 custom_styles/hover = SubResource( 50 )
 custom_styles/pressed = SubResource( 51 )
@@ -3752,10 +3674,11 @@ custom_styles/normal = SubResource( 54 )
 script = ExtResource( 51 )
 target = "acc_fill_color"
 
-[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/acc_fill_color/Color"]
-margin_left = -151.0
-margin_right = -10.0
-margin_bottom = 32.0
+[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/acc_fill_color"]
+margin_left = 104.0
+margin_top = 6.0
+margin_right = 227.0
+margin_bottom = 26.0
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
@@ -3764,28 +3687,18 @@ text = "Accuracy Bar - Fill"
 align = 2
 valign = 1
 
-[node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/acc_fill_color/Color"]
-margin_left = 115.0
-margin_right = 462.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[def. ##DEFAULT##] fill color of the accuracy display bar"
-valign = 1
-
 [node name="acc_empty_color" type="HBoxContainer" parent="TabContainer/UI/UIColor/Group/H"]
 margin_top = 524.0
 margin_right = 500.0
 margin_bottom = 556.0
+hint_tooltip = "[def. ##DEFAULT##] empty color of the accuracy display bar"
 
 [node name="Color" type="ColorPickerButton" parent="TabContainer/UI/UIColor/Group/H/acc_empty_color"]
 margin_right = 100.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 100, 32 )
 rect_pivot_offset = Vector2( 286, -36 )
+hint_tooltip = "[def. ##DEFAULT##] empty color of the accuracy display bar"
 theme = ExtResource( 1 )
 custom_styles/hover = SubResource( 50 )
 custom_styles/pressed = SubResource( 51 )
@@ -3795,28 +3708,17 @@ custom_styles/normal = SubResource( 54 )
 script = ExtResource( 51 )
 target = "acc_empty_color"
 
-[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/acc_empty_color/Color"]
-margin_left = -166.0
-margin_right = -10.0
-margin_bottom = 32.0
+[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/acc_empty_color"]
+margin_left = 104.0
+margin_top = 6.0
+margin_right = 251.0
+margin_bottom = 26.0
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 3 )
 text = "Accuracy Bar - Empty"
 align = 2
-valign = 1
-
-[node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/acc_empty_color/Color"]
-margin_left = 115.0
-margin_right = 462.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[def. ##DEFAULT##] empty color of the accuracy display bar"
 valign = 1
 
 [node name="SEPARATOR5" type="HSeparator" parent="TabContainer/UI/UIColor/Group/H"]
@@ -3830,12 +3732,14 @@ custom_styles/separator = SubResource( 55 )
 margin_top = 574.0
 margin_right = 500.0
 margin_bottom = 606.0
+hint_tooltip = "[def. ##DEFAULT##] text color of the \"Giving up...\" and \"Skipping...\" messages"
 
 [node name="Color" type="ColorPickerButton" parent="TabContainer/UI/UIColor/Group/H/giveup_text"]
 margin_right = 100.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 100, 32 )
 rect_pivot_offset = Vector2( 286, -36 )
+hint_tooltip = "[def. ##DEFAULT##] text color of the \"Giving up...\" and \"Skipping...\" messages"
 theme = ExtResource( 1 )
 custom_styles/hover = SubResource( 50 )
 custom_styles/pressed = SubResource( 51 )
@@ -3845,10 +3749,11 @@ custom_styles/normal = SubResource( 54 )
 script = ExtResource( 51 )
 target = "giveup_text"
 
-[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/giveup_text/Color"]
-margin_left = -113.0
-margin_right = -10.0
-margin_bottom = 32.0
+[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/giveup_text"]
+margin_left = 104.0
+margin_top = 6.0
+margin_right = 191.0
+margin_bottom = 26.0
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
@@ -3857,28 +3762,18 @@ text = "\"Giving up...\""
 align = 2
 valign = 1
 
-[node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/giveup_text/Color"]
-margin_left = 115.0
-margin_right = 462.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[def. ##DEFAULT##] text color of the \"Giving up...\" and \"Skipping...\" messages"
-valign = 1
-
 [node name="giveup_fill_color" type="HBoxContainer" parent="TabContainer/UI/UIColor/Group/H"]
 margin_top = 610.0
 margin_right = 500.0
 margin_bottom = 642.0
+hint_tooltip = "[def. ##DEFAULT##] fill color of the exit progress wheel (before end of song)"
 
 [node name="Color" type="ColorPickerButton" parent="TabContainer/UI/UIColor/Group/H/giveup_fill_color"]
 margin_right = 100.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 100, 32 )
 rect_pivot_offset = Vector2( 286, -36 )
+hint_tooltip = "[def. ##DEFAULT##] fill color of the exit progress wheel (before end of song)"
 theme = ExtResource( 1 )
 custom_styles/hover = SubResource( 50 )
 custom_styles/pressed = SubResource( 51 )
@@ -3888,10 +3783,11 @@ custom_styles/normal = SubResource( 54 )
 script = ExtResource( 51 )
 target = "giveup_fill_color"
 
-[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/giveup_fill_color/Color"]
-margin_left = -160.0
-margin_right = -10.0
-margin_bottom = 32.0
+[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/giveup_fill_color"]
+margin_left = 104.0
+margin_top = 6.0
+margin_right = 245.0
+margin_bottom = 26.0
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
@@ -3900,28 +3796,18 @@ text = "Exit Wheel (Give up)"
 align = 2
 valign = 1
 
-[node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/giveup_fill_color/Color"]
-margin_left = 115.0
-margin_right = 462.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[def. ##DEFAULT##] fill color of the exit progress wheel (before end of song)"
-valign = 1
-
 [node name="giveup_fill_color_end_skip" type="HBoxContainer" parent="TabContainer/UI/UIColor/Group/H"]
 margin_top = 646.0
 margin_right = 500.0
 margin_bottom = 678.0
+hint_tooltip = "[def. ##DEFAULT##] fill color of the exit progress wheel (after end of song)"
 
 [node name="Color" type="ColorPickerButton" parent="TabContainer/UI/UIColor/Group/H/giveup_fill_color_end_skip"]
 margin_right = 100.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 100, 32 )
 rect_pivot_offset = Vector2( 286, -36 )
+hint_tooltip = "[def. ##DEFAULT##] fill color of the exit progress wheel (after end of song)"
 theme = ExtResource( 1 )
 custom_styles/hover = SubResource( 50 )
 custom_styles/pressed = SubResource( 51 )
@@ -3931,28 +3817,17 @@ custom_styles/normal = SubResource( 54 )
 script = ExtResource( 51 )
 target = "giveup_fill_color_end_skip"
 
-[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/giveup_fill_color_end_skip/Color"]
-margin_left = -180.0
-margin_right = -10.0
-margin_bottom = 32.0
+[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/giveup_fill_color_end_skip"]
+margin_left = 104.0
+margin_top = 6.0
+margin_right = 221.0
+margin_bottom = 26.0
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 3 )
 text = "Exit Wheel (Skip)"
 align = 2
-valign = 1
-
-[node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/giveup_fill_color_end_skip/Color"]
-margin_left = 115.0
-margin_right = 462.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[def. ##DEFAULT##] fill color of the exit progress wheel (after end of song)"
 valign = 1
 
 [node name="SEPARATOR6" type="HSeparator" parent="TabContainer/UI/UIColor/Group/H"]
@@ -3966,12 +3841,14 @@ custom_styles/separator = SubResource( 55 )
 margin_top = 696.0
 margin_right = 500.0
 margin_bottom = 728.0
+hint_tooltip = "[def. ##DEFAULT##] text color of the song name and time display"
 
 [node name="Color" type="ColorPickerButton" parent="TabContainer/UI/UIColor/Group/H/timer_text"]
 margin_right = 100.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 100, 32 )
 rect_pivot_offset = Vector2( 286, -36 )
+hint_tooltip = "[def. ##DEFAULT##] text color of the song name and time display"
 theme = ExtResource( 1 )
 custom_styles/hover = SubResource( 50 )
 custom_styles/pressed = SubResource( 51 )
@@ -3981,10 +3858,11 @@ custom_styles/normal = SubResource( 54 )
 script = ExtResource( 51 )
 target = "timer_text"
 
-[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/timer_text/Color"]
-margin_left = -183.0
-margin_right = -10.0
-margin_bottom = 32.0
+[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/timer_text"]
+margin_left = 104.0
+margin_top = 6.0
+margin_right = 243.0
+margin_bottom = 26.0
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
@@ -3993,28 +3871,18 @@ text = "Timer Text (Normal)"
 align = 2
 valign = 1
 
-[node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/timer_text/Color"]
-margin_left = 115.0
-margin_right = 462.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[def. ##DEFAULT##] text color of the song name and time display"
-valign = 1
-
 [node name="timer_text_done" type="HBoxContainer" parent="TabContainer/UI/UIColor/Group/H"]
 margin_top = 732.0
 margin_right = 500.0
 margin_bottom = 764.0
+hint_tooltip = "[def. ##DEFAULT##] text color of the song name and time display (after end of song)"
 
 [node name="Color" type="ColorPickerButton" parent="TabContainer/UI/UIColor/Group/H/timer_text_done"]
 margin_right = 100.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 100, 32 )
 rect_pivot_offset = Vector2( 286, -36 )
+hint_tooltip = "[def. ##DEFAULT##] text color of the song name and time display (after end of song)"
 theme = ExtResource( 1 )
 custom_styles/hover = SubResource( 50 )
 custom_styles/pressed = SubResource( 51 )
@@ -4024,10 +3892,11 @@ custom_styles/normal = SubResource( 54 )
 script = ExtResource( 51 )
 target = "timer_text_done"
 
-[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/timer_text_done/Color"]
-margin_left = -184.0
-margin_right = -10.0
-margin_bottom = 32.0
+[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/timer_text_done"]
+margin_left = 104.0
+margin_top = 6.0
+margin_right = 218.0
+margin_bottom = 26.0
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
@@ -4036,28 +3905,18 @@ text = "Timer Text (End)"
 align = 2
 valign = 1
 
-[node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/timer_text_done/Color"]
-margin_left = 115.0
-margin_right = 462.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[def. ##DEFAULT##] text color of the song name and time display (after end of song)"
-valign = 1
-
 [node name="timer_text_canskip" type="HBoxContainer" parent="TabContainer/UI/UIColor/Group/H"]
 margin_top = 768.0
 margin_right = 500.0
 margin_bottom = 800.0
+hint_tooltip = "[def. ##DEFAULT##] text color of the song name and time display (when skipping is possible)"
 
 [node name="Color" type="ColorPickerButton" parent="TabContainer/UI/UIColor/Group/H/timer_text_canskip"]
 margin_right = 100.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 100, 32 )
 rect_pivot_offset = Vector2( 286, -36 )
+hint_tooltip = "[def. ##DEFAULT##] text color of the song name and time display (when skipping is possible)"
 theme = ExtResource( 1 )
 custom_styles/hover = SubResource( 50 )
 custom_styles/pressed = SubResource( 51 )
@@ -4067,28 +3926,17 @@ custom_styles/normal = SubResource( 54 )
 script = ExtResource( 51 )
 target = "timer_text_canskip"
 
-[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/timer_text_canskip/Color"]
-margin_left = -183.0
-margin_right = -10.0
-margin_bottom = 32.0
+[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/timer_text_canskip"]
+margin_left = 104.0
+margin_top = 6.0
+margin_right = 220.0
+margin_bottom = 26.0
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 3 )
 text = "Timer Text (Skip)"
 align = 2
-valign = 1
-
-[node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/timer_text_canskip/Color"]
-margin_left = 115.0
-margin_right = 462.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[def. ##DEFAULT##] text color of the song name and time display (when skipping is possible)"
 valign = 1
 
 [node name="SEPARATOR7" type="HSeparator" parent="TabContainer/UI/UIColor/Group/H"]
@@ -4102,12 +3950,14 @@ custom_styles/separator = SubResource( 55 )
 margin_top = 818.0
 margin_right = 500.0
 margin_bottom = 850.0
+hint_tooltip = "[def. ##DEFAULT##] fill color of timer progress bar"
 
 [node name="Color" type="ColorPickerButton" parent="TabContainer/UI/UIColor/Group/H/timer_fg"]
 margin_right = 100.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 100, 32 )
 rect_pivot_offset = Vector2( 286, -36 )
+hint_tooltip = "[def. ##DEFAULT##] fill color of timer progress bar"
 theme = ExtResource( 1 )
 custom_styles/hover = SubResource( 50 )
 custom_styles/pressed = SubResource( 51 )
@@ -4117,10 +3967,11 @@ custom_styles/normal = SubResource( 54 )
 script = ExtResource( 51 )
 target = "timer_fg"
 
-[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/timer_fg/Color"]
-margin_left = -151.0
-margin_right = -10.0
-margin_bottom = 32.0
+[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/timer_fg"]
+margin_left = 104.0
+margin_top = 6.0
+margin_right = 242.0
+margin_bottom = 26.0
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
@@ -4129,28 +3980,18 @@ text = "Timer - Fill (Normal)"
 align = 2
 valign = 1
 
-[node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/timer_fg/Color"]
-margin_left = 115.0
-margin_right = 462.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[def. ##DEFAULT##] fill color of timer progress bar"
-valign = 1
-
 [node name="timer_bg" type="HBoxContainer" parent="TabContainer/UI/UIColor/Group/H"]
 margin_top = 854.0
 margin_right = 500.0
 margin_bottom = 886.0
+hint_tooltip = "[def. ##DEFAULT##] empty color of timer progress bar"
 
 [node name="Color" type="ColorPickerButton" parent="TabContainer/UI/UIColor/Group/H/timer_bg"]
 margin_right = 100.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 100, 32 )
 rect_pivot_offset = Vector2( 286, -36 )
+hint_tooltip = "[def. ##DEFAULT##] empty color of timer progress bar"
 theme = ExtResource( 1 )
 custom_styles/hover = SubResource( 50 )
 custom_styles/pressed = SubResource( 51 )
@@ -4160,28 +4001,17 @@ custom_styles/normal = SubResource( 54 )
 script = ExtResource( 51 )
 target = "timer_bg"
 
-[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/timer_bg/Color"]
-margin_left = -183.0
-margin_right = -10.0
-margin_bottom = 32.0
+[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/timer_bg"]
+margin_left = 104.0
+margin_top = 6.0
+margin_right = 266.0
+margin_bottom = 26.0
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 3 )
 text = "Timer - Empty (Normal)"
 align = 2
-valign = 1
-
-[node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/timer_bg/Color"]
-margin_left = 115.0
-margin_right = 462.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[def. ##DEFAULT##] empty color of timer progress bar"
 valign = 1
 
 [node name="SEPARATOR8" type="HSeparator" parent="TabContainer/UI/UIColor/Group/H"]
@@ -4195,12 +4025,14 @@ custom_styles/separator = SubResource( 55 )
 margin_top = 904.0
 margin_right = 500.0
 margin_bottom = 936.0
+hint_tooltip = "[def. ##DEFAULT##] fill color of timer progress bar (after end of song)"
 
 [node name="Color" type="ColorPickerButton" parent="TabContainer/UI/UIColor/Group/H/timer_fg_done"]
 margin_right = 100.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 100, 32 )
 rect_pivot_offset = Vector2( 286, -36 )
+hint_tooltip = "[def. ##DEFAULT##] fill color of timer progress bar (after end of song)"
 theme = ExtResource( 1 )
 custom_styles/hover = SubResource( 50 )
 custom_styles/pressed = SubResource( 51 )
@@ -4210,10 +4042,11 @@ custom_styles/normal = SubResource( 54 )
 script = ExtResource( 51 )
 target = "timer_fg_done"
 
-[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/timer_fg_done/Color"]
-margin_left = -151.0
-margin_right = -10.0
-margin_bottom = 32.0
+[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/timer_fg_done"]
+margin_left = 104.0
+margin_top = 6.0
+margin_right = 217.0
+margin_bottom = 26.0
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
@@ -4222,28 +4055,18 @@ text = "Timer - Fill (End)"
 align = 2
 valign = 1
 
-[node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/timer_fg_done/Color"]
-margin_left = 115.0
-margin_right = 462.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[def. ##DEFAULT##] fill color of timer progress bar (after end of song)"
-valign = 1
-
 [node name="timer_bg_done" type="HBoxContainer" parent="TabContainer/UI/UIColor/Group/H"]
 margin_top = 940.0
 margin_right = 500.0
 margin_bottom = 972.0
+hint_tooltip = "[def. ##DEFAULT##] empty color of timer progress bar (after end of song)"
 
 [node name="Color" type="ColorPickerButton" parent="TabContainer/UI/UIColor/Group/H/timer_bg_done"]
 margin_right = 100.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 100, 32 )
 rect_pivot_offset = Vector2( 286, -36 )
+hint_tooltip = "[def. ##DEFAULT##] empty color of timer progress bar (after end of song)"
 theme = ExtResource( 1 )
 custom_styles/hover = SubResource( 50 )
 custom_styles/pressed = SubResource( 51 )
@@ -4253,28 +4076,17 @@ custom_styles/normal = SubResource( 54 )
 script = ExtResource( 51 )
 target = "timer_bg_done"
 
-[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/timer_bg_done/Color"]
-margin_left = -151.0
-margin_right = -10.0
-margin_bottom = 32.0
+[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/timer_bg_done"]
+margin_left = 104.0
+margin_top = 6.0
+margin_right = 241.0
+margin_bottom = 26.0
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 3 )
 text = "Timer - Empty (End)"
 align = 2
-valign = 1
-
-[node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/timer_bg_done/Color"]
-margin_left = 115.0
-margin_right = 462.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[def. ##DEFAULT##] empty color of timer progress bar (after end of song)"
 valign = 1
 
 [node name="SEPARATOR9" type="HSeparator" parent="TabContainer/UI/UIColor/Group/H"]
@@ -4288,12 +4100,14 @@ custom_styles/separator = SubResource( 55 )
 margin_top = 990.0
 margin_right = 500.0
 margin_bottom = 1022.0
+hint_tooltip = "[def. ##DEFAULT##] fill color of timer progress bar (when skipping is possible)"
 
 [node name="Color" type="ColorPickerButton" parent="TabContainer/UI/UIColor/Group/H/timer_fg_canskip"]
 margin_right = 100.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 100, 32 )
 rect_pivot_offset = Vector2( 286, -36 )
+hint_tooltip = "[def. ##DEFAULT##] fill color of timer progress bar (when skipping is possible)"
 theme = ExtResource( 1 )
 custom_styles/hover = SubResource( 50 )
 custom_styles/pressed = SubResource( 51 )
@@ -4303,10 +4117,11 @@ custom_styles/normal = SubResource( 54 )
 script = ExtResource( 51 )
 target = "timer_fg_canskip"
 
-[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/timer_fg_canskip/Color"]
-margin_left = -180.0
-margin_right = -10.0
-margin_bottom = 32.0
+[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/timer_fg_canskip"]
+margin_left = 104.0
+margin_top = 6.0
+margin_right = 219.0
+margin_bottom = 26.0
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
@@ -4315,28 +4130,18 @@ text = "Timer - Fill (Skip)"
 align = 2
 valign = 1
 
-[node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/timer_fg_canskip/Color"]
-margin_left = 115.0
-margin_right = 462.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[def. ##DEFAULT##] fill color of timer progress bar (when skipping is possible)"
-valign = 1
-
 [node name="timer_bg_canskip" type="HBoxContainer" parent="TabContainer/UI/UIColor/Group/H"]
 margin_top = 1026.0
 margin_right = 500.0
 margin_bottom = 1058.0
+hint_tooltip = "[def. ##DEFAULT##] empty color of timer progress bar (when skipping is possible)"
 
 [node name="Color" type="ColorPickerButton" parent="TabContainer/UI/UIColor/Group/H/timer_bg_canskip"]
 margin_right = 100.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 100, 32 )
 rect_pivot_offset = Vector2( 286, -36 )
+hint_tooltip = "[def. ##DEFAULT##] empty color of timer progress bar (when skipping is possible)"
 theme = ExtResource( 1 )
 custom_styles/hover = SubResource( 50 )
 custom_styles/pressed = SubResource( 51 )
@@ -4346,28 +4151,17 @@ custom_styles/normal = SubResource( 54 )
 script = ExtResource( 51 )
 target = "timer_bg_canskip"
 
-[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/timer_bg_canskip/Color"]
-margin_left = -183.0
-margin_right = -10.0
-margin_bottom = 32.0
+[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/timer_bg_canskip"]
+margin_left = 104.0
+margin_top = 6.0
+margin_right = 243.0
+margin_bottom = 26.0
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 3 )
 text = "Timer - Empty (Skip)"
 align = 2
-valign = 1
-
-[node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/timer_bg_canskip/Color"]
-margin_left = 115.0
-margin_right = 462.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[def. ##DEFAULT##] empty color of timer progress bar (when skipping is possible)"
 valign = 1
 
 [node name="SEPARATOR10" type="HSeparator" parent="TabContainer/UI/UIColor/Group/H"]
@@ -4381,12 +4175,14 @@ custom_styles/separator = SubResource( 55 )
 margin_top = 1076.0
 margin_right = 500.0
 margin_bottom = 1108.0
+hint_tooltip = "[def. ##DEFAULT##] text color of the miss counter"
 
 [node name="Color" type="ColorPickerButton" parent="TabContainer/UI/UIColor/Group/H/miss_text_color"]
 margin_right = 100.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 100, 32 )
 rect_pivot_offset = Vector2( 286, -36 )
+hint_tooltip = "[def. ##DEFAULT##] text color of the miss counter"
 theme = ExtResource( 1 )
 custom_styles/hover = SubResource( 50 )
 custom_styles/pressed = SubResource( 51 )
@@ -4396,10 +4192,11 @@ custom_styles/normal = SubResource( 54 )
 script = ExtResource( 51 )
 target = "miss_text_color"
 
-[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/miss_text_color/Color"]
-margin_left = -151.0
-margin_right = -10.0
-margin_bottom = 32.0
+[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/miss_text_color"]
+margin_left = 104.0
+margin_top = 6.0
+margin_right = 198.0
+margin_bottom = 26.0
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
@@ -4408,28 +4205,18 @@ text = "Miss Counter"
 align = 2
 valign = 1
 
-[node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/miss_text_color/Color"]
-margin_left = 115.0
-margin_right = 462.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[def. ##DEFAULT##] text color of the miss counter"
-valign = 1
-
 [node name="miss_flash_color" type="HBoxContainer" parent="TabContainer/UI/UIColor/Group/H"]
 margin_top = 1112.0
 margin_right = 500.0
 margin_bottom = 1144.0
+hint_tooltip = "[def. ##DEFAULT##] miss counter text briefly flashes this color when you get a miss"
 
 [node name="Color" type="ColorPickerButton" parent="TabContainer/UI/UIColor/Group/H/miss_flash_color"]
 margin_right = 100.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 100, 32 )
 rect_pivot_offset = Vector2( 286, -36 )
+hint_tooltip = "[def. ##DEFAULT##] miss counter text briefly flashes this color when you get a miss"
 theme = ExtResource( 1 )
 custom_styles/hover = SubResource( 50 )
 custom_styles/pressed = SubResource( 51 )
@@ -4439,28 +4226,17 @@ custom_styles/normal = SubResource( 54 )
 script = ExtResource( 51 )
 target = "miss_flash_color"
 
-[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/miss_flash_color/Color"]
-margin_left = -164.0
-margin_right = -10.0
-margin_bottom = 32.0
+[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/miss_flash_color"]
+margin_left = 104.0
+margin_top = 6.0
+margin_right = 248.0
+margin_bottom = 26.0
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 3 )
 text = "Miss Counter (Flash)"
 align = 2
-valign = 1
-
-[node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/miss_flash_color/Color"]
-margin_left = 115.0
-margin_right = 462.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[def. ##DEFAULT##] miss counter text briefly flashes this color when you get a miss"
 valign = 1
 
 [node name="SEPARATOR11" type="HSeparator" parent="TabContainer/UI/UIColor/Group/H"]
@@ -4474,12 +4250,14 @@ custom_styles/separator = SubResource( 55 )
 margin_top = 1162.0
 margin_right = 500.0
 margin_bottom = 1194.0
+hint_tooltip = "[def. ##DEFAULT##] color of the pause counter (with no pauses)"
 
 [node name="Color" type="ColorPickerButton" parent="TabContainer/UI/UIColor/Group/H/pause_text_color"]
 margin_right = 100.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 100, 32 )
 rect_pivot_offset = Vector2( 286, -36 )
+hint_tooltip = "[def. ##DEFAULT##] color of the pause counter (with no pauses)"
 theme = ExtResource( 1 )
 custom_styles/hover = SubResource( 50 )
 custom_styles/pressed = SubResource( 51 )
@@ -4489,10 +4267,11 @@ custom_styles/normal = SubResource( 54 )
 script = ExtResource( 51 )
 target = "pause_text_color"
 
-[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/pause_text_color/Color"]
-margin_left = -173.0
-margin_right = -10.0
-margin_bottom = 32.0
+[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/pause_text_color"]
+margin_left = 104.0
+margin_top = 6.0
+margin_right = 253.0
+margin_bottom = 26.0
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
@@ -4501,28 +4280,18 @@ text = "Pause Counter (Zero)"
 align = 2
 valign = 1
 
-[node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/pause_text_color/Color"]
-margin_left = 115.0
-margin_right = 462.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[def. ##DEFAULT##] color of the pause counter (with no pauses)"
-valign = 1
-
 [node name="pause_used_color" type="HBoxContainer" parent="TabContainer/UI/UIColor/Group/H"]
 margin_top = 1198.0
 margin_right = 500.0
 margin_bottom = 1230.0
+hint_tooltip = "[def. ##DEFAULT##] color of the pause counter (with at least 1 pause)"
 
 [node name="Color" type="ColorPickerButton" parent="TabContainer/UI/UIColor/Group/H/pause_used_color"]
 margin_right = 100.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 100, 32 )
 rect_pivot_offset = Vector2( 286, -36 )
+hint_tooltip = "[def. ##DEFAULT##] color of the pause counter (with at least 1 pause)"
 theme = ExtResource( 1 )
 custom_styles/hover = SubResource( 50 )
 custom_styles/pressed = SubResource( 51 )
@@ -4532,28 +4301,17 @@ custom_styles/normal = SubResource( 54 )
 script = ExtResource( 51 )
 target = "pause_used_color"
 
-[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/pause_used_color/Color"]
-margin_left = -215.0
-margin_right = -10.0
-margin_bottom = 32.0
+[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/pause_used_color"]
+margin_left = 104.0
+margin_top = 6.0
+margin_right = 256.0
+margin_bottom = 26.0
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 3 )
 text = "Pause Counter (Used)"
 align = 2
-valign = 1
-
-[node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/pause_used_color/Color"]
-margin_left = 115.0
-margin_right = 462.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[def. ##DEFAULT##] color of the pause counter (with at least 1 pause)"
 valign = 1
 
 [node name="SEPARATOR12" type="HSeparator" parent="TabContainer/UI/UIColor/Group/H"]
@@ -4563,17 +4321,18 @@ margin_bottom = 1244.0
 rect_min_size = Vector2( 500, 10 )
 custom_styles/separator = SubResource( 55 )
 
-[node name="grade_ss_saturation" type="Control" parent="TabContainer/UI/UIColor/Group/H"]
+[node name="grade_ss_saturation" type="HBoxContainer" parent="TabContainer/UI/UIColor/Group/H"]
 margin_top = 1248.0
 margin_right = 500.0
 margin_bottom = 1280.0
-rect_min_size = Vector2( 200, 32 )
+hint_tooltip = "[def. ##DEFAULT##] hsv saturation of rainbow effect on grade SS"
 
 [node name="SpinBox" type="SpinBox" parent="TabContainer/UI/UIColor/Group/H/grade_ss_saturation"]
 margin_right = 200.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 200, 32 )
 rect_pivot_offset = Vector2( 286, -36 )
+hint_tooltip = "[def. ##DEFAULT##] hsv saturation of rainbow effect on grade SS"
 focus_mode = 2
 theme = ExtResource( 1 )
 max_value = 1.0
@@ -4582,10 +4341,11 @@ value = 1.0
 script = ExtResource( 50 )
 target = "grade_ss_saturation"
 
-[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/grade_ss_saturation/SpinBox"]
-margin_left = -161.0
-margin_right = -10.0
-margin_bottom = 32.0
+[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/grade_ss_saturation"]
+margin_left = 204.0
+margin_top = 6.0
+margin_right = 351.0
+margin_bottom = 26.0
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
@@ -4594,29 +4354,18 @@ text = "Grade SS - Saturation"
 align = 2
 valign = 1
 
-[node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/grade_ss_saturation/SpinBox"]
-margin_left = 215.0
-margin_right = 562.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[def. ##DEFAULT##] hsv saturation of rainbow effect on grade SS"
-valign = 1
-
-[node name="grade_ss_value" type="Control" parent="TabContainer/UI/UIColor/Group/H"]
+[node name="grade_ss_value" type="HBoxContainer" parent="TabContainer/UI/UIColor/Group/H"]
 margin_top = 1284.0
 margin_right = 500.0
 margin_bottom = 1316.0
-rect_min_size = Vector2( 200, 32 )
+hint_tooltip = "[def. ##DEFAULT##] hsv value of rainbow effect on grade SS"
 
 [node name="SpinBox" type="SpinBox" parent="TabContainer/UI/UIColor/Group/H/grade_ss_value"]
 margin_right = 200.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 200, 32 )
 rect_pivot_offset = Vector2( 286, -36 )
+hint_tooltip = "[def. ##DEFAULT##] hsv value of rainbow effect on grade SS"
 focus_mode = 2
 theme = ExtResource( 1 )
 max_value = 1.0
@@ -4625,10 +4374,11 @@ value = 1.0
 script = ExtResource( 50 )
 target = "grade_ss_value"
 
-[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/grade_ss_value/SpinBox"]
-margin_left = -134.0
-margin_right = -10.0
-margin_bottom = 32.0
+[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/grade_ss_value"]
+margin_left = 204.0
+margin_top = 6.0
+margin_right = 318.0
+margin_bottom = 26.0
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
@@ -4637,29 +4387,18 @@ text = "Grade SS - Value"
 align = 2
 valign = 1
 
-[node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/grade_ss_value/SpinBox"]
-margin_left = 215.0
-margin_right = 562.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[def. ##DEFAULT##] hsv value of rainbow effect on grade SS"
-valign = 1
-
-[node name="grade_ss_shine" type="Control" parent="TabContainer/UI/UIColor/Group/H"]
+[node name="grade_ss_shine" type="HBoxContainer" parent="TabContainer/UI/UIColor/Group/H"]
 margin_top = 1320.0
 margin_right = 500.0
 margin_bottom = 1352.0
-rect_min_size = Vector2( 200, 32 )
+hint_tooltip = "[def. ##DEFAULT##] level of shine shader when grade is SS"
 
 [node name="SpinBox" type="SpinBox" parent="TabContainer/UI/UIColor/Group/H/grade_ss_shine"]
 margin_right = 200.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 200, 32 )
 rect_pivot_offset = Vector2( 286, -36 )
+hint_tooltip = "[def. ##DEFAULT##] level of shine shader when grade is SS"
 focus_mode = 2
 theme = ExtResource( 1 )
 max_value = 1.0
@@ -4668,28 +4407,17 @@ value = 1.0
 script = ExtResource( 50 )
 target = "grade_ss_shine"
 
-[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/grade_ss_shine/SpinBox"]
-margin_left = -145.0
-margin_right = -10.0
-margin_bottom = 32.0
+[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/grade_ss_shine"]
+margin_left = 204.0
+margin_top = 6.0
+margin_right = 316.0
+margin_bottom = 26.0
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 3 )
 text = "Grade SS - Shine"
 align = 2
-valign = 1
-
-[node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/grade_ss_shine/SpinBox"]
-margin_left = 215.0
-margin_right = 562.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[def. ##DEFAULT##] level of shine shader when grade is SS"
 valign = 1
 
 [node name="SEPARATOR13" type="HSeparator" parent="TabContainer/UI/UIColor/Group/H"]
@@ -4699,17 +4427,18 @@ margin_bottom = 1366.0
 rect_min_size = Vector2( 500, 10 )
 custom_styles/separator = SubResource( 55 )
 
-[node name="grade_s_color" type="Control" parent="TabContainer/UI/UIColor/Group/H"]
+[node name="grade_s_color" type="HBoxContainer" parent="TabContainer/UI/UIColor/Group/H"]
 margin_top = 1370.0
 margin_right = 500.0
 margin_bottom = 1402.0
-rect_min_size = Vector2( 200, 32 )
+hint_tooltip = "[def. ##DEFAULT##] color of text when grade is S"
 
 [node name="Color" type="ColorPickerButton" parent="TabContainer/UI/UIColor/Group/H/grade_s_color"]
 margin_right = 100.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 100, 32 )
 rect_pivot_offset = Vector2( 286, -36 )
+hint_tooltip = "[def. ##DEFAULT##] color of text when grade is S"
 theme = ExtResource( 1 )
 custom_styles/hover = SubResource( 50 )
 custom_styles/pressed = SubResource( 51 )
@@ -4719,10 +4448,11 @@ custom_styles/normal = SubResource( 54 )
 script = ExtResource( 51 )
 target = "grade_s_color"
 
-[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/grade_s_color/Color"]
-margin_left = -141.0
-margin_right = -10.0
-margin_bottom = 32.0
+[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/grade_s_color"]
+margin_left = 104.0
+margin_top = 6.0
+margin_right = 209.0
+margin_bottom = 26.0
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
@@ -4731,29 +4461,18 @@ text = "Grade S - Color"
 align = 2
 valign = 1
 
-[node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/grade_s_color/Color"]
-margin_left = 115.0
-margin_right = 462.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[def. ##DEFAULT##] color of text when grade is S"
-valign = 1
-
-[node name="grade_s_shine" type="Control" parent="TabContainer/UI/UIColor/Group/H"]
+[node name="grade_s_shine" type="HBoxContainer" parent="TabContainer/UI/UIColor/Group/H"]
 margin_top = 1406.0
 margin_right = 500.0
 margin_bottom = 1438.0
-rect_min_size = Vector2( 200, 32 )
+hint_tooltip = "[def. ##DEFAULT##] level of shine shader when grade is S"
 
 [node name="SpinBox" type="SpinBox" parent="TabContainer/UI/UIColor/Group/H/grade_s_shine"]
 margin_right = 200.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 200, 32 )
 rect_pivot_offset = Vector2( 286, -36 )
+hint_tooltip = "[def. ##DEFAULT##] level of shine shader when grade is S"
 focus_mode = 2
 theme = ExtResource( 1 )
 max_value = 1.0
@@ -4762,28 +4481,17 @@ value = 1.0
 script = ExtResource( 50 )
 target = "grade_s_shine"
 
-[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/grade_s_shine/SpinBox"]
-margin_left = -134.0
-margin_right = -10.0
-margin_bottom = 32.0
+[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/grade_s_shine"]
+margin_left = 204.0
+margin_top = 6.0
+margin_right = 308.0
+margin_bottom = 26.0
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 3 )
 text = "Grade S - Shine"
 align = 2
-valign = 1
-
-[node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/grade_s_shine/SpinBox"]
-margin_left = 215.0
-margin_right = 579.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[def. ##DEFAULT##] level of shine shader when grade is S"
 valign = 1
 
 [node name="SEPARATOR14" type="HSeparator" parent="TabContainer/UI/UIColor/Group/H"]
@@ -4793,17 +4501,18 @@ margin_bottom = 1452.0
 rect_min_size = Vector2( 500, 10 )
 custom_styles/separator = SubResource( 55 )
 
-[node name="grade_a_color" type="Control" parent="TabContainer/UI/UIColor/Group/H"]
+[node name="grade_a_color" type="HBoxContainer" parent="TabContainer/UI/UIColor/Group/H"]
 margin_top = 1456.0
 margin_right = 500.0
 margin_bottom = 1488.0
-rect_min_size = Vector2( 200, 32 )
+hint_tooltip = "[def. ##DEFAULT##] color of text when grade is A"
 
 [node name="Color" type="ColorPickerButton" parent="TabContainer/UI/UIColor/Group/H/grade_a_color"]
 margin_right = 100.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 100, 32 )
 rect_pivot_offset = Vector2( 286, -36 )
+hint_tooltip = "[def. ##DEFAULT##] color of text when grade is A"
 theme = ExtResource( 1 )
 custom_styles/hover = SubResource( 50 )
 custom_styles/pressed = SubResource( 51 )
@@ -4813,10 +4522,11 @@ custom_styles/normal = SubResource( 54 )
 script = ExtResource( 51 )
 target = "grade_a_color"
 
-[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/grade_a_color/Color"]
-margin_left = -141.0
-margin_right = -10.0
-margin_bottom = 32.0
+[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/grade_a_color"]
+margin_left = 104.0
+margin_top = 6.0
+margin_right = 212.0
+margin_bottom = 26.0
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
@@ -4825,29 +4535,18 @@ text = "Grade A - Color"
 align = 2
 valign = 1
 
-[node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/grade_a_color/Color"]
-margin_left = 115.0
-margin_right = 462.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[def. ##DEFAULT##] color of text when grade is A"
-valign = 1
-
-[node name="grade_b_color" type="Control" parent="TabContainer/UI/UIColor/Group/H"]
+[node name="grade_b_color" type="HBoxContainer" parent="TabContainer/UI/UIColor/Group/H"]
 margin_top = 1492.0
 margin_right = 500.0
 margin_bottom = 1524.0
-rect_min_size = Vector2( 200, 32 )
+hint_tooltip = "[def. ##DEFAULT##] color of text when grade is B"
 
 [node name="Color" type="ColorPickerButton" parent="TabContainer/UI/UIColor/Group/H/grade_b_color"]
 margin_right = 100.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 100, 32 )
 rect_pivot_offset = Vector2( 286, -36 )
+hint_tooltip = "[def. ##DEFAULT##] color of text when grade is B"
 theme = ExtResource( 1 )
 custom_styles/hover = SubResource( 50 )
 custom_styles/pressed = SubResource( 51 )
@@ -4857,10 +4556,11 @@ custom_styles/normal = SubResource( 54 )
 script = ExtResource( 51 )
 target = "grade_b_color"
 
-[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/grade_b_color/Color"]
-margin_left = -141.0
-margin_right = -10.0
-margin_bottom = 32.0
+[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/grade_b_color"]
+margin_left = 104.0
+margin_top = 6.0
+margin_right = 211.0
+margin_bottom = 26.0
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
@@ -4869,29 +4569,18 @@ text = "Grade B - Color"
 align = 2
 valign = 1
 
-[node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/grade_b_color/Color"]
-margin_left = 115.0
-margin_right = 462.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[def. ##DEFAULT##] color of text when grade is B"
-valign = 1
-
-[node name="grade_c_color" type="Control" parent="TabContainer/UI/UIColor/Group/H"]
+[node name="grade_c_color" type="HBoxContainer" parent="TabContainer/UI/UIColor/Group/H"]
 margin_top = 1528.0
 margin_right = 500.0
 margin_bottom = 1560.0
-rect_min_size = Vector2( 200, 32 )
+hint_tooltip = "[def. ##DEFAULT##] color of text when grade is C"
 
 [node name="Color" type="ColorPickerButton" parent="TabContainer/UI/UIColor/Group/H/grade_c_color"]
 margin_right = 100.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 100, 32 )
 rect_pivot_offset = Vector2( 286, -36 )
+hint_tooltip = "[def. ##DEFAULT##] color of text when grade is C"
 theme = ExtResource( 1 )
 custom_styles/hover = SubResource( 50 )
 custom_styles/pressed = SubResource( 51 )
@@ -4901,10 +4590,11 @@ custom_styles/normal = SubResource( 54 )
 script = ExtResource( 51 )
 target = "grade_c_color"
 
-[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/grade_c_color/Color"]
-margin_left = -141.0
-margin_right = -10.0
-margin_bottom = 32.0
+[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/grade_c_color"]
+margin_left = 104.0
+margin_top = 6.0
+margin_right = 212.0
+margin_bottom = 26.0
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
@@ -4913,29 +4603,18 @@ text = "Grade C - Color"
 align = 2
 valign = 1
 
-[node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/grade_c_color/Color"]
-margin_left = 115.0
-margin_right = 462.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[def. ##DEFAULT##] color of text when grade is C"
-valign = 1
-
-[node name="grade_d_color" type="Control" parent="TabContainer/UI/UIColor/Group/H"]
+[node name="grade_d_color" type="HBoxContainer" parent="TabContainer/UI/UIColor/Group/H"]
 margin_top = 1564.0
 margin_right = 500.0
 margin_bottom = 1596.0
-rect_min_size = Vector2( 200, 32 )
+hint_tooltip = "[def. ##DEFAULT##] color of text when grade is D"
 
 [node name="Color" type="ColorPickerButton" parent="TabContainer/UI/UIColor/Group/H/grade_d_color"]
 margin_right = 100.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 100, 32 )
 rect_pivot_offset = Vector2( 286, -36 )
+hint_tooltip = "[def. ##DEFAULT##] color of text when grade is D"
 theme = ExtResource( 1 )
 custom_styles/hover = SubResource( 50 )
 custom_styles/pressed = SubResource( 51 )
@@ -4945,10 +4624,11 @@ custom_styles/normal = SubResource( 54 )
 script = ExtResource( 51 )
 target = "grade_d_color"
 
-[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/grade_d_color/Color"]
-margin_left = -141.0
-margin_right = -10.0
-margin_bottom = 32.0
+[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/grade_d_color"]
+margin_left = 104.0
+margin_top = 6.0
+margin_right = 213.0
+margin_bottom = 26.0
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
@@ -4957,29 +4637,18 @@ text = "Grade D - Color"
 align = 2
 valign = 1
 
-[node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/grade_d_color/Color"]
-margin_left = 115.0
-margin_right = 462.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[def. ##DEFAULT##] color of text when grade is D"
-valign = 1
-
-[node name="grade_f_color" type="Control" parent="TabContainer/UI/UIColor/Group/H"]
+[node name="grade_f_color" type="HBoxContainer" parent="TabContainer/UI/UIColor/Group/H"]
 margin_top = 1600.0
 margin_right = 500.0
 margin_bottom = 1632.0
-rect_min_size = Vector2( 200, 32 )
+hint_tooltip = "[def. ##DEFAULT##] color of text when grade is F"
 
 [node name="Color" type="ColorPickerButton" parent="TabContainer/UI/UIColor/Group/H/grade_f_color"]
 margin_right = 100.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 100, 32 )
 rect_pivot_offset = Vector2( 286, -36 )
+hint_tooltip = "[def. ##DEFAULT##] color of text when grade is F"
 theme = ExtResource( 1 )
 custom_styles/hover = SubResource( 50 )
 custom_styles/pressed = SubResource( 51 )
@@ -4989,28 +4658,17 @@ custom_styles/normal = SubResource( 54 )
 script = ExtResource( 51 )
 target = "grade_f_color"
 
-[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/grade_f_color/Color"]
-margin_left = -141.0
-margin_right = -10.0
-margin_bottom = 32.0
+[node name="Label" type="Label" parent="TabContainer/UI/UIColor/Group/H/grade_f_color"]
+margin_left = 104.0
+margin_top = 6.0
+margin_right = 210.0
+margin_bottom = 26.0
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 3 )
 text = "Grade F - Color"
 align = 2
-valign = 1
-
-[node name="Desc" type="Label" parent="TabContainer/UI/UIColor/Group/H/grade_f_color/Color"]
-margin_left = 115.0
-margin_right = 462.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[def. ##DEFAULT##] color of text when grade is F"
 valign = 1
 
 [node name="SEPARATOR" type="HSeparator" parent="TabContainer/UI"]
@@ -5045,174 +4703,120 @@ margin_bottom = 190.0
 margin_right = 1280.0
 margin_bottom = 160.0
 mouse_filter = 1
-custom_constants/margin_left = 180
+custom_constants/margin_left = 66
 
 [node name="H" type="GridContainer" parent="TabContainer/Video & Audio/Graphics/Group"]
-margin_left = 180.0
+margin_left = 66.0
 margin_right = 1280.0
 margin_bottom = 160.0
 
 [node name="VSync" type="CheckBox" parent="TabContainer/Video & Audio/Graphics/Group/H"]
-margin_right = 652.0
+margin_right = 269.0
 margin_bottom = 28.0
 rect_min_size = Vector2( 0, 28 )
+hint_tooltip = "makes the game smoother at the cost of slightly increased input lag"
 theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_disabled = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_focus = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_pressed = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 4 )
 action_mode = 0
-text = "makes the game smoother at the cost of slightly increased input lag"
+text = "Vsync"
 flat = true
 script = ExtResource( 23 )
 
-[node name="Label" type="Label" parent="TabContainer/Video & Audio/Graphics/Group/H/VSync"]
-anchor_bottom = 1.0
-margin_left = -183.0
-margin_right = -10.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Vsync"
-align = 2
-valign = 1
-
 [node name="Fullscreen" type="CheckBox" parent="TabContainer/Video & Audio/Graphics/Group/H"]
 margin_top = 32.0
-margin_right = 652.0
+margin_right = 269.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 0, 28 )
+hint_tooltip = "because you don't have anything else to focus on, do you?"
 theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_disabled = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_focus = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_pressed = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 4 )
 pressed = true
 action_mode = 0
-text = "because you don't have anything else to focus on, do you?"
+text = "Fullscreen"
 flat = true
 script = ExtResource( 27 )
 
-[node name="Label" type="Label" parent="TabContainer/Video & Audio/Graphics/Group/H/Fullscreen"]
-anchor_bottom = 1.0
-margin_left = -180.0
-margin_right = -10.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Fullscreen"
-align = 2
-valign = 1
-
 [node name="AutoMax" type="CheckBox" parent="TabContainer/Video & Audio/Graphics/Group/H"]
 margin_top = 64.0
-margin_right = 652.0
+margin_right = 269.0
 margin_bottom = 92.0
 rect_min_size = Vector2( 0, 28 )
+hint_tooltip = "you might wanna turn this thing off if you're on an ultrawide display"
 theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_disabled = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_focus = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_pressed = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 4 )
 action_mode = 0
-text = "you might wanna turn this thing off if you're on an ultrawide display"
+text = "Auto-Maximize"
 flat = true
 script = ExtResource( 54 )
 target = "auto_maximize"
 
-[node name="Label" type="Label" parent="TabContainer/Video & Audio/Graphics/Group/H/AutoMax"]
-anchor_bottom = 1.0
-margin_left = -180.0
-margin_right = -10.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Auto-Maximize"
-align = 2
-valign = 1
-
 [node name="Warnings" type="CheckBox" parent="TabContainer/Video & Audio/Graphics/Group/H"]
 margin_top = 96.0
-margin_right = 652.0
+margin_right = 269.0
 margin_bottom = 124.0
 rect_min_size = Vector2( 0, 28 )
+hint_tooltip = "turning this off disables the warnings for things like high trail detail or unhittable hitwindows"
 theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_disabled = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_focus = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_pressed = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 4 )
 action_mode = 0
-text = "turning this off disables the warnings for things like high trail detail or unhittable hitwindows"
+text = "Show Warnings"
 flat = true
 script = ExtResource( 54 )
 target = "show_warnings"
 
-[node name="Label" type="Label" parent="TabContainer/Video & Audio/Graphics/Group/H/Warnings"]
-anchor_bottom = 1.0
-margin_left = -180.0
-margin_right = -10.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Show Warnings"
-align = 2
-valign = 1
-
-[node name="TargetFPS" type="Control" parent="TabContainer/Video & Audio/Graphics/Group/H"]
+[node name="TargetFPS" type="HBoxContainer" parent="TabContainer/Video & Audio/Graphics/Group/H"]
 margin_top = 128.0
-margin_right = 652.0
+margin_right = 269.0
 margin_bottom = 160.0
-rect_min_size = Vector2( 200, 32 )
+hint_tooltip = "[0 = no limit] puts a limit on the framerate; use this if ssp is using 100% gpu"
 
 [node name="Sensitivity" type="SpinBox" parent="TabContainer/Video & Audio/Graphics/Group/H/TargetFPS"]
 margin_right = 200.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 200, 32 )
 rect_pivot_offset = Vector2( 286, -176 )
+hint_tooltip = "[0 = no limit] puts a limit on the framerate; use this if ssp is using 100% gpu"
 focus_mode = 2
 theme = ExtResource( 1 )
 allow_greater = true
 suffix = "fps"
 script = ExtResource( 60 )
 
-[node name="Label" type="Label" parent="TabContainer/Video & Audio/Graphics/Group/H/TargetFPS/Sensitivity"]
-margin_left = -180.0
-margin_right = -10.0
-margin_bottom = 32.0
+[node name="Label" type="Label" parent="TabContainer/Video & Audio/Graphics/Group/H/TargetFPS"]
+margin_left = 204.0
+margin_top = 6.0
+margin_right = 269.0
+margin_bottom = 26.0
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 3 )
 text = "FPS Limit"
 align = 2
-valign = 1
-
-[node name="Desc" type="Label" parent="TabContainer/Video & Audio/Graphics/Group/H/TargetFPS/Sensitivity"]
-margin_left = 215.0
-margin_right = 562.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[0 = no limit] puts a limit on the framerate; use this if ssp is using 100% gpu"
 valign = 1
 
 [node name="SEPARATOR" type="HSeparator" parent="TabContainer/Video & Audio"]
@@ -5232,17 +4836,16 @@ margin_bottom = 656.0
 margin_right = 1280.0
 margin_bottom = 436.0
 mouse_filter = 1
-custom_constants/margin_left = 180
+custom_constants/margin_left = 66
 
 [node name="H" type="GridContainer" parent="TabContainer/Video & Audio/Audio/Group"]
-margin_left = 180.0
+margin_left = 66.0
 margin_right = 1280.0
 margin_bottom = 436.0
 
-[node name="Master" type="Control" parent="TabContainer/Video & Audio/Audio/Group/H"]
-margin_right = 592.0
+[node name="Master" type="HBoxContainer" parent="TabContainer/Video & Audio/Audio/Group/H"]
+margin_right = 440.0
 margin_bottom = 32.0
-rect_min_size = Vector2( 200, 32 )
 script = ExtResource( 8 )
 target_bus = "Master"
 
@@ -5257,21 +4860,9 @@ step = 0.01
 allow_greater = true
 suffix = "%"
 
-[node name="Label" type="Label" parent="TabContainer/Video & Audio/Audio/Group/H/Master/percent"]
-margin_left = -180.0
-margin_right = -10.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Master Volume"
-align = 2
-valign = 1
-
 [node name="db" type="SpinBox" parent="TabContainer/Video & Audio/Audio/Group/H/Master"]
-margin_left = 215.0
-margin_right = 340.0
+margin_left = 204.0
+margin_right = 329.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 125, 32 )
 rect_pivot_offset = Vector2( 286, 160 )
@@ -5282,23 +4873,24 @@ max_value = 300.0
 step = 0.01
 suffix = "dB"
 
-[node name="Desc" type="Label" parent="TabContainer/Video & Audio/Audio/Group/H/Master/db"]
-margin_left = 140.0
-margin_right = 487.0
-margin_bottom = 32.0
+[node name="Label" type="Label" parent="TabContainer/Video & Audio/Audio/Group/H/Master"]
+margin_left = 333.0
+margin_top = 6.0
+margin_right = 440.0
+margin_bottom = 26.0
 focus_mode = 2
 theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "overall volume"
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Master Volume"
+align = 2
 valign = 1
 
-[node name="Music" type="Control" parent="TabContainer/Video & Audio/Audio/Group/H"]
+[node name="Music" type="HBoxContainer" parent="TabContainer/Video & Audio/Audio/Group/H"]
 margin_top = 36.0
-margin_right = 592.0
+margin_right = 440.0
 margin_bottom = 68.0
-rect_min_size = Vector2( 200, 32 )
+hint_tooltip = "music volume"
 script = ExtResource( 8 )
 target_bus = "Music"
 
@@ -5313,21 +4905,9 @@ step = 0.01
 allow_greater = true
 suffix = "%"
 
-[node name="Label" type="Label" parent="TabContainer/Video & Audio/Audio/Group/H/Music/percent"]
-margin_left = -183.0
-margin_right = -10.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Music Volume"
-align = 2
-valign = 1
-
 [node name="db" type="SpinBox" parent="TabContainer/Video & Audio/Audio/Group/H/Music"]
-margin_left = 215.0
-margin_right = 340.0
+margin_left = 204.0
+margin_right = 329.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 125, 32 )
 rect_pivot_offset = Vector2( 286, 160 )
@@ -5338,23 +4918,23 @@ max_value = 300.0
 step = 0.01
 suffix = "dB"
 
-[node name="Desc" type="Label" parent="TabContainer/Video & Audio/Audio/Group/H/Music/db"]
-margin_left = 140.0
-margin_right = 487.0
-margin_bottom = 32.0
+[node name="Label" type="Label" parent="TabContainer/Video & Audio/Audio/Group/H/Music"]
+margin_left = 333.0
+margin_top = 6.0
+margin_right = 432.0
+margin_bottom = 26.0
 focus_mode = 2
 theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "music volume"
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Music Volume"
+align = 2
 valign = 1
 
-[node name="HitSound2" type="Control" parent="TabContainer/Video & Audio/Audio/Group/H"]
+[node name="HitSound2" type="HBoxContainer" parent="TabContainer/Video & Audio/Audio/Group/H"]
 margin_top = 72.0
-margin_right = 592.0
+margin_right = 440.0
 margin_bottom = 104.0
-rect_min_size = Vector2( 200, 32 )
 script = ExtResource( 8 )
 target_bus = "HitSound"
 
@@ -5369,21 +4949,9 @@ step = 0.01
 allow_greater = true
 suffix = "%"
 
-[node name="Label" type="Label" parent="TabContainer/Video & Audio/Audio/Group/H/HitSound2/percent"]
-margin_left = -180.0
-margin_right = -10.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Hit Volume"
-align = 2
-valign = 1
-
 [node name="db" type="SpinBox" parent="TabContainer/Video & Audio/Audio/Group/H/HitSound2"]
-margin_left = 215.0
-margin_right = 340.0
+margin_left = 204.0
+margin_right = 329.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 125, 32 )
 rect_pivot_offset = Vector2( 286, 160 )
@@ -5394,23 +4962,23 @@ max_value = 300.0
 step = 0.01
 suffix = "dB"
 
-[node name="Desc" type="Label" parent="TabContainer/Video & Audio/Audio/Group/H/HitSound2/db"]
-margin_left = 140.0
-margin_right = 487.0
-margin_bottom = 32.0
+[node name="Label" type="Label" parent="TabContainer/Video & Audio/Audio/Group/H/HitSound2"]
+margin_left = 333.0
+margin_top = 6.0
+margin_right = 412.0
+margin_bottom = 26.0
 focus_mode = 2
 theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "hit sound volume"
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Hit Volume"
+align = 2
 valign = 1
 
-[node name="MissSound2" type="Control" parent="TabContainer/Video & Audio/Audio/Group/H"]
+[node name="MissSound2" type="HBoxContainer" parent="TabContainer/Video & Audio/Audio/Group/H"]
 margin_top = 108.0
-margin_right = 592.0
+margin_right = 440.0
 margin_bottom = 140.0
-rect_min_size = Vector2( 200, 32 )
 script = ExtResource( 8 )
 target_bus = "MissSound"
 
@@ -5425,21 +4993,9 @@ step = 0.01
 allow_greater = true
 suffix = "%"
 
-[node name="Label" type="Label" parent="TabContainer/Video & Audio/Audio/Group/H/MissSound2/percent"]
-margin_left = -180.0
-margin_right = -10.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Miss Volume"
-align = 2
-valign = 1
-
 [node name="db" type="SpinBox" parent="TabContainer/Video & Audio/Audio/Group/H/MissSound2"]
-margin_left = 215.0
-margin_right = 340.0
+margin_left = 204.0
+margin_right = 329.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 125, 32 )
 rect_pivot_offset = Vector2( 286, 160 )
@@ -5450,23 +5006,23 @@ max_value = 300.0
 step = 0.01
 suffix = "dB"
 
-[node name="Desc" type="Label" parent="TabContainer/Video & Audio/Audio/Group/H/MissSound2/db"]
-margin_left = 140.0
-margin_right = 487.0
-margin_bottom = 32.0
+[node name="Label" type="Label" parent="TabContainer/Video & Audio/Audio/Group/H/MissSound2"]
+margin_left = 333.0
+margin_top = 6.0
+margin_right = 423.0
+margin_bottom = 26.0
 focus_mode = 2
 theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "miss sound volume"
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Miss Volume"
+align = 2
 valign = 1
 
-[node name="FailSound" type="Control" parent="TabContainer/Video & Audio/Audio/Group/H"]
+[node name="FailSound" type="HBoxContainer" parent="TabContainer/Video & Audio/Audio/Group/H"]
 margin_top = 144.0
-margin_right = 592.0
+margin_right = 440.0
 margin_bottom = 176.0
-rect_min_size = Vector2( 200, 32 )
 script = ExtResource( 8 )
 target_bus = "FailSound"
 
@@ -5481,21 +5037,9 @@ step = 0.01
 allow_greater = true
 suffix = "%"
 
-[node name="Label" type="Label" parent="TabContainer/Video & Audio/Audio/Group/H/FailSound/percent"]
-margin_left = -180.0
-margin_right = -10.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Fail Volume"
-align = 2
-valign = 1
-
 [node name="db" type="SpinBox" parent="TabContainer/Video & Audio/Audio/Group/H/FailSound"]
-margin_left = 215.0
-margin_right = 340.0
+margin_left = 204.0
+margin_right = 329.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 125, 32 )
 rect_pivot_offset = Vector2( 286, 160 )
@@ -5506,23 +5050,23 @@ max_value = 300.0
 step = 0.01
 suffix = "dB"
 
-[node name="Desc" type="Label" parent="TabContainer/Video & Audio/Audio/Group/H/FailSound/db"]
-margin_left = 140.0
-margin_right = 487.0
-margin_bottom = 32.0
+[node name="Label" type="Label" parent="TabContainer/Video & Audio/Audio/Group/H/FailSound"]
+margin_left = 333.0
+margin_top = 6.0
+margin_right = 415.0
+margin_bottom = 26.0
 focus_mode = 2
 theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "fail sound volume"
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Fail Volume"
+align = 2
 valign = 1
 
-[node name="PBSound" type="Control" parent="TabContainer/Video & Audio/Audio/Group/H"]
+[node name="PBSound" type="HBoxContainer" parent="TabContainer/Video & Audio/Audio/Group/H"]
 margin_top = 180.0
-margin_right = 592.0
+margin_right = 440.0
 margin_bottom = 212.0
-rect_min_size = Vector2( 200, 32 )
 script = ExtResource( 8 )
 target_bus = "PBSound"
 
@@ -5537,21 +5081,9 @@ step = 0.01
 allow_greater = true
 suffix = "%"
 
-[node name="Label" type="Label" parent="TabContainer/Video & Audio/Audio/Group/H/PBSound/percent"]
-margin_left = -180.0
-margin_right = -10.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "PB Volume"
-align = 2
-valign = 1
-
 [node name="db" type="SpinBox" parent="TabContainer/Video & Audio/Audio/Group/H/PBSound"]
-margin_left = 215.0
-margin_right = 340.0
+margin_left = 204.0
+margin_right = 329.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 125, 32 )
 rect_pivot_offset = Vector2( 286, 160 )
@@ -5562,145 +5094,108 @@ max_value = 300.0
 step = 0.01
 suffix = "dB"
 
-[node name="Desc" type="Label" parent="TabContainer/Video & Audio/Audio/Group/H/PBSound/db"]
-margin_left = 140.0
-margin_right = 487.0
-margin_bottom = 32.0
+[node name="Label" type="Label" parent="TabContainer/Video & Audio/Audio/Group/H/PBSound"]
+margin_left = 333.0
+margin_top = 6.0
+margin_right = 410.0
+margin_bottom = 26.0
 focus_mode = 2
 theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "new best sound volume"
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "PB Volume"
+align = 2
 valign = 1
 
 [node name="SEPARATOR2" type="HSeparator" parent="TabContainer/Video & Audio/Audio/Group/H"]
 margin_top = 216.0
-margin_right = 592.0
+margin_right = 440.0
 margin_bottom = 226.0
 rect_min_size = Vector2( 0, 10 )
 custom_styles/separator = SubResource( 55 )
 
 [node name="HitSound" type="CheckBox" parent="TabContainer/Video & Audio/Audio/Group/H"]
 margin_top = 230.0
-margin_right = 592.0
+margin_right = 440.0
 margin_bottom = 258.0
 rect_min_size = Vector2( 0, 28 )
+hint_tooltip = "customize this with a \"hit.mp3\" file in your save directory"
 theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_disabled = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_focus = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_pressed = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 4 )
 pressed = true
 action_mode = 0
-text = "customize this with a \"hit.mp3\" file in your save directory"
+text = "Hit Sound"
 flat = true
 script = ExtResource( 54 )
 target = "play_hit_snd"
 
-[node name="Label" type="Label" parent="TabContainer/Video & Audio/Audio/Group/H/HitSound"]
-anchor_bottom = 1.0
-margin_left = -173.0
-margin_right = -10.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Hit Sound"
-align = 2
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="MissSound" type="CheckBox" parent="TabContainer/Video & Audio/Audio/Group/H"]
 margin_top = 262.0
-margin_right = 592.0
+margin_right = 440.0
 margin_bottom = 290.0
 rect_min_size = Vector2( 0, 28 )
+hint_tooltip = "customize this with a \"miss.mp3\" file in your save directory"
 theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_disabled = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_focus = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_pressed = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 4 )
 pressed = true
 action_mode = 0
-text = "customize this with a \"miss.mp3\" file in your save directory"
+text = "Miss Sound"
 flat = true
 script = ExtResource( 54 )
 target = "play_miss_snd"
 
-[node name="Label" type="Label" parent="TabContainer/Video & Audio/Audio/Group/H/MissSound"]
-anchor_bottom = 1.0
-margin_left = -183.0
-margin_right = -10.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Miss Sound"
-align = 2
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="SFX2d" type="CheckBox" parent="TabContainer/Video & Audio/Audio/Group/H"]
 margin_top = 294.0
-margin_right = 592.0
+margin_right = 440.0
 margin_bottom = 322.0
 rect_min_size = Vector2( 0, 28 )
+hint_tooltip = "makes the hit/miss sounds non-directional"
 theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_disabled = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_focus = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_pressed = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 4 )
 pressed = true
 action_mode = 0
-text = "makes the hit/miss sounds non-directional"
+text = "Disable Directional"
 flat = true
 script = ExtResource( 54 )
 target = "sfx_2d"
 
-[node name="Label" type="Label" parent="TabContainer/Video & Audio/Audio/Group/H/SFX2d"]
-anchor_bottom = 1.0
-margin_left = -180.0
-margin_right = -10.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Disable Directional"
-align = 2
-valign = 1
-
 [node name="SEPARATOR" type="HSeparator" parent="TabContainer/Video & Audio/Audio/Group/H"]
 margin_top = 326.0
-margin_right = 592.0
+margin_right = 440.0
 margin_bottom = 336.0
 rect_min_size = Vector2( 0, 10 )
 custom_styles/separator = SubResource( 55 )
 
-[node name="MusicOffset" type="Control" parent="TabContainer/Video & Audio/Audio/Group/H"]
+[node name="MusicOffset" type="HBoxContainer" parent="TabContainer/Video & Audio/Audio/Group/H"]
 margin_top = 340.0
-margin_right = 592.0
+margin_right = 440.0
 margin_bottom = 372.0
-rect_min_size = Vector2( 200, 32 )
+hint_tooltip = "[def. 0 ms] offsets the music from the actual map (positive = music starts earlier)"
 
 [node name="MusicOffset" type="SpinBox" parent="TabContainer/Video & Audio/Audio/Group/H/MusicOffset"]
 margin_right = 200.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 200, 32 )
 rect_pivot_offset = Vector2( 286, 160 )
+hint_tooltip = "[def. 0 ms] offsets the music from the actual map (positive = music starts earlier)"
 focus_mode = 2
 theme = ExtResource( 1 )
 min_value = -80.0
@@ -5710,10 +5205,11 @@ allow_lesser = true
 suffix = "ms"
 script = ExtResource( 25 )
 
-[node name="Label" type="Label" parent="TabContainer/Video & Audio/Audio/Group/H/MusicOffset/MusicOffset"]
-margin_left = -180.0
-margin_right = -10.0
-margin_bottom = 32.0
+[node name="Label" type="Label" parent="TabContainer/Video & Audio/Audio/Group/H/MusicOffset"]
+margin_left = 204.0
+margin_top = 6.0
+margin_right = 317.0
+margin_bottom = 26.0
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
@@ -5722,83 +5218,45 @@ text = "Universal Offset"
 align = 2
 valign = 1
 
-[node name="Desc" type="Label" parent="TabContainer/Video & Audio/Audio/Group/H/MusicOffset/MusicOffset"]
-margin_left = 215.0
-margin_right = 562.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[def. 0 ms] offsets the music from the actual map (positive = music starts earlier)"
-valign = 1
-
 [node name="MenuMusic" type="CheckBox" parent="TabContainer/Video & Audio/Audio/Group/H"]
 margin_top = 376.0
-margin_right = 592.0
+margin_right = 440.0
 margin_bottom = 404.0
 rect_min_size = Vector2( 0, 28 )
+hint_tooltip = "customize this with a \"menu.mp3\" file in your save directory (default song by pyrule)"
 theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_disabled = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_focus = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_pressed = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 4 )
 action_mode = 0
-text = "customize this with a \"menu.mp3\" file in your save directory (default song by pyrule)"
+text = "Menu Music"
 flat = true
 script = ExtResource( 54 )
 target = "play_menu_music"
 
-[node name="Label" type="Label" parent="TabContainer/Video & Audio/Audio/Group/H/MenuMusic"]
-anchor_bottom = 1.0
-margin_left = -183.0
-margin_right = -10.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Menu Music"
-align = 2
-valign = 1
-
 [node name="AutoPreview" type="CheckBox" parent="TabContainer/Video & Audio/Audio/Group/H"]
 margin_top = 408.0
-margin_right = 592.0
+margin_right = 440.0
 margin_bottom = 436.0
 rect_min_size = Vector2( 0, 28 )
+hint_tooltip = "automatically play previews when a song is selected"
 theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_disabled = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_focus = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_pressed = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 4 )
 action_mode = 0
-text = "automatically play previews when a song is selected"
+text = "Auto Preview Songs"
 flat = true
 script = ExtResource( 54 )
 target = "auto_preview_song"
-
-[node name="Label" type="Label" parent="TabContainer/Video & Audio/Audio/Group/H/AutoPreview"]
-anchor_bottom = 1.0
-margin_left = -180.0
-margin_right = -10.0
-grow_horizontal = 0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Auto Preview Songs"
-align = 2
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="SEPARATOR2" type="HSeparator" parent="TabContainer/Video & Audio"]
 margin_top = 656.0
@@ -5809,7 +5267,6 @@ custom_constants/separation = 30
 custom_styles/separator = SubResource( 55 )
 
 [node name="Replays & Misc" type="VBoxContainer" parent="TabContainer"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 30.0
@@ -5832,95 +5289,75 @@ margin_bottom = 162.0
 margin_right = 1280.0
 margin_bottom = 132.0
 mouse_filter = 1
-custom_constants/margin_left = 180
+custom_constants/margin_left = 66
 
 [node name="H" type="GridContainer" parent="TabContainer/Replays & Misc/Recording/Group"]
-margin_left = 180.0
+margin_left = 66.0
 margin_right = 1280.0
 margin_bottom = 132.0
 
 [node name="Replays" type="CheckBox" parent="TabContainer/Replays & Misc/Recording/Group/H"]
-margin_right = 589.0
+margin_right = 318.0
 margin_bottom = 28.0
 rect_min_size = Vector2( 0, 28 )
+hint_tooltip = "records replays. what else did you expect...? (drag a replay file into the game to view)"
 theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_disabled = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_focus = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_pressed = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 4 )
 action_mode = 0
-text = "records replays. what else did you expect...? (drag a replay file into the game to view)"
+text = "Record Replays"
 flat = true
 script = ExtResource( 54 )
 target = "record_replays"
 
-[node name="Label" type="Label" parent="TabContainer/Replays & Misc/Recording/Group/H/Replays"]
-anchor_bottom = 1.0
-margin_left = -165.0
-margin_right = -10.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Record Replays"
-align = 2
-valign = 1
-
 [node name="AltCam" type="CheckBox" parent="TabContainer/Replays & Misc/Recording/Group/H"]
 margin_top = 32.0
-margin_right = 589.0
+margin_right = 318.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 0, 28 )
+hint_tooltip = "alters the camera angle in replays - side view"
 theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_disabled = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_focus = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_pressed = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 4 )
 action_mode = 0
-text = "alters the camera angle in replays - side view"
+text = "Alt. Replay Camera"
 flat = true
 script = ExtResource( 54 )
 target = "alt_cam"
 
-[node name="Label" type="Label" parent="TabContainer/Replays & Misc/Recording/Group/H/AltCam"]
-anchor_bottom = 1.0
-margin_left = -165.0
-margin_right = -10.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Alt. Replay Camera"
-align = 2
-valign = 1
-
-[node name="Mode" type="Control" parent="TabContainer/Replays & Misc/Recording/Group/H"]
+[node name="Mode" type="HBoxContainer" parent="TabContainer/Replays & Misc/Recording/Group/H"]
 margin_top = 64.0
-margin_right = 589.0
+margin_right = 318.0
 margin_bottom = 96.0
-rect_min_size = Vector2( 200, 32 )
+hint_tooltip = "[def. Maximise] changes the method used for dynamic fps"
 
 [node name="Mode" type="OptionButton" parent="TabContainer/Replays & Misc/Recording/Group/H/Mode"]
 margin_right = 200.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 200, 32 )
 rect_pivot_offset = Vector2( 286, -176 )
+hint_tooltip = "[def. Maximise] changes the method used for dynamic fps"
 theme = ExtResource( 1 )
 text = "Maximise"
 items = [ "Legacy", null, false, 0, null, "Maximise", null, false, 1, null, "Minimise", null, false, 2, null ]
 selected = 1
 script = ExtResource( 68 )
 
-[node name="Label" type="Label" parent="TabContainer/Replays & Misc/Recording/Group/H/Mode/Mode"]
-margin_left = -132.0
-margin_right = -10.0
-margin_bottom = 32.0
+[node name="Label" type="Label" parent="TabContainer/Replays & Misc/Recording/Group/H/Mode"]
+margin_left = 204.0
+margin_top = 6.0
+margin_right = 318.0
+margin_bottom = 26.0
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
@@ -5929,57 +5366,35 @@ text = "Recording Mode"
 align = 2
 valign = 1
 
-[node name="Desc" type="Label" parent="TabContainer/Replays & Misc/Recording/Group/H/Mode/Mode"]
-margin_left = 215.0
-margin_right = 562.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[def. Maximise] changes the method used for dynamic fps"
-valign = 1
-
-[node name="FPS" type="Control" parent="TabContainer/Replays & Misc/Recording/Group/H"]
+[node name="FPS" type="HBoxContainer" parent="TabContainer/Replays & Misc/Recording/Group/H"]
 margin_top = 100.0
-margin_right = 589.0
+margin_right = 318.0
 margin_bottom = 132.0
-rect_min_size = Vector2( 200, 32 )
+hint_tooltip = "[def. 30/144] changes the dynamic fps bounds of your replays"
 
 [node name="FPS" type="OptionButton" parent="TabContainer/Replays & Misc/Recording/Group/H/FPS"]
 margin_right = 200.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 200, 32 )
 rect_pivot_offset = Vector2( 286, -176 )
+hint_tooltip = "[def. 30/144] changes the dynamic fps bounds of your replays"
 theme = ExtResource( 1 )
 text = "30/144"
 items = [ "30/144", null, false, 0, null, "60/240", null, false, 1, null ]
 selected = 0
 script = ExtResource( 67 )
 
-[node name="Label" type="Label" parent="TabContainer/Replays & Misc/Recording/Group/H/FPS/FPS"]
-margin_left = -115.0
-margin_right = -10.0
-margin_bottom = 32.0
+[node name="Label" type="Label" parent="TabContainer/Replays & Misc/Recording/Group/H/FPS"]
+margin_left = 204.0
+margin_top = 6.0
+margin_right = 304.0
+margin_bottom = 26.0
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 3 )
 text = "Recording FPS"
 align = 2
-valign = 1
-
-[node name="Desc" type="Label" parent="TabContainer/Replays & Misc/Recording/Group/H/FPS/FPS"]
-margin_left = 215.0
-margin_right = 562.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[def. 30/144] changes the dynamic fps bounds of your replays"
 valign = 1
 
 [node name="SEPARATOR3" type="HSeparator" parent="TabContainer/Replays & Misc"]
@@ -5999,26 +5414,26 @@ margin_bottom = 429.0
 margin_right = 1280.0
 margin_bottom = 237.0
 mouse_filter = 1
-custom_constants/margin_left = 180
+custom_constants/margin_left = 66
 
 [node name="H" type="GridContainer" parent="TabContainer/Replays & Misc/Experimental/Group"]
-margin_left = 180.0
+margin_left = 66.0
 margin_right = 1280.0
 margin_bottom = 237.0
 
 [node name="ExpWarning" type="MarginContainer" parent="TabContainer/Replays & Misc/Experimental/Group/H"]
-margin_right = 827.0
+margin_right = 955.0
 margin_bottom = 105.0
 mouse_filter = 1
 custom_constants/margin_right = 60
 custom_constants/margin_top = 15
-custom_constants/margin_left = -125
+custom_constants/margin_left = 3
 custom_constants/margin_bottom = 18
 
 [node name="Main" type="PanelContainer" parent="TabContainer/Replays & Misc/Experimental/Group/H/ExpWarning"]
-margin_left = -125.0
+margin_left = 3.0
 margin_top = 15.0
-margin_right = 767.0
+margin_right = 895.0
 margin_bottom = 87.0
 rect_min_size = Vector2( 0, 72 )
 mouse_filter = 1
@@ -6080,7 +5495,7 @@ text = "These features aren't completely ready yet, and could be very buggy, uns
 [node name="HitSync" type="CheckBox" parent="TabContainer/Replays & Misc/Experimental/Group/H"]
 visible = false
 margin_top = 109.0
-margin_right = 827.0
+margin_right = 955.0
 margin_bottom = 137.0
 rect_min_size = Vector2( 0, 28 )
 mouse_filter = 1
@@ -6112,67 +5527,45 @@ valign = 1
 
 [node name="RetainSongPitch" type="CheckBox" parent="TabContainer/Replays & Misc/Experimental/Group/H"]
 margin_top = 109.0
-margin_right = 827.0
+margin_right = 955.0
 margin_bottom = 137.0
 rect_min_size = Vector2( 0, 28 )
+hint_tooltip = "while this is enabled, speed modifiers will not impact the pitch of the beatmap's music"
 mouse_filter = 1
 theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_disabled = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_focus = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_pressed = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 4 )
 action_mode = 0
-text = "while this is enabled, speed modifiers will not impact the pitch of the beatmap's music"
+text = "Retain Song Pitch"
 flat = true
 script = ExtResource( 54 )
 target = "retain_song_pitch"
 
-[node name="Label" type="Label" parent="TabContainer/Replays & Misc/Experimental/Group/H/RetainSongPitch"]
-anchor_bottom = 1.0
-margin_left = -165.0
-margin_right = -10.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Retain Song Pitch"
-align = 2
-valign = 1
-
 [node name="ShowStats" type="CheckBox" parent="TabContainer/Replays & Misc/Experimental/Group/H"]
 margin_top = 141.0
-margin_right = 827.0
+margin_right = 955.0
 margin_bottom = 169.0
 rect_min_size = Vector2( 0, 28 )
+hint_tooltip = "[UNFINISHED] displays some additional statistics about your gameplay while ingame"
 mouse_filter = 1
 theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_disabled = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_focus = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_pressed = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 4 )
 action_mode = 0
-text = "[UNFINISHED] displays some additional statistics about your gameplay while ingame"
+text = "Show Extensive Stats"
 flat = true
 script = ExtResource( 54 )
 target = "show_stats"
-
-[node name="Label" type="Label" parent="TabContainer/Replays & Misc/Experimental/Group/H/ShowStats"]
-anchor_bottom = 1.0
-margin_left = -165.0
-margin_right = -10.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Show Extensive Stats"
-align = 2
-valign = 1
 
 [node name="Avatar" type="Control" parent="TabContainer/Replays & Misc/Experimental/Group/H"]
 visible = false
@@ -6228,17 +5621,17 @@ custom_fonts/font = SubResource( 4 )
 text = "literally you | experimental avatar editor. nowhere near done. visible in replays"
 valign = 1
 
-[node name="Intro" type="Control" parent="TabContainer/Replays & Misc/Experimental/Group/H"]
+[node name="Intro" type="HBoxContainer" parent="TabContainer/Replays & Misc/Experimental/Group/H"]
 margin_top = 173.0
-margin_right = 827.0
+margin_right = 955.0
 margin_bottom = 205.0
-rect_min_size = Vector2( 200, 32 )
-mouse_filter = 1
+hint_tooltip = "replays the intro cutscene"
 
 [node name="Play" type="Button" parent="TabContainer/Replays & Misc/Experimental/Group/H/Intro"]
 margin_right = 200.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 200, 32 )
+hint_tooltip = "replays the intro cutscene"
 theme = ExtResource( 1 )
 custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
@@ -6257,10 +5650,11 @@ filters = PoolStringArray( "*.png, *.jpg, *.jpeg, *.webp, *.bmp ; Image files" )
 script = ExtResource( 7 )
 title = "Save file..."
 
-[node name="Label" type="Label" parent="TabContainer/Replays & Misc/Experimental/Group/H/Intro/Play"]
-margin_left = -184.0
-margin_right = -10.0
-margin_bottom = 32.0
+[node name="Label" type="Label" parent="TabContainer/Replays & Misc/Experimental/Group/H/Intro"]
+margin_left = 204.0
+margin_top = 6.0
+margin_right = 340.0
+margin_bottom = 26.0
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
@@ -6269,49 +5663,26 @@ text = "Play Intro Cutscene"
 align = 2
 valign = 1
 
-[node name="Desc" type="Label" parent="TabContainer/Replays & Misc/Experimental/Group/H/Intro/Play"]
-margin_left = 215.0
-margin_right = 578.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "replays the intro cutscene"
-valign = 1
-
 [node name="DisableIntro" type="CheckBox" parent="TabContainer/Replays & Misc/Experimental/Group/H"]
 margin_top = 209.0
-margin_right = 827.0
+margin_right = 955.0
 margin_bottom = 237.0
 rect_min_size = Vector2( 0, 28 )
+hint_tooltip = "disables the intro cutscene"
 mouse_filter = 1
 theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_focus = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_hover = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_pressed = Color( 0.690196, 0.690196, 0.690196, 1 )
+custom_colors/font_color_disabled = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_focus = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover_pressed = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_hover = Color( 0.898039, 0.94902, 1, 1 )
+custom_colors/font_color_pressed = Color( 0.898039, 0.94902, 1, 1 )
 custom_fonts/font = SubResource( 4 )
 action_mode = 0
-text = "disables the intro cutscene"
+text = "Disable Intro Cutscene"
 flat = true
 script = ExtResource( 54 )
 target = "disable_intro"
-
-[node name="Label" type="Label" parent="TabContainer/Replays & Misc/Experimental/Group/H/DisableIntro"]
-anchor_bottom = 1.0
-margin_left = -184.0
-margin_right = -10.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Disable Intro Cutscene"
-align = 2
-valign = 1
 
 [node name="RenderScale" type="Control" parent="TabContainer/Replays & Misc/Experimental/Group/H"]
 visible = false
@@ -6367,9 +5738,9 @@ custom_constants/separation = 30
 custom_styles/separator = SubResource( 55 )
 
 [node name="Control" type="Control" parent="."]
-margin_top = 2317.0
+margin_top = 552.0
 margin_right = 1280.0
-margin_bottom = 2317.0
+margin_bottom = 552.0
 
 [connection signal="pressed" from="TabContainer/Replays & Misc/Experimental/Group/H/Intro/Play" to="TabContainer/Replays & Misc/Experimental/Group/H/Intro/Play" method="_on_Play_pressed"]
 [connection signal="value_changed" from="TabContainer/Replays & Misc/Experimental/Group/H/RenderScale/Scale" to="TabContainer/Replays & Misc/Experimental/Group/H/RenderScale/Scale" method="_on_Scale_value_changed"]
