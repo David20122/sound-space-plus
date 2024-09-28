@@ -161,7 +161,8 @@ const difficulty_colors:Dictionary = {
 const locale:Array = [
 	"en",
 	"ja",
-	"fr"
+	"fr",
+	"es"
 ]	
 
 const official_map_difficulties:Dictionary = {
