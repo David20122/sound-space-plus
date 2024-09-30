@@ -9,10 +9,10 @@
 [ext_resource path="res://assets/images/grid_inner.png" type="Texture" id=7]
 [ext_resource path="res://assets/images/spawn_effect.png" type="Texture" id=8]
 [ext_resource path="res://assets/images/grid_outer.png" type="Texture" id=9]
-[ext_resource path="res://assets/images/ui/flashlight.svg" type="Texture" id=10]
+[ext_resource path="res://assets/images/ui/flashlight.png" type="Texture" id=10]
 [ext_resource path="res://prefabs/Avatar.tscn" type="PackedScene" id=11]
 [ext_resource path="res://assets/blocks/cube.obj" type="ArrayMesh" id=12]
-[ext_resource path="res://scripts/game/MaskedModifier.gd" type="Script" id=13]
+[ext_resource path="res://scripts/game/FlashlightModifier.gd" type="Script" id=13]
 [ext_resource path="res://scripts/game/Cursor.gd" type="Script" id=14]
 [ext_resource path="res://assets/font/debug2.tres" type="DynamicFont" id=16]
 [ext_resource path="res://assets/font/UbuntuMono/Regular.ttf" type="DynamicFontData" id=22]
@@ -532,7 +532,6 @@ color = Color( 0, 0, 0, 0 )
 
 [node name="Mask" type="Spatial" parent="Game"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.1 )
-visible = false
 script = ExtResource( 13 )
 
 [node name="Sprite" type="Sprite3D" parent="Game/Mask"]

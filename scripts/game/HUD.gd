@@ -506,7 +506,7 @@ func _ready():
 	if Rhythia.mod_nearsighted: mods.append("Nearsight")
 	if Rhythia.mod_chaos: mods.append(tr("Chaos"))
 	if Rhythia.mod_earthquake: mods.append(tr("Earthquake"))
-	if Rhythia.mod_flashlight: mods.append(tr("Masked"))
+	if Rhythia.mod_flashlight: mods.append(tr("Flashlight"))
 	if Rhythia.mod_hardrock: mods.append(tr("Hard Rock"))
 	if Rhythia.invert_mouse: mods.append(tr("Mouse Inverted"))
 	for i in range(mods.size()):

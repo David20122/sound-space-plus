@@ -16,23 +16,29 @@ func _process(delta):
 	)
 	if Rhythia.get("cam_unlock") == true:
 		if Game.combo >= 100:
-			tps = 0.025
+			# tps = 0.025
+			tps = 0.05
 			top = 1 # # opacity always 1 no matter what because fog thinks it cring! (keeping variable incase)
 		elif Game.combo >= 50:
-			tps = 0.0275
+			# tps = 0.0275
+			tps = 0.055
 			top = 1 # opacity always 1 no matter what because fog thinks it cring! (keeping variable incase)
 		else:
-			tps = 0.03
+			# tps = 0.03
+			tps = 0.06
 			top = 1 # # opacity always 1 no matter what because fog thinks it cring! (keeping variable incase)
 	else:
 		if Game.combo >= 100:
-			tps = 0.0125
+			# tps = 0.0125
+			tps = 0.025
 			top = 1 # # opacity always 1 no matter what because fog thinks it cring! (keeping variable incase)
 		elif Game.combo >= 50:
-			tps = 0.015
+			# tps = 0.015
+			tps = 0.03
 			top = 1 # opacity always 1 no matter what because fog thinks it cring! (keeping variable incase)
 		else:
-			tps = 0.02
+			# tps = 0.02
+			tps = 0.04
 			top = 1 # # opacity always 1 no matter what because fog thinks it cring! (keeping variable incase)
 	
 	# application onto nodes

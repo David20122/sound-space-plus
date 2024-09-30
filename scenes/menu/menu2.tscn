@@ -2582,7 +2582,7 @@ flat = true
 script = ExtResource( 44 )
 
 [node name="Label" type="Label" parent="Main/Maps/Results/Results/RS/H2/Mods/SuddenDeath"]
-margin_left = -115.0
+margin_left = -155.0
 margin_right = -10.0
 margin_bottom = 32.0
 focus_mode = 2
@@ -2638,7 +2638,7 @@ flat = true
 script = ExtResource( 34 )
 
 [node name="Label" type="Label" parent="Main/Maps/Results/Results/RS/H2/Mods/HardMode"]
-margin_left = -89.0
+margin_left = -150.0
 margin_right = -10.0
 margin_bottom = 32.0
 focus_mode = 2
@@ -2694,7 +2694,7 @@ flat = true
 script = ExtResource( 37 )
 
 [node name="Label" type="Label" parent="Main/Maps/Results/Results/RS/H2/Mods/MirrorY"]
-margin_left = -115.0
+margin_left = -149.0
 margin_right = -10.0
 margin_bottom = 32.0
 focus_mode = 2
@@ -2810,14 +2810,14 @@ flat = true
 script = ExtResource( 96 )
 
 [node name="Label" type="Label" parent="Main/Maps/Results/Results/RS/H2/Mods/Flashlight"]
-margin_left = -115.0
+margin_left = -143.0
 margin_right = -10.0
 margin_bottom = 32.0
 focus_mode = 2
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.960784, 1, 0.478431, 1 )
 custom_fonts/font = SubResource( 91 )
-text = "Masked"
+text = "Flashlight"
 align = 2
 valign = 1
 clip_text = true
@@ -2838,7 +2838,7 @@ flat = true
 script = ExtResource( 45 )
 
 [node name="Label" type="Label" parent="Main/Maps/Results/Results/RS/H2/Mods/Ghost"]
-margin_left = -115.0
+margin_left = -147.0
 margin_right = -10.0
 margin_bottom = 32.0
 focus_mode = 2
@@ -2866,7 +2866,7 @@ flat = true
 script = ExtResource( 63 )
 
 [node name="Label" type="Label" parent="Main/Maps/Results/Results/RS/H2/Mods/VisualMode"]
-margin_left = -138.0
+margin_left = -156.0
 margin_right = -10.0
 margin_bottom = 32.0
 focus_mode = 2
@@ -2894,7 +2894,7 @@ flat = true
 script = ExtResource( 97 )
 
 [node name="Label" type="Label" parent="Main/Maps/Results/Results/RS/H2/Mods/InvertMouse"]
-margin_left = -138.0
+margin_left = -157.0
 margin_right = -10.0
 margin_bottom = 32.0
 focus_mode = 2

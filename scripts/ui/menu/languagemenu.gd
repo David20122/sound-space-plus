@@ -17,6 +17,7 @@ func add_items():
 	languageselect.add_item("ENGLISH")
 	languageselect.add_item("JAPANESE")
 	languageselect.add_item("FRENCH")
+	languageselect.add_item("SPANISH")
 
 func _on_languageselector_item_selected(index):
 	Rhythia.language = index
