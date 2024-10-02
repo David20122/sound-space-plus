@@ -1,0 +1,64 @@
+name: Bug report
+description: Template for reporting bugs🐛
+title: '[Bug]: '
+labels:
+  - bug
+body:
+  - type: checkboxes
+    id: bug-checks
+    attributes:
+      label: 'Bug report checklist:'
+      description: 'By opening this bug report you agree that you did the following:'
+      options:
+        - label: >-
+            Have read this [wiki
+            article](https://wiki.rhythia.net/faq/troubleshooting).
+          required: true
+        - label: >-
+            Did everything to try and fix your issue from the above wiki article
+            OR your issue is not present in the article.
+          required: true
+  - type: input
+    id: bug-explanation
+    attributes:
+      label: 'What happens?'
+      description: Explain (in detail) the issue you're facing
+      placeholder: When I open the game, it kinda doesn't open!
+    validations:
+      required: true
+  - type: input
+    id: bug-expected-result
+    attributes:
+      label: 'Expected result'
+      description: >-
+        Explain (in detail) the expected result of the issue you're facing (not
+        the bug itself!)
+      placeholder: The game should open normally.
+    validations:
+      required: true
+  - type: textarea
+    id: bug-recreation
+    attributes:
+      label: 'Recreation steps'
+      description: Explain (in detail) how to reproduce this bug. Markdown is supported!
+      placeholder: 1. I open game, game no open, me sad...
+    validations:
+      required: true
+  - type: textarea
+    id: logs-and-media
+    attributes:
+      label: 'Logs and media'
+      description: >-
+        Provide your godot.log and any videos to help the Rhythia developers
+        find and solve the issue
+      placeholder: You can drag and drop files here.
+    validations:
+      required: true
+  - type: checkboxes
+    id: issue-final
+    attributes:
+      label: 'Final checks'
+      description: 'Before submitting I have:'
+      options:
+        - label: Attached my godot.log and other forms of proof showcasing the bug
+          required: true
