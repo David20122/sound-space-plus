@@ -298,7 +298,7 @@ config/disable_native_file_dialogs.web=true
 config/disable_native_file_dialogs.OSX=true
 config/is_using_controller=true
 config/discord_rpc=true
-config/discord_rpc.editor=false
+config/discord_rpc.editor=true
 networking/github_repo="David20122/sound-space-plus"
 
 [audio]
@@ -331,7 +331,6 @@ settings/change_time_per_screen=true
 
 window/size/width=1280
 window/size/height=720
-window/size/fullscreen=true
 window/vsync/use_vsync=false
 window/handheld/orientation="sensor_landscape"
 window/stretch/mode.mobile="2d"
