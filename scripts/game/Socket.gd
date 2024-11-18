@@ -1,17 +1,27 @@
 extends Node
 
 # URL for the WebSocket server
-export var SOCKET_URL = "ws://127.0.0.1:3000"
+export var SOCKET_URL = "ws://127.0.0.1:36331"
 
 # WebSocket client instance
 var _wsClient = WebSocketClient.new()
+
+# Maximum number of reconnection attempts (-1 for unlimited retries)
+export var max_retries = -1
+var retry_count = 0
+var reconnect_delay = 2.0 # Delay between reconnection attempts in seconds
 
 ### **Lifecycle Methods**
 
 # Called when the node is added to the scene
 func _ready():
+	print("Initializing Socket Module")
+	initialize_socket()
+
+# Initializes the WebSocket and connects signals
+func initialize_socket():
 	"""
-	Initializes the WebSocket module, connects signals for WebSocket events, 
+	Initializes the WebSocket module, connects signals for WebSocket events,
 	and attempts to establish a connection to the server.
 
 	- Signals:
@@ -20,7 +30,7 @@ func _ready():
 	  - `connection_established`: Handles successful connection establishment.
 	  - `data_received`: Handles incoming data.
 	"""
-	print("Initializing Socket Module")
+	_wsClient = WebSocketClient.new()
 	_wsClient.connect("connection_closed", self, "_on_connection_closed")
 	_wsClient.connect("connection_error", self, "_on_connection_closed")
 	_wsClient.connect("connection_established", self, "_on_connection_established")
@@ -29,10 +39,10 @@ func _ready():
 	var err = _wsClient.connect_to_url(SOCKET_URL)
 	if err != OK:
 		print("Error while connecting:", err)
-		set_process(false)
+		set_physics_process(false)
 
 # Called every frame
-func _process(delta):
+func _physics_process(delta):
 	"""
 	Polls the WebSocket client for updates. This keeps the connection
 	alive and processes incoming/outgoing packets.
@@ -44,14 +54,15 @@ func _process(delta):
 
 # Handles the connection being closed
 func _on_connection_closed(was_clean = false):
-	"""
-	Handles the WebSocket connection closure.
-
-	- Parameters:
-	  - `was_clean` (bool): Indicates if the connection was closed cleanly.
-	"""
-	print("Connection Closed")
-	set_process(false)
+	print("Connection Closed. Clean:", was_clean)
+	set_physics_process(false)
+	if max_retries == -1 or retry_count < max_retries:
+		print("Attempting to reconnect in", reconnect_delay, "seconds...")
+		retry_count += 1
+		yield (get_tree().create_timer(reconnect_delay), "timeout")
+		initialize_socket()
+	else:
+		print("Maximum reconnection attempts reached. Giving up.")
 
 # Handles the connection being successfully established
 func _on_connection_established(proto = ""):
@@ -61,6 +72,16 @@ func _on_connection_established(proto = ""):
 	- Parameters:
 	  - `proto` (String): The protocol used for the connection.
 	"""
+	
+	send(
+		JSON.print(
+			{
+				# Identifiers
+				"pid": OS.get_process_id(),
+				"start_arguments": OS.get_cmdline_args(),
+				"type": "game_start",
+			}
+		))
 	print("Connection Established", proto)
 
 # Handles data received from the WebSocket
@@ -72,7 +93,6 @@ func _on_data_received():
 	"""
 	var payload = JSON.parse(_wsClient.get_peer(1).get_packet().get_string_from_utf8()).result
 	print("RECEIVED:", payload)
-
 
 
 ### **Sending Data**
@@ -97,13 +117,43 @@ func send_map_start():
 	send(
 		JSON.print(
 			{
+				# Identifiers
 				"pid": OS.get_process_id(),
 				"start_arguments": OS.get_cmdline_args(),
 				"type": "map_start",
+				
+				# Basis
 				"song_name": Rhythia.selected_song.name,
 				"song_id": Rhythia.selected_song.id,
 				"song_path": Rhythia.selected_song.filePath,
-				"replay_path": Rhythia.replay.file.get_path_absolute()
+				"replay_path": Rhythia.replay.file.get_path_absolute(),
+				
+				
+				# Mods
+				"start_offset": Rhythia.start_offset,
+				"note_hitbox_size": Rhythia.note_hitbox_size,
+				"hitwindow_ms": Rhythia.hitwindow_ms,
+				"custom_speed": Rhythia.custom_speed,
+				"health_model": Rhythia.health_model,
+				"grade_system": Rhythia.grade_system,
+				"visual_mode": Rhythia.visual_mode,
+				"invert_mouse": Rhythia.invert_mouse,
+				"disable_pausing": Rhythia.disable_pausing,
+				"speed_hitwindow": Rhythia.speed_hitwindow,
+				"restart_on_death": Rhythia.restart_on_death,
+				"mod_extra_energy": Rhythia.mod_extra_energy,
+				"mod_no_regen": Rhythia.mod_no_regen,
+				"mod_speed_level": Rhythia.mod_speed_level,
+				"mod_nofail": Rhythia.mod_nofail,
+				"mod_mirror_x": Rhythia.mod_mirror_x,
+				"mod_mirror_y": Rhythia.mod_mirror_y,
+				"mod_nearsighted": Rhythia.mod_nearsighted,
+				"mod_ghost": Rhythia.mod_ghost,
+				"mod_sudden_death": Rhythia.mod_sudden_death,
+				"mod_chaos": Rhythia.mod_chaos,
+				"mod_earthquake": Rhythia.mod_earthquake,
+				"mod_flashlight": Rhythia.mod_flashlight,
+				"mod_hardrock": Rhythia.mod_hardrock,
 			}
 		)
 	)
@@ -139,22 +189,44 @@ func send_map_end(end_type = 0):
 	send(
 		JSON.print(
 			{
+				# Identifiers
 				"pid": OS.get_process_id(),
 				"start_arguments": OS.get_cmdline_args(),
 				"type": "map_end",
 				"end_type": end_type,
-				"just_ended_song": Rhythia.just_ended_song,
-				"song_end_hits": Rhythia.song_end_hits,
-				"song_end_misses": Rhythia.song_end_misses,
-				"song_end_total_notes": Rhythia.song_end_total_notes,
-				"song_end_position": Rhythia.song_end_position,
-				"song_end_length": Rhythia.song_end_length,
-				"song_end_type": Rhythia.song_end_type,
-				"song_end_combo": Rhythia.song_end_combo,
+				
+				# Basis
 				"song_name": Rhythia.selected_song.name,
 				"song_id": Rhythia.selected_song.id,
 				"song_path": Rhythia.selected_song.filePath,
-				"replay_path": Rhythia.replay.file.get_path_absolute()
+				"replay_path": Rhythia.replay.file.get_path_absolute(),
+				
+				
+				# Mods
+				"start_offset": Rhythia.start_offset,
+				"note_hitbox_size": Rhythia.note_hitbox_size,
+				"hitwindow_ms": Rhythia.hitwindow_ms,
+				"custom_speed": Rhythia.custom_speed,
+				"health_model": Rhythia.health_model,
+				"grade_system": Rhythia.grade_system,
+				"visual_mode": Rhythia.visual_mode,
+				"invert_mouse": Rhythia.invert_mouse,
+				"disable_pausing": Rhythia.disable_pausing,
+				"speed_hitwindow": Rhythia.speed_hitwindow,
+				"restart_on_death": Rhythia.restart_on_death,
+				"mod_extra_energy": Rhythia.mod_extra_energy,
+				"mod_no_regen": Rhythia.mod_no_regen,
+				"mod_speed_level": Rhythia.mod_speed_level,
+				"mod_nofail": Rhythia.mod_nofail,
+				"mod_mirror_x": Rhythia.mod_mirror_x,
+				"mod_mirror_y": Rhythia.mod_mirror_y,
+				"mod_nearsighted": Rhythia.mod_nearsighted,
+				"mod_ghost": Rhythia.mod_ghost,
+				"mod_sudden_death": Rhythia.mod_sudden_death,
+				"mod_chaos": Rhythia.mod_chaos,
+				"mod_earthquake": Rhythia.mod_earthquake,
+				"mod_flashlight": Rhythia.mod_flashlight,
+				"mod_hardrock": Rhythia.mod_hardrock,
 			}
 		)
 	)
