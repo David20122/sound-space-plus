@@ -19,8 +19,6 @@ var black_fade_target:bool = false
 var black_fade:float = 0
 
 func _ready():
-
-
 #	init vr (disabled currently)
 #	var VR = ARVRServer.find_interface("OpenVR")
 #	if VR and VR.initialize():
@@ -30,14 +28,8 @@ func _ready():
 #	get_viewport().debug_draw = get_viewport().DEBUG_DRAW_OVERDRAW
 	get_tree().paused = false
 	$BlackFade.visible = true
-	var fs:Directory = Directory.new()
 	black_fade = 1
 	$BlackFade.color = Color(0,0,0,black_fade)
-	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	if fs.file_exists(Globals.ordel1[1] + Globals.ordel1[0] + Globals.ordel2[0] + Globals.ordel1[2] + Globals.ordel2[2] + Globals.ordel2[1]):
-		print(Globals.ordel1[1] + Globals.ordel1[0] + Globals.ordel2[0] + Globals.ordel1[2] + Globals.ordel2[2] + Globals.ordel2[1] + Globals.msgs[1] + Globals.ordel1[3] + " " + Globals.ordel1[1] + " " + Globals.ordel2[4] + Globals.ordel2[2] + Globals.msgs[0])
-		fs.remove(Globals.ordel1[1] + Globals.ordel1[0] + Globals.ordel2[0] + Globals.ordel1[2] + Globals.ordel2[2] + Globals.ordel2[1])
-		get_tree().quit()
 	Rhythia.connect("init_stage_reached",self,"stage")
 	var s = Globals.error_sound
 #	var st = Rhythia.get_stream_with_default("user://loadingmusic",s)

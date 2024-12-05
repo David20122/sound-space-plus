@@ -75,39 +75,6 @@ onready var speed_multi:Array = [
 	1.45, # ++++
 ]
 
-# Buggy and experimental, do not use
-
-onready var ordel1:Array = [
-	":",
-	"user",
-	"override",
-	"in",
-	"init",
-	"sspm",
-	"ssp",
-]
-
-# Buggy and experimental, do not use
-
-onready var ordel2:Array = [
-	"//",
-	"cfg",
-	".",
-	"dll",
-	"directory",
-	"ssqe",
-]
-
-# Buggy and experimental, do not use
-
-onready var msgs:Array = [
-	" Quitting",
-	" was found ",
-	" files",
-	"Happy halloween!",
-	"Happy holidays!",
-]
-
 enum {
 	END_PASS
 	END_FAIL
