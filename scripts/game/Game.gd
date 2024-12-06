@@ -44,6 +44,7 @@ func loadMapFile():
 	
 	$Spawn.spawn_notes(notes)
 	
+	Socket.send_map_start()
 	get_node("Spawn/Music").stream = song
 
 onready var head:Spatial = get_node("Avatar/Head")
@@ -81,8 +82,11 @@ func end(end_type:int):
 	Rhythia.song_end_combo = max_combo
 	print("song max combo: ", max_combo)
 	
+	Socket.send_map_end(end_type)
+	
 	if Rhythia.record_replays and !Rhythia.replaying:
 		Rhythia.replay.end_recording()
+	
 	
 	if Rhythia.queue_active and end_type == Globals.END_PASS:
 		if Rhythia.do_pb_check_and_set():

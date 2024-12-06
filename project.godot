@@ -315,6 +315,7 @@ RQueue="*res://scripts/content/resources/ResourceQueue.gd"
 Discord="*res://addons/discord_game_sdk/discord.gd"
 Dance="*res://scripts/cursordance/Dance.gd"
 SFXManager="*res://scripts/game/SFXManager.gd"
+Socket="*res://scripts/game/Socket.gd"
 
 [debug]
 
