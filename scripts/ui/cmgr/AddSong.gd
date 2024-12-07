@@ -21,6 +21,7 @@ enum {
 	T_SSPM
 	T_VULNUS
 	T_SSPMR
+	T_RHYM
 }
 enum {
 	F_DIR

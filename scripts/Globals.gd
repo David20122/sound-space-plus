@@ -98,12 +98,12 @@ enum {
 }
 
 enum {
-	DIFF_UNKNOWN = -1
+	DIFF_UNKNOWN = -1 # aka N/A
 	DIFF_EASY = 0
 	DIFF_MEDIUM = 1
 	DIFF_HARD = 2
 	DIFF_LOGIC = 3
-	DIFF_AMOGUS = 4
+	DIFF_AMOGUS = 4 # aka tasukete
 }
 
 enum {
@@ -113,6 +113,7 @@ enum {
 	MAP_SSPM = 3
 	MAP_NET = 4
 	MAP_SSPM2 = 5
+	MAP_RHYM = 6
 }
 
 enum {
