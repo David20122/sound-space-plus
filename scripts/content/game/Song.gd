@@ -602,14 +602,104 @@ func get_vulnus_map_difficulty_list(folder_path:String):
 	
 	return names
 
-func rhym_global_metadata(folderpath: String):
-	pass
+func rhym_global_metadata(folder_path: String, difficulty_id: int=0):
+	var file: File = File.new()
+	if !file.file_exists(folder_path + "/metadata.json"): 
+		return
+	
+	var err = file.open(folder_path + "/metadata.json",File.READ)
+	if err != OK: 
+		return
 
-func rhym_difficulty_metadata(folderpath: String):
-	pass
+	var metadata_text: String = file.get_as_text()
 
-func rhym_difficulty_notes(folderpath: String): # for object.json
-	pass
+	file.close()
+
+	var metadata: Dictionary = parse_json(metadata_text)
+	
+	var version: int = metadata.get("version")
+
+	var artist: String = metadata.get("artist","Unknown Artist")
+
+	var romanizedArtist: String
+	if metadata.has("romanizedArtist") == true:
+		romanizedArtist = metadata.get("romanizedArtist") # for non english titles, such as japanese
+	
+	var title: String = metadata.get("title","Unknown Song")
+
+	var romanizedTitle: String
+	if metadata.has("romanizedTitle") == true:
+		romanizedTitle = metadata.get("romanizedTitle") # for non english titles, such as japanese
+	
+	var difficulties: Array = metadata.get("difficulties",[])
+	
+	song = "%s - %s" % [artist,title] # going to change
+	
+	if !file.file_exists(folder_path + "/audio.mp3"): return # audio will always be audio.mp3
+	
+	var coverpng = Globals.imageLoader.load_if_exists(folder_path + "/cover.png")
+	if coverpng:
+		cover = coverpng
+		has_cover = true
+	
+	return self
+
+func rhym_difficulty_metadata(diff_folder_path: String):
+	var file: File = File.new()
+	if !file.file_exists(diff_folder_path + "/metadata.json"): 
+		return
+	
+	var err = file.open(diff_folder_path + "/metadata.json",File.READ)
+	if err != OK: 
+		return
+
+	var diff_metadata_text: String = file.get_as_text()
+
+	file.close()
+
+	var diff_metadata: Dictionary = parse_json(diff_metadata_text)
+
+	var diff_artist: String = diff_metadata.get("artist")
+
+	var diff_romanized_artist: String
+	if diff_metadata.has("romanizedArtist"):
+		diff_romanized_artist = diff_metadata.get("romanizedArtist")
+
+	var diff_title: String = diff_metadata.get("title")
+
+	var diff_romanized_title: String
+	if diff_metadata.has("romanizedTitle"):
+		diff_romanized_title = diff_metadata.get("romanizedTitle")
+	
+	var mappers: Array = diff_metadata.get("mappers")
+
+	var mapperconc: String = ""
+	for i in range(mappers.size()):
+		if i != 0: mapperconc += ", "
+		mapperconc += mappers[i]
+
+	creator = mapperconc
+
+	var note_count: String = diff_metadata.get("noteCount")
+
+func rhym_difficulty_notes(diff_folder_path: String): # for object.json
+	var file: File = File.new()
+	if !file.file_exists(diff_folder_path + "/object.json"): 
+		return
+	
+	var err = file.open(diff_folder_path + "/object.json",File.READ)
+	if err != OK: 
+		return
+
+	var diff_object_text: String = file.get_as_text()
+
+	file.close()
+
+	var diff_object: Dictionary = parse_json(diff_object_text)
+
+	var note_fields: int = diff_object.get("noteFields")
+
+	var notes: Array = diff_object.get("noteList")
 
 func notesort(a,b):
 	if a[2] == b[2]:
