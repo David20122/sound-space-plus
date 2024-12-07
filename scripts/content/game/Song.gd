@@ -602,7 +602,14 @@ func get_vulnus_map_difficulty_list(folder_path:String):
 	
 	return names
 
+func rhym_global_metadata(folderpath: String):
+	pass
 
+func rhym_difficulty_metadata(folderpath: String):
+	pass
+
+func rhym_difficulty_notes(folderpath: String): # for object.json
+	pass
 
 func notesort(a,b):
 	if a[2] == b[2]:
